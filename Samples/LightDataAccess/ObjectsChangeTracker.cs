@@ -1,14 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using EmitMapper;
-using EmitMapper.MappingConfiguration;
-using EmitMapper.Utils;
-using EmitMapper.MappingConfiguration.MappingOperations;
+﻿// ***********************************************************************
+// Assembly         : TSharp.Core
+// Author           : tangjingbo
+// Created          : 05-23-2013
+//
+// Last Modified By : tangjingbo
+// Last Modified On : 05-23-2013
+// ***********************************************************************
+// <copyright file="ObjectsChangeTracker.cs" company="Extendsoft">
+//     Copyright (c) Extendsoft. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 namespace LightDataAccess
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using EmitMapper;
+    using EmitMapper.MappingConfiguration;
+    using EmitMapper.MappingConfiguration.MappingOperations;
+    using EmitMapper.Utils;
+
     /// <summary>
     /// Class ObjectsChangeTracker
     /// </summary>
@@ -117,7 +131,7 @@ namespace LightDataAccess
         /// </summary>
         public ObjectsChangeTracker()
         {
-            _mapManager = ObjectMapperManager.DefaultInstance;
+            this._mapManager = ObjectMapperManager.DefaultInstance;
         }
 
         /// <summary>
@@ -126,7 +140,7 @@ namespace LightDataAccess
         /// <param name="MapManager">The map manager.</param>
         public ObjectsChangeTracker(ObjectMapperManager MapManager)
         {
-            _mapManager = MapManager;
+            this._mapManager = MapManager;
         }
 
         /// <summary>
@@ -135,8 +149,8 @@ namespace LightDataAccess
         /// <param name="Obj">The obj.</param>
         public void RegisterObject(object Obj)
         {
-            // var type = Obj.GetType();
-            _trackingObjects[Obj] = GetObjectMembers(Obj);
+           // var type = Obj.GetType();
+            this._trackingObjects[Obj] = this.GetObjectMembers(Obj);
         }
 
         /// <summary>
@@ -147,11 +161,11 @@ namespace LightDataAccess
         public TrackingMember[] GetChanges(object Obj)
         {
             List<TrackingMember> originalValues;
-            if (!_trackingObjects.TryGetValue(Obj, out originalValues))
+            if (!this._trackingObjects.TryGetValue(Obj, out originalValues))
             {
                 return null;
             }
-            var currentValues = GetObjectMembers(Obj);
+            var currentValues = this.GetObjectMembers(Obj);
             return currentValues.Select((x, idx) =>
             {
                 var original = originalValues[idx];
@@ -161,7 +175,7 @@ namespace LightDataAccess
             })
                 .Where(
                     (current, idx) =>
-                    {
+                    {  
                         return
                             ((current.OriginalValue == null) != (current.CurrentValue == null))
                             ||
@@ -184,7 +198,7 @@ namespace LightDataAccess
                 type = type.BaseType;
             }
             var fields = new TrackingMembersList();
-            _mapManager.GetMapperImpl(
+            this._mapManager.GetMapperImpl(
                 type,
                 null,
                 new MappingConfiguration()

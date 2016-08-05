@@ -1,31 +1,71 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : TSharp.Core
+// Author           : tangjingbo
+// Created          : 08-21-2013
+//
+// Last Modified By : tangjingbo
+// Last Modified On : 08-21-2013
+// ***********************************************************************
+// <copyright file="SelectConstraints.cs" company="Extendsoft">
+//     Copyright (c) Extendsoft. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace LightDataAccess
 {
+    /// <summary>
+    /// Class FilterConstraints
+    /// </summary>
     public class FilterConstraints
     {
+        /// <summary>
+        /// Gets or sets the _ constraints.
+        /// </summary>
+        /// <value>The _ constraints.</value>
         List<string> _Constraints { get; set; }
+        /// <summary>
+        /// Gets or sets the params.
+        /// </summary>
+        /// <value>The params.</value>
         public CmdParams Params { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FilterConstraints"/> class.
+        /// </summary>
         public FilterConstraints()
         {
             _Constraints = new List<string>();
             Params = new CmdParams();
         }
 
+        /// <summary>
+        /// Builds the where.
+        /// </summary>
+        /// <returns>System.String.</returns>
         public string BuildWhere()
         {
             return (_Constraints.Count > 0 ? "WHERE " : "") + _Constraints.Select( c => "(" + c + ")").ToCSV(" AND ");
         }
 
+        /// <summary>
+        /// Adds the specified constraint.
+        /// </summary>
+        /// <param name="constraint">The constraint.</param>
         public void Add(string constraint)
         {
             Add(constraint, null);
         }
 
+        /// <summary>
+        /// Adds the specified constraint.
+        /// </summary>
+        /// <param name="constraint">The constraint.</param>
+        /// <param name="Params">The params.</param>
         public void Add(string constraint, CmdParams Params)
         {
             _Constraints.Add(constraint);

@@ -1,4 +1,17 @@
-﻿using System.Linq;
+﻿// ***********************************************************************
+// Assembly         : TSharp.Core
+// Author           : tangjingbo
+// Created          : 08-21-2013
+//
+// Last Modified By : tangjingbo
+// Last Modified On : 08-21-2013
+// ***********************************************************************
+// <copyright file="CommandBuilder.Insert.cs" company="Extendsoft">
+//     Copyright (c) Extendsoft. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System.Linq;
 using System.Data.Common;
 using EmitMapper;
 using EmitMapper.Mappers;
@@ -7,8 +20,19 @@ using EmitMapper.MappingConfiguration.MappingOperations;
 
 namespace LightDataAccess
 {
+    /// <summary>
+    /// Class CommandBuilder
+    /// </summary>
 	public static partial class CommandBuilder
 	{
+        /// <summary>
+        /// Builds the insert command.
+        /// </summary>
+        /// <param name="cmd">The CMD.</param>
+        /// <param name="obj">The obj.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="dbSettings">The db settings.</param>
+        /// <returns>DbCommand.</returns>
 		public static DbCommand BuildInsertCommand(
 			this DbCommand cmd,
 			object obj,
@@ -19,6 +43,16 @@ namespace LightDataAccess
 			return BuildInsertCommand(cmd, obj, tableName, dbSettings, null, null);
 		}
 
+        /// <summary>
+        /// Builds the insert command.
+        /// </summary>
+        /// <param name="cmd">The CMD.</param>
+        /// <param name="obj">The obj.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="dbSettings">The db settings.</param>
+        /// <param name="includeFields">The include fields.</param>
+        /// <param name="excludeFields">The exclude fields.</param>
+        /// <returns>DbCommand.</returns>
 		public static DbCommand BuildInsertCommand(
 			this DbCommand cmd,
 			object obj,
@@ -48,11 +82,11 @@ namespace LightDataAccess
 				+ tableName + 
 				"("
 				+ fields
-					.Select(f => dbSettings.GetEscapedName(f))
+					.Select(dbSettings.GetEscapedName)
 					.ToCSV(",")
 				+ ") VALUES ("
 				+ fields
-					.Select( f => dbSettings.GetParamName(f))
+					.Select( dbSettings.GetParamName)
 					.ToCSV(",")
 				+ ")"
 				;

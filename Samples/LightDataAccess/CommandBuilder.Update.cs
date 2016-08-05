@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : TSharp.Core
+// Author           : tangjingbo
+// Created          : 08-21-2013
+//
+// Last Modified By : tangjingbo
+// Last Modified On : 08-21-2013
+// ***********************************************************************
+// <copyright file="CommandBuilder.Update.cs" company="Extendsoft">
+//     Copyright (c) Extendsoft. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +23,20 @@ using EmitMapper.MappingConfiguration.MappingOperations;
 
 namespace LightDataAccess
 {
+    /// <summary>
+    /// Class CommandBuilder
+    /// </summary>
 	public static partial class CommandBuilder
 	{
+        /// <summary>
+        /// Builds the update operator.
+        /// </summary>
+        /// <param name="cmd">The CMD.</param>
+        /// <param name="obj">The obj.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="idFieldNames">The id field names.</param>
+        /// <param name="dbSettings">The db settings.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
 		public static bool BuildUpdateOperator(
 			this DbCommand cmd,
 			object obj,
@@ -23,6 +48,18 @@ namespace LightDataAccess
 			return BuildUpdateCommand(cmd, obj, tableName, idFieldNames, null, null, null, dbSettings);
 		}
 
+        /// <summary>
+        /// Builds the update command.
+        /// </summary>
+        /// <param name="cmd">The CMD.</param>
+        /// <param name="obj">The obj.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="idFieldNames">The id field names.</param>
+        /// <param name="includeFields">The include fields.</param>
+        /// <param name="excludeFields">The exclude fields.</param>
+        /// <param name="changeTracker">The change tracker.</param>
+        /// <param name="dbSettings">The db settings.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
 		public static bool BuildUpdateCommand(
 			this DbCommand cmd,
 			object obj,
@@ -90,7 +127,7 @@ namespace LightDataAccess
 				" SET " + 
 				fields
 					.Select(
-						f => dbSettings.GetEscapedName(f) + "=" + dbSettings.GetParamName(f)
+                        f => dbSettings.GetEscapedName(f.ToUpper()) + "=" + dbSettings.GetParamName(f.ToUpper())
 					)
 					.ToCSV(",") +
 				" WHERE " +
