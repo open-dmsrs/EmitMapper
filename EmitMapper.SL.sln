@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmitMapper.SL", "Silverlight\EmitMapper.SL\EmitMapper.SL.csproj", "{03C53360-6930-4CAF-B4D9-349F1DAFFE6B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmitMapperTests.SL", "Silverlight\EmitMapperTests.SL\EmitMapperTests.SL.csproj", "{09309D26-E61C-4810-BA9D-4994B53E375C}"
