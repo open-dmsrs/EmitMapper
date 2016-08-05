@@ -20,6 +20,7 @@ bld/
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
 
+
 #NUNIT
 *.VisualState.xml
 TestResult.xml
@@ -191,3 +192,4 @@ $RECYCLE.BIN/
 
 */[Bb]in/*
 !*/[Bb]in/[Ww]eb.config
+.vs
