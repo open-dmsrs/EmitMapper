@@ -136,7 +136,18 @@ namespace EmitMapper.EmitBuilders
                     );
             }
 
-			return WriteMappingValue(readWriteSimple, operationId, convertedValue);
+			IAstNode result = WriteMappingValue(readWriteSimple, operationId, convertedValue);
+
+			if (readWriteSimple.SourceFilter != null)
+			{
+				result = Process_SourceFilter(readWriteSimple, operationId, result);
+			}
+
+			if (readWriteSimple.DestinationFilter != null)
+			{
+				result = Process_DestinationFilter(readWriteSimple, operationId, result);
+			}
+			return result;
 		}
 
 		private IAstNode ProcessDestWriteOperation(DestWriteOperation destWriteOperation, int operationId)
@@ -209,50 +220,114 @@ namespace EmitMapper.EmitBuilders
 
         private IAstNode Process_ReadWriteComplex(ReadWriteComplex op, int operationId)
         {
+			IAstNode result;
 			if (op.Converter != null)
 			{
-				return
-					AstBuildHelper.WriteMembersChain(
-						op.Destination.MembersChain,
-						AstBuildHelper.ReadLocalRA(locTo),
-						AstBuildHelper.CallMethod(
-							op.Converter.GetType().GetMethod("Invoke"),
-                            new AstCastclassRef(
-							    (IAstRef)AstBuildHelper.ReadMemberRV(
-								     GetStoredObject(operationId, typeof(ReadWriteComplex)),
-								     typeof(ReadWriteComplex).GetProperty("Converter")
-							    ),
-                                op.Converter.GetType()
-                            ),
-							new List<IAstStackItem>()
-							{
-								AstBuildHelper.ReadMembersChain(
-									AstBuildHelper.ReadLocalRA(locFrom),
-									op.Source.MembersChain
-								),
-								AstBuildHelper.ReadLocalRV(locState),
-							}
-						)
-					);
+				result = Process_ReadWriteComplex_ByConverter(op, operationId);
+			}
+			else
+			{
+				result = Process_ReadWriteComplex_Copying(op);
 			}
 
+			if (op.SourceFilter != null)
+			{
+				result = Process_SourceFilter(op, operationId, result);
+			}
+
+			if (op.DestinationFilter != null)
+			{
+				result = Process_DestinationFilter(op, operationId, result);
+			}
+
+            return result;
+        }
+
+		private IAstNode Process_DestinationFilter(IReadWriteOperation op, int operationId, IAstNode result)
+		{
+			return Process_ValuesFilter(
+				op,
+				operationId,
+				result,
+				AstBuildHelper.ReadMembersChain(
+					AstBuildHelper.ReadLocalRA(locTo),
+					op.Destination.MembersChain
+				),
+				"DestinationFilter",
+				op.DestinationFilter
+			);
+		}
+
+		private IAstNode Process_SourceFilter(IReadWriteOperation op, int operationId, IAstNode result)
+		{
+			return Process_ValuesFilter(
+				op,
+				operationId,
+				result,
+				AstBuildHelper.ReadMembersChain(
+					AstBuildHelper.ReadLocalRA(locFrom),
+					op.Source.MembersChain
+				),
+				"SourceFilter",
+				op.SourceFilter
+			);
+		}
+		private IAstNode Process_ValuesFilter(
+			IReadWriteOperation op, 
+			int operationId, 
+			IAstNode result, 
+			IAstRefOrValue value, 
+			string fieldName,
+			Delegate filterDelegate
+		)
+		{
+			result = new AstComplexNode
+			{
+				nodes = new List<IAstNode>
+					{
+						new AstIf
+						{
+							condition = (IAstValue)AstBuildHelper.CallMethod(
+								filterDelegate.GetType().GetMethod("Invoke"),
+								new AstCastclassRef(
+									(IAstRef)AstBuildHelper.ReadMemberRV(
+										 GetStoredObject(operationId, typeof(IReadWriteOperation)),
+										 typeof(IReadWriteOperation).GetProperty(fieldName)
+									),
+									filterDelegate.GetType()
+								),
+								new List<IAstStackItem>()
+								{
+									value,
+									AstBuildHelper.ReadLocalRV(locState),
+								}
+							),
+							trueBranch = new AstComplexNode{ nodes = new List<IAstNode> { result } }
+						}
+					}
+			};
+			return result;
+		}
+
+		private IAstNode Process_ReadWriteComplex_Copying(ReadWriteComplex op)
+		{
 			var result = new AstComplexNode();
-            LocalBuilder origTempSrc, origTempDst;
-            LocalBuilder tempSrc = compilationContext.ilGenerator.DeclareLocal(op.Source.MemberType);
-            LocalBuilder tempDst = compilationContext.ilGenerator.DeclareLocal(op.Destination.MemberType);
-            origTempSrc = tempSrc;
-            origTempDst = tempDst;
+			LocalBuilder origTempSrc, origTempDst;
+			LocalBuilder tempSrc = compilationContext.ilGenerator.DeclareLocal(op.Source.MemberType);
+			LocalBuilder tempDst = compilationContext.ilGenerator.DeclareLocal(op.Destination.MemberType);
+			origTempSrc = tempSrc;
+			origTempDst = tempDst;
 
-            result.nodes.Add(
-                new AstWriteLocal(tempSrc, AstBuildHelper.ReadMembersChain(AstBuildHelper.ReadLocalRA(locFrom), op.Source.MembersChain )
-                )
-            );
-            result.nodes.Add(
-                new AstWriteLocal(tempDst, AstBuildHelper.ReadMembersChain(AstBuildHelper.ReadLocalRA(locTo), op.Destination.MembersChain))
-            );
+			result.nodes.Add(
+				new AstWriteLocal(tempSrc, AstBuildHelper.ReadMembersChain(AstBuildHelper.ReadLocalRA(locFrom), op.Source.MembersChain)
+				)
+			);
+			result.nodes.Add(
+				new AstWriteLocal(tempDst, AstBuildHelper.ReadMembersChain(AstBuildHelper.ReadLocalRA(locTo), op.Destination.MembersChain))
+			);
 
-            var writeNullToDest =
-                new List<IAstNode>
+			var writeNullToDest =
+				new List<IAstNode>
                 {
                     AstBuildHelper.WriteMembersChain(
                         op.Destination.MembersChain,
@@ -261,7 +336,7 @@ namespace EmitMapper.EmitBuilders
                     )
                 };
 
-            // Target construction
+			// Target construction
 			var initDest = new List<IAstNode>();
 			var custCtr = op.TargetConstructor;
 			if (custCtr != null)
@@ -271,8 +346,8 @@ namespace EmitMapper.EmitBuilders
 					new AstWriteLocal(
 						tempDst,
 						AstBuildHelper.CallMethod(
-                            custCtr.GetType().GetMethod("Invoke"),
-                            GetStoredObject(custCtrIdx, custCtr.GetType()),
+							custCtr.GetType().GetMethod("Invoke"),
+							GetStoredObject(custCtrIdx, custCtr.GetType()),
 							null
 						)
 					)
@@ -287,7 +362,7 @@ namespace EmitMapper.EmitBuilders
 
 			var copying = new List<IAstNode>();
 
-            // if destination is nullable, create a temp target variable with underlying destination type
+			// if destination is nullable, create a temp target variable with underlying destination type
 			if (ReflectionUtils.IsNullable(op.Source.MemberType))
 			{
 				tempSrc = compilationContext.ilGenerator.DeclareLocal(Nullable.GetUnderlyingType(op.Source.MemberType));
@@ -302,24 +377,24 @@ namespace EmitMapper.EmitBuilders
 				);
 			}
 
-            // If destination is null, initialize it.
-            if (ReflectionUtils.IsNullable(op.Destination.MemberType) || !op.Destination.MemberType.IsValueType)
-            {
-                copying.Add(
-                    new AstIf()
-                    {
-                        condition = ReflectionUtils.IsNullable(op.Destination.MemberType)
-							? (IAstValue) new AstExprNot((IAstValue)AstBuildHelper.ReadPropertyRV(AstBuildHelper.ReadLocalRA(origTempDst), op.Destination.MemberType.GetProperty("HasValue")))
+			// If destination is null, initialize it.
+			if (ReflectionUtils.IsNullable(op.Destination.MemberType) || !op.Destination.MemberType.IsValueType)
+			{
+				copying.Add(
+					new AstIf()
+					{
+						condition = ReflectionUtils.IsNullable(op.Destination.MemberType)
+							? (IAstValue)new AstExprNot((IAstValue)AstBuildHelper.ReadPropertyRV(AstBuildHelper.ReadLocalRA(origTempDst), op.Destination.MemberType.GetProperty("HasValue")))
 							: new AstExprIsNull(AstBuildHelper.ReadLocalRV(origTempDst)),
-                        trueBranch = new AstComplexNode() { nodes = initDest }
-                    }
-                );
+						trueBranch = new AstComplexNode() { nodes = initDest }
+					}
+				);
 				if (ReflectionUtils.IsNullable(op.Destination.MemberType))
 				{
 					tempDst = compilationContext.ilGenerator.DeclareLocal(Nullable.GetUnderlyingType(op.Destination.MemberType));
 					copying.Add(
 						new AstWriteLocal(
-							tempDst, 
+							tempDst,
 							AstBuildHelper.ReadPropertyRV(
 								AstBuildHelper.ReadLocalRA(origTempDst),
 								op.Destination.MemberType.GetProperty("Value")
@@ -327,13 +402,13 @@ namespace EmitMapper.EmitBuilders
 						)
 					);
 				}
-            }
+			}
 
-            // Suboperations
-            copying.Add(
-                new AstComplexNode()
-                {
-                    nodes = new List<IAstNode> 
+			// Suboperations
+			copying.Add(
+				new AstComplexNode()
+				{
+					nodes = new List<IAstNode> 
 					{ 
 						new MappingOperationsProcessor(this) 
 						{ 
@@ -343,69 +418,97 @@ namespace EmitMapper.EmitBuilders
 							rootOperation = mappingConfigurator.GetRootMappingOperation(op.Source.MemberType, op.Destination.MemberType)
 						}.ProcessOperations() 
 					}
-                }
-            );
+				}
+			);
 
-            IAstRefOrValue processedValue;
-            if (ReflectionUtils.IsNullable(op.Destination.MemberType))
-            {
-                processedValue =
-                    new AstNewObject(
-                        op.Destination.MemberType,
-                        new[] 
+			IAstRefOrValue processedValue;
+			if (ReflectionUtils.IsNullable(op.Destination.MemberType))
+			{
+				processedValue =
+					new AstNewObject(
+						op.Destination.MemberType,
+						new[] 
                         {
                             AstBuildHelper.ReadLocalRV(tempDst)
                         }
-                    );
-            }
-            else
-            {
-                processedValue = AstBuildHelper.ReadLocalRV(origTempDst);
-            }
+					);
+			}
+			else
+			{
+				processedValue = AstBuildHelper.ReadLocalRV(origTempDst);
+			}
 
-            if (op.ValuesPostProcessor != null)
-            {
-                int postProcessorId = AddObjectToStore(op.ValuesPostProcessor);
-                processedValue =
-                    AstBuildHelper.CallMethod(
-                        op.ValuesPostProcessor.GetType().GetMethod("Invoke"),
-                        GetStoredObject(postProcessorId, op.ValuesPostProcessor.GetType()),
-                        new List<IAstStackItem>
+			if (op.ValuesPostProcessor != null)
+			{
+				int postProcessorId = AddObjectToStore(op.ValuesPostProcessor);
+				processedValue =
+					AstBuildHelper.CallMethod(
+						op.ValuesPostProcessor.GetType().GetMethod("Invoke"),
+						GetStoredObject(postProcessorId, op.ValuesPostProcessor.GetType()),
+						new List<IAstStackItem>
                         {
                             processedValue,
                             AstBuildHelper.ReadLocalRV(locState)
                         }
-                    );
-            }
+					);
+			}
 
-            copying.Add(
-                AstBuildHelper.WriteMembersChain(
-                    op.Destination.MembersChain,
-                    AstBuildHelper.ReadLocalRA(locTo),
-                    processedValue
-                )
-            );
+			copying.Add(
+				AstBuildHelper.WriteMembersChain(
+					op.Destination.MembersChain,
+					AstBuildHelper.ReadLocalRA(locTo),
+					processedValue
+				)
+			);
 
-            if (ReflectionUtils.IsNullable(op.Source.MemberType) || !op.Source.MemberType.IsValueType)
-            {
-                result.nodes.Add(
-                    new AstIf()
-                    {
-                        condition = ReflectionUtils.IsNullable(op.Source.MemberType)
-                            ? (IAstValue) new AstExprNot((IAstValue)AstBuildHelper.ReadPropertyRV(AstBuildHelper.ReadLocalRA(origTempSrc), op.Source.MemberType.GetProperty("HasValue")))
+			if (ReflectionUtils.IsNullable(op.Source.MemberType) || !op.Source.MemberType.IsValueType)
+			{
+				result.nodes.Add(
+					new AstIf()
+					{
+						condition = ReflectionUtils.IsNullable(op.Source.MemberType)
+							? (IAstValue)new AstExprNot((IAstValue)AstBuildHelper.ReadPropertyRV(AstBuildHelper.ReadLocalRA(origTempSrc), op.Source.MemberType.GetProperty("HasValue")))
 							: new AstExprIsNull(AstBuildHelper.ReadLocalRV(origTempSrc)),
 						trueBranch = new AstComplexNode() { nodes = writeNullToDest },
 						falseBranch = new AstComplexNode() { nodes = copying }
-                    }
-                );
-            }
-            else
-            {
-                result.nodes.AddRange(copying);
-            }
+					}
+				);
+			}
+			else
+			{
+				result.nodes.AddRange(copying);
+			}
+			return result;
+		}
 
-            return result;
-        }
+		private IAstNode Process_ReadWriteComplex_ByConverter(ReadWriteComplex op, int operationId)
+		{
+			IAstNode result;
+			result =
+				AstBuildHelper.WriteMembersChain(
+					op.Destination.MembersChain,
+					AstBuildHelper.ReadLocalRA(locTo),
+					AstBuildHelper.CallMethod(
+						op.Converter.GetType().GetMethod("Invoke"),
+						new AstCastclassRef(
+							(IAstRef)AstBuildHelper.ReadMemberRV(
+								 GetStoredObject(operationId, typeof(ReadWriteComplex)),
+								 typeof(ReadWriteComplex).GetProperty("Converter")
+							),
+							op.Converter.GetType()
+						),
+						new List<IAstStackItem>()
+						{
+							AstBuildHelper.ReadMembersChain(
+								AstBuildHelper.ReadLocalRA(locFrom),
+								op.Source.MembersChain
+							),
+							AstBuildHelper.ReadLocalRV(locState),
+						}
+					)
+				);
+			return result;
+		}
 
         private IAstRefOrValue GetNullValue(Delegate nullSubstitutor)
 		{

@@ -110,5 +110,15 @@ namespace EmitMapper.MappingConfiguration
 		{
             return (TDerived)base.SetConfigName(configurationName);
 		}
+
+		public TDerived FilterDestination<T>(ValuesFilter<T> valuesFilter)
+		{
+			return (TDerived)base.FilterDestination<T>(valuesFilter);
+		}
+
+		public TDerived FilterSource<T>(ValuesFilter<T> valuesFilter)
+		{
+			return (TDerived)base.FilterSource<T>(valuesFilter);
+		}
 	}
 }

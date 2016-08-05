@@ -13,6 +13,8 @@ namespace EmitMapper.MappingConfiguration.MappingOperations
         public Delegate NullSubstitutor { get; set; }
 		public Delegate TargetConstructor { get; set; }
 		public Delegate Converter { get; set; }
+		public Delegate DestinationFilter { get; set; }
+		public Delegate SourceFilter { get; set; }
 
         public override string ToString()
         {

@@ -14,5 +14,7 @@ namespace EmitMapper.MappingConfiguration.MappingOperations
         Delegate Converter { get; set; }
 		bool ShallowCopy { get; set; }
         Delegate ValuesPostProcessor { get; set; }
+		Delegate DestinationFilter { get; set; }
+		Delegate SourceFilter { get; set; }
 	}
 }

@@ -18,6 +18,9 @@ namespace EmitMapper.MappingConfiguration
         private TypeDictionary<Delegate> _nullSubstitutors = new TypeDictionary<Delegate>();
         private TypeDictionary<Delegate> _postProcessors = new TypeDictionary<Delegate>();
         private TypeDictionary<List<string>> _ignoreMembers = new TypeDictionary<List<string>>();
+		private TypeDictionary<Delegate> _destinationFilters = new TypeDictionary<Delegate>();
+		private TypeDictionary<Delegate> _sourceFilters = new TypeDictionary<Delegate>();
+
 
         public abstract IMappingOperation[] GetMappingOperations(Type from, Type to);
 
@@ -62,7 +65,9 @@ namespace EmitMapper.MappingConfiguration
                 TargetConstructor = _customConstructors.GetValue(new[] { to }),
                 NullSubstitutor = _nullSubstitutors.GetValue(new[] { to }),
                 ValuesPostProcessor = _postProcessors.GetValue(new[] { to }),
-                Converter = converter
+                Converter = converter,
+				DestinationFilter = _destinationFilters.GetValue(new[] { to }),
+				SourceFilter = _sourceFilters.GetValue(new[] { from }),
             };
         }
 
@@ -175,6 +180,18 @@ namespace EmitMapper.MappingConfiguration
             return this;
         }
 
+		public IMappingConfigurator FilterDestination<T>(ValuesFilter<T> valuesFilter)
+		{
+			_destinationFilters.Add(new[] { typeof(T) }, valuesFilter);
+			return this;
+		}
+
+		public IMappingConfigurator FilterSource<T>(ValuesFilter<T> valuesFilter)
+		{
+			_sourceFilters.Add(new[] { typeof(T) }, valuesFilter);
+			return this;
+		}
+
         protected IEnumerable<IMappingOperation> FilterOperations(
             Type from,
             Type to,
@@ -199,6 +216,8 @@ namespace EmitMapper.MappingConfiguration
                     {
                         o.Converter = GetGenericConverter(o.Source.MemberType, o.Destination.MemberType);
                     }
+					o.DestinationFilter = _destinationFilters.GetValue(new[] { o.Destination.MemberType });
+					o.SourceFilter = _sourceFilters.GetValue(new[] { o.Source.MemberType });
                 }
                 if (op is ReadWriteComplex)
                 {

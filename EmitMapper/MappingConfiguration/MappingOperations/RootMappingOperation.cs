@@ -16,6 +16,8 @@ namespace EmitMapper.MappingConfiguration.MappingOperations
         public Delegate Converter { get; set; }
 		public bool ShallowCopy { get; set; }
         public Delegate ValuesPostProcessor { get; set; }
+		public Delegate DestinationFilter { get; set; }
+		public Delegate SourceFilter { get; set; }
 		#endregion
 
 		public RootMappingOperation(Type from, Type to)

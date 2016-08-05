@@ -18,6 +18,23 @@ namespace EmitMapper.Mappers
         public virtual object Map(object from, object to, object state)
         {
             object result;
+
+			if (_sourceFilter != null)
+			{
+				if (!(bool)_sourceFilter.CallFunc(from, state))
+				{
+					return to;
+				}
+			}
+
+			if (_destinationFilter != null)
+			{
+				if (!(bool)_destinationFilter.CallFunc(to, state))
+				{
+					return to;
+				}
+			}
+
             if (from == null)
             {
                 result = _nullSubstitutor == null ? null : _nullSubstitutor.CallFunc();
@@ -40,6 +57,7 @@ namespace EmitMapper.Mappers
             {
                 result = _valuesPostProcessor.CallFunc(result, state);
             }
+
             return result;
         }
 
@@ -112,6 +130,8 @@ namespace EmitMapper.Mappers
         protected DelegateInvokerFunc_0 _nullSubstitutor;
         protected DelegateInvokerFunc_2 _converter;
         protected DelegateInvokerFunc_2 _valuesPostProcessor;
+		protected DelegateInvokerFunc_2 _destinationFilter;
+		protected DelegateInvokerFunc_2 _sourceFilter;
 
         internal void Initialize(
             ObjectMapperManager MapperMannager, 
@@ -155,6 +175,18 @@ namespace EmitMapper.Mappers
                 {
                     _nullSubstitutor = (DelegateInvokerFunc_0)DelegateInvoker.GetDelegateInvoker(nullSubstitutor);
                 }
+
+				var sourceFilter = _rootOperation.SourceFilter;
+				if (sourceFilter != null)
+				{
+					_sourceFilter = (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(sourceFilter);
+				}
+
+				var destinationFilter = _rootOperation.DestinationFilter;
+				if (destinationFilter != null)
+				{
+					_destinationFilter = (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(destinationFilter);
+				}
 			}
         }
 
