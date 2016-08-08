@@ -83,10 +83,6 @@
     <Compile Include="CmdParams.cs" />
     <Compile Include="CommandBuilder.Insert.cs" />
     <Compile Include="CommandBuilder.Update.cs" />
-    <Compile Include="Configurators\DataContainerToEntityPropertyMappingConfigurator.cs" />
-    <Compile Include="Configurators\DataContainerToObjectConfigurator.cs" />
-    <Compile Include="Configurators\EntityToDataContainerPropertyMappingConfigurator.cs" />
-    <Compile Include="Configurators\ObjectToDataContainerConfigurator.cs" />
     <Compile Include="IMapperInitializator.cs" />
     <Compile Include="Mapper.cs" />
     <Compile Include="MapperCore.cs" />
@@ -113,7 +109,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Configurators\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

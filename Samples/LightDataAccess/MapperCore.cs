@@ -78,7 +78,7 @@ namespace LightDataAccess
         /// <param name="configurator">The configurator.</param>
         public virtual void AddConfiguration<TFrom, TTo>(IMappingConfigurator configurator)
         {
-            Assert.IsNotNull(configurator, "configurator");
+            AssertCore.IsNotNull(configurator, "configurator");
 
             MappingConfigurations.Add(new Tuple<Type, Type, IMappingConfigurator>(typeof(TFrom), typeof(TTo),
                                                                                   configurator));
@@ -93,7 +93,7 @@ namespace LightDataAccess
         /// <returns>The mapped object.</returns>
         public virtual TTo Map<TFrom, TTo>(TFrom @from)
         {
-            Assert.ArgumentNotNull(@from, "@from");
+            AssertCore.ArgumentNotNull(@from, "@from");
 
             ObjectsMapper<TFrom, TTo> mapper = this.GetMapper<TFrom, TTo>();
             return mapper.Map(@from);
@@ -109,8 +109,8 @@ namespace LightDataAccess
         /// <returns>The mapped object.</returns>
         public virtual TTo Map<TFrom, TTo>(TFrom @from, TTo @to)
         {
-            Assert.ArgumentNotNull(@from, "@from");
-            Assert.ArgumentNotNull(@to, "@to");
+            AssertCore.ArgumentNotNull(@from, "@from");
+            AssertCore.ArgumentNotNull(@to, "@to");
 
             ObjectsMapper<TFrom, TTo> mapper = this.GetMapper<TFrom, TTo>();
             return mapper.Map(@from, @to);
@@ -125,7 +125,7 @@ namespace LightDataAccess
         /// <returns>The output mapped collection.</returns>
         public virtual IEnumerable<TTo> MapCollection<TFrom, TTo>(IEnumerable<TFrom> @from)
         {
-            Assert.ArgumentNotNullOrEmpty(@from, "@from");
+            AssertCore.ArgumentNotNullOrEmpty(@from, "@from");
 
             ObjectsMapper<TFrom, TTo> mapper = this.GetMapper<TFrom, TTo>();
             return mapper.MapEnum(@from);

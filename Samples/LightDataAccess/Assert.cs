@@ -22,7 +22,7 @@ namespace LightDataAccess
     /// <summary>
     /// The Assert class.
     /// </summary>
-    public static class Assert
+    public static class AssertCore
     {
         /// <summary>
         /// Ares the equal.
@@ -34,7 +34,7 @@ namespace LightDataAccess
         public static void AreEqual<T>(int value1, int value2, Func<T> getException) where T : Exception
         {
             if (value1 == value2)
-            {
+            { 
                 return;
             }
 

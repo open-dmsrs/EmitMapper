@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
-using Extendsoft.HMIS.DataSync.FileProcess;
+using EmitMapper.Utils;
 
 namespace Extendsoft.HMIS.DataSync.Mapping.Configurators
 {
