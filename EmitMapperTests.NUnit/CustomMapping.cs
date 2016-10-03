@@ -43,7 +43,29 @@ namespace EmitMapperTests
             public string fld3 = "B2::fld3";
         }
 
-        [Test]
+	    public interface IWithName
+	    {
+		    string Name { get; set; }
+	    }
+
+	    public class WithName : IWithName
+	    {
+		    public string Name { get; set; }
+	    }
+
+		[Test]
+		public void Test_CustomConverterWithInterfaces()
+		{
+			var str = Context.objMan.GetMapper<WithName, string>(
+				new DefaultMapConfig()
+					.ConvertUsing<IWithName, string>(v => v.Name)
+					.SetConfigName("withinterfaces")
+			).Map(new WithName { Name = "thisIsMyName" });
+
+			Assert.AreEqual("thisIsMyName", str);
+		}
+
+		[Test]
         public void Test_CustomConverter()
         {
             A2 a = Context.objMan.GetMapper<B2, A2>(
