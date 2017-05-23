@@ -21,7 +21,7 @@ namespace EmitMapper.Utils
 
         public static bool IsNullable(Type type)
         {
-            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
+            return type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
 
 		public static MemberInfo[] GetPublicFieldsAndProperties(Type type)

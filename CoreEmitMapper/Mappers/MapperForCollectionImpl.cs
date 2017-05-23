@@ -45,7 +45,7 @@ namespace EmitMapper.Mappers
                     return CopyScalarToArray(from);
                 }
             }
-            else if (typeTo.IsGenericType && typeTo.GetGenericTypeDefinition() == typeof(List<>))
+            else if (typeTo.IsGenericType() && typeTo.GetGenericTypeDefinition() == typeof(List<>))
             {
                 if (from is IEnumerable)
                 {
@@ -120,7 +120,7 @@ namespace EmitMapper.Mappers
         {
             return 
                 type.IsArray ||
-                type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>) ||
+                type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(List<>) ||
                 type == typeof(ArrayList) ||
 				typeof(IList).IsAssignableFrom(type) ||
 				typeof(IList<>).IsAssignableFrom(type)
@@ -151,7 +151,7 @@ namespace EmitMapper.Mappers
                 typeof(MapperForCollectionImpl)
                 );
 
-			if (TypeTo.IsGenericType && TypeTo.GetGenericTypeDefinition() == typeof(List<>))
+			if (TypeTo.IsGenericType() && TypeTo.GetGenericTypeDefinition() == typeof(List<>))
 			{
 				MethodBuilder methodBuilder = tb.DefineMethod(
 					"CopyToListInvoke",
@@ -174,7 +174,7 @@ namespace EmitMapper.Mappers
 					);
 			}
 
-            MapperForCollectionImpl result = (MapperForCollectionImpl)Activator.CreateInstance(tb.CreateType());
+            MapperForCollectionImpl result = (MapperForCollectionImpl)Activator.CreateInstance(tb.CreateTypeInfo().AsType());
 			result.Initialize(mapperMannager, TypeFrom, TypeTo, mappingConfigurator, null);
             result.subMapper = SubMapper;
 			
@@ -212,7 +212,7 @@ namespace EmitMapper.Mappers
             {
                 return typeof(object);
             }
-            if (collection.IsGenericType && collection.GetGenericTypeDefinition() == typeof(List<>))
+            if (collection.IsGenericType() && collection.GetGenericTypeDefinition() == typeof(List<>))
             {
                 return collection.GetGenericArguments()[0];
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace EmitMapper.MappingConfiguration
@@ -29,18 +30,19 @@ namespace EmitMapper.MappingConfiguration
 
         public static Type[] GetGenericArguments(Type type)
         {
+            //var type = _type.GetTypeInfo();
             if (type.IsArray)
             {
                 return new[] { type.GetElementType() };
             }
-            if (type.IsGenericType)
+            if (type.IsGenericType())
             {
                 return type.GetGenericArguments();
             }
-            return type
+            return type.GetTypeInfo()
                 .GetInterfaces()
-                .Where(i => i.IsGenericType)
-                .Select(i => i.GetGenericArguments())
+                .Where(i => i.IsGenericType())
+                .Select(i => i.GetTypeInfo().GetGenericArguments())
                 .Where(a => a.Length == 1)
                 .Select(a => a[0])
                 .ToArray();

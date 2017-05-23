@@ -28,7 +28,7 @@ namespace EmitMapper.AST.Nodes
         {
             value.Compile(context);
 
-            if (value.itemType.IsValueType)
+            if (value.itemType.IsValueType())
             {
                 context.Emit(OpCodes.Box, itemType);
             }

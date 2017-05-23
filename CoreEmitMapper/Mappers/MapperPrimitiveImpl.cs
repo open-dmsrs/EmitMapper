@@ -70,7 +70,7 @@ namespace EmitObjectMapper.Mappers
 				|| type == typeof(Guid)
 				|| type == typeof(string)
 				|| ReflectionUtils.IsNullable(type) && IsSupportedType(Nullable.GetUnderlyingType(type))
-				|| type.IsEnum;
+				|| type.IsEnum();
 		}
 	}
 }

@@ -21,7 +21,7 @@ namespace EmitMapper.AST.Nodes
 
         public void Compile(CompilationContext context)
         {
-            if(localType.IsValueType)
+            if(localType.IsValueType())
             {
                 context.Emit(OpCodes.Ldloca, localIndex);
                 context.Emit(OpCodes.Initobj, localType);

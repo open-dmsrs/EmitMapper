@@ -3,7 +3,7 @@ using EmitMapper.MappingConfiguration.MappingOperations;
 
 namespace EmitMapper
 {
-    public class EmitMapperException: ApplicationException
+    public class EmitMapperException: Exception
     {
 		public IMappingOperation _mappingOperation = null;
         public EmitMapperException()

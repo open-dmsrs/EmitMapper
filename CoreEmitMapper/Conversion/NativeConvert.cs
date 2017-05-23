@@ -54,17 +54,17 @@ namespace EmitMapper
 				return true;
 			}
 
-            if (from.IsEnum && to.IsEnum)
+            if (from.IsEnum() && to.IsEnum())
             {
                 return true;
             }
 
-			if (from.IsEnum && convertTypes.Contains(to))
+			if (from.IsEnum() && convertTypes.Contains(to))
 			{
 				return true;
 			}
 
-			if (to.IsEnum && convertTypes.Contains(from))
+			if (to.IsEnum() && convertTypes.Contains(from))
 			{
 				return true;
 			}

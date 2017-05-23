@@ -24,7 +24,7 @@ namespace EmitMapper.EmitInvoker
                 typeName,
                 () =>
                 {
-                    if (del.Method.ReturnType == typeof(void))
+                    if (del.GetMethodInfo().ReturnType == typeof(void))
                     {
                         return BuildActionCallerType(typeName, del);
                     }
@@ -43,7 +43,7 @@ namespace EmitMapper.EmitInvoker
 
         private static Type BuildFuncCallerType(string typeName, Delegate del)
         {
-            var par = del.Method.GetParameters();
+            var par = del.GetMethodInfo().GetParameters();
             Type funcCallerType = null;
             if (par.Length == 0)
             {

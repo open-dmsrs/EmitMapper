@@ -109,7 +109,7 @@ namespace EmitMapper.EmitBuilders
 
             IAstRefOrValue convertedValue;
 
-            if (readWriteSimple.NullSubstitutor != null && (ReflectionUtils.IsNullable(readWriteSimple.Source.MemberType) || !readWriteSimple.Source.MemberType.IsValueType))
+            if (readWriteSimple.NullSubstitutor != null && (ReflectionUtils.IsNullable(readWriteSimple.Source.MemberType) || !readWriteSimple.Source.MemberType.IsValueType()))
             {
                 convertedValue = new AstIfTernar(
                     ReflectionUtils.IsNullable(readWriteSimple.Source.MemberType)
@@ -378,7 +378,7 @@ namespace EmitMapper.EmitBuilders
 			}
 
 			// If destination is null, initialize it.
-			if (ReflectionUtils.IsNullable(op.Destination.MemberType) || !op.Destination.MemberType.IsValueType)
+			if (ReflectionUtils.IsNullable(op.Destination.MemberType) || !op.Destination.MemberType.IsValueType())
 			{
 				copying.Add(
 					new AstIf()
@@ -461,7 +461,7 @@ namespace EmitMapper.EmitBuilders
 				)
 			);
 
-			if (ReflectionUtils.IsNullable(op.Source.MemberType) || !op.Source.MemberType.IsValueType)
+			if (ReflectionUtils.IsNullable(op.Source.MemberType) || !op.Source.MemberType.IsValueType())
 			{
 				result.nodes.Add(
 					new AstIf()

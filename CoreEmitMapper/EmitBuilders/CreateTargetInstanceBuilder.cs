@@ -33,7 +33,7 @@ namespace EmitMapper
 			CompilationContext context = new CompilationContext(ilGen);
 			IAstRefOrValue returnValue;
 
-			if (type.IsValueType)
+			if (type.IsValueType())
 			{
 				LocalBuilder lb = ilGen.DeclareLocal(type);
 				new AstInitializeLocalVariable(lb).Compile(context);

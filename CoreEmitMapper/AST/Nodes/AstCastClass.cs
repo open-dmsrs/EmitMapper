@@ -35,13 +35,13 @@ namespace EmitMapper.AST.Nodes
 
             if (_value.itemType != _targetType)
             {
-                if (!_value.itemType.IsValueType && !_targetType.IsValueType)
+                if (!_value.itemType.IsValueType() && !_targetType.IsValueType())
                 {
                     _value.Compile(context);
                     context.Emit(OpCodes.Castclass, _targetType);
                     return;
                 }
-                else if (_targetType.IsValueType && !_value.itemType.IsValueType)
+                else if (_targetType.IsValueType() && !_value.itemType.IsValueType())
                 {
                     new AstUnbox() { refObj = (IAstRef)_value, unboxedType = _targetType }.Compile(context);
                     return;

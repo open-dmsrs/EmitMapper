@@ -86,7 +86,7 @@ namespace EmitMapper.AST.Nodes
 				{
 					context.EmitNewObject(ci);
 				}
-                else if (objectType.IsValueType)
+                else if (objectType.IsValueType())
                 {
                     LocalBuilder temp = context.ilGenerator.DeclareLocal(objectType);
                     new AstInitializeLocalVariable(temp).Compile(context);

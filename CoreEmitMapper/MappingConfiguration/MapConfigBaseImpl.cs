@@ -274,12 +274,14 @@ namespace EmitMapper.MappingConfiguration
             {
                 ((ICustomConverter)converterObj).Initialize(from, to, this);
             }
+            //CoreMigrated
+            //return Delegate.CreateDelegate(
+            //    typeof(Func<,,>).MakeGenericType(from, typeof(object), to),
+            //    converterObj,
+            //    mi
+            //);
 
-            return Delegate.CreateDelegate(
-                typeof(Func<,,>).MakeGenericType(from, typeof(object), to),
-                converterObj,
-                mi
-            );
+            return mi.CreateDelegate(typeof(Func<,,>).MakeGenericType(from, typeof(object), to), converterObj);
         }
 
         private bool TestIgnore(Type from, Type to, MemberDescriptor fromDescr, MemberDescriptor toDescr)

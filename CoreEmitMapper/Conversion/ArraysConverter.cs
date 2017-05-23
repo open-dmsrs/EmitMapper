@@ -31,12 +31,18 @@ namespace EmitMapper.Conversion
 			var staticConverterMethod = staticConverters.GetStaticConverter(typeof(TFrom), typeof(TTo));
 			if (staticConverterMethod != null)
 			{
-				_converter = (Func<TFrom, TTo>)Delegate.CreateDelegate(
-					typeof(Func<TFrom, TTo>),
-					null,
-					staticConverterMethod
-				);
-			}
+                //CoreMigrated
+                //            _converter = (Func<TFrom, TTo>)Delegate.CreateDelegate(
+                //	typeof(Func<TFrom, TTo>),
+                //	null,
+                //	staticConverterMethod
+                //);
+                _converter = (Func<TFrom, TTo>)staticConverterMethod.CreateDelegate(
+                   typeof(Func<TFrom, TTo>),
+                   null
+                   
+               );
+            }
 			else
 			{
 				_subMapper = ObjectMapperManager.DefaultInstance.GetMapperInt(typeof(TFrom), typeof(TTo), mappingConfig);
@@ -78,7 +84,7 @@ namespace EmitMapper.Conversion
 			}
 			var tFrom = tFromTypeArgs[0];
 			var tTo = tToTypeArgs[0];
-			if (tFrom == tTo && (tFrom.IsValueType || mappingConfig.GetRootMappingOperation(tFrom, tTo).ShallowCopy))
+			if (tFrom == tTo && (tFrom.IsValueType() || mappingConfig.GetRootMappingOperation(tFrom, tTo).ShallowCopy))
 			{
 				return new CustomConverterDescriptor
 				{

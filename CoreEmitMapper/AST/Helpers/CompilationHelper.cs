@@ -46,11 +46,11 @@ namespace EmitMapper.AST.Helpers
 
         public static void PrepareValueOnStack(CompilationContext context, Type desiredType, Type typeOnStack)
         {
-            if (typeOnStack.IsValueType && !desiredType.IsValueType)
+            if (typeOnStack.IsValueType() && !desiredType.IsValueType())
             {
                 context.Emit(OpCodes.Box, typeOnStack);
             }
-            else if (!typeOnStack.IsValueType && desiredType.IsValueType)
+            else if (!typeOnStack.IsValueType() && desiredType.IsValueType())
             {
                 context.Emit(OpCodes.Unbox_Any, desiredType);
             }
@@ -62,7 +62,7 @@ namespace EmitMapper.AST.Helpers
 
         public static void CheckIsRef(Type type)
         {
-            if (type.IsValueType)
+            if (type.IsValueType())
             {
                 throw new ILCompilationException("A reference type was expected, but it was: " + type);
             }
@@ -70,7 +70,7 @@ namespace EmitMapper.AST.Helpers
 
         public static void CheckIsValue(Type type)
         {
-            if (!type.IsValueType)
+            if (!type.IsValueType())
             {
                 throw new ILCompilationException("A value type was expected, but it was: " + type);
             }

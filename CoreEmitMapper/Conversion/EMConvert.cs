@@ -32,12 +32,12 @@ namespace EmitMapper
 				return null;
 			}
 
-			if (typeTo.IsEnum)
+			if (typeTo.IsEnum())
 			{
 				return ConvertToEnum(value, typeFrom, typeTo);
 			}
 
-			if (typeFrom.IsEnum)
+			if (typeFrom.IsEnum())
 			{
 				if (typeTo == typeof(string))
 				{
@@ -71,7 +71,7 @@ namespace EmitMapper
 			if (isToNullable)
 			{
 				var ut = Nullable.GetUnderlyingType(typeTo);
-				if (ut.IsEnum)
+				if (ut.IsEnum())
 				{
 					return ConvertToEnum(value, typeFrom, ut);
 				}
@@ -136,7 +136,7 @@ namespace EmitMapper
 				return typeof(EMConvert).GetMethod("ObjectToString", BindingFlags.Static | BindingFlags.Public);
 			}
 
-			if (to.IsEnum)
+			if (to.IsEnum())
 			{
 				return typeof(EMConvert)
 					.GetMethod("ToEnum", BindingFlags.Static | BindingFlags.NonPublic)
@@ -158,13 +158,13 @@ namespace EmitMapper
 
 		private static bool IsComplexConvert(Type type)
 		{
-			if (type.IsEnum)
+			if (type.IsEnum())
 			{
 				return true;
 			}
 			if (ReflectionUtils.IsNullable(type))
 			{
-				if (Nullable.GetUnderlyingType(type).IsEnum)
+				if (Nullable.GetUnderlyingType(type).IsEnum())
 				{
 					return true;
 				}
@@ -174,7 +174,7 @@ namespace EmitMapper
 
 		static private object ConvertToEnum(object value, Type typeFrom, Type typeTo)
 		{
-			if (!typeFrom.IsEnum)
+			if (!typeFrom.IsEnum())
 			{
 				if (typeFrom == typeof(string))
 				{

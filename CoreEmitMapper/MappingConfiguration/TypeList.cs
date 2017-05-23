@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using EmitMapper.Utils;
+using System.Reflection;
 
 namespace EmitMapper.MappingConfiguration
 {
-    class TypeDictionary<T> where T: class
+    class TypeDictionary<T> where T : class
     {
         class ListElement
         {
@@ -41,7 +42,7 @@ namespace EmitMapper.MappingConfiguration
 
         public override string ToString()
         {
-            return elements.Select(e => e.types.ToCSV("|") + (e.value == null ? "|" : ("|" + e.value) )).ToCSV("||");
+            return elements.Select(e => e.types.ToCSV("|") + (e.value == null ? "|" : ("|" + e.value))).ToCSV("||");
         }
 
         public bool IsTypesInList(Type[] types)
@@ -70,19 +71,19 @@ namespace EmitMapper.MappingConfiguration
         {
             foreach (var element in elements)
             {
-				bool isAssignable = true;
+                bool isAssignable = true;
                 for (int i = 0; i < element.types.Length; ++i)
                 {
                     if (!IsGeneralType(element.types[i], types[i]))
                     {
-						isAssignable = false;
-						break;
+                        isAssignable = false;
+                        break;
                     }
                 }
-				if (isAssignable)
-				{
-					return element;
-				}
+                if (isAssignable)
+                {
+                    return element;
+                }
             }
             return null;
         }
@@ -93,25 +94,26 @@ namespace EmitMapper.MappingConfiguration
             {
                 return true;
             }
-            if (generalType.IsGenericTypeDefinition)
+            if (generalType.GetTypeInfo().IsGenericTypeDefinition)
             {
-                if (generalType.IsInterface)
+                if (generalType.GetTypeInfo().IsInterface)
                 {
-                    return 
-                        (type.IsInterface ? new[]{type} : new Type[0]).Concat(type.GetInterfaces())
+                    return
+                        (type.GetTypeInfo().IsInterface ? new[] { type } : new Type[0]).Concat(type.GetTypeInfo().GetInterfaces())
                         .Any(
-                            i => 
-                                i.IsGenericType && 
+                            i =>
+                                i.IsGenericType() &&
                                 i.GetGenericTypeDefinition() == generalType
                         );
                 }
                 else
                 {
-                    return type.IsGenericType && (type.GetGenericTypeDefinition() == generalType || type.GetGenericTypeDefinition().IsSubclassOf(generalType));
+                    return type.IsGenericType() && 
+                        (type.GetGenericTypeDefinition() == generalType || type.GetGenericTypeDefinition().GetTypeInfo().IsSubclassOf(generalType));
                 }
             }
 
-            return generalType.IsAssignableFrom(type);
+            return generalType.GetTypeInfo().IsAssignableFrom(type);
         }
     }
 }
