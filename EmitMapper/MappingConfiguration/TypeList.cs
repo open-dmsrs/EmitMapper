@@ -111,7 +111,7 @@ namespace EmitMapper.MappingConfiguration
                 }
             }
 
-            return type.IsSubclassOf(generalType);
+            return generalType.IsAssignableFrom(type);
         }
     }
 }
