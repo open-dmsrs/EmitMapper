@@ -1,5 +1,22 @@
 ## Project Description
 Powerful customisable tool for mapping entities to each other. Entities can be plain objects, DataReaders, SQL commands and anything you need. The tool uses run-time code generation via the Emit library. It is usefull for dealing with DTO objects, data access layers an so on.
+
+## Road Map for migrating to netcore
+
+you can unload the project CoreEmitMapper if you have a plan to use this library
+
+*  Step one
+  Initial import all of the codes from older emitmapper - Done
+  Compile success  - work in process
+
+*  Step two
+  Initial import all of the unit test code
+  Running success
+
+*  Step three
+  Import all of components
+  Running success
+
 ## Supported platforms:
 
 * Microsoft .NET Framework 3.5
@@ -33,5 +50,5 @@ Low-level customization using custom configuratorors
 * Objects change tracking
 * Mapping DbDatareader to objects
 * Mapping objects to DbCommand (UPDATE and INSERT)
-Last edited Jan 11, 2010 at 3:01 PM by romankovs, version 25
-from http://emitmapper.codeplex.com/
+  Last edited Jan 11, 2010 at 3:01 PM by romankovs, version 25
+  from http://emitmapper.codeplex.com/
