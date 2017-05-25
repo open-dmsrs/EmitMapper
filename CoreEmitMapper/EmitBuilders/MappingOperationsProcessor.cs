@@ -153,7 +153,7 @@ namespace EmitMapper.EmitBuilders
 		private IAstNode ProcessDestWriteOperation(DestWriteOperation destWriteOperation, int operationId)
 		{
 			LocalBuilder locValueToWrite = null;
-			locValueToWrite = this.compilationContext.ilGenerator.DeclareLocal(destWriteOperation.Getter.Method.ReturnType);
+			locValueToWrite = this.compilationContext.ilGenerator.DeclareLocal(destWriteOperation.Getter.GetMethodInfo().ReturnType);
 
 			var cmdValue = new AstWriteLocal(
 				locValueToWrite,

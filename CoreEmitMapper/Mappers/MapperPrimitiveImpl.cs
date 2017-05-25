@@ -6,6 +6,7 @@ using EmitMapper.Mappers;
 using EmitMapper;
 using EmitMapper.EmitInvoker;
 using System.Collections;
+using System.Reflection;
 
 namespace EmitObjectMapper.Mappers
 {
@@ -60,7 +61,7 @@ namespace EmitObjectMapper.Mappers
 		internal static bool IsSupportedType(Type type)
 		{
 			return
-				type.IsPrimitive
+				type.GetTypeInfo().IsPrimitive
 				|| type == typeof(decimal)
 				|| type == typeof(float)
 				|| type == typeof(double)

@@ -192,7 +192,7 @@ namespace EmitMapper
 			mappingBuilder.BuildCopyImplMethod();
 
 			ObjectsMapperBaseImpl result =
-				(ObjectsMapperBaseImpl)Activator.CreateInstance(typeBuilder.CreateType());
+				(ObjectsMapperBaseImpl)Activator.CreateInstance(typeBuilder.CreateTypeInfo().BaseType);
 			result.Initialize(this, from, to, mappingConfigurator, mappingBuilder.storedObjects.ToArray());
 			return result;
 		}
