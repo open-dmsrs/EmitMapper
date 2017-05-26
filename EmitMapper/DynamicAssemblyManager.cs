@@ -34,13 +34,14 @@ namespace EmitMapper
 
 		static DynamicAssemblyManager()
 		{
-			Assembly assembly = Assembly.GetExecutingAssembly();
+			var curAssemblyName = Assembly.GetExecutingAssembly().GetName();
 			
-			StrongNameKeyPair kp = ExtractStrongNamePair(assembly);
+		 
 
 #if !SILVERLIGHT
 			assemblyName = new AssemblyName("EmitMapperAssembly");
-			assemblyName.KeyPair = kp;
+            assemblyName.SetPublicKey(curAssemblyName.GetPublicKey());
+            assemblyName.SetPublicKeyToken(curAssemblyName.GetPublicKeyToken());
 			assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(
 				assemblyName,
 				AssemblyBuilderAccess.RunAndSave
@@ -60,21 +61,7 @@ namespace EmitMapper
 			moduleBuilder = assemblyBuilder.DefineDynamicModule(assemblyName.Name, true);
 #endif
 		}
-
-		private static StrongNameKeyPair ExtractStrongNamePair(Assembly assembly)
-		{
-			string resourceName = string.Format("{0}.{1}", assembly.GetName().Name, "EmitMapper.snk");
-			byte[] bytes;
-
-			using (Stream resourceStream = assembly.GetManifestResourceStream(resourceName))
-			{
-				int length = (int)resourceStream.Length;
-				bytes = new byte[length];
-				resourceStream.Read(bytes, 0, length);
-			}
-
-			return new StrongNameKeyPair(bytes);
-		}
+ 
 
 		private static string CorrectTypeName(string typeName)
 		{

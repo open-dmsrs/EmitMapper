@@ -14,7 +14,7 @@ namespace EmitObjectMapper.Mappers
 	/// </summary>
 	internal class MapperPrimitiveImpl : CustomMapperImpl
 	{
-		private MethodInvokerFunc_1 _converter = null;
+		private new MethodInvokerFunc_1 _converter = null;
 		public MapperPrimitiveImpl(ObjectMapperManager mapperMannager, Type TypeFrom, Type TypeTo, IMappingConfigurator mappingConfigurator)
 			: base(mapperMannager, TypeFrom, TypeTo, mappingConfigurator, null)
 		{

@@ -34,4 +34,4 @@ using System.Runtime.InteropServices;
 //[assembly: AssemblyVersion("1.0.1.0")]
 //[assembly: AssemblyFileVersion("1.0.1.0")]
 [assembly: InternalsVisibleTo("EmitMapperAssembly")]
-[assembly: System.CLSCompliant(true)]
+[assembly: System.CLSCompliant(false)]
