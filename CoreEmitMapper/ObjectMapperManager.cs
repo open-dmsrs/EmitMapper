@@ -193,9 +193,6 @@ namespace EmitMapper
 
             var typeinfo = typeBuilder.CreateTypeInfo();
 
-            var type = typeinfo.BaseType;
-            var type1 = typeinfo.AsType();
-
             ObjectsMapperBaseImpl result =
                 (ObjectsMapperBaseImpl)Activator.CreateInstance(typeinfo.AsType());
             result.Initialize(this, from, to, mappingConfigurator, mappingBuilder.storedObjects.ToArray());

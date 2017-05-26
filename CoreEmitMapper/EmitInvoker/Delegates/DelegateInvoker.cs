@@ -81,7 +81,7 @@ namespace EmitMapper.EmitInvoker
                 returnValue = CreateCallDelegate(del, par)
             }.Compile(new CompilationContext(methodBuilder.GetILGenerator()));
 
-            return tb.CreateTypeInfo().BaseType;
+            return tb.CreateTypeInfo().AsType();
         }
 
         private static Type BuildActionCallerType(string typeName, Delegate del)
@@ -127,7 +127,7 @@ namespace EmitMapper.EmitInvoker
                 }
             }.Compile(new CompilationContext(methodBuilder.GetILGenerator()));
 
-            return tb.CreateTypeInfo().BaseType;
+            return tb.CreateTypeInfo().AsType();
         }
 
         private static IAstRefOrValue CreateCallDelegate(Delegate del, ParameterInfo[] parameters)

@@ -81,7 +81,7 @@ namespace EmitMapper.EmitInvoker
                 returnValue = CreateCallMethod(mi, par)
             }.Compile(new CompilationContext(methodBuilder.GetILGenerator()));
 
-            return tb.CreateTypeInfo().BaseType;
+            return tb.CreateTypeInfo().AsType();
         }
 
         private static Type BuildActionCallerType(string typeName, MethodInfo mi)
@@ -127,7 +127,7 @@ namespace EmitMapper.EmitInvoker
                 }
             }.Compile(new CompilationContext(methodBuilder.GetILGenerator()));
 
-            return tb.CreateTypeInfo().BaseType;
+            return tb.CreateTypeInfo().AsType();
         }
 
         private static IAstRefOrValue CreateCallMethod(MethodInfo mi, ParameterInfo[] parameters)
