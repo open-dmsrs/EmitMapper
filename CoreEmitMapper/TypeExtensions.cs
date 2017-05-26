@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using System.Linq;
+using System.Collections.Generic;
 #if !UnitTest
 namespace EmitMapper
 #else
@@ -65,15 +66,8 @@ namespace EmitMapperTests
         {
             return type.GetTypeInfo().GetProperties();
         }
-        public static PropertyInfo[] GetCustomAttributes(this PropertyInfo pi, Type attributeType, bool isInherit)
-        {
-            return pi.GetCustomAttributes(attributeType, isInherit);
-        }
-
-        public static PropertyInfo[] GetCustomAttributes(this FieldInfo fi, Type attributeType, bool isInherit)
-        {
-            return fi.GetCustomAttributes(attributeType, isInherit);
-        }
+      
+        
         public static MemberInfo[] GetMembers(this Type type)
         {
             return type.GetTypeInfo().GetMembers();
