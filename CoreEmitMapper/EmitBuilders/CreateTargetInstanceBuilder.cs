@@ -24,7 +24,7 @@ namespace EmitMapper
 
 			MethodBuilder methodBuilder = typeBuilder.DefineMethod(
 				"CreateTargetInstance",
-				MethodAttributes.Assembly | MethodAttributes.Virtual,
+				 MethodAttributes.Virtual| MethodAttributes.Public,
 				typeof(object),
 				null
 				);

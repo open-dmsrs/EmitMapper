@@ -11,7 +11,6 @@ using System.Reflection;
 
 namespace EmitMapperTests
 {
-    //[TestFixture]
     public class EmitInvokerTest
     {
         [Fact]
