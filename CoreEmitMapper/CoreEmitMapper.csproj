@@ -2,9 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
-    <Copyright>ww</Copyright>
-    <PackageReleaseNotes>www</PackageReleaseNotes>
+    <Copyright></Copyright>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <Version>0.0.1</Version>
+    <PackageId>CoreEmitMapper</PackageId>
+    <Authors>Tony, romankovs and qwer_ty</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
