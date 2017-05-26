@@ -20,11 +20,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mvc", "Mvc", "{75F3A083-3C58-4C55-B251-AF6C3FCC2FCB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B0D33525-2360-43C0-9866-BE507A0B069D}"
-	ProjectSection(SolutionItems) = preProject
-		EmitMapper.vsmdi = EmitMapper.vsmdi
-		EmitMapper1.vsmdi = EmitMapper1.vsmdi
-		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmitMapperTests.NUnit", "EmitMapperTests.NUnit\EmitMapperTests.NUnit.csproj", "{253E7488-760E-4079-A13C-A8C7489B8F97}"
 EndProject

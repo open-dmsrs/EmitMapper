@@ -1,18 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{1821C660-299A-4BEE-8828-32911AE7F42F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mvc", "Mvc", "{75F3A083-3C58-4C55-B251-AF6C3FCC2FCB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B0D33525-2360-43C0-9866-BE507A0B069D}"
-	ProjectSection(SolutionItems) = preProject
-		EmitMapper.vsmdi = EmitMapper.vsmdi
-		EmitMapper1.vsmdi = EmitMapper1.vsmdi
-		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Silverlight", "Silverlight", "{B4055897-34F7-4D04-A202-21FEC1C8005E}"
 EndProject
@@ -39,6 +34,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsLauncher.SL", "Silverlight\TestsLauncher.SL\TestsLauncher.SL.csproj", "{193B24C6-ECD2-411B-8304-332E58E32785}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsLauncher.SL.Web", "Silverlight\TestsLauncher.SL.Web\TestsLauncher.SL.Web.csproj", "{CA029F3D-5604-45C8-A152-2ACD3B93B5D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreEmitMapper", "CoreEmitMapper\CoreEmitMapper.csproj", "{6FB51992-5CD6-4043-A1FE-F5B043D1EAB3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreEmitMapper.xUnit", "CoreEmitMapper.xUnit\CoreEmitMapper.xUnit.csproj", "{AF94A3DD-D595-47BC-B5CD-AC8AD565106C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,6 +93,14 @@ Global
 		{CA029F3D-5604-45C8-A152-2ACD3B93B5D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA029F3D-5604-45C8-A152-2ACD3B93B5D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA029F3D-5604-45C8-A152-2ACD3B93B5D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FB51992-5CD6-4043-A1FE-F5B043D1EAB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FB51992-5CD6-4043-A1FE-F5B043D1EAB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FB51992-5CD6-4043-A1FE-F5B043D1EAB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FB51992-5CD6-4043-A1FE-F5B043D1EAB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF94A3DD-D595-47BC-B5CD-AC8AD565106C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF94A3DD-D595-47BC-B5CD-AC8AD565106C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF94A3DD-D595-47BC-B5CD-AC8AD565106C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF94A3DD-D595-47BC-B5CD-AC8AD565106C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
