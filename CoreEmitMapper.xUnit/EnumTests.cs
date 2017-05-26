@@ -3,7 +3,7 @@ using EmitMapper;
 
 namespace EmitMapperTests
 {
-    //[TestFixture]
+    ////[TestFixture]
     public class EnumTests
     {
         public enum En1 : byte

@@ -161,6 +161,61 @@ namespace EmitMapperTests
             public B.En fld1 = B.En.En2;
         }
 
+
+        public interface IBase
+        {
+            string BaseProperty { get; set; }
+        }
+
+        public interface IDerived : IBase
+        {
+            string DerivedProperty { get; set; }
+        }
+
+        public class Derived : IDerived
+        {
+            #region Implementation of IBase
+
+            public string BaseProperty { get; set; }
+
+            #endregion
+
+            #region Implementation of IDerived
+
+            public string DerivedProperty { get; set; }
+
+            #endregion
+        }
+
+        public class Target
+        {
+            public string BaseProperty { get; set; }
+
+            public string DerivedProperty { get; set; }
+            
+        }
+
+        [Test]
+        public void Test_Derived()
+        {
+            ObjectsMapper<IDerived, Target> mapper = ObjectMapperManager.DefaultInstance.GetMapper<IDerived, Target>();
+
+            Derived source = new Derived
+                                 {
+                                     BaseProperty = "base",
+                                     DerivedProperty = "derived"
+                                 };
+
+            Target destination = mapper.Map(source);
+            Assert.AreEqual("base", destination.BaseProperty);
+            Assert.AreEqual("derived", destination.DerivedProperty);
+
+
+
+
+        }
+
+
         [Test]
         public void SimpleTest()
         {
@@ -513,6 +568,93 @@ namespace EmitMapperTests
 			Assert.AreEqual("sub sub data 1", tree2.next.next.subNodes[0].data);
 			Assert.AreEqual("sub sub data 2", tree2.next.next.subNodes[1].data);
 			Assert.IsNull(tree2.next.next.next);
+		}
+
+		public class BaseSource
+		{
+			public int i1;
+			public int i2;
+			public int i3;
+		}
+
+		public class DerivedSource : BaseSource
+		{
+			public int i4;
+		}
+
+		public class InherDestination
+		{
+			public int i1;
+			public int i2;
+			public int i3;
+		}
+
+		[Test]
+		public void TestInheritence()
+		{
+			var mapper = ObjectMapperManager.DefaultInstance.GetMapper<BaseSource, InherDestination>();
+			var dest = mapper.Map(
+				new DerivedSource 
+				{ 
+					i1 = 1,
+					i2 = 2,
+					i3 = 3,
+					i4 = 4
+				}
+			);
+
+			Assert.AreEqual(1, dest.i1);
+			Assert.AreEqual(2, dest.i2);
+			Assert.AreEqual(3, dest.i3);
+		}
+
+		public class Destination_TestFilterDest
+		{
+			public int i1;
+			public int i2 = -5;
+			public int i3 = 0;
+			public long l1;
+			public string str;
+		}
+
+		public class Destination_TestFilterSrc
+		{
+			public int i1 = 13;
+			public int i2 = 14;
+			public int i3 = 5;
+			public long l1 = 5;
+			public string str = "hello";
+		}
+
+		[Test]
+		public void TestdestrinationFilter()
+		{
+			var mapper = ObjectMapperManager.DefaultInstance.GetMapper<Destination_TestFilterSrc, Destination_TestFilterDest>(
+				new DefaultMapConfig()
+					.FilterDestination<string>((value, state) => false)
+					.FilterDestination<int>((value, state) => value >= 0)
+					.FilterSource<int>((value, state) => value >= 10)
+					.FilterSource<object>((value, state) => !(value is long) && (!(value is Destination_TestFilterSrc) || (value as Destination_TestFilterSrc).i1 != 666))
+
+			);
+			var dest = mapper.Map(
+				new Destination_TestFilterSrc()
+			);
+
+			Assert.AreEqual(13, dest.i1);
+			Assert.AreEqual(-5, dest.i2);
+			Assert.AreEqual(0, dest.i3);
+			Assert.AreEqual(0, dest.l1);
+			Assert.IsNull(dest.str);
+
+			dest = mapper.Map(
+				new Destination_TestFilterSrc()
+				{
+					i1 = 666
+				},
+				new Destination_TestFilterDest()
+			);
+			Assert.AreEqual(0, dest.i1);
 		}
     }
 }

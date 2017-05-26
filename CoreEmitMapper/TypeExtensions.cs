@@ -66,8 +66,8 @@ namespace EmitMapperTests
         {
             return type.GetTypeInfo().GetProperties();
         }
-      
-        
+
+
         public static MemberInfo[] GetMembers(this Type type)
         {
             return type.GetTypeInfo().GetMembers();
@@ -105,7 +105,22 @@ namespace EmitMapperTests
         {
             return type.GetTypeInfo().IsEnum;
         }
-
-
+        public static bool IsGenericTypeDefinition(this Type type)
+        {
+            return type.GetTypeInfo().IsGenericTypeDefinition;
+        }
+        public static bool IsInterface(this Type type)
+        {
+            return type.GetTypeInfo().IsInterface;
+        }
+        public static Type[] GetInterfaces(this Type type)
+        {
+            return type.GetTypeInfo().GetInterfaces();
+        }
+        public static bool IsSubclassOf(this Type type, Type target)
+        {
+            return type.GetTypeInfo().IsSubclassOf(target);
+        }
+        
     }
 }

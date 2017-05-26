@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection.Emit;
 using System.Reflection;
 using EmitMapper.Mappers;
@@ -21,7 +22,7 @@ namespace EmitMapper
 				assemblyBuilder.Save(assemblyName.Name + ".dll");
 			}
 #else
-          throw new NotImplementedException("DynamicAssemblyManager.SaveAssembly");
+		  throw new NotImplementedException("DynamicAssemblyManager.SaveAssembly");
 #endif
 		}
 
@@ -33,8 +34,13 @@ namespace EmitMapper
 
 		static DynamicAssemblyManager()
 		{
+			Assembly assembly = Assembly.GetExecutingAssembly();
+			
+			StrongNameKeyPair kp = ExtractStrongNamePair(assembly);
+
 #if !SILVERLIGHT
-            assemblyName = new AssemblyName("EmitMapperAssembly");
+			assemblyName = new AssemblyName("EmitMapperAssembly");
+			assemblyName.KeyPair = kp;
 			assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(
 				assemblyName,
 				AssemblyBuilderAccess.RunAndSave
@@ -45,14 +51,30 @@ namespace EmitMapper
 				assemblyName.Name + ".dll",
 				true);
 #else
-            assemblyName = new AssemblyName("EmitMapperAssembly.SL");
-            assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(
-                  assemblyName,
-                  AssemblyBuilderAccess.Run
-                  );
-            moduleBuilder = assemblyBuilder.DefineDynamicModule(assemblyName.Name, true);
+			assemblyName = new AssemblyName("EmitMapperAssembly.SL");
+			assemblyName.KeyPair = kp;
+			assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(
+				  assemblyName,
+				  AssemblyBuilderAccess.Run
+				  );
+			moduleBuilder = assemblyBuilder.DefineDynamicModule(assemblyName.Name, true);
 #endif
-        }
+		}
+
+		private static StrongNameKeyPair ExtractStrongNamePair(Assembly assembly)
+		{
+			string resourceName = string.Format("{0}.{1}", assembly.GetName().Name, "EmitMapper.snk");
+			byte[] bytes;
+
+			using (Stream resourceStream = assembly.GetManifestResourceStream(resourceName))
+			{
+				int length = (int)resourceStream.Length;
+				bytes = new byte[length];
+				resourceStream.Read(bytes, 0, length);
+			}
+
+			return new StrongNameKeyPair(bytes);
+		}
 
 		private static string CorrectTypeName(string typeName)
 		{

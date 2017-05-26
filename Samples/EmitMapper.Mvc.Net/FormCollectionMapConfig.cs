@@ -32,6 +32,7 @@ namespace EmitMapper.Mvc.Net
                                     }
 
                                     ValueProviderResult res = valueProvider.GetValue(m.Name);
+									// here need to check the value of res is not null, then can convert the value
                                     if (res != null)
                                     {
                                         return ValueToWrite<object>.ReturnValue(res.ConvertTo(ReflectionUtils.GetMemberType(m)));

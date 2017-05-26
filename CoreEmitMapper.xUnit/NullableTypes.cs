@@ -6,7 +6,7 @@ using EmitMapper.MappingConfiguration;
 
 namespace EmitMapperTests
 {
-    //[TestFixture]
+    ////[TestFixture]
     public class NullableTypes
     {
         public class A1

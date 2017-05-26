@@ -9,7 +9,7 @@ using System.Collections;
 
 namespace EmitMapperTests
 {
-    //[TestFixture]
+    ////[TestFixture]
     public class CustomMapping
     {
         public class A1

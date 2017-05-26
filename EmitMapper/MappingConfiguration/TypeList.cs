@@ -1,47 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using EmitMapper.Utils;
 
 namespace EmitMapper.MappingConfiguration
 {
-    class TypeDictionary<T> where T: class
+    internal class TypeDictionary<T> where T : class
     {
-        class ListElement
-        {
-            public Type[] types;
-            public T value;
-            public ListElement(Type[] types, T value)
-            {
-                this.types = types;
-                this.value = value;
-            }
-
-            public override int GetHashCode()
-            {
-                return types.Sum(t => t.GetHashCode());
-            }
-
-            public override bool Equals(object obj)
-            {
-                var rhs = (ListElement)obj;
-                for (int i = 0; i < types.Length; ++i)
-                {
-                    if (types[i] != rhs.types[i])
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
-        }
-
-        private List<ListElement> elements = new List<ListElement>();
+        private readonly List<ListElement> elements = new List<ListElement>();
 
         public override string ToString()
         {
-            return elements.Select(e => e.types.ToCSV("|") + (e.value == null ? "|" : ("|" + e.value) )).ToCSV("||");
+            return elements.Select(e => e.types.ToCSV("|") + (e.value == null ? "|" : "|" + e.value)).ToCSV("||");
         }
 
         public bool IsTypesInList(Type[] types)
@@ -70,19 +40,22 @@ namespace EmitMapper.MappingConfiguration
         {
             foreach (var element in elements)
             {
-				bool isAssignable = true;
-                for (int i = 0; i < element.types.Length; ++i)
+                var isAssignable = true;
+                for (int i = 0, j = 0; i < element.types.Length; ++i)
                 {
-                    if (!IsGeneralType(element.types[i], types[i]))
+                    if (i < types.Length)
+                        j = i;
+
+                    if (!IsGeneralType(element.types[i], types[j]))
                     {
-						isAssignable = false;
-						break;
+                        isAssignable = false;
+                        break;
                     }
                 }
-				if (isAssignable)
-				{
-					return element;
-				}
+                if (isAssignable)
+                {
+                    return element;
+                }
             }
             return null;
         }
@@ -97,21 +70,48 @@ namespace EmitMapper.MappingConfiguration
             {
                 if (generalType.IsInterface)
                 {
-                    return 
-                        (type.IsInterface ? new[]{type} : new Type[0]).Concat(type.GetInterfaces())
-                        .Any(
-                            i => 
-                                i.IsGenericType && 
-                                i.GetGenericTypeDefinition() == generalType
-                        );
+                    return
+                        (type.IsInterface ? new[] {type} : new Type[0]).Concat(type.GetInterfaces())
+                            .Any(
+                                i =>
+                                    i.IsGenericType &&
+                                    i.GetGenericTypeDefinition() == generalType
+                            );
                 }
-                else
-                {
-                    return type.IsGenericType && (type.GetGenericTypeDefinition() == generalType || type.GetGenericTypeDefinition().IsSubclassOf(generalType));
-                }
+                return type.IsGenericType && (type.GetGenericTypeDefinition() == generalType || type.GetGenericTypeDefinition().IsSubclassOf(generalType));
             }
 
-            return generalType.IsAssignableFrom(type);
+            return type.IsSubclassOf(generalType);
+        }
+
+        private class ListElement
+        {
+            public readonly Type[] types;
+            public readonly T value;
+
+            public ListElement(Type[] types, T value)
+            {
+                this.types = types;
+                this.value = value;
+            }
+
+            public override int GetHashCode()
+            {
+                return types.Sum(t => t.GetHashCode());
+            }
+
+            public override bool Equals(object obj)
+            {
+                var rhs = (ListElement) obj;
+                for (var i = 0; i < types.Length; ++i)
+                {
+                    if (types[i] != rhs.types[i])
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
         }
     }
 }

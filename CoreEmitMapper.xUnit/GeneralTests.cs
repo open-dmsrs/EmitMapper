@@ -7,7 +7,7 @@ using Xunit;
 
 namespace EmitMapperTests
 {
-    //[TestFixture]
+    ////[TestFixture]
     public class GeneralTests
     {
         public static void TestRefl(object obj)
@@ -160,6 +160,61 @@ namespace EmitMapperTests
             public int I = 20;
             public B.En fld1 = B.En.En2;
         }
+
+
+        public interface IBase
+        {
+            string BaseProperty { get; set; }
+        }
+
+        public interface IDerived : IBase
+        {
+            string DerivedProperty { get; set; }
+        }
+
+        public class Derived : IDerived
+        {
+            #region Implementation of IBase
+
+            public string BaseProperty { get; set; }
+
+            #endregion
+
+            #region Implementation of IDerived
+
+            public string DerivedProperty { get; set; }
+
+            #endregion
+        }
+
+        public class Target
+        {
+            public string BaseProperty { get; set; }
+
+            public string DerivedProperty { get; set; }
+            
+        }
+
+        [Fact]
+        public void Test_Derived()
+        {
+            ObjectsMapper<IDerived, Target> mapper = ObjectMapperManager.DefaultInstance.GetMapper<IDerived, Target>();
+
+            Derived source = new Derived
+                                 {
+                                     BaseProperty = "base",
+                                     DerivedProperty = "derived"
+                                 };
+
+            Target destination = mapper.Map(source);
+            Assert.Equal("base", destination.BaseProperty);
+            Assert.Equal("derived", destination.DerivedProperty);
+
+
+
+
+        }
+
 
         [Fact]
         public void SimpleTest()
@@ -513,6 +568,93 @@ namespace EmitMapperTests
 			Assert.Equal("sub sub data 1", tree2.next.next.subNodes[0].data);
 			Assert.Equal("sub sub data 2", tree2.next.next.subNodes[1].data);
 			Assert.Null(tree2.next.next.next);
+		}
+
+		public class BaseSource
+		{
+			public int i1;
+			public int i2;
+			public int i3;
+		}
+
+		public class DerivedSource : BaseSource
+		{
+			public int i4;
+		}
+
+		public class InherDestination
+		{
+			public int i1;
+			public int i2;
+			public int i3;
+		}
+
+		[Fact]
+		public void TestInheritence()
+		{
+			var mapper = ObjectMapperManager.DefaultInstance.GetMapper<BaseSource, InherDestination>();
+			var dest = mapper.Map(
+				new DerivedSource 
+				{ 
+					i1 = 1,
+					i2 = 2,
+					i3 = 3,
+					i4 = 4
+				}
+			);
+
+			Assert.Equal(1, dest.i1);
+			Assert.Equal(2, dest.i2);
+			Assert.Equal(3, dest.i3);
+		}
+
+		public class Destination_TestFilterDest
+		{
+			public int i1;
+			public int i2 = -5;
+			public int i3 = 0;
+			public long l1;
+			public string str;
+		}
+
+		public class Destination_TestFilterSrc
+		{
+			public int i1 = 13;
+			public int i2 = 14;
+			public int i3 = 5;
+			public long l1 = 5;
+			public string str = "hello";
+		}
+
+		[Fact]
+		public void TestdestrinationFilter()
+		{
+			var mapper = ObjectMapperManager.DefaultInstance.GetMapper<Destination_TestFilterSrc, Destination_TestFilterDest>(
+				new DefaultMapConfig()
+					.FilterDestination<string>((value, state) => false)
+					.FilterDestination<int>((value, state) => value >= 0)
+					.FilterSource<int>((value, state) => value >= 10)
+					.FilterSource<object>((value, state) => !(value is long) && (!(value is Destination_TestFilterSrc) || (value as Destination_TestFilterSrc).i1 != 666))
+
+			);
+			var dest = mapper.Map(
+				new Destination_TestFilterSrc()
+			);
+
+			Assert.Equal(13, dest.i1);
+			Assert.Equal(-5, dest.i2);
+			Assert.Equal(0, dest.i3);
+			Assert.Equal(0, dest.l1);
+			Assert.Null(dest.str);
+
+			dest = mapper.Map(
+				new Destination_TestFilterSrc()
+				{
+					i1 = 666
+				},
+				new Destination_TestFilterDest()
+			);
+			Assert.Equal(0, dest.i1);
 		}
     }
 }

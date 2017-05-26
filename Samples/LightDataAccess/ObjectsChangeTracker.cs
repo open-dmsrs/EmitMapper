@@ -185,6 +185,30 @@ namespace LightDataAccess
                 .ToArray();
         }
 
+        public TrackingMember[] GetChanges(object originalObj, object currentObj)
+        {
+            if (originalObj == null || currentObj == null || originalObj.GetType() != currentObj.GetType())
+                return null;
+            var originalValues = GetObjectMembers(originalObj);
+            var currentValues = GetObjectMembers(currentObj);
+            return currentValues.Select((x, idx) =>
+                {
+                    var original = originalValues[idx];
+                    x.OriginalValue = original.CurrentValue;
+                    return x;
+
+                })
+                .Where(
+                    (current, idx) =>
+                    {
+                        return
+                            ((current.OriginalValue == null) != (current.CurrentValue == null))
+                            ||
+                            (current.OriginalValue != null && !current.OriginalValue.Equals(current.CurrentValue));
+                    }
+                )
+                .ToArray();
+        }
         /// <summary>
         /// Gets the object members.
         /// </summary>

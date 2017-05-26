@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace EmitMapperTests
 {
-    //[TestFixture]
+    ////[TestFixture]
     public class IgnoreByAttributes
     {
         [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]

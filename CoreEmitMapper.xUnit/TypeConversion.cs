@@ -4,7 +4,7 @@ using EmitMapper.MappingConfiguration;
 
 namespace EmitMapperTests
 {
-    //[TestFixture]
+    ////[TestFixture]
     public class TypeConversion
     {
         public class A1

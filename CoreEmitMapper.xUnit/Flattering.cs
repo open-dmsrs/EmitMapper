@@ -5,7 +5,7 @@ using EmitMapper.MappingConfiguration.MappingOperations;
 
 namespace EmitMapperTests
 {
-    //[TestFixture]
+    ////[TestFixture]
     public class Flattering
     {
         public class A
