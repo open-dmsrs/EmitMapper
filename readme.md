@@ -7,21 +7,21 @@ you can unload the project CoreEmitMapper if you have a plan to use this library
 
 *  Step one
   Initial import all of the codes from older emitmapper - Done
-  Compile success  - work in process
+  Compile success  - Done
 
 *  Step two
-  Initial import all of the unit test code
-  Running success
+  Initial import all of the unit test code - Done
+  Running success - Done
 
 *  Step three
-  Import all of components
+  Import all of components - Work in Process
   Running success
 
 ## Supported platforms:
 
-* Microsoft .NET Framework 3.5
+* NETStandard 1.6
+* .Net Framework 4.6?
 * Microsoft Silverlight 3
-* Mono
 ## About Emit Mapper
 
 * Overview
@@ -51,4 +51,4 @@ Low-level customization using custom configuratorors
 * Mapping DbDatareader to objects
 * Mapping objects to DbCommand (UPDATE and INSERT)
   Last edited Jan 11, 2010 at 3:01 PM by romankovs, version 25
-  from http://emitmapper.codeplex.com/
+  from  https://github.com/68681395/CoreEmitMapper
