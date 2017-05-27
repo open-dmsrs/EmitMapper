@@ -82,7 +82,7 @@ namespace EmitMapper.MappingConfiguration
                     || type.GetGenericTypeDefinition().IsSubclassOf(generalType));
             }
 
-            return type.IsAssignableFrom(generalType);
+            return generalType.IsAssignableFrom(type);
         }
 
         private class ListElement
