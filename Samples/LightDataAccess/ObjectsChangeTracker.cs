@@ -137,35 +137,36 @@ namespace LightDataAccess
         /// <summary>
         /// Initializes a new instance of the <see cref="ObjectsChangeTracker"/> class.
         /// </summary>
-        /// <param name="MapManager">The map manager.</param>
-        public ObjectsChangeTracker(ObjectMapperManager MapManager)
+        /// <param name="mapManager">The map manager.</param>
+        public ObjectsChangeTracker(ObjectMapperManager mapManager)
         {
-            this._mapManager = MapManager;
+            this._mapManager = mapManager;
         }
 
         /// <summary>
         /// Registers the object.
         /// </summary>
-        /// <param name="Obj">The obj.</param>
-        public void RegisterObject(object Obj)
+        /// <param name="obj">The obj.</param>
+        public void RegisterObject(object obj)
         {
-           // var type = Obj.GetType();
-            this._trackingObjects[Obj] = this.GetObjectMembers(Obj);
+            // var type = Obj.GetType();
+            if (obj != null)
+                this._trackingObjects[obj] = this.GetObjectMembers(obj);
         }
 
         /// <summary>
         /// Gets the changes.
         /// </summary>
-        /// <param name="Obj">The obj.</param>
+        /// <param name="obj">The obj.</param>
         /// <returns>TrackingMember[][].</returns>
-        public TrackingMember[] GetChanges(object Obj)
+        public TrackingMember[] GetChanges(object obj)
         {
             List<TrackingMember> originalValues;
-            if (!this._trackingObjects.TryGetValue(Obj, out originalValues))
+            if (!this._trackingObjects.TryGetValue(obj, out originalValues))
             {
                 return null;
             }
-            var currentValues = this.GetObjectMembers(Obj);
+            var currentValues = this.GetObjectMembers(obj);
             return currentValues.Select((x, idx) =>
             {
                 var original = originalValues[idx];
@@ -175,7 +176,7 @@ namespace LightDataAccess
             })
                 .Where(
                     (current, idx) =>
-                    {  
+                    {
                         return
                             ((current.OriginalValue == null) != (current.CurrentValue == null))
                             ||
@@ -212,11 +213,11 @@ namespace LightDataAccess
         /// <summary>
         /// Gets the object members.
         /// </summary>
-        /// <param name="Obj">The obj.</param>
+        /// <param name="obj">The obj.</param>
         /// <returns>List{TrackingMember}.</returns>
-        private List<TrackingMember> GetObjectMembers(object Obj)
+        private List<TrackingMember> GetObjectMembers(object obj)
         {
-            var type = Obj.GetType();
+            var type = obj?.GetType();
             while (type != null && type.Assembly.IsDynamic)
             {
                 type = type.BaseType;
@@ -226,7 +227,7 @@ namespace LightDataAccess
                 type,
                 null,
                 new MappingConfiguration()
-            ).Map(Obj, null, fields);
+            ).Map(obj, null, fields);
 
             return fields.TrackingMembers;
         }
