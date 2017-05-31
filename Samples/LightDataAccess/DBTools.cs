@@ -1,21 +1,9 @@
-﻿// ***********************************************************************
-// Assembly         : TSharp.Core
-// Author           : tangjingbo
-// Created          : 08-21-2013
-//
-// Last Modified By : tangjingbo
-// Last Modified On : 08-21-2013
-// ***********************************************************************
-// <copyright file="DBTools.cs" company="Extendsoft">
-//     Copyright (c) Extendsoft. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data.Common;
 using System.Data;
+using System.Threading.Tasks;
 
 namespace LightDataAccess
 {
@@ -379,14 +367,14 @@ namespace LightDataAccess
         /// <param name="changeTracker">The change tracker.</param>
         /// <returns>``0.</returns>
         public static T ToObject<T>(this IDataReader reader, string readerName, string[] excludeFields, ObjectsChangeTracker changeTracker)
-		{
+        {
             T result = new DataReaderToObjectMapper<T>(readerName, null, excludeFields).ReadSingle(reader, changeTracker);
-			if (changeTracker != null)
-			{
-				changeTracker.RegisterObject(result);
-			}
-			return result;
-		}
+            if (changeTracker != null)
+            {
+                changeTracker.RegisterObject(result);
+            }
+            return result;
+        }
 
         /// <summary>
         /// To the objects.
@@ -456,7 +444,7 @@ namespace LightDataAccess
         /// <param name="dbSettings">The db settings.</param>
         /// <param name="includeFields">The include fields.</param>
         /// <param name="excludeFields">The exclude fields.</param>
-        public static void InsertObject(
+        public static Task<int> InsertObject(
             DbConnection conn,
             object obj,
             string tableName,
@@ -468,7 +456,7 @@ namespace LightDataAccess
             using (var cmd = conn.CreateCommand())
             {
                 cmd.BuildInsertCommand(obj, tableName, dbSettings, includeFields, excludeFields);
-                cmd.ExecuteNonQuery();
+                return cmd.ExecuteNonQueryAsync();
             }
         }
 
@@ -479,7 +467,7 @@ namespace LightDataAccess
         /// <param name="obj">The obj.</param>
         /// <param name="tableName">Name of the table.</param>
         /// <param name="dbSettings">The db settings.</param>
-        public static void InsertObject(
+        public static Task<int> InsertObject(
             DbConnection conn,
             object obj,
             string tableName,
@@ -489,7 +477,7 @@ namespace LightDataAccess
             using (var cmd = conn.CreateCommand())
             {
                 cmd.BuildInsertCommand(obj, tableName, dbSettings);
-                cmd.ExecuteNonQuery();
+                return cmd.ExecuteNonQueryAsync();
             }
         }
 
@@ -502,7 +490,7 @@ namespace LightDataAccess
         /// <param name="idFieldNames">The id field names.</param>
         /// <param name="changeTracker">The change tracker.</param>
         /// <param name="dbSettings">The db settings.</param>
-        public static void UpdateObject(
+        public static Task<int> UpdateObject(
             DbConnection conn,
             object obj,
             string tableName,
@@ -511,7 +499,7 @@ namespace LightDataAccess
             DbSettings dbSettings
         )
         {
-            UpdateObject(conn, obj, tableName, idFieldNames, null, null, changeTracker, dbSettings);
+            return UpdateObject(conn, obj, tableName, idFieldNames, null, null, changeTracker, dbSettings);
         }
 
         /// <summary>
@@ -525,7 +513,7 @@ namespace LightDataAccess
         /// <param name="excludeFields">The exclude fields.</param>
         /// <param name="changeTracker">The change tracker.</param>
         /// <param name="dbSettings">The db settings.</param>
-        public static void UpdateObject(
+        public static Task<int> UpdateObject(
             DbConnection conn,
             object obj,
             string tableName,
@@ -550,8 +538,9 @@ namespace LightDataAccess
                     )
                 )
                 {
-                    cmd.ExecuteNonQuery();
+                    return cmd.ExecuteNonQueryAsync();
                 }
+                return Task.FromResult(0);
             }
         }
 
@@ -563,7 +552,7 @@ namespace LightDataAccess
         /// <param name="tableName">Name of the table.</param>
         /// <param name="idFieldNames">The id field names.</param>
         /// <param name="dbSettings">The db settings.</param>
-        public static void UpdateObject(
+        public static Task<int> UpdateObject(
             DbConnection conn,
             object obj,
             string tableName,
@@ -571,7 +560,7 @@ namespace LightDataAccess
             DbSettings dbSettings
         )
         {
-            UpdateObject(conn, obj, tableName, idFieldNames, null, null, null, dbSettings);
+            return UpdateObject(conn, obj, tableName, idFieldNames, null, null, null, dbSettings);
         }
     }
 }

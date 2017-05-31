@@ -1,17 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : TSharp.Core
-// Author           : tangjingbo
-// Created          : 08-21-2013
-//
-// Last Modified By : tangjingbo
-// Last Modified On : 08-21-2013
-// ***********************************************************************
-// <copyright file="DataReaderToObjectMapper.cs" company="Extendsoft">
-//     Copyright (c) Extendsoft. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -29,6 +16,8 @@ namespace LightDataAccess
 {
     /// <summary>
     /// Class DataReaderToObjectMapper
+    /// modify by Jingbo(Tony) on 31 May 2017
+    /// simplize it as a just mapper, don't include the reader.Read() calling.
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEntity>
@@ -391,23 +380,20 @@ namespace LightDataAccess
         /// <returns>`0.</returns>
         public TEntity ReadSingle(IDataReader reader, ObjectsChangeTracker changeTracker)
         {
-            TEntity result = reader.Read() ? MapUsingState(reader, reader) : default(TEntity);
-            if (changeTracker != null)
-            {
-                changeTracker.RegisterObject(result);
-            }
+            TEntity result = MapUsingState(reader, reader);
+            changeTracker?.RegisterObject(result);
             return result;
         }
 
-        /// <summary>
-        /// Reads the collection.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>IEnumerable{`0}.</returns>
-        public IEnumerable<TEntity> ReadCollection(IDataReader reader)
-        {
-            return ReadCollection(reader, null);
-        }
+        ///// <summary>
+        ///// Reads the collection.
+        ///// </summary>
+        ///// <param name="reader">The reader.</param>
+        ///// <returns>IEnumerable{`0}.</returns>
+        //public IEnumerable<TEntity> ReadCollection(IDataReader reader)
+        //{
+        //    return ReadCollection(reader, null);
+        //}
 
         /// <summary>
         /// Reads the collection.
