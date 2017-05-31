@@ -432,7 +432,14 @@ namespace LightDataAccess
                 }
                 readerName = mappingKeyBuilder.ToString();
             }
-            return new DataReaderToObjectMapper<T>(readerName, null, excludeFields).ReadCollection(reader, changeTracker);
+
+            var mapper = new DataReaderToObjectMapper<T>(readerName, null, excludeFields);
+
+            while (reader.Read())
+            {
+                yield return mapper.ReadSingle(reader, changeTracker);
+            }
+
         }
 
         /// <summary>

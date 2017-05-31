@@ -395,24 +395,24 @@ namespace LightDataAccess
         //    return ReadCollection(reader, null);
         //}
 
-        /// <summary>
-        /// Reads the collection.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <param name="changeTracker">The change tracker.</param>
-        /// <returns>IEnumerable{`0}.</returns>
-        public IEnumerable<TEntity> ReadCollection(IDataReader reader, ObjectsChangeTracker changeTracker)
-        {
-            while (reader.Read())
-            {
-                TEntity result = MapUsingState(reader, reader);
-                if (changeTracker != null)
-                {
-                    changeTracker.RegisterObject(result);
-                }
-                yield return result;
-            }
-        }
+        ///// <summary>
+        ///// Reads the collection.
+        ///// </summary>
+        ///// <param name="reader">The reader.</param>
+        ///// <param name="changeTracker">The change tracker.</param>
+        ///// <returns>IEnumerable{`0}.</returns>
+        //public IEnumerable<TEntity> ReadCollection(IDataReader reader, ObjectsChangeTracker changeTracker)
+        //{
+        //    while (reader.Read())
+        //    {
+        //        TEntity result = MapUsingState(reader, reader);
+        //        if (changeTracker != null)
+        //        {
+        //            changeTracker.RegisterObject(result);
+        //        }
+        //        yield return result;
+        //    }
+        //}
 
         /// <summary>
         /// Gets the mapper impl.

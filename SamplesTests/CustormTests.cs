@@ -63,6 +63,7 @@ namespace SamplesTests
                     customers = reader.ToObjects<Customer>("reader1").ToArray();
                 }
             }
+
             Assert.IsTrue(customers.Length == 91);
         }
 
