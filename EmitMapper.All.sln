@@ -81,6 +81,9 @@ Global
 		{F2666E8C-0273-4F7E-A2AA-65F7C8A95E8C} = {1821C660-299A-4BEE-8828-32911AE7F42F}
 		{75C6A518-5A9B-48A4-B267-ECE474041977} = {75F3A083-3C58-4C55-B251-AF6C3FCC2FCB}
 	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C56ED276-B067-4E1C-93E4-243B4B6DDDE3}
+	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
 		Manager = AnkhSVN - Subversion Support for Visual Studio

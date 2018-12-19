@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Copyright></Copyright>
     <PackageReleaseNotes></PackageReleaseNotes>
     <AssemblyVersion>1.2.0.0</AssemblyVersion>
     <Version>0.0.1</Version>
     <PackageId>CoreEmitMapper</PackageId>
-    <Authors>Tony, romankovs and qwer_ty</Authors>
+    <Authors>Jimbo, romankovs and qwer_ty</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -19,11 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.3.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.4.0" />
     <PackageReference Include="Microsoft.Net.Compilers" Version="2.2.0" />
     <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
     <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
     <PackageReference Include="System.Reflection.Emit.ILGeneration" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.3.0" />
   </ItemGroup>
 
 </Project>
