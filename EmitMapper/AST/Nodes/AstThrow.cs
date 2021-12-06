@@ -1,16 +1,16 @@
-﻿using EmitMapper.AST.Interfaces;
+﻿namespace EmitMapper.AST.Nodes;
+
 using System.Reflection.Emit;
 
-namespace EmitMapper.AST.Nodes
-{
-    class AstThrow: IAstNode
-    {
-        public IAstRef exception;
+using EmitMapper.AST.Interfaces;
 
-        public void Compile(CompilationContext context)
-        {
-            exception.Compile(context);
-            context.Emit(OpCodes.Throw);
-        }
+internal class AstThrow : IAstNode
+{
+    public IAstRef Exception;
+
+    public void Compile(CompilationContext context)
+    {
+        this.Exception.Compile(context);
+        context.Emit(OpCodes.Throw);
     }
 }

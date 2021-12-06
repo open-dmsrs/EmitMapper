@@ -1,33 +1,34 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection.Emit;
+
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes
+internal class AstWriteLocal : IAstNode
 {
-    class AstWriteLocal : IAstNode
+    public int LocalIndex;
+
+    public Type LocalType;
+
+    public IAstRefOrValue Value;
+
+    public AstWriteLocal()
     {
-        public int localIndex;
-        public Type localType;
-        public IAstRefOrValue value;
+    }
 
-        public AstWriteLocal()
-        {
-        }
+    public AstWriteLocal(LocalBuilder loc, IAstRefOrValue value)
+    {
+        this.LocalIndex = loc.LocalIndex;
+        this.LocalType = loc.LocalType;
+        this.Value = value;
+    }
 
-        public AstWriteLocal(LocalBuilder loc, IAstRefOrValue value)
-        {
-            localIndex = loc.LocalIndex;
-            localType = loc.LocalType;
-            this.value = value;
-        }
-
-
-        public void Compile(CompilationContext context)
-        {
-            value.Compile(context);
-            CompilationHelper.PrepareValueOnStack(context, localType, value.itemType);
-            context.Emit(OpCodes.Stloc, localIndex);
-        }
+    public void Compile(CompilationContext context)
+    {
+        this.Value.Compile(context);
+        CompilationHelper.PrepareValueOnStack(context, this.LocalType, this.Value.ItemType);
+        context.Emit(OpCodes.Stloc, this.LocalIndex);
     }
 }

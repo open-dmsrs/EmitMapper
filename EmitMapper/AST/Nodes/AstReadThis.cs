@@ -1,51 +1,37 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
+
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes
+internal class AstReadThis : IAstRefOrAddr
 {
-    class AstReadThis : IAstRefOrAddr
+    public Type ThisType;
+
+    public Type ItemType => this.ThisType;
+
+    public virtual void Compile(CompilationContext context)
     {
-        public Type thisType;
-
-        public Type itemType
-        {
-            get
-            {
-                return thisType;
-            }
-        }
-
-        public AstReadThis()
-        {
-        }
-
-        public virtual void Compile(CompilationContext context)
-        {
-            AstReadArgument arg = new AstReadArgument()
-                                      {
-                                          argumentIndex = 0,
-                                          argumentType = thisType
-                                      };
-            arg.Compile(context);
-        }
+        var arg = new AstReadArgument { ArgumentIndex = 0, ArgumentType = this.ThisType };
+        arg.Compile(context);
     }
+}
 
-    class AstReadThisRef : AstReadThis, IAstRef
+internal class AstReadThisRef : AstReadThis, IAstRef
+{
+    public override void Compile(CompilationContext context)
     {
-        override public void Compile(CompilationContext context)
-        {
-            CompilationHelper.CheckIsRef(itemType);
-            base.Compile(context);
-        }
+        CompilationHelper.CheckIsRef(this.ItemType);
+        base.Compile(context);
     }
+}
 
-    class AstReadThisAddr : AstReadThis, IAstRef
+internal class AstReadThisAddr : AstReadThis, IAstRef
+{
+    public override void Compile(CompilationContext context)
     {
-        override public void Compile(CompilationContext context)
-        {
-            CompilationHelper.CheckIsRef(itemType);
-            base.Compile(context);
-        }
+        CompilationHelper.CheckIsRef(this.ItemType);
+        base.Compile(context);
     }
 }

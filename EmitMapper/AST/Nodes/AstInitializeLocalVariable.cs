@@ -1,31 +1,32 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection.Emit;
+
 using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes
+internal class AstInitializeLocalVariable : IAstNode
 {
-    class AstInitializeLocalVariable: IAstNode
+    public int LocalIndex;
+
+    public Type LocalType;
+
+    public AstInitializeLocalVariable()
     {
-        public Type localType;
-        public int localIndex;
+    }
 
-        public AstInitializeLocalVariable()
-        {
-        }
+    public AstInitializeLocalVariable(LocalBuilder loc)
+    {
+        this.LocalType = loc.LocalType;
+        this.LocalIndex = loc.LocalIndex;
+    }
 
-        public AstInitializeLocalVariable(LocalBuilder loc)
+    public void Compile(CompilationContext context)
+    {
+        if (this.LocalType.IsValueType)
         {
-            localType = loc.LocalType;
-            localIndex = loc.LocalIndex;
-        }
-
-        public void Compile(CompilationContext context)
-        {
-            if(localType.IsValueType)
-            {
-                context.Emit(OpCodes.Ldloca, localIndex);
-                context.Emit(OpCodes.Initobj, localType);
-            }
+            context.Emit(OpCodes.Ldloca, this.LocalIndex);
+            context.Emit(OpCodes.Initobj, this.LocalType);
         }
     }
 }

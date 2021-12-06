@@ -1,22 +1,24 @@
-﻿using System.Reflection;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System.Reflection;
 using System.Reflection.Emit;
+
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes
+internal class AstWriteField : IAstNode
 {
-    class AstWriteField: IAstNode
-    {
-        public IAstRefOrAddr targetObject;
-        public IAstRefOrValue value;
-        public FieldInfo fieldInfo;
+    public FieldInfo FieldInfo;
 
-        public void Compile(CompilationContext context)
-        {
-            targetObject.Compile(context);
-            value.Compile(context);
-            CompilationHelper.PrepareValueOnStack(context, fieldInfo.FieldType, value.itemType);
-            context.Emit(OpCodes.Stfld, fieldInfo);
-        }
+    public IAstRefOrAddr TargetObject;
+
+    public IAstRefOrValue Value;
+
+    public void Compile(CompilationContext context)
+    {
+        this.TargetObject.Compile(context);
+        this.Value.Compile(context);
+        CompilationHelper.PrepareValueOnStack(context, this.FieldInfo.FieldType, this.Value.ItemType);
+        context.Emit(OpCodes.Stfld, this.FieldInfo);
     }
 }

@@ -1,9 +1,8 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Interfaces
+using System;
+
+internal interface IAstStackItem : IAstNode
 {
-    interface IAstStackItem: IAstNode
-    {
-        Type itemType { get; }
-    }
+    Type ItemType { get; }
 }

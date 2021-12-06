@@ -1,37 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using EmitMapper.AST.Interfaces;
-using EmitMapper.AST.Helpers;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection.Emit;
 
-namespace EmitMapper.AST.Nodes
+using EmitMapper.AST.Interfaces;
+
+internal class AstTypeof : IAstRef
 {
-	class AstTypeof: IAstRef
-	{
-		public Type type;
+    public Type Type;
 
-		#region IAstStackItem Members
+    #region IAstStackItem Members
 
-		public Type itemType
-		{
-			get 
-			{
-				return typeof(Type);
-			}
-		}
+    public Type ItemType => typeof(Type);
 
-		#endregion
+    #endregion
 
-		#region IAstNode Members
+    #region IAstNode Members
 
-		public void Compile(CompilationContext context)
-		{
-			context.Emit(OpCodes.Ldtoken, type);
-			context.EmitCall(OpCodes.Call, typeof(Type).GetMethod("GetTypeFromHandle"));
-		}
+    public void Compile(CompilationContext context)
+    {
+        context.Emit(OpCodes.Ldtoken, this.Type);
+        context.EmitCall(OpCodes.Call, typeof(Type).GetMethod("GetTypeFromHandle"));
+    }
 
-		#endregion
-	}
+    #endregion
 }

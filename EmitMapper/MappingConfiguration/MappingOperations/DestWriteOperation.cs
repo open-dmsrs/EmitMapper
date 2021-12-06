@@ -1,41 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿namespace EmitMapper.MappingConfiguration.MappingOperations;
 
-namespace EmitMapper.MappingConfiguration.MappingOperations
+using System;
+
+using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+
+public struct ValueToWrite<T>
 {
-	public struct ValueToWrite<T>
-	{
-		public enum Actions : int
-		{
-			write = 0,
-			skip = 1
-		}
+    public enum Actions
+    {
+        write = 0,
 
-		public T value;
-		public Actions action;
+        skip = 1
+    }
 
-		public static ValueToWrite<T> ReturnValue(T value)
-		{
-			return new ValueToWrite<T> { action = Actions.write, value = value };
-		}
-		public static ValueToWrite<T> Skip()
-		{
-			return new ValueToWrite<T> { action = Actions.skip };
-		}
-	}
+    public T value;
 
-	public delegate ValueToWrite<T> ValueGetter<T>(object value, object state);
+    public Actions action;
 
-	public class DestWriteOperation : IDestWriteOperation
-	{
-		public Delegate Getter { get; set; }
-		public MemberDescriptor Destination { get; set; }
+    public static ValueToWrite<T> ReturnValue(T value)
+    {
+        return new ValueToWrite<T> { action = Actions.write, value = value };
+    }
 
-        public override string ToString()
-        {
-            return "DestWriteOperation. Target member:" + Destination.ToString();
-        }
-	}
+    public static ValueToWrite<T> Skip()
+    {
+        return new ValueToWrite<T> { action = Actions.skip };
+    }
+}
+
+public delegate ValueToWrite<T> ValueGetter<T>(object value, object state);
+
+public class DestWriteOperation : IDestWriteOperation
+{
+    public Delegate Getter { get; set; }
+
+    public MemberDescriptor Destination { get; set; }
+
+    public override string ToString()
+    {
+        return "DestWriteOperation. Target member:" + this.Destination;
+    }
 }

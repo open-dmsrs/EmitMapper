@@ -1,41 +1,37 @@
-﻿using System.Reflection.Emit;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System.Reflection.Emit;
+
 using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes
+internal class AstIf : IAstNode
 {
-    class AstIf: IAstNode
+    public IAstValue Condition;
+
+    public AstComplexNode FalseBranch;
+
+    public AstComplexNode TrueBranch;
+
+    #region IAstNode Members
+
+    public void Compile(CompilationContext context)
     {
-        public IAstValue condition;
-        public AstComplexNode trueBranch;
-        public AstComplexNode falseBranch;
+        var elseLabel = context.ILGenerator.DefineLabel();
+        var endIfLabel = context.ILGenerator.DefineLabel();
 
-        #region IAstNode Members
+        this.Condition.Compile(context);
+        context.Emit(OpCodes.Brfalse, elseLabel);
 
-        public void Compile(CompilationContext context)
-        {
-            Label elseLabel = context.ilGenerator.DefineLabel();
-            Label endIfLabel = context.ilGenerator.DefineLabel();
+        if (this.TrueBranch != null)
+            this.TrueBranch.Compile(context);
+        if (this.FalseBranch != null)
+            context.Emit(OpCodes.Br, endIfLabel);
 
-            condition.Compile(context);
-            context.Emit(OpCodes.Brfalse, elseLabel);
-
-            if (trueBranch != null)
-            {
-                trueBranch.Compile(context);
-            }
-            if (falseBranch != null)
-            {
-                context.Emit(OpCodes.Br, endIfLabel);
-            }
-
-            context.ilGenerator.MarkLabel(elseLabel);
-            if (falseBranch != null)
-            {
-                falseBranch.Compile(context);
-            }
-            context.ilGenerator.MarkLabel(endIfLabel);
-        }
-
-        #endregion
+        context.ILGenerator.MarkLabel(elseLabel);
+        if (this.FalseBranch != null)
+            this.FalseBranch.Compile(context);
+        context.ILGenerator.MarkLabel(endIfLabel);
     }
+
+    #endregion
 }

@@ -1,39 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection.Emit;
+
 using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes
+internal class AstBox : IAstRef
 {
-    class AstBox : IAstRef
+    public IAstRefOrValue Value;
+
+    #region IAstReturnValueNode Members
+
+    public Type ItemType => this.Value.ItemType;
+
+    #endregion
+
+    #region IAstNode Members
+
+    public void Compile(CompilationContext context)
     {
-        public IAstRefOrValue value;
+        this.Value.Compile(context);
 
-        #region IAstReturnValueNode Members
-
-        public Type itemType
-        {
-            get 
-            {
-                return value.itemType;  
-            }
-        }
-
-        #endregion
-
-        #region IAstNode Members
-
-        public void Compile(CompilationContext context)
-        {
-            value.Compile(context);
-
-            if (value.itemType.IsValueType)
-            {
-                context.Emit(OpCodes.Box, itemType);
-            }
-        }
-
-        #endregion
+        if (this.Value.ItemType.IsValueType)
+            context.Emit(OpCodes.Box, this.ItemType);
     }
+
+    #endregion
 }

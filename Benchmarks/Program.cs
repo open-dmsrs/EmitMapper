@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Benchmarks
+﻿namespace Benchmarks
 {
-	public class Program
-	{
-		static void Main(string[] args)
-		{
-			SimpleTest.Initialize();
-			NestedClassesTest.Initialize();
-			CustomizationTest.Initialize();
+    public class Program
+    {
+        private static void Main(string[] args)
+        {
+            SimpleTest.Initialize();
+            NestedClassesTest.Initialize();
+            CustomizationTest.Initialize();
 
-			SimpleTest.Run();
-			NestedClassesTest.Run();
-			CustomizationTest.Run();
-		}
-	}
+            SimpleTest.Run();
+            NestedClassesTest.Run();
+            CustomizationTest.Run();
+        }
+    }
 }
 
 /*

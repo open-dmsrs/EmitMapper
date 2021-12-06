@@ -1,35 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using EmitMapper.AST.Interfaces;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection.Emit;
 
-namespace EmitMapper.AST.Nodes
+using EmitMapper.AST.Interfaces;
+
+internal class AstConstantString : IAstRef
 {
-    class AstConstantString: IAstRef
+    public string Str;
+
+    #region IAstStackItem Members
+
+    public Type ItemType => typeof(string);
+
+    #endregion
+
+    #region IAstNode Members
+
+    public void Compile(CompilationContext context)
     {
-        public string str;
-
-        #region IAstStackItem Members
-
-        public Type itemType
-        {
-            get 
-            {
-                return typeof(string);
-            }
-        }
-
-        #endregion
-
-        #region IAstNode Members
-
-        public void Compile(CompilationContext context)
-        {
-            context.Emit(OpCodes.Ldstr, str);
-        }
-
-        #endregion
+        context.Emit(OpCodes.Ldstr, this.Str);
     }
+
+    #endregion
 }

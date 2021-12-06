@@ -1,55 +1,45 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection.Emit;
+
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes
+internal abstract class AstIndirectRead : IAstStackItem
 {
-    abstract class AstIndirectRead : IAstStackItem
+    public Type ArgumentType;
+
+    public Type ItemType => this.ArgumentType;
+
+    public abstract void Compile(CompilationContext context);
+}
+
+internal class AstIndirectReadRef : AstIndirectRead, IAstRef
+{
+    public override void Compile(CompilationContext context)
     {
-        public Type argumentType;
-
-        public Type itemType
-        {
-            get
-            {
-                return argumentType;
-            }
-        }
-
-        public abstract void Compile(CompilationContext context);
+        CompilationHelper.CheckIsRef(this.ItemType);
+        context.Emit(OpCodes.Ldind_Ref, this.ItemType);
     }
+}
 
-    class AstIndirectReadRef : AstIndirectRead, IAstRef
+internal class AstIndirectReadValue : AstIndirectRead, IAstValue
+{
+    public override void Compile(CompilationContext context)
     {
-        override public void Compile(CompilationContext context)
-        {
-            CompilationHelper.CheckIsRef(itemType);
-            context.Emit(OpCodes.Ldind_Ref, itemType);
-        }
+        CompilationHelper.CheckIsValue(this.ItemType);
+        if (this.ItemType == typeof(int))
+            context.Emit(OpCodes.Ldind_I4);
+        else
+            throw new Exception("Unsupported type");
     }
+}
 
-    class AstIndirectReadValue : AstIndirectRead, IAstValue
+internal class AstIndirectReadAddr : AstIndirectRead, IAstAddr
+{
+    public override void Compile(CompilationContext context)
     {
-        override public void Compile(CompilationContext context)
-        {
-            CompilationHelper.CheckIsValue(itemType);
-            if (itemType == typeof(Int32))
-            {
-                context.Emit(OpCodes.Ldind_I4);
-            }
-            else
-            {
-                throw new Exception("Unsupported type");
-            }
-        }
-    }
-
-    class AstIndirectReadAddr : AstIndirectRead, IAstAddr
-    {
-        override public void Compile(CompilationContext context)
-        {
-            CompilationHelper.CheckIsValue(itemType);
-        }
+        CompilationHelper.CheckIsValue(this.ItemType);
     }
 }

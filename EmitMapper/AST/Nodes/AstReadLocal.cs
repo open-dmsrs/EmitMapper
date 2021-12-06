@@ -1,69 +1,64 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection.Emit;
+
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes
+internal class AstReadLocal : IAstStackItem
 {
-    class AstReadLocal : IAstStackItem
+    public int LocalIndex;
+
+    public Type LocalType;
+
+    public AstReadLocal()
     {
-        public int localIndex;
-        public Type localType;
-
-        public Type itemType
-        {
-            get
-            {
-                return localType;
-            }
-        }
-
-        public AstReadLocal()
-        {
-        }
-
-        public AstReadLocal(LocalBuilder loc)
-        {
-            localIndex = loc.LocalIndex;
-            localType = loc.LocalType;
-        }
-
-        public virtual void Compile(CompilationContext context)
-        {
-            context.Emit(OpCodes.Ldloc, localIndex);
-        }
     }
 
-    class AstReadLocalRef : AstReadLocal, IAstRef
+    public AstReadLocal(LocalBuilder loc)
     {
-        override public void Compile(CompilationContext context)
-        {
-            CompilationHelper.CheckIsRef(itemType);
-            base.Compile(context);
-        }
+        this.LocalIndex = loc.LocalIndex;
+        this.LocalType = loc.LocalType;
     }
 
-    class AstReadLocalValue : AstReadLocal, IAstValue
+    public Type ItemType => this.LocalType;
+
+    public virtual void Compile(CompilationContext context)
     {
-        override public void Compile(CompilationContext context)
-        {
-            CompilationHelper.CheckIsValue(itemType);
-            base.Compile(context);
-        }
+        context.Emit(OpCodes.Ldloc, this.LocalIndex);
+    }
+}
+
+internal class AstReadLocalRef : AstReadLocal, IAstRef
+{
+    public override void Compile(CompilationContext context)
+    {
+        CompilationHelper.CheckIsRef(this.ItemType);
+        base.Compile(context);
+    }
+}
+
+internal class AstReadLocalValue : AstReadLocal, IAstValue
+{
+    public override void Compile(CompilationContext context)
+    {
+        CompilationHelper.CheckIsValue(this.ItemType);
+        base.Compile(context);
+    }
+}
+
+internal class AstReadLocalAddr : AstReadLocal, IAstAddr
+{
+    public AstReadLocalAddr(LocalBuilder loc)
+    {
+        this.LocalIndex = loc.LocalIndex;
+        this.LocalType = loc.LocalType.MakeByRefType();
     }
 
-    class AstReadLocalAddr : AstReadLocal, IAstAddr
+    public override void Compile(CompilationContext context)
     {
-        public AstReadLocalAddr(LocalBuilder loc)
-        {
-            localIndex = loc.LocalIndex;
-            localType = loc.LocalType.MakeByRefType();
-        }
-
-        override public void Compile(CompilationContext context)
-        {
-            //CompilationHelper.CheckIsValue(itemType);
-            context.Emit(OpCodes.Ldloca, localIndex);
-        }
+        //CompilationHelper.CheckIsValue(itemType);
+        context.Emit(OpCodes.Ldloca, this.LocalIndex);
     }
 }

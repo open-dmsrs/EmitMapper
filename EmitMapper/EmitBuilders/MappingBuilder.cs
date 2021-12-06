@@ -1,107 +1,109 @@
-﻿using System;
+﻿namespace EmitMapper.EmitBuilders;
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reflection.Emit;
-using EmitMapper.Utils;
 using System.Reflection;
+using System.Reflection.Emit;
+
 using EmitMapper.AST;
-using EmitMapper.AST.Nodes;
-using EmitMapper.MappingConfiguration.MappingOperations;
-using EmitMapper.AST.Interfaces;
 using EmitMapper.AST.Helpers;
-using EmitMapper.Mappers;
-using EmitMapper.MappingConfiguration;
+using EmitMapper.AST.Nodes;
 using EmitMapper.Conversion;
+using EmitMapper.Utils;
 
-namespace EmitMapper.EmitBuilders
+internal class MappingBuilder
 {
-	class MappingBuilder
-	{
-		Type from;
-		Type to;
-		TypeBuilder typeBuilder;
-		public List<object> storedObjects;
-		IMappingConfigurator mappingConfigurator;
-		ObjectMapperManager objectsMapperManager;
+    private readonly IMappingConfigurator mappingConfigurator;
 
-		public MappingBuilder(
-			ObjectMapperManager objectsMapperManager,
-			Type from,
-			Type to,
-			TypeBuilder typeBuilder,
-			IMappingConfigurator mappingConfigurator
-			)
-		{
-			this.objectsMapperManager = objectsMapperManager;
-			this.from = from;
-			this.to = to;
-			this.typeBuilder = typeBuilder;
-			this.storedObjects = new List<object>();
-			this.mappingConfigurator = mappingConfigurator;
-		}
+    private readonly ObjectMapperManager objectsMapperManager;
 
-		public void BuildCopyImplMethod()
-		{
-			if (ReflectionUtils.IsNullable(from))
-			{
-				from = Nullable.GetUnderlyingType(from);
-			}
-			if (ReflectionUtils.IsNullable(to))
-			{
-				to = Nullable.GetUnderlyingType(to);
-			}
+    private readonly TypeBuilder typeBuilder;
 
-			MethodBuilder methodBuilder = typeBuilder.DefineMethod(
-				"MapImpl",
-				MethodAttributes.FamORAssem | MethodAttributes.Virtual,
-				typeof(object),
-				new Type[] { typeof(object), typeof(object), typeof(object) }
-				);
+    private Type from;
 
-			ILGenerator ilGen = methodBuilder.GetILGenerator();
-			CompilationContext compilationContext = new CompilationContext(ilGen);
+    public List<object> storedObjects;
 
-			AstComplexNode mapperAst = new AstComplexNode();
-			var locFrom = ilGen.DeclareLocal(from);
-			var locTo = ilGen.DeclareLocal(to);
-			var locState = ilGen.DeclareLocal(typeof(object));
-			LocalBuilder locException = null;
+    private Type to;
 
-			mapperAst.nodes.Add(BuilderUtils.InitializeLocal(locFrom, 1));
-			mapperAst.nodes.Add(BuilderUtils.InitializeLocal(locTo, 2));
-			mapperAst.nodes.Add(BuilderUtils.InitializeLocal(locState, 3));
+    public MappingBuilder(
+        ObjectMapperManager objectsMapperManager,
+        Type from,
+        Type to,
+        TypeBuilder typeBuilder,
+        IMappingConfigurator mappingConfigurator)
+    {
+        this.objectsMapperManager = objectsMapperManager;
+        this.from = from;
+        this.to = to;
+        this.typeBuilder = typeBuilder;
+
+        /* Unmerged change from project 'EmitMapper (netstandard2.1)'
+        Before:
+                    this.storedObjects = new List<object>();
+        After:
+                    this.storedObjects = new List<object>();
+        */
+        this.storedObjects = new List<object>();
+        this.mappingConfigurator = mappingConfigurator;
+    }
+
+    public void BuildCopyImplMethod()
+    {
+        if (ReflectionUtils.IsNullable(this.from))
+            this.from = Nullable.GetUnderlyingType(this.from);
+        if (ReflectionUtils.IsNullable(this.to))
+            this.to = Nullable.GetUnderlyingType(this.to);
+
+        var methodBuilder = this.typeBuilder.DefineMethod(
+            "MapImpl",
+            MethodAttributes.Public | MethodAttributes.Virtual,
+            typeof(object),
+            new[] { typeof(object), typeof(object), typeof(object) });
+
+        var ilGen = methodBuilder.GetILGenerator();
+        var compilationContext = new CompilationContext(ilGen);
+
+        var mapperAst = new AstComplexNode();
+
+        var locFrom = ilGen.DeclareLocal(this.from);
+        var locTo = ilGen.DeclareLocal(this.to);
+        var locState = ilGen.DeclareLocal(typeof(object));
+        LocalBuilder locException = null;
+
+        mapperAst.Nodes.Add(BuilderUtils.InitializeLocal(locFrom, 1));
+        mapperAst.Nodes.Add(BuilderUtils.InitializeLocal(locTo, 2));
+        mapperAst.Nodes.Add(BuilderUtils.InitializeLocal(locState, 3));
 
 #if DEBUG
-			locException = compilationContext.ilGenerator.DeclareLocal(typeof(Exception));
+        locException = compilationContext.ILGenerator.DeclareLocal(typeof(Exception));
 #endif
-			var mappingOperations = mappingConfigurator.GetMappingOperations(from, to);
-			StaticConvertersManager staticConverter = mappingConfigurator.GetStaticConvertersManager();
-            mapperAst.nodes.Add(
-				new MappingOperationsProcessor()
-				{
-					locException = locException,
-					locFrom = locFrom,
-					locState = locState,
-					locTo = locTo,
-					objectsMapperManager = objectsMapperManager,
-					compilationContext = compilationContext,
-					storedObjects = storedObjects,
-					operations = mappingOperations,
-					mappingConfigurator = mappingConfigurator,
-					rootOperation = mappingConfigurator.GetRootMappingOperation(from, to),
-					staticConvertersManager = staticConverter ?? StaticConvertersManager.DefaultInstance
-				}.ProcessOperations()
-			);
-			mapperAst.nodes.Add(
-				new AstReturn()
-				{
-					returnType = typeof(object),
-					returnValue = AstBuildHelper.ReadLocalRV(locTo)
-				}
-			);
 
-			mapperAst.Compile(compilationContext);
-		}
-	}
+        /* Unmerged change from project 'EmitMapper (netstandard2.1)'
+        Before:
+                    var mappingOperations = mappingConfigurator.GetMappingOperations(from, to);
+        After:
+                    var mappingOperations = mappingConfigurator.GetMappingOperations(from, to);
+        */
+        var mappingOperations = this.mappingConfigurator.GetMappingOperations(this.from, this.to);
+        var staticConverter = this.mappingConfigurator.GetStaticConvertersManager();
+        mapperAst.Nodes.Add(
+            new MappingOperationsProcessor
+            {
+                locException = locException,
+                locFrom = locFrom,
+                locState = locState,
+                locTo = locTo,
+                objectsMapperManager = this.objectsMapperManager,
+                compilationContext = compilationContext,
+                storedObjects = this.storedObjects,
+                operations = mappingOperations,
+                mappingConfigurator = this.mappingConfigurator,
+                rootOperation = this.mappingConfigurator.GetRootMappingOperation(this.from, this.to),
+                staticConvertersManager = staticConverter ?? StaticConvertersManager.DefaultInstance
+            }.ProcessOperations());
+        mapperAst.Nodes.Add(
+            new AstReturn { ReturnType = typeof(object), ReturnValue = AstBuildHelper.ReadLocalRV(locTo) });
+
+        mapperAst.Compile(compilationContext);
+    }
 }

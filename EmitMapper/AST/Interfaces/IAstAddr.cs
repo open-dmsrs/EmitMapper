@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Interfaces
+internal interface IAstAddr : IAstRefOrAddr
 {
-    interface IAstAddr : IAstRefOrAddr
-    {
-    }
 }

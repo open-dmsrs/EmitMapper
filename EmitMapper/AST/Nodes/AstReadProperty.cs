@@ -1,51 +1,44 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection;
+
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes
+internal class AstReadProperty : IAstRefOrValue
 {
-    class AstReadProperty : IAstRefOrValue
+    public PropertyInfo PropertyInfo;
+
+    public IAstRefOrAddr SourceObject;
+
+    public Type ItemType => this.PropertyInfo.PropertyType;
+
+    public virtual void Compile(CompilationContext context)
     {
-        public IAstRefOrAddr sourceObject;
-        public PropertyInfo propertyInfo;
+        var mi = this.PropertyInfo.GetGetMethod();
 
-        public Type itemType
-        {
-            get
-            {
-                return propertyInfo.PropertyType;
-            }
-        }
+        if (mi == null)
+            throw new Exception("Property " + this.PropertyInfo.Name + " doesn't have get accessor");
 
-        public virtual void Compile(CompilationContext context)
-        {
-            MethodInfo mi = propertyInfo.GetGetMethod();
-
-            if (mi == null)
-            {
-                throw new Exception("Property " + propertyInfo.Name + " doesn't have get accessor");
-            }
-
-            AstBuildHelper.CallMethod(mi, sourceObject, null).Compile(context);
-        }
+        AstBuildHelper.CallMethod(mi, this.SourceObject, null).Compile(context);
     }
+}
 
-    class AstReadPropertyRef : AstReadProperty, IAstRef
+internal class AstReadPropertyRef : AstReadProperty, IAstRef
+{
+    public override void Compile(CompilationContext context)
     {
-        override public void Compile(CompilationContext context)
-        {
-            CompilationHelper.CheckIsRef(itemType);
-            base.Compile(context);
-        }
+        CompilationHelper.CheckIsRef(this.ItemType);
+        base.Compile(context);
     }
+}
 
-    class AstReadPropertyValue : AstReadProperty, IAstValue
+internal class AstReadPropertyValue : AstReadProperty, IAstValue
+{
+    public override void Compile(CompilationContext context)
     {
-        override public void Compile(CompilationContext context)
-        {
-            CompilationHelper.CheckIsValue(itemType);
-            base.Compile(context);
-        }
+        CompilationHelper.CheckIsValue(this.ItemType);
+        base.Compile(context);
     }
 }

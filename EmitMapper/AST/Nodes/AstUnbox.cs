@@ -1,23 +1,21 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection.Emit;
+
 using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes
+internal class AstUnbox : IAstValue
 {
-    class AstUnbox : IAstValue
+    public IAstRef RefObj;
+
+    public Type UnboxedType;
+
+    public Type ItemType => this.UnboxedType;
+
+    public void Compile(CompilationContext context)
     {
-        public Type unboxedType;
-        public IAstRef refObj;
-
-        public Type itemType
-        {
-            get { return unboxedType; }
-        }
-
-        public void Compile(CompilationContext context)
-        {
-            refObj.Compile(context);
-            context.Emit(OpCodes.Unbox_Any, unboxedType);
-        }
+        this.RefObj.Compile(context);
+        context.Emit(OpCodes.Unbox_Any, this.UnboxedType);
     }
 }

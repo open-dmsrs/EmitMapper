@@ -1,10 +1,8 @@
-﻿namespace EmitMapper.Mappers
-{
-    /// <summary>
-    /// Mapper for classes
-    /// </summary>
-    internal abstract class MapperForClassImpl : ObjectsMapperBaseImpl
-    {
+﻿namespace EmitMapper.Mappers;
 
-    }
+/// <summary>
+///     Mapper for classes
+/// </summary>
+public abstract class MapperForClassImpl : ObjectsMapperBaseImpl
+{
 }

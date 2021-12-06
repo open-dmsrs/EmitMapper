@@ -1,44 +1,41 @@
-﻿using EmitMapper.Mappers;
+﻿namespace EmitMapper;
+
 using System.Collections.Generic;
 
-namespace EmitMapper
+using EmitMapper.Mappers;
+
+public class ObjectsMapper<TFrom, TTo>
 {
-    public class ObjectsMapper<TFrom, TTo>
+    public ObjectsMapper(ObjectsMapperBaseImpl mapperImpl)
     {
-        public TTo Map(TFrom from, TTo to, object state)
-        {
-			return (TTo)MapperImpl.Map(from, to, state);
-        }
+        this.MapperImpl = mapperImpl;
+    }
 
-		public TTo Map(TFrom from, TTo to)
-		{
-			return (TTo)MapperImpl.Map(from, to, null);
-		}
+    public ObjectsMapperBaseImpl MapperImpl { get; set; }
 
-        public TTo Map(TFrom from)
-        {
-            return (TTo)MapperImpl.Map(from);
-        }
+    public TTo Map(TFrom from, TTo to, object state)
+    {
+        return (TTo)this.MapperImpl.Map(from, to, state);
+    }
 
-		public TTo MapUsingState(TFrom from, object state)
-		{
-			return (TTo)MapperImpl.Map(from, null, state);
-		}
+    public TTo Map(TFrom from, TTo to)
+    {
+        return (TTo)this.MapperImpl.Map(from, to, null);
+    }
 
+    public TTo Map(TFrom from)
+    {
+        return (TTo)this.MapperImpl.Map(from);
+    }
 
-        public ObjectsMapper(ObjectsMapperBaseImpl mapperImpl)
-        {
-            MapperImpl = mapperImpl;
-        }
+    public TTo MapUsingState(TFrom from, object state)
+    {
+        return (TTo)this.MapperImpl.Map(from, null, state);
+    }
 
-		public IEnumerable<TTo> MapEnum(IEnumerable<TFrom> sourceCollection)
-		{
-			foreach (TFrom src in sourceCollection)
-			{
-				yield return Map(src);
-			}
-		}
-
-        public ObjectsMapperBaseImpl MapperImpl { get; set; }
+    public IEnumerable<TTo> MapEnum(IEnumerable<TFrom> sourceCollection)
+    {
+        foreach (var src in sourceCollection)
+            yield return this.Map(src);
     }
 }

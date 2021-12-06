@@ -1,27 +1,24 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection.Emit;
+
 using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes
+internal class AstConstantNull : IAstRefOrValue
 {
-    class AstConstantNull : IAstRefOrValue
+    #region IAstReturnValueNode Members
+
+    public Type ItemType => typeof(object);
+
+    #endregion
+
+    #region IAstNode Members
+
+    public void Compile(CompilationContext context)
     {
-        #region IAstReturnValueNode Members
-
-        public Type itemType
-        {
-            get { return typeof(object); }
-        }
-
-        #endregion
-
-        #region IAstNode Members
-
-        public void Compile(CompilationContext context)
-        {
-            context.Emit(OpCodes.Ldnull);
-        }
-
-        #endregion
+        context.Emit(OpCodes.Ldnull);
     }
+
+    #endregion
 }

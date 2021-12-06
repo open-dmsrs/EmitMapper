@@ -1,25 +1,23 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection.Emit;
+
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes
+internal class AstReturn : IAstNode, IAstAddr
 {
-    class AstReturn : IAstNode, IAstAddr
+    public Type ReturnType;
+
+    public IAstRefOrValue ReturnValue;
+
+    public Type ItemType => this.ReturnType;
+
+    public void Compile(CompilationContext context)
     {
-        public Type returnType;
-        public IAstRefOrValue returnValue;
-
-        public void Compile(CompilationContext context)
-        {
-            returnValue.Compile(context);
-            CompilationHelper.PrepareValueOnStack(context, returnType, returnValue.itemType);
-            context.Emit(OpCodes.Ret);
-        }
-
-        public Type itemType
-        {
-            get { return returnType; }
-        }
+        this.ReturnValue.Compile(context);
+        CompilationHelper.PrepareValueOnStack(context, this.ReturnType, this.ReturnValue.ItemType);
+        context.Emit(OpCodes.Ret);
     }
 }

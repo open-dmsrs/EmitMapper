@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿namespace EmitMapper.MappingConfiguration;
 
-namespace EmitMapper.MappingConfiguration
+using System;
+
+public interface ICustomConverter
 {
-    public interface ICustomConverter
-    {
-        void Initialize(Type from, Type to, MapConfigBaseImpl mappingConfig);
-    }
+    void Initialize(Type from, Type to, MapConfigBaseImpl mappingConfig);
 }

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using EmitMapper;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using EmitMapper;
 using LightDataAccess;
-using System.Data.Common;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Configuration;
+using System.Data.Common;
+using System.Linq;
 using System.Transactions;
 
 namespace SamplesTests
@@ -37,12 +35,13 @@ namespace SamplesTests
             _connectionConfig = ConfigurationManager.ConnectionStrings["NorthWindSqlite"];
             _factory = DbProviderFactories.GetFactory(_connectionConfig.ProviderName);
         }
-        DbProviderFactory _factory;
-        ConnectionStringSettings _connectionConfig;
+
+        private readonly DbProviderFactory _factory;
+        private readonly ConnectionStringSettings _connectionConfig;
 
         private DbConnection CreateConnection()
         {
-            var result = _factory.CreateConnection();
+            DbConnection result = _factory.CreateConnection();
             result.ConnectionString = _connectionConfig.ConnectionString;
             result.Open();
             return result;
@@ -52,13 +51,13 @@ namespace SamplesTests
         public void GetCustomers()
         {
             Customer[] customers;
-            using (var connection = CreateConnection())
-            using (var cmd = _factory.CreateCommand())
+            using (DbConnection connection = CreateConnection())
+            using (DbCommand cmd = _factory.CreateCommand())
             {
                 cmd.Connection = connection;
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.CommandText = "select * from [Customers]";
-                using (var reader = cmd.ExecuteReader())
+                using (DbDataReader reader = cmd.ExecuteReader())
                 {
                     customers = reader.ToObjects<Customer>("reader1").ToArray();
                 }
@@ -75,10 +74,10 @@ namespace SamplesTests
             Guid guid = Guid.NewGuid();
             // todo: there is a bug , In the callstack of DBTools and DataReaderToObjectMapper ocur two times Reader.Read(); so..
 
-            using (var ts = new TransactionScope())
-            using (var connection = CreateConnection())
+            using (TransactionScope ts = new TransactionScope())
+            using (DbConnection connection = CreateConnection())
             {
-                var customer = DBTools.ExecuteReader(
+                Customer customer = DBTools.ExecuteReader(
                     connection,
                     "select * from Customers limit 1 ",
                     null,
@@ -88,11 +87,11 @@ namespace SamplesTests
 
 
 
-                var tracker = new ObjectsChangeTracker();
+                ObjectsChangeTracker tracker = new ObjectsChangeTracker();
                 tracker.RegisterObject(customer);
                 customer.Address = guid.ToString();
 
-                var result = DBTools.UpdateObject(
+                System.Threading.Tasks.Task<int> result = DBTools.UpdateObject(
                           connection,
                           customer,
                           "Customers",
@@ -106,10 +105,10 @@ namespace SamplesTests
         [TestMethod]
         public void InsertTest()
         {
-            using (var ts = new TransactionScope())
-            using (var connection = CreateConnection())
+            using (TransactionScope ts = new TransactionScope())
+            using (DbConnection connection = CreateConnection())
             {
-                var rs = DBTools.InsertObject(connection, new { col1 = 10, col2 = 11, col3 = 12, col4 = 13, col5 = 1, col6 = 2 }, "test", DbSettings.MSSQL).Result;
+                int rs = DBTools.InsertObject(connection, new { col1 = 10, col2 = 11, col3 = 12, col4 = 13, col5 = 1, col6 = 2 }, "test", DbSettings.MSSQL).Result;
                 ts.Complete();
                 Assert.IsTrue(rs == 1);
             }

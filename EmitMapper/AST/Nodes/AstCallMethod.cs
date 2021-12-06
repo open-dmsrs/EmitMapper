@@ -1,70 +1,61 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Collections.Generic;
 using System.Reflection;
+
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
-
-namespace EmitMapper.AST.Nodes
+internal class AstCallMethod : IAstRefOrValue
 {
-    class AstCallMethod: IAstRefOrValue
+    public List<IAstStackItem> Arguments;
+
+    public IAstRefOrAddr InvocationObject;
+
+    public MethodInfo MethodInfo;
+
+    public AstCallMethod(MethodInfo methodInfo, IAstRefOrAddr invocationObject, List<IAstStackItem> arguments)
     {
-        public MethodInfo methodInfo;
-        public IAstRefOrAddr invocationObject;
-        public List<IAstStackItem> arguments;
-
-		public AstCallMethod(
-			MethodInfo methodInfo,
-			IAstRefOrAddr invocationObject,
-            List<IAstStackItem> arguments)
-		{
-			if (methodInfo == null)
-			{
-				throw new InvalidOperationException("methodInfo is null");
-			}
-			this.methodInfo = methodInfo;
-			this.invocationObject = invocationObject;
-			this.arguments = arguments;
-		}
-
-        public Type itemType
-        {
-            get
-            {
-                return methodInfo.ReturnType;
-            }
-        }
-
-        public virtual void Compile(CompilationContext context)
-        {
-            CompilationHelper.EmitCall(context, invocationObject, methodInfo, arguments);
-        }
+        if (methodInfo == null)
+            throw new InvalidOperationException("methodInfo is null");
+        this.MethodInfo = methodInfo;
+        this.InvocationObject = invocationObject;
+        this.Arguments = arguments;
     }
 
-    class AstCallMethodRef : AstCallMethod, IAstRef
-    {
-        public AstCallMethodRef(MethodInfo methodInfo, IAstRefOrAddr invocationObject, List<IAstStackItem> arguments)
-            : base(methodInfo, invocationObject, arguments)
-		{
-		}
+    public Type ItemType => this.MethodInfo.ReturnType;
 
-        override public void Compile(CompilationContext context)
-        {
-            CompilationHelper.CheckIsRef(itemType);
-            base.Compile(context);
-        }
+    public virtual void Compile(CompilationContext context)
+    {
+        CompilationHelper.EmitCall(context, this.InvocationObject, this.MethodInfo, this.Arguments);
+    }
+}
+
+internal class AstCallMethodRef : AstCallMethod, IAstRef
+{
+    public AstCallMethodRef(MethodInfo methodInfo, IAstRefOrAddr invocationObject, List<IAstStackItem> arguments)
+        : base(methodInfo, invocationObject, arguments)
+    {
     }
 
-    class AstCallMethodValue : AstCallMethod, IAstValue
+    public override void Compile(CompilationContext context)
     {
-        public AstCallMethodValue(MethodInfo methodInfo, IAstRefOrAddr invocationObject, List<IAstStackItem> arguments)
-			: base(methodInfo, invocationObject, arguments)
-		{
-		}
-        override public void Compile(CompilationContext context)
-        {
-            CompilationHelper.CheckIsValue(itemType);
-            base.Compile(context);
-        }
+        CompilationHelper.CheckIsRef(this.ItemType);
+        base.Compile(context);
+    }
+}
+
+internal class AstCallMethodValue : AstCallMethod, IAstValue
+{
+    public AstCallMethodValue(MethodInfo methodInfo, IAstRefOrAddr invocationObject, List<IAstStackItem> arguments)
+        : base(methodInfo, invocationObject, arguments)
+    {
+    }
+
+    public override void Compile(CompilationContext context)
+    {
+        CompilationHelper.CheckIsValue(this.ItemType);
+        base.Compile(context);
     }
 }

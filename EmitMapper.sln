@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.3
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{1821C660-299A-4BEE-8828-32911AE7F42F}"
 EndProject
@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightDataAccess", "Samples\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMConfigurations", "Samples\EMConfigurations\EMConfigurations.csproj", "{F9221CD0-0B56-4CA1-857B-7B19DC509D59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmitMapper", "EmitMapper\EmitMapper.csproj", "{1B6AB0C8-B8E2-47AC-89E8-8B029EA1BCA2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmarks", "Benchmarks\Benchmarks.csproj", "{F2666E8C-0273-4F7E-A2AA-65F7C8A95E8C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmitMapper.Mvc.Net", "Samples\EmitMapper.Mvc.Net\EmitMapper.Mvc.Net.csproj", "{75C6A518-5A9B-48A4-B267-ECE474041977}"
@@ -21,11 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mvc", "Mvc", "{75F3A083-3C5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B0D33525-2360-43C0-9866-BE507A0B069D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmitMapperTests.NUnit", "EmitMapperTests.NUnit\EmitMapperTests.NUnit.csproj", "{253E7488-760E-4079-A13C-A8C7489B8F97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitMapper", "EmitMapper\EmitMapper.csproj", "{9E456898-83B2-44F9-BA09-D69CCC81D6C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreEmitMapper", "CoreEmitMapper\CoreEmitMapper.csproj", "{122B9A16-EC4F-4B6F-B899-ECE2405E7779}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitMapper.xUnit", "EmitMapper.xUnit\EmitMapper.xUnit.csproj", "{0049C5A0-1EC9-435E-A126-3FDB162C9DA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreEmitMapper.xUnit", "CoreEmitMapper.xUnit\CoreEmitMapper.xUnit.csproj", "{985648CD-F0E8-403C-86EE-568C8BAFC6CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary1", "ClassLibrary1\ClassLibrary1.csproj", "{EBD52DBE-6900-49CB-89F5-DE6C3E95AD7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +43,6 @@ Global
 		{F9221CD0-0B56-4CA1-857B-7B19DC509D59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9221CD0-0B56-4CA1-857B-7B19DC509D59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9221CD0-0B56-4CA1-857B-7B19DC509D59}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1B6AB0C8-B8E2-47AC-89E8-8B029EA1BCA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1B6AB0C8-B8E2-47AC-89E8-8B029EA1BCA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1B6AB0C8-B8E2-47AC-89E8-8B029EA1BCA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1B6AB0C8-B8E2-47AC-89E8-8B029EA1BCA2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F2666E8C-0273-4F7E-A2AA-65F7C8A95E8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F2666E8C-0273-4F7E-A2AA-65F7C8A95E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2666E8C-0273-4F7E-A2AA-65F7C8A95E8C}.Release|Any CPU.Build.0 = Release|Any CPU
@@ -56,18 +50,18 @@ Global
 		{75C6A518-5A9B-48A4-B267-ECE474041977}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75C6A518-5A9B-48A4-B267-ECE474041977}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75C6A518-5A9B-48A4-B267-ECE474041977}.Release|Any CPU.Build.0 = Release|Any CPU
-		{253E7488-760E-4079-A13C-A8C7489B8F97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{253E7488-760E-4079-A13C-A8C7489B8F97}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{253E7488-760E-4079-A13C-A8C7489B8F97}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{253E7488-760E-4079-A13C-A8C7489B8F97}.Release|Any CPU.Build.0 = Release|Any CPU
-		{122B9A16-EC4F-4B6F-B899-ECE2405E7779}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{122B9A16-EC4F-4B6F-B899-ECE2405E7779}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{122B9A16-EC4F-4B6F-B899-ECE2405E7779}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{122B9A16-EC4F-4B6F-B899-ECE2405E7779}.Release|Any CPU.Build.0 = Release|Any CPU
-		{985648CD-F0E8-403C-86EE-568C8BAFC6CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{985648CD-F0E8-403C-86EE-568C8BAFC6CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{985648CD-F0E8-403C-86EE-568C8BAFC6CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{985648CD-F0E8-403C-86EE-568C8BAFC6CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E456898-83B2-44F9-BA09-D69CCC81D6C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E456898-83B2-44F9-BA09-D69CCC81D6C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E456898-83B2-44F9-BA09-D69CCC81D6C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E456898-83B2-44F9-BA09-D69CCC81D6C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0049C5A0-1EC9-435E-A126-3FDB162C9DA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0049C5A0-1EC9-435E-A126-3FDB162C9DA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0049C5A0-1EC9-435E-A126-3FDB162C9DA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0049C5A0-1EC9-435E-A126-3FDB162C9DA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBD52DBE-6900-49CB-89F5-DE6C3E95AD7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBD52DBE-6900-49CB-89F5-DE6C3E95AD7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBD52DBE-6900-49CB-89F5-DE6C3E95AD7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBD52DBE-6900-49CB-89F5-DE6C3E95AD7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +73,9 @@ Global
 		{F2666E8C-0273-4F7E-A2AA-65F7C8A95E8C} = {1821C660-299A-4BEE-8828-32911AE7F42F}
 		{75C6A518-5A9B-48A4-B267-ECE474041977} = {75F3A083-3C58-4C55-B251-AF6C3FCC2FCB}
 		{75F3A083-3C58-4C55-B251-AF6C3FCC2FCB} = {1821C660-299A-4BEE-8828-32911AE7F42F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D2B312C-E842-47F4-BB27-3FAB3EB3D5F0}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True

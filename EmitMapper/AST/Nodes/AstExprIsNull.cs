@@ -1,57 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using EmitMapper.AST.Interfaces;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection.Emit;
-using EmitMapper.Utils;
+
 using EmitMapper.AST.Helpers;
+using EmitMapper.AST.Interfaces;
+using EmitMapper.Utils;
 
-namespace EmitMapper.AST.Nodes
+internal class AstExprIsNull : IAstValue
 {
-    class AstExprIsNull : IAstValue
+    private readonly IAstRefOrValue value;
+
+    public AstExprIsNull(IAstRefOrValue value)
     {
-        IAstRefOrValue value;
-
-		public AstExprIsNull(IAstRefOrValue value)
-        {
-            this.value = value;
-        }
-
-        #region IAstReturnValueNode Members
-
-        public Type itemType
-        {
-            get { return typeof(Int32); }
-        }
-
-        #endregion
-
-        #region IAstNode Members
-
-        public void Compile(CompilationContext context)
-        {
-            if (!(value is IAstRef) && !ReflectionUtils.IsNullable(value.itemType))
-            {
-                context.Emit(OpCodes.Ldc_I4_1);
-            }
-			else if (ReflectionUtils.IsNullable(value.itemType))
-			{
-				AstBuildHelper.ReadPropertyRV(
-					new AstValueToAddr((IAstValue)value),
-					value.itemType.GetProperty("HasValue")
-				).Compile(context);
-				context.Emit(OpCodes.Ldc_I4_0);
-				context.Emit(OpCodes.Ceq);
-			}
-			else
-			{
-				value.Compile(context);
-				new AstConstantNull().Compile(context);
-				context.Emit(OpCodes.Ceq);
-			}
-        }
-
-        #endregion
+        this.value = value;
     }
+
+    #region IAstReturnValueNode Members
+
+    public Type ItemType => typeof(int);
+
+    #endregion
+
+    #region IAstNode Members
+
+    public void Compile(CompilationContext context)
+    {
+        if (!(this.value is IAstRef) && !ReflectionUtils.IsNullable(this.value.ItemType))
+        {
+            context.Emit(OpCodes.Ldc_I4_1);
+        }
+        else if (ReflectionUtils.IsNullable(this.value.ItemType))
+        {
+            AstBuildHelper.ReadPropertyRV(
+                new AstValueToAddr((IAstValue)this.value),
+                this.value.ItemType.GetProperty("HasValue")).Compile(context);
+            context.Emit(OpCodes.Ldc_I4_0);
+            context.Emit(OpCodes.Ceq);
+        }
+        else
+        {
+            this.value.Compile(context);
+            new AstConstantNull().Compile(context);
+            context.Emit(OpCodes.Ceq);
+        }
+    }
+
+    #endregion
 }

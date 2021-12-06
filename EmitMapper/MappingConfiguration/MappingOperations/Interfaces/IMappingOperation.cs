@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿namespace EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
-namespace EmitMapper.MappingConfiguration.MappingOperations
+public interface IMappingOperation
 {
-	public interface IMappingOperation
-	{
-	}
 }

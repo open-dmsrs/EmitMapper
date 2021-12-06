@@ -1,49 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿namespace EmitMapper.MappingConfiguration;
+
+using System;
+
+using EmitMapper.Conversion;
 using EmitMapper.MappingConfiguration.MappingOperations;
+using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
-namespace EmitMapper.MappingConfiguration
+public class CustomMapConfig : IMappingConfigurator
 {
-	public class CustomMapConfig : IMappingConfigurator
-	{
-		public Func<Type, Type, IMappingOperation[]> GetMappingOperationFunc { get; set; }
-		public string ConfigurationName { get; set; }
+    public Func<Type, Type, IMappingOperation[]> GetMappingOperationFunc { get; set; }
 
-		#region IMappingConfigurator Members
+    public string ConfigurationName { get; set; }
 
-		public IMappingOperation[] GetMappingOperations(Type from, Type to)
-		{
-			if (GetMappingOperationFunc == null)
-			{
-				return new IMappingOperation[0];
-			}
-			return GetMappingOperationFunc(from, to);
-		}
+    #region IMappingConfigurator Members
 
-		public string GetConfigurationName()
-		{
-			return ConfigurationName;
-		}
+    public StaticConvertersManager GetStaticConvertersManager()
+    {
+        return null;
+    }
 
-		public IRootMappingOperation GetRootMappingOperation(Type from, Type to)
-		{
-			return null;
-		}
+    #endregion
 
+    #region IMappingConfigurator Members
 
-		#endregion
+    public IMappingOperation[] GetMappingOperations(Type from, Type to)
+    {
+        if (this.GetMappingOperationFunc == null)
+            return new IMappingOperation[0];
+        return this.GetMappingOperationFunc(from, to);
+    }
 
+    public string GetConfigurationName()
+    {
+        return this.ConfigurationName;
+    }
 
-		#region IMappingConfigurator Members
+    public IRootMappingOperation GetRootMappingOperation(Type from, Type to)
+    {
+        return null;
+    }
 
-
-		public StaticConvertersManager GetStaticConvertersManager()
-		{
-			return null;
-		}
-
-		#endregion
-	}
+    #endregion
 }

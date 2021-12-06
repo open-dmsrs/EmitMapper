@@ -1,57 +1,52 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection.Emit;
+
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes
+internal class AstReadArrayItem : IAstStackItem
 {
-    class AstReadArrayItem : IAstStackItem
+    public IAstRef Array;
+
+    public int Index;
+
+    public Type ItemType => this.Array.ItemType.GetElementType();
+
+    public virtual void Compile(CompilationContext context)
     {
-        public IAstRef array;
-        public int index;
-
-        public Type itemType
-        {
-            get
-            {
-                return array.itemType.GetElementType();
-            }
-        }
-
-        public virtual void Compile(CompilationContext context)
-        {
-            array.Compile(context);
-            context.Emit(OpCodes.Ldc_I4, index);
-            context.Emit(OpCodes.Ldelem, itemType);
-        }
+        this.Array.Compile(context);
+        context.Emit(OpCodes.Ldc_I4, this.Index);
+        context.Emit(OpCodes.Ldelem, this.ItemType);
     }
+}
 
-    class AstReadArrayItemRef : AstReadArrayItem, IAstRef
+internal class AstReadArrayItemRef : AstReadArrayItem, IAstRef
+{
+    public override void Compile(CompilationContext context)
     {
-        override public void Compile(CompilationContext context)
-        {
-            CompilationHelper.CheckIsRef(itemType);
-            base.Compile(context);
-        }
+        CompilationHelper.CheckIsRef(this.ItemType);
+        base.Compile(context);
     }
+}
 
-    class AstReadArrayItemValue: AstReadArrayItem, IAstValue
+internal class AstReadArrayItemValue : AstReadArrayItem, IAstValue
+{
+    public override void Compile(CompilationContext context)
     {
-        override public void Compile(CompilationContext context)
-        {
-            CompilationHelper.CheckIsValue(itemType);
-            base.Compile(context);
-        }
+        CompilationHelper.CheckIsValue(this.ItemType);
+        base.Compile(context);
     }
+}
 
-    class AstReadArrayItemAddr : AstReadArrayItem, IAstAddr
+internal class AstReadArrayItemAddr : AstReadArrayItem, IAstAddr
+{
+    public override void Compile(CompilationContext context)
     {
-        override public void Compile(CompilationContext context)
-        {
-            CompilationHelper.CheckIsValue(itemType);
-            array.Compile(context);
-            context.Emit(OpCodes.Ldc_I4, index);
-            context.Emit(OpCodes.Ldelema, itemType);
-        }
+        CompilationHelper.CheckIsValue(this.ItemType);
+        this.Array.Compile(context);
+        context.Emit(OpCodes.Ldc_I4, this.Index);
+        context.Emit(OpCodes.Ldelema, this.ItemType);
     }
 }

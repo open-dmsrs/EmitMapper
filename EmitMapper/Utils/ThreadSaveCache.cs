@@ -1,26 +1,30 @@
-﻿using System;
+﻿namespace EmitMapper.Utils;
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace EmitMapper.Utils
+internal class ThreadSaveCache
 {
-    class ThreadSaveCache
-    {
-        Dictionary<string, object> _cache = new Dictionary<string,object>();
+    private readonly Dictionary<string, object> _cache = new();
 
-        public T Get<T>(string key, Func<object> getter)
+    public T Get<T>(string key, Func<object> getter)
+    {
+        lock (this._cache)
         {
-            lock(_cache)
+            if
+                /* Unmerged change from project 'EmitMapper (netstandard2.1)'
+                Before:
+                                if(!_cache.TryGetValue(key, out value))
+                After:
+                                if (!_cache.TryGetValue(key, out value))
+                */
+                (!this._cache.TryGetValue(key, out var value))
             {
-                object value;
-                if(!_cache.TryGetValue(key, out value))
-                {
-                    value = getter();
-                    _cache[key] = value;
-                }
-                return (T)value;
+                value = getter();
+                this._cache[key] = value;
             }
+
+            return (T)value;
         }
     }
 }

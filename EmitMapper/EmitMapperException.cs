@@ -1,38 +1,36 @@
-﻿using System;
+﻿namespace EmitMapper;
+
+using System;
+
 using EmitMapper.MappingConfiguration.MappingOperations;
+using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
-namespace EmitMapper
+public class EmitMapperException : ApplicationException
 {
-    public class EmitMapperException: ApplicationException
+    public IMappingOperation _mappingOperation;
+
+    public EmitMapperException()
     {
-		public IMappingOperation _mappingOperation = null;
-        public EmitMapperException()
-        { 
-        }
+    }
 
-        public EmitMapperException(string message)
-            : base(message)
-        {
-        }
+    public EmitMapperException(string message)
+        : base(message)
+    {
+    }
 
-        public EmitMapperException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
+    public EmitMapperException(string message, Exception innerException)
+        : base(message, innerException)
+    {
+    }
 
-        public EmitMapperException(string message, Exception innerException, IMappingOperation mappingOperation)
-            : base(
-                BuildMessage(message, mappingOperation), 
-                innerException
-                )
-        {
-			_mappingOperation = mappingOperation;
-        }
+    public EmitMapperException(string message, Exception innerException, IMappingOperation mappingOperation)
+        : base(BuildMessage(message, mappingOperation), innerException)
+    {
+        this._mappingOperation = mappingOperation;
+    }
 
-        private static string BuildMessage(string message, IMappingOperation mappingOperation)
-        {
-            return message + " " + mappingOperation.ToString();
-        }
-
+    private static string BuildMessage(string message, IMappingOperation mappingOperation)
+    {
+        return message + " " + mappingOperation;
     }
 }

@@ -1,17 +1,17 @@
-﻿using EmitMapper.AST.Interfaces;
+﻿namespace EmitMapper.AST.Nodes;
+
 using System.Reflection.Emit;
 
-namespace EmitMapper.AST.Nodes
+using EmitMapper.AST.Interfaces;
+
+internal class AstReturnVoid : IAstNode
 {
-    class AstReturnVoid:IAstNode
+    #region IAstNode Members
+
+    public void Compile(CompilationContext context)
     {
-        #region IAstNode Members
-
-        public void Compile(CompilationContext context)
-        {
-            context.Emit(OpCodes.Ret);
-        }
-
-        #endregion
+        context.Emit(OpCodes.Ret);
     }
+
+    #endregion
 }
