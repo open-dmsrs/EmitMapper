@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace EmitMapper.EmitInvoker
+﻿namespace EmitMapper.EmitInvoker.Methods
 {
     public class MethodInvokerBase
     {
-        internal object targetObject;
+        public object targetObject;
     }
 }

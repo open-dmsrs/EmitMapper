@@ -1,25 +1,35 @@
-﻿using System;
+﻿
+/* Unmerged change from project 'EmitMapper (netstandard2.1)'
+Before:
+using System;
 using System.Reflection.Emit;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
+After:
+using EmitMapper.AST.Helpers;
+using EmitMapper.Reflection.Interfaces;
+using System;
+using System.AST.Interfaces;
+*/
+using EmitMapper.AST.Helpers;
+using EmitMapper.AST.Interfaces;
+using System;
+using System.Reflection.Emit;
 
 namespace EmitMapper.AST.Nodes
 {
-    class AstReturn : IAstNode, IAstAddr
+    internal class AstReturn : IAstNode, IAstAddr
     {
-        public Type returnType;
-        public IAstRefOrValue returnValue;
+        public Type ReturnType;
+        public IAstRefOrValue ReturnValue;
 
         public void Compile(CompilationContext context)
         {
-            returnValue.Compile(context);
-            CompilationHelper.PrepareValueOnStack(context, returnType, returnValue.itemType);
+            ReturnValue.Compile(context);
+            CompilationHelper.PrepareValueOnStack(context, ReturnType, ReturnValue.ItemType);
             context.Emit(OpCodes.Ret);
         }
 
-        public Type itemType
-        {
-            get { return returnType; }
-        }
+        public Type ItemType => ReturnType;
     }
 }

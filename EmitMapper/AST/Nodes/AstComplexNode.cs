@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using EmitMapper.AST.Interfaces;
+﻿using EmitMapper.AST.Interfaces;
+using System.Collections.Generic;
 
 namespace EmitMapper.AST.Nodes
 {
-    class AstComplexNode: IAstNode
+    internal class AstComplexNode : IAstNode
     {
-        public List<IAstNode> nodes = new List<IAstNode>();
+        public List<IAstNode> Nodes = new List<IAstNode>();
 
         public void Compile(CompilationContext context)
         {
-            foreach (IAstNode node in nodes)
+            foreach (IAstNode node in Nodes)
             {
                 if (node != null)
                 {

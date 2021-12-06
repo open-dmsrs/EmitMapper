@@ -11,7 +11,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EmitMapper.Samples.SamplesTests</RootNamespace>
     <AssemblyName>SamplesTests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <FileUpgradeFlags>
@@ -91,14 +91,6 @@
     <Compile Include="TestObjectsTracker.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EmitMapperTests.NUnit\EmitMapperTests.NUnit.csproj">
-      <Project>{253E7488-760E-4079-A13C-A8C7489B8F97}</Project>
-      <Name>EmitMapperTests.NUnit</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EmitMapper\EmitMapper.csproj">
-      <Project>{1B6AB0C8-B8E2-47AC-89E8-8B029EA1BCA2}</Project>
-      <Name>EmitMapper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Samples\EMConfigurations\EMConfigurations.csproj">
       <Project>{F9221CD0-0B56-4CA1-857B-7B19DC509D59}</Project>
       <Name>EMConfigurations</Name>

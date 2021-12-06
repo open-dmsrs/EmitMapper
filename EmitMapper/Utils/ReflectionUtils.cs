@@ -9,21 +9,21 @@ namespace EmitMapper.Utils
     {
         public static bool IsNullable(Type type)
         {
-            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof (Nullable<>);
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
 
 
         /// Get Full hierarchy with all parent interfaces members.
         public static MemberInfo[] GetPublicFieldsAndProperties(Type type)
         {
-            var result = type.GetMembers(BindingFlags.Instance | BindingFlags.Public)
+            List<MemberInfo> result = type.GetMembers(BindingFlags.Instance | BindingFlags.Public)
                 .Where(mi => mi.MemberType == MemberTypes.Property || mi.MemberType == MemberTypes.Field)
                 .ToList();
 
-            var interfaces = type.GetInterfaces();
-            foreach (var iface in interfaces)
+            Type[] interfaces = type.GetInterfaces();
+            foreach (Type iface in interfaces)
             {
-                var ifaceResult = GetPublicFieldsAndProperties(iface);
+                MemberInfo[] ifaceResult = GetPublicFieldsAndProperties(iface);
                 result.AddRange(ifaceResult);
             }
 
@@ -36,12 +36,12 @@ namespace EmitMapper.Utils
             {
                 matcher = (f, s) => f == s;
             }
-            var firstMembers = GetPublicFieldsAndProperties(first);
-            var secondMembers = GetPublicFieldsAndProperties(first);
-            var result = new List<MatchedMember>();
-            foreach (var f in firstMembers)
+            MemberInfo[] firstMembers = GetPublicFieldsAndProperties(first);
+            MemberInfo[] secondMembers = GetPublicFieldsAndProperties(first);
+            List<MatchedMember> result = new List<MatchedMember>();
+            foreach (MemberInfo f in firstMembers)
             {
-                var s = secondMembers.FirstOrDefault(sm => matcher(f.Name, sm.Name));
+                MemberInfo s = secondMembers.FirstOrDefault(sm => matcher(f.Name, sm.Name));
                 if (s != null)
                 {
                     result.Add(new MatchedMember(f, s));
@@ -54,15 +54,15 @@ namespace EmitMapper.Utils
         {
             if (mi is PropertyInfo)
             {
-                return ((PropertyInfo) mi).PropertyType;
+                return ((PropertyInfo)mi).PropertyType;
             }
             if (mi is FieldInfo)
             {
-                return ((FieldInfo) mi).FieldType;
+                return ((FieldInfo)mi).FieldType;
             }
             if (mi is MethodInfo)
             {
-                return ((MethodInfo) mi).ReturnType;
+                return ((MethodInfo)mi).ReturnType;
             }
             return null;
         }

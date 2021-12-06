@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace EmitMapper.MappingConfiguration.MappingOperations
+﻿namespace EmitMapper.MappingConfiguration.MappingOperations.Interfaces
 {
-	public interface IDestOperation : IMappingOperation
-	{
-		MemberDescriptor Destination { get; set; }
-	}
+    public interface IDestOperation : IMappingOperation
+    {
+        MemberDescriptor Destination { get; set; }
+    }
 }

@@ -1,49 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using EmitMapper.Conversion;
 using EmitMapper.MappingConfiguration.MappingOperations;
+using System;
 
 namespace EmitMapper.MappingConfiguration
 {
-	public class CustomMapConfig : IMappingConfigurator
-	{
-		public Func<Type, Type, IMappingOperation[]> GetMappingOperationFunc { get; set; }
-		public string ConfigurationName { get; set; }
+    public class CustomMapConfig : IMappingConfigurator
+    {
+        public Func<Type, Type, IMappingOperation[]> GetMappingOperationFunc { get; set; }
+        public string ConfigurationName { get; set; }
 
-		#region IMappingConfigurator Members
+        #region IMappingConfigurator Members
 
-		public IMappingOperation[] GetMappingOperations(Type from, Type to)
-		{
-			if (GetMappingOperationFunc == null)
-			{
-				return new IMappingOperation[0];
-			}
-			return GetMappingOperationFunc(from, to);
-		}
+        public IMappingOperation[] GetMappingOperations(Type from, Type to)
+        {
+            if (GetMappingOperationFunc == null)
+            {
+                return new IMappingOperation[0];
+            }
+            return GetMappingOperationFunc(from, to);
+        }
 
-		public string GetConfigurationName()
-		{
-			return ConfigurationName;
-		}
+        public string GetConfigurationName()
+        {
+            return ConfigurationName;
+        }
 
-		public IRootMappingOperation GetRootMappingOperation(Type from, Type to)
-		{
-			return null;
-		}
-
-
-		#endregion
+        public IRootMappingOperation GetRootMappingOperation(Type from, Type to)
+        {
+            return null;
+        }
 
 
-		#region IMappingConfigurator Members
+        #endregion
 
 
-		public StaticConvertersManager GetStaticConvertersManager()
-		{
-			return null;
-		}
+        #region IMappingConfigurator Members
 
-		#endregion
-	}
+
+        public StaticConvertersManager GetStaticConvertersManager()
+        {
+            return null;
+        }
+
+        #endregion
+    }
 }

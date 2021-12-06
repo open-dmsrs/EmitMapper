@@ -1,56 +1,57 @@
-﻿using System;
+﻿using EmitMapper.AST.Helpers;
+using EmitMapper.AST.Interfaces;
+using System;
+
+/* Unmerged change from project 'EmitMapper (netstandard2.1)'
+Before:
+using EmitMapper.AST.Helpers;
+After:
+using System.Reflection;
+*/
 using System.Reflection;
 using System.Reflection.Emit;
-using EmitMapper.AST.Helpers;
-using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes
 {
-    class AstReadField: IAstStackItem
+    internal class AstReadField : IAstStackItem
     {
-        public IAstRefOrAddr sourceObject;
-        public FieldInfo fieldInfo;
+        public IAstRefOrAddr SourceObject;
+        public FieldInfo FieldInfo;
 
-        public Type itemType
-        {
-            get
-            {
-                return fieldInfo.FieldType;
-            }
-        }
+        public Type ItemType => FieldInfo.FieldType;
 
         public virtual void Compile(CompilationContext context)
         {
-            sourceObject.Compile(context);
-            context.Emit(OpCodes.Ldfld, fieldInfo);
+            SourceObject.Compile(context);
+            context.Emit(OpCodes.Ldfld, FieldInfo);
         }
     }
 
-    class AstReadFieldRef : AstReadField, IAstRef
+    internal class AstReadFieldRef : AstReadField, IAstRef
     {
-        override public void Compile(CompilationContext context)
+        public override void Compile(CompilationContext context)
         {
-            CompilationHelper.CheckIsRef(itemType);
+            CompilationHelper.CheckIsRef(ItemType);
             base.Compile(context);
         }
     }
 
-    class AstReadFieldValue : AstReadField, IAstValue
+    internal class AstReadFieldValue : AstReadField, IAstValue
     {
-        override public void Compile(CompilationContext context)
+        public override void Compile(CompilationContext context)
         {
-            CompilationHelper.CheckIsValue(itemType);
+            CompilationHelper.CheckIsValue(ItemType);
             base.Compile(context);
         }
     }
 
-    class AstReadFieldAddr : AstReadField, IAstAddr
+    internal class AstReadFieldAddr : AstReadField, IAstAddr
     {
-        override public void Compile(CompilationContext context)
+        public override void Compile(CompilationContext context)
         {
-            CompilationHelper.CheckIsValue(itemType);
-            sourceObject.Compile(context);
-            context.Emit(OpCodes.Ldflda, fieldInfo);
+            CompilationHelper.CheckIsValue(ItemType);
+            SourceObject.Compile(context);
+            context.Emit(OpCodes.Ldflda, FieldInfo);
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace EmitMapper.EmitInvoker
+﻿namespace EmitMapper.EmitInvoker.Delegates
 {
     public abstract class DelegateInvokerFunc_2 : DelegateInvokerBase
     {

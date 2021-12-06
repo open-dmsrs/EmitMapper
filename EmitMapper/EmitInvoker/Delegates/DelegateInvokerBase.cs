@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace EmitMapper.EmitInvoker
+namespace EmitMapper.EmitInvoker.Delegates
 {
     public class DelegateInvokerBase
     {
-        internal Delegate _del;
+        public Delegate _del;
     }
 }

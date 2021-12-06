@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using EmitMapper.MappingConfiguration.MappingOperations;
-using EmitMapper.Utils;
-using System.Reflection;
+﻿using EmitMapper.MappingConfiguration.MappingOperations;
+using System;
 
 namespace EmitMapper.MappingConfiguration
 {
     public abstract class MapConfigBase<TDerived> : MapConfigBaseImpl where TDerived : class
-	{
-		private TDerived _derived;
-		public void Init(TDerived derived)
-		{
-			_derived = derived;
-		}
+    {
+        private TDerived _derived;
+        public void Init(TDerived derived)
+        {
+            _derived = derived;
+        }
 
         /// <summary>
         /// Define custom type converter

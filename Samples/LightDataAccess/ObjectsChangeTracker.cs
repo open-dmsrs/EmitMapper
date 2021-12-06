@@ -14,14 +14,14 @@
 
 namespace LightDataAccess
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
     using EmitMapper;
     using EmitMapper.MappingConfiguration;
     using EmitMapper.MappingConfiguration.MappingOperations;
+    using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
     using EmitMapper.Utils;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Class ObjectsChangeTracker
@@ -31,7 +31,7 @@ namespace LightDataAccess
         /// <summary>
         /// Class MappingConfiguration
         /// </summary>
-        class MappingConfiguration : IMappingConfigurator
+        private class MappingConfiguration : IMappingConfigurator
         {
             /// <summary>
             /// Gets the mapping operations.
@@ -120,18 +120,19 @@ namespace LightDataAccess
         /// <summary>
         /// The _tracking objects
         /// </summary>
-        Dictionary<object, List<TrackingMember>> _trackingObjects = new Dictionary<object, List<TrackingMember>>();
+        private readonly Dictionary<object, List<TrackingMember>> _trackingObjects = new Dictionary<object, List<TrackingMember>>();
+
         /// <summary>
         /// The _map manager
         /// </summary>
-        ObjectMapperManager _mapManager;
+        private readonly ObjectMapperManager _mapManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ObjectsChangeTracker"/> class.
         /// </summary>
         public ObjectsChangeTracker()
         {
-            this._mapManager = ObjectMapperManager.DefaultInstance;
+            _mapManager = ObjectMapperManager.DefaultInstance;
         }
 
         /// <summary>
@@ -140,7 +141,7 @@ namespace LightDataAccess
         /// <param name="mapManager">The map manager.</param>
         public ObjectsChangeTracker(ObjectMapperManager mapManager)
         {
-            this._mapManager = mapManager;
+            _mapManager = mapManager;
         }
 
         /// <summary>
@@ -151,7 +152,9 @@ namespace LightDataAccess
         {
             // var type = Obj.GetType();
             if (obj != null)
-                this._trackingObjects[obj] = this.GetObjectMembers(obj);
+            {
+                _trackingObjects[obj] = GetObjectMembers(obj);
+            }
         }
 
         /// <summary>
@@ -161,15 +164,14 @@ namespace LightDataAccess
         /// <returns>TrackingMember[][].</returns>
         public TrackingMember[] GetChanges(object obj)
         {
-            List<TrackingMember> originalValues;
-            if (!this._trackingObjects.TryGetValue(obj, out originalValues))
+            if (!_trackingObjects.TryGetValue(obj, out List<TrackingMember> originalValues))
             {
                 return null;
             }
-            var currentValues = this.GetObjectMembers(obj);
+            List<TrackingMember> currentValues = GetObjectMembers(obj);
             return currentValues.Select((x, idx) =>
             {
-                var original = originalValues[idx];
+                TrackingMember original = originalValues[idx];
                 x.OriginalValue = original.CurrentValue;
                 return x;
 
@@ -189,12 +191,15 @@ namespace LightDataAccess
         public TrackingMember[] GetChanges(object originalObj, object currentObj)
         {
             if (originalObj == null || currentObj == null || originalObj.GetType() != currentObj.GetType())
+            {
                 return null;
-            var originalValues = GetObjectMembers(originalObj);
-            var currentValues = GetObjectMembers(currentObj);
+            }
+
+            List<TrackingMember> originalValues = GetObjectMembers(originalObj);
+            List<TrackingMember> currentValues = GetObjectMembers(currentObj);
             return currentValues.Select((x, idx) =>
                 {
-                    var original = originalValues[idx];
+                    TrackingMember original = originalValues[idx];
                     x.OriginalValue = original.CurrentValue;
                     return x;
 
@@ -217,13 +222,13 @@ namespace LightDataAccess
         /// <returns>List{TrackingMember}.</returns>
         private List<TrackingMember> GetObjectMembers(object obj)
         {
-            var type = obj?.GetType();
+            Type type = obj?.GetType();
             while (type != null && type.Assembly.IsDynamic)
             {
                 type = type.BaseType;
             }
-            var fields = new TrackingMembersList();
-            this._mapManager.GetMapperImpl(
+            TrackingMembersList fields = new TrackingMembersList();
+            _mapManager.GetMapperImpl(
                 type,
                 null,
                 new MappingConfiguration()

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Reflection.Emit;
-
-namespace EmitMapper.AST.Interfaces
+﻿namespace EmitMapper.AST.Interfaces
 {
-    interface IAstNode
+    internal interface IAstNode
     {
         void Compile(CompilationContext context);
     }

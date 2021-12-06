@@ -1,6 +1,7 @@
-﻿using System;
+﻿using EmitMapper.EmitInvoker;
+using EmitMapper.EmitInvoker.Delegates;
 using EmitMapper.MappingConfiguration.MappingOperations;
-using EmitMapper.EmitInvoker;
+using System;
 
 namespace EmitMapper.Mappers
 {
@@ -19,21 +20,21 @@ namespace EmitMapper.Mappers
         {
             object result;
 
-			if (_sourceFilter != null)
-			{
-				if (!(bool)_sourceFilter.CallFunc(from, state))
-				{
-					return to;
-				}
-			}
+            if (_sourceFilter != null)
+            {
+                if (!(bool)_sourceFilter.CallFunc(from, state))
+                {
+                    return to;
+                }
+            }
 
-			if (_destinationFilter != null)
-			{
-				if (!(bool)_destinationFilter.CallFunc(to, state))
-				{
-					return to;
-				}
-			}
+            if (_destinationFilter != null)
+            {
+                if (!(bool)_destinationFilter.CallFunc(to, state))
+                {
+                    return to;
+                }
+            }
 
             if (from == null)
             {
@@ -76,13 +77,7 @@ namespace EmitMapper.Mappers
             return Map(from, to, null);
         }
 
-		public IMappingConfigurator MappingConfigurator
-        {
-            get
-            {
-				return _mappingConfigurator;
-            }
-        }
+        public IMappingConfigurator MappingConfigurator => _mappingConfigurator;
 
         #region Non-public members
 
@@ -121,80 +116,101 @@ namespace EmitMapper.Mappers
         /// <returns>Destination object</returns>
         internal abstract object CreateTargetInstance();
 
-		protected IMappingConfigurator _mappingConfigurator;
-		protected IRootMappingOperation _rootOperation;
+        protected IMappingConfigurator _mappingConfigurator;
+        protected IRootMappingOperation _rootOperation;
 
-		public object[] StroredObjects;
+        public object[] StroredObjects;
 
         protected DelegateInvokerFunc_0 _targetConstructor;
         protected DelegateInvokerFunc_0 _nullSubstitutor;
         protected DelegateInvokerFunc_2 _converter;
         protected DelegateInvokerFunc_2 _valuesPostProcessor;
-		protected DelegateInvokerFunc_2 _destinationFilter;
-		protected DelegateInvokerFunc_2 _sourceFilter;
+        protected DelegateInvokerFunc_2 _destinationFilter;
+        protected DelegateInvokerFunc_2 _sourceFilter;
 
         internal void Initialize(
-            ObjectMapperManager MapperMannager, 
-            Type TypeFrom, 
-            Type TypeTo, 
-			IMappingConfigurator mappingConfigurator,
-			object[] stroredObjects)
+            ObjectMapperManager MapperMannager,
+            Type TypeFrom,
+            Type TypeTo,
+            IMappingConfigurator mappingConfigurator,
+            object[] stroredObjects)
         {
             mapperMannager = MapperMannager;
             typeFrom = TypeFrom;
             typeTo = TypeTo;
-			_mappingConfigurator = mappingConfigurator;
-			StroredObjects = stroredObjects;
-			if (_mappingConfigurator != null)
-			{
-				_rootOperation = _mappingConfigurator.GetRootMappingOperation(TypeFrom, TypeTo);
-				if (_rootOperation == null)
-				{
-					_rootOperation = new RootMappingOperation(TypeFrom, TypeTo);
-				}
-				var constructor = _rootOperation.TargetConstructor;
+            _mappingConfigurator = mappingConfigurator;
+            StroredObjects = stroredObjects;
+            if (_mappingConfigurator != null)
+            {
+                _rootOperation = _mappingConfigurator.GetRootMappingOperation(TypeFrom, TypeTo);
+                if (_rootOperation == null)
+                {
+                    _rootOperation = new RootMappingOperation(TypeFrom, TypeTo);
+                }
+
+                /* Unmerged change from project 'EmitMapper (netstandard2.1)'
+                Before:
+                                var constructor = _rootOperation.TargetConstructor;
+                After:
+                                var constructor = _rootOperation.TargetConstructor;
+                */
+                Delegate constructor = _rootOperation.TargetConstructor;
                 if (constructor != null)
                 {
                     _targetConstructor = (DelegateInvokerFunc_0)DelegateInvoker.GetDelegateInvoker(constructor);
                 }
 
-                var valuesPostProcessor = _rootOperation.ValuesPostProcessor;
+                Delegate valuesPostProcessor = _rootOperation.ValuesPostProcessor;
                 if (valuesPostProcessor != null)
                 {
                     _valuesPostProcessor = (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(valuesPostProcessor);
                 }
 
-                var converter = _rootOperation.Converter;
+                Delegate converter = _rootOperation.Converter;
                 if (converter != null)
                 {
                     _converter = (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(converter);
                 }
 
-                var nullSubstitutor = _rootOperation.NullSubstitutor;
+                Delegate nullSubstitutor = _rootOperation.NullSubstitutor;
                 if (nullSubstitutor != null)
                 {
                     _nullSubstitutor = (DelegateInvokerFunc_0)DelegateInvoker.GetDelegateInvoker(nullSubstitutor);
                 }
 
-				var sourceFilter = _rootOperation.SourceFilter;
-				if (sourceFilter != null)
-				{
-					_sourceFilter = (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(sourceFilter);
-				}
 
-				var destinationFilter = _rootOperation.DestinationFilter;
-				if (destinationFilter != null)
-				{
-					_destinationFilter = (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(destinationFilter);
-				}
-			}
+                /* Unmerged change from project 'EmitMapper (netstandard2.1)'
+                Before:
+                                var sourceFilter = _rootOperation.SourceFilter;
+                After:
+                                var sourceFilter = _rootOperation.SourceFilter;
+                */
+                Delegate sourceFilter = _rootOperation.SourceFilter;
+                if (sourceFilter != null)
+                {
+                    _sourceFilter = (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(sourceFilter);
+                }
+
+
+                /* Unmerged change from project 'EmitMapper (netstandard2.1)'
+                Before:
+                                var destinationFilter = _rootOperation.DestinationFilter;
+                After:
+                                var destinationFilter = _rootOperation.DestinationFilter;
+                */
+                Delegate destinationFilter = _rootOperation.DestinationFilter;
+                if (destinationFilter != null)
+                {
+                    _destinationFilter = (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(destinationFilter);
+                }
+            }
         }
 
         protected object ConstructTarget()
         {
             if (_targetConstructor != null)
             {
-				return _targetConstructor.CallFunc();
+                return _targetConstructor.CallFunc();
             }
             return CreateTargetInstance();
         }

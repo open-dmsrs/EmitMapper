@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace EmitMapper.MappingConfiguration
 {
-    public class DefaultCustomConverterProvider: ICustomConverterProvider
+    public class DefaultCustomConverterProvider : ICustomConverterProvider
     {
-        private Type _converterType;
+        private readonly Type _converterType;
 
         public DefaultCustomConverterProvider(Type converterType)
         {
@@ -15,9 +13,9 @@ namespace EmitMapper.MappingConfiguration
         }
 
         public virtual CustomConverterDescriptor GetCustomConverterDescr(
-			Type from, 
-			Type to, 
-			MapConfigBaseImpl mappingConfig)
+            Type from,
+            Type to,
+            MapConfigBaseImpl mappingConfig)
         {
             return new CustomConverterDescriptor
             {

@@ -1,39 +1,40 @@
-﻿using System.Reflection.Emit;
-using EmitMapper.AST.Interfaces;
+﻿using EmitMapper.AST.Interfaces;
+using System.Reflection.Emit;
 
 namespace EmitMapper.AST.Nodes
 {
-    class AstIf: IAstNode
+    internal class AstIf : IAstNode
     {
-        public IAstValue condition;
-        public AstComplexNode trueBranch;
-        public AstComplexNode falseBranch;
+        public IAstValue Condition;
+        public AstComplexNode TrueBranch;
+        public AstComplexNode FalseBranch;
+
 
         #region IAstNode Members
 
         public void Compile(CompilationContext context)
         {
-            Label elseLabel = context.ilGenerator.DefineLabel();
-            Label endIfLabel = context.ilGenerator.DefineLabel();
+            Label elseLabel = context.ILGenerator.DefineLabel();
+            Label endIfLabel = context.ILGenerator.DefineLabel();
 
-            condition.Compile(context);
+            Condition.Compile(context);
             context.Emit(OpCodes.Brfalse, elseLabel);
 
-            if (trueBranch != null)
+            if (TrueBranch != null)
             {
-                trueBranch.Compile(context);
+                TrueBranch.Compile(context);
             }
-            if (falseBranch != null)
+            if (FalseBranch != null)
             {
                 context.Emit(OpCodes.Br, endIfLabel);
             }
 
-            context.ilGenerator.MarkLabel(elseLabel);
-            if (falseBranch != null)
+            context.ILGenerator.MarkLabel(elseLabel);
+            if (FalseBranch != null)
             {
-                falseBranch.Compile(context);
+                FalseBranch.Compile(context);
             }
-            context.ilGenerator.MarkLabel(endIfLabel);
+            context.ILGenerator.MarkLabel(endIfLabel);
         }
 
         #endregion

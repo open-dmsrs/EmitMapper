@@ -3,7 +3,7 @@
     /// <summary>
     /// Mapper for classes
     /// </summary>
-    internal abstract class MapperForClassImpl : ObjectsMapperBaseImpl
+    public abstract class MapperForClassImpl : ObjectsMapperBaseImpl
     {
 
     }

@@ -1,66 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EmitMapper.AST;
+﻿using EmitMapper.AST;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 using EmitMapper.AST.Nodes;
-using EmitMapper.Mappers;
 using EmitMapper.Utils;
-using System.Reflection.Emit;
+using System;
 using System.Reflection;
-using EmitMapper.MappingConfiguration.MappingOperations;
+using System.Reflection.Emit;
 
-namespace EmitMapper
+namespace EmitMapper.EmitBuilders
 {
-    class CreateTargetInstanceBuilder
+    internal class CreateTargetInstanceBuilder
     {
-		public static void BuildCreateTargetInstanceMethod(Type type, TypeBuilder typeBuilder)
-		{
-			if (ReflectionUtils.IsNullable(type))
-			{
-				type = Nullable.GetUnderlyingType(type);
-			}
+        public static void BuildCreateTargetInstanceMethod(Type type, TypeBuilder typeBuilder)
+        {
+            if (ReflectionUtils.IsNullable(type))
+            {
+                type = Nullable.GetUnderlyingType(type);
+            }
 
-			MethodBuilder methodBuilder = typeBuilder.DefineMethod(
-				"CreateTargetInstance",
-				MethodAttributes.Assembly | MethodAttributes.Virtual,
-				typeof(object),
-				null
-				);
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod(
+                "CreateTargetInstance",
+                MethodAttributes.Public | MethodAttributes.Virtual,
+                typeof(object),
+                null
+                );
 
-			ILGenerator ilGen = methodBuilder.GetILGenerator();
-			CompilationContext context = new CompilationContext(ilGen);
-			IAstRefOrValue returnValue;
+            ILGenerator ilGen = methodBuilder.GetILGenerator();
+            CompilationContext context = new CompilationContext(ilGen);
+            IAstRefOrValue returnValue;
 
-			if (type.IsValueType)
-			{
-				LocalBuilder lb = ilGen.DeclareLocal(type);
-				new AstInitializeLocalVariable(lb).Compile(context);
+            if (type.IsValueType)
+            {
+                LocalBuilder lb = ilGen.DeclareLocal(type);
+                new AstInitializeLocalVariable(lb).Compile(context);
 
-				returnValue =
-					new AstBox()
-					{
-						value = AstBuildHelper.ReadLocalRV(lb)
-					};
-			}
-			else
-			{
-				returnValue =
-					ReflectionUtils.HasDefaultConstructor(type)
-						?
-							new AstNewObject()
-							{
-								objectType = type
-							}
-						:
-							(IAstRefOrValue)new AstConstantNull();
-			}
-			new AstReturn()
-			{
-				returnType = type,
-				returnValue = returnValue
-			}.Compile(context);
-		}
+                returnValue =
+                    new AstBox()
+                    {
+                        Value = AstBuildHelper.ReadLocalRV(lb)
+                    };
+            }
+            else
+            {
+                returnValue =
+                    ReflectionUtils.HasDefaultConstructor(type)
+                        ? new AstNewObject() { ObjectType = type } : new AstConstantNull();
+            }
+            new AstReturn()
+            {
+                ReturnType = type,
+                ReturnValue = returnValue
+            }.Compile(context);
+        }
     }
 }

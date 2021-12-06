@@ -3,7 +3,7 @@ using System.Reflection.Emit;
 
 namespace EmitMapper.AST.Nodes
 {
-    class AstReturnVoid:IAstNode
+    internal class AstReturnVoid : IAstNode
     {
         #region IAstNode Members
 

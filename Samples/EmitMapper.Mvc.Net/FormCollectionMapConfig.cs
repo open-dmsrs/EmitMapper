@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.Utils;
-using EmitMapper.MappingConfiguration;
+using System;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace EmitMapper.Mvc.Net
@@ -13,7 +11,7 @@ namespace EmitMapper.Mvc.Net
     {
         public IMappingOperation[] GetMappingOperations(Type from, Type to)
         {
-            var members = ReflectionUtils.GetPublicFieldsAndProperties(to);
+            System.Reflection.MemberInfo[] members = ReflectionUtils.GetPublicFieldsAndProperties(to);
             return members
                 .Select(
                     m =>
@@ -25,14 +23,14 @@ namespace EmitMapper.Mvc.Net
                             (
                                 (form, valueProviderObj) =>
                                 {
-                                    var valueProvider = valueProviderObj as IValueProvider;
+                                    IValueProvider valueProvider = valueProviderObj as IValueProvider;
                                     if (valueProvider == null)
                                     {
                                         valueProvider = ((FormCollection)form).ToValueProvider();
                                     }
 
                                     ValueProviderResult res = valueProvider.GetValue(m.Name);
-									// here need to check the value of res is not null, then can convert the value
+                                    // here need to check the value of res is not null, then can convert the value
                                     if (res != null)
                                     {
                                         return ValueToWrite<object>.ReturnValue(res.ConvertTo(ReflectionUtils.GetMemberType(m)));

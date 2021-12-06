@@ -1,24 +1,24 @@
-﻿using System;
+﻿using EmitMapper.AST;
+using EmitMapper.AST.Helpers;
+using EmitMapper.AST.Interfaces;
+using EmitMapper.AST.Nodes;
+using EmitMapper.EmitInvoker.Delegates;
+using EmitMapper.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Reflection.Emit;
 using System.Reflection;
-using EmitMapper.AST.Helpers;
-using EmitMapper.AST.Nodes;
-using EmitMapper.AST;
-using EmitMapper.AST.Interfaces;
-using EmitMapper.Utils;
+using System.Reflection.Emit;
 
 namespace EmitMapper.EmitInvoker
 {
     public static class DelegateInvoker
     {
-        private static ThreadSaveCache _typesCache = new ThreadSaveCache();
+        private static readonly ThreadSaveCache _typesCache = new ThreadSaveCache();
 
         public static DelegateInvokerBase GetDelegateInvoker(Delegate del)
         {
-            var typeName = "EmitMapper.DelegateCaller_" + del.ToString();
+            string typeName = "EmitMapper.DelegateCaller_" + del.ToString();
 
             Type callerType = _typesCache.Get<Type>(
                 typeName,
@@ -43,7 +43,7 @@ namespace EmitMapper.EmitInvoker
 
         private static Type BuildFuncCallerType(string typeName, Delegate del)
         {
-            var par = del.Method.GetParameters();
+            ParameterInfo[] par = del.Method.GetParameters();
             Type funcCallerType = null;
             if (par.Length == 0)
             {
@@ -66,7 +66,7 @@ namespace EmitMapper.EmitInvoker
                 new EmitMapperException("too many method parameters");
             }
 
-            var tb = DynamicAssemblyManager.DefineType(typeName, funcCallerType);
+            TypeBuilder tb = DynamicAssemblyManager.DefineType(typeName, funcCallerType);
 
             MethodBuilder methodBuilder = tb.DefineMethod(
                 "CallFunc",
@@ -77,8 +77,8 @@ namespace EmitMapper.EmitInvoker
 
             new AstReturn
             {
-                returnType = typeof(object),
-                returnValue = CreateCallDelegate(del, par)
+                ReturnType = typeof(object),
+                ReturnValue = CreateCallDelegate(del, par)
             }.Compile(new CompilationContext(methodBuilder.GetILGenerator()));
 
             return tb.CreateType();
@@ -86,7 +86,7 @@ namespace EmitMapper.EmitInvoker
 
         private static Type BuildActionCallerType(string typeName, Delegate del)
         {
-            var par = del.Method.GetParameters();
+            ParameterInfo[] par = del.Method.GetParameters();
             Type actionCallerType = null;
             if (par.Length == 0)
             {
@@ -109,18 +109,18 @@ namespace EmitMapper.EmitInvoker
                 new EmitMapperException("too many method parameters");
             }
 
-            var tb = DynamicAssemblyManager.DefineType(typeName, actionCallerType);
+            TypeBuilder tb = DynamicAssemblyManager.DefineType(typeName, actionCallerType);
 
             MethodBuilder methodBuilder = tb.DefineMethod(
                 "CallAction",
                 MethodAttributes.Public | MethodAttributes.Virtual,
                 null,
-                Enumerable.Range(0, par.Length).Select( i => typeof(object)).ToArray()
+                Enumerable.Range(0, par.Length).Select(i => typeof(object)).ToArray()
             );
 
             new AstComplexNode
             {
-                nodes = new List<IAstNode>
+                Nodes = new List<IAstNode>
                 {
                     CreateCallDelegate(del, par),
                     new AstReturnVoid()
@@ -137,8 +137,8 @@ namespace EmitMapper.EmitInvoker
                     del.GetType().GetMethod("Invoke"),
                     new AstCastclassRef(
                         AstBuildHelper.ReadFieldRV(
-                            new AstReadThis() { thisType = typeof(DelegateInvokerBase) },
-                            typeof(DelegateInvokerBase).GetField("_del", BindingFlags.NonPublic | BindingFlags.Instance)
+                            new AstReadThis() { ThisType = typeof(DelegateInvokerBase) },
+                            typeof(DelegateInvokerBase).GetField("_del", BindingFlags.Public | BindingFlags.Instance)
                         ),
                         del.GetType()
                     ),

@@ -1,24 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using EmitMapper.AST.Interfaces;
+using System;
 using System.Reflection.Emit;
-using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes
 {
-    class AstBox : IAstRef
+    internal class AstBox : IAstRef
     {
-        public IAstRefOrValue value;
+        public IAstRefOrValue Value;
 
         #region IAstReturnValueNode Members
 
-        public Type itemType
-        {
-            get 
-            {
-                return value.itemType;  
-            }
-        }
+        public Type ItemType => Value.ItemType;
 
         #endregion
 
@@ -26,11 +18,11 @@ namespace EmitMapper.AST.Nodes
 
         public void Compile(CompilationContext context)
         {
-            value.Compile(context);
+            Value.Compile(context);
 
-            if (value.itemType.IsValueType)
+            if (Value.ItemType.IsValueType)
             {
-                context.Emit(OpCodes.Box, itemType);
+                context.Emit(OpCodes.Box, ItemType);
             }
         }
 

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace EmitMapper.MappingConfiguration.MappingOperations
 {
-	
+
     /// <summary>
     /// Generates the following code:
     /// var tempSrc = Source.member;
@@ -27,7 +25,7 @@ namespace EmitMapper.MappingConfiguration.MappingOperations
     ///     Destination.member = tempDst;
     /// }
     /// </summary>
-	public class ReadWriteComplex : IComplexOperation, IReadWriteOperation
+    public class ReadWriteComplex : IComplexOperation, IReadWriteOperation
     {
         public bool ShallowCopy { get; set; }
         public MemberDescriptor Source { get; set; }
@@ -37,8 +35,8 @@ namespace EmitMapper.MappingConfiguration.MappingOperations
         public Delegate NullSubstitutor { get; set; }
         public Delegate TargetConstructor { get; set; }
         public Delegate ValuesPostProcessor { get; set; }
-		public Delegate DestinationFilter { get; set; }
-		public Delegate SourceFilter { get; set; }
+        public Delegate DestinationFilter { get; set; }
+        public Delegate SourceFilter { get; set; }
 
         public override string ToString()
         {

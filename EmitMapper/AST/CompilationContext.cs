@@ -1,51 +1,51 @@
 ﻿using System;
-using System.Reflection.Emit;
 using System.IO;
 using System.Reflection;
+using System.Reflection.Emit;
 
 namespace EmitMapper.AST
 {
-    class CompilationContext
+    internal class CompilationContext
     {
-        public ILGenerator ilGenerator;
-        public TextWriter outputCommands;
+        public readonly ILGenerator ILGenerator;
+        public readonly TextWriter OutputCommands;
         private int stackCount = 0;
 
         public CompilationContext()
         {
-            outputCommands = TextWriter.Null;
-			//outputCommands = Console.Out;
+            OutputCommands = TextWriter.Null;
+            //outputCommands = Console.Out;
         }
 
-        public CompilationContext(ILGenerator ilGenerator): this()
+        public CompilationContext(ILGenerator ilGenerator) : this()
         {
-            this.ilGenerator = ilGenerator;
+            ILGenerator = ilGenerator;
         }
 
         public void ThrowException(Type exType)
         {
-            ilGenerator.ThrowException(exType);
+            ILGenerator.ThrowException(exType);
         }
 
         public void Emit(OpCode opCode)
         {
             ProcessCommand(opCode, 0, "");
-            ilGenerator.Emit(opCode);
-			
+            ILGenerator.Emit(opCode);
+
         }
 
         public void Emit(OpCode opCode, string str)
         {
             ProcessCommand(opCode, 0, str);
-            ilGenerator.Emit(opCode, str);
+            ILGenerator.Emit(opCode, str);
 
         }
 
         public void Emit(OpCode opCode, int param)
         {
             ProcessCommand(opCode, 0, param.ToString());
-            ilGenerator.Emit(opCode, param);
-			
+            ILGenerator.Emit(opCode, param);
+
         }
 
         public void EmitNewObject(ConstructorInfo ci)
@@ -56,56 +56,56 @@ namespace EmitMapper.AST
                 ci.ToString()
                 );
 
-            ilGenerator.Emit(OpCodes.Newobj, ci);
+            ILGenerator.Emit(OpCodes.Newobj, ci);
         }
 
         public void EmitCall(OpCode opCode, MethodInfo mi)
         {
             ProcessCommand(
-                opCode, 
-                (mi.GetParameters().Length + 1) * -1 + (mi.ReturnType == typeof(void) ? 0 : 1), 
+                opCode,
+                (mi.GetParameters().Length + 1) * -1 + (mi.ReturnType == typeof(void) ? 0 : 1),
                 mi.ToString()
                 );
 
-            ilGenerator.EmitCall(opCode, mi, null);
+            ILGenerator.EmitCall(opCode, mi, null);
         }
 
         public void Emit(OpCode opCode, FieldInfo fi)
         {
             ProcessCommand(opCode, 0, fi.ToString());
-            ilGenerator.Emit(opCode, fi);
+            ILGenerator.Emit(opCode, fi);
         }
 
         public void Emit(OpCode opCode, ConstructorInfo ci)
         {
             ProcessCommand(opCode, 0, ci.ToString());
-            ilGenerator.Emit(opCode, ci);
+            ILGenerator.Emit(opCode, ci);
         }
 
         public void Emit(OpCode opCode, LocalBuilder lb)
         {
             ProcessCommand(opCode, 0, lb.ToString());
-            ilGenerator.Emit(opCode, lb);
+            ILGenerator.Emit(opCode, lb);
 
         }
 
         public void Emit(OpCode opCode, Label lb)
         {
             ProcessCommand(opCode, 0, lb.ToString());
-            ilGenerator.Emit(opCode, lb);
+            ILGenerator.Emit(opCode, lb);
         }
 
         public void Emit(OpCode opCode, Type type)
         {
             ProcessCommand(opCode, 0, type.ToString());
-            ilGenerator.Emit(opCode, type);
+            ILGenerator.Emit(opCode, type);
         }
 
         private void ProcessCommand(OpCode opCode, int addStack, string comment)
         {
-			
-            int stackChange = 
-                GetStackChange(opCode.StackBehaviourPop) + 
+
+            int stackChange =
+                GetStackChange(opCode.StackBehaviourPop) +
                 GetStackChange(opCode.StackBehaviourPush) +
                 addStack;
 
@@ -159,9 +159,9 @@ namespace EmitMapper.AST
 
         private void WriteOutputCommand(string command)
         {
-            if (outputCommands != null)
+            if (OutputCommands != null)
             {
-                outputCommands.WriteLine(new string('\t', stackCount >= 0 ? stackCount : 0) + command);
+                OutputCommands.WriteLine(new string('\t', stackCount >= 0 ? stackCount : 0) + command);
             }
         }
 

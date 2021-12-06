@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace EmitMapper.MappingConfiguration.MappingOperations
+namespace EmitMapper.MappingConfiguration.MappingOperations.Interfaces
 {
-    interface IComplexOperation: IMappingOperation
+    internal interface IComplexOperation : IMappingOperation
     {
         List<IMappingOperation> Operations { get; set; }
     }

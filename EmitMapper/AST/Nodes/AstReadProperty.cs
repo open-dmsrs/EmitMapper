@@ -1,50 +1,55 @@
-﻿using System;
+﻿
+/* Unmerged change from project 'EmitMapper (netstandard2.1)'
+Before:
+using System;
 using System.Reflection;
 using EmitMapper.AST.Helpers;
+After:
+using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
+using System;
+*/
+using EmitMapper.AST.Helpers;
+using EmitMapper.AST.Interfaces;
+using System;
+using System.Reflection;
 
 namespace EmitMapper.AST.Nodes
 {
-    class AstReadProperty : IAstRefOrValue
+    internal class AstReadProperty : IAstRefOrValue
     {
-        public IAstRefOrAddr sourceObject;
-        public PropertyInfo propertyInfo;
+        public IAstRefOrAddr SourceObject;
+        public PropertyInfo PropertyInfo;
 
-        public Type itemType
-        {
-            get
-            {
-                return propertyInfo.PropertyType;
-            }
-        }
+        public Type ItemType => PropertyInfo.PropertyType;
 
         public virtual void Compile(CompilationContext context)
         {
-            MethodInfo mi = propertyInfo.GetGetMethod();
+            MethodInfo mi = PropertyInfo.GetGetMethod();
 
             if (mi == null)
             {
-                throw new Exception("Property " + propertyInfo.Name + " doesn't have get accessor");
+                throw new Exception("Property " + PropertyInfo.Name + " doesn't have get accessor");
             }
 
-            AstBuildHelper.CallMethod(mi, sourceObject, null).Compile(context);
+            AstBuildHelper.CallMethod(mi, SourceObject, null).Compile(context);
         }
     }
 
-    class AstReadPropertyRef : AstReadProperty, IAstRef
+    internal class AstReadPropertyRef : AstReadProperty, IAstRef
     {
-        override public void Compile(CompilationContext context)
+        public override void Compile(CompilationContext context)
         {
-            CompilationHelper.CheckIsRef(itemType);
+            CompilationHelper.CheckIsRef(ItemType);
             base.Compile(context);
         }
     }
 
-    class AstReadPropertyValue : AstReadProperty, IAstValue
+    internal class AstReadPropertyValue : AstReadProperty, IAstValue
     {
-        override public void Compile(CompilationContext context)
+        public override void Compile(CompilationContext context)
         {
-            CompilationHelper.CheckIsValue(itemType);
+            CompilationHelper.CheckIsValue(ItemType);
             base.Compile(context);
         }
     }

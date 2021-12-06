@@ -1,12 +1,12 @@
-﻿using System;
+﻿using EmitMapper.AST.Interfaces;
+using System;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 using System.Reflection;
-using EmitMapper.AST.Interfaces;
+using System.Reflection.Emit;
 
 namespace EmitMapper.AST.Helpers
 {
-    class CompilationHelper
+    internal class CompilationHelper
     {
         public static void EmitCall(
             CompilationContext context,
@@ -32,7 +32,7 @@ namespace EmitMapper.AST.Helpers
             for (int i = 0; i < args.Length; ++i)
             {
                 arguments[i].Compile(context);
-                PrepareValueOnStack(context, args[i].ParameterType, arguments[i].itemType);
+                PrepareValueOnStack(context, args[i].ParameterType, arguments[i].ItemType);
             }
             if (methodInfo.IsVirtual)
             {

@@ -1,13 +1,13 @@
-﻿using System;
+﻿using EmitMapper.AST.Interfaces;
+using System;
 using System.Reflection.Emit;
-using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes
 {
-    class AstExprEquals : IAstValue
+    internal class AstExprEquals : IAstValue
     {
-        IAstValue leftValue;
-        IAstValue rightValue;
+        private readonly IAstValue leftValue;
+        private readonly IAstValue rightValue;
 
         public AstExprEquals(IAstValue leftValue, IAstValue rightValue)
         {
@@ -17,10 +17,7 @@ namespace EmitMapper.AST.Nodes
 
         #region IAstReturnValueNode Members
 
-        public Type itemType
-        {
-            get { return typeof(Int32); }
-        }
+        public Type ItemType => typeof(int);
 
         #endregion
 

@@ -1,26 +1,33 @@
-﻿using System;
+﻿
+/* Unmerged change from project 'EmitMapper (netstandard2.1)'
+Before:
+using System;
 using System.Reflection.Emit;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
+After:
+using EmitMapper.AST.Helpers;
+using EmitMapper.Reflection.Interfaces;
+using System;
+using System.AST.Interfaces;
+*/
+using EmitMapper.AST.Helpers;
+using EmitMapper.AST.Interfaces;
+using System;
+using System.Reflection.Emit;
 
 namespace EmitMapper.AST.Nodes
 {
-    class AstReadArgument : IAstStackItem
+    internal class AstReadArgument : IAstStackItem
     {
-        public int argumentIndex;
-        public Type argumentType;
+        public int ArgumentIndex;
+        public Type ArgumentType;
 
-        public Type itemType
-        {
-            get
-            {
-                return argumentType;
-            }
-        }
+        public Type ItemType => ArgumentType;
 
         public virtual void Compile(CompilationContext context)
         {
-            switch (argumentIndex)
+            switch (ArgumentIndex)
             {
                 case 0:
                     context.Emit(OpCodes.Ldarg_0);
@@ -35,36 +42,36 @@ namespace EmitMapper.AST.Nodes
                     context.Emit(OpCodes.Ldarg_3);
                     break;
                 default:
-                    context.Emit(OpCodes.Ldarg, argumentIndex);
+                    context.Emit(OpCodes.Ldarg, ArgumentIndex);
                     break;
             }
         }
     }
 
-    class AstReadArgumentRef : AstReadArgument, IAstRef
+    internal class AstReadArgumentRef : AstReadArgument, IAstRef
     {
-        override public void Compile(CompilationContext context)
+        public override void Compile(CompilationContext context)
         {
-            CompilationHelper.CheckIsRef(itemType);
+            CompilationHelper.CheckIsRef(ItemType);
             base.Compile(context);
         }
     }
 
-    class AstReadArgumentValue : AstReadArgument, IAstValue
+    internal class AstReadArgumentValue : AstReadArgument, IAstValue
     {
-        override public void Compile(CompilationContext context)
+        public override void Compile(CompilationContext context)
         {
-            CompilationHelper.CheckIsValue(itemType);
+            CompilationHelper.CheckIsValue(ItemType);
             base.Compile(context);
         }
     }
 
-    class AstReadArgumentAddr : AstReadArgument, IAstAddr
+    internal class AstReadArgumentAddr : AstReadArgument, IAstAddr
     {
-        override public void Compile(CompilationContext context)
+        public override void Compile(CompilationContext context)
         {
-            CompilationHelper.CheckIsValue(itemType);
-            context.Emit(OpCodes.Ldarga, argumentIndex);
+            CompilationHelper.CheckIsValue(ItemType);
+            context.Emit(OpCodes.Ldarga, ArgumentIndex);
         }
     }
 }

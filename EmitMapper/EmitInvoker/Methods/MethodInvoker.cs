@@ -1,24 +1,23 @@
-﻿using System;
+﻿using EmitMapper.AST;
+using EmitMapper.AST.Helpers;
+using EmitMapper.AST.Interfaces;
+using EmitMapper.AST.Nodes;
+using EmitMapper.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using EmitMapper.Utils;
 using System.Reflection;
-using EmitMapper.AST.Nodes;
-using EmitMapper.AST;
-using EmitMapper.AST.Interfaces;
-using EmitMapper.AST.Helpers;
 using System.Reflection.Emit;
 
-namespace EmitMapper.EmitInvoker
+namespace EmitMapper.EmitInvoker.Methods
 {
     public static class MethodInvoker
     {
-        private static ThreadSaveCache _typesCache = new ThreadSaveCache();
+        private static readonly ThreadSaveCache _typesCache = new ThreadSaveCache();
 
         public static MethodInvokerBase GetMethodInvoker(object targetObject, MethodInfo mi)
         {
-            var typeName = "EmitMapper.MethodCaller_" + mi.ToString();
+            string typeName = "EmitMapper.MethodCaller_" + mi.ToString();
 
             Type callerType = _typesCache.Get<Type>(
                 typeName,
@@ -43,7 +42,7 @@ namespace EmitMapper.EmitInvoker
 
         private static Type BuildFuncCallerType(string typeName, MethodInfo mi)
         {
-            var par = mi.GetParameters();
+            ParameterInfo[] par = mi.GetParameters();
             Type funcCallerType = null;
             if (par.Length == 0)
             {
@@ -66,7 +65,7 @@ namespace EmitMapper.EmitInvoker
                 new EmitMapperException("too many method parameters");
             }
 
-            var tb = DynamicAssemblyManager.DefineType(typeName, funcCallerType);
+            TypeBuilder tb = DynamicAssemblyManager.DefineType(typeName, funcCallerType);
 
             MethodBuilder methodBuilder = tb.DefineMethod(
                 "CallFunc",
@@ -77,8 +76,8 @@ namespace EmitMapper.EmitInvoker
 
             new AstReturn
             {
-                returnType = typeof(object),
-                returnValue = CreateCallMethod(mi, par)
+                ReturnType = typeof(object),
+                ReturnValue = CreateCallMethod(mi, par)
             }.Compile(new CompilationContext(methodBuilder.GetILGenerator()));
 
             return tb.CreateType();
@@ -86,7 +85,7 @@ namespace EmitMapper.EmitInvoker
 
         private static Type BuildActionCallerType(string typeName, MethodInfo mi)
         {
-            var par = mi.GetParameters();
+            ParameterInfo[] par = mi.GetParameters();
             Type actionCallerType = null;
             if (par.Length == 0)
             {
@@ -109,7 +108,7 @@ namespace EmitMapper.EmitInvoker
                 new EmitMapperException("too many method parameters");
             }
 
-            var tb = DynamicAssemblyManager.DefineType(typeName, actionCallerType);
+            TypeBuilder tb = DynamicAssemblyManager.DefineType(typeName, actionCallerType);
 
             MethodBuilder methodBuilder = tb.DefineMethod(
                 "CallAction",
@@ -120,7 +119,7 @@ namespace EmitMapper.EmitInvoker
 
             new AstComplexNode
             {
-                nodes = new List<IAstNode>
+                Nodes = new List<IAstNode>
                 {
                     CreateCallMethod(mi, par),
                     new AstReturnVoid()
@@ -135,10 +134,10 @@ namespace EmitMapper.EmitInvoker
             return
                 AstBuildHelper.CallMethod(
                     mi,
-                    mi.IsStatic ? null : 
+                    mi.IsStatic ? null :
                         new AstCastclassRef(
                             AstBuildHelper.ReadFieldRV(
-                                new AstReadThis() { thisType = typeof(MethodInvokerBase) },
+                                new AstReadThis() { ThisType = typeof(MethodInvokerBase) },
                                 typeof(MethodInvokerBase).GetField("targetObject", BindingFlags.NonPublic | BindingFlags.Instance)
                             ),
                             mi.DeclaringType

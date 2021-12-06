@@ -1,29 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
-using System.Reflection.Emit;
 using EmitMapper.Utils;
-using EmitMapper.AST.Helpers;
+using System;
+
+/* Unmerged change from project 'EmitMapper (netstandard2.1)'
+Before:
+using EmitMapper.Utils;
+After:
+using System.Reflection.Emit;
+*/
+using System.Reflection.Emit;
 
 namespace EmitMapper.AST.Nodes
 {
-    class AstExprIsNull : IAstValue
+    internal class AstExprIsNull : IAstValue
     {
-        IAstRefOrValue value;
+        private readonly IAstRefOrValue value;
 
-		public AstExprIsNull(IAstRefOrValue value)
+        public AstExprIsNull(IAstRefOrValue value)
         {
             this.value = value;
         }
 
         #region IAstReturnValueNode Members
 
-        public Type itemType
-        {
-            get { return typeof(Int32); }
-        }
+        public Type ItemType => typeof(int);
 
         #endregion
 
@@ -31,25 +32,25 @@ namespace EmitMapper.AST.Nodes
 
         public void Compile(CompilationContext context)
         {
-            if (!(value is IAstRef) && !ReflectionUtils.IsNullable(value.itemType))
+            if (!(value is IAstRef) && !ReflectionUtils.IsNullable(value.ItemType))
             {
                 context.Emit(OpCodes.Ldc_I4_1);
             }
-			else if (ReflectionUtils.IsNullable(value.itemType))
-			{
-				AstBuildHelper.ReadPropertyRV(
-					new AstValueToAddr((IAstValue)value),
-					value.itemType.GetProperty("HasValue")
-				).Compile(context);
-				context.Emit(OpCodes.Ldc_I4_0);
-				context.Emit(OpCodes.Ceq);
-			}
-			else
-			{
-				value.Compile(context);
-				new AstConstantNull().Compile(context);
-				context.Emit(OpCodes.Ceq);
-			}
+            else if (ReflectionUtils.IsNullable(value.ItemType))
+            {
+                AstBuildHelper.ReadPropertyRV(
+                    new AstValueToAddr((IAstValue)value),
+                    value.ItemType.GetProperty("HasValue")
+                ).Compile(context);
+                context.Emit(OpCodes.Ldc_I4_0);
+                context.Emit(OpCodes.Ceq);
+            }
+            else
+            {
+                value.Compile(context);
+                new AstConstantNull().Compile(context);
+                context.Emit(OpCodes.Ceq);
+            }
         }
 
         #endregion

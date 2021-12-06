@@ -2,7 +2,7 @@
 
 namespace EmitMapper.AST
 {
-    class ILCompilationException:Exception
+    internal class ILCompilationException : Exception
     {
         public ILCompilationException(string message)
             : base(message)
@@ -10,7 +10,7 @@ namespace EmitMapper.AST
         }
 
         public ILCompilationException(string message, params object[] p)
-            : base(String.Format(message, p))
+            : base(string.Format(message, p))
         {
         }
 

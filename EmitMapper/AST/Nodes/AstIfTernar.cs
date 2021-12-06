@@ -1,63 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using EmitMapper.AST.Interfaces;
+﻿using EmitMapper.AST.Interfaces;
+using System;
 using System.Reflection.Emit;
 
 namespace EmitMapper.AST.Nodes
 {
-    class AstIfTernar : IAstRefOrValue
+    internal class AstIfTernar : IAstRefOrValue
     {
-        public IAstRefOrValue condition;
-        public IAstRefOrValue trueBranch;
-        public IAstRefOrValue falseBranch;
+        public IAstRefOrValue Condition;
+        public IAstRefOrValue TrueBranch;
+        public IAstRefOrValue FalseBranch;
 
         #region IAstNode Members
 
-        public Type itemType
-        {
-            get 
-            {
-                return trueBranch.itemType;
-            }
-        }
+        public Type ItemType => TrueBranch.ItemType;
 
         public AstIfTernar(IAstRefOrValue condition, IAstRefOrValue trueBranch, IAstRefOrValue falseBranch)
         {
-            if (trueBranch.itemType != falseBranch.itemType)
+            if (trueBranch.ItemType != falseBranch.ItemType)
             {
                 throw new EmitMapperException("Types mismatch");
             }
 
-            this.condition = condition;
-            this.trueBranch = trueBranch;
-            this.falseBranch = falseBranch;
+            Condition = condition;
+            TrueBranch = trueBranch;
+            FalseBranch = falseBranch;
         }
 
         public void Compile(CompilationContext context)
         {
-            Label elseLabel = context.ilGenerator.DefineLabel();
-            Label endIfLabel = context.ilGenerator.DefineLabel();
+            Label elseLabel = context.ILGenerator.DefineLabel();
+            Label endIfLabel = context.ILGenerator.DefineLabel();
 
-            condition.Compile(context);
+            Condition.Compile(context);
             context.Emit(OpCodes.Brfalse, elseLabel);
 
-            if (trueBranch != null)
+            if (TrueBranch != null)
             {
-                trueBranch.Compile(context);
+                TrueBranch.Compile(context);
             }
-            if (falseBranch != null)
+            if (FalseBranch != null)
             {
                 context.Emit(OpCodes.Br, endIfLabel);
             }
 
-            context.ilGenerator.MarkLabel(elseLabel);
-            if (falseBranch != null)
+            context.ILGenerator.MarkLabel(elseLabel);
+            if (FalseBranch != null)
             {
-                falseBranch.Compile(context);
+                FalseBranch.Compile(context);
             }
-            context.ilGenerator.MarkLabel(endIfLabel);
+            context.ILGenerator.MarkLabel(endIfLabel);
         }
 
         #endregion

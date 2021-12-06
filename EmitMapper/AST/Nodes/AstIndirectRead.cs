@@ -1,40 +1,47 @@
-﻿using System;
+﻿
+/* Unmerged change from project 'EmitMapper (netstandard2.1)'
+Before:
+using System;
 using System.Reflection.Emit;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
+After:
+using EmitMapper.AST.Helpers;
+using EmitMapper.Reflection.Interfaces;
+using System;
+using System.AST.Interfaces;
+*/
+using EmitMapper.AST.Helpers;
+using EmitMapper.AST.Interfaces;
+using System;
+using System.Reflection.Emit;
 
 namespace EmitMapper.AST.Nodes
 {
-    abstract class AstIndirectRead : IAstStackItem
+    internal abstract class AstIndirectRead : IAstStackItem
     {
-        public Type argumentType;
+        public Type ArgumentType;
 
-        public Type itemType
-        {
-            get
-            {
-                return argumentType;
-            }
-        }
+        public Type ItemType => ArgumentType;
 
         public abstract void Compile(CompilationContext context);
     }
 
-    class AstIndirectReadRef : AstIndirectRead, IAstRef
+    internal class AstIndirectReadRef : AstIndirectRead, IAstRef
     {
-        override public void Compile(CompilationContext context)
+        public override void Compile(CompilationContext context)
         {
-            CompilationHelper.CheckIsRef(itemType);
-            context.Emit(OpCodes.Ldind_Ref, itemType);
+            CompilationHelper.CheckIsRef(ItemType);
+            context.Emit(OpCodes.Ldind_Ref, ItemType);
         }
     }
 
-    class AstIndirectReadValue : AstIndirectRead, IAstValue
+    internal class AstIndirectReadValue : AstIndirectRead, IAstValue
     {
-        override public void Compile(CompilationContext context)
+        public override void Compile(CompilationContext context)
         {
-            CompilationHelper.CheckIsValue(itemType);
-            if (itemType == typeof(Int32))
+            CompilationHelper.CheckIsValue(ItemType);
+            if (ItemType == typeof(int))
             {
                 context.Emit(OpCodes.Ldind_I4);
             }
@@ -45,11 +52,11 @@ namespace EmitMapper.AST.Nodes
         }
     }
 
-    class AstIndirectReadAddr : AstIndirectRead, IAstAddr
+    internal class AstIndirectReadAddr : AstIndirectRead, IAstAddr
     {
-        override public void Compile(CompilationContext context)
+        public override void Compile(CompilationContext context)
         {
-            CompilationHelper.CheckIsValue(itemType);
+            CompilationHelper.CheckIsValue(ItemType);
         }
     }
 }

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace EmitMapper.MappingConfiguration.MappingOperations
 {
-    public class OperationsBlock: IComplexOperation
+    public class OperationsBlock : IComplexOperation
     {
         public List<IMappingOperation> Operations { get; set; }
     }

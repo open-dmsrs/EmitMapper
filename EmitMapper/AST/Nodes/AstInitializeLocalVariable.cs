@@ -1,13 +1,13 @@
-﻿using System;
+﻿using EmitMapper.AST.Interfaces;
+using System;
 using System.Reflection.Emit;
-using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes
 {
-    class AstInitializeLocalVariable: IAstNode
+    internal class AstInitializeLocalVariable : IAstNode
     {
-        public Type localType;
-        public int localIndex;
+        public Type LocalType;
+        public int LocalIndex;
 
         public AstInitializeLocalVariable()
         {
@@ -15,16 +15,16 @@ namespace EmitMapper.AST.Nodes
 
         public AstInitializeLocalVariable(LocalBuilder loc)
         {
-            localType = loc.LocalType;
-            localIndex = loc.LocalIndex;
+            LocalType = loc.LocalType;
+            LocalIndex = loc.LocalIndex;
         }
 
         public void Compile(CompilationContext context)
         {
-            if(localType.IsValueType)
+            if (LocalType.IsValueType)
             {
-                context.Emit(OpCodes.Ldloca, localIndex);
-                context.Emit(OpCodes.Initobj, localType);
+                context.Emit(OpCodes.Ldloca, LocalIndex);
+                context.Emit(OpCodes.Initobj, LocalType);
             }
         }
     }

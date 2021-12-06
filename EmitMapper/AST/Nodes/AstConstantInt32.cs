@@ -1,19 +1,16 @@
-﻿using System;
+﻿using EmitMapper.AST.Interfaces;
+using System;
 using System.Reflection.Emit;
-using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes
 {
-    class AstConstantInt32 : IAstValue
+    internal class AstConstantInt32 : IAstValue
     {
-        public Int32 value;
+        public int Value;
 
         #region IAstReturnValueNode Members
 
-        public Type itemType
-        {
-            get { return typeof(Int32); }
-        }
+        public Type ItemType => typeof(int);
 
         #endregion
 
@@ -21,7 +18,7 @@ namespace EmitMapper.AST.Nodes
 
         public void Compile(CompilationContext context)
         {
-            context.Emit(OpCodes.Ldc_I4, value);
+            context.Emit(OpCodes.Ldc_I4, Value);
         }
 
         #endregion

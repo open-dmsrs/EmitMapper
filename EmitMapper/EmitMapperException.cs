@@ -1,13 +1,13 @@
-﻿using System;
-using EmitMapper.MappingConfiguration.MappingOperations;
+﻿using EmitMapper.MappingConfiguration.MappingOperations;
+using System;
 
 namespace EmitMapper
 {
-    public class EmitMapperException: ApplicationException
+    public class EmitMapperException : ApplicationException
     {
-		public IMappingOperation _mappingOperation = null;
+        public IMappingOperation _mappingOperation = null;
         public EmitMapperException()
-        { 
+        {
         }
 
         public EmitMapperException(string message)
@@ -22,11 +22,11 @@ namespace EmitMapper
 
         public EmitMapperException(string message, Exception innerException, IMappingOperation mappingOperation)
             : base(
-                BuildMessage(message, mappingOperation), 
+                BuildMessage(message, mappingOperation),
                 innerException
                 )
         {
-			_mappingOperation = mappingOperation;
+            _mappingOperation = mappingOperation;
         }
 
         private static string BuildMessage(string message, IMappingOperation mappingOperation)
