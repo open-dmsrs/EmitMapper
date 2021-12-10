@@ -2,7 +2,6 @@
 {
     using System;
 
-    using EmitMapper;
     using EmitMapper.MappingConfiguration;
 
     using Xunit;

@@ -87,12 +87,6 @@ internal class MappingOperationsProcessor
                 continue;
             if (this.locException != null)
             {
-                /* Unmerged change from project 'EmitMapper (netstandard2.1)'
-                Before:
-                                    var tryCatch = CreateExceptionHandlingBlock(operationId, completeOperation);
-                After:
-                                    var tryCatch = CreateExceptionHandlingBlock(operationId, completeOperation);
-                */
                 var tryCatch = this.CreateExceptionHandlingBlock(operationId, completeOperation);
                 result.Nodes.Add(tryCatch);
             }
@@ -307,14 +301,6 @@ internal class MappingOperationsProcessor
 
         // Target construction
 
-        /* Unmerged change from project 'EmitMapper (netstandard2.1)'
-        Before:
-                    var initDest = new List<IAstNode>();
-                    var custCtr = op.TargetConstructor;
-        After:
-                    var initDest = new List<IAstNode>();
-                    var custCtr = op.TargetConstructor;
-        */
         var initDest = new List<IAstNode>();
         var custCtr = op.TargetConstructor;
         if (custCtr != null)
@@ -333,12 +319,6 @@ internal class MappingOperationsProcessor
             initDest.Add(new AstWriteLocal(tempDst, new AstNewObject(op.Destination.MemberType, null)));
         }
 
-        /* Unmerged change from project 'EmitMapper (netstandard2.1)'
-        Before:
-                    var copying = new List<IAstNode>();
-        After:
-                    var copying = new List<IAstNode>();
-        */
         var copying = new List<IAstNode>();
 
         // if destination is nullable, create a temp target variable with underlying destination type
@@ -560,12 +540,6 @@ internal class MappingOperationsProcessor
             }
             else
             {
-                /* Unmerged change from project 'EmitMapper (netstandard2.1)'
-                Before:
-                                    var mi = staticConvertersManager.GetStaticConverter(rwMapOp.Source.MemberType, rwMapOp.Destination.MemberType);
-                After:
-                                    var mi = staticConvertersManager.GetStaticConverter(rwMapOp.Source.MemberType, rwMapOp.Destination.MemberType);
-                */
                 var mi = this.staticConvertersManager.GetStaticConverter(
                     rwMapOp.Source.MemberType,
                     rwMapOp.Destination.MemberType);

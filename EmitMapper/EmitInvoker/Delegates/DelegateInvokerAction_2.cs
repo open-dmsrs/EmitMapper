@@ -1,4 +1,6 @@
-﻿namespace EmitMapper.EmitInvoker.Delegates;
+﻿// ReSharper disable All
+
+namespace EmitMapper.EmitInvoker.Delegates;
 
 public abstract class DelegateInvokerAction_2 : DelegateInvokerBase
 {

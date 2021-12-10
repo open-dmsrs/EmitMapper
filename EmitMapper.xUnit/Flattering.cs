@@ -1,6 +1,5 @@
 ﻿namespace EmitMapper.xUnit
 {
-    using EmitMapper;
     using EmitMapper.MappingConfiguration;
     using EmitMapper.MappingConfiguration.MappingOperations;
 

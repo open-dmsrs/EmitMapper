@@ -18,11 +18,11 @@ internal class MappingBuilder
 
     private readonly ObjectMapperManager objectsMapperManager;
 
+    public readonly List<object> StoredObjects;
+
     private readonly TypeBuilder typeBuilder;
 
     private Type from;
-
-    public List<object> storedObjects;
 
     private Type to;
 
@@ -38,13 +38,7 @@ internal class MappingBuilder
         this.to = to;
         this.typeBuilder = typeBuilder;
 
-        /* Unmerged change from project 'EmitMapper (netstandard2.1)'
-        Before:
-                    this.storedObjects = new List<object>();
-        After:
-                    this.storedObjects = new List<object>();
-        */
-        this.storedObjects = new List<object>();
+        this.StoredObjects = new List<object>();
         this.mappingConfigurator = mappingConfigurator;
     }
 
@@ -79,29 +73,23 @@ internal class MappingBuilder
         locException = compilationContext.ILGenerator.DeclareLocal(typeof(Exception));
 #endif
 
-        /* Unmerged change from project 'EmitMapper (netstandard2.1)'
-        Before:
-                    var mappingOperations = mappingConfigurator.GetMappingOperations(from, to);
-        After:
-                    var mappingOperations = mappingConfigurator.GetMappingOperations(from, to);
-        */
         var mappingOperations = this.mappingConfigurator.GetMappingOperations(this.from, this.to);
         var staticConverter = this.mappingConfigurator.GetStaticConvertersManager();
         mapperAst.Nodes.Add(
             new MappingOperationsProcessor
-            {
-                locException = locException,
-                locFrom = locFrom,
-                locState = locState,
-                locTo = locTo,
-                objectsMapperManager = this.objectsMapperManager,
-                compilationContext = compilationContext,
-                storedObjects = this.storedObjects,
-                operations = mappingOperations,
-                mappingConfigurator = this.mappingConfigurator,
-                rootOperation = this.mappingConfigurator.GetRootMappingOperation(this.from, this.to),
-                staticConvertersManager = staticConverter ?? StaticConvertersManager.DefaultInstance
-            }.ProcessOperations());
+                {
+                    locException = locException,
+                    locFrom = locFrom,
+                    locState = locState,
+                    locTo = locTo,
+                    objectsMapperManager = this.objectsMapperManager,
+                    compilationContext = compilationContext,
+                    storedObjects = this.StoredObjects,
+                    operations = mappingOperations,
+                    mappingConfigurator = this.mappingConfigurator,
+                    rootOperation = this.mappingConfigurator.GetRootMappingOperation(this.from, this.to),
+                    staticConvertersManager = staticConverter ?? StaticConvertersManager.DefaultInstance
+                }.ProcessOperations());
         mapperAst.Nodes.Add(
             new AstReturn { ReturnType = typeof(object), ReturnValue = AstBuildHelper.ReadLocalRV(locTo) });
 

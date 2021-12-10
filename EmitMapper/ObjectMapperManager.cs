@@ -95,14 +95,6 @@ public class ObjectMapperManager
             var MapperTypeKey = new MapperKey(from, to, mappingConfigurator.GetConfigurationName());
             ObjectsMapperDescr result;
 
-            /* Unmerged change from project 'EmitMapper (netstandard2.1)'
-            Before:
-                            int mapperId;
-                            if (!objectsMapperIds.TryGetValue(MapperTypeKey, out mapperId))
-            After:
-                            int mapperId;
-                            if (!objectsMapperIds.TryGetValue(MapperTypeKey, out mapperId))
-            */
             if (!this.objectsMapperIds.TryGetValue(MapperTypeKey, out var mapperId))
             {
                 result = new ObjectsMapperDescr(null, MapperTypeKey, 0);
@@ -159,7 +151,7 @@ public class ObjectMapperManager
         mappingBuilder.BuildCopyImplMethod();
 
         var result = (ObjectsMapperBaseImpl)Activator.CreateInstance(typeBuilder.CreateType());
-        result.Initialize(this, from, to, mappingConfigurator, mappingBuilder.storedObjects.ToArray());
+        result.Initialize(this, from, to, mappingConfigurator, mappingBuilder.StoredObjects.ToArray());
         return result;
     }
 

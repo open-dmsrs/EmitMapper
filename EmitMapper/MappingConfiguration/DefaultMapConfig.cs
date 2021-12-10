@@ -34,9 +34,9 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
 
     private class TypesPair
     {
-        public Type t1;
+        public readonly Type t1;
 
-        public Type t2;
+        public readonly Type t2;
 
         public TypesPair(Type t1, Type t2)
         {
@@ -184,12 +184,6 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
 
     public override IRootMappingOperation GetRootMappingOperation(Type from, Type to)
     {
-        /* Unmerged change from project 'EmitMapper (netstandard2.1)'
-        Before:
-                    var res = base.GetRootMappingOperation(from, to);
-        After:
-                    var res = base.GetRootMappingOperation(from, to);
-        */
         var res = base.GetRootMappingOperation(from, to);
         res.ShallowCopy = this.IsShallowCopy(from, to);
         return res;
@@ -197,12 +191,6 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
 
     public override string GetConfigurationName()
     {
-        /* Unmerged change from project 'EmitMapper (netstandard2.1)'
-        Before:
-                    var configName = base.GetConfigurationName() +
-        After:
-                    var configName = base.GetConfigurationName() +
-        */
         var configName = base.GetConfigurationName() + new[]
                                                            {
                                                                this._shallowCopy.ToString(),
@@ -257,12 +245,6 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
         else
             to = ReflectionUtils.GetMemberType(toPath.Last());
 
-        /* Unmerged change from project 'EmitMapper (netstandard2.1)'
-        Before:
-                    var tp = new TypesPair(from, to);
-        After:
-                    var tp = new TypesPair(from, to);
-        */
         var tp = new TypesPair(from, to);
         processedTypes.Add(tp);
 
@@ -291,12 +273,6 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
                     continue;
             }
 
-            /* Unmerged change from project 'EmitMapper (netstandard2.1)'
-            Before:
-                            var op = CreateMappingOperation(processedTypes, fromRoot, toRoot, toPath, fromPath, fromMi, toMi);
-            After:
-                            var op = CreateMappingOperation(processedTypes, fromRoot, toRoot, toPath, fromPath, fromMi, toMi);
-            */
             var op = this.CreateMappingOperation(processedTypes, fromRoot, toRoot, toPath, fromPath, fromMi, toMi);
             if (op != null)
                 result.Add(op);
@@ -315,14 +291,6 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
         MemberInfo fromMi,
         MemberInfo toMi)
     {
-        /* Unmerged change from project 'EmitMapper (netstandard2.1)'
-        Before:
-                    var origDestMemberDescr = new MemberDescriptor(toPath.Concat(new[] { toMi }).ToArray());
-                    var origSrcMemberDescr = new MemberDescriptor(fromPath.Concat(new[] { fromMi }).ToArray());
-        After:
-                    var origDestMemberDescr = new MemberDescriptor(toPath.Concat(new[] { toMi }).ToArray());
-                    var origSrcMemberDescr = new MemberDescriptor(fromPath.Concat(new[] { fromMi }).ToArray());
-        */
         var origDestMemberDescr = new MemberDescriptor(toPath.Concat(new[] { toMi }).ToArray());
         var origSrcMemberDescr = new MemberDescriptor(fromPath.Concat(new[] { fromMi }).ToArray());
 
@@ -338,14 +306,6 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
             toMi = ReflectionUtils.GetMemberType(toMi).GetProperty("Value");
         }
 
-        /* Unmerged change from project 'EmitMapper (netstandard2.1)'
-        Before:
-                    var destMemberDescr = new MemberDescriptor(toPath.Concat(new[] { toMi }).ToArray());
-                    var srcMemberDescr = new MemberDescriptor(fromPath.Concat(new[] { fromMi }).ToArray());
-        After:
-                    var destMemberDescr = new MemberDescriptor(toPath.Concat(new[] { toMi }).ToArray());
-                    var srcMemberDescr = new MemberDescriptor(fromPath.Concat(new[] { fromMi }).ToArray());
-        */
         var destMemberDescr = new MemberDescriptor(toPath.Concat(new[] { toMi }).ToArray());
         var srcMemberDescr = new MemberDescriptor(fromPath.Concat(new[] { fromMi }).ToArray());
         var typeFromMember = srcMemberDescr.MemberType;

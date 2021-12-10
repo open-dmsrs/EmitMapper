@@ -2,7 +2,6 @@
 
 using System;
 
-using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
 public class EmitMapperException : ApplicationException
