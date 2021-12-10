@@ -3,7 +3,6 @@
 using System;
 
 using EmitMapper.Conversion;
-using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
 public class CustomMapConfig : IMappingConfigurator

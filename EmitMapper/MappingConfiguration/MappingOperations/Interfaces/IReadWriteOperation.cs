@@ -2,12 +2,6 @@
 
 using System;
 
-/* Unmerged change from project 'EmitMapper (netstandard2.1)'
-Before:
-    interface IReadWriteOperation : IDestWriteOperation, ISrcReadOperation
-After:
-    interface IReadWriteOperation : IDestWriteOperation, ISrcReadOperation
-*/
 public interface IReadWriteOperation : IDestWriteOperation, ISrcReadOperation
 {
     Delegate NullSubstitutor { get; set; } // generic type: NullSubstitutor

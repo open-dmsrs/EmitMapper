@@ -3,7 +3,6 @@
 using System;
 using System.Collections;
 
-using EmitMapper;
 using EmitMapper.Conversion;
 using EmitMapper.EmitInvoker.Methods;
 using EmitMapper.MappingConfiguration;
@@ -23,25 +22,9 @@ internal class MapperPrimitiveImpl : CustomMapperImpl
         IMappingConfigurator mappingConfigurator)
         : base(mapperMannager, TypeFrom, TypeTo, mappingConfigurator, null)
     {
-        /* Unmerged change from project 'EmitMapper (netstandard2.1)'
-        Before:
-                    var to = TypeTo == typeof(IEnumerable) ? typeof(object) : TypeTo;
-                    var from = TypeFrom == typeof(IEnumerable) ? typeof(object) : TypeFrom;
-        After:
-                    var to = TypeTo == typeof(IEnumerable) ? typeof(object) : TypeTo;
-                    var from = TypeFrom == typeof(IEnumerable) ? typeof(object) : TypeFrom;
-        */
         var to = TypeTo == typeof(IEnumerable) ? typeof(object) : TypeTo;
         var from = TypeFrom == typeof(IEnumerable) ? typeof(object) : TypeFrom;
 
-        /* Unmerged change from project 'EmitMapper (netstandard2.1)'
-        Before:
-                    var staticConv = mappingConfigurator.GetStaticConvertersManager() ?? StaticConvertersManager.DefaultInstance;
-                    var converterMethod = staticConv.GetStaticConverter(from, to);
-        After:
-                    var staticConv = mappingConfigurator.GetStaticConvertersManager() ?? StaticConvertersManager.DefaultInstance;
-                    var converterMethod = staticConv.GetStaticConverter(from, to);
-        */
         var staticConv = mappingConfigurator.GetStaticConvertersManager() ?? StaticConvertersManager.DefaultInstance;
         var converterMethod = staticConv.GetStaticConverter(from, to);
 

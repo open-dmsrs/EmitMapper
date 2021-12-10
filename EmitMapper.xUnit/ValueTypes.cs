@@ -1,7 +1,5 @@
 ﻿namespace EmitMapper.xUnit
 {
-    using EmitMapper;
-
     using Xunit;
 
     ////[TestFixture]

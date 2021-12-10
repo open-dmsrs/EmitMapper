@@ -159,16 +159,16 @@ public class MapperForCollectionImpl : CustomMapperImpl
             BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(ExtractElementType(copiedObjectType));
 
         return new AstReturn
-        {
-            ReturnType = typeof(object),
-            ReturnValue = AstBuildHelper.CallMethod(
+                   {
+                       ReturnType = typeof(object),
+                       ReturnValue = AstBuildHelper.CallMethod(
                            mi,
                            AstBuildHelper.ReadThis(typeof(MapperForCollectionImpl)),
                            new List<IAstStackItem>
                                {
                                    new AstReadArgumentRef { ArgumentIndex = 1, ArgumentType = typeof(object) }
                                })
-        };
+                   };
     }
 
     private static Type ExtractElementType(Type collection)

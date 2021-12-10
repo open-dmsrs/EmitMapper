@@ -6,7 +6,7 @@ using System.Linq;
 
 using EmitMapper.MappingConfiguration;
 
-internal class ArraysConverter_DifferentTypes<TFrom, TTo> : ICustomConverter
+internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
 {
     private Func<TFrom, TTo> _converter;
 
@@ -51,7 +51,7 @@ internal class ArraysConverter_DifferentTypes<TFrom, TTo> : ICustomConverter
     }
 }
 
-internal class ArraysConverter_OneTypes<T>
+internal class ArraysConverterOneTypes<T>
 {
     public T[] Convert(ICollection<T> from, object state)
     {
@@ -73,14 +73,14 @@ internal class ArraysConverterProvider : ICustomConverterProvider
             return new CustomConverterDescriptor
                        {
                            ConversionMethodName = "Convert",
-                           ConverterImplementation = typeof(ArraysConverter_OneTypes<>),
+                           ConverterImplementation = typeof(ArraysConverterOneTypes<>),
                            ConverterClassTypeArguments = new[] { tFrom }
                        };
 
         return new CustomConverterDescriptor
                    {
                        ConversionMethodName = "Convert",
-                       ConverterImplementation = typeof(ArraysConverter_DifferentTypes<,>),
+                       ConverterImplementation = typeof(ArraysConverterDifferentTypes<,>),
                        ConverterClassTypeArguments = new[] { tFrom, tTo }
                    };
     }

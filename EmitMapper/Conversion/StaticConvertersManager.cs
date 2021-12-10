@@ -11,7 +11,7 @@ public class StaticConvertersManager
 {
     private static StaticConvertersManager _defaultInstance;
 
-    private static readonly Dictionary<MethodInfo, Func<object, object>> _convertersFunc = new();
+    private static readonly Dictionary<MethodInfo, Func<object, object>> ConvertersFunc = new();
 
     private readonly Dictionary<TypesPair, MethodInfo> _typesMethods = new();
 
@@ -44,7 +44,7 @@ public class StaticConvertersManager
         {
             var parameters = m.GetParameters();
             if (parameters.Length == 1 && m.ReturnType != typeof(void))
-                this._typesMethods[new TypesPair { typeFrom = parameters[0].ParameterType, typeTo = m.ReturnType }] = m;
+                this._typesMethods[new TypesPair(parameters[0].ParameterType, m.ReturnType)] = m;
         }
     }
 
@@ -65,7 +65,7 @@ public class StaticConvertersManager
                 return result;
         }
 
-        this._typesMethods.TryGetValue(new TypesPair { typeFrom = from, typeTo = to }, out var res);
+        this._typesMethods.TryGetValue(new TypesPair(from, to), out var res);
         return res;
     }
 
@@ -74,36 +74,42 @@ public class StaticConvertersManager
         var mi = this.GetStaticConverter(from, to);
         if (mi == null)
             return null;
-        lock (_convertersFunc)
+        lock (ConvertersFunc)
         {
-            if (_convertersFunc.TryGetValue(mi, out var res))
+            if (ConvertersFunc.TryGetValue(mi, out var res))
                 return res;
             res = ((MethodInvokerFunc_1)MethodInvoker.GetMethodInvoker(null, mi)).CallFunc;
-            _convertersFunc.Add(mi, res);
+            ConvertersFunc.Add(mi, res);
             return res;
         }
     }
 
     private class TypesPair
     {
-        public Type typeFrom;
+        public readonly Type TypeFrom;
 
-        public Type typeTo;
+        public readonly Type TypeTo;
+
+        public TypesPair(Type typeFrom, Type typeTo)
+        {
+            this.TypeFrom = typeFrom;
+            this.TypeTo = typeTo;
+        }
 
         public override int GetHashCode()
         {
-            return this.typeFrom.GetHashCode() + this.typeTo.GetHashCode();
+            return this.TypeFrom.GetHashCode() + this.TypeTo.GetHashCode();
         }
 
         public override bool Equals(object obj)
         {
             var rhs = (TypesPair)obj;
-            return this.typeFrom == rhs.typeFrom && this.typeTo == rhs.typeTo;
+            return this.TypeFrom == rhs.TypeFrom && this.TypeTo == rhs.TypeTo;
         }
 
         public override string ToString()
         {
-            return this.typeFrom + " -> " + this.typeTo;
+            return this.TypeFrom + " -> " + this.TypeTo;
         }
     }
 }

@@ -31,7 +31,7 @@ internal class AstExceptionHandlingBlock : IAstNode
 
     public void Compile(CompilationContext context)
     {
-        var endBlock = context.ILGenerator.BeginExceptionBlock();
+        context.ILGenerator.BeginExceptionBlock();
         this.protectedBlock.Compile(context);
         context.ILGenerator.BeginCatchBlock(this.exceptionType);
         context.ILGenerator.Emit(OpCodes.Stloc, this.eceptionVariable);

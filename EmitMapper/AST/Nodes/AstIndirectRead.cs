@@ -8,7 +8,7 @@ using EmitMapper.AST.Interfaces;
 
 internal abstract class AstIndirectRead : IAstStackItem
 {
-    public Type ItemType { get; }
+    public Type ItemType { get; set; }
 
     public abstract void Compile(CompilationContext context);
 }

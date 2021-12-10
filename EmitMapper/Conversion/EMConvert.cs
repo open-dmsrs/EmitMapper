@@ -39,9 +39,8 @@ public class EMConvert
 
         if (typeTo == typeof(Guid))
         {
-            if (value == null)
-                return new Guid();
-            return new Guid(value.ToString());
+            var r = new Guid(value.ToString()!);
+            return r == Guid.Empty ? new Guid() : r;
         }
 
         var isFromNullable = ReflectionUtils.IsNullable(typeFrom);

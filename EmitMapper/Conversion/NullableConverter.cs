@@ -38,7 +38,7 @@ public class NullableConverter
 
     public static bool ToBoolean(char? par)
     {
-        return Convert.ToBoolean(par.Value);
+        return par.HasValue && Convert.ToBoolean(par.Value);
     }
 
     public static bool? ToBoolean(byte par)
