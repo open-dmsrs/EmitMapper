@@ -6,7 +6,7 @@ using System.Reflection.Emit;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
-internal class AstReturn : IAstNode, IAstAddr
+internal class AstReturn : IAstAddr
 {
     public Type ReturnType;
 
