@@ -1,19 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.1</TargetFrameworks>
+		<TargetFrameworks>net6.0</TargetFrameworks>
 
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Configurators\DataContainerToEntityPropertyMappingConfigurator.cs" />
-	  <Compile Remove="Configurators\DataContainerToObjectConfigurator.cs" />
-	  <Compile Remove="Configurators\EntityToDataContainerPropertyMappingConfigurator.cs" />
-	  <Compile Remove="Configurators\ObjectToDataContainerConfigurator.cs" />
 	  <Compile Remove="DataReaderToObjectMapper.cs" />
 	  <Compile Remove="DBTools.cs" />
-	  <Compile Remove="MappingConfigs\AddDbCommandsMappingConfig.cs" />
-	  <Compile Remove="ObjectsChangeTracker.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -21,7 +15,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="MappingConfigs\" />
+	  <Folder Include="Properties\" />
 	</ItemGroup>
 
 </Project>

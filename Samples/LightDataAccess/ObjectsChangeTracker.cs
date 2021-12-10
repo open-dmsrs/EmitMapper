@@ -15,6 +15,7 @@
 namespace LightDataAccess
 {
     using EmitMapper;
+    using EmitMapper.Conversion;
     using EmitMapper.MappingConfiguration;
     using EmitMapper.MappingConfiguration.MappingOperations;
     using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
@@ -198,12 +199,12 @@ namespace LightDataAccess
             List<TrackingMember> originalValues = GetObjectMembers(originalObj);
             List<TrackingMember> currentValues = GetObjectMembers(currentObj);
             return currentValues.Select((x, idx) =>
-                {
-                    TrackingMember original = originalValues[idx];
-                    x.OriginalValue = original.CurrentValue;
-                    return x;
+            {
+                TrackingMember original = originalValues[idx];
+                x.OriginalValue = original.CurrentValue;
+                return x;
 
-                })
+            })
                 .Where(
                     (current, idx) =>
                     {

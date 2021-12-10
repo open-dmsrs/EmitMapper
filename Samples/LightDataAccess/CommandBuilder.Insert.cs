@@ -13,8 +13,8 @@
 // ***********************************************************************
 using EmitMapper;
 using EmitMapper.Mappers;
+using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
-using LightDataAccess.MappingConfigs;
 using System.Data.Common;
 using System.Linq;
 

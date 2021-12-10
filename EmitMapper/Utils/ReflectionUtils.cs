@@ -45,6 +45,11 @@ public class ReflectionUtils
         return result.ToArray();
     }
 
+    public static IEnumerable<object> GetTypeDataContainerDescription(Type to)
+    {
+        throw new NotImplementedException();
+    }
+
     public static Type GetMemberType(MemberInfo mi)
     {
         if (mi is PropertyInfo)
@@ -54,6 +59,11 @@ public class ReflectionUtils
         if (mi is MethodInfo)
             return ((MethodInfo)mi).ReturnType;
         return null;
+    }
+
+    public static IEnumerable<Tuple<string, Type>> GetDataMemberDefinition(MemberInfo destinationMember)
+    {
+        throw new NotImplementedException();
     }
 
     public static bool HasDefaultConstructor(Type type)
@@ -72,5 +82,10 @@ public class ReflectionUtils
         public MemberInfo First { get; set; }
 
         public MemberInfo Second { get; set; }
+    }
+
+    public static object ConvertValue(string value, Type fieldType, Type destinationType)
+    {
+        throw new NotImplementedException();
     }
 }

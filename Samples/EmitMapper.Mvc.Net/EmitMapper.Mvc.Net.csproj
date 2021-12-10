@@ -115,6 +115,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\EmitMapper\EmitMapper.csproj">
+      <Project>{9e456898-83b2-44f9-ba09-d69ccc81d6c7}</Project>
+      <Name>EmitMapper</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -91,6 +91,10 @@
     <Compile Include="TestObjectsTracker.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EmitMapper\EmitMapper.csproj">
+      <Project>{9e456898-83b2-44f9-ba09-d69ccc81d6c7}</Project>
+      <Name>EmitMapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Samples\EMConfigurations\EMConfigurations.csproj">
       <Project>{F9221CD0-0B56-4CA1-857B-7B19DC509D59}</Project>
       <Name>EMConfigurations</Name>

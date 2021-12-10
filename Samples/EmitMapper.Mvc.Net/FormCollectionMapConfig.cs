@@ -1,5 +1,7 @@
-﻿using EmitMapper.MappingConfiguration;
+﻿using EmitMapper.Conversion;
+using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
+using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
 using System;
 using System.Linq;
