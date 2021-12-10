@@ -1,4 +1,4 @@
-﻿namespace EmitMapperTests
+﻿namespace EmitMapper.xUnit
 {
     using Xunit;
 

@@ -1,4 +1,4 @@
-﻿namespace EmitObjectMapper.Mappers;
+﻿namespace EmitMapper.Mappers;
 
 using System;
 using System.Collections;
@@ -6,7 +6,7 @@ using System.Collections;
 using EmitMapper;
 using EmitMapper.Conversion;
 using EmitMapper.EmitInvoker.Methods;
-using EmitMapper.Mappers;
+using EmitMapper.MappingConfiguration;
 using EmitMapper.Utils;
 
 /// <summary>

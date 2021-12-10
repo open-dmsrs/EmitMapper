@@ -1,10 +1,12 @@
-﻿using EmitMapper;
-using EmitMapper.MappingConfiguration;
-using System;
-using Xunit;
-
-namespace EmitMapperTests
+﻿namespace EmitMapper.xUnit
 {
+    using System;
+
+    using EmitMapper;
+    using EmitMapper.MappingConfiguration;
+
+    using Xunit;
+
     ////[TestFixture]
     public class NullableTypes
     {
@@ -18,7 +20,7 @@ namespace EmitMapperTests
                 }
                 public Int1(int i)
                 {
-                    s = "A1::Int1::s";
+                    this.s = "A1::Int1::s";
                 }
             }
 
@@ -99,8 +101,8 @@ namespace EmitMapperTests
                 {
                     fld3 = "a"
                 };
-                fld2 = a;
-                fld5 = a;
+                this.fld2 = a;
+                this.fld5 = a;
             }
         }
         public class B3

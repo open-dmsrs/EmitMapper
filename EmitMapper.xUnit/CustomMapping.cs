@@ -1,8 +1,9 @@
-﻿using EmitMapper.MappingConfiguration;
-using Xunit;
-
-namespace EmitMapperTests
+﻿namespace EmitMapper.xUnit
 {
+    using EmitMapper.MappingConfiguration;
+
+    using Xunit;
+
     ////[TestFixture]
     public class CustomMapping
     {
@@ -11,10 +12,10 @@ namespace EmitMapperTests
             private string _fld2 = "";
 
             public string fld1 = "";
-            public string fld2 => _fld2;
+            public string fld2 => this._fld2;
             public void SetFld2(string value)
             {
-                _fld2 = value;
+                this._fld2 = value;
             }
         }
 
@@ -126,7 +127,7 @@ namespace EmitMapperTests
 
             public B3()
             {
-                fld2.str1 = "B3::SInt::str1";
+                this.fld2.str1 = "B3::SInt::str1";
             }
         }
         [Fact]

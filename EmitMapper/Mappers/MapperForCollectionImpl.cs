@@ -9,6 +9,7 @@ using EmitMapper.AST;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 using EmitMapper.AST.Nodes;
+using EmitMapper.MappingConfiguration;
 
 /// <summary>
 ///     Mapper for collections. It can copy Array, List<>, ArrayList collections.

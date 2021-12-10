@@ -7,8 +7,6 @@ using EmitMapper.EmitBuilders;
 using EmitMapper.Mappers;
 using EmitMapper.MappingConfiguration;
 
-using EmitObjectMapper.Mappers;
-
 /// <summary>
 ///     Class for maintaining and generating Mappers.
 /// </summary>

@@ -1,4 +1,4 @@
-﻿namespace EmitMapperTests.NUnit
+﻿namespace EmitMapper.xUnit
 {
     using System.Linq;
 

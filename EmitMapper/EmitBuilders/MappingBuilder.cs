@@ -9,6 +9,7 @@ using EmitMapper.AST;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Nodes;
 using EmitMapper.Conversion;
+using EmitMapper.MappingConfiguration;
 using EmitMapper.Utils;
 
 internal class MappingBuilder

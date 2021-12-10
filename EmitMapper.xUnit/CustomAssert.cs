@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Xunit;
-
-namespace EmitMapperTests
+﻿namespace EmitMapper.xUnit
 {
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Xunit;
+
     internal class CustomAssert
     {
         public static void AreEqual(ICollection expected, ICollection actual)

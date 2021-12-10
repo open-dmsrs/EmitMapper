@@ -1,4 +1,4 @@
-namespace CoreEmitMapperTest.Nunit
+namespace EmitMapper.xUnit
 {
     using Xunit;
 

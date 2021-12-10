@@ -2,6 +2,8 @@
 
 using System;
 
+using EmitMapper.MappingConfiguration;
+
 public abstract class CustomMapperImpl : ObjectsMapperBaseImpl
 {
     public CustomMapperImpl(

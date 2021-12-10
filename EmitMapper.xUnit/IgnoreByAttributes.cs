@@ -1,4 +1,4 @@
-﻿namespace EmitMapperTests
+﻿namespace EmitMapper.xUnit
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,6 @@
 
     using EmitMapper;
     using EmitMapper.MappingConfiguration;
-    using EmitMapper.MappingConfiguration.MappingOperations;
     using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
     using Xunit;
@@ -32,7 +31,7 @@
 
         public class IgnoreByAttributesSrc
         {
-            [MyIgnoreAttribute]
+            [MyIgnore]
             public string str1 = "IgnoreByAttributesSrc::str1";
 
             public string str2 = "IgnoreByAttributesSrc::str2";
