@@ -18,7 +18,7 @@ public class NullableConverter
 
     public static bool ToBoolean(bool? par)
     {
-        return Convert.ToBoolean(par.Value);
+        return par != null && Convert.ToBoolean(par.Value);
     }
 
     public static bool? ToBoolean(sbyte par)
@@ -28,7 +28,7 @@ public class NullableConverter
 
     public static bool ToBoolean(sbyte? par)
     {
-        return Convert.ToBoolean(par.Value);
+        return par != null && Convert.ToBoolean(par.Value);
     }
 
     public static bool? ToBoolean(char par)
@@ -48,7 +48,7 @@ public class NullableConverter
 
     public static bool ToBoolean(byte? par)
     {
-        return Convert.ToBoolean(par.Value);
+        return par != null && Convert.ToBoolean(par.Value);
     }
 
     public static bool? ToBoolean(short par)
@@ -58,7 +58,7 @@ public class NullableConverter
 
     public static bool ToBoolean(short? par)
     {
-        return Convert.ToBoolean(par.Value);
+        return par != null && Convert.ToBoolean(par.Value);
     }
 
     public static bool? ToBoolean(ushort par)
@@ -68,7 +68,7 @@ public class NullableConverter
 
     public static bool ToBoolean(ushort? par)
     {
-        return Convert.ToBoolean(par.Value);
+        return par != null && Convert.ToBoolean(par.Value);
     }
 
     public static bool? ToBoolean(int par)
@@ -78,7 +78,7 @@ public class NullableConverter
 
     public static bool ToBoolean(int? par)
     {
-        return Convert.ToBoolean(par.Value);
+        return par != null && Convert.ToBoolean(par.Value);
     }
 
     public static bool? ToBoolean(uint par)
@@ -88,7 +88,7 @@ public class NullableConverter
 
     public static bool ToBoolean(uint? par)
     {
-        return Convert.ToBoolean(par.Value);
+        return par != null && Convert.ToBoolean(par.Value);
     }
 
     public static bool? ToBoolean(long par)
@@ -98,7 +98,7 @@ public class NullableConverter
 
     public static bool ToBoolean(long? par)
     {
-        return Convert.ToBoolean(par.Value);
+        return par != null && Convert.ToBoolean(par.Value);
     }
 
     public static bool? ToBoolean(ulong par)
@@ -108,7 +108,7 @@ public class NullableConverter
 
     public static bool ToBoolean(ulong? par)
     {
-        return Convert.ToBoolean(par.Value);
+        return par != null && Convert.ToBoolean(par.Value);
     }
 
     public static bool? ToBoolean(string par)
@@ -123,7 +123,7 @@ public class NullableConverter
 
     public static bool ToBoolean(float? par)
     {
-        return Convert.ToBoolean(par.Value);
+        return par != null && Convert.ToBoolean(par.Value);
     }
 
     public static bool? ToBoolean(double par)
@@ -133,7 +133,7 @@ public class NullableConverter
 
     public static bool ToBoolean(double? par)
     {
-        return Convert.ToBoolean(par.Value);
+        return par != null && Convert.ToBoolean(par.Value);
     }
 
     public static bool? ToBoolean(decimal par)
@@ -143,7 +143,7 @@ public class NullableConverter
 
     public static bool ToBoolean(decimal? par)
     {
-        return Convert.ToBoolean(par.Value);
+        return par != null && Convert.ToBoolean(par.Value);
     }
 
     public static bool? ToBoolean(DateTime par)
@@ -153,7 +153,7 @@ public class NullableConverter
 
     public static bool ToBoolean(DateTime? par)
     {
-        return Convert.ToBoolean(par.Value);
+        return par != null && Convert.ToBoolean(par.Value);
     }
 
     public static char? ToChar(object par)
@@ -168,7 +168,7 @@ public class NullableConverter
 
     public static char ToChar(bool? par)
     {
-        return Convert.ToChar(par.Value);
+        return Convert.ToChar(par != null && par.Value);
     }
 
     public static char? ToChar(char par)
@@ -178,7 +178,7 @@ public class NullableConverter
 
     public static char ToChar(char? par)
     {
-        return Convert.ToChar(par.Value);
+        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
     }
 
     public static char? ToChar(sbyte par)
@@ -188,7 +188,9 @@ public class NullableConverter
 
     public static char ToChar(sbyte? par)
     {
-        return Convert.ToChar(par.Value);
+        if (par != null)
+            return Convert.ToChar(par.Value);
+        return char.MinValue;
     }
 
     public static char? ToChar(byte par)
@@ -198,7 +200,7 @@ public class NullableConverter
 
     public static char ToChar(byte? par)
     {
-        return Convert.ToChar(par.Value);
+        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
     }
 
     public static char? ToChar(short par)
@@ -208,7 +210,7 @@ public class NullableConverter
 
     public static char ToChar(short? par)
     {
-        return Convert.ToChar(par.Value);
+        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
     }
 
     public static char? ToChar(ushort par)
@@ -218,7 +220,7 @@ public class NullableConverter
 
     public static char ToChar(ushort? par)
     {
-        return Convert.ToChar(par.Value);
+        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
     }
 
     public static char? ToChar(int par)
@@ -228,7 +230,7 @@ public class NullableConverter
 
     public static char ToChar(int? par)
     {
-        return Convert.ToChar(par.Value);
+        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
     }
 
     public static char? ToChar(uint par)
@@ -238,7 +240,7 @@ public class NullableConverter
 
     public static char ToChar(uint? par)
     {
-        return Convert.ToChar(par.Value);
+        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
     }
 
     public static char? ToChar(long par)
@@ -248,7 +250,7 @@ public class NullableConverter
 
     public static char ToChar(long? par)
     {
-        return Convert.ToChar(par.Value);
+        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
     }
 
     public static char? ToChar(ulong par)
@@ -258,7 +260,7 @@ public class NullableConverter
 
     public static char ToChar(ulong? par)
     {
-        return Convert.ToChar(par.Value);
+        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
     }
 
     public static char? ToChar(string par)
@@ -273,7 +275,7 @@ public class NullableConverter
 
     public static char ToChar(float? par)
     {
-        return Convert.ToChar(par.Value);
+        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
     }
 
     public static char? ToChar(double par)
@@ -283,7 +285,7 @@ public class NullableConverter
 
     public static char ToChar(double? par)
     {
-        return Convert.ToChar(par.Value);
+        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
     }
 
     public static char? ToChar(decimal par)
@@ -293,7 +295,7 @@ public class NullableConverter
 
     public static char ToChar(decimal? par)
     {
-        return Convert.ToChar(par.Value);
+        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
     }
 
     public static char? ToChar(DateTime par)
@@ -303,7 +305,7 @@ public class NullableConverter
 
     public static char ToChar(DateTime? par)
     {
-        return Convert.ToChar(par.Value);
+        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
     }
 
     public static sbyte? ToSByte(object par)
@@ -318,7 +320,7 @@ public class NullableConverter
 
     public static sbyte ToSByte(bool? par)
     {
-        return Convert.ToSByte(par.Value);
+        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
     }
 
     public static sbyte? ToSByte(sbyte par)
@@ -328,7 +330,7 @@ public class NullableConverter
 
     public static sbyte ToSByte(sbyte? par)
     {
-        return Convert.ToSByte(par.Value);
+        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
     }
 
     public static sbyte? ToSByte(char par)
@@ -338,7 +340,7 @@ public class NullableConverter
 
     public static sbyte ToSByte(char? par)
     {
-        return Convert.ToSByte(par.Value);
+        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
     }
 
     public static sbyte? ToSByte(byte par)
@@ -348,7 +350,7 @@ public class NullableConverter
 
     public static sbyte ToSByte(byte? par)
     {
-        return Convert.ToSByte(par.Value);
+        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
     }
 
     public static sbyte? ToSByte(short par)
@@ -358,7 +360,7 @@ public class NullableConverter
 
     public static sbyte ToSByte(short? par)
     {
-        return Convert.ToSByte(par.Value);
+        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
     }
 
     public static sbyte? ToSByte(ushort par)
@@ -368,7 +370,7 @@ public class NullableConverter
 
     public static sbyte ToSByte(ushort? par)
     {
-        return Convert.ToSByte(par.Value);
+        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
     }
 
     public static sbyte? ToSByte(int par)
@@ -378,7 +380,7 @@ public class NullableConverter
 
     public static sbyte ToSByte(int? par)
     {
-        return Convert.ToSByte(par.Value);
+        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
     }
 
     public static sbyte? ToSByte(uint par)
@@ -388,7 +390,7 @@ public class NullableConverter
 
     public static sbyte ToSByte(uint? par)
     {
-        return Convert.ToSByte(par.Value);
+        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
     }
 
     public static sbyte? ToSByte(long par)
@@ -398,7 +400,7 @@ public class NullableConverter
 
     public static sbyte ToSByte(long? par)
     {
-        return Convert.ToSByte(par.Value);
+        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
     }
 
     public static sbyte? ToSByte(ulong par)
@@ -408,7 +410,7 @@ public class NullableConverter
 
     public static sbyte ToSByte(ulong? par)
     {
-        return Convert.ToSByte(par.Value);
+        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
     }
 
     public static sbyte? ToSByte(float par)
@@ -418,7 +420,7 @@ public class NullableConverter
 
     public static sbyte ToSByte(float? par)
     {
-        return Convert.ToSByte(par.Value);
+        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
     }
 
     public static sbyte? ToSByte(double par)
@@ -428,7 +430,7 @@ public class NullableConverter
 
     public static sbyte ToSByte(double? par)
     {
-        return Convert.ToSByte(par.Value);
+        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
     }
 
     public static sbyte? ToSByte(decimal par)
@@ -438,7 +440,7 @@ public class NullableConverter
 
     public static sbyte ToSByte(decimal? par)
     {
-        return Convert.ToSByte(par.Value);
+        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
     }
 
     public static sbyte? ToSByte(string par)
@@ -453,7 +455,7 @@ public class NullableConverter
 
     public static sbyte ToSByte(DateTime? par)
     {
-        return Convert.ToSByte(par.Value);
+        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
     }
 
     public static byte? ToByte(object par)
@@ -468,7 +470,7 @@ public class NullableConverter
 
     public static byte ToByte(bool? par)
     {
-        return Convert.ToByte(par.Value);
+        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
     }
 
     public static byte? ToByte(byte par)
@@ -478,7 +480,7 @@ public class NullableConverter
 
     public static byte ToByte(byte? par)
     {
-        return Convert.ToByte(par.Value);
+        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
     }
 
     public static byte? ToByte(char par)
@@ -488,7 +490,7 @@ public class NullableConverter
 
     public static byte ToByte(char? par)
     {
-        return Convert.ToByte(par.Value);
+        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
     }
 
     public static byte? ToByte(sbyte par)
@@ -498,7 +500,7 @@ public class NullableConverter
 
     public static byte ToByte(sbyte? par)
     {
-        return Convert.ToByte(par.Value);
+        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
     }
 
     public static byte? ToByte(short par)
@@ -508,7 +510,7 @@ public class NullableConverter
 
     public static byte ToByte(short? par)
     {
-        return Convert.ToByte(par.Value);
+        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
     }
 
     public static byte? ToByte(ushort par)
@@ -518,7 +520,7 @@ public class NullableConverter
 
     public static byte ToByte(ushort? par)
     {
-        return Convert.ToByte(par.Value);
+        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
     }
 
     public static byte? ToByte(int par)
@@ -528,7 +530,7 @@ public class NullableConverter
 
     public static byte ToByte(int? par)
     {
-        return Convert.ToByte(par.Value);
+        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
     }
 
     public static byte? ToByte(uint par)
@@ -538,7 +540,7 @@ public class NullableConverter
 
     public static byte ToByte(uint? par)
     {
-        return Convert.ToByte(par.Value);
+        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
     }
 
     public static byte? ToByte(long par)
@@ -548,7 +550,7 @@ public class NullableConverter
 
     public static byte ToByte(long? par)
     {
-        return Convert.ToByte(par.Value);
+        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
     }
 
     public static byte? ToByte(ulong par)
@@ -558,7 +560,7 @@ public class NullableConverter
 
     public static byte ToByte(ulong? par)
     {
-        return Convert.ToByte(par.Value);
+        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
     }
 
     public static byte? ToByte(float par)
@@ -568,7 +570,7 @@ public class NullableConverter
 
     public static byte ToByte(float? par)
     {
-        return Convert.ToByte(par.Value);
+        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
     }
 
     public static byte? ToByte(double par)
@@ -578,7 +580,7 @@ public class NullableConverter
 
     public static byte ToByte(double? par)
     {
-        return Convert.ToByte(par.Value);
+        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
     }
 
     public static byte? ToByte(decimal par)
@@ -588,7 +590,7 @@ public class NullableConverter
 
     public static byte ToByte(decimal? par)
     {
-        return Convert.ToByte(par.Value);
+        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
     }
 
     public static byte? ToByte(string par)
@@ -603,7 +605,7 @@ public class NullableConverter
 
     public static byte ToByte(DateTime? par)
     {
-        return Convert.ToByte(par.Value);
+        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
     }
 
     public static short? ToInt16(object par)
@@ -618,7 +620,7 @@ public class NullableConverter
 
     public static short ToInt16(bool? par)
     {
-        return Convert.ToInt16(par.Value);
+        return par.HasValue ? Convert.ToInt16(par.Value) : (short)0;
     }
 
     public static short? ToInt16(char par)
