@@ -11,7 +11,7 @@
             var a = new A1();
             var b = new B1();
             a = Context.objMan.GetMapper<B1, A1>().Map(b, a);
-            Assert.Equal(a.fld1, 10);
+            Assert.Equal(10, a.fld1);
         }
 
         [Fact]
@@ -20,7 +20,7 @@
             var a = new A2();
             var b = new B2 { fld1 = 99 };
             a = Context.objMan.GetMapper<B2, A2>().Map(b, a);
-            Assert.Equal(a.fld1, 99);
+            Assert.Equal(99, a.fld1);
         }
 
         [Fact]
@@ -29,7 +29,7 @@
             var a = new A3();
             var b = new B3 { fld1 = 87 };
             a = Context.objMan.GetMapper<B3, A3>().Map(b, a);
-            Assert.Equal(a.fld1, 87);
+            Assert.Equal(87, a.fld1);
         }
 
         [Fact]

@@ -15,8 +15,8 @@
             var mapper = Context.objMan.GetMapper<B1, A1>();
             //DynamicAssemblyManager.SaveAssembly();
             mapper.Map(b, a);
-            Assert.Equal(a.fld1, 15);
-            Assert.Equal(a.fld2, "11");
+            Assert.Equal(15, a.fld1);
+            Assert.Equal("11", a.fld2);
         }
 
         [Fact]
@@ -36,9 +36,9 @@
             var b = new B3();
             b.a1.fld1 = 15;
             Context.objMan.GetMapper<B3, A3>(new DefaultMapConfig().DeepMap()).Map(b, a);
-            Assert.Equal(a.a1.fld1, 15);
+            Assert.Equal(15, a.a1.fld1);
             b.a1.fld1 = 666;
-            Assert.Equal(a.a1.fld1, 15);
+            Assert.Equal(15, a.a1.fld1);
 
             Context.objMan.GetMapper<B3, A3>(new DefaultMapConfig().ShallowMap()).Map(b, a);
             b.a1.fld1 = 777;
@@ -59,7 +59,7 @@
             var a = new A4();
             var b = new B4();
             Context.objMan.GetMapper<B4, A4>().Map(b, a);
-            Assert.Equal(a.str, "string");
+            Assert.Equal("string", a.str);
         }
 
         public class A1

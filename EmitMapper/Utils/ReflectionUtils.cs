@@ -71,6 +71,11 @@ public class ReflectionUtils
         return type.GetConstructor(new Type[0]) != null;
     }
 
+    public static object ConvertValue(string value, Type fieldType, Type destinationType)
+    {
+        throw new NotImplementedException();
+    }
+
     public class MatchedMember
     {
         public MatchedMember(MemberInfo first, MemberInfo second)
@@ -82,10 +87,5 @@ public class ReflectionUtils
         public MemberInfo First { get; set; }
 
         public MemberInfo Second { get; set; }
-    }
-
-    public static object ConvertValue(string value, Type fieldType, Type destinationType)
-    {
-        throw new NotImplementedException();
     }
 }

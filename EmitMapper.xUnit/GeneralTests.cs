@@ -8,7 +8,7 @@
 
     ////[TestFixture]
     public class GeneralTests
-    {
+    { 
         public static void TestRefl(object obj)
         {
             var field = obj.GetType().GetField("a");
@@ -72,11 +72,11 @@
             var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B, A>(new DefaultMapConfig().DeepMap());
             //DynamicAssemblyManager.SaveAssembly();
             mapper.Map(b, a);
-            Assert.Equal(a.en, A.En.En2);
+            Assert.Equal(A.En.En2, a.en);
             Assert.Equal(a.str1, b.str1);
             Assert.Equal(a.str2, b.str2);
             Assert.Equal(a.obj.str, b.obj.str);
-            Assert.Equal(a.obj.intern, 13);
+            Assert.Equal(13, a.obj.intern);
             Assert.Equal(a.arr.Length, b.arr.Length);
             Assert.Equal(a.arr[0], b.arr[0]);
             Assert.Equal(a.arr[1], b.arr[1]);
@@ -142,7 +142,7 @@
             var a = ObjectMapperManager.DefaultInstance.GetMapper<B, A>(
                 new DefaultMapConfig().IgnoreMembers<B, A>(new[] { "str1" })).Map(new B());
             Assert.Equal("A::str1", a.str1);
-            Assert.Equal(a.en, A.En.En2);
+            Assert.Equal(A.En.En2, a.en);
         }
 
         [Fact]
