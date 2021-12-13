@@ -58,7 +58,7 @@ internal class NativeConverter
 
         if (destinationType == typeof(string))
             return new AstCallMethodRef(
-                typeof(NativeConverter).GetMethod("ObjectToString", BindingFlags.NonPublic | BindingFlags.Static),
+                typeof(NativeConverter).GetMethod(nameof(ObjectToString), BindingFlags.NonPublic | BindingFlags.Static),
                 null,
                 new List<IAstStackItem> { sourceValue });
 

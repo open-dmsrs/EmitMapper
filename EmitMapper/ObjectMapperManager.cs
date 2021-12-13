@@ -72,17 +72,14 @@ public class ObjectMapperManager
     {
         lock (this)
         {
-            if (to == null)
-                to = typeof(object);
-            if (from == null)
-                from = typeof(object);
+            to ??= typeof(object);
+            @from ??= typeof(object);
 
             var mapperTypeKey = new MapperKey(from, to, mappingConfigurator.GetConfigurationName());
-            ObjectsMapperDescr result;
 
             if (!this._objectsMapperIds.TryGetValue(mapperTypeKey, out var mapperId))
             {
-                result = new ObjectsMapperDescr(null, mapperTypeKey, 0);
+                var result = new ObjectsMapperDescr(null, mapperTypeKey, 0);
                 this.AddMapper(result);
 
                 var mapperTypeName = this.GetMapperTypeName(from, to);

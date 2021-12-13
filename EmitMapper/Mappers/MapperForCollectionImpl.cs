@@ -110,7 +110,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
     ///     Creates an instance of Mapper for collections.
     /// </summary>
     /// <param name="mapperName">Mapper name. It is used for registration in Mappers repositories.</param>
-    /// <param name="objectMapperMannager">Mappers manager</param>
+    /// <param name="objectMapperManger">Mappers manager</param>
     /// <param name="typeFrom">Source type</param>
     /// <param name="typeTo">Destination type</param>
     /// <param name="subMapper"></param>
@@ -118,7 +118,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
     /// <returns></returns>
     public static MapperForCollectionImpl CreateInstance(
         string mapperName,
-        ObjectMapperManager objectMapperMannager,
+        ObjectMapperManager objectMapperManger,
         Type typeFrom,
         Type typeTo,
         ObjectsMapperDescr subMapper,
@@ -134,7 +134,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
                 typeof(object),
                 new[] { typeof(IEnumerable) });
 
-            InvokeCopyImpl(typeTo, "CopyToList").Compile(new CompilationContext(methodBuilder.GetILGenerator()));
+            InvokeCopyImpl(typeTo, nameof(CopyToList)).Compile(new CompilationContext(methodBuilder.GetILGenerator()));
 
             methodBuilder = tb.DefineMethod(
                 "CopyToListScalarInvoke",
@@ -142,11 +142,11 @@ public class MapperForCollectionImpl : CustomMapperImpl
                 typeof(object),
                 new[] { typeof(object) });
 
-            InvokeCopyImpl(typeTo, "CopyToListScalar").Compile(new CompilationContext(methodBuilder.GetILGenerator()));
+            InvokeCopyImpl(typeTo, nameof(CopyToListScalar)).Compile(new CompilationContext(methodBuilder.GetILGenerator()));
         }
 
         var result = (MapperForCollectionImpl)Activator.CreateInstance(tb.CreateType());
-        result.Initialize(objectMapperMannager, typeFrom, typeTo, mappingConfigurator, null);
+        result.Initialize(objectMapperManger, typeFrom, typeTo, mappingConfigurator, null);
         result._subMapper = subMapper;
 
         return result;

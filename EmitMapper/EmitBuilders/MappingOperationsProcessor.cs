@@ -134,8 +134,7 @@ internal class MappingOperationsProcessor
 
     private IAstNode ProcessDestWriteOperation(DestWriteOperation destWriteOperation, int operationId)
     {
-        LocalBuilder locValueToWrite = null;
-        locValueToWrite = this.CompilationContext.ILGenerator.DeclareLocal(destWriteOperation.Getter.Method.ReturnType);
+        LocalBuilder locValueToWrite = CompilationContext.ILGenerator.DeclareLocal(destWriteOperation.Getter.Method.ReturnType);
 
         var cmdValue = new AstWriteLocal(
             locValueToWrite,
@@ -628,7 +627,7 @@ internal class MappingOperationsProcessor
         var result = (IAstRef)AstBuildHelper.ReadArrayItemRV(
             (IAstRef)AstBuildHelper.ReadFieldRA(
                 new AstReadThis { ThisType = typeof(ObjectsMapperBaseImpl) },
-                typeof(ObjectsMapperBaseImpl).GetField("StroredObjects", BindingFlags.Instance | BindingFlags.Public)),
+                typeof(ObjectsMapperBaseImpl).GetField(nameof(ObjectsMapperBaseImpl.StroredObjects), BindingFlags.Instance | BindingFlags.Public)),
             objectIndex);
         if (castType != null)
             result = new AstCastclassRef(result, castType);

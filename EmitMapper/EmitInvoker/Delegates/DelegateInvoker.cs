@@ -46,7 +46,7 @@ public static class DelegateInvoker
         else if (par.Length == 3)
             funcCallerType = typeof(DelegateInvokerFunc_3);
         else
-            new EmitMapperException("too many method parameters");
+            throw new EmitMapperException("too many method parameters");
 
         var tb = DynamicAssemblyManager.DefineType(typeName, funcCallerType);
 

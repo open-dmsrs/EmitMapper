@@ -91,14 +91,14 @@ public class EMConvert
             return null;
 
         if (to == typeof(string))
-            return typeof(EMConvert).GetMethod("ObjectToString", BindingFlags.Static | BindingFlags.Public);
+            return typeof(EMConvert).GetMethod(nameof(ObjectToString), BindingFlags.Static | BindingFlags.Public);
 
         if (to.IsEnum)
-            return typeof(EMConvert).GetMethod("ToEnum", BindingFlags.Static | BindingFlags.Public)
+            return typeof(EMConvert).GetMethod(nameof(ToEnum), BindingFlags.Static | BindingFlags.Public)
                 .MakeGenericMethod(to, Enum.GetUnderlyingType(to));
 
         if (IsComplexConvert(from) || IsComplexConvert(to))
-            return typeof(EMConvert).GetMethod("ChangeTypeGeneric", BindingFlags.Static | BindingFlags.Public)
+            return typeof(EMConvert).GetMethod(nameof(ChangeTypeGeneric), BindingFlags.Static | BindingFlags.Public)
                 .MakeGenericMethod(from, to);
         return null;
     }
