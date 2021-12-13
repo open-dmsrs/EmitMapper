@@ -14,17 +14,17 @@ using EmitMapper.Utils;
 
 internal class MappingBuilder
 {
-    private readonly IMappingConfigurator mappingConfigurator;
+    private readonly IMappingConfigurator _mappingConfigurator;
 
-    private readonly ObjectMapperManager objectsMapperManager;
+    private readonly ObjectMapperManager _objectsMapperManager;
+
+    private readonly TypeBuilder _typeBuilder;
 
     public readonly List<object> StoredObjects;
 
-    private readonly TypeBuilder typeBuilder;
+    private Type _from;
 
-    private Type from;
-
-    private Type to;
+    private Type _to;
 
     public MappingBuilder(
         ObjectMapperManager objectsMapperManager,
@@ -33,23 +33,23 @@ internal class MappingBuilder
         TypeBuilder typeBuilder,
         IMappingConfigurator mappingConfigurator)
     {
-        this.objectsMapperManager = objectsMapperManager;
-        this.from = from;
-        this.to = to;
-        this.typeBuilder = typeBuilder;
+        this._objectsMapperManager = objectsMapperManager;
+        this._from = from;
+        this._to = to;
+        this._typeBuilder = typeBuilder;
 
         this.StoredObjects = new List<object>();
-        this.mappingConfigurator = mappingConfigurator;
+        this._mappingConfigurator = mappingConfigurator;
     }
 
     public void BuildCopyImplMethod()
     {
-        if (ReflectionUtils.IsNullable(this.from))
-            this.from = Nullable.GetUnderlyingType(this.from);
-        if (ReflectionUtils.IsNullable(this.to))
-            this.to = Nullable.GetUnderlyingType(this.to);
+        if (ReflectionUtils.IsNullable(this._from))
+            this._from = Nullable.GetUnderlyingType(this._from);
+        if (ReflectionUtils.IsNullable(this._to))
+            this._to = Nullable.GetUnderlyingType(this._to);
 
-        var methodBuilder = this.typeBuilder.DefineMethod(
+        var methodBuilder = this._typeBuilder.DefineMethod(
             "MapImpl",
             MethodAttributes.Public | MethodAttributes.Virtual,
             typeof(object),
@@ -60,8 +60,8 @@ internal class MappingBuilder
 
         var mapperAst = new AstComplexNode();
 
-        var locFrom = ilGen.DeclareLocal(this.from);
-        var locTo = ilGen.DeclareLocal(this.to);
+        var locFrom = ilGen.DeclareLocal(this._from);
+        var locTo = ilGen.DeclareLocal(this._to);
         var locState = ilGen.DeclareLocal(typeof(object));
         LocalBuilder locException = null;
 
@@ -73,22 +73,22 @@ internal class MappingBuilder
         locException = compilationContext.ILGenerator.DeclareLocal(typeof(Exception));
 #endif
 
-        var mappingOperations = this.mappingConfigurator.GetMappingOperations(this.from, this.to);
-        var staticConverter = this.mappingConfigurator.GetStaticConvertersManager();
+        var mappingOperations = this._mappingConfigurator.GetMappingOperations(this._from, this._to);
+        var staticConverter = this._mappingConfigurator.GetStaticConvertersManager();
         mapperAst.Nodes.Add(
             new MappingOperationsProcessor
                 {
-                    locException = locException,
-                    locFrom = locFrom,
-                    locState = locState,
-                    locTo = locTo,
-                    objectsMapperManager = this.objectsMapperManager,
-                    compilationContext = compilationContext,
-                    storedObjects = this.StoredObjects,
-                    operations = mappingOperations,
-                    mappingConfigurator = this.mappingConfigurator,
-                    rootOperation = this.mappingConfigurator.GetRootMappingOperation(this.from, this.to),
-                    staticConvertersManager = staticConverter ?? StaticConvertersManager.DefaultInstance
+                    LocException = locException,
+                    LocFrom = locFrom,
+                    LocState = locState,
+                    LocTo = locTo,
+                    ObjectsMapperManager = this._objectsMapperManager,
+                    CompilationContext = compilationContext,
+                    StoredObjects = this.StoredObjects,
+                    Operations = mappingOperations,
+                    MappingConfigurator = this._mappingConfigurator,
+                    RootOperation = this._mappingConfigurator.GetRootMappingOperation(this._from, this._to),
+                    StaticConvertersManager = staticConverter ?? StaticConvertersManager.DefaultInstance
                 }.ProcessOperations());
         mapperAst.Nodes.Add(
             new AstReturn { ReturnType = typeof(object), ReturnValue = AstBuildHelper.ReadLocalRV(locTo) });

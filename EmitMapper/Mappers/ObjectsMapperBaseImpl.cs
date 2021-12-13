@@ -12,7 +12,7 @@ using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 /// </summary>
 public abstract class ObjectsMapperBaseImpl
 {
-    public IMappingConfigurator MappingConfigurator => this._mappingConfigurator;
+    // public IMappingConfigurator MappingConfigurator => this._mappingConfigurator;
 
     /// <summary>
     ///     Copies object properties and members of "from" to object "to"
@@ -24,21 +24,21 @@ public abstract class ObjectsMapperBaseImpl
     {
         object result;
 
-        if (this._sourceFilter != null)
-            if (!(bool)this._sourceFilter.CallFunc(from, state))
+        if (this.SourceFilter != null)
+            if (!(bool)this.SourceFilter.CallFunc(from, state))
                 return to;
 
-        if (this._destinationFilter != null)
-            if (!(bool)this._destinationFilter.CallFunc(to, state))
+        if (this.DestinationFilter != null)
+            if (!(bool)this.DestinationFilter.CallFunc(to, state))
                 return to;
 
         if (from == null)
         {
-            result = this._nullSubstitutor == null ? null : this._nullSubstitutor.CallFunc();
+            result = this.NullSubstitutor == null ? null : this.NullSubstitutor.CallFunc();
         }
-        else if (this._converter != null)
+        else if (this.Converter != null)
         {
-            result = this._converter.CallFunc(from, state);
+            result = this.Converter.CallFunc(from, state);
         }
         else
         {
@@ -48,8 +48,8 @@ public abstract class ObjectsMapperBaseImpl
             result = this.MapImpl(from, to, state);
         }
 
-        if (this._valuesPostProcessor != null)
-            result = this._valuesPostProcessor.CallFunc(result, state);
+        if (this.ValuesPostProcessor != null)
+            result = this.ValuesPostProcessor.CallFunc(result, state);
 
         return result;
     }
@@ -72,17 +72,17 @@ public abstract class ObjectsMapperBaseImpl
     /// <summary>
     ///     Mapper manager
     /// </summary>
-    internal ObjectMapperManager mapperMannager;
+    internal ObjectMapperManager ObjectMapperMannager;
 
     /// <summary>
     ///     Type of source object
     /// </summary>
-    internal Type typeFrom;
+    internal Type TypeFrom;
 
     /// <summary>
     ///     Type of destination object
     /// </summary>
-    internal Type typeTo;
+    internal Type TypeTo;
 
     /// <summary>
     ///     True, if reference properties and members of same type should
@@ -104,73 +104,73 @@ public abstract class ObjectsMapperBaseImpl
     /// <returns>Destination object</returns>
     public abstract object CreateTargetInstance();
 
-    protected IMappingConfigurator _mappingConfigurator;
+    public IMappingConfigurator MappingConfigurator;
 
-    protected IRootMappingOperation _rootOperation;
+    protected IRootMappingOperation RootOperation;
 
     public object[] StroredObjects;
 
-    protected DelegateInvokerFunc_0 _targetConstructor;
+    protected DelegateInvokerFunc_0 TargetConstructor;
 
-    protected DelegateInvokerFunc_0 _nullSubstitutor;
+    protected DelegateInvokerFunc_0 NullSubstitutor;
 
-    protected DelegateInvokerFunc_2 _converter;
+    protected DelegateInvokerFunc_2 Converter;
 
-    protected DelegateInvokerFunc_2 _valuesPostProcessor;
+    protected DelegateInvokerFunc_2 ValuesPostProcessor;
 
-    protected DelegateInvokerFunc_2 _destinationFilter;
+    protected DelegateInvokerFunc_2 DestinationFilter;
 
-    protected DelegateInvokerFunc_2 _sourceFilter;
+    protected DelegateInvokerFunc_2 SourceFilter;
 
     internal void Initialize(
-        ObjectMapperManager MapperMannager,
-        Type TypeFrom,
-        Type TypeTo,
+        ObjectMapperManager objectMapperMannager,
+        Type typeFrom,
+        Type typeTo,
         IMappingConfigurator mappingConfigurator,
         object[] stroredObjects)
     {
-        this.mapperMannager = MapperMannager;
-        this.typeFrom = TypeFrom;
-        this.typeTo = TypeTo;
-        this._mappingConfigurator = mappingConfigurator;
+        this.ObjectMapperMannager = objectMapperMannager;
+        this.TypeFrom = typeFrom;
+        this.TypeTo = typeTo;
+        this.MappingConfigurator = mappingConfigurator;
         this.StroredObjects = stroredObjects;
-        if (this._mappingConfigurator != null)
+        if (this.MappingConfigurator != null)
         {
-            this._rootOperation = this._mappingConfigurator.GetRootMappingOperation(TypeFrom, TypeTo);
-            if (this._rootOperation == null)
-                this._rootOperation = new RootMappingOperation(TypeFrom, TypeTo);
+            this.RootOperation = this.MappingConfigurator.GetRootMappingOperation(typeFrom, typeTo);
+            if (this.RootOperation == null)
+                this.RootOperation = new RootMappingOperation(typeFrom, typeTo);
 
-            var constructor = this._rootOperation.TargetConstructor;
+            var constructor = this.RootOperation.TargetConstructor;
             if (constructor != null)
-                this._targetConstructor = (DelegateInvokerFunc_0)DelegateInvoker.GetDelegateInvoker(constructor);
+                this.TargetConstructor = (DelegateInvokerFunc_0)DelegateInvoker.GetDelegateInvoker(constructor);
 
-            var valuesPostProcessor = this._rootOperation.ValuesPostProcessor;
+            var valuesPostProcessor = this.RootOperation.ValuesPostProcessor;
             if (valuesPostProcessor != null)
-                this._valuesPostProcessor =
+                this.ValuesPostProcessor =
                     (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(valuesPostProcessor);
 
-            var converter = this._rootOperation.Converter;
+            var converter = this.RootOperation.Converter;
             if (converter != null)
-                this._converter = (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(converter);
+                this.Converter = (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(converter);
 
-            var nullSubstitutor = this._rootOperation.NullSubstitutor;
+            var nullSubstitutor = this.RootOperation.NullSubstitutor;
             if (nullSubstitutor != null)
-                this._nullSubstitutor = (DelegateInvokerFunc_0)DelegateInvoker.GetDelegateInvoker(nullSubstitutor);
+                this.NullSubstitutor = (DelegateInvokerFunc_0)DelegateInvoker.GetDelegateInvoker(nullSubstitutor);
 
-            var sourceFilter = this._rootOperation.SourceFilter;
+            var sourceFilter = this.RootOperation.SourceFilter;
             if (sourceFilter != null)
-                this._sourceFilter = (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(sourceFilter);
+                this.SourceFilter = (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(sourceFilter);
 
-            var destinationFilter = this._rootOperation.DestinationFilter;
+            var destinationFilter = this.RootOperation.DestinationFilter;
             if (destinationFilter != null)
-                this._destinationFilter = (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(destinationFilter);
+                this.DestinationFilter = (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(destinationFilter);
         }
     }
 
     protected object ConstructTarget()
     {
-        if (this._targetConstructor != null)
-            return this._targetConstructor.CallFunc();
+        if (this.TargetConstructor != null)
+            return this.TargetConstructor.CallFunc();
         return this.CreateTargetInstance();
     }
 

@@ -13,13 +13,13 @@ using EmitMapper.Utils;
 
 public static class MethodInvoker
 {
-    private static readonly ThreadSaveCache _typesCache = new();
+    private static readonly ThreadSaveCache<Type> _TypesCache = new();
 
     public static MethodInvokerBase GetMethodInvoker(object targetObject, MethodInfo mi)
     {
         var typeName = "EmitMapper.MethodCaller_" + mi;
 
-        var callerType = _typesCache.Get<Type>(
+        var callerType = _TypesCache.Get(
             typeName,
             () =>
                 {

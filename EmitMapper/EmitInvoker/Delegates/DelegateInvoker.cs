@@ -13,13 +13,13 @@ using EmitMapper.Utils;
 
 public static class DelegateInvoker
 {
-    private static readonly ThreadSaveCache _typesCache = new();
+    private static readonly ThreadSaveCache<Type> _typesCache = new();
 
     public static DelegateInvokerBase GetDelegateInvoker(Delegate del)
     {
         var typeName = "EmitMapper.DelegateCaller_" + del;
 
-        var callerType = _typesCache.Get<Type>(
+        var callerType = _typesCache.Get(
             typeName,
             () =>
                 {

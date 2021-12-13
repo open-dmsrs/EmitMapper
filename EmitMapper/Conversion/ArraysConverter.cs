@@ -47,7 +47,7 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
 
     private TTo ConverterBySubmapper(TFrom from)
     {
-        return (TTo)this._subMapper.mapper.Map(from);
+        return (TTo)this._subMapper.Mapper.Map(from);
     }
 }
 

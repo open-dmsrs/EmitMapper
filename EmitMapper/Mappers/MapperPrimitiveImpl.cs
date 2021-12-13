@@ -13,17 +13,17 @@ using EmitMapper.Utils;
 /// </summary>
 internal class MapperPrimitiveImpl : CustomMapperImpl
 {
-    private new readonly MethodInvokerFunc_1 _converter;
+    private readonly MethodInvokerFunc_1 _converter;
 
     public MapperPrimitiveImpl(
         ObjectMapperManager mapperMannager,
-        Type TypeFrom,
-        Type TypeTo,
+        Type typeFrom,
+        Type typeTo,
         IMappingConfigurator mappingConfigurator)
-        : base(mapperMannager, TypeFrom, TypeTo, mappingConfigurator, null)
+        : base(mapperMannager, typeFrom, typeTo, mappingConfigurator, null)
     {
-        var to = TypeTo == typeof(IEnumerable) ? typeof(object) : TypeTo;
-        var from = TypeFrom == typeof(IEnumerable) ? typeof(object) : TypeFrom;
+        var to = typeTo == typeof(IEnumerable) ? typeof(object) : typeTo;
+        var from = typeFrom == typeof(IEnumerable) ? typeof(object) : typeFrom;
 
         var staticConv = mappingConfigurator.GetStaticConvertersManager() ?? StaticConvertersManager.DefaultInstance;
         var converterMethod = staticConv.GetStaticConverter(from, to);
