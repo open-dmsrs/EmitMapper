@@ -9,9 +9,9 @@ using EmitMapper.EmitInvoker.Methods;
 
 public class StaticConvertersManager
 {
-    private static StaticConvertersManager _defaultInstance;
+    private static StaticConvertersManager __DefaultInstance;
 
-    private static readonly Dictionary<MethodInfo, Func<object, object>> ConvertersFunc = new();
+    private static readonly Dictionary<MethodInfo, Func<object, object>> _ConvertersFunc = new();
 
     private readonly Dictionary<TypesPair, MethodInfo> _typesMethods = new();
 
@@ -21,20 +21,20 @@ public class StaticConvertersManager
     {
         get
         {
-            if (_defaultInstance == null)
+            if (__DefaultInstance == null)
                 lock (typeof(StaticConvertersManager))
                 {
-                    if (_defaultInstance == null)
+                    if (__DefaultInstance == null)
                     {
-                        _defaultInstance = new StaticConvertersManager();
-                        _defaultInstance.AddConverterClass(typeof(Convert));
-                        _defaultInstance.AddConverterClass(typeof(EMConvert));
-                        _defaultInstance.AddConverterClass(typeof(NullableConverter));
-                        _defaultInstance.AddConverterFunc(EMConvert.GetConversionMethod);
+                        __DefaultInstance = new StaticConvertersManager();
+                        __DefaultInstance.AddConverterClass(typeof(Convert));
+                        __DefaultInstance.AddConverterClass(typeof(EMConvert));
+                        __DefaultInstance.AddConverterClass(typeof(NullableConverter));
+                        __DefaultInstance.AddConverterFunc(EMConvert.GetConversionMethod);
                     }
                 }
 
-            return _defaultInstance;
+            return __DefaultInstance;
         }
     }
 
@@ -74,12 +74,12 @@ public class StaticConvertersManager
         var mi = this.GetStaticConverter(from, to);
         if (mi == null)
             return null;
-        lock (ConvertersFunc)
+        lock (_ConvertersFunc)
         {
-            if (ConvertersFunc.TryGetValue(mi, out var res))
+            if (_ConvertersFunc.TryGetValue(mi, out var res))
                 return res;
-            res = ((MethodInvokerFunc_1)MethodInvoker.GetMethodInvoker(null, mi)).CallFunc;
-            ConvertersFunc.Add(mi, res);
+            res = ((MethodInvokerFunc1)MethodInvoker.GetMethodInvoker(null, mi)).CallFunc;
+            _ConvertersFunc.Add(mi, res);
             return res;
         }
     }

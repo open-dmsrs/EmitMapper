@@ -9,11 +9,11 @@ using EmitMapper.Utils;
 
 internal class AstExprIsNull : IAstValue
 {
-    private readonly IAstRefOrValue value;
+    private readonly IAstRefOrValue _value;
 
     public AstExprIsNull(IAstRefOrValue value)
     {
-        this.value = value;
+        this._value = value;
     }
 
     #region IAstReturnValueNode Members
@@ -26,21 +26,21 @@ internal class AstExprIsNull : IAstValue
 
     public void Compile(CompilationContext context)
     {
-        if (!(this.value is IAstRef) && !ReflectionUtils.IsNullable(this.value.ItemType))
+        if (!(this._value is IAstRef) && !ReflectionUtils.IsNullable(this._value.ItemType))
         {
             context.Emit(OpCodes.Ldc_I4_1);
         }
-        else if (ReflectionUtils.IsNullable(this.value.ItemType))
+        else if (ReflectionUtils.IsNullable(this._value.ItemType))
         {
             AstBuildHelper.ReadPropertyRV(
-                new AstValueToAddr((IAstValue)this.value),
-                this.value.ItemType.GetProperty("HasValue")).Compile(context);
+                new AstValueToAddr((IAstValue)this._value),
+                this._value.ItemType.GetProperty("HasValue")).Compile(context);
             context.Emit(OpCodes.Ldc_I4_0);
             context.Emit(OpCodes.Ceq);
         }
         else
         {
-            this.value.Compile(context);
+            this._value.Compile(context);
             new AstConstantNull().Compile(context);
             context.Emit(OpCodes.Ceq);
         }

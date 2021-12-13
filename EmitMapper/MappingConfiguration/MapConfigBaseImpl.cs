@@ -70,21 +70,21 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
                                           ToStr(this._customConverters), ToStr(this._nullSubstitutors),
                                           ToStr(this._ignoreMembers), ToStr(this._postProcessors),
                                           ToStr(this._customConstructors)
-                                      }.ToCSV(";");
+                                      }.ToCsv(";");
     }
 
     /// <summary>
     ///     Define custom type converter
     /// </summary>
-    /// <typeparam name="From">Source type</typeparam>
-    /// <typeparam name="To">Destination type</typeparam>
+    /// <typeparam name="TFrom">Source type</typeparam>
+    /// <typeparam name="TO">Destination type</typeparam>
     /// <param name="converter">Function which converts an inctance of the source type to an instance of the destination type</param>
     /// <returns></returns>
-    public IMappingConfigurator ConvertUsing<From, To>(Func<From, To> converter)
+    public IMappingConfigurator ConvertUsing<TFrom, TO>(Func<TFrom, TO> converter)
     {
         this._customConverters.Add(
-            new[] { typeof(From), typeof(To) },
-            (ValueConverter<From, To>)((v, s) => converter(v)));
+            new[] { typeof(TFrom), typeof(TO) },
+            (ValueConverter<TFrom, TO>)((v, s) => converter(v)));
         return this;
     }
 
@@ -274,7 +274,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
     protected static string ToStrEnum<T>(IEnumerable<T> t)
     {
-        return t == null ? "" : t.ToCSV("|");
+        return t == null ? "" : t.ToCsv("|");
     }
 
     protected static string ToStr<T>(T t)

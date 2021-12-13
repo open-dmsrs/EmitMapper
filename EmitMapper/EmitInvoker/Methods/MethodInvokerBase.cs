@@ -2,5 +2,5 @@
 
 public class MethodInvokerBase
 {
-    public object targetObject;
+    public object TargetObject;
 }

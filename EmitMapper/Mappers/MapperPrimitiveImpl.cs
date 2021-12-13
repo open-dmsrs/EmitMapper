@@ -13,7 +13,7 @@ using EmitMapper.Utils;
 /// </summary>
 internal class MapperPrimitiveImpl : CustomMapperImpl
 {
-    private readonly MethodInvokerFunc_1 _converter;
+    private readonly MethodInvokerFunc1 _converter;
 
     public MapperPrimitiveImpl(
         ObjectMapperManager mapperMannager,
@@ -29,7 +29,7 @@ internal class MapperPrimitiveImpl : CustomMapperImpl
         var converterMethod = staticConv.GetStaticConverter(from, to);
 
         if (converterMethod != null)
-            this._converter = (MethodInvokerFunc_1)MethodInvoker.GetMethodInvoker(null, converterMethod);
+            this._converter = (MethodInvokerFunc1)MethodInvoker.GetMethodInvoker(null, converterMethod);
     }
 
     /// <summary>

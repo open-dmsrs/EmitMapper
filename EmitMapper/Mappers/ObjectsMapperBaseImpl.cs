@@ -110,17 +110,17 @@ public abstract class ObjectsMapperBaseImpl
 
     public object[] StroredObjects;
 
-    protected DelegateInvokerFunc_0 TargetConstructor;
+    protected DelegateInvokerFunc0 TargetConstructor;
 
-    protected DelegateInvokerFunc_0 NullSubstitutor;
+    protected DelegateInvokerFunc0 NullSubstitutor;
 
-    protected DelegateInvokerFunc_2 Converter;
+    protected DelegateInvokerFunc2 Converter;
 
-    protected DelegateInvokerFunc_2 ValuesPostProcessor;
+    protected DelegateInvokerFunc2 ValuesPostProcessor;
 
-    protected DelegateInvokerFunc_2 DestinationFilter;
+    protected DelegateInvokerFunc2 DestinationFilter;
 
-    protected DelegateInvokerFunc_2 SourceFilter;
+    protected DelegateInvokerFunc2 SourceFilter;
 
     internal void Initialize(
         ObjectMapperManager objectMapperMannager,
@@ -142,28 +142,28 @@ public abstract class ObjectsMapperBaseImpl
 
             var constructor = this.RootOperation.TargetConstructor;
             if (constructor != null)
-                this.TargetConstructor = (DelegateInvokerFunc_0)DelegateInvoker.GetDelegateInvoker(constructor);
+                this.TargetConstructor = (DelegateInvokerFunc0)DelegateInvoker.GetDelegateInvoker(constructor);
 
             var valuesPostProcessor = this.RootOperation.ValuesPostProcessor;
             if (valuesPostProcessor != null)
                 this.ValuesPostProcessor =
-                    (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(valuesPostProcessor);
+                    (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(valuesPostProcessor);
 
             var converter = this.RootOperation.Converter;
             if (converter != null)
-                this.Converter = (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(converter);
+                this.Converter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(converter);
 
             var nullSubstitutor = this.RootOperation.NullSubstitutor;
             if (nullSubstitutor != null)
-                this.NullSubstitutor = (DelegateInvokerFunc_0)DelegateInvoker.GetDelegateInvoker(nullSubstitutor);
+                this.NullSubstitutor = (DelegateInvokerFunc0)DelegateInvoker.GetDelegateInvoker(nullSubstitutor);
 
             var sourceFilter = this.RootOperation.SourceFilter;
             if (sourceFilter != null)
-                this.SourceFilter = (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(sourceFilter);
+                this.SourceFilter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(sourceFilter);
 
             var destinationFilter = this.RootOperation.DestinationFilter;
             if (destinationFilter != null)
-                this.DestinationFilter = (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker(destinationFilter);
+                this.DestinationFilter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(destinationFilter);
         }
     }
 

@@ -6,7 +6,7 @@ using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
 public class EmitMapperException : ApplicationException
 {
-    public IMappingOperation _mappingOperation;
+    public IMappingOperation MappingOperation;
 
     public EmitMapperException()
     {
@@ -25,7 +25,7 @@ public class EmitMapperException : ApplicationException
     public EmitMapperException(string message, Exception innerException, IMappingOperation mappingOperation)
         : base(BuildMessage(message, mappingOperation), innerException)
     {
-        this._mappingOperation = mappingOperation;
+        this.MappingOperation = mappingOperation;
     }
 
     private static string BuildMessage(string message, IMappingOperation mappingOperation)

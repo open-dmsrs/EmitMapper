@@ -29,7 +29,7 @@ public static class MethodInvoker
                 });
 
         var result = (MethodInvokerBase)Activator.CreateInstance(callerType);
-        result.targetObject = targetObject;
+        result.TargetObject = targetObject;
         return result;
     }
 
@@ -38,13 +38,13 @@ public static class MethodInvoker
         var par = mi.GetParameters();
         Type funcCallerType = null;
         if (par.Length == 0)
-            funcCallerType = typeof(MethodInvokerFunc_0);
+            funcCallerType = typeof(MethodInvokerFunc0);
         if (par.Length == 1)
-            funcCallerType = typeof(MethodInvokerFunc_1);
+            funcCallerType = typeof(MethodInvokerFunc1);
         if (par.Length == 2)
-            funcCallerType = typeof(MethodInvokerFunc_2);
+            funcCallerType = typeof(MethodInvokerFunc2);
         if (par.Length == 3)
-            funcCallerType = typeof(MethodInvokerFunc_3);
+            funcCallerType = typeof(MethodInvokerFunc3);
         else
             new EmitMapperException("too many method parameters");
 
@@ -67,13 +67,13 @@ public static class MethodInvoker
         var par = mi.GetParameters();
         Type actionCallerType = null;
         if (par.Length == 0)
-            actionCallerType = typeof(MethodInvokerAction_0);
+            actionCallerType = typeof(MethodInvokerAction0);
         if (par.Length == 1)
-            actionCallerType = typeof(MethodInvokerAction_1);
+            actionCallerType = typeof(MethodInvokerAction1);
         if (par.Length == 2)
-            actionCallerType = typeof(MethodInvokerAction_2);
+            actionCallerType = typeof(MethodInvokerAction2);
         if (par.Length == 3)
-            actionCallerType = typeof(MethodInvokerAction_3);
+            actionCallerType = typeof(MethodInvokerAction3);
         else
             new EmitMapperException("too many method parameters");
 
@@ -101,7 +101,7 @@ public static class MethodInvoker
                     AstBuildHelper.ReadFieldRV(
                         new AstReadThis { ThisType = typeof(MethodInvokerBase) },
                         typeof(MethodInvokerBase).GetField(
-                            "targetObject",
+                            nameof(MethodInvokerBase.TargetObject),
                             BindingFlags.Public | BindingFlags.Instance)),
                     mi.DeclaringType),
             parameters.Select((p, idx) => (IAstStackItem)AstBuildHelper.ReadArgumentRV(idx + 1, typeof(object)))

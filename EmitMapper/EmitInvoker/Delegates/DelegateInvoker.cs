@@ -13,13 +13,13 @@ using EmitMapper.Utils;
 
 public static class DelegateInvoker
 {
-    private static readonly ThreadSaveCache<Type> _typesCache = new();
+    private static readonly ThreadSaveCache<Type> _TypesCache = new();
 
     public static DelegateInvokerBase GetDelegateInvoker(Delegate del)
     {
         var typeName = "EmitMapper.DelegateCaller_" + del;
 
-        var callerType = _typesCache.Get(
+        var callerType = _TypesCache.Get(
             typeName,
             () =>
                 {
@@ -38,13 +38,13 @@ public static class DelegateInvoker
         var par = del.Method.GetParameters();
         Type funcCallerType = null;
         if (par.Length == 0)
-            funcCallerType = typeof(DelegateInvokerFunc_0);
+            funcCallerType = typeof(DelegateInvokerFunc0);
         else if (par.Length == 1)
             funcCallerType = typeof(DelegateInvokerFunc_1);
         else if (par.Length == 2)
-            funcCallerType = typeof(DelegateInvokerFunc_2);
+            funcCallerType = typeof(DelegateInvokerFunc2);
         else if (par.Length == 3)
-            funcCallerType = typeof(DelegateInvokerFunc_3);
+            funcCallerType = typeof(DelegateInvokerFunc3);
         else
             throw new EmitMapperException("too many method parameters");
 
@@ -73,7 +73,7 @@ public static class DelegateInvoker
         else if (par.Length == 2)
             actionCallerType = typeof(DelegateInvokerAction_2);
         else if (par.Length == 3)
-            actionCallerType = typeof(DelegateInvokerAction_3);
+            actionCallerType = typeof(DelegateInvokerAction3);
         else
             new EmitMapperException("too many method parameters");
 

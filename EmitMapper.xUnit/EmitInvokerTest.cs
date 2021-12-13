@@ -29,11 +29,11 @@
         [Fact]
         public void EmitInvokerTest_TestCall2()
         {
-            var caller = (DelegateInvokerFunc_0)DelegateInvoker.GetDelegateInvoker((Func<int>)(() => 3));
+            var caller = (DelegateInvokerFunc0)DelegateInvoker.GetDelegateInvoker((Func<int>)(() => 3));
             Assert.Equal(3, caller.CallFunc());
 
             var caller2 =
-                (DelegateInvokerFunc_2)DelegateInvoker.GetDelegateInvoker((Func<int, int, int>)((l, r) => l + r));
+                (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker((Func<int, int, int>)((l, r) => l + r));
             //DynamicAssemblyManager.SaveAssembly();
             Assert.Equal(5, caller2.CallFunc(2, 3));
         }
@@ -51,12 +51,12 @@
         [Fact]
         public void EmitInvokerTest_TestCall3()
         {
-            var caller = (MethodInvokerFunc_0)MethodInvoker.GetMethodInvoker(
+            var caller = (MethodInvokerFunc0)MethodInvoker.GetMethodInvoker(
                 this,
                 this.GetType().GetMethod("InvokeTest1"));
             Assert.Equal(3, caller.CallFunc());
 
-            var caller2 = (MethodInvokerFunc_1)MethodInvoker.GetMethodInvoker(
+            var caller2 = (MethodInvokerFunc1)MethodInvoker.GetMethodInvoker(
                 this,
                 this.GetType().GetMethod("InvokeTest2", BindingFlags.Static | BindingFlags.Public));
             Assert.Equal(5, caller2.CallFunc(5));

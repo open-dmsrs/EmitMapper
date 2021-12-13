@@ -9,11 +9,11 @@ using EmitMapper.Utils;
 internal class TypeDictionary<T>
     where T : class
 {
-    private readonly List<ListElement> elements = new();
+    private readonly List<ListElement> _elements = new();
 
     public override string ToString()
     {
-        return this.elements.Select(e => e.types.ToCSV("|") + (e.value == null ? "|" : "|" + e.value)).ToCSV("||");
+        return this._elements.Select(e => e.Types.ToCsv("|") + (e.Value == null ? "|" : "|" + e.Value)).ToCsv("||");
     }
 
     public bool IsTypesInList(Type[] types)
@@ -24,29 +24,29 @@ internal class TypeDictionary<T>
     public T GetValue(Type[] types)
     {
         var elem = this.FindTypes(types);
-        return elem == null ? null : elem.value;
+        return elem == null ? null : elem.Value;
     }
 
     public void Add(Type[] types, T value)
     {
         var newElem = new ListElement(types, value);
-        if (this.elements.Contains(newElem))
-            this.elements.Remove(newElem);
+        if (this._elements.Contains(newElem))
+            this._elements.Remove(newElem);
 
-        this.elements.Add(new ListElement(types, value));
+        this._elements.Add(new ListElement(types, value));
     }
 
     private ListElement FindTypes(Type[] types)
     {
-        foreach (var element in this.elements)
+        foreach (var element in this._elements)
         {
             var isAssignable = true;
-            for (int i = 0, j = 0; i < element.types.Length; ++i)
+            for (int i = 0, j = 0; i < element.Types.Length; ++i)
             {
                 if (i < types.Length)
                     j = i;
 
-                if (!IsGeneralType(element.types[i], types[j]))
+                if (!IsGeneralType(element.Types[i], types[j]))
                 {
                     isAssignable = false;
                     break;
@@ -78,26 +78,26 @@ internal class TypeDictionary<T>
 
     private class ListElement
     {
-        public readonly Type[] types;
+        public readonly Type[] Types;
 
-        public readonly T value;
+        public readonly T Value;
 
         public ListElement(Type[] types, T value)
         {
-            this.types = types;
-            this.value = value;
+            this.Types = types;
+            this.Value = value;
         }
 
         public override int GetHashCode()
         {
-            return this.types.Sum(t => t.GetHashCode());
+            return this.Types.Sum(t => t.GetHashCode());
         }
 
         public override bool Equals(object obj)
         {
             var rhs = (ListElement)obj;
-            for (var i = 0; i < this.types.Length; ++i)
-                if (this.types[i] != rhs.types[i])
+            for (var i = 0; i < this.Types.Length; ++i)
+                if (this.Types[i] != rhs.Types[i])
                     return false;
             return true;
         }

@@ -34,25 +34,25 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
 
     private class TypesPair
     {
-        public readonly Type t1;
+        public readonly Type T1;
 
-        public readonly Type t2;
+        public readonly Type T2;
 
         public TypesPair(Type t1, Type t2)
         {
-            this.t1 = t1;
-            this.t2 = t2;
+            this.T1 = t1;
+            this.T2 = t2;
         }
 
         public override bool Equals(object obj)
         {
             var rhs = (TypesPair)obj;
-            return this.t1 == rhs.t1 && this.t2 == rhs.t2;
+            return this.T1 == rhs.T1 && this.T2 == rhs.T2;
         }
 
         public override int GetHashCode()
         {
-            return this.t1.GetHashCode() + this.t2.GetHashCode();
+            return this.T1.GetHashCode() + this.T2.GetHashCode();
         }
     }
 
@@ -197,7 +197,7 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
                                                                ToStr(this._membersMatcher),
                                                                ToStrEnum(this._shallowCopyMembers),
                                                                ToStrEnum(this._deepCopyMembers)
-                                                           }.ToCSV(";");
+                                                           }.ToCsv(";");
 
         return configName;
     }

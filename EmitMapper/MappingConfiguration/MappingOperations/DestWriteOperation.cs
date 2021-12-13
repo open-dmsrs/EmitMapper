@@ -8,23 +8,23 @@ public struct ValueToWrite<T>
 {
     public enum Actions
     {
-        write = 0,
+        Write = 0,
 
-        skip = 1
+        Skip = 1
     }
 
-    public T value;
+    public T Value;
 
-    public Actions action;
+    public Actions Action;
 
     public static ValueToWrite<T> ReturnValue(T value)
     {
-        return new ValueToWrite<T> { action = Actions.write, value = value };
+        return new ValueToWrite<T> { Action = Actions.Write, Value = value };
     }
 
     public static ValueToWrite<T> Skip()
     {
-        return new ValueToWrite<T> { action = Actions.skip };
+        return new ValueToWrite<T> { Action = Actions.Skip };
     }
 }
 

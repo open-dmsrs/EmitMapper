@@ -11,7 +11,7 @@ internal class CompilationContext
 
     public readonly TextWriter OutputCommands;
 
-    private int stackCount;
+    private int _stackCount;
 
     public CompilationContext()
     {
@@ -100,7 +100,7 @@ internal class CompilationContext
         var stackChange = this.GetStackChange(opCode.StackBehaviourPop) + this.GetStackChange(opCode.StackBehaviourPush)
                                                                         + addStack;
 
-        this.stackCount += stackChange;
+        this._stackCount += stackChange;
         this.WriteOutputCommand(opCode + " " + comment);
     }
 
@@ -152,6 +152,6 @@ internal class CompilationContext
     private void WriteOutputCommand(string command)
     {
         if (this.OutputCommands != null)
-            this.OutputCommands.WriteLine(new string('\t', this.stackCount >= 0 ? this.stackCount : 0) + command);
+            this.OutputCommands.WriteLine(new string('\t', this._stackCount >= 0 ? this._stackCount : 0) + command);
     }
 }

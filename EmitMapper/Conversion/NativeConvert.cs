@@ -12,7 +12,7 @@ using EmitMapper.Utils;
 
 internal class NativeConverter
 {
-    private static readonly Type[] ConvertTypes =
+    private static readonly Type[] _ConvertTypes =
         {
             typeof(bool), typeof(char), typeof(sbyte), typeof(byte), typeof(short), typeof(int), typeof(long),
             typeof(ushort), typeof(uint), typeof(ulong), typeof(float), typeof(double), typeof(decimal),
@@ -24,7 +24,7 @@ internal class NativeConverter
         if (from == null || to == null)
             return false;
 
-        if (ConvertTypes.Contains(from) && ConvertTypes.Contains(to))
+        if (_ConvertTypes.Contains(from) && _ConvertTypes.Contains(to))
             return true;
 
         if (to == typeof(string))
@@ -36,10 +36,10 @@ internal class NativeConverter
         if (from.IsEnum && to.IsEnum)
             return true;
 
-        if (from.IsEnum && ConvertTypes.Contains(to))
+        if (from.IsEnum && _ConvertTypes.Contains(to))
             return true;
 
-        if (to.IsEnum && ConvertTypes.Contains(from))
+        if (to.IsEnum && _ConvertTypes.Contains(from))
             return true;
 
         if (ReflectionUtils.IsNullable(from))

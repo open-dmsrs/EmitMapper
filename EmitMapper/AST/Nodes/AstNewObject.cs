@@ -88,7 +88,7 @@ internal class AstNewObject : IAstRef
                 throw new Exception(
                     string.Format(
                         "Constructor for types [{0}] not found in {1}",
-                        types.ToCSV(","),
+                        types.ToCsv(","),
                         this.ObjectType.FullName));
             }
         }

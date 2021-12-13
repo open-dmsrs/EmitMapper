@@ -29,7 +29,7 @@ public class MemberDescriptor
 
     public override string ToString()
     {
-        return "[" + this.MembersChain.Select(mc => ReflectionUtils.GetMemberType(mc).Name + ":" + mc.Name).ToCSV(",")
+        return "[" + this.MembersChain.Select(mc => ReflectionUtils.GetMemberType(mc).Name + ":" + mc.Name).ToCsv(",")
                    + "]";
     }
 }

@@ -8,11 +8,11 @@ public abstract class CustomMapperImpl : ObjectsMapperBaseImpl
 {
     public CustomMapperImpl(
         ObjectMapperManager mapperMannager,
-        Type TypeFrom,
-        Type TypeTo,
+        Type typeFrom,
+        Type typeTo,
         IMappingConfigurator mappingConfigurator,
         object[] storedObjects)
     {
-        this.Initialize(mapperMannager, TypeFrom, TypeTo, mappingConfigurator, storedObjects);
+        this.Initialize(mapperMannager, typeFrom, typeTo, mappingConfigurator, storedObjects);
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 internal static class MiscUtils
 {
-    public static string ToCSV<T>(this IEnumerable<T> collection, string delim)
+    public static string ToCsv<T>(this IEnumerable<T> collection, string delim)
     {
         if (collection == null)
             return "";

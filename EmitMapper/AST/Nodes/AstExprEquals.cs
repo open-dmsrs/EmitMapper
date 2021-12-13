@@ -7,14 +7,14 @@ using EmitMapper.AST.Interfaces;
 
 internal class AstExprEquals : IAstValue
 {
-    private readonly IAstValue leftValue;
+    private readonly IAstValue _leftValue;
 
-    private readonly IAstValue rightValue;
+    private readonly IAstValue _rightValue;
 
     public AstExprEquals(IAstValue leftValue, IAstValue rightValue)
     {
-        this.leftValue = leftValue;
-        this.rightValue = rightValue;
+        this._leftValue = leftValue;
+        this._rightValue = rightValue;
     }
 
     #region IAstReturnValueNode Members
@@ -27,8 +27,8 @@ internal class AstExprEquals : IAstValue
 
     public void Compile(CompilationContext context)
     {
-        this.leftValue.Compile(context);
-        this.rightValue.Compile(context);
+        this._leftValue.Compile(context);
+        this._rightValue.Compile(context);
         context.Emit(OpCodes.Ceq);
     }
 

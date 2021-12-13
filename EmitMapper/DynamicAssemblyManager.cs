@@ -25,23 +25,23 @@ public class DynamicAssemblyManager
 
     #region Non-public members
 
-    private static readonly AssemblyName assemblyName;
+    private static readonly AssemblyName _AssemblyName;
 
-    private static readonly AssemblyBuilder assemblyBuilder;
+    private static readonly AssemblyBuilder _AssemblyBuilder;
 
-    private static readonly ModuleBuilder moduleBuilder;
+    private static readonly ModuleBuilder _ModuleBuilder;
 
     static DynamicAssemblyManager()
     {
         var curAssemblyName = Assembly.GetExecutingAssembly().GetName();
 
 #if !SILVERLIGHT
-        assemblyName = new AssemblyName("EmitMapperAssembly");
-        assemblyName.SetPublicKey(curAssemblyName.GetPublicKey());
-        assemblyName.SetPublicKeyToken(curAssemblyName.GetPublicKeyToken());
-        assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndCollect);
+        _AssemblyName = new AssemblyName("EmitMapperAssembly");
+        _AssemblyName.SetPublicKey(curAssemblyName.GetPublicKey());
+        _AssemblyName.SetPublicKeyToken(curAssemblyName.GetPublicKeyToken());
+        _AssemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(_AssemblyName, AssemblyBuilderAccess.RunAndCollect);
 
-        moduleBuilder = assemblyBuilder.DefineDynamicModule(assemblyName.Name + ".dll");
+        _ModuleBuilder = _AssemblyBuilder.DefineDynamicModule(_AssemblyName.Name + ".dll");
 #else
 			assemblyName = new AssemblyName("EmitMapperAssembly.SL");
 			assemblyName.KeyPair = kp;
@@ -64,7 +64,7 @@ public class DynamicAssemblyManager
     {
         lock (typeof(DynamicAssemblyManager))
         {
-            return moduleBuilder.DefineType(
+            return _ModuleBuilder.DefineType(
                 CorrectTypeName(typeName + Guid.NewGuid().ToString().Replace("-", "")),
                 TypeAttributes.Public,
                 typeof(MapperForClassImpl),
@@ -76,7 +76,7 @@ public class DynamicAssemblyManager
     {
         lock (typeof(DynamicAssemblyManager))
         {
-            return moduleBuilder.DefineType(CorrectTypeName(typeName), TypeAttributes.Public, parent, null);
+            return _ModuleBuilder.DefineType(CorrectTypeName(typeName), TypeAttributes.Public, parent, null);
         }
     }
 

@@ -149,7 +149,7 @@ internal class MappingOperationsProcessor
                     {
                         AstBuildHelper.ReadLocalRV(this.LocFrom), AstBuildHelper.ReadLocalRV(this.LocState)
                     }));
-
+        //todo: need to add unit test for this method
         return new AstComplexNode
         {
             Nodes = new List<IAstNode>
@@ -162,7 +162,7 @@ internal class MappingOperationsProcessor
                                                        AstBuildHelper.ReadLocalRA(locValueToWrite),
                                                        new[]
                                                            {
-                                                               (MemberInfo)locValueToWrite.LocalType.GetField("action")
+                                                               (MemberInfo)locValueToWrite.LocalType.GetField(nameof(ValueToWrite<object>.Action))
                                                            }),
                                                    new AstConstantInt32 { Value = 0 }),
                                                TrueBranch = new AstComplexNode
@@ -564,10 +564,10 @@ internal class MappingOperationsProcessor
         var convertedValue = AstBuildHelper.CallMethod(
             typeof(ObjectsMapperBaseImpl).GetMethod("Map", new[] { typeof(object), typeof(object), typeof(object) }),
             new AstReadFieldRef
-                {
-                    FieldInfo = typeof(ObjectsMapperDescr).GetField(nameof(ObjectsMapperDescr.Mapper)),
-                    SourceObject = GetStoredObject(mapperId, mapper.GetType())
-                },
+            {
+                FieldInfo = typeof(ObjectsMapperDescr).GetField(nameof(ObjectsMapperDescr.Mapper)),
+                SourceObject = GetStoredObject(mapperId, mapper.GetType())
+            },
             new List<IAstStackItem>
                 {
                     AstBuildHelper.ReadMembersChain(
