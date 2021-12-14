@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 
 internal class ThreadSaveCache<T>
 {
@@ -10,7 +9,7 @@ internal class ThreadSaveCache<T>
 
     public T Get(string key, Func<T> getter)
     {
-        if (!this._cache.TryGetValue(key, out T value))
+        if (!this._cache.TryGetValue(key, out var value))
         {
             value = getter();
             this._cache.TryAdd(key, value);

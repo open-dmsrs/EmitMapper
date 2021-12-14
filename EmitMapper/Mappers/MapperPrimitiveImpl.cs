@@ -16,11 +16,11 @@ internal class MapperPrimitiveImpl : CustomMapperImpl
     private readonly MethodInvokerFunc1 _converter;
 
     public MapperPrimitiveImpl(
-        ObjectMapperManager mapperMannager,
+        ObjectMapperManager objectMapperManager,
         Type typeFrom,
         Type typeTo,
         IMappingConfigurator mappingConfigurator)
-        : base(mapperMannager, typeFrom, typeTo, mappingConfigurator, null)
+        : base(objectMapperManager, typeFrom, typeTo, mappingConfigurator, null)
     {
         var to = typeTo == typeof(IEnumerable) ? typeof(object) : typeTo;
         var from = typeFrom == typeof(IEnumerable) ? typeof(object) : typeFrom;
@@ -30,6 +30,14 @@ internal class MapperPrimitiveImpl : CustomMapperImpl
 
         if (converterMethod != null)
             this._converter = (MethodInvokerFunc1)MethodInvoker.GetMethodInvoker(null, converterMethod);
+    }
+
+    internal static bool IsSupportedType(Type type)
+    {
+        return type.IsPrimitive || type == typeof(decimal) || type == typeof(float) || type == typeof(double)
+               || type == typeof(long) || type == typeof(ulong) || type == typeof(short) || type == typeof(Guid)
+               || type == typeof(string)
+               || ReflectionUtils.IsNullable(type) && IsSupportedType(Nullable.GetUnderlyingType(type)) || type.IsEnum;
     }
 
     /// <summary>
@@ -52,13 +60,5 @@ internal class MapperPrimitiveImpl : CustomMapperImpl
     public override object CreateTargetInstance()
     {
         return null;
-    }
-
-    internal static bool IsSupportedType(Type type)
-    {
-        return type.IsPrimitive || type == typeof(decimal) || type == typeof(float) || type == typeof(double)
-               || type == typeof(long) || type == typeof(ulong) || type == typeof(short) || type == typeof(Guid)
-               || type == typeof(string)
-               || ReflectionUtils.IsNullable(type) && IsSupportedType(Nullable.GetUnderlyingType(type)) || type.IsEnum;
     }
 }

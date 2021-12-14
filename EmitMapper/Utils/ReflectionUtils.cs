@@ -12,7 +12,7 @@ public class ReflectionUtils
         return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
     }
 
-    /// Get Full hierarchy with all parent interfaces members.
+    /// Fixed: Get Full hierarchy with all parent interfaces members.
     public static MemberInfo[] GetPublicFieldsAndProperties(Type type)
     {
         var result = type.GetMembers(BindingFlags.Instance | BindingFlags.Public).Where(

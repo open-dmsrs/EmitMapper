@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.xUnit
+﻿namespace EmitMapper.Tests
 {
     using System;
     using System.Collections.Generic;
@@ -12,17 +12,6 @@
     ////[TestFixture]
     public class IgnoreByAttributes
     {
-        [Fact]
-        public void Test()
-        {
-            var mapper =
-                ObjectMapperManager.DefaultInstance.GetMapper<IgnoreByAttributesSrc, IgnoreByAttributesDst>(
-                    new MyConfigurator());
-            var dst = mapper.Map(new IgnoreByAttributesSrc());
-            Assert.Equal("IgnoreByAttributesDst::str1", dst.str1);
-            Assert.Equal("IgnoreByAttributesSrc::str2", dst.str2);
-        }
-
         [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
         public class MyIgnoreAttribute : Attribute
         {
@@ -31,16 +20,16 @@
         public class IgnoreByAttributesSrc
         {
             [MyIgnore]
-            public string str1 = "IgnoreByAttributesSrc::str1";
+            public string Str1 = "IgnoreByAttributesSrc::str1";
 
-            public string str2 = "IgnoreByAttributesSrc::str2";
+            public string Str2 = "IgnoreByAttributesSrc::str2";
         }
 
         public class IgnoreByAttributesDst
         {
-            public string str1 = "IgnoreByAttributesDst::str1";
+            public string Str1 = "IgnoreByAttributesDst::str1";
 
-            public string str2 = "IgnoreByAttributesDst::str2";
+            public string Str2 = "IgnoreByAttributesDst::str2";
         }
 
         public class MyConfigurator : DefaultMapConfig
@@ -59,6 +48,17 @@
                         type.GetProperties().Where(p => p.GetCustomAttributes(typeof(MyIgnoreAttribute), false).Any())
                             .Select(p => p.Name));
             }
+        }
+
+        [Fact]
+        public void Test()
+        {
+            var mapper =
+                ObjectMapperManager.DefaultInstance.GetMapper<IgnoreByAttributesSrc, IgnoreByAttributesDst>(
+                    new MyConfigurator());
+            var dst = mapper.Map(new IgnoreByAttributesSrc());
+            Assert.Equal("IgnoreByAttributesDst::str1", dst.Str1);
+            Assert.Equal("IgnoreByAttributesSrc::str2", dst.Str2);
         }
     }
 }

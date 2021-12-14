@@ -72,7 +72,7 @@ public abstract class ObjectsMapperBaseImpl
     /// <summary>
     ///     Mapper manager
     /// </summary>
-    internal ObjectMapperManager ObjectMapperMannager;
+    internal ObjectMapperManager ObjectMapperManager;
 
     /// <summary>
     ///     Type of source object
@@ -104,7 +104,7 @@ public abstract class ObjectsMapperBaseImpl
     /// <returns>Destination object</returns>
     public abstract object CreateTargetInstance();
 
-    public IMappingConfigurator MappingConfigurator;
+    protected IMappingConfigurator MappingConfigurator;
 
     protected IRootMappingOperation RootOperation;
 
@@ -123,13 +123,13 @@ public abstract class ObjectsMapperBaseImpl
     protected DelegateInvokerFunc2 SourceFilter;
 
     internal void Initialize(
-        ObjectMapperManager objectMapperMannager,
+        ObjectMapperManager objectMapperManager,
         Type typeFrom,
         Type typeTo,
         IMappingConfigurator mappingConfigurator,
         object[] stroredObjects)
     {
-        this.ObjectMapperMannager = objectMapperMannager;
+        this.ObjectMapperManager = objectMapperManager;
         this.TypeFrom = typeFrom;
         this.TypeTo = typeTo;
         this.MappingConfigurator = mappingConfigurator;

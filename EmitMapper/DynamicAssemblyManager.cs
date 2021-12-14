@@ -16,9 +16,9 @@ public class DynamicAssemblyManager
     /// </summary>
     public static void SaveAssembly()
     {
-        lock (typeof(DynamicAssemblyManager))
+        lock (_LockObject)
         {
-            throw new NotImplementedException("DynamicAssemblyManager.SaveAssembly");
+            throw new NotSupportedException("DynamicAssemblyManager.SaveAssembly");
             //assemblyBuilder.Save(assemblyName.Name + ".dll");
         }
     }
@@ -30,6 +30,8 @@ public class DynamicAssemblyManager
     private static readonly AssemblyBuilder _AssemblyBuilder;
 
     private static readonly ModuleBuilder _ModuleBuilder;
+
+    private static readonly object _LockObject = new();
 
     static DynamicAssemblyManager()
     {
@@ -62,7 +64,7 @@ public class DynamicAssemblyManager
 
     internal static TypeBuilder DefineMapperType(string typeName)
     {
-        lock (typeof(DynamicAssemblyManager))
+        lock (_LockObject)
         {
             return _ModuleBuilder.DefineType(
                 CorrectTypeName(typeName + Guid.NewGuid().ToString().Replace("-", "")),
@@ -74,7 +76,7 @@ public class DynamicAssemblyManager
 
     internal static TypeBuilder DefineType(string typeName, Type parent)
     {
-        lock (typeof(DynamicAssemblyManager))
+        lock (_LockObject)
         {
             return _ModuleBuilder.DefineType(CorrectTypeName(typeName), TypeAttributes.Public, parent, null);
         }

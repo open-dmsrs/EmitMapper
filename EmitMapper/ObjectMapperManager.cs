@@ -73,7 +73,7 @@ public class ObjectMapperManager
         lock (this)
         {
             to ??= typeof(object);
-            @from ??= typeof(object);
+            from ??= typeof(object);
 
             var mapperTypeKey = new MapperKey(from, to, mappingConfigurator.GetConfigurationName());
 

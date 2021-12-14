@@ -14,13 +14,13 @@ using EmitMapper.Utils;
 
 internal class MappingBuilder
 {
+    public readonly List<object> StoredObjects;
+
     private readonly IMappingConfigurator _mappingConfigurator;
 
     private readonly ObjectMapperManager _objectsMapperManager;
 
     private readonly TypeBuilder _typeBuilder;
-
-    public readonly List<object> StoredObjects;
 
     private Type _from;
 

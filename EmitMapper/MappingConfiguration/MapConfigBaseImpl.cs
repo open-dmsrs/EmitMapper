@@ -34,34 +34,18 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
         this.RegisterDefaultCollectionConverters();
     }
 
+    protected static string ToStrEnum<T>(IEnumerable<T> t)
+    {
+        return t == null ? "" : t.ToCsv("|");
+    }
+
+    protected static string ToStr<T>(T t)
+        where T : class
+    {
+        return t == null ? "" : t.ToString();
+    }
+
     public abstract IMappingOperation[] GetMappingOperations(Type from, Type to);
-
-    public virtual string GetConfigurationName()
-    {
-        return this._configurationName;
-    }
-
-    public virtual StaticConvertersManager GetStaticConvertersManager()
-    {
-        return null;
-    }
-
-    public virtual IRootMappingOperation GetRootMappingOperation(Type from, Type to)
-    {
-        var converter = this._customConverters.GetValue(new[] { from, to });
-        if (converter == null)
-            converter = this.GetGenericConverter(from, to);
-
-        return new RootMappingOperation(from, to)
-                   {
-                       TargetConstructor = this._customConstructors.GetValue(new[] { to }),
-                       NullSubstitutor = this._nullSubstitutors.GetValue(new[] { to }),
-                       ValuesPostProcessor = this._postProcessors.GetValue(new[] { to }),
-                       Converter = converter,
-                       DestinationFilter = this._destinationFilters.GetValue(new[] { to }),
-                       SourceFilter = this._sourceFilters.GetValue(new[] { from })
-                   };
-    }
 
     public virtual void BuildConfigurationName()
     {
@@ -171,7 +155,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     /// <summary>
     ///     Set unique configuration name to force Emit Mapper create new mapper instead using appropriate cached one.
     /// </summary>
-    /// <param name="mapperName">Configuration name</param>
+    /// <param name="configurationName">Configuration name</param>
     /// <returns></returns>
     public IMappingConfigurator SetConfigName(string configurationName)
     {
@@ -189,6 +173,38 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     {
         this._sourceFilters.Add(new[] { typeof(T) }, valuesFilter);
         return this;
+    }
+
+    public virtual string GetConfigurationName()
+    {
+        return this._configurationName;
+    }
+
+    public virtual StaticConvertersManager GetStaticConvertersManager()
+    {
+        return null;
+    }
+
+    public virtual IRootMappingOperation GetRootMappingOperation(Type from, Type to)
+    {
+        var converter = this._customConverters.GetValue(new[] { from, to });
+        if (converter == null)
+            converter = this.GetGenericConverter(from, to);
+
+        return new RootMappingOperation(from, to)
+                   {
+                       TargetConstructor = this._customConstructors.GetValue(new[] { to }),
+                       NullSubstitutor = this._nullSubstitutors.GetValue(new[] { to }),
+                       ValuesPostProcessor = this._postProcessors.GetValue(new[] { to }),
+                       Converter = converter,
+                       DestinationFilter = this._destinationFilters.GetValue(new[] { to }),
+                       SourceFilter = this._sourceFilters.GetValue(new[] { from })
+                   };
+    }
+
+    protected virtual void RegisterDefaultCollectionConverters()
+    {
+        this.ConvertGeneric(typeof(ICollection<>), typeof(Array), new ArraysConverterProvider());
     }
 
     protected IEnumerable<IMappingOperation> FilterOperations(
@@ -270,21 +286,5 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
         if (ignore != null && (ignore.Contains(fromDescr.MemberInfo.Name) || ignore.Contains(toDescr.MemberInfo.Name)))
             return true;
         return false;
-    }
-
-    protected static string ToStrEnum<T>(IEnumerable<T> t)
-    {
-        return t == null ? "" : t.ToCsv("|");
-    }
-
-    protected static string ToStr<T>(T t)
-        where T : class
-    {
-        return t == null ? "" : t.ToString();
-    }
-
-    protected virtual void RegisterDefaultCollectionConverters()
-    {
-        this.ConvertGeneric(typeof(ICollection<>), typeof(Array), new ArraysConverterProvider());
     }
 }

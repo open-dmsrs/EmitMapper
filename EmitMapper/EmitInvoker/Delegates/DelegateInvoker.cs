@@ -29,7 +29,7 @@ public static class DelegateInvoker
                 });
 
         var result = (DelegateInvokerBase)Activator.CreateInstance(callerType);
-        result._del = del;
+        result.Del = del;
         return result;
     }
 
@@ -40,7 +40,7 @@ public static class DelegateInvoker
         if (par.Length == 0)
             funcCallerType = typeof(DelegateInvokerFunc0);
         else if (par.Length == 1)
-            funcCallerType = typeof(DelegateInvokerFunc_1);
+            funcCallerType = typeof(DelegateInvokerFunc1);
         else if (par.Length == 2)
             funcCallerType = typeof(DelegateInvokerFunc2);
         else if (par.Length == 3)
@@ -67,11 +67,11 @@ public static class DelegateInvoker
         var par = del.Method.GetParameters();
         Type actionCallerType = null;
         if (par.Length == 0)
-            actionCallerType = typeof(DelegateInvokerAction_0);
+            actionCallerType = typeof(DelegateInvokerAction0);
         else if (par.Length == 1)
-            actionCallerType = typeof(DelegateInvokerAction_1);
+            actionCallerType = typeof(DelegateInvokerAction1);
         else if (par.Length == 2)
-            actionCallerType = typeof(DelegateInvokerAction_2);
+            actionCallerType = typeof(DelegateInvokerAction2);
         else if (par.Length == 3)
             actionCallerType = typeof(DelegateInvokerAction3);
         else
@@ -98,7 +98,9 @@ public static class DelegateInvoker
             new AstCastclassRef(
                 AstBuildHelper.ReadFieldRV(
                     new AstReadThis { ThisType = typeof(DelegateInvokerBase) },
-                    typeof(DelegateInvokerBase).GetField("_del", BindingFlags.Public | BindingFlags.Instance)),
+                    typeof(DelegateInvokerBase).GetField(
+                        nameof(DelegateInvokerBase.Del),
+                        BindingFlags.Public | BindingFlags.Instance)),
                 del.GetType()),
             parameters.Select((p, idx) => (IAstStackItem)AstBuildHelper.ReadArgumentRV(idx + 1, typeof(object)))
                 .ToList());

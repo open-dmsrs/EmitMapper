@@ -1,75 +1,70 @@
-﻿namespace EmitMapper.xUnit
+﻿namespace EmitMapper.Tests
 {
     using EmitMapper.MappingConfiguration;
     using EmitMapper.MappingConfiguration.MappingOperations;
+    using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
     using Xunit;
 
     ////[TestFixture]
     public class Flattering
     {
-        [Fact]
-        public void TestFlattering1()
+        public class Destination
         {
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B, A>(
-                new CustomMapConfig
-                    {
-                        GetMappingOperationFunc = (from, to) =>
-                            {
-                                return new[]
-                                           {
-                                               new ReadWriteSimple
-                                                   {
-                                                       Source = new MemberDescriptor(
-                                                           new[]
-                                                               {
-                                                                   typeof(B).GetMember("intB")[0],
-                                                                   typeof(B.IntB).GetMember("message")[0]
-                                                               }),
-                                                       Destination = new MemberDescriptor(
-                                                           new[] { typeof(A).GetMember("message")[0] })
-                                                   },
-                                               new ReadWriteSimple
-                                                   {
-                                                       Source = new MemberDescriptor(
-                                                           new[]
-                                                               {
-                                                                   typeof(B).GetMember("intB")[0],
-                                                                   typeof(B.IntB).GetMember("GetMessage2")[0]
-                                                               }),
-                                                       Destination = new MemberDescriptor(
-                                                           new[] { typeof(A).GetMember("message2")[0] })
-                                                   }
-                                           };
-                            }
-                    });
+            public string Message;
 
-            var b = new B();
-            var a = mapper.Map(b);
-            Assert.Equal(b.intB.message, a.message);
-            Assert.Equal(b.intB.GetMessage2(), a.message2);
+            public string Message2;
         }
 
-        public class A
+        public class Source
         {
-            public string message;
+            public InnerSourceClass InnerSource = new InnerSourceClass();
 
-            public string message2;
-        }
-
-        public class B
-        {
-            public IntB intB = new IntB();
-
-            public class IntB
+            public class InnerSourceClass
             {
-                public string message = "hello";
+                public string Message = "message's value";
 
                 public string GetMessage2()
                 {
-                    return "medved";
+                    return "GetMessage2 's value";
                 }
             }
+        }
+
+        [Fact]
+        public void TestFlattering1()
+        {
+            var rw1 = new ReadWriteSimple
+                          {
+                              Source = new MemberDescriptor(
+                                  new[]
+                                      {
+                                          typeof(Source).GetMember(nameof(Source.InnerSource))[0],
+                                          typeof(Source.InnerSourceClass).GetMember(nameof(Source.InnerSource.Message))[
+                                              0]
+                                      }),
+                              Destination = new MemberDescriptor(
+                                  new[] { typeof(Destination).GetMember(nameof(Destination.Message))[0] })
+                          };
+            var rw2 = new ReadWriteSimple
+                          {
+                              Source = new MemberDescriptor(
+                                  new[]
+                                      {
+                                          typeof(Source).GetMember(nameof(Source.InnerSource))[0],
+                                          typeof(Source.InnerSourceClass).GetMember(
+                                              nameof(Source.InnerSourceClass.GetMessage2))[0]
+                                      }),
+                              Destination = new MemberDescriptor(
+                                  new[] { typeof(Destination).GetMember(nameof(Destination.Message2))[0] })
+                          };
+
+            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<Source, Destination>(
+                new CustomMapConfig { GetMappingOperationFunc = (from, to) => new IMappingOperation[] { rw1, rw2 } });
+            var b = new Source();
+            var a = mapper.Map(b);
+            Assert.Equal(b.InnerSource.Message, a.Message);
+            Assert.Equal(b.InnerSource.GetMessage2(), a.Message2);
         }
     }
 }

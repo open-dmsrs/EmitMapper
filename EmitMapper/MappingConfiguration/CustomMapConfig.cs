@@ -25,7 +25,7 @@ public class CustomMapConfig : IMappingConfigurator
     public IMappingOperation[] GetMappingOperations(Type from, Type to)
     {
         if (this.GetMappingOperationFunc == null)
-            return new IMappingOperation[0];
+            return Array.Empty<IMappingOperation>();
         return this.GetMappingOperationFunc(from, to);
     }
 

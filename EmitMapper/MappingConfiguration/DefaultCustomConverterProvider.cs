@@ -12,6 +12,16 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
         this._converterType = converterType;
     }
 
+    public static Type[] GetGenericArguments(Type type)
+    {
+        if (type.IsArray)
+            return new[] { type.GetElementType() };
+        if (type.IsGenericType)
+            return type.GetGenericArguments();
+        return type.GetInterfaces().Where(i => i.IsGenericType).Select(i => i.GetGenericArguments())
+            .Where(a => a.Length == 1).Select(a => a[0]).ToArray();
+    }
+
     public virtual CustomConverterDescriptor GetCustomConverterDescr(
         Type from,
         Type to,
@@ -24,15 +34,5 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
                        ConverterImplementation = this._converterType,
                        ConversionMethodName = "Convert"
                    };
-    }
-
-    public static Type[] GetGenericArguments(Type type)
-    {
-        if (type.IsArray)
-            return new[] { type.GetElementType() };
-        if (type.IsGenericType)
-            return type.GetGenericArguments();
-        return type.GetInterfaces().Where(i => i.IsGenericType).Select(i => i.GetGenericArguments())
-            .Where(a => a.Length == 1).Select(a => a[0]).ToArray();
     }
 }

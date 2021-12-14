@@ -4,6 +4,8 @@ using System;
 
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
+public delegate ValueToWrite<T> ValueGetter<T>(object value, object state);
+
 public struct ValueToWrite<T>
 {
     public enum Actions
@@ -27,8 +29,6 @@ public struct ValueToWrite<T>
         return new ValueToWrite<T> { Action = Actions.Skip };
     }
 }
-
-public delegate ValueToWrite<T> ValueGetter<T>(object value, object state);
 
 public class DestWriteOperation : IDestWriteOperation
 {

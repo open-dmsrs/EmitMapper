@@ -9,9 +9,9 @@ using EmitMapper.EmitInvoker.Methods;
 
 public class StaticConvertersManager
 {
-    private static StaticConvertersManager __DefaultInstance;
-
     private static readonly Dictionary<MethodInfo, Func<object, object>> _ConvertersFunc = new();
+
+    private static StaticConvertersManager __DefaultInstance;
 
     private readonly Dictionary<TypesPair, MethodInfo> _typesMethods = new();
 

@@ -11,6 +11,22 @@ internal class TypeDictionary<T>
 {
     private readonly List<ListElement> _elements = new();
 
+    private static bool IsGeneralType(Type generalType, Type type)
+    {
+        if (generalType == type)
+            return true;
+        if (generalType.IsGenericTypeDefinition)
+        {
+            if (generalType.IsInterface)
+                return (type.IsInterface ? new[] { type } : Type.EmptyTypes).Concat(type.GetInterfaces()).Any(
+                    i => i.IsGenericType && i.GetGenericTypeDefinition() == generalType);
+            return type.IsGenericType && (type.GetGenericTypeDefinition() == generalType
+                                          || type.GetGenericTypeDefinition().IsSubclassOf(generalType));
+        }
+
+        return generalType.IsAssignableFrom(type);
+    }
+
     public override string ToString()
     {
         return this._elements.Select(e => e.Types.ToCsv("|") + (e.Value == null ? "|" : "|" + e.Value)).ToCsv("||");
@@ -60,22 +76,6 @@ internal class TypeDictionary<T>
         return null;
     }
 
-    private static bool IsGeneralType(Type generalType, Type type)
-    {
-        if (generalType == type)
-            return true;
-        if (generalType.IsGenericTypeDefinition)
-        {
-            if (generalType.IsInterface)
-                return (type.IsInterface ? new[] { type } : new Type[0]).Concat(type.GetInterfaces()).Any(
-                    i => i.IsGenericType && i.GetGenericTypeDefinition() == generalType);
-            return type.IsGenericType && (type.GetGenericTypeDefinition() == generalType
-                                          || type.GetGenericTypeDefinition().IsSubclassOf(generalType));
-        }
-
-        return generalType.IsAssignableFrom(type);
-    }
-
     private class ListElement
     {
         public readonly Type[] Types;
@@ -96,10 +96,7 @@ internal class TypeDictionary<T>
         public override bool Equals(object obj)
         {
             var rhs = (ListElement)obj;
-            for (var i = 0; i < this.Types.Length; ++i)
-                if (this.Types[i] != rhs.Types[i])
-                    return false;
-            return true;
+            return !this.Types.Where((t, i) => rhs != null && t != rhs.Types[i]).Any();
         }
     }
 }

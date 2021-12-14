@@ -7,12 +7,12 @@ using EmitMapper.MappingConfiguration;
 public abstract class CustomMapperImpl : ObjectsMapperBaseImpl
 {
     public CustomMapperImpl(
-        ObjectMapperManager mapperMannager,
+        ObjectMapperManager objectMapperManager,
         Type typeFrom,
         Type typeTo,
         IMappingConfigurator mappingConfigurator,
         object[] storedObjects)
     {
-        this.Initialize(mapperMannager, typeFrom, typeTo, mappingConfigurator, storedObjects);
+        this.Initialize(objectMapperManager, typeFrom, typeTo, mappingConfigurator, storedObjects);
     }
 }

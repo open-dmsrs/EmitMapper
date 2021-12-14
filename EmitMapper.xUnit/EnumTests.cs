@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.xUnit
+﻿namespace EmitMapper.Tests
 {
     using Xunit;
 
@@ -7,93 +7,93 @@
     {
         public enum En1 : byte
         {
-            a = 1,
+            A = 1,
 
-            b = 2,
+            B = 2,
 
-            c = 3
+            C = 3
         }
 
         public enum En2 : long
         {
-            a = 1,
+            A = 1,
 
-            b = 2,
+            B = 2,
 
-            c = 3
+            C = 3
         }
 
         public enum En3
         {
-            b = 2,
+            B = 2,
 
-            c = 3,
+            C = 3,
 
-            a = 1
+            A = 1
+        }
+
+        public class A
+        {
+            public En2 En2;
+
+            public decimal En4;
+
+            public string En5;
+
+            public En1? En6;
+
+            public En3 En7;
+
+            public En3? En8;
+
+            public En3? En9 = En3.C;
+
+            public En1 En1 { get; set; }
+
+            public En3 En3 { get; set; }
+        }
+
+        public class B
+        {
+            public decimal En1 = 3;
+
+            public string En3 = "C";
+
+            public En2 En4 = EnumTests.En2.B;
+
+            public En3 En5 = EnumTests.En3.A;
+
+            public En2 En6 = EnumTests.En2.C;
+
+            public En1? En7 = EnumTests.En1.C;
+
+            public En1? En8 = EnumTests.En1.C;
+
+            public En2? En9 = null;
+
+            public B()
+            {
+                this.En2 = EnumTests.En1.C;
+            }
+
+            public En1 En2 { get; set; }
         }
 
         [Fact]
         public void EnumTests1()
         {
-            var mapper = Context.objMan.GetMapper<B, A>();
+            var mapper = Context.ObjMan.GetMapper<B, A>();
             //DynamicAssemblyManager.SaveAssembly();
 
             var a = mapper.Map(new B());
-            Assert.True(a.en1 == En1.c);
-            Assert.True(a.en2 == En2.c);
-            Assert.True(a.en3 == En3.c);
-            Assert.True(a.en4 == 2);
-            Assert.True(a.en6 == En1.c);
-            Assert.True(a.en7 == En3.c);
-            Assert.True(a.en8 == En3.c);
-            Assert.Null(a.en9);
-        }
-
-        public class A
-        {
-            public En2 en2;
-
-            public decimal en4;
-
-            public string en5;
-
-            public En1? en6;
-
-            public En3 en7;
-
-            public En3? en8;
-
-            public En3? en9 = En3.c;
-
-            public En1 en1 { get; set; }
-
-            public En3 en3 { get; set; }
-        }
-
-        public class B
-        {
-            public decimal en1 = 3;
-
-            public string en3 = "c";
-
-            public En2 en4 = En2.b;
-
-            public En3 en5 = En3.a;
-
-            public En2 en6 = En2.c;
-
-            public En1? en7 = En1.c;
-
-            public En1? en8 = En1.c;
-
-            public En2? en9 = null;
-
-            public B()
-            {
-                this.en2 = En1.c;
-            }
-
-            public En1 en2 { get; set; }
+            Assert.True(a.En1 == En1.C);
+            Assert.True(a.En2 == En2.C);
+            Assert.True(a.En3 == En3.C);
+            Assert.True(a.En4 == 2);
+            Assert.True(a.En6 == En1.C);
+            Assert.True(a.En7 == En3.C);
+            Assert.True(a.En8 == En3.C);
+            Assert.Null(a.En9);
         }
     }
 }

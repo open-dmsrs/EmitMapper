@@ -25,6 +25,15 @@ bld/
 *.VisualState.xml
 TestResult.xml
 
+# Build Results of an ATL Project
+[Dd]ebugPS/
+[Rr]eleasePS/
+dlldata.c
+
+# DNX
+project.lock.json
+artifacts/
+
 *_i.c
 *_p.c
 *_i.h
@@ -117,8 +126,15 @@ publish/
 # Publish Web Output
 *.[Pp]ublish.xml
 *.azurePubxml
+## TODO: Comment the next line if you want to checkin your
+## web deploy settings but do note that will include unencrypted
+## passwords
+#*.pubxml
 
+*.publishproj
 # NuGet Packages Directory
+*.nupkg
+
 ## TODO: If you have NuGet Package Restore enabled, uncomment the next line
 #packages/*
 ## TODO: If the tool you use requires repositories.config, also uncomment the next line

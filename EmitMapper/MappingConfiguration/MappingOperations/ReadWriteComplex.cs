@@ -34,8 +34,6 @@ public class ReadWriteComplex : IComplexOperation, IReadWriteOperation
 
     public List<IMappingOperation> Operations { get; set; }
 
-    public MemberDescriptor Source { get; set; }
-
     public MemberDescriptor Destination { get; set; }
 
     public Delegate Converter { get; set; }
@@ -47,6 +45,8 @@ public class ReadWriteComplex : IComplexOperation, IReadWriteOperation
     public Delegate DestinationFilter { get; set; }
 
     public Delegate SourceFilter { get; set; }
+
+    public MemberDescriptor Source { get; set; }
 
     public override string ToString()
     {

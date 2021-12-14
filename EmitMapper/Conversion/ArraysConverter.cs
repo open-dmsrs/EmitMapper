@@ -12,6 +12,18 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
 
     private ObjectsMapperDescr _subMapper;
 
+    public TTo[] Convert(ICollection<TFrom> from, object state)
+    {
+        if (from == null)
+            return null;
+
+        var result = new TTo[from.Count];
+        var idx = 0;
+        foreach (var f in from)
+            result[idx++] = this._converter(f);
+        return result;
+    }
+
     public void Initialize(Type from, Type to, MapConfigBaseImpl mappingConfig)
     {
         var staticConverters = mappingConfig.GetStaticConvertersManager() ?? StaticConvertersManager.DefaultInstance;
@@ -31,18 +43,6 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
                 mappingConfig);
             this._converter = this.ConverterBySubmapper;
         }
-    }
-
-    public TTo[] Convert(ICollection<TFrom> from, object state)
-    {
-        if (from == null)
-            return null;
-
-        var result = new TTo[from.Count];
-        var idx = 0;
-        foreach (var f in from)
-            result[idx++] = this._converter(f);
-        return result;
     }
 
     private TTo ConverterBySubmapper(TFrom from)

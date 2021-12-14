@@ -8,8 +8,6 @@ public class ReadWriteSimple : IReadWriteOperation
 {
     public bool ShallowCopy { get; set; }
 
-    public MemberDescriptor Source { get; set; }
-
     public MemberDescriptor Destination { get; set; }
 
     public Delegate NullSubstitutor { get; set; }
@@ -21,6 +19,8 @@ public class ReadWriteSimple : IReadWriteOperation
     public Delegate DestinationFilter { get; set; }
 
     public Delegate SourceFilter { get; set; }
+
+    public MemberDescriptor Source { get; set; }
 
     public override string ToString()
     {
