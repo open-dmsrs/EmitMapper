@@ -48,12 +48,19 @@
             };
             var message = new DestSrcReadOperation
             {
+                ValueProcessor = (f, t, o) =>
+                    {
+                        // var source = f as FromClass;
+                        // var dest = t as ToClass;
+                        // dest.Message = source.Inner.Message;
+                    },
+
                 Source = new MemberDescriptor(
-                                      new[]
-                                          {
+                                  new[]
+                                      {
                                               typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
                                               typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[0]
-                                          }),
+                                      }),
                 Destination = new MemberDescriptor(
                                       new[] { typeof(ToClass).GetMember(nameof(ToClass.Message))[0] })
             };

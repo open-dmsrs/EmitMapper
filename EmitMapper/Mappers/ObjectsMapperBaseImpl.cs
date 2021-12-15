@@ -19,6 +19,7 @@ public abstract class ObjectsMapperBaseImpl
     /// </summary>
     /// <param name="from">Source object</param>
     /// <param name="to">Destination object</param>
+    /// <param name="state"></param>
     /// <returns>Destination object</returns>
     public virtual object Map(object from, object to, object state)
     {
@@ -95,6 +96,7 @@ public abstract class ObjectsMapperBaseImpl
     /// </summary>
     /// <param name="from">Source object</param>
     /// <param name="to">Destination object</param>
+    /// <param name="state"></param>
     /// <returns>Destination object</returns>
     public abstract object MapImpl(object from, object to, object state);
 
@@ -127,13 +129,13 @@ public abstract class ObjectsMapperBaseImpl
         Type typeFrom,
         Type typeTo,
         IMappingConfigurator mappingConfigurator,
-        object[] stroredObjects)
+        object[] storedObjects)
     {
         this.ObjectMapperManager = objectMapperManager;
         this.TypeFrom = typeFrom;
         this.TypeTo = typeTo;
         this.MappingConfigurator = mappingConfigurator;
-        this.StroredObjects = stroredObjects;
+        this.StroredObjects = storedObjects;
         if (this.MappingConfigurator != null)
         {
             this.RootOperation = this.MappingConfigurator.GetRootMappingOperation(typeFrom, typeTo);

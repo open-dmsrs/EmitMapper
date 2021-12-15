@@ -12,7 +12,7 @@ using EmitMapper.AST.Nodes;
 using EmitMapper.MappingConfiguration;
 
 /// <summary>
-///     Mapper for collections. It can copy Array, List<>, ArrayList collections.
+///     Mapper for collections. It can copy Array, List&lt;&gt;, ArrayList collections.
 ///     Collection type in source object and destination object can differ.
 /// </summary>
 public class MapperForCollectionImpl : CustomMapperImpl
@@ -47,7 +47,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
         if (typeTo.IsGenericType && typeTo.GetGenericTypeDefinition() == typeof(List<>))
         {
             var methodBuilder = tb.DefineMethod(
-                "CopyToListInvoke",
+                nameof(CopyToListInvoke),
                 MethodAttributes.Family | MethodAttributes.Virtual,
                 typeof(object),
                 new[] { typeof(IEnumerable) });
@@ -55,7 +55,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
             InvokeCopyImpl(typeTo, nameof(CopyToList)).Compile(new CompilationContext(methodBuilder.GetILGenerator()));
 
             methodBuilder = tb.DefineMethod(
-                "CopyToListScalarInvoke",
+                nameof(CopyToListScalarInvoke),
                 MethodAttributes.Family | MethodAttributes.Virtual,
                 typeof(object),
                 new[] { typeof(object) });
@@ -131,6 +131,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
     /// </summary>
     /// <param name="from">Source object</param>
     /// <param name="to">Destination object</param>
+    /// <param name="state"></param>
     /// <returns>Destination object</returns>
     public override object MapImpl(object from, object to, object state)
     {
@@ -168,6 +169,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
     /// </summary>
     /// <param name="from">Source object</param>
     /// <param name="to">Destination object</param>
+    /// <param name="state"></param>
     /// <returns>Destination object</returns>
     public override object Map(object from, object to, object state)
     {
@@ -264,7 +266,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
             return res;
         }
 
-        var result = new ArrayList();
+        ArrayList result;
         if (from is ICollection coll)
             result = new ArrayList(coll.Count);
         else

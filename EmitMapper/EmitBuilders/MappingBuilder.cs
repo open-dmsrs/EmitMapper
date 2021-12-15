@@ -9,6 +9,7 @@ using EmitMapper.AST;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Nodes;
 using EmitMapper.Conversion;
+using EmitMapper.Mappers;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.Utils;
 
@@ -50,7 +51,7 @@ internal class MappingBuilder
             this._to = Nullable.GetUnderlyingType(this._to);
 
         var methodBuilder = this._typeBuilder.DefineMethod(
-            "MapImpl",
+            nameof(ObjectsMapperBaseImpl.MapImpl),
             MethodAttributes.Public | MethodAttributes.Virtual,
             typeof(object),
             new[] { typeof(object), typeof(object), typeof(object) });

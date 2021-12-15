@@ -52,12 +52,12 @@ public class ReflectionUtils
 
     public static Type GetMemberType(MemberInfo mi)
     {
-        if (mi is PropertyInfo)
-            return ((PropertyInfo)mi).PropertyType;
-        if (mi is FieldInfo)
-            return ((FieldInfo)mi).FieldType;
-        if (mi is MethodInfo)
-            return ((MethodInfo)mi).ReturnType;
+        if (mi is PropertyInfo propertyInfo)
+            return propertyInfo.PropertyType;
+        if (mi is FieldInfo fieldInfo)
+            return fieldInfo.FieldType;
+        if (mi is MethodInfo methodInfo)
+            return methodInfo.ReturnType;
         return null;
     }
 

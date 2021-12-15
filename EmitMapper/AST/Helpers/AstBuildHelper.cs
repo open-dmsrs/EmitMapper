@@ -108,11 +108,9 @@ internal class AstBuildHelper
     public static IAstRefOrValue ReadMembersChain(IAstRefOrAddr sourceObject, MemberInfo[] membersChain)
     {
         var src = sourceObject;
-
         for (var i = 0; i < membersChain.Length - 1; ++i)
             src = ReadMemberRA(src, membersChain[i]);
-        var result = ReadMemberRV(src, membersChain[membersChain.Length - 1]);
-        return result;
+        return ReadMemberRV(src, membersChain[membersChain.Length - 1]);
     }
 
     public static IAstStackItem ReadMember(IAstRefOrAddr sourceObject, MemberInfo memberInfo)
