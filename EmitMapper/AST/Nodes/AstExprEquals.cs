@@ -1,9 +1,8 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System;
+﻿using System;
 using System.Reflection.Emit;
-
 using EmitMapper.AST.Interfaces;
+
+namespace EmitMapper.AST.Nodes;
 
 internal class AstExprEquals : IAstValue
 {
@@ -13,8 +12,8 @@ internal class AstExprEquals : IAstValue
 
     public AstExprEquals(IAstValue leftValue, IAstValue rightValue)
     {
-        this._leftValue = leftValue;
-        this._rightValue = rightValue;
+        _leftValue = leftValue;
+        _rightValue = rightValue;
     }
 
     #region IAstReturnValueNode Members
@@ -27,8 +26,8 @@ internal class AstExprEquals : IAstValue
 
     public void Compile(CompilationContext context)
     {
-        this._leftValue.Compile(context);
-        this._rightValue.Compile(context);
+        _leftValue.Compile(context);
+        _rightValue.Compile(context);
         context.Emit(OpCodes.Ceq);
     }
 

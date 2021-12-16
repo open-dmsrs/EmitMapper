@@ -1,8 +1,7 @@
-﻿namespace EmitMapper.MappingConfiguration;
-
-using System;
-
+﻿using System;
 using EmitMapper.MappingConfiguration.MappingOperations;
+
+namespace EmitMapper.MappingConfiguration;
 
 public abstract class MapConfigBase<TDerived> : MapConfigBaseImpl
     where TDerived : class
@@ -11,7 +10,7 @@ public abstract class MapConfigBase<TDerived> : MapConfigBaseImpl
 
     public void Init(TDerived derived)
     {
-        this._derived = derived;
+        _derived = derived;
     }
 
     /// <summary>

@@ -1,23 +1,22 @@
-﻿namespace EmitMapper.Conversion;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 using EmitMapper.AST.Nodes;
 using EmitMapper.Utils;
 
+namespace EmitMapper.Conversion;
+
 internal class NativeConverter
 {
     private static readonly Type[] _ConvertTypes =
-        {
-            typeof(bool), typeof(char), typeof(sbyte), typeof(byte), typeof(short), typeof(int), typeof(long),
-            typeof(ushort), typeof(uint), typeof(ulong), typeof(float), typeof(double), typeof(decimal),
-            typeof(DateTime), typeof(string)
-        };
+    {
+        typeof(bool), typeof(char), typeof(sbyte), typeof(byte), typeof(short), typeof(int), typeof(long),
+        typeof(ushort), typeof(uint), typeof(ulong), typeof(float), typeof(double), typeof(decimal),
+        typeof(DateTime), typeof(string)
+    };
 
     public static bool IsNativeConvertionPossible(Type from, Type to)
     {
@@ -74,9 +73,9 @@ internal class NativeConverter
             typeof(EMConvert).GetMethod("ChangeType", new[] { typeof(object), typeof(Type), typeof(Type) }),
             null,
             new List<IAstStackItem>
-                {
-                    sourceValue, new AstTypeof { Type = sourceType }, new AstTypeof { Type = destinationType }
-                });
+            {
+                sourceValue, new AstTypeof { Type = sourceType }, new AstTypeof { Type = destinationType }
+            });
     }
 
     internal static string ObjectToString(object obj)

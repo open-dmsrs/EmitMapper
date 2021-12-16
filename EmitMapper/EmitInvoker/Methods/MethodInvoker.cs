@@ -1,15 +1,14 @@
-﻿namespace EmitMapper.EmitInvoker.Methods;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
 using EmitMapper.AST;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 using EmitMapper.AST.Nodes;
 using EmitMapper.Utils;
+
+namespace EmitMapper.EmitInvoker.Methods;
 
 public static class MethodInvoker
 {
@@ -22,11 +21,11 @@ public static class MethodInvoker
         var callerType = _TypesCache.Get(
             typeName,
             () =>
-                {
-                    if (mi.ReturnType == typeof(void))
-                        return BuildActionCallerType(typeName, mi);
-                    return BuildFuncCallerType(typeName, mi);
-                });
+            {
+                if (mi.ReturnType == typeof(void))
+                    return BuildActionCallerType(typeName, mi);
+                return BuildFuncCallerType(typeName, mi);
+            });
 
         var result = (MethodInvokerBase)Activator.CreateInstance(callerType);
         result.TargetObject = targetObject;

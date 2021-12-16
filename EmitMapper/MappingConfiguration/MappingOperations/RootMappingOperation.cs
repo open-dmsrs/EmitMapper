@@ -1,15 +1,14 @@
-﻿namespace EmitMapper.MappingConfiguration.MappingOperations;
-
-using System;
-
+﻿using System;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+
+namespace EmitMapper.MappingConfiguration.MappingOperations;
 
 public class RootMappingOperation : IRootMappingOperation
 {
     public RootMappingOperation(Type from, Type to)
     {
-        this.From = from;
-        this.To = to;
+        From = from;
+        To = to;
     }
 
     #region IRootMappingOperation Members

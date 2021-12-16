@@ -1,6 +1,6 @@
-﻿namespace EmitMapper.MappingConfiguration;
+﻿using System;
 
-using System;
+namespace EmitMapper.MappingConfiguration;
 
 public interface ICustomConverter
 {

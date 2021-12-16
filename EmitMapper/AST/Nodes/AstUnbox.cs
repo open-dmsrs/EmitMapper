@@ -1,9 +1,8 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System;
+﻿using System;
 using System.Reflection.Emit;
-
 using EmitMapper.AST.Interfaces;
+
+namespace EmitMapper.AST.Nodes;
 
 internal class AstUnbox : IAstValue
 {
@@ -11,11 +10,11 @@ internal class AstUnbox : IAstValue
 
     public Type UnboxedType;
 
-    public Type ItemType => this.UnboxedType;
+    public Type ItemType => UnboxedType;
 
     public void Compile(CompilationContext context)
     {
-        this.RefObj.Compile(context);
-        context.Emit(OpCodes.Unbox_Any, this.UnboxedType);
+        RefObj.Compile(context);
+        context.Emit(OpCodes.Unbox_Any, UnboxedType);
     }
 }

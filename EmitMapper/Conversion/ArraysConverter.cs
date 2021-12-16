@@ -1,16 +1,36 @@
-﻿namespace EmitMapper.Conversion;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using EmitMapper.MappingConfiguration;
+
+namespace EmitMapper.Conversion;
 
 internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
 {
     private Func<TFrom, TTo> _converter;
 
     private ObjectsMapperDescr _subMapper;
+
+    public void Initialize(Type from, Type to, MapConfigBaseImpl mappingConfig)
+    {
+        var staticConverters = mappingConfig.GetStaticConvertersManager() ?? StaticConvertersManager.DefaultInstance;
+        var staticConverterMethod = staticConverters.GetStaticConverter(typeof(TFrom), typeof(TTo));
+        if (staticConverterMethod != null)
+        {
+            _converter = (Func<TFrom, TTo>)Delegate.CreateDelegate(
+                typeof(Func<TFrom, TTo>),
+                null,
+                staticConverterMethod);
+        }
+        else
+        {
+            _subMapper = ObjectMapperManager.DefaultInstance.GetMapperInt(
+                typeof(TFrom),
+                typeof(TTo),
+                mappingConfig);
+            _converter = ConverterBySubmapper;
+        }
+    }
 
     public TTo[] Convert(ICollection<TFrom> from, object state)
     {
@@ -20,34 +40,13 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
         var result = new TTo[from.Count];
         var idx = 0;
         foreach (var f in from)
-            result[idx++] = this._converter(f);
+            result[idx++] = _converter(f);
         return result;
-    }
-
-    public void Initialize(Type from, Type to, MapConfigBaseImpl mappingConfig)
-    {
-        var staticConverters = mappingConfig.GetStaticConvertersManager() ?? StaticConvertersManager.DefaultInstance;
-        var staticConverterMethod = staticConverters.GetStaticConverter(typeof(TFrom), typeof(TTo));
-        if (staticConverterMethod != null)
-        {
-            this._converter = (Func<TFrom, TTo>)Delegate.CreateDelegate(
-                typeof(Func<TFrom, TTo>),
-                null,
-                staticConverterMethod);
-        }
-        else
-        {
-            this._subMapper = ObjectMapperManager.DefaultInstance.GetMapperInt(
-                typeof(TFrom),
-                typeof(TTo),
-                mappingConfig);
-            this._converter = this.ConverterBySubmapper;
-        }
     }
 
     private TTo ConverterBySubmapper(TFrom from)
     {
-        return (TTo)this._subMapper.Mapper.Map(from);
+        return (TTo)_subMapper.Mapper.Map(from);
     }
 }
 
@@ -71,17 +70,17 @@ internal class ArraysConverterProvider : ICustomConverterProvider
         var tTo = tToTypeArgs[0];
         if (tFrom == tTo && (tFrom.IsValueType || mappingConfig.GetRootMappingOperation(tFrom, tTo).ShallowCopy))
             return new CustomConverterDescriptor
-                       {
-                           ConversionMethodName = "Convert",
-                           ConverterImplementation = typeof(ArraysConverterOneTypes<>),
-                           ConverterClassTypeArguments = new[] { tFrom }
-                       };
+            {
+                ConversionMethodName = "Convert",
+                ConverterImplementation = typeof(ArraysConverterOneTypes<>),
+                ConverterClassTypeArguments = new[] { tFrom }
+            };
 
         return new CustomConverterDescriptor
-                   {
-                       ConversionMethodName = "Convert",
-                       ConverterImplementation = typeof(ArraysConverterDifferentTypes<,>),
-                       ConverterClassTypeArguments = new[] { tFrom, tTo }
-                   };
+        {
+            ConversionMethodName = "Convert",
+            ConverterImplementation = typeof(ArraysConverterDifferentTypes<,>),
+            ConverterClassTypeArguments = new[] { tFrom, tTo }
+        };
     }
 }

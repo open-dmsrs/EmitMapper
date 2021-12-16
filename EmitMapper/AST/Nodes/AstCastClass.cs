@@ -1,26 +1,24 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System;
+﻿using System;
 using System.Reflection.Emit;
-
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
+namespace EmitMapper.AST.Nodes;
+
 internal class AstCastclass : IAstRefOrValue
 {
-    protected Type TargetType;
-
     protected IAstRefOrValue Value;
+    protected Type TargetType;
 
     public AstCastclass(IAstRefOrValue value, Type targetType)
     {
-        this.Value = value;
-        this.TargetType = targetType;
+        Value = value;
+        TargetType = targetType;
     }
 
     #region IAstStackItem Members
 
-    public Type ItemType => this.TargetType;
+    public Type ItemType => TargetType;
 
     #endregion
 
@@ -28,25 +26,25 @@ internal class AstCastclass : IAstRefOrValue
 
     public virtual void Compile(CompilationContext context)
     {
-        if (this.Value.ItemType != this.TargetType)
+        if (Value.ItemType != TargetType)
         {
-            if (!this.Value.ItemType.IsValueType && !this.TargetType.IsValueType)
+            if (!Value.ItemType.IsValueType && !TargetType.IsValueType)
             {
-                this.Value.Compile(context);
-                context.Emit(OpCodes.Castclass, this.TargetType);
+                Value.Compile(context);
+                context.Emit(OpCodes.Castclass, TargetType);
                 return;
             }
 
-            if (this.TargetType.IsValueType && !this.Value.ItemType.IsValueType)
+            if (TargetType.IsValueType && !Value.ItemType.IsValueType)
             {
-                new AstUnbox { RefObj = (IAstRef)this.Value, UnboxedType = this.TargetType }.Compile(context);
+                new AstUnbox { RefObj = (IAstRef)Value, UnboxedType = TargetType }.Compile(context);
                 return;
             }
 
             throw new EmitMapperException();
         }
 
-        this.Value.Compile(context);
+        Value.Compile(context);
     }
 
     #endregion
@@ -61,7 +59,7 @@ internal class AstCastclassRef : AstCastclass, IAstRef
 
     public override void Compile(CompilationContext context)
     {
-        CompilationHelper.CheckIsRef(this.ItemType);
+        CompilationHelper.CheckIsRef(ItemType);
         base.Compile(context);
     }
 }
@@ -75,7 +73,7 @@ internal class AstCastclassValue : AstCastclass, IAstValue
 
     public override void Compile(CompilationContext context)
     {
-        CompilationHelper.CheckIsValue(this.ItemType);
+        CompilationHelper.CheckIsValue(ItemType);
         base.Compile(context);
     }
 }

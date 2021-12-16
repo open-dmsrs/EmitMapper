@@ -1,12 +1,12 @@
+using System;
+using System.Reflection;
+
 #if !UnitTest
 namespace EmitMapper
 #else
 namespace EmitMapperTests
 #endif
 {
-    using System;
-    using System.Reflection;
-
     public static class TypeExtensions
     {
         public static MethodInfo GetMethod(this Type type, string methodName)

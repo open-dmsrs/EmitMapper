@@ -1,7 +1,7 @@
-﻿namespace EmitMapper.MappingConfiguration;
-
-using System;
+﻿using System;
 using System.Linq;
+
+namespace EmitMapper.MappingConfiguration;
 
 public class DefaultCustomConverterProvider : ICustomConverterProvider
 {
@@ -9,7 +9,21 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
 
     public DefaultCustomConverterProvider(Type converterType)
     {
-        this._converterType = converterType;
+        _converterType = converterType;
+    }
+
+    public virtual CustomConverterDescriptor GetCustomConverterDescr(
+        Type from,
+        Type to,
+        MapConfigBaseImpl mappingConfig)
+    {
+        return new CustomConverterDescriptor
+        {
+            ConverterClassTypeArguments =
+                GetGenericArguments(from).Concat(GetGenericArguments(to)).ToArray(),
+            ConverterImplementation = _converterType,
+            ConversionMethodName = "Convert"
+        };
     }
 
     public static Type[] GetGenericArguments(Type type)
@@ -20,19 +34,5 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
             return type.GetGenericArguments();
         return type.GetInterfaces().Where(i => i.IsGenericType).Select(i => i.GetGenericArguments())
             .Where(a => a.Length == 1).Select(a => a[0]).ToArray();
-    }
-
-    public virtual CustomConverterDescriptor GetCustomConverterDescr(
-        Type from,
-        Type to,
-        MapConfigBaseImpl mappingConfig)
-    {
-        return new CustomConverterDescriptor
-                   {
-                       ConverterClassTypeArguments =
-                           GetGenericArguments(from).Concat(GetGenericArguments(to)).ToArray(),
-                       ConverterImplementation = this._converterType,
-                       ConversionMethodName = "Convert"
-                   };
     }
 }

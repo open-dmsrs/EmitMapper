@@ -1,9 +1,8 @@
-﻿namespace EmitMapper.MappingConfiguration;
-
-using System;
-
+﻿using System;
 using EmitMapper.Conversion;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+
+namespace EmitMapper.MappingConfiguration;
 
 public interface IMappingConfigurator
 {

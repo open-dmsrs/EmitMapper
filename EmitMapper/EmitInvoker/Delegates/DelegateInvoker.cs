@@ -1,15 +1,14 @@
-﻿namespace EmitMapper.EmitInvoker.Delegates;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
 using EmitMapper.AST;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 using EmitMapper.AST.Nodes;
 using EmitMapper.Utils;
+
+namespace EmitMapper.EmitInvoker.Delegates;
 
 public static class DelegateInvoker
 {
@@ -22,11 +21,11 @@ public static class DelegateInvoker
         var callerType = _TypesCache.Get(
             typeName,
             () =>
-                {
-                    if (del.Method.ReturnType == typeof(void))
-                        return BuildActionCallerType(typeName, del);
-                    return BuildFuncCallerType(typeName, del);
-                });
+            {
+                if (del.Method.ReturnType == typeof(void))
+                    return BuildActionCallerType(typeName, del);
+                return BuildFuncCallerType(typeName, del);
+            });
 
         var result = (DelegateInvokerBase)Activator.CreateInstance(callerType);
         result.Del = del;

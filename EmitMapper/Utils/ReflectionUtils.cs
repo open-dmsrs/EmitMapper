@@ -1,9 +1,9 @@
-﻿namespace EmitMapper.Utils;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+
+namespace EmitMapper.Utils;
 
 public class ReflectionUtils
 {
@@ -80,8 +80,8 @@ public class ReflectionUtils
     {
         public MatchedMember(MemberInfo first, MemberInfo second)
         {
-            this.First = first;
-            this.Second = second;
+            First = first;
+            Second = second;
         }
 
         public MemberInfo First { get; set; }

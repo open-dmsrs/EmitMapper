@@ -1,11 +1,10 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System;
+﻿using System;
 using System.Reflection;
 using System.Reflection.Emit;
-
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
+
+namespace EmitMapper.AST.Nodes;
 
 internal class AstReadField : IAstStackItem
 {
@@ -13,12 +12,12 @@ internal class AstReadField : IAstStackItem
 
     public IAstRefOrAddr SourceObject;
 
-    public Type ItemType => this.FieldInfo.FieldType;
+    public Type ItemType => FieldInfo.FieldType;
 
     public virtual void Compile(CompilationContext context)
     {
-        this.SourceObject.Compile(context);
-        context.Emit(OpCodes.Ldfld, this.FieldInfo);
+        SourceObject.Compile(context);
+        context.Emit(OpCodes.Ldfld, FieldInfo);
     }
 }
 
@@ -26,7 +25,7 @@ internal class AstReadFieldRef : AstReadField, IAstRef
 {
     public override void Compile(CompilationContext context)
     {
-        CompilationHelper.CheckIsRef(this.ItemType);
+        CompilationHelper.CheckIsRef(ItemType);
         base.Compile(context);
     }
 }
@@ -35,7 +34,7 @@ internal class AstReadFieldValue : AstReadField, IAstValue
 {
     public override void Compile(CompilationContext context)
     {
-        CompilationHelper.CheckIsValue(this.ItemType);
+        CompilationHelper.CheckIsValue(ItemType);
         base.Compile(context);
     }
 }
@@ -44,8 +43,8 @@ internal class AstReadFieldAddr : AstReadField, IAstAddr
 {
     public override void Compile(CompilationContext context)
     {
-        CompilationHelper.CheckIsValue(this.ItemType);
-        this.SourceObject.Compile(context);
-        context.Emit(OpCodes.Ldflda, this.FieldInfo);
+        CompilationHelper.CheckIsValue(ItemType);
+        SourceObject.Compile(context);
+        context.Emit(OpCodes.Ldflda, FieldInfo);
     }
 }

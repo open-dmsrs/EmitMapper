@@ -1,14 +1,13 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System;
-
+﻿using System;
 using EmitMapper.AST.Interfaces;
+
+namespace EmitMapper.AST.Nodes;
 
 internal class AstNewNullable : IAstValue
 {
     public AstNewNullable(Type nullableType)
     {
-        this.ItemType = nullableType;
+        ItemType = nullableType;
     }
 
     public Type ItemType { get; }

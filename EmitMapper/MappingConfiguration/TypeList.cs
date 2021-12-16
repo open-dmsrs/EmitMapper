@@ -1,10 +1,9 @@
-﻿namespace EmitMapper.MappingConfiguration;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using EmitMapper.Utils;
+
+namespace EmitMapper.MappingConfiguration;
 
 internal class TypeDictionary<T>
     where T : class
@@ -29,32 +28,32 @@ internal class TypeDictionary<T>
 
     public override string ToString()
     {
-        return this._elements.Select(e => e.Types.ToCsv("|") + (e.Value == null ? "|" : "|" + e.Value)).ToCsv("||");
+        return _elements.Select(e => e.Types.ToCsv("|") + (e.Value == null ? "|" : "|" + e.Value)).ToCsv("||");
     }
 
     public bool IsTypesInList(Type[] types)
     {
-        return this.FindTypes(types) != null;
+        return FindTypes(types) != null;
     }
 
     public T GetValue(Type[] types)
     {
-        var elem = this.FindTypes(types);
+        var elem = FindTypes(types);
         return elem == null ? null : elem.Value;
     }
 
     public void Add(Type[] types, T value)
     {
         var newElem = new ListElement(types, value);
-        if (this._elements.Contains(newElem))
-            this._elements.Remove(newElem);
+        if (_elements.Contains(newElem))
+            _elements.Remove(newElem);
 
-        this._elements.Add(new ListElement(types, value));
+        _elements.Add(new ListElement(types, value));
     }
 
     private ListElement FindTypes(Type[] types)
     {
-        foreach (var element in this._elements)
+        foreach (var element in _elements)
         {
             var isAssignable = true;
             for (int i = 0, j = 0; i < element.Types.Length; ++i)
@@ -78,25 +77,24 @@ internal class TypeDictionary<T>
 
     private class ListElement
     {
-        public readonly Type[] Types;
-
         public readonly T Value;
+        public readonly Type[] Types;
 
         public ListElement(Type[] types, T value)
         {
-            this.Types = types;
-            this.Value = value;
+            Types = types;
+            Value = value;
         }
 
         public override int GetHashCode()
         {
-            return this.Types.Sum(t => t.GetHashCode());
+            return Types.Sum(t => t.GetHashCode());
         }
 
         public override bool Equals(object obj)
         {
             var rhs = (ListElement)obj;
-            return !this.Types.Where((t, i) => rhs != null && t != rhs.Types[i]).Any();
+            return !Types.Where((t, i) => rhs != null && t != rhs.Types[i]).Any();
         }
     }
 }

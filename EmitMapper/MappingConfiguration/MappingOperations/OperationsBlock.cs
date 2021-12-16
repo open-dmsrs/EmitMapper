@@ -1,8 +1,7 @@
-﻿namespace EmitMapper.MappingConfiguration.MappingOperations;
-
-using System.Collections.Generic;
-
+﻿using System.Collections.Generic;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+
+namespace EmitMapper.MappingConfiguration.MappingOperations;
 
 public class OperationsBlock : IComplexOperation
 {

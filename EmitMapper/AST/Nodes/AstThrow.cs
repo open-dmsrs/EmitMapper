@@ -1,8 +1,7 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System.Reflection.Emit;
-
+﻿using System.Reflection.Emit;
 using EmitMapper.AST.Interfaces;
+
+namespace EmitMapper.AST.Nodes;
 
 internal class AstThrow : IAstNode
 {
@@ -10,7 +9,7 @@ internal class AstThrow : IAstNode
 
     public void Compile(CompilationContext context)
     {
-        this.Exception.Compile(context);
+        Exception.Compile(context);
         context.Emit(OpCodes.Throw);
     }
 }

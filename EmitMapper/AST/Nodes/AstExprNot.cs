@@ -1,9 +1,8 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System;
+﻿using System;
 using System.Reflection.Emit;
-
 using EmitMapper.AST.Interfaces;
+
+namespace EmitMapper.AST.Nodes;
 
 internal class AstExprNot : IAstValue
 {
@@ -11,7 +10,7 @@ internal class AstExprNot : IAstValue
 
     public AstExprNot(IAstRefOrValue value)
     {
-        this._value = value;
+        _value = value;
     }
 
     public Type ItemType => typeof(int);
@@ -19,7 +18,7 @@ internal class AstExprNot : IAstValue
     public void Compile(CompilationContext context)
     {
         context.Emit(OpCodes.Ldc_I4_0);
-        this._value.Compile(context);
+        _value.Compile(context);
         context.Emit(OpCodes.Ceq);
     }
 }

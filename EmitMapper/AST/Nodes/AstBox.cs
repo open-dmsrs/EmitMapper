@@ -1,9 +1,8 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System;
+﻿using System;
 using System.Reflection.Emit;
-
 using EmitMapper.AST.Interfaces;
+
+namespace EmitMapper.AST.Nodes;
 
 internal class AstBox : IAstRef
 {
@@ -11,7 +10,7 @@ internal class AstBox : IAstRef
 
     #region IAstReturnValueNode Members
 
-    public Type ItemType => this.Value.ItemType;
+    public Type ItemType => Value.ItemType;
 
     #endregion
 
@@ -19,10 +18,10 @@ internal class AstBox : IAstRef
 
     public void Compile(CompilationContext context)
     {
-        this.Value.Compile(context);
+        Value.Compile(context);
 
-        if (this.Value.ItemType.IsValueType)
-            context.Emit(OpCodes.Box, this.ItemType);
+        if (Value.ItemType.IsValueType)
+            context.Emit(OpCodes.Box, ItemType);
     }
 
     #endregion

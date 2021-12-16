@@ -1,8 +1,7 @@
-﻿namespace EmitMapper.MappingConfiguration.MappingOperations;
-
-using System;
-
+﻿using System;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+
+namespace EmitMapper.MappingConfiguration.MappingOperations;
 
 public delegate ValueToWrite<T> ValueGetter<T>(object value, object state);
 
@@ -38,6 +37,6 @@ public class DestWriteOperation : IDestWriteOperation
 
     public override string ToString()
     {
-        return "DestWriteOperation. Target member:" + this.Destination;
+        return "DestWriteOperation. Target member:" + Destination;
     }
 }

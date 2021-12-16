@@ -1,7 +1,7 @@
-﻿namespace EmitMapper.Utils;
-
-using System;
+﻿using System;
 using System.Collections.Concurrent;
+
+namespace EmitMapper.Utils;
 
 internal class ThreadSaveCache<T>
 {
@@ -9,10 +9,10 @@ internal class ThreadSaveCache<T>
 
     public T Get(string key, Func<T> getter)
     {
-        if (!this._cache.TryGetValue(key, out var value))
+        if (!_cache.TryGetValue(key, out var value))
         {
             value = getter();
-            this._cache.TryAdd(key, value);
+            _cache.TryAdd(key, value);
         }
 
         return value;

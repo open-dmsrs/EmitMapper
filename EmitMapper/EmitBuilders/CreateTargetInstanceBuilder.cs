@@ -1,14 +1,13 @@
-﻿namespace EmitMapper.EmitBuilders;
-
-using System;
+﻿using System;
 using System.Reflection;
 using System.Reflection.Emit;
-
 using EmitMapper.AST;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 using EmitMapper.AST.Nodes;
 using EmitMapper.Utils;
+
+namespace EmitMapper.EmitBuilders;
 
 internal class CreateTargetInstanceBuilder
 {
@@ -37,8 +36,8 @@ internal class CreateTargetInstanceBuilder
         else
         {
             returnValue = ReflectionUtils.HasDefaultConstructor(type)
-                              ? new AstNewObject { ObjectType = type }
-                              : new AstConstantNull();
+                ? new AstNewObject { ObjectType = type }
+                : new AstConstantNull();
         }
 
         new AstReturn { ReturnType = type, ReturnValue = returnValue }.Compile(context);

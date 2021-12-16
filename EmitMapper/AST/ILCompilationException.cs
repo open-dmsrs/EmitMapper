@@ -1,6 +1,6 @@
-﻿namespace EmitMapper.AST;
+﻿using System;
 
-using System;
+namespace EmitMapper.AST;
 
 internal class ILCompilationException : Exception
 {

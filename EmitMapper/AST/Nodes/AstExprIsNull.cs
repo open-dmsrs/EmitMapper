@@ -1,11 +1,10 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System;
+﻿using System;
 using System.Reflection.Emit;
-
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 using EmitMapper.Utils;
+
+namespace EmitMapper.AST.Nodes;
 
 internal class AstExprIsNull : IAstValue
 {
@@ -13,7 +12,7 @@ internal class AstExprIsNull : IAstValue
 
     public AstExprIsNull(IAstRefOrValue value)
     {
-        this._value = value;
+        _value = value;
     }
 
     #region IAstReturnValueNode Members
@@ -26,21 +25,21 @@ internal class AstExprIsNull : IAstValue
 
     public void Compile(CompilationContext context)
     {
-        if (!(this._value is IAstRef) && !ReflectionUtils.IsNullable(this._value.ItemType))
+        if (!(_value is IAstRef) && !ReflectionUtils.IsNullable(_value.ItemType))
         {
             context.Emit(OpCodes.Ldc_I4_1);
         }
-        else if (ReflectionUtils.IsNullable(this._value.ItemType))
+        else if (ReflectionUtils.IsNullable(_value.ItemType))
         {
             AstBuildHelper.ReadPropertyRV(
-                new AstValueToAddr((IAstValue)this._value),
-                this._value.ItemType.GetProperty("HasValue")).Compile(context);
+                new AstValueToAddr((IAstValue)_value),
+                _value.ItemType.GetProperty("HasValue")).Compile(context);
             context.Emit(OpCodes.Ldc_I4_0);
             context.Emit(OpCodes.Ceq);
         }
         else
         {
-            this._value.Compile(context);
+            _value.Compile(context);
             new AstConstantNull().Compile(context);
             context.Emit(OpCodes.Ceq);
         }

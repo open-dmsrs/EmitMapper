@@ -1,9 +1,8 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System;
+﻿using System;
 using System.Reflection.Emit;
-
 using EmitMapper.AST.Interfaces;
+
+namespace EmitMapper.AST.Nodes;
 
 internal class AstConstantString : IAstRef
 {
@@ -19,7 +18,7 @@ internal class AstConstantString : IAstRef
 
     public void Compile(CompilationContext context)
     {
-        context.Emit(OpCodes.Ldstr, this.Str);
+        context.Emit(OpCodes.Ldstr, Str);
     }
 
     #endregion

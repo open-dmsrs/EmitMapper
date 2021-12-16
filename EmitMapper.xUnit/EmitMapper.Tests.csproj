@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
-		
+
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -11,7 +11,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <LangVersion>10</LangVersion>
+		<LangVersion>10</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -19,12 +19,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
-		<PackageReference Include="xunit" Version="2.2.0" />
-		<PackageReference Include="xunit.analyzers" Version="0.3.0" />
-		<PackageReference Include="xunit.runner.console" Version="2.2.0" />
-		<PackageReference Include="xunit.runner.utility" Version="2.2.0" />
-		<PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+		<PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+		<PackageReference Include="xunit" Version="2.4.1" />
+		<PackageReference Include="xunit.analyzers" Version="0.10.0" />
+		<PackageReference Include="xunit.runner.console" Version="2.4.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="xunit.runner.utility" Version="2.4.1" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>

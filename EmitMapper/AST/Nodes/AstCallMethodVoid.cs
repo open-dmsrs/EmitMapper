@@ -1,31 +1,29 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
-
 using EmitMapper.AST.Interfaces;
+
+namespace EmitMapper.AST.Nodes;
 
 internal class AstCallMethodVoid : IAstNode
 {
-    protected List<IAstStackItem> Arguments;
-
     protected IAstRefOrAddr InvocationObject;
+    protected List<IAstStackItem> Arguments;
 
     protected MethodInfo MethodInfo;
 
     public AstCallMethodVoid(MethodInfo methodInfo, IAstRefOrAddr invocationObject, List<IAstStackItem> arguments)
     {
-        this.MethodInfo = methodInfo;
-        this.InvocationObject = invocationObject;
-        this.Arguments = arguments;
+        MethodInfo = methodInfo;
+        InvocationObject = invocationObject;
+        Arguments = arguments;
     }
 
     public void Compile(CompilationContext context)
     {
-        new AstCallMethod(this.MethodInfo, this.InvocationObject, this.Arguments).Compile(context);
+        new AstCallMethod(MethodInfo, InvocationObject, Arguments).Compile(context);
 
-        if (this.MethodInfo.ReturnType != typeof(void))
+        if (MethodInfo.ReturnType != typeof(void))
             context.Emit(OpCodes.Pop);
     }
 }

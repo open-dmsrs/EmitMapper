@@ -1,9 +1,8 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System;
+﻿using System;
 using System.Reflection.Emit;
-
 using EmitMapper.AST.Interfaces;
+
+namespace EmitMapper.AST.Nodes;
 
 internal class AstConstantInt32 : IAstValue
 {
@@ -19,7 +18,7 @@ internal class AstConstantInt32 : IAstValue
 
     public void Compile(CompilationContext context)
     {
-        context.Emit(OpCodes.Ldc_I4, this.Value);
+        context.Emit(OpCodes.Ldc_I4, Value);
     }
 
     #endregion

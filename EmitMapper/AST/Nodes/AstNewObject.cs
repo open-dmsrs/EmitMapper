@@ -1,12 +1,11 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
-
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 using EmitMapper.Utils;
+
+namespace EmitMapper.AST.Nodes;
 
 internal class AstNewObject : IAstRef
 {
@@ -20,13 +19,13 @@ internal class AstNewObject : IAstRef
 
     public AstNewObject(Type objectType, IAstStackItem[] constructorParams)
     {
-        this.ObjectType = objectType;
-        this.ConstructorParams = constructorParams;
+        ObjectType = objectType;
+        ConstructorParams = constructorParams;
     }
 
     #region IAstStackItem Members
 
-    public Type ItemType => this.ObjectType;
+    public Type ItemType => ObjectType;
 
     #endregion
 
@@ -34,11 +33,11 @@ internal class AstNewObject : IAstRef
 
     public void Compile(CompilationContext context)
     {
-        if (ReflectionUtils.IsNullable(this.ObjectType))
+        if (ReflectionUtils.IsNullable(ObjectType))
         {
             IAstRefOrValue underlyingValue;
-            var underlyingType = Nullable.GetUnderlyingType(this.ObjectType);
-            if (this.ConstructorParams == null || this.ConstructorParams.Length == 0)
+            var underlyingType = Nullable.GetUnderlyingType(ObjectType);
+            if (ConstructorParams == null || ConstructorParams.Length == 0)
             {
                 var temp = context.ILGenerator.DeclareLocal(underlyingType);
                 new AstInitializeLocalVariable(temp).Compile(context);
@@ -46,10 +45,10 @@ internal class AstNewObject : IAstRef
             }
             else
             {
-                underlyingValue = (IAstValue)this.ConstructorParams[0];
+                underlyingValue = (IAstValue)ConstructorParams[0];
             }
 
-            var constructor = this.ObjectType.GetConstructor(
+            var constructor = ObjectType.GetConstructor(
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.CreateInstance,
                 null,
                 new[] { underlyingType },
@@ -61,25 +60,25 @@ internal class AstNewObject : IAstRef
         else
         {
             Type[] types;
-            if (this.ConstructorParams == null || this.ConstructorParams.Length == 0)
+            if (ConstructorParams == null || ConstructorParams.Length == 0)
             {
                 types = new Type[0];
             }
             else
             {
-                types = this.ConstructorParams.Select(c => c.ItemType).ToArray();
-                foreach (var p in this.ConstructorParams)
+                types = ConstructorParams.Select(c => c.ItemType).ToArray();
+                foreach (var p in ConstructorParams)
                     p.Compile(context);
             }
 
-            var ci = this.ObjectType.GetConstructor(types);
+            var ci = ObjectType.GetConstructor(types);
             if (ci != null)
             {
                 context.EmitNewObject(ci);
             }
-            else if (this.ObjectType.IsValueType)
+            else if (ObjectType.IsValueType)
             {
-                var temp = context.ILGenerator.DeclareLocal(this.ObjectType);
+                var temp = context.ILGenerator.DeclareLocal(ObjectType);
                 new AstInitializeLocalVariable(temp).Compile(context);
                 AstBuildHelper.ReadLocalRV(temp).Compile(context);
             }
@@ -89,7 +88,7 @@ internal class AstNewObject : IAstRef
                     string.Format(
                         "Constructor for types [{0}] not found in {1}",
                         types.ToCsv(","),
-                        this.ObjectType.FullName));
+                        ObjectType.FullName));
             }
         }
     }

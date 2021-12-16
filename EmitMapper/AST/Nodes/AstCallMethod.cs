@@ -1,17 +1,15 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
+namespace EmitMapper.AST.Nodes;
+
 internal class AstCallMethod : IAstRefOrValue
 {
-    public List<IAstStackItem> Arguments;
-
     public IAstRefOrAddr InvocationObject;
+    public List<IAstStackItem> Arguments;
 
     public MethodInfo MethodInfo;
 
@@ -19,16 +17,16 @@ internal class AstCallMethod : IAstRefOrValue
     {
         if (methodInfo == null)
             throw new InvalidOperationException("methodInfo is null");
-        this.MethodInfo = methodInfo;
-        this.InvocationObject = invocationObject;
-        this.Arguments = arguments;
+        MethodInfo = methodInfo;
+        InvocationObject = invocationObject;
+        Arguments = arguments;
     }
 
-    public Type ItemType => this.MethodInfo.ReturnType;
+    public Type ItemType => MethodInfo.ReturnType;
 
     public virtual void Compile(CompilationContext context)
     {
-        CompilationHelper.EmitCall(context, this.InvocationObject, this.MethodInfo, this.Arguments);
+        CompilationHelper.EmitCall(context, InvocationObject, MethodInfo, Arguments);
     }
 }
 
@@ -41,7 +39,7 @@ internal class AstCallMethodRef : AstCallMethod, IAstRef
 
     public override void Compile(CompilationContext context)
     {
-        CompilationHelper.CheckIsRef(this.ItemType);
+        CompilationHelper.CheckIsRef(ItemType);
         base.Compile(context);
     }
 }
@@ -55,7 +53,7 @@ internal class AstCallMethodValue : AstCallMethod, IAstValue
 
     public override void Compile(CompilationContext context)
     {
-        CompilationHelper.CheckIsValue(this.ItemType);
+        CompilationHelper.CheckIsValue(ItemType);
         base.Compile(context);
     }
 }

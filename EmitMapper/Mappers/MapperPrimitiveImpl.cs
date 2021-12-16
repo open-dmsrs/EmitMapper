@@ -1,12 +1,11 @@
-﻿namespace EmitMapper.Mappers;
-
-using System;
+﻿using System;
 using System.Collections;
-
 using EmitMapper.Conversion;
 using EmitMapper.EmitInvoker.Methods;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.Utils;
+
+namespace EmitMapper.Mappers;
 
 /// <summary>
 ///     Mapper for primitive objects
@@ -29,7 +28,7 @@ internal class MapperPrimitiveImpl : CustomMapperImpl
         var converterMethod = staticConv.GetStaticConverter(from, to);
 
         if (converterMethod != null)
-            this._converter = (MethodInvokerFunc1)MethodInvoker.GetMethodInvoker(null, converterMethod);
+            _converter = (MethodInvokerFunc1)MethodInvoker.GetMethodInvoker(null, converterMethod);
     }
 
     internal static bool IsSupportedType(Type type)
@@ -48,9 +47,9 @@ internal class MapperPrimitiveImpl : CustomMapperImpl
     /// <returns>Destination object</returns>
     public override object MapImpl(object from, object to, object state)
     {
-        if (this._converter == null)
+        if (_converter == null)
             return from;
-        return this._converter.CallFunc(from);
+        return _converter.CallFunc(from);
     }
 
     /// <summary>

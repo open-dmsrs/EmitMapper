@@ -1,10 +1,9 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System;
+﻿using System;
 using System.Reflection.Emit;
-
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
+
+namespace EmitMapper.AST.Nodes;
 
 internal class AstReadArgument : IAstStackItem
 {
@@ -12,11 +11,11 @@ internal class AstReadArgument : IAstStackItem
 
     public Type ArgumentType;
 
-    public Type ItemType => this.ArgumentType;
+    public Type ItemType => ArgumentType;
 
     public virtual void Compile(CompilationContext context)
     {
-        switch (this.ArgumentIndex)
+        switch (ArgumentIndex)
         {
             case 0:
                 context.Emit(OpCodes.Ldarg_0);
@@ -31,7 +30,7 @@ internal class AstReadArgument : IAstStackItem
                 context.Emit(OpCodes.Ldarg_3);
                 break;
             default:
-                context.Emit(OpCodes.Ldarg, this.ArgumentIndex);
+                context.Emit(OpCodes.Ldarg, ArgumentIndex);
                 break;
         }
     }
@@ -41,7 +40,7 @@ internal class AstReadArgumentRef : AstReadArgument, IAstRef
 {
     public override void Compile(CompilationContext context)
     {
-        CompilationHelper.CheckIsRef(this.ItemType);
+        CompilationHelper.CheckIsRef(ItemType);
         base.Compile(context);
     }
 }
@@ -50,7 +49,7 @@ internal class AstReadArgumentValue : AstReadArgument, IAstValue
 {
     public override void Compile(CompilationContext context)
     {
-        CompilationHelper.CheckIsValue(this.ItemType);
+        CompilationHelper.CheckIsValue(ItemType);
         base.Compile(context);
     }
 }
@@ -59,7 +58,7 @@ internal class AstReadArgumentAddr : AstReadArgument, IAstAddr
 {
     public override void Compile(CompilationContext context)
     {
-        CompilationHelper.CheckIsValue(this.ItemType);
-        context.Emit(OpCodes.Ldarga, this.ArgumentIndex);
+        CompilationHelper.CheckIsValue(ItemType);
+        context.Emit(OpCodes.Ldarga, ArgumentIndex);
     }
 }

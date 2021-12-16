@@ -1,9 +1,8 @@
-﻿namespace EmitMapper.MappingConfiguration;
-
-using System;
-
+﻿using System;
 using EmitMapper.Conversion;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+
+namespace EmitMapper.MappingConfiguration;
 
 public class CustomMapConfig : IMappingConfigurator
 {
@@ -24,14 +23,14 @@ public class CustomMapConfig : IMappingConfigurator
 
     public IMappingOperation[] GetMappingOperations(Type from, Type to)
     {
-        if (this.GetMappingOperationFunc == null)
+        if (GetMappingOperationFunc == null)
             return Array.Empty<IMappingOperation>();
-        return this.GetMappingOperationFunc(from, to);
+        return GetMappingOperationFunc(from, to);
     }
 
     public string GetConfigurationName()
     {
-        return this.ConfigurationName;
+        return ConfigurationName;
     }
 
     public IRootMappingOperation GetRootMappingOperation(Type from, Type to)

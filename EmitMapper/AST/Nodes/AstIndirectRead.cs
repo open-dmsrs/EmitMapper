@@ -1,10 +1,9 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System;
+﻿using System;
 using System.Reflection.Emit;
-
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
+
+namespace EmitMapper.AST.Nodes;
 
 internal abstract class AstIndirectRead : IAstStackItem
 {
@@ -17,8 +16,8 @@ internal class AstIndirectReadRef : AstIndirectRead, IAstRef
 {
     public override void Compile(CompilationContext context)
     {
-        CompilationHelper.CheckIsRef(this.ItemType);
-        context.Emit(OpCodes.Ldind_Ref, this.ItemType);
+        CompilationHelper.CheckIsRef(ItemType);
+        context.Emit(OpCodes.Ldind_Ref, ItemType);
     }
 }
 
@@ -26,8 +25,8 @@ internal class AstIndirectReadValue : AstIndirectRead, IAstValue
 {
     public override void Compile(CompilationContext context)
     {
-        CompilationHelper.CheckIsValue(this.ItemType);
-        if (this.ItemType == typeof(int))
+        CompilationHelper.CheckIsValue(ItemType);
+        if (ItemType == typeof(int))
             context.Emit(OpCodes.Ldind_I4);
         else
             throw new Exception("Unsupported type");
@@ -38,6 +37,6 @@ internal class AstIndirectReadAddr : AstIndirectRead, IAstAddr
 {
     public override void Compile(CompilationContext context)
     {
-        CompilationHelper.CheckIsValue(this.ItemType);
+        CompilationHelper.CheckIsValue(ItemType);
     }
 }

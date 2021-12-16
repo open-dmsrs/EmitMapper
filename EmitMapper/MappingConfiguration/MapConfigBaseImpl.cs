@@ -1,13 +1,12 @@
-﻿namespace EmitMapper.MappingConfiguration;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using EmitMapper.Conversion;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
+
+namespace EmitMapper.MappingConfiguration;
 
 public abstract class MapConfigBaseImpl : IMappingConfigurator
 {
@@ -15,11 +14,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
     private readonly TypeDictionary<Delegate> _customConverters = new();
 
-    private readonly TypeDictionary<ICustomConverterProvider> _customConvertersGeneric = new();
-
     private readonly TypeDictionary<Delegate> _destinationFilters = new();
-
-    private readonly TypeDictionary<List<string>> _ignoreMembers = new();
 
     private readonly TypeDictionary<Delegate> _nullSubstitutors = new();
 
@@ -27,11 +22,44 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
     private readonly TypeDictionary<Delegate> _sourceFilters = new();
 
+    private readonly TypeDictionary<ICustomConverterProvider> _customConvertersGeneric = new();
+
+    private readonly TypeDictionary<List<string>> _ignoreMembers = new();
+
     private string _configurationName;
 
     public MapConfigBaseImpl()
     {
-        this.RegisterDefaultCollectionConverters();
+        RegisterDefaultCollectionConverters();
+    }
+
+    public abstract IMappingOperation[] GetMappingOperations(Type from, Type to);
+
+    public virtual string GetConfigurationName()
+    {
+        return _configurationName;
+    }
+
+    public virtual StaticConvertersManager GetStaticConvertersManager()
+    {
+        return null;
+    }
+
+    public virtual IRootMappingOperation GetRootMappingOperation(Type from, Type to)
+    {
+        var converter = _customConverters.GetValue(new[] { from, to });
+        if (converter == null)
+            converter = GetGenericConverter(from, to);
+
+        return new RootMappingOperation(from, to)
+        {
+            TargetConstructor = _customConstructors.GetValue(new[] { to }),
+            NullSubstitutor = _nullSubstitutors.GetValue(new[] { to }),
+            ValuesPostProcessor = _postProcessors.GetValue(new[] { to }),
+            Converter = converter,
+            DestinationFilter = _destinationFilters.GetValue(new[] { to }),
+            SourceFilter = _sourceFilters.GetValue(new[] { from })
+        };
     }
 
     protected static string ToStrEnum<T>(IEnumerable<T> t)
@@ -45,16 +73,14 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
         return t == null ? "" : t.ToString();
     }
 
-    public abstract IMappingOperation[] GetMappingOperations(Type from, Type to);
-
     public virtual void BuildConfigurationName()
     {
-        this._configurationName = new[]
-                                      {
-                                          ToStr(this._customConverters), ToStr(this._nullSubstitutors),
-                                          ToStr(this._ignoreMembers), ToStr(this._postProcessors),
-                                          ToStr(this._customConstructors)
-                                      }.ToCsv(";");
+        _configurationName = new[]
+        {
+            ToStr(_customConverters), ToStr(_nullSubstitutors),
+            ToStr(_ignoreMembers), ToStr(_postProcessors),
+            ToStr(_customConstructors)
+        }.ToCsv(";");
     }
 
     /// <summary>
@@ -66,7 +92,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     /// <returns></returns>
     public IMappingConfigurator ConvertUsing<TFrom, TO>(Func<TFrom, TO> converter)
     {
-        this._customConverters.Add(
+        _customConverters.Add(
             new[] { typeof(TFrom), typeof(TO) },
             (ValueConverter<TFrom, TO>)((v, s) => converter(v)));
         return this;
@@ -82,7 +108,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     /// <returns></returns>
     public IMappingConfigurator ConvertGeneric(Type from, Type to, ICustomConverterProvider converterProvider)
     {
-        this._customConvertersGeneric.Add(new[] { from, to }, converterProvider);
+        _customConvertersGeneric.Add(new[] { from, to }, converterProvider);
         return this;
     }
 
@@ -95,7 +121,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     /// <returns></returns>
     public IMappingConfigurator NullSubstitution<TFrom, TTo>(Func<object, TTo> nullSubstitutor)
     {
-        this._nullSubstitutors.Add(new[] { typeof(TFrom), typeof(TTo) }, nullSubstitutor);
+        _nullSubstitutors.Add(new[] { typeof(TFrom), typeof(TTo) }, nullSubstitutor);
         return this;
     }
 
@@ -108,9 +134,9 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     /// <returns></returns>
     public IMappingConfigurator IgnoreMembers(Type typeFrom, Type typeTo, string[] ignoreNames)
     {
-        var ig = this._ignoreMembers.GetValue(new[] { typeFrom, typeTo });
+        var ig = _ignoreMembers.GetValue(new[] { typeFrom, typeTo });
         if (ig == null)
-            this._ignoreMembers.Add(new[] { typeFrom, typeTo }, ignoreNames.ToList());
+            _ignoreMembers.Add(new[] { typeFrom, typeTo }, ignoreNames.ToList());
         else
             ig.AddRange(ignoreNames);
         return this;
@@ -125,7 +151,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     /// <returns></returns>
     public IMappingConfigurator IgnoreMembers<TFrom, TTo>(string[] ignoreNames)
     {
-        return this.IgnoreMembers(typeof(TFrom), typeof(TTo), ignoreNames);
+        return IgnoreMembers(typeof(TFrom), typeof(TTo), ignoreNames);
     }
 
     /// <summary>
@@ -136,7 +162,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     /// <returns></returns>
     public IMappingConfigurator ConstructBy<T>(TargetConstructor<T> constructor)
     {
-        this._customConstructors.Add(new[] { typeof(T) }, constructor);
+        _customConstructors.Add(new[] { typeof(T) }, constructor);
         return this;
     }
 
@@ -148,7 +174,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     /// <returns></returns>
     public IMappingConfigurator PostProcess<T>(ValuesPostProcessor<T> postProcessor)
     {
-        this._postProcessors.Add(new[] { typeof(T) }, postProcessor);
+        _postProcessors.Add(new[] { typeof(T) }, postProcessor);
         return this;
     }
 
@@ -159,52 +185,25 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     /// <returns></returns>
     public IMappingConfigurator SetConfigName(string configurationName)
     {
-        this._configurationName = configurationName;
+        _configurationName = configurationName;
         return this;
     }
 
     public IMappingConfigurator FilterDestination<T>(ValuesFilter<T> valuesFilter)
     {
-        this._destinationFilters.Add(new[] { typeof(T) }, valuesFilter);
+        _destinationFilters.Add(new[] { typeof(T) }, valuesFilter);
         return this;
     }
 
     public IMappingConfigurator FilterSource<T>(ValuesFilter<T> valuesFilter)
     {
-        this._sourceFilters.Add(new[] { typeof(T) }, valuesFilter);
+        _sourceFilters.Add(new[] { typeof(T) }, valuesFilter);
         return this;
-    }
-
-    public virtual string GetConfigurationName()
-    {
-        return this._configurationName;
-    }
-
-    public virtual StaticConvertersManager GetStaticConvertersManager()
-    {
-        return null;
-    }
-
-    public virtual IRootMappingOperation GetRootMappingOperation(Type from, Type to)
-    {
-        var converter = this._customConverters.GetValue(new[] { from, to });
-        if (converter == null)
-            converter = this.GetGenericConverter(from, to);
-
-        return new RootMappingOperation(from, to)
-                   {
-                       TargetConstructor = this._customConstructors.GetValue(new[] { to }),
-                       NullSubstitutor = this._nullSubstitutors.GetValue(new[] { to }),
-                       ValuesPostProcessor = this._postProcessors.GetValue(new[] { to }),
-                       Converter = converter,
-                       DestinationFilter = this._destinationFilters.GetValue(new[] { to }),
-                       SourceFilter = this._sourceFilters.GetValue(new[] { from })
-                   };
     }
 
     protected virtual void RegisterDefaultCollectionConverters()
     {
-        this.ConvertGeneric(typeof(ICollection<>), typeof(Array), new ArraysConverterProvider());
+        ConvertGeneric(typeof(ICollection<>), typeof(Array), new ArraysConverterProvider());
     }
 
     protected IEnumerable<IMappingOperation> FilterOperations(
@@ -218,30 +217,30 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
             if (op is IReadWriteOperation)
             {
                 var o = op as IReadWriteOperation;
-                if (this.TestIgnore(from, to, o.Source, o.Destination))
+                if (TestIgnore(from, to, o.Source, o.Destination))
                     continue;
 
                 o.NullSubstitutor =
-                    this._nullSubstitutors.GetValue(new[] { o.Source.MemberType, o.Destination.MemberType });
-                o.TargetConstructor = this._customConstructors.GetValue(new[] { o.Destination.MemberType });
-                o.Converter = this._customConverters.GetValue(new[] { o.Source.MemberType, o.Destination.MemberType });
+                    _nullSubstitutors.GetValue(new[] { o.Source.MemberType, o.Destination.MemberType });
+                o.TargetConstructor = _customConstructors.GetValue(new[] { o.Destination.MemberType });
+                o.Converter = _customConverters.GetValue(new[] { o.Source.MemberType, o.Destination.MemberType });
                 if (o.Converter == null)
-                    o.Converter = this.GetGenericConverter(o.Source.MemberType, o.Destination.MemberType);
-                o.DestinationFilter = this._destinationFilters.GetValue(new[] { o.Destination.MemberType });
-                o.SourceFilter = this._sourceFilters.GetValue(new[] { o.Source.MemberType });
+                    o.Converter = GetGenericConverter(o.Source.MemberType, o.Destination.MemberType);
+                o.DestinationFilter = _destinationFilters.GetValue(new[] { o.Destination.MemberType });
+                o.SourceFilter = _sourceFilters.GetValue(new[] { o.Source.MemberType });
             }
 
             if (op is ReadWriteComplex)
             {
                 var o = op as ReadWriteComplex;
-                o.ValuesPostProcessor = this._postProcessors.GetValue(new[] { o.Destination.MemberType });
+                o.ValuesPostProcessor = _postProcessors.GetValue(new[] { o.Destination.MemberType });
             }
 
             if (op is IComplexOperation)
             {
                 var o = op as IComplexOperation;
                 var orw = op as IReadWriteOperation;
-                o.Operations = this.FilterOperations(
+                o.Operations = FilterOperations(
                     orw == null ? from : orw.Source.MemberType,
                     orw == null ? to : orw.Destination.MemberType,
                     o.Operations).ToList();
@@ -255,7 +254,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
     private Delegate GetGenericConverter(Type from, Type to)
     {
-        var converter = this._customConvertersGeneric.GetValue(new[] { from, to });
+        var converter = _customConvertersGeneric.GetValue(new[] { from, to });
         if (converter == null)
             return null;
 
@@ -282,7 +281,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
     private bool TestIgnore(Type from, Type to, MemberDescriptor fromDescr, MemberDescriptor toDescr)
     {
-        var ignore = this._ignoreMembers.GetValue(new[] { from, to });
+        var ignore = _ignoreMembers.GetValue(new[] { from, to });
         if (ignore != null && (ignore.Contains(fromDescr.MemberInfo.Name) || ignore.Contains(toDescr.MemberInfo.Name)))
             return true;
         return false;

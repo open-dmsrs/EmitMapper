@@ -1,8 +1,7 @@
-﻿namespace EmitMapper.MappingConfiguration.MappingOperations;
-
-using System;
-
+﻿using System;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+
+namespace EmitMapper.MappingConfiguration.MappingOperations;
 
 public class ReadWriteSimple : IReadWriteOperation
 {
@@ -24,6 +23,6 @@ public class ReadWriteSimple : IReadWriteOperation
 
     public override string ToString()
     {
-        return "ReadWriteSimple. Source member:" + this.Source + " Target member:" + this.Destination;
+        return "ReadWriteSimple. Source member:" + Source + " Target member:" + Destination;
     }
 }

@@ -1,15 +1,14 @@
-﻿namespace EmitMapper.Mappers;
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-
 using EmitMapper.AST;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 using EmitMapper.AST.Nodes;
 using EmitMapper.MappingConfiguration;
+
+namespace EmitMapper.Mappers;
 
 /// <summary>
 ///     Mapper for collections. It can copy Array, List&lt;&gt;, ArrayList collections.
@@ -99,20 +98,21 @@ public class MapperForCollectionImpl : CustomMapperImpl
 
     private static IAstNode InvokeCopyImpl(Type copiedObjectType, string copyMethodName)
     {
-        var mi = typeof(MapperForCollectionImpl).GetMethod(copyMethodName, BindingFlags.Instance | BindingFlags.Public)
+        var mi = typeof(MapperForCollectionImpl)
+            .GetMethod(copyMethodName, BindingFlags.Instance | BindingFlags.NonPublic) // fixed BUG 
             .MakeGenericMethod(ExtractElementType(copiedObjectType));
 
         return new AstReturn
-                   {
-                       ReturnType = typeof(object),
-                       ReturnValue = AstBuildHelper.CallMethod(
-                           mi,
-                           AstBuildHelper.ReadThis(typeof(MapperForCollectionImpl)),
-                           new List<IAstStackItem>
-                               {
-                                   new AstReadArgumentRef { ArgumentIndex = 1, ArgumentType = typeof(object) }
-                               })
-                   };
+        {
+            ReturnType = typeof(object),
+            ReturnValue = AstBuildHelper.CallMethod(
+                mi,
+                AstBuildHelper.ReadThis(typeof(MapperForCollectionImpl)),
+                new List<IAstStackItem>
+                {
+                    new AstReadArgumentRef { ArgumentIndex = 1, ArgumentType = typeof(object) }
+                })
+        };
     }
 
     private static Type ExtractElementType(Type collection)
@@ -135,32 +135,32 @@ public class MapperForCollectionImpl : CustomMapperImpl
     /// <returns>Destination object</returns>
     public override object MapImpl(object from, object to, object state)
     {
-        if (to == null && this.TargetConstructor != null)
-            to = this.TargetConstructor.CallFunc();
+        if (to == null && TargetConstructor != null)
+            to = TargetConstructor.CallFunc();
 
-        if (this.TypeTo.IsArray)
+        if (TypeTo.IsArray)
         {
             if (from is IEnumerable)
-                return this.CopyToArray((IEnumerable)from);
-            return this.CopyScalarToArray(from);
+                return CopyToArray((IEnumerable)from);
+            return CopyScalarToArray(from);
         }
 
-        if (this.TypeTo.IsGenericType && this.TypeTo.GetGenericTypeDefinition() == typeof(List<>))
+        if (TypeTo.IsGenericType && TypeTo.GetGenericTypeDefinition() == typeof(List<>))
         {
             if (from is IEnumerable)
-                return this.CopyToListInvoke((IEnumerable)from);
-            return this.CopyToListScalarInvoke(from);
+                return CopyToListInvoke((IEnumerable)from);
+            return CopyToListScalarInvoke(from);
         }
 
-        if (this.TypeTo == typeof(ArrayList))
+        if (TypeTo == typeof(ArrayList))
         {
             if (from is IEnumerable)
-                return this.CopyToArrayList((IEnumerable)from);
-            return this.CopyToArrayListScalar(from);
+                return CopyToArrayList((IEnumerable)from);
+            return CopyToArrayListScalar(from);
         }
 
-        if (typeof(IList).IsAssignableFrom(this.TypeTo))
-            return this.CopyToIList((IList)to, from);
+        if (typeof(IList).IsAssignableFrom(TypeTo))
+            return CopyToIList((IList)to, from);
         return null;
     }
 
@@ -199,34 +199,34 @@ public class MapperForCollectionImpl : CustomMapperImpl
         else
             result = new List<T>();
         foreach (var obj in from)
-            result.Add((T)this._subMapper.Mapper.Map(obj));
+            result.Add((T)_subMapper.Mapper.Map(obj));
         return result;
     }
 
     protected List<T> CopyToListScalar<T>(object from)
     {
-        var result = new List<T>(1) { (T)this._subMapper.Mapper.Map(from) };
+        var result = new List<T>(1) { (T)_subMapper.Mapper.Map(from) };
         return result;
     }
 
     private object CopyToIList(IList iList, object from)
     {
         if (iList == null)
-            iList = (IList)Activator.CreateInstance(this.TypeTo);
+            iList = (IList)Activator.CreateInstance(TypeTo);
         foreach (var obj in from is IEnumerable fromEnumerable ? fromEnumerable : new[] { from })
         {
             if (obj == null)
                 iList.Add(null);
-            if (this.RootOperation == null || this.RootOperation.ShallowCopy)
+            if (RootOperation == null || RootOperation.ShallowCopy)
             {
                 iList.Add(obj);
             }
             else
             {
-                var mapper = this.ObjectMapperManager.GetMapperImpl(
+                var mapper = ObjectMapperManager.GetMapperImpl(
                     obj.GetType(),
                     obj.GetType(),
-                    this.MappingConfigurator);
+                    MappingConfigurator);
                 iList.Add(mapper.Map(obj));
             }
         }
@@ -238,10 +238,10 @@ public class MapperForCollectionImpl : CustomMapperImpl
     {
         if (from is ICollection)
         {
-            var result = Array.CreateInstance(this.TypeTo.GetElementType(), ((ICollection)from).Count);
+            var result = Array.CreateInstance(TypeTo.GetElementType(), ((ICollection)from).Count);
             var idx = 0;
             foreach (var obj in from)
-                result.SetValue(this._subMapper.Mapper.Map(obj), idx++);
+                result.SetValue(_subMapper.Mapper.Map(obj), idx++);
             return result;
         }
         else
@@ -249,13 +249,13 @@ public class MapperForCollectionImpl : CustomMapperImpl
             var result = new ArrayList();
             foreach (var obj in from)
                 result.Add(obj);
-            return result.ToArray(this.TypeTo.GetElementType());
+            return result.ToArray(TypeTo.GetElementType());
         }
     }
 
     private ArrayList CopyToArrayList(IEnumerable from)
     {
-        if (this.ShallowCopy)
+        if (ShallowCopy)
         {
             if (from is ICollection collection)
                 return new ArrayList(collection);
@@ -279,10 +279,10 @@ public class MapperForCollectionImpl : CustomMapperImpl
             }
             else
             {
-                var mapper = this.ObjectMapperManager.GetMapperImpl(
+                var mapper = ObjectMapperManager.GetMapperImpl(
                     obj.GetType(),
                     obj.GetType(),
-                    this.MappingConfigurator);
+                    MappingConfigurator);
                 result.Add(mapper.Map(obj));
             }
 
@@ -292,21 +292,21 @@ public class MapperForCollectionImpl : CustomMapperImpl
     private ArrayList CopyToArrayListScalar(object from)
     {
         var result = new ArrayList(1);
-        if (this.ShallowCopy)
+        if (ShallowCopy)
         {
             result.Add(from);
             return result;
         }
 
-        var mapper = this.ObjectMapperManager.GetMapperImpl(from.GetType(), from.GetType(), this.MappingConfigurator);
+        var mapper = ObjectMapperManager.GetMapperImpl(from.GetType(), from.GetType(), MappingConfigurator);
         result.Add(mapper.Map(from));
         return result;
     }
 
     private Array CopyScalarToArray(object scalar)
     {
-        var result = Array.CreateInstance(this.TypeTo.GetElementType(), 1);
-        result.SetValue(this._subMapper.Mapper.Map(scalar), 0);
+        var result = Array.CreateInstance(TypeTo.GetElementType(), 1);
+        result.SetValue(_subMapper.Mapper.Map(scalar), 0);
         return result;
     }
 }

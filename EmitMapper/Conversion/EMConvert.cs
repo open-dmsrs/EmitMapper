@@ -1,9 +1,8 @@
-﻿namespace EmitMapper.Conversion;
-
-using System;
+﻿using System;
 using System.Reflection;
-
 using EmitMapper.Utils;
+
+namespace EmitMapper.Conversion;
 
 public class EMConvert
 {

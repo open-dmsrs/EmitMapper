@@ -1,8 +1,7 @@
-﻿namespace EmitMapper.Mappers;
-
-using System;
-
+﻿using System;
 using EmitMapper.MappingConfiguration;
+
+namespace EmitMapper.Mappers;
 
 public abstract class CustomMapperImpl : ObjectsMapperBaseImpl
 {
@@ -13,6 +12,6 @@ public abstract class CustomMapperImpl : ObjectsMapperBaseImpl
         IMappingConfigurator mappingConfigurator,
         object[] storedObjects)
     {
-        this.Initialize(objectMapperManager, typeFrom, typeTo, mappingConfigurator, storedObjects);
+        Initialize(objectMapperManager, typeFrom, typeTo, mappingConfigurator, storedObjects);
     }
 }
