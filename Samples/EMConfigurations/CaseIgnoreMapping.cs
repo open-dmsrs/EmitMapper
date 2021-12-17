@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Data.Entity.Core.Mapping;
 using System.Linq;
-using EmitObjectMapper;
 
 namespace EOMConfigurations
 {

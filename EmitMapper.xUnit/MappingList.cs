@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using AutoFixture;
 using AutoFixture.Xunit2;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
@@ -72,6 +74,60 @@ public class MappingList
         }
     }
 
+    [Theory]
+    [AutoData]
+    public void TestCopyArrayList(List<FromClass> list)
+    {
+        ArrayList listFrom = new(list.ToArray());
+
+
+
+        _testOutputHelper.WriteLine(listFrom.Count.ToString());
+
+        var rw1 = new ReadWriteSimple
+        {
+            Source = new MemberDescriptor(
+                new[]
+                {
+                    typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
+                    typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[
+                        0]
+                }),
+            Destination = new MemberDescriptor(
+                new[] { typeof(ToClass).GetMember(nameof(ToClass.Message))[0] })
+        };
+
+
+        var rw2 = new ReadWriteSimple
+        {
+            Source = new MemberDescriptor(
+                new[]
+                {
+                    typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
+                    typeof(FromClass.InnerClass).GetMember(
+                        nameof(FromClass.InnerClass.GetMessage2))[0]
+                }),
+            Destination = new MemberDescriptor(
+                new[] { typeof(ToClass).GetMember(nameof(ToClass.Message2))[0] })
+        };
+
+
+        var mapper = ObjectMapperManager.DefaultInstance.GetMapper<ArrayList, ArrayList>(
+            new CustomMapConfig
+            {
+                GetMappingOperationFunc = (from, to) => new IMappingOperation[] { rw1, rw2 }
+            });
+
+        var tolist = mapper.Map(listFrom);
+        var f = listFrom.GetEnumerator();
+        var t = tolist.GetEnumerator();
+        while (f.MoveNext() && t.MoveNext())
+        {
+            _testOutputHelper.WriteLine((t.Current as ToClass).Message);
+            Assert.Equal(((FromClass)f.Current).Inner.Message, (t.Current as ToClass).Message);
+            Assert.Equal(((FromClass)f.Current).Inner.GetMessage2(), (t.Current as ToClass).Message2);
+        }
+    }
 
     public class ToClass
     {

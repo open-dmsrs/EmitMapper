@@ -47,6 +47,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -56,6 +57,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -89,6 +91,7 @@
     <Compile Include="CustormTests.cs" />
     <Compile Include="TestMappingToDataRow.cs" />
     <Compile Include="TestObjectsTracker.cs" />
+    <Compile Include="TestUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EmitMapper\EmitMapper.csproj">

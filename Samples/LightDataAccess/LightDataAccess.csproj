@@ -1,21 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0</TargetFrameworks>
-
+		<TargetFrameworks>net6.0;netstandard2.1;net48</TargetFrameworks>
+		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
+		<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+		<LangVersion>10</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="DataReaderToObjectMapper.cs" />
-	  <Compile Remove="DBTools.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\..\EmitMapper\EmitMapper.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Properties\" />
+		<ProjectReference Include="..\..\EmitMapper\EmitMapper.csproj" /> 
 	</ItemGroup>
 
 </Project>

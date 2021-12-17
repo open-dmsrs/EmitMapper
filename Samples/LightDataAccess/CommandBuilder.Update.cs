@@ -18,6 +18,7 @@ using EmitMapper.MappingConfiguration.MappingOperations;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using LightDataAccess.MappingConfigs;
 
 namespace LightDataAccess
 {

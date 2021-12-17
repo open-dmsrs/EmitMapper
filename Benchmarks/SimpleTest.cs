@@ -1,4 +1,5 @@
-﻿using EmitMapper;
+﻿using AutoMapper;
+using EmitMapper;
 using System;
 using System.Diagnostics;
 
@@ -74,25 +75,9 @@ namespace Benchmarks
             return result;
         }
 
-        private static long BenchBLToolkit_Simple(int mappingsCount)
-        {
-            B2 s = new B2();
-            A2 d = new A2();
-
-            d = BLToolkit.Mapping.Map.ObjectToObject<A2>(s);
-
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            for (int i = 0; i < mappingsCount; ++i)
-            {
-                d = BLToolkit.Mapping.Map.ObjectToObject<A2>(s);
-            }
-            sw.Stop();
-            return sw.ElapsedMilliseconds;
-        }
 
         private static ObjectsMapper<B2, A2> emitMapper;
-
+        private static IMapper autoMapper;
         private static long EmitMapper_Simple(int mappingsCount)
         {
             B2 s = new B2();
@@ -117,7 +102,7 @@ namespace Benchmarks
             sw.Start();
             for (int i = 0; i < mappingsCount; ++i)
             {
-                d = AutoMapper.Mapper.Map<B2, A2>(s, d);
+                d = autoMapper.Map<B2, A2>(s, d);
             }
             sw.Stop();
             return sw.ElapsedMilliseconds;
@@ -142,15 +127,18 @@ namespace Benchmarks
         public static void Initialize()
         {
             emitMapper = ObjectMapperManager.DefaultInstance.GetMapper<B2, A2>();
-            AutoMapper.Mapper.CreateMap<B2, A2>();
-            AutoMapper.Mapper.CreateMap<char, int>();
+            autoMapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<B2, A2>();
+                cfg.CreateMap<char, int>();
+            }).CreateMapper();
+
         }
 
         public static void Run()
         {
             int mappingsCount = 1000000;
-            Console.WriteLine("Auto Mapper (simple): {0} milliseconds", AutoMapper_Simple(mappingsCount));
-            Console.WriteLine("BLToolkit (simple): {0} milliseconds", BenchBLToolkit_Simple(mappingsCount));
+            Console.WriteLine("Auto Mapper (simple): {0} milliseconds", AutoMapper_Simple(mappingsCount)); 
             Console.WriteLine("Emit Mapper (simple): {0} milliseconds", EmitMapper_Simple(mappingsCount));
             Console.WriteLine("Handwritten Mapper (simple): {0} milliseconds", HandWtitten_Simple(mappingsCount));
         }

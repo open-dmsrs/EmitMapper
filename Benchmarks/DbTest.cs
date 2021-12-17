@@ -36,20 +36,20 @@ namespace Benchmarks
 
         private static long BLToolkit_DB(int mappingsCount)
         {
-            BLToolkit.Data.DbManager.AddConnectionString("Data Source=acer\\sqlserver;Initial Catalog=Northwind;Persist Security Info=True;User Id=sa;Password=1");
+            //DbManager.AddConnectionString("Data Source=acer\\sqlserver;Initial Catalog=Northwind;Persist Security Info=True;User Id=sa;Password=1");
 
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            for (int i = 0; i < mappingsCount; i++)
-            {
-                using (BLToolkit.Data.DbManager db = new BLToolkit.Data.DbManager())
-                {
-                    List<Customer> list = db
-                        .SetCommand("SELECT * FROM Customers")
-                        .ExecuteList<Customer>();
-                }
-            }
+            //for (int i = 0; i < mappingsCount; i++)
+            //{
+            //    using (BLToolkit.Data.DbManager db = new BLToolkit.Data.DbManager())
+            //    {
+            //        List<Customer> list = db
+            //            .SetCommand("SELECT * FROM Customers")
+            //            .ExecuteList<Customer>();
+            //    }
+            //}
 
             sw.Stop();
             return sw.ElapsedMilliseconds;
@@ -57,20 +57,20 @@ namespace Benchmarks
 
         private static long BLToolkit_DB2(int mappingsCount)
         {
-            BLToolkit.Data.DbManager.AddConnectionString("Data Source=acer\\sqlserver;Initial Catalog=Northwind;Persist Security Info=True;User Id=sa;Password=1");
+            //BLToolkit.Data.DbManager.AddConnectionString("Data Source=acer\\sqlserver;Initial Catalog=Northwind;Persist Security Info=True;User Id=sa;Password=1");
 
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            for (int i = 0; i < mappingsCount; i++)
-            {
-                using (BLToolkit.Data.DbManager db = new BLToolkit.Data.DbManager())
-                {
-                    List<test> list = db
-                        .SetCommand("SELECT * FROM test")
-                        .ExecuteList<test>();
-                }
-            }
+            //for (int i = 0; i < mappingsCount; i++)
+            //{
+            //    using (BLToolkit.Data.DbManager db = new BLToolkit.Data.DbManager())
+            //    {
+            //        List<test> list = db
+            //            .SetCommand("SELECT * FROM test")
+            //            .ExecuteList<test>();
+            //    }
+            //}
 
             sw.Stop();
             return sw.ElapsedMilliseconds;

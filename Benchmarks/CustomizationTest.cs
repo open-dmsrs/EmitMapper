@@ -2,7 +2,7 @@
 using EmitMapper.MappingConfiguration;
 using System;
 using System.Diagnostics;
-
+using AutoMapper;
 namespace Benchmarks
 {
     public class CustomizationTest
@@ -75,6 +75,7 @@ namespace Benchmarks
         }
 
         private static ObjectsMapper<B2, A2> emitMapper;
+        private static AutoMapper.IMapper autoMapper;
 
         private static long EmitMapper_Custom(int mappingsCount)
         {
@@ -100,7 +101,7 @@ namespace Benchmarks
             sw.Start();
             for (int i = 0; i < mappingsCount; ++i)
             {
-                d = AutoMapper.Mapper.Map<B2, A2>(s, d);
+                d = autoMapper.Map<B2, A2>(s, d);
             }
             sw.Stop();
             return sw.ElapsedMilliseconds;
@@ -122,21 +123,25 @@ namespace Benchmarks
                     .ConvertUsing<float, int>(value => (int)value + 1)
                     .ConvertUsing<char, int>(value => value + 1)
             );
+            var config = new MapperConfiguration(cfg =>
+            {             
+                cfg.CreateMap<A2, B2>();
+                cfg.CreateMap<B2.Int, A2.Int>().ConstructUsing(s => new A2.Int(0));
 
-            AutoMapper.Mapper.CreateMap<B2.Int, A2.Int>().ConstructUsing(s => new A2.Int(0));
+                cfg.CreateMap<long, int>().ConstructUsing(s => (int)s + 1);
+                cfg.CreateMap<short, int>().ConstructUsing(s => s + 1);
+                cfg.CreateMap<byte, int>().ConstructUsing(s => s + 1);
+                cfg.CreateMap<decimal, int>().ConstructUsing(s => (int)s + 1);
+                cfg.CreateMap<float, int>().ConstructUsing(s => (int)s + 1);
+                cfg.CreateMap<char, int>().ConstructUsing(s => s + 1);
 
-            AutoMapper.Mapper.CreateMap<long, int>().ConstructUsing(s => (int)s + 1);
-            AutoMapper.Mapper.CreateMap<short, int>().ConstructUsing(s => s + 1);
-            AutoMapper.Mapper.CreateMap<byte, int>().ConstructUsing(s => s + 1);
-            AutoMapper.Mapper.CreateMap<decimal, int>().ConstructUsing(s => (int)s + 1);
-            AutoMapper.Mapper.CreateMap<float, int>().ConstructUsing(s => (int)s + 1);
-            AutoMapper.Mapper.CreateMap<char, int>().ConstructUsing(s => s + 1);
-
-            AutoMapper.Mapper.CreateMap<B2, A2>()
-                .ForMember(s => s.nullable1, opt => opt.NullSubstitute((decimal)42))
-                .ForMember(s => s.nullable2, opt => opt.NullSubstitute(true))
-                .ForMember(s => s.nullable3, opt => opt.NullSubstitute(42))
-                .ForMember(s => s.nullable4, opt => opt.NullSubstitute((long)42));
+                cfg.CreateMap<B2, A2>()
+                    .ForMember(s => s.nullable1, opt => opt.NullSubstitute((decimal)42))
+                    .ForMember(s => s.nullable2, opt => opt.NullSubstitute(true))
+                    .ForMember(s => s.nullable3, opt => opt.NullSubstitute(42))
+                    .ForMember(s => s.nullable4, opt => opt.NullSubstitute((long)42));
+            });
+            autoMapper = config.CreateMapper();
         }
 
         public static void Run()

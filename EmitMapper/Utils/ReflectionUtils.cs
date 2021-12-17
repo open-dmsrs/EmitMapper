@@ -45,7 +45,7 @@ public class ReflectionUtils
         return result.ToArray();
     }
 
-    public static IEnumerable<object> GetTypeDataContainerDescription(Type to)
+    public static IEnumerable<KeyValuePair<string,Tuple<MemberInfo,Type>>> GetTypeDataContainerDescription(Type to)
     {
         throw new NotImplementedException();
     }
@@ -71,7 +71,7 @@ public class ReflectionUtils
         return type.GetConstructor(new Type[0]) != null;
     }
 
-    public static object ConvertValue(string value, Type fieldType, Type destinationType)
+    public static object ConvertValue(object value, Type fieldType, Type destinationType)
     {
         throw new NotImplementedException();
     }

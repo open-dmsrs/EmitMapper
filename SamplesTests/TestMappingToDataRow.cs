@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Data;
 using System.Linq;
+using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
 namespace EmitMapper.Samples.SamplesTests
 {

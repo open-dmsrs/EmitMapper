@@ -1,6 +1,6 @@
-﻿using EmitMapperTests;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using EmitMapper.Samples.SamplesTests;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 namespace LightDataAccess
 {
@@ -36,7 +36,7 @@ namespace LightDataAccess
             }
 
             changes = tracker.GetChanges(a);
-            Assert.IsTrue(TestUtils.AreEqualArraysUnordered(new[] { "f1", "f2", "f3" }, changes.Select(c => c.name).ToArray()));
+            Assert.IsTrue(TestUtils.AreEqual(new[] { "f1", "f2", "f3" }, changes.Select(c => c.name).ToArray()));
 
             changes = tracker.GetChanges(new A());
             Assert.IsNull(changes);

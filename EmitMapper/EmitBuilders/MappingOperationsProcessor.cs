@@ -539,7 +539,7 @@ internal class MappingOperationsProcessor
                 });
         else
             writeValue = AstBuildHelper.WriteMembersChain(
-                (mappingOperation as IDestOperation).Destination.MembersChain,
+                (mappingOperation as IDestOperation)?.Destination.MembersChain,
                 AstBuildHelper.ReadLocalRA(LocTo),
                 value);
         return writeValue;

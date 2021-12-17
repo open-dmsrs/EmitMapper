@@ -1,4 +1,5 @@
-﻿using EmitMapper;
+﻿using AutoMapper;
+using EmitMapper;
 using System;
 using System.Diagnostics;
 
@@ -196,7 +197,7 @@ namespace Benchmarks
         }
 
         private static ObjectsMapper<BenchSource, BenchDestination> emitMapper;
-
+        private static AutoMapper.IMapper autoMapper;
         private static long BenchEmitMapper(int mappingsCount)
         {
             BenchSource s = new BenchSource();
@@ -221,7 +222,7 @@ namespace Benchmarks
             sw.Start();
             for (int i = 0; i < mappingsCount; ++i)
             {
-                AutoMapper.Mapper.Map(s, d);
+                autoMapper.Map(s, d);
             }
             sw.Stop();
             return sw.ElapsedMilliseconds;
@@ -230,10 +231,15 @@ namespace Benchmarks
         public static void Initialize()
         {
             emitMapper = ObjectMapperManager.DefaultInstance.GetMapper<BenchSource, BenchDestination>();
-
-            AutoMapper.Mapper.CreateMap<BenchSource.Int1, BenchDestination.Int1>();
-            AutoMapper.Mapper.CreateMap<BenchSource.Int2, BenchDestination.Int2>();
-            AutoMapper.Mapper.CreateMap<BenchSource, BenchDestination>();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<BenchSource.Int1, BenchDestination.Int1>();
+                cfg.CreateMap<BenchSource.Int2, BenchDestination.Int2>();
+                cfg.CreateMap<BenchSource, BenchDestination>();
+                 
+            });
+            autoMapper = config.CreateMapper();
+           
         }
 
         public static void Run()
