@@ -5,14 +5,16 @@ using System.Reflection;
 
 namespace EmitMapper.Utils;
 
-public class ReflectionUtils
+public static class ReflectionUtils
 {
     public static bool IsNullable(Type type)
     {
         return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
     }
 
+    /// <summary>
     /// Fixed: Get Full hierarchy with all parent interfaces members.
+    /// </summary>
     public static MemberInfo[] GetPublicFieldsAndProperties(Type type)
     {
         var result = type.GetMembers(BindingFlags.Instance | BindingFlags.Public).Where(
@@ -45,7 +47,7 @@ public class ReflectionUtils
         return result.ToArray();
     }
 
-    public static IEnumerable<KeyValuePair<string,Tuple<MemberInfo,Type>>> GetTypeDataContainerDescription(Type to)
+    public static IEnumerable<KeyValuePair<string, Tuple<MemberInfo, Type>>> GetTypeDataContainerDescription(Type to)
     {
         throw new NotImplementedException();
     }
@@ -58,6 +60,7 @@ public class ReflectionUtils
             return fieldInfo.FieldType;
         if (mi is MethodInfo methodInfo)
             return methodInfo.ReturnType;
+
         return null;
     }
 

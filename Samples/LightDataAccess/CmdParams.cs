@@ -11,28 +11,28 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System.Collections.Generic;
 
-namespace LightDataAccess
+namespace LightDataAccess;
+
+/// <summary>
+///     Class CmdParams
+/// </summary>
+public class CmdParams : Dictionary<string, object>
 {
     /// <summary>
-    /// Class CmdParams
+    ///     Initializes a new instance of the <see cref="CmdParams" /> class.
     /// </summary>
-	public class CmdParams : Dictionary<string, object>
+    public CmdParams()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CmdParams"/> class.
-        /// </summary>
-        public CmdParams()
-        {
-        }
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CmdParams"/> class.
-        /// </summary>
-        /// <param name="init">The init.</param>
-        public CmdParams(Dictionary<string, object> init) : base(init)
-        {
-        }
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="CmdParams" /> class.
+    /// </summary>
+    /// <param name="init">The init.</param>
+    public CmdParams(Dictionary<string, object> init) : base(init)
+    {
     }
 }

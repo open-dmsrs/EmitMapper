@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Extendsoft.HMIS.DataSync.Mapping.Configurators
+namespace Extendsoft.HMIS.DataSync.Mapping.Configurators;
+
+internal class DataContainer
 {
-    internal class DataContainer
-    {
-        public Dictionary<string, string> Fields { get; internal set; }
-    }
+    public Dictionary<string, string> Fields { get; internal set; }
 }

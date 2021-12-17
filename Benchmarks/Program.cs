@@ -1,17 +1,16 @@
-﻿namespace Benchmarks
-{
-    public class Program
-    {
-        private static void Main(string[] args)
-        {
-            SimpleTest.Initialize();
-            NestedClassesTest.Initialize();
-            CustomizationTest.Initialize();
+﻿namespace Benchmarks;
 
-            SimpleTest.Run();
-            NestedClassesTest.Run();
-            CustomizationTest.Run();
-        }
+public class Program
+{
+    private static void Main(string[] args)
+    {
+        SimpleTest.Initialize();
+        NestedClassesTest.Initialize();
+        CustomizationTest.Initialize();
+
+        SimpleTest.Run();
+        NestedClassesTest.Run();
+        CustomizationTest.Run();
     }
 }
 

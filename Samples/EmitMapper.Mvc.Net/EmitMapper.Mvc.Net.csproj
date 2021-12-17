@@ -1,20 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0</TargetFrameworks>
+		<TargetFrameworks>netcoreapp3.1</TargetFrameworks>
 		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
 		<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 		<LangVersion>10</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
-	  <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+	  <FrameworkReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
 	</ItemGroup>
 
  
 	<ItemGroup>
 		<ProjectReference Include="..\..\EmitMapper\EmitMapper.csproj" />
 	</ItemGroup>
+
+  
 
 </Project>

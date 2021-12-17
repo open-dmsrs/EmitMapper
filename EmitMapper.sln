@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamplesTests", "SamplesTest
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightDataAccess", "Samples\LightDataAccess\LightDataAccess.csproj", "{A9E20509-B876-45AC-A377-B9AF1FBDE8DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMConfigurations", "Samples\EMConfigurations\EMConfigurations.csproj", "{F9221CD0-0B56-4CA1-857B-7B19DC509D59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EMConfigurations", "Samples\EMConfigurations\EMConfigurations.csproj", "{F9221CD0-0B56-4CA1-857B-7B19DC509D59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmarks", "Benchmarks\Benchmarks.csproj", "{F2666E8C-0273-4F7E-A2AA-65F7C8A95E8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benchmarks", "Benchmarks\Benchmarks.csproj", "{F2666E8C-0273-4F7E-A2AA-65F7C8A95E8C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitMapper.Mvc.Net", "Samples\EmitMapper.Mvc.Net\EmitMapper.Mvc.Net.csproj", "{75C6A518-5A9B-48A4-B267-ECE474041977}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitMapper.Tests", "EmitMapper.xUnit\EmitMapper.Tests.csproj", "{0049C5A0-1EC9-435E-A126-3FDB162C9DA4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitMapper.Benchmarks", "EmitMapper.Benchmarks\EmitMapper.Benchmarks.csproj", "{3D6D0342-5C90-4EA9-87A7-A9F5B039E5C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{B57F18EB-03CD-4A8F-B40C-0DA8680E0F07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{3D6D0342-5C90-4EA9-87A7-A9F5B039E5C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D6D0342-5C90-4EA9-87A7-A9F5B039E5C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D6D0342-5C90-4EA9-87A7-A9F5B039E5C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B57F18EB-03CD-4A8F-B40C-0DA8680E0F07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B57F18EB-03CD-4A8F-B40C-0DA8680E0F07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B57F18EB-03CD-4A8F-B40C-0DA8680E0F07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B57F18EB-03CD-4A8F-B40C-0DA8680E0F07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{F2666E8C-0273-4F7E-A2AA-65F7C8A95E8C} = {1821C660-299A-4BEE-8828-32911AE7F42F}
 		{75C6A518-5A9B-48A4-B267-ECE474041977} = {75F3A083-3C58-4C55-B251-AF6C3FCC2FCB}
 		{75F3A083-3C58-4C55-B251-AF6C3FCC2FCB} = {1821C660-299A-4BEE-8828-32911AE7F42F}
+		{B57F18EB-03CD-4A8F-B40C-0DA8680E0F07} = {75F3A083-3C58-4C55-B251-AF6C3FCC2FCB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6D2B312C-E842-47F4-BB27-3FAB3EB3D5F0}

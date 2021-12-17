@@ -11,69 +11,66 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LightDataAccess
+namespace LightDataAccess;
+
+/// <summary>
+///     Class FilterConstraints
+/// </summary>
+public class FilterConstraints
 {
     /// <summary>
-    /// Class FilterConstraints
+    ///     Initializes a new instance of the <see cref="FilterConstraints" /> class.
     /// </summary>
-    public class FilterConstraints
+    public FilterConstraints()
     {
-        /// <summary>
-        /// Gets or sets the _ constraints.
-        /// </summary>
-        /// <value>The _ constraints.</value>
-        private List<string> _Constraints { get; set; }
-        /// <summary>
-        /// Gets or sets the params.
-        /// </summary>
-        /// <value>The params.</value>
-        public CmdParams Params { get; set; }
+        _Constraints = new List<string>();
+        Params = new CmdParams();
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FilterConstraints"/> class.
-        /// </summary>
-        public FilterConstraints()
-        {
-            _Constraints = new List<string>();
-            Params = new CmdParams();
-        }
+    /// <summary>
+    ///     Gets or sets the _ constraints.
+    /// </summary>
+    /// <value>The _ constraints.</value>
+    private List<string> _Constraints { get; }
 
-        /// <summary>
-        /// Builds the where.
-        /// </summary>
-        /// <returns>System.String.</returns>
-        public string BuildWhere()
-        {
-            return (_Constraints.Count > 0 ? "WHERE " : "") + _Constraints.Select(c => "(" + c + ")").ToCSV(" AND ");
-        }
+    /// <summary>
+    ///     Gets or sets the params.
+    /// </summary>
+    /// <value>The params.</value>
+    public CmdParams Params { get; set; }
 
-        /// <summary>
-        /// Adds the specified constraint.
-        /// </summary>
-        /// <param name="constraint">The constraint.</param>
-        public void Add(string constraint)
-        {
-            Add(constraint, null);
-        }
+    /// <summary>
+    ///     Builds the where.
+    /// </summary>
+    /// <returns>System.String.</returns>
+    public string BuildWhere()
+    {
+        return (_Constraints.Count > 0 ? "WHERE " : "") + _Constraints.Select(c => "(" + c + ")").ToCSV(" AND ");
+    }
 
-        /// <summary>
-        /// Adds the specified constraint.
-        /// </summary>
-        /// <param name="constraint">The constraint.</param>
-        /// <param name="Params">The params.</param>
-        public void Add(string constraint, CmdParams Params)
-        {
-            _Constraints.Add(constraint);
-            if (Params != null)
-            {
-                foreach (KeyValuePair<string, object> p in Params)
-                {
-                    this.Params.Add(p.Key, p.Value);
-                }
-            }
-        }
+    /// <summary>
+    ///     Adds the specified constraint.
+    /// </summary>
+    /// <param name="constraint">The constraint.</param>
+    public void Add(string constraint)
+    {
+        Add(constraint, null);
+    }
+
+    /// <summary>
+    ///     Adds the specified constraint.
+    /// </summary>
+    /// <param name="constraint">The constraint.</param>
+    /// <param name="Params">The params.</param>
+    public void Add(string constraint, CmdParams Params)
+    {
+        _Constraints.Add(constraint);
+        if (Params != null)
+            foreach (var p in Params)
+                this.Params.Add(p.Key, p.Value);
     }
 }

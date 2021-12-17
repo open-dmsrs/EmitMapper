@@ -11,82 +11,74 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System;
+using System.Data;
 using System.Data.Common;
 
-namespace LightDataAccess
+namespace LightDataAccess;
+
+/// <summary>
+///     Class ThreadConnection
+/// </summary>
+public class ThreadConnection : IDisposable
 {
     /// <summary>
-    /// Class ThreadConnection
+    ///     The connection
     /// </summary>
-    public class ThreadConnection : IDisposable
+    [ThreadStatic] private static DbConnection connection;
+
+    /// <summary>
+    ///     The entries count
+    /// </summary>
+    [ThreadStatic] private static int entriesCount;
+
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="ThreadConnection" /> class.
+    /// </summary>
+    /// <param name="connectionCreator">The connection creator.</param>
+    public ThreadConnection(Func<DbConnection> connectionCreator)
     {
-        /// <summary>
-        /// The connection
-        /// </summary>
-        [ThreadStatic]
-        private static DbConnection connection;
-
-        /// <summary>
-        /// The entries count
-        /// </summary>
-        [ThreadStatic]
-        private static int entriesCount;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ThreadConnection"/> class.
-        /// </summary>
-        /// <param name="connectionCreator">The connection creator.</param>
-        public ThreadConnection(Func<DbConnection> connectionCreator)
-        {
-            if (connection == null || connection.State == System.Data.ConnectionState.Broken)
-            {
-                connection = connectionCreator();
-            }
-            entriesCount++;
-        }
-
-        /// <summary>
-        /// Gets the connection.
-        /// </summary>
-        /// <value>The connection.</value>
-        public DbConnection Connection
-        {
-            get
-            {
-                if (connection.State == System.Data.ConnectionState.Closed)
-                {
-                    connection.Open();
-                }
-                return connection;
-            }
-        }
-
-        #region IDisposable Members
-
-        /// <summary>
-        /// 执行与释放或重置非托管资源相关的应用程序定义的任务。
-        /// </summary>
-        public void Dispose()
-        {
-            if (entriesCount <= 1)
-            {
-                if (connection != null)
-                {
-                    using (connection)
-                    {
-                        connection.Close();
-                    }
-                }
-                connection = null;
-                entriesCount = 0;
-            }
-            else
-            {
-                entriesCount--;
-            }
-        }
-
-        #endregion
+        if (connection == null || connection.State == ConnectionState.Broken) connection = connectionCreator();
+        entriesCount++;
     }
+
+    /// <summary>
+    ///     Gets the connection.
+    /// </summary>
+    /// <value>The connection.</value>
+    public DbConnection Connection
+    {
+        get
+        {
+            if (connection.State == ConnectionState.Closed) connection.Open();
+            return connection;
+        }
+    }
+
+    #region IDisposable Members
+
+    /// <summary>
+    ///     执行与释放或重置非托管资源相关的应用程序定义的任务。
+    /// </summary>
+    public void Dispose()
+    {
+        if (entriesCount <= 1)
+        {
+            if (connection != null)
+                using (connection)
+                {
+                    connection.Close();
+                }
+
+            connection = null;
+            entriesCount = 0;
+        }
+        else
+        {
+            entriesCount--;
+        }
+    }
+
+    #endregion
 }

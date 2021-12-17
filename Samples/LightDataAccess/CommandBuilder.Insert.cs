@@ -11,74 +11,75 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using EmitMapper;
-using EmitMapper.Mappers;
-using EmitMapper.MappingConfiguration;
-using EmitMapper.MappingConfiguration.MappingOperations;
+
+using System.Data;
 using System.Data.Common;
 using System.Linq;
+using EmitMapper;
+using EmitMapper.MappingConfiguration;
+using EmitMapper.MappingConfiguration.MappingOperations;
 using LightDataAccess.MappingConfigs;
 
-namespace LightDataAccess
+namespace LightDataAccess;
+
+/// <summary>
+///     Class CommandBuilder
+/// </summary>
+public static partial class CommandBuilder
 {
     /// <summary>
-    /// Class CommandBuilder
+    ///     Builds the insert command.
     /// </summary>
-	public static partial class CommandBuilder
+    /// <param name="cmd">The CMD.</param>
+    /// <param name="obj">The obj.</param>
+    /// <param name="tableName">Name of the table.</param>
+    /// <param name="dbSettings">The db settings.</param>
+    /// <returns>DbCommand.</returns>
+    public static DbCommand BuildInsertCommand(
+        this DbCommand cmd,
+        object obj,
+        string tableName,
+        DbSettings dbSettings
+    )
     {
-        /// <summary>
-        /// Builds the insert command.
-        /// </summary>
-        /// <param name="cmd">The CMD.</param>
-        /// <param name="obj">The obj.</param>
-        /// <param name="tableName">Name of the table.</param>
-        /// <param name="dbSettings">The db settings.</param>
-        /// <returns>DbCommand.</returns>
-		public static DbCommand BuildInsertCommand(
-            this DbCommand cmd,
-            object obj,
-            string tableName,
-            DbSettings dbSettings
-        )
-        {
-            return BuildInsertCommand(cmd, obj, tableName, dbSettings, null, null);
-        }
+        return BuildInsertCommand(cmd, obj, tableName, dbSettings, null, null);
+    }
 
-        /// <summary>
-        /// Builds the insert command.
-        /// </summary>
-        /// <param name="cmd">The CMD.</param>
-        /// <param name="obj">The obj.</param>
-        /// <param name="tableName">Name of the table.</param>
-        /// <param name="dbSettings">The db settings.</param>
-        /// <param name="includeFields">The include fields.</param>
-        /// <param name="excludeFields">The exclude fields.</param>
-        /// <returns>DbCommand.</returns>
-		public static DbCommand BuildInsertCommand(
-            this DbCommand cmd,
-            object obj,
-            string tableName,
-            DbSettings dbSettings,
-            string[] includeFields,
-            string[] excludeFields
-        )
-        {
-            IMappingConfigurator config = new AddDbCommandsMappingConfig(
-                    dbSettings,
-                    includeFields,
-                    excludeFields,
-                    "insertop_inc_" + includeFields.ToCSV("_") + "_exc_" + excludeFields.ToCSV("_")
-            );
+    /// <summary>
+    ///     Builds the insert command.
+    /// </summary>
+    /// <param name="cmd">The CMD.</param>
+    /// <param name="obj">The obj.</param>
+    /// <param name="tableName">Name of the table.</param>
+    /// <param name="dbSettings">The db settings.</param>
+    /// <param name="includeFields">The include fields.</param>
+    /// <param name="excludeFields">The exclude fields.</param>
+    /// <returns>DbCommand.</returns>
+    public static DbCommand BuildInsertCommand(
+        this DbCommand cmd,
+        object obj,
+        string tableName,
+        DbSettings dbSettings,
+        string[] includeFields,
+        string[] excludeFields
+    )
+    {
+        IMappingConfigurator config = new AddDbCommandsMappingConfig(
+            dbSettings,
+            includeFields,
+            excludeFields,
+            "insertop_inc_" + includeFields.ToCSV("_") + "_exc_" + excludeFields.ToCSV("_")
+        );
 
-            ObjectsMapperBaseImpl mapper = ObjectMapperManager.DefaultInstance.GetMapperImpl(
-                obj.GetType(),
-                typeof(DbCommand),
-                config
-            );
+        var mapper = ObjectMapperManager.DefaultInstance.GetMapperImpl(
+            obj.GetType(),
+            typeof(DbCommand),
+            config
+        );
 
-            string[] fields = mapper.StroredObjects.OfType<SrcReadOperation>().Select(m => m.Source.MemberInfo.Name).ToArray();
+        var fields = mapper.StroredObjects.OfType<SrcReadOperation>().Select(m => m.Source.MemberInfo.Name).ToArray();
 
-            string cmdStr =
+        var cmdStr =
                 "INSERT INTO "
                 + tableName +
                 "("
@@ -90,12 +91,11 @@ namespace LightDataAccess
                     .Select(dbSettings.GetParamName)
                     .ToCSV(",")
                 + ")"
-                ;
-            cmd.CommandText = cmdStr;
-            cmd.CommandType = System.Data.CommandType.Text;
+            ;
+        cmd.CommandText = cmdStr;
+        cmd.CommandType = CommandType.Text;
 
-            mapper.Map(obj, cmd, null);
-            return cmd;
-        }
+        mapper.Map(obj, cmd, null);
+        return cmd;
     }
 }

@@ -21,4 +21,10 @@
 		<ProjectReference Include="..\LightDataAccess\LightDataAccess.csproj" />
 	</ItemGroup>
 
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+	  <PackageReference Include="Microsoft.AspNetCore.App">
+	    <Version>2.2.8</Version>
+	  </PackageReference>
+	</ItemGroup>
+
 </Project>

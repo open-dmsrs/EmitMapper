@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using AutoFixture;
 using AutoFixture.Xunit2;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
@@ -79,7 +78,6 @@ public class MappingList
     public void TestCopyArrayList(List<FromClass> list)
     {
         ArrayList listFrom = new(list.ToArray());
-
 
 
         _testOutputHelper.WriteLine(listFrom.Count.ToString());

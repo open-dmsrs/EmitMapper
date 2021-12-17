@@ -1,21 +1,11 @@
-﻿using System;
-using System.Linq;
-using AutoFixture;
-using AutoMapper;
-using BenchmarkDotNet.Configs;
-using BenchmarkDotNet.Diagnosers;
-using BenchmarkDotNet.Jobs;
-using BenchmarkDotNet.Loggers;
-using BenchmarkDotNet.Running;
-using EmitMapper.Benchmarks.TestData;
+﻿using BenchmarkDotNet.Running;
 
-namespace EmitMapper.Benchmarks
+namespace EmitMapper.Benchmarks;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            BenchmarkRunner.Run<MapperBenchmark>();
-        }
+        BenchmarkRunner.Run<MapperBenchmark>();
     }
 }

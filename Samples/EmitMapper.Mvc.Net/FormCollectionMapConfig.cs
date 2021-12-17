@@ -6,7 +6,7 @@ using EmitMapper.Utils;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Linq;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace EmitMapper.Mvc.Net;
 
@@ -26,20 +26,22 @@ public class FormCollectionMapConfig : IMappingConfigurator
                             (
                                 (form, valueProviderObj) =>
                                 {
-                                    var valueProvider = valueProviderObj as IValueProvider;
-                                    if (valueProvider == null)
-                                        valueProvider = ((System.Web.Mvc.FormCollection)form).ToValueProvider();
 
-                                    ValueProviderResult res = valueProvider.GetValue(m.Name);
-                                    if (res != null)
-                                        return ValueToWrite<object>.ReturnValue(
-                                            res.ConvertTo(ReflectionUtils.GetMemberType(m)));
+                                    if (((FormCollection)form).TryGetValue(m.Name, out var res))
+                                        return ValueToWrite<object>.ReturnValue(Convert(new ValueProviderResult(res), ReflectionUtils.GetMemberType(m)));
                                     return ValueToWrite<object>.Skip();
                                 }
                             )
                     }
             )
             .ToArray();
+    }
+
+    private object Convert(ValueProviderResult valueProviderResult, Type type)
+    {
+        
+
+        throw new NotImplementedException();
     }
 
     public string GetConfigurationName()
