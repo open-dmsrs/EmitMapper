@@ -16,14 +16,14 @@ public class TestMappingToDataRow
     public void MappingToDataRow_test()
     {
         // this is the mapper 
-        var mapper = ObjectMapperManager.DefaultInstance.GetMapper<TestDTO, DataRow>(new Map2DataRowConfig());
+        var mapper = ObjectMapperManager.DefaultInstance.GetMapper<TestDto, DataRow>(new Map2DataRowConfig());
 
         // initialization of test DTO object
-        var testDataObject = new TestDTO
+        var testDataObject = new TestDto
         {
-            field1 = "field1",
-            field2 = 10,
-            field3 = true
+            Field1 = "field1",
+            Field2 = 10,
+            Field3 = true
         };
 
         // Initializing of test table. Usual this table is read from database.
@@ -64,10 +64,10 @@ public class TestMappingToDataRow
     // Using: 
 
     // Test data object
-    public class TestDTO
+    public class TestDto
     {
-        public bool field3 = true;
-        public int field2 = 10;
-        public string field1 = "field1";
+        public bool Field3 = true;
+        public int Field2 = 10;
+        public string Field1 = "field1";
     }
 }

@@ -347,17 +347,17 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
             /// <summary>
             ///     The value extractor
             /// </summary>
-            public readonly Func<int, IDataReader, T> valueExtractor;
+            public readonly Func<int, IDataReader, T> ValueExtractor;
 
             /// <summary>
             ///     The field num
             /// </summary>
-            public int fieldNum;
+            public int FieldNum;
 
             /// <summary>
             ///     The field name
             /// </summary>
-            public readonly string fieldName;
+            public readonly string FieldName;
 
 
             /// <summary>
@@ -367,9 +367,9 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
             /// <param name="valueExtractor">The value extractor.</param>
             public ReaderValuesExtrator(string fieldName, Func<int, IDataReader, T> valueExtractor)
             {
-                fieldNum = -1;
-                this.fieldName = fieldName;
-                this.valueExtractor = valueExtractor;
+                FieldNum = -1;
+                this.FieldName = fieldName;
+                this.ValueExtractor = valueExtractor;
             }
 
             /// <summary>
@@ -388,8 +388,8 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
             /// <returns>`0.</returns>
             private T GetValue(IDataReader reader)
             {
-                if (fieldNum == -1) fieldNum = reader.GetOrdinal(fieldName);
-                return reader.IsDBNull(fieldNum) ? default : valueExtractor(fieldNum, reader);
+                if (FieldNum == -1) FieldNum = reader.GetOrdinal(FieldName);
+                return reader.IsDBNull(FieldNum) ? default : ValueExtractor(FieldNum, reader);
             }
         }
     }

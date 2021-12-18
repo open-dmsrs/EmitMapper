@@ -11,11 +11,11 @@ namespace EMConfigurations
 {
 	public class FlatteringConfig : DefaultMapConfig 
 	{
-		protected Func<string, string, bool> nestedMembersMatcher;
+		protected Func<string, string, bool> NestedMembersMatcher;
 
 		public FlatteringConfig()
 		{
-			nestedMembersMatcher = (m1, m2) => m1.StartsWith(m2);
+			NestedMembersMatcher = (m1, m2) => m1.StartsWith(m2);
 		}
 
 		public override IMappingOperation[] GetMappingOperations(Type from, Type to)
@@ -43,13 +43,13 @@ namespace EMConfigurations
 
 		public DefaultMapConfig MatchNestedMembers(Func<string, string, bool> nestedMembersMatcher)
 		{
-			this.nestedMembersMatcher = nestedMembersMatcher;
+			this.NestedMembersMatcher = nestedMembersMatcher;
 			return this;
 		}
 
 		private List<MemberInfo> GetMatchedChain(string destName, List<MemberInfo> sourceMembers)
 		{
-            var matches = sourceMembers.Where(s => MatchMembers(destName, s.Name) || nestedMembersMatcher(destName, s.Name));
+            var matches = sourceMembers.Where(s => MatchMembers(destName, s.Name) || NestedMembersMatcher(destName, s.Name));
 			int len = 0;
 			MemberInfo match = null;
 			foreach (var m in matches)

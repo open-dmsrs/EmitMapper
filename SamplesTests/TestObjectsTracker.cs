@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using EmitMapper.Samples.SamplesTests;
+using LightDataAccess;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace LightDataAccess;
+namespace EmitMapper.Samples.SamplesTests;
 
 [TestClass]
 public class TestObjectsTracker
@@ -13,20 +13,20 @@ public class TestObjectsTracker
         var tracker = new ObjectsChangeTracker();
         var a = new A();
         tracker.RegisterObject(a);
-        a.f2 = 3;
+        a.F2 = 3;
         var changes = tracker.GetChanges(a);
-        Assert.IsTrue(changes[0].name == "f2");
+        Assert.IsTrue(changes[0].Name == "f2");
         tracker.RegisterObject(a);
         changes = tracker.GetChanges(a);
         Assert.IsTrue(changes.Length == 0);
 
-        a.f1 = "new";
-        a.f2 = 13;
-        a.f3 = false;
+        a.F1 = "new";
+        a.F2 = 13;
+        a.F3 = false;
         for (var i = 0; i < 10; ++i) tracker.GetChanges(a);
 
         changes = tracker.GetChanges(a);
-        Assert.IsTrue(TestUtils.AreEqual(new[] { "f1", "f2", "f3" }, changes.Select(c => c.name).ToArray()));
+        Assert.IsTrue(TestUtils.AreEqual(new[] { "f1", "f2", "f3" }, changes.Select(c => c.Name).ToArray()));
 
         changes = tracker.GetChanges(new A());
         Assert.IsNull(changes);
@@ -36,14 +36,14 @@ public class TestObjectsTracker
     public void TestTwoVersionOfObjects()
     {
         var tracker = new ObjectsChangeTracker();
-        var original = new A { f1 = "f1", f2 = 2, f3 = true };
-        var current = new A { f1 = "f0", f2 = 2, f3 = false };
+        var original = new A { F1 = "f1", F2 = 2, F3 = true };
+        var current = new A { F1 = "f0", F2 = 2, F3 = false };
         var changes = tracker.GetChanges(original, current);
 
         Assert.AreEqual(2, changes.Count());
-        Assert.AreEqual("f1", changes[0].name);
+        Assert.AreEqual("f1", changes[0].Name);
         Assert.AreEqual("f0", changes[0].CurrentValue);
-        Assert.AreEqual("f3", changes[1].name);
+        Assert.AreEqual("f3", changes[1].Name);
         Assert.AreEqual(false, changes[1].CurrentValue);
 
         changes = tracker.GetChanges(original, null);
@@ -55,8 +55,8 @@ public class TestObjectsTracker
 
     public class A
     {
-        public bool f3 = true;
-        public int f2 = 2;
-        public string f1 = "f1";
+        public bool F3 = true;
+        public int F2 = 2;
+        public string F1 = "f1";
     }
 }

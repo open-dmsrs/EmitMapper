@@ -7,7 +7,7 @@ using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
 
-namespace Extendsoft.HMIS.DataSync.Mapping.Configurators;
+namespace LightDataAccess.Configurators;
 
 /// <summary>
 ///     The item configuration.
@@ -17,10 +17,7 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
     /// <summary>
     ///     Initializes a new instance of the <see cref="EntityToDataContainerPropertyMappingConfigurator" /> class.
     /// </summary>
-    public EntityToDataContainerPropertyMappingConfigurator()
-    {
-        ConstructBy(() => new DataContainer { Fields = new Dictionary<string, string>() });
-    }
+    public EntityToDataContainerPropertyMappingConfigurator() { ConstructBy(() => new DataContainer { Fields = new Dictionary<string, string>() }); }
 
     /// <summary>
     ///     Gets the mapping operations.
@@ -31,29 +28,35 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
     public override IMappingOperation[] GetMappingOperations(Type from, Type to)
     {
         return FilterOperations(
-            from,
-            to,
-            ReflectionUtils.GetPublicFieldsAndProperties(from)
-                .Where(
-                    member => (member.MemberType == MemberTypes.Field || member.MemberType == MemberTypes.Property) &&
-                              ((PropertyInfo)member).GetGetMethod() != null)
-                .Select(
-                    sourceMember => (IMappingOperation)new SrcReadOperation
-                    {
-                        Source = new MemberDescriptor(sourceMember),
-                        Setter = (destination, value, state) =>
+                from,
+                to,
+                ReflectionUtils.GetPublicFieldsAndProperties(from)
+                    .Where(
+                        member => (member.MemberType == MemberTypes.Field || member.MemberType == MemberTypes.Property) &&
+                                  ((PropertyInfo)member).GetGetMethod() != null
+                    )
+                    .Select(
+                        sourceMember => (IMappingOperation)new SrcReadOperation
                         {
-                            if (destination == null || value == null || !(destination is DataContainer)) return;
+                            Source = new MemberDescriptor(sourceMember),
+                            Setter = (destination, value, state) =>
+                            {
+                                if (destination == null || value == null || destination is not DataContainer container)
+                                    return;
 
-                            var sourceType = ReflectionUtils.GetMemberType(sourceMember);
-                            var fieldsDescription = ReflectionUtils.GetDataMemberDefinition(sourceMember);
-                            ConvertSourcePropertyToFields(
-                                value,
-                                sourceType,
-                                (DataContainer)destination,
-                                (List<Tuple<string, Type>>)fieldsDescription);
+                                var sourceType = ReflectionUtils.GetMemberType(sourceMember);
+                                var fieldsDescription = ReflectionUtils.GetDataMemberDefinition(sourceMember);
+                                ConvertSourcePropertyToFields(
+                                    value,
+                                    sourceType,
+                                    container,
+                                    (List<Tuple<string, Type>>)fieldsDescription
+                                );
+                            }
                         }
-                    })).ToArray();
+                    )
+            )
+            .ToArray();
     }
 
     /// <summary>
@@ -66,16 +69,20 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
     private static void ConvertSourcePropertyToFields(object sourceValue, Type sourceType, DataContainer container,
         List<Tuple<string, Type>> fieldsDescription)
     {
-        if (container == null || container.Fields == null) return;
+        if (container == null || container.Fields == null)
+            return;
 
         fieldsDescription.ForEach(
             fd =>
             {
-                if (container.Fields.ContainsKey(fd.Item1)) return;
+                if (container.Fields.ContainsKey(fd.Item1))
+                    return;
 
                 var value = ReflectionUtils.ConvertValue(sourceValue, sourceType, fd.Item2);
 
-                if (value != null) container.Fields.Add(fd.Item1, value.ToString());
-            });
+                if (value != null)
+                    container.Fields.Add(fd.Item1, value.ToString());
+            }
+        );
     }
 }

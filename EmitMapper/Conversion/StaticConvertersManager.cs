@@ -10,7 +10,7 @@ public class StaticConvertersManager
 {
     private static readonly Dictionary<MethodInfo, Func<object, object>> _ConvertersFunc = new();
 
-    private static StaticConvertersManager __DefaultInstance;
+    private static StaticConvertersManager _defaultInstance;
 
     private readonly Dictionary<TypesPair, MethodInfo> _typesMethods = new();
 
@@ -20,20 +20,20 @@ public class StaticConvertersManager
     {
         get
         {
-            if (__DefaultInstance == null)
+            if (_defaultInstance == null)
                 lock (typeof(StaticConvertersManager))
                 {
-                    if (__DefaultInstance == null)
+                    if (_defaultInstance == null)
                     {
-                        __DefaultInstance = new StaticConvertersManager();
-                        __DefaultInstance.AddConverterClass(typeof(Convert));
-                        __DefaultInstance.AddConverterClass(typeof(EMConvert));
-                        __DefaultInstance.AddConverterClass(typeof(NullableConverter));
-                        __DefaultInstance.AddConverterFunc(EMConvert.GetConversionMethod);
+                        _defaultInstance = new StaticConvertersManager();
+                        _defaultInstance.AddConverterClass(typeof(Convert));
+                        _defaultInstance.AddConverterClass(typeof(EMConvert));
+                        _defaultInstance.AddConverterClass(typeof(NullableConverter));
+                        _defaultInstance.AddConverterFunc(EMConvert.GetConversionMethod);
                     }
                 }
 
-            return __DefaultInstance;
+            return _defaultInstance;
         }
     }
 

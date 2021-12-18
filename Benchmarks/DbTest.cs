@@ -95,7 +95,7 @@ internal class DbTest
 
                 using (var reader = cmd.ExecuteReader())
                 {
-                    var list = reader.ToObjects<test>().ToList();
+                    var list = reader.ToObjects<Test>().ToList();
                 }
             }
 
@@ -103,14 +103,14 @@ internal class DbTest
         return sw.ElapsedMilliseconds;
     }
 
-    public class test
+    public class Test
     {
-        public int col1;
-        public int col2;
-        public int col3;
-        public int col4;
-        public int? col5;
-        public int? col6;
+        public int Col1;
+        public int Col2;
+        public int Col3;
+        public int Col4;
+        public int? Col5;
+        public int? Col6;
     }
 
     public class Customer
@@ -121,7 +121,7 @@ internal class DbTest
         public string ContactName;
         public string ContactTitle;
         public string Country;
-        public string CustomerID;
+        public string CustomerId;
         public string Fax;
         public string Phone;
         public string PostalCode;

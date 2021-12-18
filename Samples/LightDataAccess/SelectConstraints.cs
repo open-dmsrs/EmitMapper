@@ -6,8 +6,8 @@
 // Last Modified By : tangjingbo
 // Last Modified On : 08-21-2013
 // ***********************************************************************
-// <copyright file="SelectConstraints.cs" company="Extendsoft">
-//     Copyright (c) Extendsoft. All rights reserved.
+// <copyright file="SelectConstraints.cs" company="T#">
+//     Copyright (c) T#. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -27,7 +27,7 @@ public class FilterConstraints
     /// </summary>
     public FilterConstraints()
     {
-        _Constraints = new List<string>();
+        Constraints = new List<string>();
         Params = new CmdParams();
     }
 
@@ -35,7 +35,7 @@ public class FilterConstraints
     ///     Gets or sets the _ constraints.
     /// </summary>
     /// <value>The _ constraints.</value>
-    private List<string> _Constraints { get; }
+    private List<string> Constraints { get; }
 
     /// <summary>
     ///     Gets or sets the params.
@@ -49,7 +49,7 @@ public class FilterConstraints
     /// <returns>System.String.</returns>
     public string BuildWhere()
     {
-        return (_Constraints.Count > 0 ? "WHERE " : "") + _Constraints.Select(c => "(" + c + ")").ToCSV(" AND ");
+        return (Constraints.Count > 0 ? "WHERE " : "") + Constraints.Select(c => "(" + c + ")").ToCsv(" AND ");
     }
 
     /// <summary>
@@ -65,12 +65,12 @@ public class FilterConstraints
     ///     Adds the specified constraint.
     /// </summary>
     /// <param name="constraint">The constraint.</param>
-    /// <param name="Params">The params.</param>
-    public void Add(string constraint, CmdParams Params)
+    /// <param name="params">The params.</param>
+    public void Add(string constraint, CmdParams @params)
     {
-        _Constraints.Add(constraint);
-        if (Params != null)
-            foreach (var p in Params)
+        Constraints.Add(constraint);
+        if (@params != null)
+            foreach (var p in @params)
                 this.Params.Add(p.Key, p.Value);
     }
 }

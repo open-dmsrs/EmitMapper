@@ -14,14 +14,13 @@ public class ObjectMapperManager
 {
     private static readonly Lazy<ObjectMapperManager> _LazyDefaultInstance = new();
 
-    private static int __InstanceCount;
+    private static int _instCount;
 
     private readonly int _instanceCount;
 
     public ObjectMapperManager()
     {
-        Interlocked.Increment(ref __InstanceCount);
-        _instanceCount = __InstanceCount;
+        _instanceCount = Interlocked.Increment(ref _instCount);
     }
 
     public static ObjectMapperManager DefaultInstance => _LazyDefaultInstance.Value;
@@ -78,6 +77,7 @@ public class ObjectMapperManager
 
             if (!_objectsMapperIds.TryGetValue(mapperTypeKey, out var mapperId))
             {
+                Console.WriteLine($"new mapper ID:{mapperId},key:{mapperTypeKey}");
                 var result = new ObjectsMapperDescr(null, mapperTypeKey, 0);
                 AddMapper(result);
 
@@ -206,7 +206,7 @@ public class MapperKey
         _typeTo = typeTo;
         _mapperName = mapperName;
         _hash = typeFrom.GetHashCode() + typeTo.GetHashCode()
-                                       + (mapperName == null ? 0 : mapperName.GetHashCode());
+                                       + (mapperName?.GetHashCode() ?? 0);
     }
 
     public override bool Equals(object obj)
@@ -219,5 +219,9 @@ public class MapperKey
     public override int GetHashCode()
     {
         return _hash;
+    }
+    public override string ToString()
+    {
+        return $"mapperName:{_mapperName}_from:{_typeFrom.FullName}_to:{_typeTo.FullName}";
     }
 }

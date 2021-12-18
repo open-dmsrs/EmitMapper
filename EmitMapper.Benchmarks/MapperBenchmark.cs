@@ -36,7 +36,7 @@ public class MapperBenchmark
                 cfg.CreateMap<BenchSource, BenchDestination>();
                 cfg.CreateMap<BenchSource.Int1, BenchDestination.Int1>();
                 cfg.CreateMap<BenchSource.Int2, BenchDestination.Int2>();
-                cfg.CreateMap<A2, B2>();
+                cfg.CreateMap<B2, A2>();
             });
         _autoMapper = config.CreateMapper();
 

@@ -6,7 +6,7 @@ using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
 
-namespace Extendsoft.HMIS.DataSync.Mapping.Configurators;
+namespace LightDataAccess.Configurators;
 
 /// <summary>
 ///     The object to data container configuration.
@@ -16,10 +16,7 @@ public class ObjectToDataContainerConfigurator : MapConfigBase<ObjectToDataConta
     /// <summary>
     ///     Initializes a new instance of the <see cref="ObjectToDataContainerConfigurator" /> class.
     /// </summary>
-    public ObjectToDataContainerConfigurator()
-    {
-        ConstructBy(() => new DataContainer { Fields = new Dictionary<string, string>() });
-    }
+    public ObjectToDataContainerConfigurator() { ConstructBy(() => new DataContainer { Fields = new Dictionary<string, string>() }); }
 
     /// <summary>
     ///     Gets the mapping operations.
@@ -30,58 +27,34 @@ public class ObjectToDataContainerConfigurator : MapConfigBase<ObjectToDataConta
     public override IMappingOperation[] GetMappingOperations(Type from, Type to)
     {
         return FilterOperations(
-            from,
-            to,
-            ReflectionUtils.GetTypeDataContainerDescription(from)
-                .Select(
-                    fieldsDescription =>
-                    {
-                        var fieldName = fieldsDescription.Key;
-                        var sourceMember =
-                            fieldsDescription.Value.Item1;
-                        var fieldType =
-                            fieldsDescription.Value.Item2;
-                        return new SrcReadOperation
+                from,
+                to,
+                ReflectionUtils.GetTypeDataContainerDescription(from)
+                    .Select(
+                        fieldsDescription =>
                         {
-                            Source =
-                                new MemberDescriptor(
-                                    sourceMember),
-                            Setter =
-                                (destination, value,
-                                    state) =>
+                            var fieldName = fieldsDescription.Key;
+                            var sourceMember =
+                                fieldsDescription.Value.Item1;
+                            var fieldType =
+                                fieldsDescription.Value.Item2;
+                            return new SrcReadOperation
+                            {
+                                Source = new MemberDescriptor(sourceMember),
+                                Setter = (destination, value, state) =>
                                 {
-                                    if (
-                                        destination ==
-                                        null ||
-                                        value ==
-                                        null ||
-                                        !(destination
-                                            is
-                                            DataContainer))
+                                    if (destination == null || value == null || !(destination is DataContainer container))
                                         return;
-
-                                    var container =
-                                        destination
-                                            as
-                                            DataContainer;
 
                                     // var sourceType = EmitMapper.Utils.ReflectionUtils.GetMemberType(sourceMember);
                                     // var destinationMemberValue = ReflectionUtils.ConvertValue(value, sourceType, fieldType);
-                                    var
-                                        destinationMemberValue
-                                            =
-                                            value ==
-                                            null
-                                                ? null
-                                                : value
-                                                    .ToString
-                                                        ();
-                                    container.Fields
-                                        .Add(
-                                            fieldName,
-                                            destinationMemberValue);
+                                    var destinationMemberValue = value.ToString();
+                                    container.Fields.Add(fieldName, destinationMemberValue);
                                 }
-                        };
-                    })).ToArray();
+                            };
+                        }
+                    )
+            )
+            .ToArray();
     }
 }

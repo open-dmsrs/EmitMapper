@@ -87,14 +87,14 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     ///     Define custom type converter
     /// </summary>
     /// <typeparam name="TFrom">Source type</typeparam>
-    /// <typeparam name="TO">Destination type</typeparam>
+    /// <typeparam name="To">Destination type</typeparam>
     /// <param name="converter">Function which converts an inctance of the source type to an instance of the destination type</param>
     /// <returns></returns>
-    public IMappingConfigurator ConvertUsing<TFrom, TO>(Func<TFrom, TO> converter)
+    public IMappingConfigurator ConvertUsing<TFrom, To>(Func<TFrom, To> converter)
     {
         _customConverters.Add(
-            new[] { typeof(TFrom), typeof(TO) },
-            (ValueConverter<TFrom, TO>)((v, s) => converter(v)));
+            new[] { typeof(TFrom), typeof(To) },
+            (ValueConverter<TFrom, To>)((v, s) => converter(v)));
         return this;
     }
 

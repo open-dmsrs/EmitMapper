@@ -4,11 +4,10 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Transactions;
-using EmitMapper;
 using LightDataAccess;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SamplesTests;
+namespace EmitMapper.Samples.SamplesTests;
 
 public class Customer
 {
@@ -18,7 +17,7 @@ public class Customer
     public string ContactName;
     public string ContactTitle;
     public string Country;
-    public string CustomerID;
+    public string CustomerId;
     public string Fax;
     public string Phone;
     public string PostalCode;
@@ -79,7 +78,7 @@ public class CustormTests
         using (var ts = new TransactionScope())
         using (var connection = CreateConnection())
         {
-            var customer = DBTools.ExecuteReader(
+            var customer = DbTools.ExecuteReader(
                 connection,
                 "select * from Customers limit 1 ",
                 null,
@@ -92,13 +91,13 @@ public class CustormTests
             tracker.RegisterObject(customer);
             customer.Address = guid.ToString();
 
-            var result = DBTools.UpdateObject(
+            var result = DbTools.UpdateObject(
                 connection,
                 customer,
                 "Customers",
                 new[] { "CustomerID" },
                 tracker,
-                DbSettings.MSSQL
+                DbSettings.Mssql
             );
             Assert.IsTrue(result.Result == 1);
         }
@@ -110,11 +109,11 @@ public class CustormTests
         using (var ts = new TransactionScope())
         using (var connection = CreateConnection())
         {
-            var rs = DBTools.InsertObject(
+            var rs = DbTools.InsertObject(
                 connection,
                 new { col1 = 10, col2 = 11, col3 = 12, col4 = 13, col5 = 1, col6 = 2 },
                 "test",
-                DbSettings.MSSQL).Result;
+                DbSettings.Mssql).Result;
             ts.Complete();
             Assert.IsTrue(rs == 1);
         }

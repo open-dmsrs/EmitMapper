@@ -6,8 +6,8 @@
 // Last Modified By : tangjingbo
 // Last Modified On : 05-23-2013
 // ***********************************************************************
-// <copyright file="ObjectsChangeTracker.cs" company="Extendsoft">
-//     Copyright (c) Extendsoft. All rights reserved.
+// <copyright file="ObjectsChangeTracker.cs" company="T#">
+//     Copyright (c) T#. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -161,7 +161,7 @@ public class ObjectsChangeTracker
                             Setter =
                                 (obj, value, state) =>
                                     (state as TrackingMembersList).TrackingMembers.Add(
-                                        new TrackingMember { name = m.Name, CurrentValue = value }
+                                        new TrackingMember { Name = m.Name, CurrentValue = value }
                                     )
                         }
                 )
@@ -227,6 +227,6 @@ public class ObjectsChangeTracker
         /// <summary>
         ///     The name
         /// </summary>
-        public string name;
+        public string Name;
     }
 }

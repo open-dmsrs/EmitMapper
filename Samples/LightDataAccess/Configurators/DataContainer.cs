@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Extendsoft.HMIS.DataSync.Mapping.Configurators;
+namespace LightDataAccess.Configurators;
 
 internal class DataContainer
 {

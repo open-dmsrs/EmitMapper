@@ -6,8 +6,8 @@
 // Last Modified By : tangjingbo
 // Last Modified On : 05-23-2013
 // ***********************************************************************
-// <copyright file="Assert.cs" company="Extendsoft">
-//     Copyright (c) Extendsoft. All rights reserved.
+// <copyright file="Assert.cs" company="T#">
+//     Copyright (c) T#. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -443,10 +443,10 @@ public static class AssertCore
     ///     Determines whether [is not null or empty] [the specified value].
     /// </summary>
     /// <typeparam name="T">The exception type.</typeparam>
-    /// <typeparam name="TE">The type of the exception.</typeparam>
+    /// <typeparam name="Te">The type of the exception.</typeparam>
     /// <param name="value">The value.</param>
     /// <param name="getException">The get exception.</param>
-    public static void IsNotNullOrEmpty<T, TE>(IEnumerable<T> value, Func<TE> getException) where TE : Exception
+    public static void IsNotNullOrEmpty<T, Te>(IEnumerable<T> value, Func<Te> getException) where Te : Exception
     {
         if (value == null) throw getException.Invoke();
 
@@ -531,12 +531,12 @@ public static class AssertCore
     ///     Results the not null or empty.
     /// </summary>
     /// <typeparam name="T">The result type.</typeparam>
-    /// <typeparam name="TE">The type of the exception.</typeparam>
+    /// <typeparam name="Te">The type of the exception.</typeparam>
     /// <param name="result">The result.</param>
     /// <param name="getException">The get exception.</param>
     /// <returns>The result collection.</returns>
-    public static IEnumerable<T> ResultNotNullOrEmpty<T, TE>(IEnumerable<T> result, Func<TE> getException)
-        where TE : Exception
+    public static IEnumerable<T> ResultNotNullOrEmpty<T, Te>(IEnumerable<T> result, Func<Te> getException)
+        where Te : Exception
     {
         IsNotNullOrEmpty(result, getException);
 

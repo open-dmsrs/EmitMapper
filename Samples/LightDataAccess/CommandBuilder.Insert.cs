@@ -6,8 +6,8 @@
 // Last Modified By : tangjingbo
 // Last Modified On : 08-21-2013
 // ***********************************************************************
-// <copyright file="CommandBuilder.Insert.cs" company="Extendsoft">
-//     Copyright (c) Extendsoft. All rights reserved.
+// <copyright file="CommandBuilder.Insert.cs" company="T#">
+//     Copyright (c) T#. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -68,7 +68,7 @@ public static partial class CommandBuilder
             dbSettings,
             includeFields,
             excludeFields,
-            "insertop_inc_" + includeFields.ToCSV("_") + "_exc_" + excludeFields.ToCSV("_")
+            "insertop_inc_" + includeFields.ToCsv("_") + "_exc_" + excludeFields.ToCsv("_")
         );
 
         var mapper = ObjectMapperManager.DefaultInstance.GetMapperImpl(
@@ -85,11 +85,11 @@ public static partial class CommandBuilder
                 "("
                 + fields
                     .Select(dbSettings.GetEscapedName)
-                    .ToCSV(",")
+                    .ToCsv(",")
                 + ") VALUES ("
                 + fields
                     .Select(dbSettings.GetParamName)
-                    .ToCSV(",")
+                    .ToCsv(",")
                 + ")"
             ;
         cmd.CommandText = cmdStr;

@@ -8,8 +8,8 @@ namespace Benchmarks;
 
 public class CustomizationTest
 {
-    private static ObjectsMapper<B2, A2> emitMapper;
-    private static IMapper autoMapper;
+    private static ObjectsMapper<B2, A2> _emitMapper;
+    private static IMapper _autoMapper;
 
     private static long EmitMapper_Custom(int mappingsCount)
     {
@@ -18,7 +18,7 @@ public class CustomizationTest
 
         var sw = new Stopwatch();
         sw.Start();
-        for (var i = 0; i < mappingsCount; ++i) d = emitMapper.Map(s, d);
+        for (var i = 0; i < mappingsCount; ++i) d = _emitMapper.Map(s, d);
         sw.Stop();
         return sw.ElapsedMilliseconds;
     }
@@ -30,14 +30,14 @@ public class CustomizationTest
 
         var sw = new Stopwatch();
         sw.Start();
-        for (var i = 0; i < mappingsCount; ++i) d = autoMapper.Map(s, d);
+        for (var i = 0; i < mappingsCount; ++i) d = _autoMapper.Map(s, d);
         sw.Stop();
         return sw.ElapsedMilliseconds;
     }
 
     public static void Initialize()
     {
-        emitMapper = ObjectMapperManager.DefaultInstance.GetMapper<B2, A2>(
+        _emitMapper = ObjectMapperManager.DefaultInstance.GetMapper<B2, A2>(
             new DefaultMapConfig()
                 .ConstructBy(() => new A2.Int(0))
                 .NullSubstitution<decimal?, decimal>(state => 42)
@@ -65,12 +65,12 @@ public class CustomizationTest
                 cfg.CreateMap<char, int>().ConstructUsing(s => s + 1);
 
                 cfg.CreateMap<B2, A2>()
-                    .ForMember(s => s.nullable1, opt => opt.NullSubstitute((decimal)42))
-                    .ForMember(s => s.nullable2, opt => opt.NullSubstitute(true))
-                    .ForMember(s => s.nullable3, opt => opt.NullSubstitute(42))
-                    .ForMember(s => s.nullable4, opt => opt.NullSubstitute((long)42));
+                    .ForMember(s => s.Nullable1, opt => opt.NullSubstitute((decimal)42))
+                    .ForMember(s => s.Nullable2, opt => opt.NullSubstitute(true))
+                    .ForMember(s => s.Nullable3, opt => opt.NullSubstitute(42))
+                    .ForMember(s => s.Nullable4, opt => opt.NullSubstitute((long)42));
             });
-        autoMapper = config.CreateMapper();
+        _autoMapper = config.CreateMapper();
     }
 
     public static void Run()
@@ -82,71 +82,71 @@ public class CustomizationTest
 
     public class A2
     {
-        public bool nullable2;
+        public bool Nullable2;
 
-        public decimal nullable1;
+        public decimal Nullable1;
 
-        public int n1;
-        public int n2;
-        public int n3;
-        public int n4;
-        public int n5;
-        public int n6;
-        public int n7;
-        public int n8;
-        public int nullable3;
+        public int N1;
+        public int N2;
+        public int N3;
+        public int N4;
+        public int N5;
+        public int N6;
+        public int N7;
+        public int N8;
+        public int Nullable3;
 
-        public Int i1;
-        public Int i2;
-        public Int i3;
-        public Int i4;
-        public Int i5;
-        public long nullable4;
+        public Int I1;
+        public Int I2;
+        public Int I3;
+        public Int I4;
+        public Int I5;
+        public long Nullable4;
 
-        public string str1;
+        public string Str1;
 
         public struct Int
         {
-            public int i;
+            public int I;
 
             public Int(int i)
             {
-                this.i = i;
+                this.I = i;
             }
         }
     }
 
     public class B2
     {
-        public bool? nullable2;
-        public byte n4 = 4;
-        public char n8 = 'a';
-        public decimal n5 = 5;
+        public bool? Nullable2;
+        public byte N4 = 4;
+        public char N8 = 'a';
+        public decimal N5 = 5;
 
-        public decimal? nullable1;
-        public float n6 = 6;
-        public int n1 = 1;
-        public int n7 = 7;
+        public decimal? Nullable1;
+        public float N6 = 6;
+        public int N1 = 1;
+        public int N7 = 7;
 
-        public Int i1 = new(42);
-        public Int i2 = new(42);
-        public Int i3 = new(42);
-        public Int i4 = new(42);
-        public Int i5 = new(42);
-        public int? nullable3;
-        public long n2 = 2;
-        public long? nullable4;
-        public short n3 = 3;
+        public Int I1 = new(42);
+        public Int I2 = new(42);
+        public Int I3 = new(42);
+        public Int I4 = new(42);
+        public Int I5 = new(42);
+        public int? Nullable3;
+        public long N2 = 2;
+        public long? Nullable4;
+        public short N3 = 3;
 
-        public string str1 = "str1";
+        public string Str1 = "str1";
 
         public struct Int
         {
-            public int i;
+            public int I;
 
             public Int(int i)
             {
-                this.i = i;
+                this.I = i;
             }
         }
     }

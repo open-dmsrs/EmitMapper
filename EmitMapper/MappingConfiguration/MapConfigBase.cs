@@ -17,10 +17,10 @@ public abstract class MapConfigBase<TDerived> : MapConfigBaseImpl
     ///     Define custom type converter
     /// </summary>
     /// <typeparam name="TFrom">Source type</typeparam>
-    /// <typeparam name="TO">Destination type</typeparam>
+    /// <typeparam name="To">Destination type</typeparam>
     /// <param name="converter">Function which converts an inctance of the source type to an instance of the destination type</param>
     /// <returns></returns>
-    public new TDerived ConvertUsing<TFrom, TO>(Func<TFrom, TO> converter)
+    public new TDerived ConvertUsing<TFrom, To>(Func<TFrom, To> converter)
     {
         return (TDerived)base.ConvertUsing(converter);
     }

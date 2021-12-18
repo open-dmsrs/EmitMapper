@@ -10,7 +10,7 @@ namespace LightDataAccess;
 /// <summary>
 ///     Class DBTools
 /// </summary>
-public static class DBTools
+public static class DbTools
 {
     /// <summary>
     ///     Executes the non query.
@@ -202,7 +202,7 @@ public static class DBTools
     /// <returns>DbCommand.</returns>
     public static DbCommand AddParam(this DbCommand cmd, string paramName, object paramValue)
     {
-        if (paramValue is Guid) paramValue = ((Guid)paramValue).ToGuidStr();
+        if (paramValue is Guid guid) paramValue = guid.ToGuidStr();
 
         if (paramValue == null) paramValue = DBNull.Value;
 
@@ -230,10 +230,10 @@ public static class DBTools
             foreach (var param in cmdParams)
             {
                 object value;
-                if (param.Value is Guid)
-                    value = ((Guid)param.Value).ToGuidStr();
-                else if (param.Value is bool)
-                    value = ((bool)param.Value).ToShort();
+                if (param.Value is Guid guid)
+                    value = guid.ToGuidStr();
+                else if (param.Value is bool b)
+                    value = b.ToShort();
                 else
                     value = param.Value;
                 result.AddParam(param.Key, value);
@@ -264,7 +264,7 @@ public static class DBTools
     /// <param name="collection">The collection.</param>
     /// <param name="delim">The delim.</param>
     /// <returns>System.String.</returns>
-    public static string ToCSV<T>(this IEnumerable<T> collection, string delim)
+    public static string ToCsv<T>(this IEnumerable<T> collection, string delim)
     {
         if (collection == null) return "";
 

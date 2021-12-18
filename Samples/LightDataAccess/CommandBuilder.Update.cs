@@ -6,8 +6,8 @@
 // Last Modified By : tangjingbo
 // Last Modified On : 08-21-2013
 // ***********************************************************************
-// <copyright file="CommandBuilder.Update.cs" company="Extendsoft">
-//     Copyright (c) Extendsoft. All rights reserved.
+// <copyright file="CommandBuilder.Update.cs" company="T#">
+//     Copyright (c) T#. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -80,9 +80,9 @@ public static partial class CommandBuilder
             if (changedFields != null)
             {
                 if (includeFields == null)
-                    includeFields = changedFields.Select(c => c.name).ToArray();
+                    includeFields = changedFields.Select(c => c.Name).ToArray();
                 else
-                    includeFields = includeFields.Intersect(changedFields.Select(c => c.name)).ToArray();
+                    includeFields = includeFields.Intersect(changedFields.Select(c => c.Name)).ToArray();
             }
         }
 
@@ -91,7 +91,7 @@ public static partial class CommandBuilder
             dbSettings,
             includeFields,
             excludeFields,
-            "updateop_inc_" + includeFields.ToCSV("_") + "_exc_" + excludeFields.ToCSV("_")
+            "updateop_inc_" + includeFields.ToCsv("_") + "_exc_" + excludeFields.ToCsv("_")
         );
 
         var mapper = ObjectMapperManager.DefaultInstance.GetMapperImpl(
@@ -117,10 +117,10 @@ public static partial class CommandBuilder
                     .Select(
                         f => dbSettings.GetEscapedName(f.ToUpper()) + "=" + dbSettings.GetParamName(f.ToUpper())
                     )
-                    .ToCSV(",") +
+                    .ToCsv(",") +
                 " WHERE " +
                 idFieldNames.Select(fn => dbSettings.GetEscapedName(fn) + "=" + dbSettings.GetParamName(fn))
-                    .ToCSV(" AND ")
+                    .ToCsv(" AND ")
             ;
         cmd.CommandText = cmdStr;
         cmd.CommandType = CommandType.Text;

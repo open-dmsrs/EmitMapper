@@ -6,8 +6,8 @@
 // Last Modified By : tangjingbo
 // Last Modified On : 08-21-2013
 // ***********************************************************************
-// <copyright file="ThreadConnection.cs" company="Extendsoft">
-//     Copyright (c) Extendsoft. All rights reserved.
+// <copyright file="ThreadConnection.cs" company="T#">
+//     Copyright (c) T#. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -26,12 +26,12 @@ public class ThreadConnection : IDisposable
     /// <summary>
     ///     The connection
     /// </summary>
-    [ThreadStatic] private static DbConnection connection;
+    [ThreadStatic] private static DbConnection _connection;
 
     /// <summary>
     ///     The entries count
     /// </summary>
-    [ThreadStatic] private static int entriesCount;
+    [ThreadStatic] private static int _entriesCount;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="ThreadConnection" /> class.
@@ -39,8 +39,8 @@ public class ThreadConnection : IDisposable
     /// <param name="connectionCreator">The connection creator.</param>
     public ThreadConnection(Func<DbConnection> connectionCreator)
     {
-        if (connection == null || connection.State == ConnectionState.Broken) connection = connectionCreator();
-        entriesCount++;
+        if (_connection == null || _connection.State == ConnectionState.Broken) _connection = connectionCreator();
+        _entriesCount++;
     }
 
     /// <summary>
@@ -51,8 +51,8 @@ public class ThreadConnection : IDisposable
     {
         get
         {
-            if (connection.State == ConnectionState.Closed) connection.Open();
-            return connection;
+            if (_connection.State == ConnectionState.Closed) _connection.Open();
+            return _connection;
         }
     }
 
@@ -63,20 +63,20 @@ public class ThreadConnection : IDisposable
     /// </summary>
     public void Dispose()
     {
-        if (entriesCount <= 1)
+        if (_entriesCount <= 1)
         {
-            if (connection != null)
-                using (connection)
+            if (_connection != null)
+                using (_connection)
                 {
-                    connection.Close();
+                    _connection.Close();
                 }
 
-            connection = null;
-            entriesCount = 0;
+            _connection = null;
+            _entriesCount = 0;
         }
         else
         {
-            entriesCount--;
+            _entriesCount--;
         }
     }
 

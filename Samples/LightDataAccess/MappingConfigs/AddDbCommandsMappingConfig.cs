@@ -64,7 +64,7 @@ internal class AddDbCommandsMappingConfig : IMappingConfigurator
                 m => new SrcReadOperation
                 {
                     Source = new MemberDescriptor(new[] { m }),
-                    Setter = (obj, v, s) => ((DbCommand)obj).AddParam(_dbSettings.paramPrefix + m.Name, v)
+                    Setter = (obj, v, s) => ((DbCommand)obj).AddParam(_dbSettings.ParamPrefix + m.Name, v)
                 }
             )
             .ToArray();

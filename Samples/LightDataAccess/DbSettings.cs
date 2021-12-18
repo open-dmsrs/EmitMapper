@@ -6,8 +6,8 @@
 // Last Modified By : tangjingbo
 // Last Modified On : 08-21-2013
 // ***********************************************************************
-// <copyright file="DbSettings.cs" company="Extendsoft">
-//     Copyright (c) Extendsoft. All rights reserved.
+// <copyright file="DbSettings.cs" company="T#">
+//     Copyright (c) T#. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -22,56 +22,56 @@ public class DbSettings
     /// <summary>
     ///     My SQL
     /// </summary>
-    public static DbSettings MySQL;
+    public static DbSettings MySql;
 
     /// <summary>
     ///     The MSSQL
     /// </summary>
-    public static DbSettings MSSQL;
+    public static DbSettings Mssql;
 
     /// <summary>
     ///     The SQLITE
     /// </summary>
-    public static DbSettings SQLITE;
+    public static DbSettings Sqlite;
 
     /// <summary>
     ///     The first name escape symbol
     /// </summary>
-    public string firstNameEscapeSymbol;
+    public string FirstNameEscapeSymbol;
 
     /// <summary>
     ///     The param prefix
     /// </summary>
-    public string paramPrefix;
+    public string ParamPrefix;
 
     /// <summary>
     ///     The second name escape symbol
     /// </summary>
-    public string secondNameEscapeSymbol;
+    public string SecondNameEscapeSymbol;
 
     /// <summary>
     ///     Initializes static members of the <see cref="DbSettings" /> class.
     /// </summary>
     static DbSettings()
     {
-        MySQL = new DbSettings
+        MySql = new DbSettings
         {
-            firstNameEscapeSymbol = "`",
-            secondNameEscapeSymbol = "`",
-            paramPrefix = "@p_"
+            FirstNameEscapeSymbol = "`",
+            SecondNameEscapeSymbol = "`",
+            ParamPrefix = "@p_"
         };
 
-        MSSQL = new DbSettings
+        Mssql = new DbSettings
         {
-            firstNameEscapeSymbol = "[",
-            secondNameEscapeSymbol = "]",
-            paramPrefix = "@p_"
+            FirstNameEscapeSymbol = "[",
+            SecondNameEscapeSymbol = "]",
+            ParamPrefix = "@p_"
         };
-        SQLITE = new DbSettings
+        Sqlite = new DbSettings
         {
-            firstNameEscapeSymbol = "\"",
-            secondNameEscapeSymbol = "\"",
-            paramPrefix = "@p_"
+            FirstNameEscapeSymbol = "\"",
+            SecondNameEscapeSymbol = "\"",
+            ParamPrefix = "@p_"
         };
     }
 
@@ -82,7 +82,7 @@ public class DbSettings
     /// <returns>System.String.</returns>
     public string GetParamName(string fieldName)
     {
-        return paramPrefix + fieldName;
+        return ParamPrefix + fieldName;
     }
 
     /// <summary>
@@ -92,6 +92,6 @@ public class DbSettings
     /// <returns>System.String.</returns>
     public string GetEscapedName(string name)
     {
-        return firstNameEscapeSymbol + name + secondNameEscapeSymbol;
+        return FirstNameEscapeSymbol + name + SecondNameEscapeSymbol;
     }
 }

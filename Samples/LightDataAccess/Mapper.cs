@@ -10,14 +10,14 @@ public static class Mapper
     /// <summary>
     ///     The mapper core instance.
     /// </summary>
-    private static readonly MapperCore MapperInstance;
+    private static readonly MapperCore _MapperInstance;
 
     /// <summary>
     ///     Initializes static members of the <see cref="Mapper" /> class.
     /// </summary>
     static Mapper()
     {
-        MapperInstance = new MapperCore();
+        _MapperInstance = new MapperCore();
     }
 
     /// <summary>
@@ -26,7 +26,7 @@ public static class Mapper
     /// <value>
     ///     The mapper core.
     /// </value>
-    public static MapperCore DataMapper => MapperInstance;
+    public static MapperCore DataMapper => _MapperInstance;
 
     /// <summary>
     ///     Maps the specified from.
@@ -39,7 +39,7 @@ public static class Mapper
     /// </returns>
     public static TTo Map<TFrom, TTo>(TFrom from)
     {
-        return MapperInstance.Map<TFrom, TTo>(from);
+        return _MapperInstance.Map<TFrom, TTo>(from);
     }
 
     /// <summary>
@@ -54,7 +54,7 @@ public static class Mapper
     /// </returns>
     public static TTo Map<TFrom, TTo>(TFrom from, TTo to)
     {
-        return MapperInstance.Map(from, to);
+        return _MapperInstance.Map(from, to);
     }
 
     /// <summary>
@@ -66,6 +66,6 @@ public static class Mapper
     /// <returns>The output mapped collection.</returns>
     public static IEnumerable<TTo> MapCollection<TFrom, TTo>(IEnumerable<TFrom> from)
     {
-        return MapperInstance.MapCollection<TFrom, TTo>(from);
+        return _MapperInstance.MapCollection<TFrom, TTo>(from);
     }
 }

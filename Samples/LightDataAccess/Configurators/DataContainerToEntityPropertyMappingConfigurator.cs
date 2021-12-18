@@ -6,7 +6,7 @@ using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
 
-namespace Extendsoft.HMIS.DataSync.Mapping.Configurators;
+namespace LightDataAccess.Configurators;
 
 /// <summary>
 ///     The data container to object configuration.
@@ -34,12 +34,13 @@ public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
                         Destination = new MemberDescriptor(destinationMember),
                         Getter = (ValueGetter<object>)((item, state) =>
                         {
-                            if (item == null || !(item is DataContainer)) return ValueToWrite<object>.Skip();
+                            if (item is not DataContainer value) 
+                                return ValueToWrite<object>.Skip();
                             var destinationType = ReflectionUtils.GetMemberType(destinationMember);
 
                             var fieldDescription = ReflectionUtils.GetDataMemberDefinition(destinationMember);
                             var destinationMemberValue = ConvertFieldToDestinationProperty(
-                                (DataContainer)item,
+                                value,
                                 destinationType,
                                 fieldDescription.FirstOrDefault());
 

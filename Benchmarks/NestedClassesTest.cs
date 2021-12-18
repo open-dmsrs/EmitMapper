@@ -7,8 +7,8 @@ namespace Benchmarks;
 
 public class NestedClassesTest
 {
-    private static ObjectsMapper<BenchSource, BenchDestination> emitMapper;
-    private static IMapper autoMapper;
+    private static ObjectsMapper<BenchSource, BenchDestination> _emitMapper;
+    private static IMapper _autoMapper;
 
     private static long BenchHandwrittenMapper(int mappingsCount)
     {
@@ -28,7 +28,7 @@ public class NestedClassesTest
 
         var sw = new Stopwatch();
         sw.Start();
-        for (var i = 0; i < mappingsCount; ++i) emitMapper.Map(s, d);
+        for (var i = 0; i < mappingsCount; ++i) _emitMapper.Map(s, d);
         sw.Stop();
         return sw.ElapsedMilliseconds;
     }
@@ -40,14 +40,14 @@ public class NestedClassesTest
 
         var sw = new Stopwatch();
         sw.Start();
-        for (var i = 0; i < mappingsCount; ++i) autoMapper.Map(s, d);
+        for (var i = 0; i < mappingsCount; ++i) _autoMapper.Map(s, d);
         sw.Stop();
         return sw.ElapsedMilliseconds;
     }
 
     public static void Initialize()
     {
-        emitMapper = ObjectMapperManager.DefaultInstance.GetMapper<BenchSource, BenchDestination>();
+        _emitMapper = ObjectMapperManager.DefaultInstance.GetMapper<BenchSource, BenchDestination>();
         var config = new MapperConfiguration(
             cfg =>
             {
@@ -55,7 +55,7 @@ public class NestedClassesTest
                 cfg.CreateMap<BenchSource.Int2, BenchDestination.Int2>();
                 cfg.CreateMap<BenchSource, BenchDestination>();
             });
-        autoMapper = config.CreateMapper();
+        _autoMapper = config.CreateMapper();
     }
 
     public static void Run()
@@ -68,96 +68,96 @@ public class NestedClassesTest
 
     public class BenchSource
     {
-        public byte n4;
+        public byte N4;
 
-        public int n2;
-        public int n7;
-        public int n8;
-        public int n9;
+        public int N2;
+        public int N7;
+        public int N8;
+        public int N9;
 
-        public Int2 i1 = new();
-        public Int2 i2 = new();
-        public Int2 i3 = new();
-        public Int2 i4 = new();
-        public Int2 i5 = new();
-        public Int2 i6 = new();
-        public Int2 i7 = new();
-        public Int2 i8 = new();
-        public long n3;
-        public short n5;
+        public Int2 I1 = new();
+        public Int2 I2 = new();
+        public Int2 I3 = new();
+        public Int2 I4 = new();
+        public Int2 I5 = new();
+        public Int2 I6 = new();
+        public Int2 I7 = new();
+        public Int2 I8 = new();
+        public long N3;
+        public short N5;
 
-        public string s1 = "1";
-        public string s2 = "2";
-        public string s3 = "3";
-        public string s4 = "4";
-        public string s5 = "5";
-        public string s6 = "6";
-        public string s7 = "7";
-        public uint n6;
+        public string S1 = "1";
+        public string S2 = "2";
+        public string S3 = "3";
+        public string S4 = "4";
+        public string S5 = "5";
+        public string S6 = "6";
+        public string S7 = "7";
+        public uint N6;
 
         public class Int1
         {
-            public int i = 10;
-            public string str1 = "1";
-            public string str2 = null;
+            public int I = 10;
+            public string Str1 = "1";
+            public string Str2 = null;
         }
 
         public class Int2
         {
-            public Int1 i1 = new();
-            public Int1 i2 = new();
-            public Int1 i3 = new();
-            public Int1 i4 = new();
-            public Int1 i5 = new();
-            public Int1 i6 = new();
-            public Int1 i7 = new();
+            public Int1 I1 = new();
+            public Int1 I2 = new();
+            public Int1 I3 = new();
+            public Int1 I4 = new();
+            public Int1 I5 = new();
+            public Int1 I6 = new();
+            public Int1 I7 = new();
         }
     }
 
     public class BenchDestination
     {
-        public long n2 = 2;
-        public long n3 = 3;
-        public long n4 = 4;
-        public long n5 = 5;
-        public long n6 = 6;
-        public long n7 = 7;
-        public long n8 = 8;
-        public long n9 = 9;
+        public long N2 = 2;
+        public long N3 = 3;
+        public long N4 = 4;
+        public long N5 = 5;
+        public long N6 = 6;
+        public long N7 = 7;
+        public long N8 = 8;
+        public long N9 = 9;
 
-        public string s1;
-        public string s2;
-        public string s3;
-        public string s4;
-        public string s5;
-        public string s6;
-        public string s7;
+        public string S1;
+        public string S2;
+        public string S3;
+        public string S4;
+        public string S5;
+        public string S6;
+        public string S7;
 
-        public Int2 i1 { get; set; }
-        public Int2 i2 { get; set; }
-        public Int2 i3 { get; set; }
-        public Int2 i4 { get; set; }
-        public Int2 i5 { get; set; }
-        public Int2 i6 { get; set; }
-        public Int2 i7 { get; set; }
-        public Int2 i8 { get; set; }
+        public Int2 I1 { get; set; }
+        public Int2 I2 { get; set; }
+        public Int2 I3 { get; set; }
+        public Int2 I4 { get; set; }
+        public Int2 I5 { get; set; }
+        public Int2 I6 { get; set; }
+        public Int2 I7 { get; set; }
+        public Int2 I8 { get; set; }
 
         public class Int1
         {
-            public int i;
-            public string str1;
-            public string str2;
+            public int I;
+            public string Str1;
+            public string Str2;
         }
 
         public class Int2
         {
-            public Int1 i1;
-            public Int1 i2;
-            public Int1 i3;
-            public Int1 i4;
-            public Int1 i5;
-            public Int1 i6;
-            public Int1 i7;
+            public Int1 I1;
+            public Int1 I2;
+            public Int1 I3;
+            public Int1 I4;
+            public Int1 I5;
+            public Int1 I6;
+            public Int1 I7;
         }
     }
 
@@ -168,9 +168,9 @@ public class NestedClassesTest
     {
         if (s == null) return null;
         if (d == null) d = new BenchDestination.Int1();
-        d.i = s.i;
-        d.str1 = s.str1;
-        d.str2 = s.str2;
+        d.I = s.I;
+        d.Str1 = s.Str1;
+        d.Str2 = s.Str2;
         return d;
     }
 
@@ -179,13 +179,13 @@ public class NestedClassesTest
         if (s == null) return null;
 
         if (d == null) d = new BenchDestination.Int2();
-        d.i1 = Map(s.i1, d.i1);
-        d.i2 = Map(s.i2, d.i2);
-        d.i3 = Map(s.i3, d.i3);
-        d.i4 = Map(s.i4, d.i4);
-        d.i5 = Map(s.i5, d.i5);
-        d.i6 = Map(s.i6, d.i6);
-        d.i7 = Map(s.i7, d.i7);
+        d.I1 = Map(s.I1, d.I1);
+        d.I2 = Map(s.I2, d.I2);
+        d.I3 = Map(s.I3, d.I3);
+        d.I4 = Map(s.I4, d.I4);
+        d.I5 = Map(s.I5, d.I5);
+        d.I6 = Map(s.I6, d.I6);
+        d.I7 = Map(s.I7, d.I7);
 
         return d;
     }
@@ -194,31 +194,31 @@ public class NestedClassesTest
     {
         if (s == null) return null;
         if (d == null) d = new BenchDestination();
-        d.i1 = Map(s.i1, d.i1);
-        d.i2 = Map(s.i2, d.i2);
-        d.i3 = Map(s.i3, d.i3);
-        d.i4 = Map(s.i4, d.i4);
-        d.i5 = Map(s.i5, d.i5);
-        d.i6 = Map(s.i6, d.i6);
-        d.i7 = Map(s.i7, d.i7);
-        d.i8 = Map(s.i8, d.i8);
+        d.I1 = Map(s.I1, d.I1);
+        d.I2 = Map(s.I2, d.I2);
+        d.I3 = Map(s.I3, d.I3);
+        d.I4 = Map(s.I4, d.I4);
+        d.I5 = Map(s.I5, d.I5);
+        d.I6 = Map(s.I6, d.I6);
+        d.I7 = Map(s.I7, d.I7);
+        d.I8 = Map(s.I8, d.I8);
 
-        d.n2 = s.n2;
-        d.n3 = s.n3;
-        d.n4 = s.n4;
-        d.n5 = s.n5;
-        d.n6 = s.n6;
-        d.n7 = s.n7;
-        d.n8 = s.n8;
-        d.n9 = s.n9;
+        d.N2 = s.N2;
+        d.N3 = s.N3;
+        d.N4 = s.N4;
+        d.N5 = s.N5;
+        d.N6 = s.N6;
+        d.N7 = s.N7;
+        d.N8 = s.N8;
+        d.N9 = s.N9;
 
-        d.s1 = s.s1;
-        d.s2 = s.s2;
-        d.s3 = s.s3;
-        d.s4 = s.s4;
-        d.s5 = s.s5;
-        d.s6 = s.s6;
-        d.s7 = s.s7;
+        d.S1 = s.S1;
+        d.S2 = s.S2;
+        d.S3 = s.S3;
+        d.S4 = s.S4;
+        d.S5 = s.S5;
+        d.S6 = s.S6;
+        d.S7 = s.S7;
 
         return d;
     }

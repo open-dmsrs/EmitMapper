@@ -18,7 +18,7 @@ public class Flattering
                 ProperName = "Some name",
                 SubSub = new ModelSubSubObject
                 {
-                    IAmACoolProperty = "Cool daddy-o"
+                    AmACoolProperty = "Cool daddy-o"
                 }
             },
             Sub2 = new ModelSubObject
@@ -54,7 +54,7 @@ public class Flattering
 
     public class ModelSubSubObject
     {
-        public string IAmACoolProperty { get; set; }
+        public string AmACoolProperty { get; set; }
     }
 
     public class ModelDto

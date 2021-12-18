@@ -100,7 +100,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
     {
         var mi = typeof(MapperForCollectionImpl)
             .GetMethod(copyMethodName, BindingFlags.Instance | BindingFlags.NonPublic) // fixed BUG 
-            .MakeGenericMethod(ExtractElementType(copiedObjectType));
+            ?.MakeGenericMethod(ExtractElementType(copiedObjectType));
 
         return new AstReturn
         {
