@@ -39,7 +39,7 @@ internal class TypeDictionary<T>
     public T GetValue(Type[] types)
     {
         var elem = FindTypes(types);
-        return elem == null ? null : elem.Value;
+        return elem?.Value;
     }
 
     public void Add(Type[] types, T value)

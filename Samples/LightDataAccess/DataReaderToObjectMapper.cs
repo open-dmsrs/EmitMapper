@@ -160,7 +160,7 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
         /// <param name="mappingKey">The mapping key.</param>
         public DbReaderMappingConfig(IEnumerable<string> skipFields, string mappingKey)
         {
-            _skipFields = skipFields == null ? new List<string>() : skipFields;
+            _skipFields = skipFields ?? new List<string>();
             _mappingKey = mappingKey;
         }
 

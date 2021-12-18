@@ -34,7 +34,7 @@ public abstract class ObjectsMapperBaseImpl
 
         if (from == null)
         {
-            result = NullSubstitutor == null ? null : NullSubstitutor.CallFunc();
+            result = NullSubstitutor?.CallFunc();
         }
         else if (Converter != null)
         {

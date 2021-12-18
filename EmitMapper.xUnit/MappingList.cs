@@ -127,6 +127,60 @@ public class MappingList
         }
     }
 
+
+    [Theory]
+    [AutoData]
+    public void TestCopyEnum(List<FromClass> list)
+    {
+        
+
+        _testOutputHelper.WriteLine(list.Count.ToString());
+
+        var rw1 = new ReadWriteSimple
+        {
+            Source = new MemberDescriptor(
+                new[]
+                {
+                    typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
+                    typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[
+                        0]
+                }),
+            Destination = new MemberDescriptor(
+                new[] { typeof(ToClass).GetMember(nameof(ToClass.Message))[0] })
+        };
+
+
+        var rw2 = new ReadWriteSimple
+        {
+            Source = new MemberDescriptor(
+                new[]
+                {
+                    typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
+                    typeof(FromClass.InnerClass).GetMember(
+                        nameof(FromClass.InnerClass.GetMessage2))[0]
+                }),
+            Destination = new MemberDescriptor(
+                new[] { typeof(ToClass).GetMember(nameof(ToClass.Message2))[0] })
+        };
+
+
+        var mapper = ObjectMapperManager.DefaultInstance.GetMapper<FromClass, ToClass>(
+            new CustomMapConfig
+            {
+                GetMappingOperationFunc = (from, to) => new IMappingOperation[] { rw1, rw2 }
+            });
+
+        var tolist = mapper.MapEnum(list);
+        var f = list.GetEnumerator();
+        var t = tolist.GetEnumerator();
+        while (f.MoveNext() && t.MoveNext())
+        {
+            _testOutputHelper.WriteLine(t.Current.Message);
+            Assert.Equal(f.Current.Inner.Message, t.Current.Message);
+            Assert.Equal(f.Current.Inner.GetMessage2(), t.Current.Message2);
+        }
+    }
+
     public class ToClass
     {
         public string Message;
