@@ -227,21 +227,13 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
         IEnumerable<MemberInfo> toPath,
         IEnumerable<MemberInfo> fromPath)
     {
-        if (toPath == null)
-            toPath = new MemberInfo[0];
-        if (fromPath == null)
-            fromPath = new MemberInfo[0];
+        toPath ??= Array.Empty<MemberInfo>();
+        fromPath ??= Array.Empty<MemberInfo>();
 
         Type from, to;
-        if (fromPath.Count() == 0)
-            from = fromRoot;
-        else
-            from = ReflectionUtils.GetMemberType(fromPath.Last());
+        @from = !fromPath.Any() ? fromRoot : ReflectionUtils.GetMemberType(fromPath.Last());
 
-        if (toPath.Count() == 0)
-            to = toRoot;
-        else
-            to = ReflectionUtils.GetMemberType(toPath.Last());
+        to = !toPath.Any() ? toRoot : ReflectionUtils.GetMemberType(toPath.Last());
 
         var tp = new TypesPair(from, to);
         processedTypes.Add(tp);

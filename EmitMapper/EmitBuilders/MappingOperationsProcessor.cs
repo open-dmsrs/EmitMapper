@@ -68,7 +68,7 @@ internal class MappingOperationsProcessor
                     ThisType = typeof(ObjectsMapperBaseImpl)
                 },
                 typeof(ObjectsMapperBaseImpl).GetField(
-                    nameof(ObjectsMapperBaseImpl.StroredObjects),
+                    nameof(ObjectsMapperBaseImpl.StoredObjects),
                     BindingFlags.Instance | BindingFlags.Public)),
             objectIndex);
         if (castType != null) result = new AstCastclassRef(result, castType);

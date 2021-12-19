@@ -109,7 +109,7 @@ public abstract class ObjectsMapperBaseImpl
 
     protected IRootMappingOperation RootOperation;
 
-    public object[] StroredObjects;
+    public object[] StoredObjects;
 
     protected DelegateInvokerFunc0 TargetConstructor;
 
@@ -134,7 +134,7 @@ public abstract class ObjectsMapperBaseImpl
         TypeFrom = typeFrom;
         TypeTo = typeTo;
         MappingConfigurator = mappingConfigurator;
-        StroredObjects = storedObjects;
+        StoredObjects = storedObjects;
         if (MappingConfigurator != null)
         {
             RootOperation = MappingConfigurator.GetRootMappingOperation(typeFrom, typeTo);

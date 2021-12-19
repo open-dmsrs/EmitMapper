@@ -101,7 +101,7 @@ public static partial class CommandBuilder
         );
 
         var fields = mapper
-            .StroredObjects
+            .StoredObjects
             .OfType<SrcReadOperation>()
             .Select(m => m.Source.MemberInfo.Name)
             .Where(f => !idFieldNames.Contains(f))
