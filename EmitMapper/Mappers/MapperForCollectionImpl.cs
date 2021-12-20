@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using EmitMapper.AST;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
@@ -62,7 +63,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
             InvokeCopyImpl(typeTo, nameof(CopyToListScalar))
                 .Compile(new CompilationContext(methodBuilder.GetILGenerator()));
         }
-
+        
         var result = (MapperForCollectionImpl)Activator.CreateInstance(tb.CreateType());
         result.Initialize(objectMapperManager, typeFrom, typeTo, mappingConfigurator, null);
         result._subMapper = subMapper;

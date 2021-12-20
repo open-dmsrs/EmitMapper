@@ -12,22 +12,22 @@ namespace EmitMapper.EmitInvoker.Methods;
 
 public static class MethodInvoker
 {
-    private static readonly ThreadSaveCache<Type> _TypesCache = new();
+    private static readonly ThreadSaveCache _TypesCache = new();
 
     public static MethodInvokerBase GetMethodInvoker(object targetObject, MethodInfo mi)
     {
         var typeName = "EmitMapper.MethodCaller_" + mi;
 
-        var callerType = _TypesCache.Get(
+        var creator = _TypesCache.Get(
             typeName,
-            () =>
+            _ =>
             {
                 if (mi.ReturnType == typeof(void))
                     return BuildActionCallerType(typeName, mi);
                 return BuildFuncCallerType(typeName, mi);
             });
 
-        var result = (MethodInvokerBase)Activator.CreateInstance(callerType);
+        var result = (MethodInvokerBase)creator();
         result.TargetObject = targetObject;
         return result;
     }

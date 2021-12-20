@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using EmitMapper.EmitBuilders;
 using EmitMapper.Mappers;
@@ -205,8 +206,11 @@ public class MapperKey
         _typeFrom = typeFrom;
         _typeTo = typeTo;
         _mapperName = mapperName;
-        _hash = typeFrom.GetHashCode() + typeTo.GetHashCode()
-                                       + (mapperName?.GetHashCode() ?? 0);
+#if NET6_0_OR_GREATER || NETSTANDARD
+        _hash = HashCode.Combine(typeFrom, typeTo, mapperName);
+#else
+        _hash = RuntimeHelpers.GetHashCode(typeFrom)^RuntimeHelpers.GetHashCode(typeTo)^ RuntimeHelpers.GetHashCode(mapperName);
+#endif
     }
 
     public override bool Equals(object obj)

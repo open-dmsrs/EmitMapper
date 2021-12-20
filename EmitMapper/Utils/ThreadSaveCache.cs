@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Linq.Expressions;
 
 namespace EmitMapper.Utils;
 
-internal class ThreadSaveCache<T>
+internal class ThreadSaveCache
 {
-    private readonly ConcurrentDictionary<string, T> _cache = new();
+    private static readonly ConcurrentDictionary<string, Tuple<Type, Func<object>>> _Cache = new();
 
-    public T Get(string key, Func<T> getter)
+    public Func<object> Get(string key, Func<string, Type> getter)
     {
-        if (!_cache.TryGetValue(key, out var value))
-        {
-            value = getter();
-            _cache.TryAdd(key, value);
-        }
+        if (_Cache.TryGetValue(key, out var value))
+            return value.Item2;
 
-        return value;
+        var type = getter(key);
+        var newItem = Tuple.Create(type, Expression.Lambda<Func<object>>(Expression.New(type)).Compile());
+        _Cache.TryAdd(key, newItem);
+
+        return newItem.Item2;
     }
 }
