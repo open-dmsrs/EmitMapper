@@ -5,6 +5,8 @@
 		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
 		<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 		<LangVersion>10</LangVersion>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>EmitMapper.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
  
 	<ItemGroup>

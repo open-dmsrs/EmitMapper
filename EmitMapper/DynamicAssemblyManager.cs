@@ -34,7 +34,8 @@ public class DynamicAssemblyManager
 
     static DynamicAssemblyManager()
     {
-        var curAssemblyName = Assembly.GetExecutingAssembly().GetName();
+        // var curAssemblyName = Assembly.GetExecutingAssembly().GetName();
+        var curAssemblyName = Assembly.GetAssembly(typeof(DynamicAssemblyManager))?.GetName();
 
 #if !SILVERLIGHT
         _AssemblyName = new AssemblyName("EmitMapperAssembly");

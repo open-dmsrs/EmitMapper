@@ -92,8 +92,7 @@ public class MappingList
                 new[]
                 {
                     typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
-                    typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[
-                        0]
+                    typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[0]
                 }),
             Destination = new MemberDescriptor(
                 new[] { typeof(ToClass).GetMember(nameof(ToClass.Message))[0] })
@@ -125,9 +124,9 @@ public class MappingList
         var t = tolist.GetEnumerator();
         while (f.MoveNext() && t.MoveNext())
         {
-            _testOutputHelper.WriteLine((t.Current as ToClass).Message);
-            Assert.Equal(((FromClass)f.Current).Inner.Message, (t.Current as ToClass).Message);
-            Assert.Equal(((FromClass)f.Current).Inner.GetMessage2(), (t.Current as ToClass).Message2);
+            _testOutputHelper.WriteLine((t.Current as ToClass)?.Message);
+            Assert.Equal(((FromClass)f.Current)?.Inner.Message, (t.Current as ToClass)?.Message);
+            Assert.Equal(((FromClass)f.Current)?.Inner.GetMessage2(), (t.Current as ToClass)?.Message2);
         }
     }
 
@@ -189,18 +188,18 @@ public class MappingList
     public void TestDefaultConfigWithEnum()
     {
         Fixture fixture = new Fixture();
-        List<B2Source> list = fixture.CreateMany<B2Source>(50).ToList();
-
+        List<B2Source> list = fixture.CreateMany<B2Source>(3).ToList();
+        //list.FirstOrDefault().N5 = 3.3232423424234M;
         _testOutputHelper.WriteLine(list.Count.ToString());
         
         var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B2Source, A2Destination>();
 
         var tolist = mapper.MapEnum(list);
-        var f = list.GetEnumerator();
-        var t = tolist.GetEnumerator();
+        using var f = list.GetEnumerator();
+        using var t = tolist.GetEnumerator();
         while (f.MoveNext() && t.MoveNext())
         {
-            _testOutputHelper.WriteLine(f.Current.N5.ToString());
+            _testOutputHelper.WriteLine(f.Current?.N5.ToString());
             var fv = ReflectionUtils.GetPublicFieldsAndProperties(typeof(B2Source))
                    .Select(m => new
                    {

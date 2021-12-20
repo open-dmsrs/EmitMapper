@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using AutoFixture;
 using AutoMapper;
@@ -27,6 +29,8 @@ public class MapperBenchmark
     [GlobalSetup]
     public void Setup()
     {
+        Console.WriteLine($"Current:{DateTime.Now.Ticks.ToString()}");
+
         var fixture = new Fixture();
         _benchSourceEmitMapper = ObjectMapperManager.DefaultInstance.GetMapper<BenchSource, BenchDestination>();
         _simpleEmitMapper = ObjectMapperManager.DefaultInstance.GetMapper<B2, A2>();

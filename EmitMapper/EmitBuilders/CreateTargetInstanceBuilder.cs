@@ -5,6 +5,7 @@ using EmitMapper.AST;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 using EmitMapper.AST.Nodes;
+using EmitMapper.Mappers;
 using EmitMapper.Utils;
 
 namespace EmitMapper.EmitBuilders;
@@ -17,7 +18,7 @@ internal class CreateTargetInstanceBuilder
             type = Nullable.GetUnderlyingType(type);
 
         var methodBuilder = typeBuilder.DefineMethod(
-            "CreateTargetInstance",
+            nameof(ObjectsMapperBaseImpl.CreateTargetInstance),
             MethodAttributes.Public | MethodAttributes.Virtual,
             typeof(object),
             null);
