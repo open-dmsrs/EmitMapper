@@ -1,39 +1,18 @@
 ﻿using System;
 using EMConfigurations;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using EmitMapper;
+using Xunit;
 
-namespace EmitMapper.Samples.SamplesTests;
+namespace SamplesTests;
 
-[TestClass]
 public class Flattering
 {
-    [TestMethod]
+    [Fact]
     public void TestFlattering()
     {
-        var source = new ModelObject
-        {
-            BaseDate = DateTime.Now,
-            Sub = new ModelSubObject
-            {
-                ProperName = "Some name",
-                SubSub = new ModelSubSubObject
-                {
-                    AmACoolProperty = "Cool daddy-o"
-                }
-            },
-            Sub2 = new ModelSubObject
-            {
-                ProperName = "Sub 2 name"
-            },
-            SubWithExtraName = new ModelSubObject
-            {
-                ProperName = "Some other name"
-            }
-        };
+        var source = new ModelObject { BaseDate = DateTime.Now, Sub = new ModelSubObject { ProperName = "Some name", SubSub = new ModelSubSubObject { AmACoolProperty = "Cool daddy-o" } }, Sub2 = new ModelSubObject { ProperName = "Sub 2 name" }, SubWithExtraName = new ModelSubObject { ProperName = "Some other name" } };
 
-        var mapper = ObjectMapperManager.DefaultInstance.GetMapper<ModelObject, ModelDto>(
-            new FlatteringConfig()
-        );
+        var mapper = ObjectMapperManager.DefaultInstance.GetMapper<ModelObject, ModelDto>(new FlatteringConfig());
 
         var b = mapper.Map(source);
     }

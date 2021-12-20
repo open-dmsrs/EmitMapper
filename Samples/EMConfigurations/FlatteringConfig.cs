@@ -7,108 +7,107 @@ using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
-namespace EMConfigurations
+namespace EMConfigurations;
+
+public class FlatteringConfig : DefaultMapConfig 
 {
-	public class FlatteringConfig : DefaultMapConfig 
+	protected Func<string, string, bool> NestedMembersMatcher;
+
+	public FlatteringConfig()
 	{
-		protected Func<string, string, bool> NestedMembersMatcher;
+		NestedMembersMatcher = (m1, m2) => m1.StartsWith(m2);
+	}
 
-		public FlatteringConfig()
+	public override IMappingOperation[] GetMappingOperations(Type from, Type to)
+	{
+		var destinationMembers = GetDestinationMemebers(to);
+		var sourceMembers = GetSourceMemebers(from);
+		var result = new List<IMappingOperation>();
+		foreach (var dest in destinationMembers)
 		{
-			NestedMembersMatcher = (m1, m2) => m1.StartsWith(m2);
-		}
-
-		public override IMappingOperation[] GetMappingOperations(Type from, Type to)
-		{
-			var destinationMembers = GetDestinationMemebers(to);
-			var sourceMembers = GetSourceMemebers(from);
-			var result = new List<IMappingOperation>();
-			foreach (var dest in destinationMembers)
+			var matchedChain = GetMatchedChain(dest.Name, sourceMembers).ToArray();
+			if (matchedChain == null || matchedChain.Length == 0)
 			{
-				var matchedChain = GetMatchedChain(dest.Name, sourceMembers).ToArray();
-				if (matchedChain == null || matchedChain.Length == 0)
+				continue;
+			}
+			result.Add(
+				new ReadWriteSimple
 				{
-					continue;
+					Source = new MemberDescriptor(matchedChain),
+					Destination = new MemberDescriptor(new[] { dest })
 				}
-				result.Add(
-					new ReadWriteSimple
-					{
-						Source = new MemberDescriptor(matchedChain),
-						Destination = new MemberDescriptor(new[] { dest })
-					}
-				);
-			}
-			return result.ToArray();
+			);
 		}
+		return result.ToArray();
+	}
 
-		public DefaultMapConfig MatchNestedMembers(Func<string, string, bool> nestedMembersMatcher)
-		{
-			this.NestedMembersMatcher = nestedMembersMatcher;
-			return this;
-		}
+	public DefaultMapConfig MatchNestedMembers(Func<string, string, bool> nestedMembersMatcher)
+	{
+		this.NestedMembersMatcher = nestedMembersMatcher;
+		return this;
+	}
 
-		private List<MemberInfo> GetMatchedChain(string destName, List<MemberInfo> sourceMembers)
+	private List<MemberInfo> GetMatchedChain(string destName, List<MemberInfo> sourceMembers)
+	{
+		var matches = sourceMembers.Where(s => MatchMembers(destName, s.Name) || NestedMembersMatcher(destName, s.Name));
+		int len = 0;
+		MemberInfo match = null;
+		foreach (var m in matches)
 		{
-            var matches = sourceMembers.Where(s => MatchMembers(destName, s.Name) || NestedMembersMatcher(destName, s.Name));
-			int len = 0;
-			MemberInfo match = null;
-			foreach (var m in matches)
+			if (m.Name.Length > len)
 			{
-				if (m.Name.Length > len)
-				{
-					len = m.Name.Length;
-					match = m;
-				}
+				len = m.Name.Length;
+				match = m;
 			}
-			if (match == null)
-			{
-				return null;
-			}
-			var result = new List<MemberInfo> { match };
-            if (!MatchMembers(destName, match.Name))
-			{
-				result.AddRange(
-					GetMatchedChain(destName.Substring(match.Name.Length), GetDestinationMemebers(match))
-				);
-			}
-			return result;
 		}
-
-		private static List<MemberInfo> GetSourceMemebers(Type t)
+		if (match == null)
 		{
-			return GetMemebers(t)
-				.Where(
-					m => 
-						m.MemberType == MemberTypes.Field || 
-						m.MemberType == MemberTypes.Property ||
-						m.MemberType == MemberTypes.Method
-				)
-				.ToList();
+			return null;
 		}
-
-		private static List<MemberInfo> GetDestinationMemebers(MemberInfo mi)
+		var result = new List<MemberInfo> { match };
+		if (!MatchMembers(destName, match.Name))
 		{
-			Type t;
-			if (mi.MemberType == MemberTypes.Field)
-			{
-				t = mi.DeclaringType.GetField(mi.Name).FieldType;
-			}
-			else
-			{
-				t = mi.DeclaringType.GetProperty(mi.Name).PropertyType;
-			}
-			return GetDestinationMemebers(t);
+			result.AddRange(
+				GetMatchedChain(destName.Substring(match.Name.Length), GetDestinationMemebers(match))
+			);
 		}
+		return result;
+	}
 
-		private static List<MemberInfo> GetDestinationMemebers(Type t)
-		{
-			return GetMemebers(t).Where(m => m.MemberType == MemberTypes.Field || m.MemberType == MemberTypes.Property).ToList();
-		}
+	private static List<MemberInfo> GetSourceMemebers(Type t)
+	{
+		return GetMemebers(t)
+			.Where(
+				m => 
+					m.MemberType == MemberTypes.Field || 
+					m.MemberType == MemberTypes.Property ||
+					m.MemberType == MemberTypes.Method
+			)
+			.ToList();
+	}
 
-		private static List<MemberInfo> GetMemebers(Type t)
+	private static List<MemberInfo> GetDestinationMemebers(MemberInfo mi)
+	{
+		Type t;
+		if (mi.MemberType == MemberTypes.Field)
 		{
-			BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public;
-			return t.GetMembers(bindingFlags).ToList();
+			t = mi.DeclaringType.GetField(mi.Name).FieldType;
 		}
+		else
+		{
+			t = mi.DeclaringType.GetProperty(mi.Name).PropertyType;
+		}
+		return GetDestinationMemebers(t);
+	}
+
+	private static List<MemberInfo> GetDestinationMemebers(Type t)
+	{
+		return GetMemebers(t).Where(m => m.MemberType == MemberTypes.Field || m.MemberType == MemberTypes.Property).ToList();
+	}
+
+	private static List<MemberInfo> GetMemebers(Type t)
+	{
+		BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public;
+		return t.GetMembers(bindingFlags).ToList();
 	}
 }

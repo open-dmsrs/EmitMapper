@@ -38,7 +38,7 @@ public class EnumTests
         var mapper = Context.ObjMan.GetMapper<B, A>();
         //DynamicAssemblyManager.SaveAssembly();
 
-        var a = mapper.Map(new B());
+        var a = mapper.Map(new());
         Assert.True(a.En1 == En1.C);
         Assert.True(a.En2 == En2.C);
         Assert.True(a.En3 == En3.C);

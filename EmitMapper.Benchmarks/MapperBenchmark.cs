@@ -29,7 +29,7 @@ public class MapperBenchmark
     [GlobalSetup]
     public void Setup()
     {
-        Console.WriteLine($"Current:{DateTime.Now.Ticks.ToString()}");
+        Console.WriteLine($"Current:{DateTime.Now.Ticks}");
 
         var fixture = new Fixture();
         _benchSourceEmitMapper = ObjectMapperManager.DefaultInstance.GetMapper<BenchSource, BenchDestination>();

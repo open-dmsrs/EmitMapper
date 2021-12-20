@@ -26,9 +26,9 @@ public class DestinationFilterTest
                     .FilterDestination<int>((value, state) => value >= 0)
                     .FilterSource<int>((value, state) => value >= 10).FilterSource<object>(
                         (value, state) =>
-                            !(value is long) && (!(value is DestinationTestFilterSrc)
-                                                 || (value as DestinationTestFilterSrc).I1 != 666)));
-        var dest = mapper.Map(new DestinationTestFilterSrc());
+                            value is not long && (value is not DestinationTestFilterSrc
+                                                  || (value as DestinationTestFilterSrc).I1 != 666)));
+        var dest = mapper.Map(new());
 
         Assert.Equal(13, dest.I1);
         Assert.Equal(-5, dest.I2);
@@ -36,7 +36,7 @@ public class DestinationFilterTest
         Assert.Equal(0, dest.L1);
         Assert.Null(dest.Str);
 
-        dest = mapper.Map(new DestinationTestFilterSrc { I1 = 666 }, new DestinationTestFilterDest());
+        dest = mapper.Map(new() { I1 = 666 }, new());
         Assert.Equal(0, dest.I1);
     }
 
@@ -49,9 +49,9 @@ public class DestinationFilterTest
                     .FilterDestination<int>((value, state) => value >= 0)
                     .FilterSource<int>((value, state) => value >= 10).FilterSource<object>(
                         (value, state) =>
-                            !(value is long) && (!(value is DestinationTestFilterSrc)
-                                                 || (value as DestinationTestFilterSrc).I1 != 666)));
-        var dest = mapper.Map(new DestinationTestFilterSrc());
+                            value is not long && (value is not DestinationTestFilterSrc
+                                                  || (value as DestinationTestFilterSrc).I1 != 666)));
+        var dest = mapper.Map(new());
 
         Assert.Equal(13, dest.I1);
         Assert.Equal(-5, dest.I2);
@@ -59,7 +59,7 @@ public class DestinationFilterTest
         Assert.Equal(0, dest.L1);
         Assert.Null(dest.Str);
 
-        dest = mapper.Map(new DestinationTestFilterSrc { I1 = 666 }, new DestinationTestFilterDest());
+        dest = mapper.Map(new() { I1 = 666 }, new());
         Assert.Equal(0, dest.I1);
     }
 

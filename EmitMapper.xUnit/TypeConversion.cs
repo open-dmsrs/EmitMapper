@@ -43,7 +43,7 @@ public class TypeConversion
         b.A1.Fld1 = 777;
         Assert.Equal(777, a.A1.Fld1);
 
-        b = new B3();
+        b = new();
         Context.ObjMan.GetMapper<B3, A3>(new DefaultMapConfig().ShallowMap<A1>().DeepMap<A2>()).Map(b, a);
         b.A1.Fld1 = 333;
         b.A2.Fld3 = new string[1];

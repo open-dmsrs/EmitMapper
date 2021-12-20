@@ -21,10 +21,8 @@ public static class DbTools
     /// <returns>System.Int32.</returns>
     public static int ExecuteNonQuery(DbConnection conn, string commandText, CmdParams cmdParams)
     {
-        using (var cmd = CreateCommand(conn, commandText, cmdParams))
-        {
-            return cmd.ExecuteNonQuery();
-        }
+        using var cmd = CreateCommand(conn, commandText, cmdParams);
+        return cmd.ExecuteNonQuery();
     }
 
     /// <summary>
@@ -36,10 +34,8 @@ public static class DbTools
     /// <returns>System.Object.</returns>
     public static object ExecuteScalar(DbConnection conn, string commandText, CmdParams cmdParams)
     {
-        using (var cmd = CreateCommand(conn, commandText, cmdParams))
-        {
-            return cmd.ExecuteScalar();
-        }
+        using var cmd = CreateCommand(conn, commandText, cmdParams);
+        return cmd.ExecuteScalar();
     }
 
     /// <summary>
@@ -72,10 +68,8 @@ public static class DbTools
     /// <returns>IDataReader.</returns>
     public static IDataReader ExecuteReader(DbConnection conn, string commandText, CmdParams cmdParams)
     {
-        using (var cmd = CreateCommand(conn, commandText, cmdParams))
-        {
-            return cmd.ExecuteReader();
-        }
+        using var cmd = CreateCommand(conn, commandText, cmdParams);
+        return cmd.ExecuteReader();
     }
 
     /// <summary>
@@ -90,13 +84,11 @@ public static class DbTools
     public static T ExecuteReader<T>(DbConnection conn, string commandText, CmdParams cmdParams,
         Func<IDataReader, T> func) where T : class
     {
-        using (var cmd = CreateCommand(conn, commandText, cmdParams))
-        using (var reader = cmd.ExecuteReader())
-        {
-            if (reader.Read())
-                return func(reader);
-            return null;
-        }
+        using var cmd = CreateCommand(conn, commandText, cmdParams);
+        using var reader = cmd.ExecuteReader();
+        if (reader.Read())
+            return func(reader);
+        return null;
     }
 
     /// <summary>
@@ -111,13 +103,11 @@ public static class DbTools
     public static T ExecuteReaderStruct<T>(DbConnection conn, string commandText, CmdParams cmdParams,
         Func<IDataReader, T> func) where T : struct
     {
-        using (var cmd = CreateCommand(conn, commandText, cmdParams))
-        using (var reader = cmd.ExecuteReader())
-        {
-            if (reader.Read())
-                return func(reader);
-            return default;
-        }
+        using var cmd = CreateCommand(conn, commandText, cmdParams);
+        using var reader = cmd.ExecuteReader();
+        if (reader.Read())
+            return func(reader);
+        return default;
     }
 
     /// <summary>
@@ -132,11 +122,9 @@ public static class DbTools
     public static IEnumerable<T> ExecuteReaderEnum<T>(DbConnection conn, string commandText, CmdParams cmdParams,
         Func<IDataReader, T> func)
     {
-        using (var cmd = CreateCommand(conn, commandText, cmdParams))
-        using (var reader = cmd.ExecuteReader())
-        {
-            while (reader.Read()) yield return func(reader);
-        }
+        using var cmd = CreateCommand(conn, commandText, cmdParams);
+        using var reader = cmd.ExecuteReader();
+        while (reader.Read()) yield return func(reader);
     }
 
     /// <summary>
@@ -174,11 +162,9 @@ public static class DbTools
         string[] excludeFields,
         ObjectsChangeTracker changeTracker)
     {
-        using (var cmd = CreateCommand(conn, commandText, cmdParams))
-        using (var reader = cmd.ExecuteReader())
-        {
-            while (reader.Read()) yield return reader.ToObject<T>(null, excludeFields, changeTracker);
-        }
+        using var cmd = CreateCommand(conn, commandText, cmdParams);
+        using var reader = cmd.ExecuteReader();
+        while (reader.Read()) yield return reader.ToObject<T>(null, excludeFields, changeTracker);
     }
 
     /// <summary>
@@ -413,11 +399,9 @@ public static class DbTools
         string[] excludeFields
     )
     {
-        using (var cmd = conn.CreateCommand())
-        {
-            cmd.BuildInsertCommand(obj, tableName, dbSettings, includeFields, excludeFields);
-            return cmd.ExecuteNonQueryAsync();
-        }
+        using var cmd = conn.CreateCommand();
+        cmd.BuildInsertCommand(obj, tableName, dbSettings, includeFields, excludeFields);
+        return cmd.ExecuteNonQueryAsync();
     }
 
     /// <summary>
@@ -434,11 +418,9 @@ public static class DbTools
         DbSettings dbSettings
     )
     {
-        using (var cmd = conn.CreateCommand())
-        {
-            cmd.BuildInsertCommand(obj, tableName, dbSettings);
-            return cmd.ExecuteNonQueryAsync();
-        }
+        using var cmd = conn.CreateCommand();
+        cmd.BuildInsertCommand(obj, tableName, dbSettings);
+        return cmd.ExecuteNonQueryAsync();
     }
 
     /// <summary>
@@ -484,22 +466,20 @@ public static class DbTools
         DbSettings dbSettings
     )
     {
-        using (var cmd = conn.CreateCommand())
-        {
-            if (
-                cmd.BuildUpdateCommand(
-                    obj,
-                    tableName,
-                    idFieldNames,
-                    includeFields,
-                    excludeFields,
-                    changeTracker,
-                    dbSettings
-                )
+        using var cmd = conn.CreateCommand();
+        if (
+            cmd.BuildUpdateCommand(
+                obj,
+                tableName,
+                idFieldNames,
+                includeFields,
+                excludeFields,
+                changeTracker,
+                dbSettings
             )
-                return cmd.ExecuteNonQueryAsync();
-            return Task.FromResult(0);
-        }
+        )
+            return cmd.ExecuteNonQueryAsync();
+        return Task.FromResult(0);
     }
 
     /// <summary>

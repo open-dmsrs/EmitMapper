@@ -16,7 +16,7 @@ public class IgnoreByAttributes
         var mapper =
             ObjectMapperManager.DefaultInstance.GetMapper<IgnoreByAttributesSrc, IgnoreByAttributesDst>(
                 new MyConfigurator());
-        var dst = mapper.Map(new IgnoreByAttributesSrc());
+        var dst = mapper.Map(new());
         Assert.Equal("IgnoreByAttributesDst::str1", dst.Str1);
         Assert.Equal("IgnoreByAttributesSrc::str2", dst.Str2);
     }

@@ -13,26 +13,26 @@ public class Flattering
     {
         var rw1 = new ReadWriteSimple
         {
-            Source = new MemberDescriptor(
+            Source = new(
                 new[]
                 {
                     typeof(Source).GetMember(nameof(Source.InnerSource))[0],
                     typeof(Source.InnerSourceClass).GetMember(nameof(Source.InnerSource.Message))[
                         0]
                 }),
-            Destination = new MemberDescriptor(
+            Destination = new(
                 new[] { typeof(Destination).GetMember(nameof(Destination.Message))[0] })
         };
         var rw2 = new ReadWriteSimple
         {
-            Source = new MemberDescriptor(
+            Source = new(
                 new[]
                 {
                     typeof(Source).GetMember(nameof(Source.InnerSource))[0],
                     typeof(Source.InnerSourceClass).GetMember(
                         nameof(Source.InnerSourceClass.GetMessage2))[0]
                 }),
-            Destination = new MemberDescriptor(
+            Destination = new(
                 new[] { typeof(Destination).GetMember(nameof(Destination.Message2))[0] })
         };
 

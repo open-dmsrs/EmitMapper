@@ -30,28 +30,28 @@ public class MappingList
 
         var rw1 = new ReadWriteSimple
         {
-            Source = new MemberDescriptor(
+            Source = new(
                 new[]
                 {
                     typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
                     typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[
                         0]
                 }),
-            Destination = new MemberDescriptor(
+            Destination = new(
                 new[] { typeof(ToClass).GetMember(nameof(ToClass.Message))[0] })
         };
 
 
         var rw2 = new ReadWriteSimple
         {
-            Source = new MemberDescriptor(
+            Source = new(
                 new[]
                 {
                     typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
                     typeof(FromClass.InnerClass).GetMember(
                         nameof(FromClass.InnerClass.GetMessage2))[0]
                 }),
-            Destination = new MemberDescriptor(
+            Destination = new(
                 new[] { typeof(ToClass).GetMember(nameof(ToClass.Message2))[0] })
         };
 
@@ -63,22 +63,17 @@ public class MappingList
             });
 
         var tolist = mapper.Map(listFrom);
-        using (var f = listFrom.GetEnumerator())
+        using var f = listFrom.GetEnumerator();
+        using var t = tolist.GetEnumerator();
+        while (f.MoveNext() && t.MoveNext())
         {
-            using (var t = tolist.GetEnumerator())
-            {
-                while (f.MoveNext() && t.MoveNext())
-                {
-                    _testOutputHelper.WriteLine(t.Current.Message);
-                    Assert.Equal(f.Current.Inner.Message, t.Current.Message);
-                    Assert.Equal(f.Current.Inner.GetMessage2(), t.Current.Message2);
-                }
-            }
+            _testOutputHelper.WriteLine(t.Current.Message);
+            Assert.Equal(f.Current.Inner.Message, t.Current.Message);
+            Assert.Equal(f.Current.Inner.GetMessage2(), t.Current.Message2);
         }
     }
 
-    [Theory]
-    [AutoData]
+   
     public void TestCopyList1(List<FromClass> list)
     {
         ArrayList listFrom = new(list.ToArray());
@@ -88,27 +83,27 @@ public class MappingList
 
         var rw1 = new ReadWriteSimple
         {
-            Source = new MemberDescriptor(
+            Source = new(
                 new[]
                 {
                     typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
                     typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[0]
                 }),
-            Destination = new MemberDescriptor(
+            Destination = new(
                 new[] { typeof(ToClass).GetMember(nameof(ToClass.Message))[0] })
         };
 
 
         var rw2 = new ReadWriteSimple
         {
-            Source = new MemberDescriptor(
+            Source = new(
                 new[]
                 {
                     typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
                     typeof(FromClass.InnerClass).GetMember(
                         nameof(FromClass.InnerClass.GetMessage2))[0]
                 }),
-            Destination = new MemberDescriptor(
+            Destination = new(
                 new[] { typeof(ToClass).GetMember(nameof(ToClass.Message2))[0] })
         };
 
@@ -141,28 +136,28 @@ public class MappingList
 
         var rw1 = new ReadWriteSimple
         {
-            Source = new MemberDescriptor(
+            Source = new(
                 new[]
                 {
                     typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
                     typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[
                         0]
                 }),
-            Destination = new MemberDescriptor(
+            Destination = new(
                 new[] { typeof(ToClass).GetMember(nameof(ToClass.Message))[0] })
         };
 
 
         var rw2 = new ReadWriteSimple
         {
-            Source = new MemberDescriptor(
+            Source = new(
                 new[]
                 {
                     typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
                     typeof(FromClass.InnerClass).GetMember(
                         nameof(FromClass.InnerClass.GetMessage2))[0]
                 }),
-            Destination = new MemberDescriptor(
+            Destination = new(
                 new[] { typeof(ToClass).GetMember(nameof(ToClass.Message2))[0] })
         };
 
@@ -174,8 +169,8 @@ public class MappingList
             });
 
         var tolist = mapper.MapEnum(list);
-        var f = list.GetEnumerator();
-        var t = tolist.GetEnumerator();
+        using var f = list.GetEnumerator();
+        using var t = tolist.GetEnumerator();
         while (f.MoveNext() && t.MoveNext())
         {
             _testOutputHelper.WriteLine(t.Current.Message);
@@ -187,7 +182,7 @@ public class MappingList
     [Fact] 
     public void TestDefaultConfigWithEnum()
     {
-        Fixture fixture = new Fixture();
+        Fixture fixture = new();
         List<B2Source> list = fixture.CreateMany<B2Source>(3).ToList();
         //list.FirstOrDefault().N5 = 3.3232423424234M;
         _testOutputHelper.WriteLine(list.Count.ToString());

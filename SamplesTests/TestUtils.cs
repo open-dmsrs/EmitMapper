@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EmitMapper.Samples.SamplesTests;
+namespace SamplesTests;
 
 public static class TestUtils
 {

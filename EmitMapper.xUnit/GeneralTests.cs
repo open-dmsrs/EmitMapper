@@ -19,7 +19,7 @@ public class GeneralTests
         var mapper = ObjectMapperManager.DefaultInstance.GetMapper<ConstructBySource, ConstructByDestination>(
             new DefaultMapConfig().ConstructBy(() => new ConstructByDestination.NestedClass(3))
                 .ConstructBy(() => new ConstructByDestination(-1)));
-        var d = mapper.Map(new ConstructBySource());
+        var d = mapper.Map(new());
         Assert.Equal("ConstructBy_Source::str", d.Field.Str);
         Assert.Equal(3, d.Field.I);
     }
@@ -28,7 +28,7 @@ public class GeneralTests
     public void ConstructByTest2()
     {
         var mapper = ObjectMapperManager.DefaultInstance.GetMapper<string, Guid>(
-            new DefaultMapConfig().ConvertUsing<string, Guid>(s => new Guid(s)));
+            new DefaultMapConfig().ConvertUsing<string, Guid>(s => new(s)));
         var guid = Guid.NewGuid();
         var d = mapper.Map(guid.ToString());
         Assert.Equal(guid, d);
@@ -38,7 +38,7 @@ public class GeneralTests
     public void GeneralTests_ConvertUsing()
     {
         var a = ObjectMapperManager.DefaultInstance.GetMapper<B2, A2>(
-            new DefaultMapConfig().ConvertUsing<string, string>(s => "converted " + s)).Map(new B2());
+            new DefaultMapConfig().ConvertUsing<string, string>(s => "converted " + s)).Map(new());
         Assert.Equal("converted str", a.Str);
     }
 
@@ -60,7 +60,7 @@ public class GeneralTests
     {
         var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B3, A3>();
         //DynamicAssemblyManager.SaveAssembly();
-        var a = mapper.Map(new B3());
+        var a = mapper.Map(new());
         Assert.NotNull(a);
         Assert.Null(a.I1);
         Assert.NotNull(a.I2);
@@ -90,7 +90,7 @@ public class GeneralTests
     public void GeneralTests_Ignore()
     {
         var a = ObjectMapperManager.DefaultInstance.GetMapper<B, A>(
-            new DefaultMapConfig().IgnoreMembers<B, A>(new[] { "Str1" })).Map(new B());
+            new DefaultMapConfig().IgnoreMembers<B, A>(new[] { "Str1" })).Map(new());
         Assert.Equal("Destination::str1", a.Str1);
         Assert.Equal(A.EnType.En2, a.En);
     }
@@ -125,7 +125,7 @@ public class GeneralTests
         var a = new A();
         var b = new B();
 
-        a.Obj = new A.AInt();
+        a.Obj = new();
         b.Obj = null;
 
         var mapper = Context.ObjMan.GetMapper<B, A>();
@@ -139,7 +139,7 @@ public class GeneralTests
     {
         var a = new A();
         var b = new B();
-        a.Obj = new A.AInt { Intern = 15 };
+        a.Obj = new() { Intern = 15 };
 
         var mapper = Context.ObjMan.GetMapper<B, A>();
         mapper.Map(b, a);
@@ -151,7 +151,7 @@ public class GeneralTests
     {
         var mapper = ObjectMapperManager.DefaultInstance.GetMapper<Simple2, Simple1>();
         //DynamicAssemblyManager.SaveAssembly();
-        var s = mapper.Map(new Simple2());
+        var s = mapper.Map(new());
         Assert.Equal(20, s.I);
         Assert.Equal(A.EnType.En2, s.Fld1);
     }
@@ -161,7 +161,7 @@ public class GeneralTests
     {
         var mapper = Context.ObjMan.GetMapper<Class2, Class1>();
         //DynamicAssemblyManager.SaveAssembly();
-        var s = mapper.Map(new Class2 { Fld = 13 });
+        var s = mapper.Map(new() { Fld = 13 });
         Assert.Equal(13, s.Fld);
     }
 
@@ -179,7 +179,7 @@ public class GeneralTests
     {
         var mapper = Context.ObjMan.GetMapper<Struct2, Struct1>();
         //DynamicAssemblyManager.SaveAssembly();
-        var s = mapper.Map(new Struct2 { Fld = 13 });
+        var s = mapper.Map(new() { Fld = 13 });
         Assert.Equal(13, s.Fld);
     }
 
@@ -189,10 +189,10 @@ public class GeneralTests
         var tree = new TreeNode
         {
             Data = "node 1",
-            Next = new TreeNode
+            Next = new()
             {
                 Data = "node 2",
-                Next = new TreeNode
+                Next = new()
                 {
                     Data = "node 3",
                     SubNodes = new[]
@@ -286,8 +286,8 @@ public class GeneralTests
             Console.WriteLine("Source::Source()");
 
             ObjArr = new BInt[2];
-            ObjArr[0] = new BInt { Str = "b objArr 1" };
-            ObjArr[1] = new BInt { Str = "b objArr 2" };
+            ObjArr[0] = new() { Str = "b objArr 1" };
+            ObjArr[1] = new() { Str = "b objArr 2" };
         }
 
         public string Str2 => "Source::str2";
