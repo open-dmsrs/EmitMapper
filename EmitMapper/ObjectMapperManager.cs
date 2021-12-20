@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using EmitMapper.EmitBuilders;
@@ -191,7 +192,7 @@ public class ObjectsMapperDescr
     }
 }
 
-public class MapperKey
+public class MapperKey : IEqualityComparer<MapperKey>, IEquatable<MapperKey>
 {
     private readonly int _hash;
 
@@ -206,16 +207,29 @@ public class MapperKey
         _typeFrom = typeFrom;
         _typeTo = typeTo;
         _mapperName = mapperName;
-#if NET6_0_OR_GREATER || NETSTANDARD
+
         _hash = HashCode.Combine(typeFrom, typeTo, mapperName);
-#else
-        _hash = RuntimeHelpers.GetHashCode(typeFrom)^RuntimeHelpers.GetHashCode(typeTo)^ RuntimeHelpers.GetHashCode(mapperName);
-#endif
     }
 
     public override bool Equals(object obj)
     {
+        if (obj == null)
+            return false;
         var rhs = (MapperKey)obj;
+        return Equals(rhs);
+    }
+
+    public bool Equals(MapperKey x, MapperKey y)
+    {
+        if (x != null)
+            return x.Equals(y);
+        if (y != null)
+            return y.Equals(x);
+        return true;
+    }
+
+    bool IEquatable<MapperKey>.Equals(MapperKey rhs)
+    {
         return _hash == rhs._hash && _typeFrom == rhs._typeFrom && _typeTo == rhs._typeTo
                && _mapperName == rhs._mapperName;
     }
@@ -224,8 +238,15 @@ public class MapperKey
     {
         return _hash;
     }
+
+    public int GetHashCode(MapperKey obj)
+    {
+        return obj.GetHashCode();
+    }
+
     public override string ToString()
     {
         return $"mapperName:{_mapperName}_from:{_typeFrom.FullName}_to:{_typeTo.FullName}";
     }
+
 }

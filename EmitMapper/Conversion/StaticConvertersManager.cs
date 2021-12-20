@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using EmitMapper.EmitInvoker.Methods;
 
 namespace EmitMapper.Conversion;
@@ -83,25 +84,31 @@ public class StaticConvertersManager
         }
     }
 
-    private class TypesPair
+    private class TypesPair : IEqualityComparer<TypesPair>, IEquatable<TypesPair>
     {
         public readonly Type TypeFrom;
 
         public readonly Type TypeTo;
 
+        private readonly int _hash;
         public TypesPair(Type typeFrom, Type typeTo)
         {
             TypeFrom = typeFrom;
             TypeTo = typeTo;
+             
+            _hash = HashCode.Combine(typeFrom, typeTo);
+ 
         }
 
         public override int GetHashCode()
         {
-            return TypeFrom.GetHashCode() + TypeTo.GetHashCode();
+            return _hash;
         }
 
         public override bool Equals(object obj)
         {
+            if (obj == null)
+                return false;
             var rhs = (TypesPair)obj;
             return TypeFrom == rhs.TypeFrom && TypeTo == rhs.TypeTo;
         }
@@ -109,6 +116,26 @@ public class StaticConvertersManager
         public override string ToString()
         {
             return TypeFrom + " -> " + TypeTo;
+        }
+
+        public bool Equals(TypesPair x, TypesPair y)
+        {
+            if (x != null)
+                return x.Equals(y);
+            if (y != null)
+                return y.Equals(x);
+            return true;
+        }
+
+        public int GetHashCode(TypesPair obj)
+        {
+            return obj.GetHashCode();
+        }
+
+        public bool Equals(TypesPair other)
+        {
+            if (other == null) return false;
+            return _hash == other._hash && TypeFrom == other.TypeFrom && TypeTo == other.TypeTo;
         }
     }
 }

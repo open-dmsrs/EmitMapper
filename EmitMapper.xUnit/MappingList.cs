@@ -188,7 +188,7 @@ public class MappingList
         _testOutputHelper.WriteLine(list.Count.ToString());
         
         var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B2Source, A2Destination>();
-
+        mapper = ObjectMapperManager.DefaultInstance.GetMapper<B2Source, A2Destination>();
         var tolist = mapper.MapEnum(list);
         using var f = list.GetEnumerator();
         using var t = tolist.GetEnumerator();
