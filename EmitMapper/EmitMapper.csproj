@@ -9,7 +9,11 @@
 		<AssemblyOriginatorKeyFile>EmitMapper.snk</AssemblyOriginatorKeyFile>
 		<RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
 		<EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
+		<AutoGenerateBindingRedirects>False</AutoGenerateBindingRedirects>
+		<Nullable>disable</Nullable>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 	</PropertyGroup>
+ 
  
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
