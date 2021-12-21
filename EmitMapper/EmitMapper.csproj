@@ -7,6 +7,8 @@
 		<LangVersion>10</LangVersion>
 		<SignAssembly>True</SignAssembly>
 		<AssemblyOriginatorKeyFile>EmitMapper.snk</AssemblyOriginatorKeyFile>
+		<RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
+		<EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
 	</PropertyGroup>
  
 	<ItemGroup>
