@@ -11,14 +11,13 @@ using EmitMapper.Utils;
 namespace EmitMapper.EmitInvoker.Methods;
 
 public static class MethodInvoker
-{
-    private static readonly ThreadSaveCache _TypesCache = new();
+{ 
 
     public static MethodInvokerBase GetMethodInvoker(object targetObject, MethodInfo mi)
     {
         var typeName = "EmitMapper.MethodCaller_" + mi;
 
-        var creator = _TypesCache.Get(
+        var creator = ThreadSaveCache.GetCtor(
             typeName,
             _ =>
             {
