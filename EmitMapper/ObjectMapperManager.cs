@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
+using System.Linq.Expressions;
 using System.Threading;
 using EmitMapper.EmitBuilders;
 using EmitMapper.Mappers;
@@ -20,10 +20,7 @@ public class ObjectMapperManager
 
     private readonly int _instanceCount;
 
-    public ObjectMapperManager()
-    {
-        _instanceCount = Interlocked.Increment(ref _instCount);
-    }
+    public ObjectMapperManager() { _instanceCount = Interlocked.Increment(ref _instCount); }
 
     public static ObjectMapperManager DefaultInstance => _LazyDefaultInstance.Value;
 
@@ -33,10 +30,7 @@ public class ObjectMapperManager
     /// <typeparam name="TFrom">Type of source object</typeparam>
     /// <typeparam name="TTo">Type of destination object</typeparam>
     /// <returns></returns>
-    public ObjectsMapper<TFrom, TTo> GetMapper<TFrom, TTo>()
-    {
-        return new ObjectsMapper<TFrom, TTo>(GetMapperImpl(typeof(TFrom), typeof(TTo), DefaultMapConfig.Instance));
-    }
+    public ObjectsMapper<TFrom, TTo> GetMapper<TFrom, TTo>() { return new ObjectsMapper<TFrom, TTo>(GetMapperImpl(typeof(TFrom), typeof(TTo), DefaultMapConfig.Instance)); }
 
     /// <summary>
     ///     Returns a Mapper instance for specified types.
@@ -45,10 +39,7 @@ public class ObjectMapperManager
     /// <typeparam name="TTo">Type of destination object</typeparam>
     /// <param name="mappingConfigurator">Object which configures mapping.</param>
     /// <returns>Mapper</returns>
-    public ObjectsMapper<TFrom, TTo> GetMapper<TFrom, TTo>(IMappingConfigurator mappingConfigurator)
-    {
-        return new ObjectsMapper<TFrom, TTo>(GetMapperImpl(typeof(TFrom), typeof(TTo), mappingConfigurator));
-    }
+    public ObjectsMapper<TFrom, TTo> GetMapper<TFrom, TTo>(IMappingConfigurator mappingConfigurator) { return new ObjectsMapper<TFrom, TTo>(GetMapperImpl(typeof(TFrom), typeof(TTo), mappingConfigurator)); }
 
     /// <summary>
     ///     Returns a mapper implementation instance for specified types.
@@ -57,16 +48,12 @@ public class ObjectMapperManager
     /// <param name="to">Type of destination object</param>
     /// <param name="mappingConfigurator">Object which configures mapping.</param>
     /// <returns>Mapper</returns>
-    public ObjectsMapperBaseImpl GetMapperImpl(Type from, Type to, IMappingConfigurator mappingConfigurator)
-    {
-        return GetMapperInt(from, to, mappingConfigurator).Mapper;
-    }
+    public ObjectsMapperBaseImpl GetMapperImpl(Type from, Type to, IMappingConfigurator mappingConfigurator) { return GetMapperInt(from, to, mappingConfigurator).Mapper; }
 
     #region Non-public members
 
-    private readonly Dictionary<MapperKey, int> _objectsMapperIds = new();
+    private static readonly ConcurrentDictionary<MapperKey, ObjectsMapperDescr> _objectsMappers = new();
 
-    private readonly List<ObjectsMapperDescr> _objectsMappersList = new();
 
     internal ObjectsMapperDescr GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
     {
@@ -77,13 +64,12 @@ public class ObjectMapperManager
 
             var mapperTypeKey = new MapperKey(from, to, mappingConfigurator.GetConfigurationName());
 
-            if (!_objectsMapperIds.TryGetValue(mapperTypeKey, out var mapperId))
+            if (!_objectsMappers.TryGetValue(mapperTypeKey, out var mapperDescr))
             {
-                Console.WriteLine($"new mapper ID:{mapperId},key:{mapperTypeKey}");
+                Console.WriteLine($"new mapper key:{mapperTypeKey}");
                 var result = new ObjectsMapperDescr(null, mapperTypeKey, 0);
-                AddMapper(result);
 
-                var mapperTypeName = GetMapperTypeName(from, to);
+                var mapperTypeName = mapperTypeKey.GetMapperTypeName();
                 ObjectsMapperBaseImpl createdMapper;
                 if (MapperPrimitiveImpl.IsSupportedType(to))
                 {
@@ -94,30 +80,35 @@ public class ObjectMapperManager
                     var mapper = GetMapperInt(
                         MapperForCollectionImpl.GetSubMapperTypeFrom(from),
                         MapperForCollectionImpl.GetSubMapperTypeTo(to),
-                        mappingConfigurator);
+                        mappingConfigurator
+                    );
 
                     createdMapper = MapperForCollectionImpl.CreateInstance(
-                        mapperTypeName + GetNextMapperId(),
+                        mapperTypeName,
                         this,
                         from,
                         to,
                         mapper,
-                        mappingConfigurator);
+                        mappingConfigurator
+                    );
                 }
                 else
                 {
                     createdMapper = BuildObjectsMapper(
-                        mapperTypeName + GetNextMapperId(),
+                        mapperTypeName,
                         from,
                         to,
-                        mappingConfigurator);
+                        mappingConfigurator
+                    );
                 }
 
                 result.Mapper = createdMapper;
-                return result;
+                if (_objectsMappers.TryAdd(mapperTypeKey, result))
+                    return result;
+                throw new EmitMapperException("重复的Key，无法加入缓存");
             }
 
-            return _objectsMappersList[mapperId];
+            return mapperDescr;
         }
     }
 
@@ -133,44 +124,11 @@ public class ObjectMapperManager
         var mappingBuilder = new MappingBuilder(this, from, to, typeBuilder, mappingConfigurator);
         mappingBuilder.BuildCopyImplMethod();
 
-        var result = (ObjectsMapperBaseImpl)Activator.CreateInstance(typeBuilder.CreateType());
+        var result = Expression.Lambda<Func<ObjectsMapperBaseImpl>>(Expression.New(typeBuilder.CreateType()))
+            .Compile()
+            .Invoke();
         result.Initialize(this, from, to, mappingConfigurator, mappingBuilder.StoredObjects.ToArray());
         return result;
-    }
-
-    private ObjectsMapperDescr GetMapperByKey(MapperKey key)
-    {
-        return _objectsMappersList[_objectsMapperIds[key]];
-    }
-
-    private int AddMapper(ObjectsMapperDescr descr)
-    {
-        descr.Id = _objectsMappersList.Count;
-        _objectsMappersList.Add(descr);
-        _objectsMapperIds.Add(descr.Key, descr.Id);
-        return descr.Id;
-    }
-
-    private int GetNextMapperId()
-    {
-        return _objectsMapperIds.Count;
-    }
-
-    private bool IsMapperCreated(MapperKey key)
-    {
-        return _objectsMapperIds.ContainsKey(key);
-    }
-
-    private string GetMapperTypeKey(Type from, Type to, string mapperName)
-    {
-        return GetMapperTypeName(from, to) + (mapperName ?? "");
-    }
-
-    private string GetMapperTypeName(Type from, Type to)
-    {
-        var fromFullName = from == null ? "null" : from.FullName;
-        var toFullName = to == null ? "null" : to.FullName;
-        return "ObjectsMapper" + _instanceCount + "_" + fromFullName + "_" + toFullName;
     }
 
     #endregion
@@ -196,27 +154,19 @@ public class MapperKey : IEqualityComparer<MapperKey>, IEquatable<MapperKey>
 {
     private readonly int _hash;
 
-    private readonly string _mapperName;
+    private readonly string _configName;
 
     private readonly Type _typeFrom;
 
     private readonly Type _typeTo;
 
-    public MapperKey(Type typeFrom, Type typeTo, string mapperName)
+    public MapperKey(Type typeFrom, Type typeTo, string configName)
     {
         _typeFrom = typeFrom;
         _typeTo = typeTo;
-        _mapperName = mapperName;
+        _configName = configName;
 
-        _hash = HashCode.Combine(typeFrom, typeTo, mapperName);
-    }
-
-    public override bool Equals(object obj)
-    {
-        if (obj == null)
-            return false;
-        var rhs = (MapperKey)obj;
-        return Equals(rhs);
+        _hash = HashCode.Combine(typeFrom, typeTo, configName);
     }
 
     public bool Equals(MapperKey x, MapperKey y)
@@ -228,25 +178,21 @@ public class MapperKey : IEqualityComparer<MapperKey>, IEquatable<MapperKey>
         return true;
     }
 
-    bool IEquatable<MapperKey>.Equals(MapperKey rhs)
+    public int GetHashCode(MapperKey obj) { return obj.GetHashCode(); }
+
+    bool IEquatable<MapperKey>.Equals(MapperKey rhs) { return _hash == rhs._hash && _typeFrom == rhs._typeFrom && _typeTo == rhs._typeTo && _configName == rhs._configName; }
+
+    public string GetMapperTypeName() { return ToString(); }
+
+    public override bool Equals(object obj)
     {
-        return _hash == rhs._hash && _typeFrom == rhs._typeFrom && _typeTo == rhs._typeTo
-               && _mapperName == rhs._mapperName;
+        if (obj == null)
+            return false;
+        var rhs = (MapperKey)obj;
+        return Equals(rhs);
     }
 
-    public override int GetHashCode()
-    {
-        return _hash;
-    }
+    public override int GetHashCode() { return _hash; }
 
-    public int GetHashCode(MapperKey obj)
-    {
-        return obj.GetHashCode();
-    }
-
-    public override string ToString()
-    {
-        return $"mapperName:{_mapperName}_from:{_typeFrom.FullName}_to:{_typeTo.FullName}";
-    }
-
+    public override string ToString() { return $"F_{_typeFrom?.FullName ?? "null"}_T_{_typeTo?.FullName ?? "null"}_{_configName ?? "null"}"; }
 }

@@ -11,7 +11,7 @@ using EmitMapper.Utils;
 namespace EmitMapper.EmitInvoker.Methods;
 
 public static class MethodInvoker
-{ 
+{
 
     public static MethodInvokerBase GetMethodInvoker(object targetObject, MethodInfo mi)
     {
@@ -73,7 +73,7 @@ public static class MethodInvoker
         if (par.Length == 3)
             actionCallerType = typeof(MethodInvokerAction3);
         else
-            new EmitMapperException("too many method parameters");
+            throw new EmitMapperException("too many method parameters");
 
         var tb = DynamicAssemblyManager.DefineType(typeName, actionCallerType);
 

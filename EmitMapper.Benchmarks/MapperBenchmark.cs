@@ -18,6 +18,7 @@ public class MapperBenchmark
     private B2 _simpleSource;
 
     private BenchSource _benchSource;
+    private List<BenchSource> _benchSources1000List;
     private IMapper _autoMapper;
     private List<B2> _simple1000List;
 
@@ -48,43 +49,44 @@ public class MapperBenchmark
         _simpleSource = fixture.Create<B2>();
         _simple100List = fixture.CreateMany<B2>(100).ToList();
         _simple1000List = fixture.CreateMany<B2>(1000).ToList();
+        _benchSources1000List = fixture.CreateMany<BenchSource>(1000).ToList();
     }
-
-    [Benchmark(OperationsPerInvoke = IterationCount)]
-    public BenchDestination EmitMapper_BenchSource()
-    {
-        return _benchSourceEmitMapper.Map(_benchSource);
-    }
-
-    [Benchmark(OperationsPerInvoke = IterationCount)]
-    public BenchDestination AutoMapper_BenchSource()
-    {
-        return _autoMapper.Map<BenchSource, BenchDestination>(_benchSource);
-    }
-
-    [Benchmark(OperationsPerInvoke = IterationCount)]
-    public A2 EmitMapper_Simple()
-    {
-        return _simpleEmitMapper.Map(_simpleSource);
-    }
-
-    [Benchmark(OperationsPerInvoke = IterationCount)]
-    public A2 AutoMapper_Simple()
-    {
-        return _autoMapper.Map<B2, A2>(_simpleSource);
-    }
-
-    [Benchmark(OperationsPerInvoke = IterationCount)]
-    public List<A2> EmitMapper_SimpleList100()
-    {
-        return _simpleEmitMapper.MapEnum(_simple100List).ToList();
-    }
-
-    [Benchmark(OperationsPerInvoke = IterationCount)]
-    public List<A2> AutoMapper_SimpleList100()
-    {
-        return _autoMapper.Map<List<B2>, List<A2>>(_simple100List);
-    }
+    //
+    // [Benchmark(OperationsPerInvoke = IterationCount)]
+    // public BenchDestination EmitMapper_BenchSource()
+    // {
+    //     return _benchSourceEmitMapper.Map(_benchSource);
+    // }
+    //
+    // [Benchmark(OperationsPerInvoke = IterationCount)]
+    // public BenchDestination AutoMapper_BenchSource()
+    // {
+    //     return _autoMapper.Map<BenchSource, BenchDestination>(_benchSource);
+    // }
+    //
+    // [Benchmark(OperationsPerInvoke = IterationCount)]
+    // public A2 EmitMapper_Simple()
+    // {
+    //     return _simpleEmitMapper.Map(_simpleSource);
+    // }
+    //
+    // [Benchmark(OperationsPerInvoke = IterationCount)]
+    // public A2 AutoMapper_Simple()
+    // {
+    //     return _autoMapper.Map<B2, A2>(_simpleSource);
+    // }
+    //
+    // [Benchmark(OperationsPerInvoke = IterationCount)]
+    // public List<A2> EmitMapper_SimpleList100()
+    // {
+    //     return _simpleEmitMapper.MapEnum(_simple100List).ToList();
+    // }
+    //
+    // [Benchmark(OperationsPerInvoke = IterationCount)]
+    // public List<A2> AutoMapper_SimpleList100()
+    // {
+    //     return _autoMapper.Map<List<B2>, List<A2>>(_simple100List);
+    // }
 
     [Benchmark(OperationsPerInvoke = IterationCount)]
     public List<A2> EmitMapper_SimpleList1000()
@@ -92,6 +94,11 @@ public class MapperBenchmark
         return _simpleEmitMapper.MapEnum(_simple1000List).ToList();
     }
 
+    [Benchmark(OperationsPerInvoke = IterationCount)]
+    public List<BenchDestination> EmitMapper_BenchSourceList1000()
+    {
+        return _benchSourceEmitMapper.MapEnum(_benchSources1000List).ToList();
+    }
     [Benchmark(OperationsPerInvoke = IterationCount)]
     public List<A2> AutoMapper_SimpleList1000()
     {
