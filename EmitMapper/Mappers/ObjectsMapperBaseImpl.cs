@@ -25,12 +25,16 @@ public abstract class ObjectsMapperBaseImpl
         object result;
 
         if (SourceFilter != null)
+        {
             if (!(bool)SourceFilter.CallFunc(from, state))
                 return to;
+        }
 
         if (DestinationFilter != null)
+        {
             if (!(bool)DestinationFilter.CallFunc(to, state))
                 return to;
+        }
 
         if (from == null)
         {
@@ -147,8 +151,10 @@ public abstract class ObjectsMapperBaseImpl
 
             var valuesPostProcessor = RootOperation.ValuesPostProcessor;
             if (valuesPostProcessor != null)
+            {
                 ValuesPostProcessor =
                     (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(valuesPostProcessor);
+            }
 
             var converter = RootOperation.Converter;
             if (converter != null)

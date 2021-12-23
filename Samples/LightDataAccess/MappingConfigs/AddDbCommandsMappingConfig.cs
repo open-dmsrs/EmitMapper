@@ -50,14 +50,18 @@ internal class AddDbCommandsMappingConfig : IMappingConfigurator
     {
         var members = ReflectionUtils.GetPublicFieldsAndProperties(from);
         if (_includeFields != null)
+        {
             members = members
                 .Where(m => _includeFields.Contains(m.Name.ToUpper()))
                 .ToArray();
+        }
 
         if (_excludeFields != null)
+        {
             members = members
                 .Where(m => !_excludeFields.Contains(m.Name.ToUpper()))
                 .ToArray();
+        }
 
         return members
             .Select(

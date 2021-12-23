@@ -70,7 +70,9 @@ public class FilterConstraints
     {
         Constraints.Add(constraint);
         if (@params != null)
+        {
             foreach (var p in @params)
                 this.Params.Add(p.Key, p.Value);
+        }
     }
 }

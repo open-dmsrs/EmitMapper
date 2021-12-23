@@ -309,6 +309,7 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
                 srcMemberDescr.MemberInfo,
                 destMemberDescr.MemberInfo,
                 shallowCopy) && !processedTypes.Contains(new TypesPair(typeFromMember, typeToMember)))
+        {
             return new ReadWriteComplex
             {
                 Destination = origDestMemberDescr,
@@ -321,6 +322,8 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
                     null,
                     null)
             };
+        }
+
         return new ReadWriteSimple
         {
             Source = origSrcMemberDescr, Destination = origDestMemberDescr, ShallowCopy = shallowCopy

@@ -85,8 +85,11 @@ internal class AstBuildHelper
     public static IAstRefOrAddr ReadPropertyRA(IAstRefOrAddr sourceObject, PropertyInfo propertyInfo)
     {
         if (propertyInfo.PropertyType.IsValueType)
+        {
             return new AstValueToAddr(
                 new AstReadPropertyValue { SourceObject = sourceObject, PropertyInfo = propertyInfo });
+        }
+
         return new AstReadPropertyRef { SourceObject = sourceObject, PropertyInfo = propertyInfo };
     }
 

@@ -22,6 +22,7 @@ public class StaticConvertersManager
         get
         {
             if (_defaultInstance == null)
+            {
                 lock (typeof(StaticConvertersManager))
                 {
                     if (_defaultInstance == null)
@@ -33,6 +34,7 @@ public class StaticConvertersManager
                         _defaultInstance.AddConverterFunc(EMConvert.GetConversionMethod);
                     }
                 }
+            }
 
             return _defaultInstance;
         }

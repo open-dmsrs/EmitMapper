@@ -646,6 +646,7 @@ internal class MappingOperationsProcessor
 
         var destWriteOp = (DestWriteOperation)mapping;
         if (destWriteOp.Getter != null)
+        {
             return AstBuildHelper.CallMethod(
                 destWriteOp.Getter.GetType().GetMethod("Invoke"),
                 new AstCastclassRef(
@@ -657,6 +658,8 @@ internal class MappingOperationsProcessor
                 {
                     AstBuildHelper.ReadLocalRV(LocState)
                 });
+        }
+
         throw new EmitMapperException("Invalid mapping operations");
     }
 }

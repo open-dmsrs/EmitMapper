@@ -17,8 +17,11 @@ internal class TypeDictionary<T>
         if (generalType.IsGenericTypeDefinition)
         {
             if (generalType.IsInterface)
+            {
                 return (type.IsInterface ? new[] { type } : Type.EmptyTypes).Concat(type.GetInterfaces()).Any(
                     i => i.IsGenericType && i.GetGenericTypeDefinition() == generalType);
+            }
+
             return type.IsGenericType && (type.GetGenericTypeDefinition() == generalType
                                           || type.GetGenericTypeDefinition().IsSubclassOf(generalType));
         }
