@@ -8,7 +8,7 @@
 		<SignAssembly>True</SignAssembly>
 		<AssemblyOriginatorKeyFile>EmitMapper.snk</AssemblyOriginatorKeyFile>
 		<RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
-		<EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 		<AutoGenerateBindingRedirects>False</AutoGenerateBindingRedirects>
 		<Nullable>disable</Nullable>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>

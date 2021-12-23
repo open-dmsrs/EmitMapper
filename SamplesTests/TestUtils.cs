@@ -16,8 +16,10 @@ public static class TestUtils
 
         using IEnumerator<T> er1 = arr1.GetEnumerator(), er2 = arr2.GetEnumerator();
         while (er1.MoveNext() && er2.MoveNext())
+        {
             if (!Equals(er1.Current, er2.Current))
                 return false;
+        }
 
         return true;
     }

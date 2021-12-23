@@ -128,10 +128,13 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
         IMappingConfigurator config = new DbReaderMappingConfig(skipFields, mappingKey);
 
         if (mapperManager != null)
+        {
             return mapperManager.GetMapperImpl(
                 typeof(IDataReader),
                 typeof(TEntity),
                 config);
+        }
+
         return ObjectMapperManager.DefaultInstance.GetMapperImpl(
             typeof(IDataReader),
             typeof(TEntity),
@@ -239,75 +242,143 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
             if (_mappingKey != null)
             {
                 if (memberType == typeof(string))
+                {
                     return new ReaderValuesExtrator<string>(
                         m.Name,
                         (idx, reader) => reader.IsDBNull(idx) ? null : reader.GetString(idx)).ExtrationDelegate;
+                }
+
                 if (memberType == typeof(bool))
+                {
                     return new ReaderValuesExtrator<bool>(m.Name, (idx, reader) => reader.GetBoolean(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(bool?))
+                {
                     return new ReaderValuesExtrator<bool?>(m.Name, (idx, reader) => reader.GetBoolean(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(short))
+                {
                     return new ReaderValuesExtrator<short>(m.Name, (idx, reader) => reader.GetInt16(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(short?))
+                {
                     return new ReaderValuesExtrator<short?>(m.Name, (idx, reader) => reader.GetInt16(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(int))
+                {
                     return new ReaderValuesExtrator<int>(m.Name, (idx, reader) => reader.GetInt32(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(int?))
+                {
                     return new ReaderValuesExtrator<int?>(m.Name, (idx, reader) => reader.GetInt32(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(long))
+                {
                     return new ReaderValuesExtrator<long>(m.Name, (idx, reader) => reader.GetInt64(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(long?))
+                {
                     return new ReaderValuesExtrator<long?>(m.Name, (idx, reader) => reader.GetInt64(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(byte))
+                {
                     return new ReaderValuesExtrator<byte>(m.Name, (idx, reader) => reader.GetByte(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(byte?))
+                {
                     return new ReaderValuesExtrator<byte?>(m.Name, (idx, reader) => reader.GetByte(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(char))
+                {
                     return new ReaderValuesExtrator<char>(m.Name, (idx, reader) => reader.GetChar(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(char?))
+                {
                     return new ReaderValuesExtrator<char?>(m.Name, (idx, reader) => reader.GetChar(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(DateTime))
+                {
                     return new ReaderValuesExtrator<DateTime>(m.Name, (idx, reader) => reader.GetDateTime(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(DateTime?))
+                {
                     return new ReaderValuesExtrator<DateTime?>(m.Name, (idx, reader) => reader.GetDateTime(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(decimal))
+                {
                     return new ReaderValuesExtrator<decimal>(m.Name, (idx, reader) => reader.GetDecimal(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(decimal?))
+                {
                     return new ReaderValuesExtrator<decimal?>(m.Name, (idx, reader) => reader.GetDecimal(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(double))
+                {
                     return new ReaderValuesExtrator<double>(m.Name, (idx, reader) => reader.GetDouble(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(double?))
+                {
                     return new ReaderValuesExtrator<double?>(m.Name, (idx, reader) => reader.GetDouble(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(float))
+                {
                     return new ReaderValuesExtrator<float>(m.Name, (idx, reader) => reader.GetFloat(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(float?))
+                {
                     return new ReaderValuesExtrator<float?>(m.Name, (idx, reader) => reader.GetFloat(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(Guid))
+                {
                     return new ReaderValuesExtrator<Guid>(m.Name, (idx, reader) => reader.GetGuid(idx))
                         .ExtrationDelegate;
+                }
+
                 if (memberType == typeof(Guid?))
+                {
                     return new ReaderValuesExtrator<Guid?>(m.Name, (idx, reader) => reader.GetGuid(idx))
                         .ExtrationDelegate;
+                }
             }
 
             var converter = StaticConvertersManager.DefaultInstance.GetStaticConverterFunc(typeof(object), memberType);

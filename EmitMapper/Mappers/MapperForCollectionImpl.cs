@@ -274,6 +274,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
             result = new ArrayList();
 
         foreach (var obj in from)
+        {
             if (obj == null)
             {
                 result.Add(null);
@@ -286,6 +287,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
                     MappingConfigurator);
                 result.Add(mapper.Map(obj));
             }
+        }
 
         return result;
     }

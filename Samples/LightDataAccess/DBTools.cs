@@ -213,6 +213,7 @@ public static class DbTools
         result.CommandText = commandText;
         result.CommandType = CommandType.Text;
         if (cmdParams != null)
+        {
             foreach (var param in cmdParams)
             {
                 object value;
@@ -224,6 +225,7 @@ public static class DbTools
                     value = param.Value;
                 result.AddParam(param.Key, value);
             }
+        }
 
         return result;
     }
@@ -478,7 +480,10 @@ public static class DbTools
                 dbSettings
             )
         )
+        {
             return cmd.ExecuteNonQueryAsync();
+        }
+
         return Task.FromResult(0);
     }
 

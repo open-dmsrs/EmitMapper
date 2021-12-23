@@ -5,7 +5,7 @@ namespace EmitMapper.Mappers;
 
 public abstract class CustomMapperImpl : ObjectsMapperBaseImpl
 {
-    public CustomMapperImpl(
+    protected CustomMapperImpl(
         ObjectMapperManager objectMapperManager,
         Type typeFrom,
         Type typeTo,

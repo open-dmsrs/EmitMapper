@@ -10,7 +10,9 @@ internal class AstComplexNode : IAstNode
     public void Compile(CompilationContext context)
     {
         foreach (var node in Nodes)
+        {
             if (node != null)
                 node.Compile(context);
+        }
     }
 }
