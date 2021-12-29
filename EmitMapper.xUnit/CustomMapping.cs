@@ -11,11 +11,11 @@ public class CustomMapping
     {
         var a = Context.ObjMan.GetMapper<B2, A2>(
             new DefaultMapConfig().ConvertUsing<object, string>(v => "333")
-                .ConvertUsing<object, string>(v => "hello").SetConfigName("ignore")).Map(new());
+                .ConvertUsing<object, string>(v => "hello").SetConfigName("ignore")).Map(new B2());
         Assert.Null(a.Fld1);
         Assert.Equal("hello", a.Fld2);
 
-        a = Context.ObjMan.GetMapper<B2, A2>().Map(new());
+        a = Context.ObjMan.GetMapper<B2, A2>().Map(new B2());
         Assert.Equal("B2::fld2", a.Fld2);
     }
 
@@ -23,7 +23,7 @@ public class CustomMapping
     public void Test_CustomConverter2()
     {
         var a = Context.ObjMan.GetMapper<Bb, Aa>(
-            new DefaultMapConfig().ConvertUsing<object, string>(v => "converted " + v)).Map(new());
+            new DefaultMapConfig().ConvertUsing<object, string>(v => "converted " + v)).Map(new Bb());
         Assert.Equal("converted B2::fld1", a.Fld1);
         Assert.Equal("converted B2::fld2", a.Fld2);
     }
@@ -33,7 +33,7 @@ public class CustomMapping
     {
         var str = Context.ObjMan.GetMapper<WithName, string>(
                 new DefaultMapConfig().ConvertUsing<IWithName, string>(v => v.Name).SetConfigName("withinterfaces"))
-            .Map(new() { Name = "thisIsMyName" });
+            .Map(new WithName { Name = "thisIsMyName" });
 
         Assert.Equal("thisIsMyName", str);
     }
@@ -53,7 +53,7 @@ public class CustomMapping
                 {
                     i.Status = "processed";
                     return i;
-                })).Map(new());
+                })).Map(new B3());
         Assert.Equal("B3::Int::str1", a.Fld.Str1);
         Assert.Equal("processed", a.Fld.Str2);
 

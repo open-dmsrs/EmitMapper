@@ -12,12 +12,11 @@ namespace EmitMapper.EmitInvoker.Methods;
 
 public static class MethodInvoker
 {
-
     public static MethodInvokerBase GetMethodInvoker(object targetObject, MethodInfo mi)
     {
         var typeName = "EmitMapper.MethodCaller_" + mi;
 
-        var creator = ThreadSaveCache.GetCtor(
+        var creator = ThreadSaveCache.GetCreator(
             typeName,
             _ =>
             {
@@ -37,14 +36,14 @@ public static class MethodInvoker
         Type funcCallerType = null;
         if (par.Length == 0)
             funcCallerType = typeof(MethodInvokerFunc0);
-        if (par.Length == 1)
+        else if (par.Length == 1)
             funcCallerType = typeof(MethodInvokerFunc1);
-        if (par.Length == 2)
+        else if (par.Length == 2)
             funcCallerType = typeof(MethodInvokerFunc2);
-        if (par.Length == 3)
+        else if (par.Length == 3)
             funcCallerType = typeof(MethodInvokerFunc3);
         else
-            new EmitMapperException("too many method parameters");
+            throw new EmitMapperException("too many method parameters");
 
         var tb = DynamicAssemblyManager.DefineType(typeName, funcCallerType);
 
@@ -66,11 +65,11 @@ public static class MethodInvoker
         Type actionCallerType = null;
         if (par.Length == 0)
             actionCallerType = typeof(MethodInvokerAction0);
-        if (par.Length == 1)
+        else if (par.Length == 1)
             actionCallerType = typeof(MethodInvokerAction1);
-        if (par.Length == 2)
+        else if (par.Length == 2)
             actionCallerType = typeof(MethodInvokerAction2);
-        if (par.Length == 3)
+        else if (par.Length == 3)
             actionCallerType = typeof(MethodInvokerAction3);
         else
             throw new EmitMapperException("too many method parameters");

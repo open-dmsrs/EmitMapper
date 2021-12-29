@@ -40,10 +40,14 @@ public class DataContainerToObjectConfigurator : MapConfigBase<DataContainerToOb
                                 {
                                     if (item is not DataContainer container)
                                         return ValueToWrite<object>.Skip();
-                                    if (container.Fields == null || !container.Fields.TryGetValue(fieldName, out var value))
+                                    if (container.Fields == null ||
+                                        !container.Fields.TryGetValue(fieldName, out var value))
                                         return ValueToWrite<object>.Skip();
                                     var destinationType = ReflectionUtils.GetMemberType(destinationMember);
-                                    var destinationMemberValue = ReflectionUtils.ConvertValue(value, fieldType, destinationType);
+                                    var destinationMemberValue = ReflectionUtils.ConvertValue(
+                                        value,
+                                        fieldType,
+                                        destinationType);
                                     return ValueToWrite<object>.ReturnValue(destinationMemberValue);
                                 })
                             };

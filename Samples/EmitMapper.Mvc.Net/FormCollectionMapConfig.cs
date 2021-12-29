@@ -1,11 +1,11 @@
-﻿using EmitMapper.Conversion;
+﻿using System;
+using System.Linq;
+using EmitMapper.Conversion;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace EmitMapper.Mvc.Net;
@@ -26,22 +26,15 @@ public class FormCollectionMapConfig : IMappingConfigurator
                             (
                                 (form, valueProviderObj) =>
                                 {
-
                                     if (((FormCollection)form).TryGetValue(m.Name, out var res))
-                                        return ValueToWrite<object>.ReturnValue(Convert(new ValueProviderResult(res), ReflectionUtils.GetMemberType(m)));
+                                        return ValueToWrite<object>.ReturnValue(
+                                            Convert(new ValueProviderResult(res), ReflectionUtils.GetMemberType(m)));
                                     return ValueToWrite<object>.Skip();
                                 }
                             )
                     }
             )
             .ToArray();
-    }
-
-    private object Convert(ValueProviderResult valueProviderResult, Type type)
-    {
-        
-
-        throw new NotImplementedException();
     }
 
     public string GetConfigurationName()
@@ -57,5 +50,10 @@ public class FormCollectionMapConfig : IMappingConfigurator
     public StaticConvertersManager GetStaticConvertersManager()
     {
         return null;
+    }
+
+    private object Convert(ValueProviderResult valueProviderResult, Type type)
+    {
+        throw new NotImplementedException();
     }
 }

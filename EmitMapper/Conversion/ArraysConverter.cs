@@ -69,14 +69,12 @@ internal class ArraysConverterProvider : ICustomConverterProvider
         var tFrom = tFromTypeArgs[0];
         var tTo = tToTypeArgs[0];
         if (tFrom == tTo && (tFrom.IsValueType || mappingConfig.GetRootMappingOperation(tFrom, tTo).ShallowCopy))
-        {
             return new CustomConverterDescriptor
             {
                 ConversionMethodName = "Convert",
                 ConverterImplementation = typeof(ArraysConverterOneTypes<>),
                 ConverterClassTypeArguments = new[] { tFrom }
             };
-        }
 
         return new CustomConverterDescriptor
         {

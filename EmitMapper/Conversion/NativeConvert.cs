@@ -56,22 +56,18 @@ internal class NativeConverter
             return sourceValue;
 
         if (destinationType == typeof(string))
-        {
             return new AstCallMethodRef(
                 typeof(NativeConverter).GetMethod(nameof(ObjectToString), BindingFlags.NonPublic | BindingFlags.Static),
                 null,
                 new List<IAstStackItem> { sourceValue });
-        }
 
         foreach (var m in typeof(Convert).GetMethods(BindingFlags.Static | BindingFlags.Public))
-        {
             if (m.ReturnType == destinationType)
             {
                 var parameters = m.GetParameters();
                 if (parameters.Length == 1 && parameters[0].ParameterType == sourceType)
                     return AstBuildHelper.CallMethod(m, null, new List<IAstStackItem> { sourceValue });
             }
-        }
 
         return AstBuildHelper.CallMethod(
             typeof(EMConvert).GetMethod("ChangeType", new[] { typeof(object), typeof(Type), typeof(Type) }),

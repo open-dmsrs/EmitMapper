@@ -231,7 +231,7 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
         fromPath ??= Array.Empty<MemberInfo>();
 
         Type from, to;
-        @from = !fromPath.Any() ? fromRoot : ReflectionUtils.GetMemberType(fromPath.Last());
+        from = !fromPath.Any() ? fromRoot : ReflectionUtils.GetMemberType(fromPath.Last());
 
         to = !toPath.Any() ? toRoot : ReflectionUtils.GetMemberType(toPath.Last());
 
@@ -309,7 +309,6 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
                 srcMemberDescr.MemberInfo,
                 destMemberDescr.MemberInfo,
                 shallowCopy) && !processedTypes.Contains(new TypesPair(typeFromMember, typeToMember)))
-        {
             return new ReadWriteComplex
             {
                 Destination = origDestMemberDescr,
@@ -322,7 +321,6 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
                     null,
                     null)
             };
-        }
 
         return new ReadWriteSimple
         {

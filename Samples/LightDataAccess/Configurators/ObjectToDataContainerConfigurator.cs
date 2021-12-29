@@ -16,7 +16,10 @@ public class ObjectToDataContainerConfigurator : MapConfigBase<ObjectToDataConta
     /// <summary>
     ///     Initializes a new instance of the <see cref="ObjectToDataContainerConfigurator" /> class.
     /// </summary>
-    public ObjectToDataContainerConfigurator() { ConstructBy(() => new DataContainer { Fields = new Dictionary<string, string>() }); }
+    public ObjectToDataContainerConfigurator()
+    {
+        ConstructBy(() => new DataContainer { Fields = new Dictionary<string, string>() });
+    }
 
     /// <summary>
     ///     Gets the mapping operations.
@@ -43,7 +46,8 @@ public class ObjectToDataContainerConfigurator : MapConfigBase<ObjectToDataConta
                                 Source = new MemberDescriptor(sourceMember),
                                 Setter = (destination, value, state) =>
                                 {
-                                    if (destination == null || value == null || !(destination is DataContainer container))
+                                    if (destination == null || value == null ||
+                                        !(destination is DataContainer container))
                                         return;
 
                                     // var sourceType = EmitMapper.Utils.ReflectionUtils.GetMemberType(sourceMember);

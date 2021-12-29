@@ -111,7 +111,7 @@ public class CustomizationTest
 
             public Int(int i)
             {
-                this.I = i;
+                I = i;
             }
         }
     }
@@ -146,7 +146,7 @@ public class CustomizationTest
 
             public Int(int i)
             {
-                this.I = i;
+                I = i;
             }
         }
     }

@@ -28,7 +28,7 @@ public class DestinationFilterTest
                         (value, state) =>
                             value is not long && (value is not DestinationTestFilterSrc
                                                   || (value as DestinationTestFilterSrc).I1 != 666)));
-        var dest = mapper.Map(new());
+        var dest = mapper.Map(new DestinationTestFilterSrc());
 
         Assert.Equal(13, dest.I1);
         Assert.Equal(-5, dest.I2);
@@ -36,7 +36,7 @@ public class DestinationFilterTest
         Assert.Equal(0, dest.L1);
         Assert.Null(dest.Str);
 
-        dest = mapper.Map(new() { I1 = 666 }, new());
+        dest = mapper.Map(new DestinationTestFilterSrc { I1 = 666 }, new DestinationTestFilterDest());
         Assert.Equal(0, dest.I1);
     }
 
@@ -51,7 +51,7 @@ public class DestinationFilterTest
                         (value, state) =>
                             value is not long && (value is not DestinationTestFilterSrc
                                                   || (value as DestinationTestFilterSrc).I1 != 666)));
-        var dest = mapper.Map(new());
+        var dest = mapper.Map(new DestinationTestFilterSrc());
 
         Assert.Equal(13, dest.I1);
         Assert.Equal(-5, dest.I2);
@@ -59,7 +59,7 @@ public class DestinationFilterTest
         Assert.Equal(0, dest.L1);
         Assert.Null(dest.Str);
 
-        dest = mapper.Map(new() { I1 = 666 }, new());
+        dest = mapper.Map(new DestinationTestFilterSrc { I1 = 666 }, new DestinationTestFilterDest());
         Assert.Equal(0, dest.I1);
     }
 

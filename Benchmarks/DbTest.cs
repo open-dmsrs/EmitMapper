@@ -56,7 +56,6 @@ internal class DbTest
         sw.Start();
 
         for (var i = 0; i < mappingsCount; i++)
-        {
             using (var con = new SqlConnection(
                        "Data Source=acer\\sqlserver;Initial Catalog=Northwind;Persist Security Info=True;User Id=sa;Password=1"))
             using (var cmd = con.CreateCommand())
@@ -72,7 +71,6 @@ internal class DbTest
                     var list = reader.ToObjects<Customer>("reader1").ToList();
                 }
             }
-        }
 
         sw.Stop();
 
@@ -85,7 +83,6 @@ internal class DbTest
         sw.Start();
 
         for (var i = 0; i < mappingsCount; i++)
-        {
             using (var con = new SqlConnection(
                        "Data Source=acer\\sqlserver;Initial Catalog=Northwind;Persist Security Info=True;User Id=sa;Password=1"))
             using (var cmd = con.CreateCommand())
@@ -101,7 +98,6 @@ internal class DbTest
                     var list = reader.ToObjects<Test>().ToList();
                 }
             }
-        }
 
         sw.Stop();
         return sw.ElapsedMilliseconds;

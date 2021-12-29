@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using EmitMapper.EmitInvoker.Methods;
 
 namespace EmitMapper.Conversion;
@@ -22,7 +21,6 @@ public class StaticConvertersManager
         get
         {
             if (_defaultInstance == null)
-            {
                 lock (typeof(StaticConvertersManager))
                 {
                     if (_defaultInstance == null)
@@ -34,7 +32,6 @@ public class StaticConvertersManager
                         _defaultInstance.AddConverterFunc(EMConvert.GetConversionMethod);
                     }
                 }
-            }
 
             return _defaultInstance;
         }
@@ -93,31 +90,13 @@ public class StaticConvertersManager
         public readonly Type TypeTo;
 
         private readonly int _hash;
+
         public TypesPair(Type typeFrom, Type typeTo)
         {
             TypeFrom = typeFrom;
             TypeTo = typeTo;
-             
+
             _hash = HashCode.Combine(typeFrom, typeTo);
- 
-        }
-
-        public override int GetHashCode()
-        {
-            return _hash;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj == null)
-                return false;
-            var rhs = (TypesPair)obj;
-            return TypeFrom == rhs.TypeFrom && TypeTo == rhs.TypeTo;
-        }
-
-        public override string ToString()
-        {
-            return TypeFrom + " -> " + TypeTo;
         }
 
         public bool Equals(TypesPair x, TypesPair y)
@@ -138,6 +117,21 @@ public class StaticConvertersManager
         {
             if (other == null) return false;
             return _hash == other._hash && TypeFrom == other.TypeFrom && TypeTo == other.TypeTo;
+        }
+
+        public override int GetHashCode()
+        {
+            return _hash;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as TypesPair);
+        }
+
+        public override string ToString()
+        {
+            return TypeFrom + " -> " + TypeTo;
         }
     }
 }

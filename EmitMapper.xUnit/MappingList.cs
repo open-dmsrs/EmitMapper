@@ -30,28 +30,28 @@ public class MappingList
 
         var rw1 = new ReadWriteSimple
         {
-            Source = new(
+            Source = new MemberDescriptor(
                 new[]
                 {
                     typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
                     typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[
                         0]
                 }),
-            Destination = new(
+            Destination = new MemberDescriptor(
                 new[] { typeof(ToClass).GetMember(nameof(ToClass.Message))[0] })
         };
 
 
         var rw2 = new ReadWriteSimple
         {
-            Source = new(
+            Source = new MemberDescriptor(
                 new[]
                 {
                     typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
                     typeof(FromClass.InnerClass).GetMember(
                         nameof(FromClass.InnerClass.GetMessage2))[0]
                 }),
-            Destination = new(
+            Destination = new MemberDescriptor(
                 new[] { typeof(ToClass).GetMember(nameof(ToClass.Message2))[0] })
         };
 
@@ -73,7 +73,7 @@ public class MappingList
         }
     }
 
-   
+
     public void TestCopyList1(List<FromClass> list)
     {
         ArrayList listFrom = new(list.ToArray());
@@ -83,27 +83,27 @@ public class MappingList
 
         var rw1 = new ReadWriteSimple
         {
-            Source = new(
+            Source = new MemberDescriptor(
                 new[]
                 {
                     typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
                     typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[0]
                 }),
-            Destination = new(
+            Destination = new MemberDescriptor(
                 new[] { typeof(ToClass).GetMember(nameof(ToClass.Message))[0] })
         };
 
 
         var rw2 = new ReadWriteSimple
         {
-            Source = new(
+            Source = new MemberDescriptor(
                 new[]
                 {
                     typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
                     typeof(FromClass.InnerClass).GetMember(
                         nameof(FromClass.InnerClass.GetMessage2))[0]
                 }),
-            Destination = new(
+            Destination = new MemberDescriptor(
                 new[] { typeof(ToClass).GetMember(nameof(ToClass.Message2))[0] })
         };
 
@@ -130,34 +130,32 @@ public class MappingList
     [AutoData]
     public void TestCopyEnum(List<FromClass> list)
     {
-
-
         _testOutputHelper.WriteLine(list.Count.ToString());
 
         var rw1 = new ReadWriteSimple
         {
-            Source = new(
+            Source = new MemberDescriptor(
                 new[]
                 {
                     typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
                     typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[
                         0]
                 }),
-            Destination = new(
+            Destination = new MemberDescriptor(
                 new[] { typeof(ToClass).GetMember(nameof(ToClass.Message))[0] })
         };
 
 
         var rw2 = new ReadWriteSimple
         {
-            Source = new(
+            Source = new MemberDescriptor(
                 new[]
                 {
                     typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
                     typeof(FromClass.InnerClass).GetMember(
                         nameof(FromClass.InnerClass.GetMessage2))[0]
                 }),
-            Destination = new(
+            Destination = new MemberDescriptor(
                 new[] { typeof(ToClass).GetMember(nameof(ToClass.Message2))[0] })
         };
 
@@ -179,14 +177,14 @@ public class MappingList
         }
     }
 
-    [Fact] 
+    [Fact]
     public void TestDefaultConfigWithEnum()
     {
         Fixture fixture = new();
-        List<B2Source> list = fixture.CreateMany<B2Source>(3).ToList();
+        var list = fixture.CreateMany<B2Source>(3).ToList();
         //list.FirstOrDefault().N5 = 3.3232423424234M;
         _testOutputHelper.WriteLine(list.Count.ToString());
-        
+
         var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B2Source, A2Destination>();
         mapper = ObjectMapperManager.DefaultInstance.GetMapper<B2Source, A2Destination>();
         var tolist = mapper.MapEnum(list);
@@ -196,25 +194,24 @@ public class MappingList
         {
             _testOutputHelper.WriteLine(f.Current?.N5.ToString());
             var fv = ReflectionUtils.GetPublicFieldsAndProperties(typeof(B2Source))
-                   .Select(m => new
-                   {
-                       m.Name,
-                       FValue = (m as FieldInfo)?.GetValue(f.Current)?.ToString()
-                   });
+                .Select(
+                    m => new
+                    {
+                        m.Name,
+                        FValue = (m as FieldInfo)?.GetValue(f.Current)?.ToString()
+                    });
 
-            var tv = ReflectionUtils.GetPublicFieldsAndProperties(typeof(A2Destination)).Select(m => new
-            {
-                m.Name,
-                TValue = (m as FieldInfo)?.GetValue(t.Current)?.ToString()
-            });
+            var tv = ReflectionUtils.GetPublicFieldsAndProperties(typeof(A2Destination)).Select(
+                m => new
+                {
+                    m.Name,
+                    TValue = (m as FieldInfo)?.GetValue(t.Current)?.ToString()
+                });
 
             var result = fv
-                .Join(tv, a => a.Name, b => b.Name, (a, b) => new { a.Name,  a.FValue,  b.TValue });
+                .Join(tv, a => a.Name, b => b.Name, (a, b) => new { a.Name, a.FValue, b.TValue });
 
-            foreach (var temp in result)
-            {
-                Assert.Equal(temp.FValue, temp.TValue);
-            }
+            foreach (var temp in result) Assert.Equal(temp.FValue, temp.TValue);
         }
     }
 
@@ -238,6 +235,7 @@ public class MappingList
         public string Str8;
         public string Str9;
     }
+
     public class A2Destination
     {
         public int N1;
@@ -257,6 +255,7 @@ public class MappingList
         public string Str8;
         public string Str9;
     }
+
     public class ToClass
     {
         public string Message;

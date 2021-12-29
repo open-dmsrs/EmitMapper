@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using EmitMapper.AST;
 using EmitMapper.AST.Helpers;
@@ -12,21 +11,18 @@ using EmitMapper.Utils;
 namespace EmitMapper.EmitInvoker.Delegates;
 
 public static class DelegateInvoker
-{ 
-
+{
     public static DelegateInvokerBase GetDelegateInvoker(Delegate del)
     {
         var typeName = "EmitMapper.DelegateCaller_" + del;
 
-        var creator = ThreadSaveCache.GetCtor(
+        var creator = ThreadSaveCache.GetCreator(
             typeName,
             key =>
             {
-                
                 if (del.Method.ReturnType == typeof(void))
                     return BuildActionCallerType(key, del);
                 return BuildFuncCallerType(key, del);
-               
             });
         var result = (DelegateInvokerBase)creator();
         result.Del = del;
@@ -75,7 +71,7 @@ public static class DelegateInvoker
         else if (par.Length == 3)
             actionCallerType = typeof(DelegateInvokerAction3);
         else
-           throw new EmitMapperException("too many method parameters");
+            throw new EmitMapperException("too many method parameters");
 
         var tb = DynamicAssemblyManager.DefineType(typeName, actionCallerType);
 

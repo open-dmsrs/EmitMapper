@@ -34,7 +34,7 @@ public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
                         Destination = new MemberDescriptor(destinationMember),
                         Getter = (ValueGetter<object>)((item, state) =>
                         {
-                            if (item is not DataContainer value) 
+                            if (item is not DataContainer value)
                                 return ValueToWrite<object>.Skip();
                             var destinationType = ReflectionUtils.GetMemberType(destinationMember);
 

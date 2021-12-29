@@ -13,7 +13,7 @@ public static class ReflectionUtils
     }
 
     /// <summary>
-    /// Fixed: Get Full hierarchy with all parent interfaces members.
+    ///     Fixed: Get Full hierarchy with all parent interfaces members.
     /// </summary>
     public static MemberInfo[] GetPublicFieldsAndProperties(Type type)
     {

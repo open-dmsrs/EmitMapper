@@ -93,16 +93,12 @@ public class EMConvert
             return typeof(EMConvert).GetMethod(nameof(ObjectToString), BindingFlags.Static | BindingFlags.Public);
 
         if (to.IsEnum)
-        {
             return typeof(EMConvert).GetMethod(nameof(ToEnum), BindingFlags.Static | BindingFlags.Public)
                 .MakeGenericMethod(to, Enum.GetUnderlyingType(to));
-        }
 
         if (IsComplexConvert(from) || IsComplexConvert(to))
-        {
             return typeof(EMConvert).GetMethod(nameof(ChangeTypeGeneric), BindingFlags.Static | BindingFlags.Public)
                 .MakeGenericMethod(from, to);
-        }
 
         return null;
     }
@@ -112,10 +108,8 @@ public class EMConvert
         if (type.IsEnum)
             return true;
         if (ReflectionUtils.IsNullable(type))
-        {
             if (Nullable.GetUnderlyingType(type).IsEnum)
                 return true;
-        }
 
         return false;
     }
@@ -123,10 +117,8 @@ public class EMConvert
     private static object ConvertToEnum(object value, Type typeFrom, Type typeTo)
     {
         if (!typeFrom.IsEnum)
-        {
             if (typeFrom == typeof(string))
                 return Enum.Parse(typeTo, value.ToString());
-        }
 
         return Enum.ToObject(typeTo, Convert.ChangeType(value, Enum.GetUnderlyingType(typeTo)));
     }

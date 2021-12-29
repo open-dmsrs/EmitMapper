@@ -17,7 +17,10 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
     /// <summary>
     ///     Initializes a new instance of the <see cref="EntityToDataContainerPropertyMappingConfigurator" /> class.
     /// </summary>
-    public EntityToDataContainerPropertyMappingConfigurator() { ConstructBy(() => new DataContainer { Fields = new Dictionary<string, string>() }); }
+    public EntityToDataContainerPropertyMappingConfigurator()
+    {
+        ConstructBy(() => new DataContainer { Fields = new Dictionary<string, string>() });
+    }
 
     /// <summary>
     ///     Gets the mapping operations.
@@ -32,8 +35,9 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
                 to,
                 ReflectionUtils.GetPublicFieldsAndProperties(from)
                     .Where(
-                        member => (member.MemberType == MemberTypes.Field || member.MemberType == MemberTypes.Property) &&
-                                  ((PropertyInfo)member).GetGetMethod() != null
+                        member =>
+                            (member.MemberType == MemberTypes.Field || member.MemberType == MemberTypes.Property) &&
+                            ((PropertyInfo)member).GetGetMethod() != null
                     )
                     .Select(
                         sourceMember => (IMappingOperation)new SrcReadOperation

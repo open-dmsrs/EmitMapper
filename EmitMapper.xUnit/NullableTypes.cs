@@ -11,10 +11,10 @@ public class NullableTypes
     public void Nullable_to_Value()
     {
         var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B1, A1>(
-            new DefaultMapConfig().NullSubstitution<B1.Int1, A1.Int1>(state => new(0))
+            new DefaultMapConfig().NullSubstitution<B1.Int1, A1.Int1>(state => new A1.Int1(0))
                 .NullSubstitution<int?, int>(state => 3).NullSubstitution<int?, int?>(state => 4));
         //DynamicAssemblyManager.SaveAssembly();
-        var a = mapper.Map(new());
+        var a = mapper.Map(new B1());
         Assert.Equal(10, a.Fld1);
         Assert.NotNull(a.I);
         Assert.Equal("A1::Int1::s", a.I.S);
@@ -61,7 +61,7 @@ public class NullableTypes
     [Fact]
     public void Test_Nullable()
     {
-        var a = Context.ObjMan.GetMapper<B5, A5>().Map(new());
+        var a = Context.ObjMan.GetMapper<B5, A5>().Map(new B5());
         Assert.Equal(10, a.Fld1.Value);
         Assert.Null(a.Fld2);
         Assert.Equal(A5.En.Value2, a.Fld3.Value);
@@ -75,7 +75,7 @@ public class NullableTypes
     {
         var a = ObjectMapperManager.DefaultInstance
             .GetMapper<B6, A6>(new DefaultMapConfig().DeepMap().ConvertUsing<object, object>(v => null))
-            .Map(new());
+            .Map(new B6());
         Assert.Null(a);
     }
 
@@ -83,7 +83,7 @@ public class NullableTypes
     public void Test_Object_Nullable7()
     {
         var a = ObjectMapperManager.DefaultInstance
-            .GetMapper<B7, A7>(new DefaultMapConfig().DeepMap().ConvertUsing<object, int>(v => 100)).Map(new());
+            .GetMapper<B7, A7>(new DefaultMapConfig().DeepMap().ConvertUsing<object, int>(v => 100)).Map(new B7());
 
         Assert.Equal(100, a.I);
     }
@@ -91,7 +91,7 @@ public class NullableTypes
     [Fact]
     public void Value_to_Nullable()
     {
-        var a = Context.ObjMan.GetMapper<B2, A2>().Map(new());
+        var a = Context.ObjMan.GetMapper<B2, A2>().Map(new B2());
         Assert.Equal(10, a.Fld1);
     }
 

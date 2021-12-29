@@ -66,12 +66,10 @@ public class ThreadConnection : IDisposable
         if (_entriesCount <= 1)
         {
             if (_connection != null)
-            {
                 using (_connection)
                 {
                     _connection.Close();
                 }
-            }
 
             _connection = null;
             _entriesCount = 0;

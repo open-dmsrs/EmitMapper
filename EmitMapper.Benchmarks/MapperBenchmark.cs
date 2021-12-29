@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using AutoFixture;
 using AutoMapper;
@@ -18,11 +17,11 @@ public class MapperBenchmark
     private B2 _simpleSource;
 
     private BenchSource _benchSource;
-    private List<BenchSource> _benchSources1000List;
     private IMapper _autoMapper;
     private List<B2> _simple1000List;
 
     private List<B2> _simple100List;
+    private List<BenchSource> _benchSources1000List;
     private ObjectsMapper<B2, A2> _simpleEmitMapper;
 
     private ObjectsMapper<BenchSource, BenchDestination> _benchSourceEmitMapper;
@@ -99,6 +98,7 @@ public class MapperBenchmark
     {
         return _benchSourceEmitMapper.MapEnum(_benchSources1000List).ToList();
     }
+
     [Benchmark(OperationsPerInvoke = IterationCount)]
     public List<A2> AutoMapper_SimpleList1000()
     {

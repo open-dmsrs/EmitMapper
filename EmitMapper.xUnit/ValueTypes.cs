@@ -26,13 +26,13 @@ public class ValueTypes
         b.S2 = bs2;
         b.S.S.I = 13;
         b.S3.S.I = 10;
-        b.S4 = new();
+        b.S4 = new B6From.C1();
         b.S4.S.I = 11;
-        b.S5 = new() { C1 = new() };
+        b.S5 = new B6From.C3Class { C1 = new B6From.C1() };
         b.S5.C1.S.I = 1;
-        b.S5.C2 = new();
+        b.S5.C2 = new B6From.C1();
         b.S5.C2.S.I = 2;
-        b.S5.C3 = new();
+        b.S5.C3 = new B6From.C1();
         b.S5.C3.S.I = 3;
 
         var a = mapper.Map(b);
@@ -215,8 +215,8 @@ public class ValueTypes
 
         public B4()
         {
-            Fld1 = new() { Fld1 = 12.444M };
-            Fld2 = new() { Fld1 = 1111 };
+            Fld1 = new Int { Fld1 = 12.444M };
+            Fld2 = new Int { Fld1 = 1111 };
             Fld3.Fld1 = 444;
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -18,7 +17,7 @@ internal class CompilationContext
     {
         // OutputCommands = TextWriter.Null;
         //outputCommands = Console.Out;
-        OutputCommands = new DebuggerWriter(1,"IL CODE");
+        OutputCommands = new DebuggerWriter(1, "IL CODE");
     }
 
     public CompilationContext(ILGenerator ilGenerator)
