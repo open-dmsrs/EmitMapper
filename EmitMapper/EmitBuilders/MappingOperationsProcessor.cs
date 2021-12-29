@@ -83,21 +83,16 @@ internal class MappingOperationsProcessor
             IAstNode completeOperation = null;
             var operationId = AddObjectToStore(operation);
 
-            if (operation is OperationsBlock block)
-                completeOperation = new MappingOperationsProcessor(this)
-                {
-                    Operations = block.Operations
-                }.ProcessOperations();
-            else if (operation is ReadWriteComplex complex)
-                completeOperation = Process_ReadWriteComplex(complex, operationId);
-            else if (operation is DestSrcReadOperation readOperation)
-                completeOperation = ProcessDestSrcReadOperation(readOperation, operationId);
-            else if (operation is SrcReadOperation srcReadOperation)
-                completeOperation = ProcessSrcReadOperation(srcReadOperation, operationId);
-            else if (operation is DestWriteOperation writeOperation)
-                completeOperation = ProcessDestWriteOperation(writeOperation, operationId);
-            else if (operation is ReadWriteSimple simple)
-                completeOperation = ProcessReadWriteSimple(simple, operationId);
+            completeOperation = operation switch
+            {
+                OperationsBlock block => new MappingOperationsProcessor(this) { Operations = block.Operations }.ProcessOperations(),
+                ReadWriteComplex complex => Process_ReadWriteComplex(complex, operationId),
+                DestSrcReadOperation readOperation => ProcessDestSrcReadOperation(readOperation, operationId),
+                SrcReadOperation srcReadOperation => ProcessSrcReadOperation(srcReadOperation, operationId),
+                DestWriteOperation writeOperation => ProcessDestWriteOperation(writeOperation, operationId),
+                ReadWriteSimple simple => ProcessReadWriteSimple(simple, operationId),
+                _ => null
+            };
 
             if (completeOperation == null) continue;
 

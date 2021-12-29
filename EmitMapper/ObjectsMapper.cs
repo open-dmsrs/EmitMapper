@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using EmitMapper.Mappers;
 
 namespace EmitMapper;
@@ -34,7 +35,19 @@ public class ObjectsMapper<TFrom, TTo>
 
     public IEnumerable<TTo> MapEnum(IEnumerable<TFrom> sourceCollection)
     {
+        if (sourceCollection is List<TFrom>)
+        {
+
+        }
         foreach (var src in sourceCollection)
             yield return Map(src);
+    }
+
+    public List<TTo> MapEnum(List<TFrom> sourceCollection)
+    {
+        var result = new List<TTo>(sourceCollection.Count);
+        foreach (var src in sourceCollection)
+            result.Add(Map(src));
+        return result;
     }
 }

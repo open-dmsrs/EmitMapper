@@ -215,13 +215,12 @@ public static class DbTools
         if (cmdParams != null)
             foreach (var param in cmdParams)
             {
-                object value;
-                if (param.Value is Guid guid)
-                    value = guid.ToGuidStr();
-                else if (param.Value is bool b)
-                    value = b.ToShort();
-                else
-                    value = param.Value;
+                object value = param.Value switch
+                {
+                    Guid guid => guid.ToGuidStr(),
+                    bool b => b.ToShort(),
+                    _ => param.Value
+                };
                 result.AddParam(param.Key, value);
             }
 

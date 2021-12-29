@@ -54,14 +54,13 @@ public static class ReflectionUtils
 
     public static Type GetMemberType(MemberInfo mi)
     {
-        if (mi is PropertyInfo propertyInfo)
-            return propertyInfo.PropertyType;
-        if (mi is FieldInfo fieldInfo)
-            return fieldInfo.FieldType;
-        if (mi is MethodInfo methodInfo)
-            return methodInfo.ReturnType;
-
-        return null;
+        return mi switch
+        {
+            PropertyInfo propertyInfo => propertyInfo.PropertyType,
+            FieldInfo fieldInfo => fieldInfo.FieldType,
+            MethodInfo methodInfo => methodInfo.ReturnType,
+            _ => null
+        };
     }
 
     public static IEnumerable<Tuple<string, Type>> GetDataMemberDefinition(MemberInfo destinationMember)

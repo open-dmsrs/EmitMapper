@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using EmitMapper.Conversion;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
@@ -272,9 +273,12 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
         var mi = genericConverter.GetMethod(converterDescr.ConversionMethodName);
 
-        var converterObj = Activator.CreateInstance(genericConverter);
-        if (converterObj is ICustomConverter)
-            ((ICustomConverter)converterObj).Initialize(from, to, this);
+        var converterObj = Expression.Lambda<Func<object>>(Expression.New(genericConverter)).Compile()();
+
+
+        if (converterObj is not ICustomConverter customConverter)
+            return Delegate.CreateDelegate(typeof(Func<,,>).MakeGenericType(@from, typeof(object), to), converterObj, mi);
+        customConverter.Initialize(@from, to, this);
 
         return Delegate.CreateDelegate(typeof(Func<,,>).MakeGenericType(from, typeof(object), to), converterObj, mi);
     }

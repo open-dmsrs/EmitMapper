@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq.Expressions;
 using System.Threading;
 using EmitMapper.EmitBuilders;
 using EmitMapper.Mappers;
@@ -134,7 +135,8 @@ public class ObjectMapperManager
         var mappingBuilder = new MappingBuilder(this, from, to, typeBuilder, mappingConfigurator);
         mappingBuilder.BuildCopyImplMethod();
 
-        var result = (ObjectsMapperBaseImpl)Activator.CreateInstance(typeBuilder.CreateType());
+        var result = Expression.Lambda<Func<ObjectsMapperBaseImpl>>(
+            Expression.New(typeBuilder.CreateType())).Compile()();
         result.Initialize(this, from, to, mappingConfigurator, mappingBuilder.StoredObjects.ToArray());
         return result;
     }

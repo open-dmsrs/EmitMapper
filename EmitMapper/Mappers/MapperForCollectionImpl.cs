@@ -215,7 +215,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
     private object CopyToIList(IList iList, object from)
     {
         if (iList == null)
-            iList = (IList)Activator.CreateInstance(TypeTo);
+            iList = Expression.Lambda<Func<IList>>(Expression.New(TypeTo)).Compile()();
         foreach (var obj in from is IEnumerable fromEnumerable ? fromEnumerable : new[] { from })
         {
             if (obj == null)

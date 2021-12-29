@@ -33,17 +33,14 @@ public static class MethodInvoker
     private static Type BuildFuncCallerType(string typeName, MethodInfo mi)
     {
         var par = mi.GetParameters();
-        Type funcCallerType = null;
-        if (par.Length == 0)
-            funcCallerType = typeof(MethodInvokerFunc0);
-        else if (par.Length == 1)
-            funcCallerType = typeof(MethodInvokerFunc1);
-        else if (par.Length == 2)
-            funcCallerType = typeof(MethodInvokerFunc2);
-        else if (par.Length == 3)
-            funcCallerType = typeof(MethodInvokerFunc3);
-        else
-            throw new EmitMapperException("too many method parameters");
+        Type funcCallerType = par.Length switch
+        {
+            0 => typeof(MethodInvokerFunc0),
+            1 => typeof(MethodInvokerFunc1),
+            2 => typeof(MethodInvokerFunc2),
+            3 => typeof(MethodInvokerFunc3),
+            _ => throw new EmitMapperException("too many method parameters")
+        };
 
         var tb = DynamicAssemblyManager.DefineType(typeName, funcCallerType);
 
@@ -62,17 +59,14 @@ public static class MethodInvoker
     private static Type BuildActionCallerType(string typeName, MethodInfo mi)
     {
         var par = mi.GetParameters();
-        Type actionCallerType = null;
-        if (par.Length == 0)
-            actionCallerType = typeof(MethodInvokerAction0);
-        else if (par.Length == 1)
-            actionCallerType = typeof(MethodInvokerAction1);
-        else if (par.Length == 2)
-            actionCallerType = typeof(MethodInvokerAction2);
-        else if (par.Length == 3)
-            actionCallerType = typeof(MethodInvokerAction3);
-        else
-            throw new EmitMapperException("too many method parameters");
+        Type actionCallerType = par.Length switch
+        {
+            0 => typeof(MethodInvokerAction0),
+            1 => typeof(MethodInvokerAction1),
+            2 => typeof(MethodInvokerAction2),
+            3 => typeof(MethodInvokerAction3),
+            _ => throw new EmitMapperException("too many method parameters")
+        };
 
         var tb = DynamicAssemblyManager.DefineType(typeName, actionCallerType);
 

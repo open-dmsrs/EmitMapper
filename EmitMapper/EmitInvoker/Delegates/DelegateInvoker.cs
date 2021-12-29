@@ -32,17 +32,14 @@ public static class DelegateInvoker
     private static Type BuildFuncCallerType(string typeName, Delegate del)
     {
         var par = del.Method.GetParameters();
-        Type funcCallerType = null;
-        if (par.Length == 0)
-            funcCallerType = typeof(DelegateInvokerFunc0);
-        else if (par.Length == 1)
-            funcCallerType = typeof(DelegateInvokerFunc1);
-        else if (par.Length == 2)
-            funcCallerType = typeof(DelegateInvokerFunc2);
-        else if (par.Length == 3)
-            funcCallerType = typeof(DelegateInvokerFunc3);
-        else
-            throw new EmitMapperException("too many method parameters");
+        Type funcCallerType = par.Length switch
+        {
+            0 => typeof(DelegateInvokerFunc0),
+            1 => typeof(DelegateInvokerFunc1),
+            2 => typeof(DelegateInvokerFunc2),
+            3 => typeof(DelegateInvokerFunc3),
+            _ => throw new EmitMapperException("too many method parameters")
+        };
 
         var tb = DynamicAssemblyManager.DefineType(typeName, funcCallerType);
 
@@ -61,17 +58,14 @@ public static class DelegateInvoker
     private static Type BuildActionCallerType(string typeName, Delegate del)
     {
         var par = del.Method.GetParameters();
-        Type actionCallerType = null;
-        if (par.Length == 0)
-            actionCallerType = typeof(DelegateInvokerAction0);
-        else if (par.Length == 1)
-            actionCallerType = typeof(DelegateInvokerAction1);
-        else if (par.Length == 2)
-            actionCallerType = typeof(DelegateInvokerAction2);
-        else if (par.Length == 3)
-            actionCallerType = typeof(DelegateInvokerAction3);
-        else
-            throw new EmitMapperException("too many method parameters");
+        Type actionCallerType = par.Length switch
+        {
+            0 => typeof(DelegateInvokerAction0),
+            1 => typeof(DelegateInvokerAction1),
+            2 => typeof(DelegateInvokerAction2),
+            3 => typeof(DelegateInvokerAction3),
+            _ => throw new EmitMapperException("too many method parameters")
+        };
 
         var tb = DynamicAssemblyManager.DefineType(typeName, actionCallerType);
 
