@@ -64,29 +64,30 @@ public class ObjectMapperManager
 
     #region Non-public members
 
-    private readonly Dictionary<MapperKey, ObjectsMapperDescr> _objectsMapperIds = new(new MapperKey(null, null, null));
+    private static readonly Dictionary<MapperKey, ObjectsMapperDescr> _objectsMapperIds =
+        new(new MapperKey(null, null, null, 0));
 
 
     internal ObjectsMapperDescr GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
     {
         to ??= typeof(object);
         from ??= typeof(object);
-        var mapperTypeKey = new MapperKey(from, to, mappingConfigurator.GetConfigurationName());
+        var mapperTypeKey = new MapperKey(from, to, mappingConfigurator.GetConfigurationName(), _CurrentInstanceId);
 
-
-        if (_objectsMapperIds.ContainsKey(mapperTypeKey))
-            return _objectsMapperIds[mapperTypeKey];
+        ObjectsMapperDescr result;
+        if (_objectsMapperIds.TryGetValue(mapperTypeKey, out result))
+            return result;
 
         lock (_objectsMapperIds)
         {
-            if (_objectsMapperIds.ContainsKey(mapperTypeKey))
-                return _objectsMapperIds[mapperTypeKey];
+            if (_objectsMapperIds.TryGetValue(mapperTypeKey, out result))
+                return result;
 
             Debug.WriteLine($"new mapper ID:{_CurrentInstanceId},key:{mapperTypeKey}");
-            var result = new ObjectsMapperDescr(null, mapperTypeKey, 0);
+            result = new ObjectsMapperDescr(null, mapperTypeKey, 0);
             _objectsMapperIds.Add(mapperTypeKey, result);
 
-            var mapperTypeName = mapperTypeKey.GetMapperTypeName(_CurrentInstanceId);
+            var mapperTypeName = mapperTypeKey.GetMapperTypeName();
             ObjectsMapperBaseImpl createdMapper;
             if (MapperPrimitiveImpl.IsSupportedType(to))
             {
@@ -188,9 +189,9 @@ public struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<MapperKey>
     private readonly int _hash;
     private readonly string _mapperTypeName;
 
-    public MapperKey(Type typeFrom, Type typeTo, string configName)
+    public MapperKey(Type typeFrom, Type typeTo, string configName, int currentInstantId)
     {
-        _mapperTypeName = $"{typeFrom?.FullName}_{typeTo?.FullName}_{configName}";
+        _mapperTypeName = $"M{currentInstantId}_{typeFrom?.FullName}_{typeTo?.FullName}_{configName}";
         _hash = _mapperTypeName.GetHashCode();
     }
 
@@ -229,8 +230,8 @@ public struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<MapperKey>
         return _mapperTypeName;
     }
 
-    public string GetMapperTypeName(int instanceCount)
+    public string GetMapperTypeName()
     {
-        return "ObjectsMapper" + instanceCount + "_" + _mapperTypeName;
+        return _mapperTypeName;
     }
 }
