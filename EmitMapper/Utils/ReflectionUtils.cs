@@ -32,8 +32,7 @@ public static class ReflectionUtils
 
     public static MatchedMember[] GetCommonMembers(Type first, Type second, Func<string, string, bool> matcher)
     {
-        if (matcher == null)
-            matcher = (f, s) => f == s;
+        matcher ??= (f, s) => f == s;
         var firstMembers = GetPublicFieldsAndProperties(first);
         var secondMembers = GetPublicFieldsAndProperties(first);
         var result = new List<MatchedMember>();
@@ -70,7 +69,7 @@ public static class ReflectionUtils
 
     public static bool HasDefaultConstructor(Type type)
     {
-        return type.GetConstructor(new Type[0]) != null;
+        return type.GetConstructor(Type.EmptyTypes) != null;
     }
 
     public static object ConvertValue(object value, Type fieldType, Type destinationType)

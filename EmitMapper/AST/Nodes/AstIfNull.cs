@@ -17,7 +17,7 @@ internal class AstIfNull : IAstRefOrValue
         _value = value;
         _ifNullValue = ifNullValue;
         if (!_value.ItemType.IsAssignableFrom(_ifNullValue.ItemType))
-            throw new EmitMapperException("Incorrect ifnull expression");
+            throw new EmitMapperException("Incorrect if null expression");
     }
 
     public Type ItemType => _value.ItemType;

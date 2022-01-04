@@ -62,7 +62,7 @@ internal class AstNewObject : IAstRef
             Type[] types;
             if (ConstructorParams == null || ConstructorParams.Length == 0)
             {
-                types = new Type[0];
+                types = Type.EmptyTypes;
             }
             else
             {
@@ -84,11 +84,7 @@ internal class AstNewObject : IAstRef
             }
             else
             {
-                throw new Exception(
-                    string.Format(
-                        "Constructor for types [{0}] not found in {1}",
-                        types.ToCsv(","),
-                        ObjectType.FullName));
+                throw new Exception($"Constructor for types [{types.ToCsv(",")}] not found in {ObjectType.FullName}");
             }
         }
     }

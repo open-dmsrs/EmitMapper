@@ -13,7 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EmitMapper\EmitMapper.csproj" />
+    <Reference Include="EmitMapper">
+      <HintPath>..\EmitMapper\bin\Release\net6.0\EmitMapper.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

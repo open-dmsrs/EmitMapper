@@ -7,7 +7,7 @@ using EmitMapper.AST.Nodes;
 
 namespace EmitMapper.AST.Helpers;
 
-internal class AstBuildHelper
+internal static class AstBuildHelper
 {
     public static IAstRefOrValue CallMethod(
         MethodInfo methodInfo,

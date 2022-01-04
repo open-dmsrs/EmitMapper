@@ -42,8 +42,7 @@ public abstract class ObjectsMapperBaseImpl
         }
         else
         {
-            if (to == null)
-                to = ConstructTarget();
+            to ??= ConstructTarget();
 
             result = MapImpl(from, to, state);
         }
@@ -137,9 +136,7 @@ public abstract class ObjectsMapperBaseImpl
         StoredObjects = storedObjects;
         if (MappingConfigurator != null)
         {
-            RootOperation = MappingConfigurator.GetRootMappingOperation(typeFrom, typeTo);
-            if (RootOperation == null)
-                RootOperation = new RootMappingOperation(typeFrom, typeTo);
+            RootOperation = MappingConfigurator.GetRootMappingOperation(typeFrom, typeTo) ?? new RootMappingOperation(typeFrom, typeTo);
 
             var constructor = RootOperation.TargetConstructor;
             if (constructor != null)

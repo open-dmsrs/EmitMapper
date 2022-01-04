@@ -48,9 +48,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
     public virtual IRootMappingOperation GetRootMappingOperation(Type from, Type to)
     {
-        var converter = _customConverters.GetValue(new[] { from, to });
-        if (converter == null)
-            converter = GetGenericConverter(from, to);
+        var converter = _customConverters.GetValue(new[] { from, to }) ?? GetGenericConverter(from, to);
 
         return new RootMappingOperation(from, to)
         {
@@ -127,11 +125,11 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     }
 
     /// <summary>
-    ///     Define members which should be ingored
+    ///     Define members which should be ignored
     /// </summary>
     /// <param name="typeFrom">Source type for which ignore members are defining</param>
     /// <param name="typeTo">Destination type for which ignore members are defining</param>
-    /// <param name="ignoreNames">Array of member names which should be ingored</param>
+    /// <param name="ignoreNames">Array of member names which should be ignored</param>
     /// <returns></returns>
     public IMappingConfigurator IgnoreMembers(Type typeFrom, Type typeTo, string[] ignoreNames)
     {
@@ -144,11 +142,11 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     }
 
     /// <summary>
-    ///     Define members which should be ingored
+    ///     Define members which should be ignored
     /// </summary>
     /// <typeparam name="TFrom">Source type for which ignore members are defining</typeparam>
     /// <typeparam name="TTo">Destination type for which ignore members are defining</typeparam>
-    /// <param name="ignoreNames">Array of member names which should be ingored</param>
+    /// <param name="ignoreNames">Array of member names which should be ignored</param>
     /// <returns></returns>
     public IMappingConfigurator IgnoreMembers<TFrom, TTo>(string[] ignoreNames)
     {
@@ -215,36 +213,31 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
         var result = new List<IMappingOperation>();
         foreach (var op in operations)
         {
-            if (op is IReadWriteOperation)
+            if (op is IReadWriteOperation readwrite)
             {
-                var o = op as IReadWriteOperation;
-                if (TestIgnore(from, to, o.Source, o.Destination))
+                if (TestIgnore(from, to, readwrite.Source, readwrite.Destination))
                     continue;
 
-                o.NullSubstitutor =
-                    _nullSubstitutors.GetValue(new[] { o.Source.MemberType, o.Destination.MemberType });
-                o.TargetConstructor = _customConstructors.GetValue(new[] { o.Destination.MemberType });
-                o.Converter = _customConverters.GetValue(new[] { o.Source.MemberType, o.Destination.MemberType });
-                if (o.Converter == null)
-                    o.Converter = GetGenericConverter(o.Source.MemberType, o.Destination.MemberType);
-                o.DestinationFilter = _destinationFilters.GetValue(new[] { o.Destination.MemberType });
-                o.SourceFilter = _sourceFilters.GetValue(new[] { o.Source.MemberType });
+                readwrite.NullSubstitutor =
+                    _nullSubstitutors.GetValue(new[] { readwrite.Source.MemberType, readwrite.Destination.MemberType });
+                readwrite.TargetConstructor = _customConstructors.GetValue(new[] { readwrite.Destination.MemberType });
+                readwrite.Converter = _customConverters.GetValue(new[] { readwrite.Source.MemberType, readwrite.Destination.MemberType }) ?? GetGenericConverter(readwrite.Source.MemberType, readwrite.Destination.MemberType);
+                readwrite.DestinationFilter = _destinationFilters.GetValue(new[] { readwrite.Destination.MemberType });
+                readwrite.SourceFilter = _sourceFilters.GetValue(new[] { readwrite.Source.MemberType });
             }
 
-            if (op is ReadWriteComplex)
+            if (op is ReadWriteComplex readWriteComplex)
             {
-                var o = op as ReadWriteComplex;
-                o.ValuesPostProcessor = _postProcessors.GetValue(new[] { o.Destination.MemberType });
+                readWriteComplex.ValuesPostProcessor = _postProcessors.GetValue(new[] { readWriteComplex.Destination.MemberType });
             }
 
-            if (op is IComplexOperation)
+            if (op is IComplexOperation complexOperation)
             {
-                var o = op as IComplexOperation;
-                var orw = op as IReadWriteOperation;
-                o.Operations = FilterOperations(
+                var orw = complexOperation as IReadWriteOperation;
+                complexOperation.Operations = FilterOperations(
                     orw == null ? from : orw.Source.MemberType,
                     orw == null ? to : orw.Destination.MemberType,
-                    o.Operations).ToList();
+                    complexOperation.Operations).ToList();
             }
 
             result.Add(op);
@@ -264,12 +257,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
         if (converterDescr == null)
             return null;
 
-        Type genericConverter;
-        if (converterDescr.ConverterClassTypeArguments != null && converterDescr.ConverterClassTypeArguments.Length > 0)
-            genericConverter =
-                converterDescr.ConverterImplementation.MakeGenericType(converterDescr.ConverterClassTypeArguments);
-        else
-            genericConverter = converterDescr.ConverterImplementation;
+        var genericConverter = converterDescr.ConverterClassTypeArguments is { Length: > 0 } ? converterDescr.ConverterImplementation.MakeGenericType(converterDescr.ConverterClassTypeArguments) : converterDescr.ConverterImplementation;
 
         var mi = genericConverter.GetMethod(converterDescr.ConversionMethodName);
 
@@ -277,8 +265,8 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
 
         if (converterObj is not ICustomConverter customConverter)
-            return Delegate.CreateDelegate(typeof(Func<,,>).MakeGenericType(@from, typeof(object), to), converterObj, mi);
-        customConverter.Initialize(@from, to, this);
+            return Delegate.CreateDelegate(typeof(Func<,,>).MakeGenericType(from, typeof(object), to), converterObj, mi);
+        customConverter.Initialize(from, to, this);
 
         return Delegate.CreateDelegate(typeof(Func<,,>).MakeGenericType(from, typeof(object), to), converterObj, mi);
     }

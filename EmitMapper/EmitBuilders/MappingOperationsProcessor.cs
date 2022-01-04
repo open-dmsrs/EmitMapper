@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using EmitMapper.AST;
@@ -80,10 +79,9 @@ internal class MappingOperationsProcessor
         var result = new AstComplexNode();
         foreach (var operation in Operations)
         {
-            IAstNode completeOperation = null;
             var operationId = AddObjectToStore(operation);
 
-            completeOperation = operation switch
+            var completeOperation = operation switch
             {
                 OperationsBlock block => new MappingOperationsProcessor(this) { Operations = block.Operations }.ProcessOperations(),
                 ReadWriteComplex complex => Process_ReadWriteComplex(complex, operationId),
@@ -209,11 +207,7 @@ internal class MappingOperationsProcessor
 
     private IAstNode Process_ReadWriteComplex(ReadWriteComplex op, int operationId)
     {
-        IAstNode result;
-        if (op.Converter != null)
-            result = Process_ReadWriteComplex_ByConverter(op, operationId);
-        else
-            result = Process_ReadWriteComplex_Copying(op);
+        var result = op.Converter != null ? Process_ReadWriteComplex_ByConverter(op, operationId) : Process_ReadWriteComplex_Copying(op);
 
         if (op.SourceFilter != null) result = Process_SourceFilter(op, operationId, result);
 
@@ -392,7 +386,7 @@ internal class MappingOperationsProcessor
         if (ReflectionUtils.IsNullable(op.Destination.MemberType))
             processedValue = new AstNewObject(
                 op.Destination.MemberType,
-                new[]
+                new IAstStackItem[]
                 {
                     AstBuildHelper.ReadLocalRV(tempDst)
                 });
@@ -443,8 +437,7 @@ internal class MappingOperationsProcessor
 
     private IAstNode Process_ReadWriteComplex_ByConverter(ReadWriteComplex op, int operationId)
     {
-        IAstNode result;
-        result = AstBuildHelper.WriteMembersChain(
+        var result = AstBuildHelper.WriteMembersChain(
             op.Destination.MembersChain,
             AstBuildHelper.ReadLocalRA(LocTo),
             AstBuildHelper.CallMethod(
@@ -481,7 +474,7 @@ internal class MappingOperationsProcessor
 
     private int AddObjectToStore(object obj)
     {
-        var objectId = StoredObjects.Count();
+        var objectId = StoredObjects.Count;
         StoredObjects.Add(obj);
         return objectId;
     }

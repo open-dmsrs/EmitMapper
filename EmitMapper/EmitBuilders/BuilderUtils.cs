@@ -6,7 +6,7 @@ using EmitMapper.AST.Nodes;
 
 namespace EmitMapper.EmitBuilders;
 
-internal class BuilderUtils
+internal static class BuilderUtils
 {
     /// <summary>
     ///     Copies an argument to local variable

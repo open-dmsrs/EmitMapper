@@ -10,7 +10,7 @@ using EmitMapper.Utils;
 
 namespace EmitMapper.EmitBuilders;
 
-internal class CreateTargetInstanceBuilder
+internal static class CreateTargetInstanceBuilder
 {
     public static void BuildCreateTargetInstanceMethod(Type type, TypeBuilder typeBuilder)
     {

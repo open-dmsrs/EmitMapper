@@ -19,7 +19,7 @@ public class CustomConverterDescriptor
     public string ConversionMethodName { get; set; }
 
     /// <summary>
-    ///     Type arguments for parameterizing generic converter determined by "ConverterImplementation" property.
+    ///     Type arguments for parametrization generic converter determined by "ConverterImplementation" property.
     /// </summary>
     public Type[] ConverterClassTypeArguments { get; set; }
 }

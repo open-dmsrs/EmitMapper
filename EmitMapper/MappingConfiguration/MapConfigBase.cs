@@ -18,7 +18,7 @@ public abstract class MapConfigBase<TDerived> : MapConfigBaseImpl
     /// </summary>
     /// <typeparam name="TFrom">Source type</typeparam>
     /// <typeparam name="To">Destination type</typeparam>
-    /// <param name="converter">Function which converts an inctance of the source type to an instance of the destination type</param>
+    /// <param name="converter">Function which converts an instance of the source type to an instance of the destination type</param>
     /// <returns></returns>
     public new TDerived ConvertUsing<TFrom, To>(Func<TFrom, To> converter)
     {
@@ -53,11 +53,11 @@ public abstract class MapConfigBase<TDerived> : MapConfigBaseImpl
     }
 
     /// <summary>
-    ///     Define members which should be ingored
+    ///     Define members which should be ignored
     /// </summary>
     /// <param name="typeFrom">Source type for which ignore members are defining</param>
     /// <param name="typeTo">Destination type for which ignore members are defining</param>
-    /// <param name="ignoreNames">Array of member names which should be ingored</param>
+    /// <param name="ignoreNames">Array of member names which should be ignored</param>
     /// <returns></returns>
     public new TDerived IgnoreMembers(Type typeFrom, Type typeTo, string[] ignoreNames)
     {
@@ -65,11 +65,11 @@ public abstract class MapConfigBase<TDerived> : MapConfigBaseImpl
     }
 
     /// <summary>
-    ///     Define members which should be ingored
+    ///     Define members which should be ignored
     /// </summary>
     /// <typeparam name="TFrom">Source type for which ignore members are defining</typeparam>
     /// <typeparam name="TTo">Destination type for which ignore members are defining</typeparam>
-    /// <param name="ignoreNames">Array of member names which should be ingored</param>
+    /// <param name="ignoreNames">Array of member names which should be ignored</param>
     /// <returns></returns>
     public new TDerived IgnoreMembers<TFrom, TTo>(string[] ignoreNames)
     {
@@ -101,7 +101,6 @@ public abstract class MapConfigBase<TDerived> : MapConfigBaseImpl
     /// <summary>
     ///     Set unique configuration name to force Emit Mapper create new mapper instead using appropriate cached one.
     /// </summary>
-    /// <param name="mapperName">Configuration name</param>
     /// <returns></returns>
     public new TDerived SetConfigName(string configurationName)
     {

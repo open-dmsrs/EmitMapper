@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq.Expressions;
@@ -19,11 +18,11 @@ public class ObjectMapperManager
 
     private static int _totalInstCount;
 
-    private readonly int _CurrentInstanceId;
+    private readonly int _currentInstanceId;
 
     public ObjectMapperManager()
     {
-        _CurrentInstanceId = Interlocked.Increment(ref _totalInstCount);
+        _currentInstanceId = Interlocked.Increment(ref _totalInstCount);
     }
 
     public static ObjectMapperManager DefaultInstance => _LazyDefaultInstance.Value;
@@ -65,7 +64,7 @@ public class ObjectMapperManager
 
     #region Non-public members
 
-    private static readonly Dictionary<MapperKey, ObjectsMapperDescr> ObjectsMapperIds =
+    private static readonly Dictionary<MapperKey, ObjectsMapperDescr> _ObjectsMapperIds =
         new(new MapperKey(null, null, null, 0));
 
 
@@ -73,19 +72,19 @@ public class ObjectMapperManager
     {
         to ??= typeof(object);
         from ??= typeof(object);
-        var mapperTypeKey = new MapperKey(from, to, mappingConfigurator.GetConfigurationName(), _CurrentInstanceId);
+        var mapperTypeKey = new MapperKey(from, to, mappingConfigurator.GetConfigurationName(), _currentInstanceId);
 
-        if (ObjectsMapperIds.TryGetValue(mapperTypeKey, out var result))
+        if (_ObjectsMapperIds.TryGetValue(mapperTypeKey, out var result))
             return result;
 
-        lock (ObjectsMapperIds)
+        lock (_ObjectsMapperIds)
         {
-            if (ObjectsMapperIds.TryGetValue(mapperTypeKey, out result))
+            if (_ObjectsMapperIds.TryGetValue(mapperTypeKey, out result))
                 return result;
 
-            Debug.WriteLine($"new mapper ID:{_CurrentInstanceId},key:{mapperTypeKey}");
+            Debug.WriteLine($"new mapper ID:{_currentInstanceId},key:{mapperTypeKey}");
             result = new ObjectsMapperDescr(null, mapperTypeKey, 0);
-            ObjectsMapperIds.Add(mapperTypeKey, result);
+            _ObjectsMapperIds.Add(mapperTypeKey, result);
 
             var mapperTypeName = mapperTypeKey.GetMapperTypeName();
             ObjectsMapperBaseImpl createdMapper;
@@ -143,7 +142,7 @@ public class ObjectMapperManager
 
     private int GetNextMapperId()
     {
-        return ObjectsMapperIds.Count;
+        return _ObjectsMapperIds.Count;
     }
 
     #endregion

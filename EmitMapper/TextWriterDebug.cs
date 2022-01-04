@@ -48,14 +48,7 @@ public class DebuggerWriter : TextWriter
         _isOpen = true;
     }
 
-    public override Encoding Encoding
-    {
-        get
-        {
-            if (_encoding == null) _encoding = new UnicodeEncoding(false, false);
-            return _encoding;
-        }
-    }
+    public override Encoding Encoding => _encoding ??= new UnicodeEncoding(false, false);
 
     public int Level { get; }
 
@@ -82,7 +75,7 @@ public class DebuggerWriter : TextWriter
     public override void Write(char[] buffer, int index, int count)
     {
         if (!_isOpen) throw new ObjectDisposedException(null);
-        if (buffer == null || index < 0 || count < 0 || buffer.Length - index < count)
+        if (index < 0 || count < 0 || buffer.Length - index < count)
             base.Write(buffer, index, count); // delegate throw exception to base class
         Debugger.Log(Level, Category, new string(buffer, index, count));
     }

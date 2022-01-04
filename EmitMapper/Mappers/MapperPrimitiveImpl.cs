@@ -44,6 +44,7 @@ internal class MapperPrimitiveImpl : CustomMapperImpl
     /// </summary>
     /// <param name="from">Source object</param>
     /// <param name="to">Destination object</param>
+    /// <param name="state"></param>
     /// <returns>Destination object</returns>
     public override object MapImpl(object from, object to, object state)
     {

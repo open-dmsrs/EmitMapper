@@ -206,8 +206,9 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
 
     private bool MappingItemNameInList(IEnumerable<string> list, ReadWriteSimple mo)
     {
-        return list.Any(l => MatchMembers(l, mo.Destination.MemberInfo.Name))
-               || list.Any(l => MatchMembers(l, mo.Source.MemberInfo.Name));
+        var enumerable = list.ToList();
+        return enumerable.Any(l => MatchMembers(l, mo.Destination.MemberInfo.Name))
+               || enumerable.Any(l => MatchMembers(l, mo.Source.MemberInfo.Name));
     }
 
     private bool TypeInList(IEnumerable<string> list, Type t)
@@ -217,7 +218,8 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
 
     private bool MappingItemTypeInList(IEnumerable<string> list, ReadWriteSimple mo)
     {
-        return TypeInList(list, mo.Destination.MemberType) || TypeInList(list, mo.Source.MemberType);
+        var enumerable = list.ToList();
+        return TypeInList(enumerable, mo.Destination.MemberType) || TypeInList(enumerable, mo.Source.MemberType);
     }
 
     private List<IMappingOperation> GetMappingItems(
@@ -230,10 +232,11 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
         toPath ??= Array.Empty<MemberInfo>();
         fromPath ??= Array.Empty<MemberInfo>();
 
-        Type from, to;
-        from = !fromPath.Any() ? fromRoot : ReflectionUtils.GetMemberType(fromPath.Last());
+        var membersFromPath = fromPath as MemberInfo[] ?? fromPath.ToArray();
+        var from = !membersFromPath.Any() ? fromRoot : ReflectionUtils.GetMemberType(membersFromPath.Last());
 
-        to = !toPath.Any() ? toRoot : ReflectionUtils.GetMemberType(toPath.Last());
+        var memberToPath = toPath as MemberInfo[] ?? toPath.ToArray();
+        var to = !memberToPath.Any() ? toRoot : ReflectionUtils.GetMemberType(memberToPath.Last());
 
         var tp = new TypesPair(from, to);
         processedTypes.Add(tp);
@@ -263,7 +266,7 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
                     continue;
             }
 
-            var op = CreateMappingOperation(processedTypes, fromRoot, toRoot, toPath, fromPath, fromMi, toMi);
+            var op = CreateMappingOperation(processedTypes, fromRoot, toRoot, memberToPath, membersFromPath, fromMi, toMi);
             if (op != null)
                 result.Add(op);
         }
@@ -281,23 +284,25 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
         MemberInfo fromMi,
         MemberInfo toMi)
     {
-        var origDestMemberDescr = new MemberDescriptor(toPath.Concat(new[] { toMi }).ToArray());
-        var origSrcMemberDescr = new MemberDescriptor(fromPath.Concat(new[] { fromMi }).ToArray());
+        var memberInfos = toPath.ToList();
+        var origDestMemberDesc = new MemberDescriptor(memberInfos.Concat(new[] { toMi }).ToArray());
+        var enumerable = fromPath.ToList();
+        var origSrcMemberDesc = new MemberDescriptor(enumerable.Concat(new[] { fromMi }).ToArray());
 
         if (ReflectionUtils.IsNullable(ReflectionUtils.GetMemberType(fromMi)))
         {
-            fromPath = fromPath.Concat(new[] { fromMi });
+            //fromPath = enumerable.Concat(new[] { fromMi });//never use
             fromMi = ReflectionUtils.GetMemberType(fromMi).GetProperty("Value");
         }
 
         if (ReflectionUtils.IsNullable(ReflectionUtils.GetMemberType(toMi)))
         {
-            toPath = fromPath.Concat(new[] { toMi });
+            //toPath = enumerable.Concat(new[] { toMi });//never use
             toMi = ReflectionUtils.GetMemberType(toMi).GetProperty("Value");
         }
 
-        var destMemberDescr = new MemberDescriptor(toPath.Concat(new[] { toMi }).ToArray());
-        var srcMemberDescr = new MemberDescriptor(fromPath.Concat(new[] { fromMi }).ToArray());
+        var destMemberDescr = new MemberDescriptor(memberInfos.Concat(new[] { toMi }).ToArray());
+        var srcMemberDescr = new MemberDescriptor(enumerable.Concat(new[] { fromMi }).ToArray());
         var typeFromMember = srcMemberDescr.MemberType;
         var typeToMember = destMemberDescr.MemberType;
 
@@ -311,8 +316,8 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
                 shallowCopy) && !processedTypes.Contains(new TypesPair(typeFromMember, typeToMember)))
             return new ReadWriteComplex
             {
-                Destination = origDestMemberDescr,
-                Source = origSrcMemberDescr,
+                Destination = origDestMemberDesc,
+                Source = origSrcMemberDesc,
                 ShallowCopy = shallowCopy,
                 Operations = GetMappingItems(
                     processedTypes,
@@ -324,7 +329,7 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
 
         return new ReadWriteSimple
         {
-            Source = origSrcMemberDescr, Destination = origDestMemberDescr, ShallowCopy = shallowCopy
+            Source = origSrcMemberDesc, Destination = origDestMemberDesc, ShallowCopy = shallowCopy
         };
     }
 

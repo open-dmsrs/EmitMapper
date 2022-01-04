@@ -7,7 +7,7 @@ namespace EmitMapper.MappingConfiguration;
 public interface IMappingConfigurator
 {
     /// <summary>
-    ///     Get list of mapping operations. Each mapping mapping defines one copieng operation from source to destination. For
+    ///     Get list of mapping operations. Each mapping mapping defines one coping operation from source to destination. For
     ///     this operation can be additionally defined the following custom operations:
     ///     - Custom getter which extracts values from source
     ///     - Custom values converter which converts extracted from source value

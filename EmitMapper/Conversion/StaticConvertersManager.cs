@@ -103,9 +103,7 @@ public class StaticConvertersManager
         {
             if (x != null)
                 return x.Equals(y);
-            if (y != null)
-                return y.Equals(x);
-            return true;
+            return y == null;
         }
 
         public int GetHashCode(TypesPair obj)

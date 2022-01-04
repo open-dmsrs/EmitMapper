@@ -143,22 +143,22 @@ public class MapperForCollectionImpl : CustomMapperImpl
 
         if (TypeTo.IsArray)
         {
-            if (from is IEnumerable)
-                return CopyToArray((IEnumerable)from);
+            if (from is IEnumerable fromEnumerable)
+                return CopyToArray(fromEnumerable);
             return CopyScalarToArray(from);
         }
 
         if (TypeTo.IsGenericType && TypeTo.GetGenericTypeDefinition() == typeof(List<>))
         {
-            if (from is IEnumerable)
-                return CopyToListInvoke((IEnumerable)from);
+            if (from is IEnumerable fromEnumerable)
+                return CopyToListInvoke(fromEnumerable);
             return CopyToListScalarInvoke(from);
         }
 
         if (TypeTo == typeof(ArrayList))
         {
-            if (from is IEnumerable)
-                return CopyToArrayList((IEnumerable)from);
+            if (from is IEnumerable fromEnumerable)
+                return CopyToArrayList(fromEnumerable);
             return CopyToArrayListScalar(from);
         }
 
@@ -214,8 +214,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
 
     private object CopyToIList(IList iList, object from)
     {
-        if (iList == null)
-            iList = Expression.Lambda<Func<IList>>(Expression.New(TypeTo)).Compile()();
+        iList ??= Expression.Lambda<Func<IList>>(Expression.New(TypeTo)).Compile()();
         foreach (var obj in from is IEnumerable fromEnumerable ? fromEnumerable : new[] { from })
         {
             if (obj == null)
@@ -240,11 +239,11 @@ public class MapperForCollectionImpl : CustomMapperImpl
 
     private Array CopyToArray(IEnumerable from)
     {
-        if (from is ICollection)
+        if (from is ICollection collection)
         {
-            var result = Array.CreateInstance(TypeTo.GetElementType(), ((ICollection)from).Count);
+            var result = Array.CreateInstance(TypeTo.GetElementType(), collection.Count);
             var idx = 0;
-            foreach (var obj in from)
+            foreach (var obj in collection)
                 result.SetValue(_subMapper.Mapper.Map(obj), idx++);
             return result;
         }

@@ -6,7 +6,7 @@ using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Helpers;
 
-internal class CompilationHelper
+internal static class CompilationHelper
 {
     public static void EmitCall(
         CompilationContext context,
@@ -14,8 +14,7 @@ internal class CompilationHelper
         MethodInfo methodInfo,
         List<IAstStackItem> arguments)
     {
-        if (arguments == null)
-            arguments = new List<IAstStackItem>();
+        arguments ??= new List<IAstStackItem>();
         if (invocationObject != null)
             invocationObject.Compile(context);
 
@@ -29,10 +28,7 @@ internal class CompilationHelper
             PrepareValueOnStack(context, args[i].ParameterType, arguments[i].ItemType);
         }
 
-        if (methodInfo.IsVirtual)
-            context.EmitCall(OpCodes.Callvirt, methodInfo);
-        else
-            context.EmitCall(OpCodes.Call, methodInfo);
+        context.EmitCall(methodInfo.IsVirtual ? OpCodes.Callvirt : OpCodes.Call, methodInfo);
     }
 
     public static void PrepareValueOnStack(CompilationContext context, Type desiredType, Type typeOnStack)
