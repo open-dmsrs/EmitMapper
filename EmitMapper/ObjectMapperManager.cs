@@ -65,7 +65,7 @@ public class ObjectMapperManager
 
     #region Non-public members
 
-    private static readonly Dictionary<MapperKey, ObjectsMapperDescr> _objectsMapperIds =
+    private static readonly Dictionary<MapperKey, ObjectsMapperDescr> ObjectsMapperIds =
         new(new MapperKey(null, null, null, 0));
 
 
@@ -75,18 +75,17 @@ public class ObjectMapperManager
         from ??= typeof(object);
         var mapperTypeKey = new MapperKey(from, to, mappingConfigurator.GetConfigurationName(), _CurrentInstanceId);
 
-        ObjectsMapperDescr result;
-        if (_objectsMapperIds.TryGetValue(mapperTypeKey, out result))
+        if (ObjectsMapperIds.TryGetValue(mapperTypeKey, out var result))
             return result;
 
-        lock (_objectsMapperIds)
+        lock (ObjectsMapperIds)
         {
-            if (_objectsMapperIds.TryGetValue(mapperTypeKey, out result))
+            if (ObjectsMapperIds.TryGetValue(mapperTypeKey, out result))
                 return result;
 
             Debug.WriteLine($"new mapper ID:{_CurrentInstanceId},key:{mapperTypeKey}");
             result = new ObjectsMapperDescr(null, mapperTypeKey, 0);
-            _objectsMapperIds.Add(mapperTypeKey, result);
+            ObjectsMapperIds.Add(mapperTypeKey, result);
 
             var mapperTypeName = mapperTypeKey.GetMapperTypeName();
             ObjectsMapperBaseImpl createdMapper;
@@ -144,7 +143,7 @@ public class ObjectMapperManager
 
     private int GetNextMapperId()
     {
-        return _objectsMapperIds.Count;
+        return ObjectsMapperIds.Count;
     }
 
     #endregion
@@ -166,27 +165,7 @@ public class ObjectsMapperDescr
     }
 }
 
-public class LazyConcurrentDictionary<TKey, TValue>
-{
-    private readonly ConcurrentDictionary<TKey, Lazy<TValue>> concurrentDictionary;
-
-    public LazyConcurrentDictionary()
-    {
-        concurrentDictionary = new ConcurrentDictionary<TKey, Lazy<TValue>>();
-    }
-
-    public int Count => concurrentDictionary.Count;
-
-    public TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)
-    {
-        var lazyResult = concurrentDictionary.GetOrAdd(
-            key,
-            k => new Lazy<TValue>(() => valueFactory(k), LazyThreadSafetyMode.ExecutionAndPublication));
-        return lazyResult.Value;
-    }
-}
-
-public struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<MapperKey>
+public class MapperKey : IEqualityComparer<MapperKey>, IEquatable<MapperKey>
 {
     private readonly int _hash;
     private readonly string _mapperTypeName;
