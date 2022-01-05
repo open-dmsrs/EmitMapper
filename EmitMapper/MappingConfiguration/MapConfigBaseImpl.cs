@@ -87,7 +87,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     /// </summary>
     /// <typeparam name="TFrom">Source type</typeparam>
     /// <typeparam name="To">Destination type</typeparam>
-    /// <param name="converter">Function which converts an inctance of the source type to an instance of the destination type</param>
+    /// <param name="converter">Function which converts an instance of the source type to an instance of the destination type</param>
     /// <returns></returns>
     public IMappingConfigurator ConvertUsing<TFrom, To>(Func<TFrom, To> converter)
     {
@@ -200,7 +200,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
         return this;
     }
 
-    protected virtual void RegisterDefaultCollectionConverters()
+    protected void RegisterDefaultCollectionConverters()
     {
         ConvertGeneric(typeof(ICollection<>), typeof(Array), new ArraysConverterProvider());
     }
