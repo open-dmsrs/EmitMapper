@@ -1,5 +1,9 @@
 using System;
+using System.Collections.Concurrent;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
+using EmitMapper.Mappers;
 
 #if !UnitTest
 namespace EmitMapper
@@ -9,6 +13,29 @@ namespace EmitMapperTests
 {
     public static class TypeExtensions
     {
+        private static readonly ConcurrentDictionary<Type, Func<object>> Creators = new(
+            Environment.ProcessorCount,
+            1024);
+        public static object Create(this Type @this)
+        {
+            if (Creators.ContainsKey(@this))
+            {
+                return Creators[@this];
+            }
+
+            lock (Creators)
+            {
+                if (Creators.ContainsKey(@this))
+                {
+                    return Creators[@this];
+                }
+                return Creators.GetOrAdd(@this,
+                    k => Expression.Lambda<Func<object>>(Expression.New(@this))
+                        .Compile()
+                );
+            }
+        }
+
         public static MethodInfo GetMethod(this Type type, string methodName)
         {
             return type.GetTypeInfo().GetMethod(methodName);
