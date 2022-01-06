@@ -20,7 +20,7 @@ public static class DelegateInvoker
             typeName,
             key =>
             {
-                if (del.Method.ReturnType == typeof(void))
+                if (del.Method.ReturnType == TypeHome.Void)
                     return BuildActionCallerType(key, del);
                 return BuildFuncCallerType(key, del);
             });
@@ -34,10 +34,10 @@ public static class DelegateInvoker
         var par = del.Method.GetParameters();
         Type funcCallerType = par.Length switch
         {
-            0 => typeof(DelegateInvokerFunc0),
-            1 => typeof(DelegateInvokerFunc1),
-            2 => typeof(DelegateInvokerFunc2),
-            3 => typeof(DelegateInvokerFunc3),
+            0 => Meta<DelegateInvokerFunc0>.Type,
+            1 => Meta<DelegateInvokerFunc1>.Type,
+            2 => Meta<DelegateInvokerFunc2>.Type,
+            3 => Meta<DelegateInvokerFunc3>.Type,
             _ => throw new EmitMapperException("too many method parameters")
         };
 
@@ -46,10 +46,10 @@ public static class DelegateInvoker
         var methodBuilder = tb.DefineMethod(
             "CallFunc",
             MethodAttributes.Public | MethodAttributes.Virtual,
-            typeof(object),
-            Enumerable.Range(0, par.Length).Select(i => typeof(object)).ToArray());
+            Meta<object>.Type,
+            Enumerable.Range(0, par.Length).Select(i => Meta<object>.Type).ToArray());
 
-        new AstReturn { ReturnType = typeof(object), ReturnValue = CreateCallDelegate(del, par) }.Compile(
+        new AstReturn { ReturnType = Meta<object>.Type, ReturnValue = CreateCallDelegate(del, par) }.Compile(
             new CompilationContext(methodBuilder.GetILGenerator()));
 
         return tb.CreateType();
@@ -60,10 +60,10 @@ public static class DelegateInvoker
         var par = del.Method.GetParameters();
         Type actionCallerType = par.Length switch
         {
-            0 => typeof(DelegateInvokerAction0),
-            1 => typeof(DelegateInvokerAction1),
-            2 => typeof(DelegateInvokerAction2),
-            3 => typeof(DelegateInvokerAction3),
+            0 => Meta<DelegateInvokerAction0>.Type,
+            1 => Meta<DelegateInvokerAction1>.Type,
+            2 => Meta<DelegateInvokerAction2>.Type,
+            3 => Meta<DelegateInvokerAction3>.Type,
             _ => throw new EmitMapperException("too many method parameters")
         };
 
@@ -73,7 +73,7 @@ public static class DelegateInvoker
             "CallAction",
             MethodAttributes.Public | MethodAttributes.Virtual,
             null,
-            Enumerable.Range(0, par.Length).Select(i => typeof(object)).ToArray());
+            Enumerable.Range(0, par.Length).Select(i => Meta<object>.Type).ToArray());
 
         new AstComplexNode { Nodes = new List<IAstNode> { CreateCallDelegate(del, par), new AstReturnVoid() } }.Compile(
             new CompilationContext(methodBuilder.GetILGenerator()));
@@ -87,12 +87,12 @@ public static class DelegateInvoker
             del.GetType().GetMethod("Invoke"),
             new AstCastclassRef(
                 AstBuildHelper.ReadFieldRV(
-                    new AstReadThis { ThisType = typeof(DelegateInvokerBase) },
-                    typeof(DelegateInvokerBase).GetField(
+                    new AstReadThis { ThisType = Meta<DelegateInvokerBase>.Type },
+                    Meta<DelegateInvokerBase>.Type.GetField(
                         nameof(DelegateInvokerBase.Del),
                         BindingFlags.Public | BindingFlags.Instance)),
                 del.GetType()),
-            parameters.Select((p, idx) => (IAstStackItem)AstBuildHelper.ReadArgumentRV(idx + 1, typeof(object)))
+            parameters.Select((p, idx) => (IAstStackItem)AstBuildHelper.ReadArgumentRV(idx + 1, Meta<object>.Type))
                 .ToList());
     }
 }

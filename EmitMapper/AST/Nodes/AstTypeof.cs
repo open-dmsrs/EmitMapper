@@ -10,7 +10,7 @@ internal class AstTypeof : IAstRef
 
     #region IAstStackItem Members
 
-    public Type ItemType => typeof(Type);
+    public Type ItemType => Meta<Type>.Type;
 
     #endregion
 
@@ -19,7 +19,7 @@ internal class AstTypeof : IAstRef
     public void Compile(CompilationContext context)
     {
         context.Emit(OpCodes.Ldtoken, Type);
-        context.EmitCall(OpCodes.Call, typeof(Type).GetMethod(nameof(Type.GetTypeFromHandle)));
+        context.EmitCall(OpCodes.Call, Meta<Type>.Type.GetMethod(nameof(Type.GetTypeFromHandle)));
     }
 
     #endregion

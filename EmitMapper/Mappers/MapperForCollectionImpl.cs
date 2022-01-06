@@ -42,15 +42,15 @@ public class MapperForCollectionImpl : CustomMapperImpl
         ObjectsMapperDescr subMapper,
         IMappingConfigurator mappingConfigurator)
     {
-        var tb = DynamicAssemblyManager.DefineType("GenericListInv_" + mapperName, typeof(MapperForCollectionImpl));
+        var tb = DynamicAssemblyManager.DefineType("GenericListInv_" + mapperName, MapperForCollectionImplType);
 
-        if (typeTo.IsGenericType && typeTo.GetGenericTypeDefinition() == typeof(List<>))
+        if (typeTo.IsGenericType && typeTo.GetGenericTypeDefinition() == TypeHome.List1)
         {
             var methodBuilder = tb.DefineMethod(
                 nameof(CopyToListInvoke),
                 MethodAttributes.Family | MethodAttributes.Virtual,
-                typeof(object),
-                new[] { typeof(IEnumerable) }
+                Meta<object>.Type,
+                new[] { Meta<IEnumerable>.Type }
             );
 
             InvokeCopyImpl(typeTo, nameof(CopyToList)).Compile(new CompilationContext(methodBuilder.GetILGenerator()));
@@ -58,8 +58,8 @@ public class MapperForCollectionImpl : CustomMapperImpl
             methodBuilder = tb.DefineMethod(
                 nameof(CopyToListScalarInvoke),
                 MethodAttributes.Family | MethodAttributes.Virtual,
-                typeof(object),
-                new[] { typeof(object) }
+                Meta<object>.Type,
+                new[] { Meta<object>.Type }
             );
 
             InvokeCopyImpl(typeTo, nameof(CopyToListScalar))
@@ -83,7 +83,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
     internal static bool IsSupportedType(Type type)
     {
         return type.IsArray || type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>) ||
-               type == typeof(ArrayList) || typeof(IList).IsAssignableFrom(type) ||
+               type == Meta<ArrayList>.Type || Meta<IList>.Type.IsAssignableFrom(type) ||
                typeof(IList<>).IsAssignableFrom(type);
     }
 
@@ -103,28 +103,30 @@ public class MapperForCollectionImpl : CustomMapperImpl
 
     private static IAstNode InvokeCopyImpl(Type copiedObjectType, string copyMethodName)
     {
-        var mi = typeof(MapperForCollectionImpl)
+        var mi = MapperForCollectionImplType
             .GetMethod(copyMethodName, BindingFlags.Instance | BindingFlags.NonPublic) // fixed BUG 
             ?.MakeGenericMethod(ExtractElementType(copiedObjectType));
 
         return new AstReturn
         {
-            ReturnType = typeof(object),
+            ReturnType = Meta<object>.Type,
             ReturnValue = AstBuildHelper.CallMethod(
                 mi,
-                AstBuildHelper.ReadThis(typeof(MapperForCollectionImpl)),
-                new List<IAstStackItem> { new AstReadArgumentRef { ArgumentIndex = 1, ArgumentType = typeof(object) } }
+                AstBuildHelper.ReadThis(MapperForCollectionImplType),
+                new List<IAstStackItem> { new AstReadArgumentRef { ArgumentIndex = 1, ArgumentType = Meta<object>.Type } }
             )
         };
     }
+
+    public static readonly Type MapperForCollectionImplType = Meta<MapperForCollectionImpl>.Type;
 
     private static Type ExtractElementType(Type collection)
     {
         if (collection.IsArray)
             return collection.GetElementType();
-        if (collection == typeof(ArrayList))
-            return typeof(object);
-        if (collection.IsGenericType && collection.GetGenericTypeDefinition() == typeof(List<>))
+        if (collection == Meta<ArrayList>.Type)
+            return Meta<object>.Type;
+        if (collection.IsGenericType && collection.GetGenericTypeDefinition() == TypeHome.List1)
             return collection.GetGenericArguments()[0];
         return null;
     }
@@ -148,21 +150,21 @@ public class MapperForCollectionImpl : CustomMapperImpl
             return CopyScalarToArray(from);
         }
 
-        if (TypeTo.IsGenericType && TypeTo.GetGenericTypeDefinition() == typeof(List<>))
+        if (TypeTo.IsGenericType && TypeTo.GetGenericTypeDefinition() == TypeHome.List1)
         {
             if (from is IEnumerable fromEnumerable)
                 return CopyToListInvoke(fromEnumerable);
             return CopyToListScalarInvoke(from);
         }
 
-        if (TypeTo == typeof(ArrayList))
+        if (TypeTo == Meta<ArrayList>.Type)
         {
             if (from is IEnumerable fromEnumerable)
                 return CopyToArrayList(fromEnumerable);
             return CopyToArrayListScalar(from);
         }
 
-        if (typeof(IList).IsAssignableFrom(TypeTo))
+        if (Meta<IList>.Type.IsAssignableFrom(TypeTo))
             return CopyToIList((IList)to, from);
         return null;
     }
@@ -219,7 +221,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
         {
             if (obj == null)
                 iList.Add(null);
-            if (RootOperation == null || RootOperation.ShallowCopy)
+            else if (RootOperation == null || RootOperation.ShallowCopy)
             {
                 iList.Add(obj);
             }

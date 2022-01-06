@@ -92,7 +92,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     public IMappingConfigurator ConvertUsing<TFrom, To>(Func<TFrom, To> converter)
     {
         _customConverters.Add(
-            new[] { typeof(TFrom), typeof(To) },
+            new[] { Meta<TFrom>.Type, Meta<To>.Type },
             (ValueConverter<TFrom, To>)((v, s) => converter(v)));
         return this;
     }
@@ -120,7 +120,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     /// <returns></returns>
     public IMappingConfigurator NullSubstitution<TFrom, TTo>(Func<object, TTo> nullSubstitutor)
     {
-        _nullSubstitutors.Add(new[] { typeof(TFrom), typeof(TTo) }, nullSubstitutor);
+        _nullSubstitutors.Add(new[] { Meta<TFrom>.Type, Meta<TTo>.Type }, nullSubstitutor);
         return this;
     }
 
@@ -150,7 +150,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     /// <returns></returns>
     public IMappingConfigurator IgnoreMembers<TFrom, TTo>(string[] ignoreNames)
     {
-        return IgnoreMembers(typeof(TFrom), typeof(TTo), ignoreNames);
+        return IgnoreMembers(Meta<TFrom>.Type, Meta<TTo>.Type, ignoreNames);
     }
 
     /// <summary>
@@ -161,7 +161,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     /// <returns></returns>
     public IMappingConfigurator ConstructBy<T>(TargetConstructor<T> constructor)
     {
-        _customConstructors.Add(new[] { typeof(T) }, constructor);
+        _customConstructors.Add(new[] { Meta<T>.Type }, constructor);
         return this;
     }
 
@@ -173,7 +173,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     /// <returns></returns>
     public IMappingConfigurator PostProcess<T>(ValuesPostProcessor<T> postProcessor)
     {
-        _postProcessors.Add(new[] { typeof(T) }, postProcessor);
+        _postProcessors.Add(new[] { Meta<T>.Type }, postProcessor);
         return this;
     }
 
@@ -190,19 +190,19 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
     public IMappingConfigurator FilterDestination<T>(ValuesFilter<T> valuesFilter)
     {
-        _destinationFilters.Add(new[] { typeof(T) }, valuesFilter);
+        _destinationFilters.Add(new[] { Meta<T>.Type }, valuesFilter);
         return this;
     }
 
     public IMappingConfigurator FilterSource<T>(ValuesFilter<T> valuesFilter)
     {
-        _sourceFilters.Add(new[] { typeof(T) }, valuesFilter);
+        _sourceFilters.Add(new[] { Meta<T>.Type }, valuesFilter);
         return this;
     }
 
     protected void RegisterDefaultCollectionConverters()
     {
-        ConvertGeneric(typeof(ICollection<>), typeof(Array), new ArraysConverterProvider());
+        ConvertGeneric(typeof(ICollection<>), Meta<Array>.Type, new ArraysConverterProvider());
     }
 
     protected IEnumerable<IMappingOperation> FilterOperations(
@@ -265,10 +265,10 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
 
         if (converterObj is not ICustomConverter customConverter)
-            return Delegate.CreateDelegate(typeof(Func<,,>).MakeGenericType(from, typeof(object), to), converterObj, mi);
+            return Delegate.CreateDelegate(typeof(Func<,,>).MakeGenericType(from, Meta<object>.Type, to), converterObj, mi);
         customConverter.Initialize(from, to, this);
 
-        return Delegate.CreateDelegate(typeof(Func<,,>).MakeGenericType(from, typeof(object), to), converterObj, mi);
+        return Delegate.CreateDelegate(typeof(Func<,,>).MakeGenericType(from, Meta<object>.Type, to), converterObj, mi);
     }
 
     private bool TestIgnore(Type from, Type to, MemberDescriptor fromDescr, MemberDescriptor toDescr)

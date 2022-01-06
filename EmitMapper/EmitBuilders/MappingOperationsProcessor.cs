@@ -64,9 +64,9 @@ internal class MappingOperationsProcessor
             (IAstRef)AstBuildHelper.ReadFieldRA(
                 new AstReadThis
                 {
-                    ThisType = typeof(ObjectsMapperBaseImpl)
+                    ThisType = Meta<ObjectsMapperBaseImpl>.Type
                 },
-                typeof(ObjectsMapperBaseImpl).GetField(
+                Meta<ObjectsMapperBaseImpl>.Type.GetField(
                     nameof(ObjectsMapperBaseImpl.StoredObjects),
                     BindingFlags.Instance | BindingFlags.Public)),
             objectIndex);
@@ -149,8 +149,8 @@ internal class MappingOperationsProcessor
                 destWriteOperation.Getter.GetType().GetMethod("Invoke"),
                 new AstCastclassRef(
                     (IAstRef)AstBuildHelper.ReadMemberRV(
-                        GetStoredObject(operationId, typeof(DestWriteOperation)),
-                        typeof(DestWriteOperation).GetProperty(nameof(DestWriteOperation.Getter))),
+                        GetStoredObject(operationId, Meta<DestWriteOperation>.Type),
+                        Meta<DestWriteOperation>.Type.GetProperty(nameof(DestWriteOperation.Getter))),
                     destWriteOperation.Getter.GetType()),
                 new List<IAstStackItem>
                 {
@@ -256,8 +256,8 @@ internal class MappingOperationsProcessor
                         filterDelegate.GetType().GetMethod("Invoke"),
                         new AstCastclassRef(
                             (IAstRef)AstBuildHelper.ReadMemberRV(
-                                GetStoredObject(operationId, typeof(IReadWriteOperation)),
-                                typeof(IReadWriteOperation).GetProperty(fieldName)),
+                                GetStoredObject(operationId, Meta<IReadWriteOperation>.Type),
+                                Meta<IReadWriteOperation>.Type.GetProperty(fieldName)),
                             filterDelegate.GetType()),
                         new List<IAstStackItem>
                         {
@@ -444,8 +444,8 @@ internal class MappingOperationsProcessor
                 op.Converter.GetType().GetMethod("Invoke"),
                 new AstCastclassRef(
                     (IAstRef)AstBuildHelper.ReadMemberRV(
-                        GetStoredObject(operationId, typeof(ReadWriteComplex)),
-                        typeof(ReadWriteComplex).GetProperty(nameof(ReadWriteComplex.Converter))),
+                        GetStoredObject(operationId, Meta<ReadWriteComplex>.Type),
+                        Meta<ReadWriteComplex>.Type.GetProperty(nameof(ReadWriteComplex.Converter))),
                     op.Converter.GetType()),
                 new List<IAstStackItem>
                 {
@@ -485,7 +485,7 @@ internal class MappingOperationsProcessor
         {
             Exception = new AstNewObject
             {
-                ObjectType = typeof(EmitMapperException),
+                ObjectType = Meta<EmitMapperException>.Type,
                 ConstructorParams = new IAstStackItem[]
                 {
                     new AstConstantString
@@ -496,7 +496,7 @@ internal class MappingOperationsProcessor
                     {
                         LocalIndex = LocException.LocalIndex, LocalType = LocException.LocalType
                     },
-                    GetStoredObject(mappingItemId, typeof(IMappingOperation))
+                    GetStoredObject(mappingItemId, Meta<IMappingOperation>.Type)
                 }
             }
         };
@@ -504,7 +504,7 @@ internal class MappingOperationsProcessor
         var tryCatch = new AstExceptionHandlingBlock(
             writeValue,
             handler,
-            typeof(Exception),
+            Meta<Exception>.Type,
             LocException);
         return tryCatch;
     }
@@ -515,11 +515,11 @@ internal class MappingOperationsProcessor
 
         if (mappingOperation is SrcReadOperation srcReadOperation)
             writeValue = AstBuildHelper.CallMethod(
-                typeof(ValueSetter).GetMethod(nameof(ValueSetter.Invoke)),
+                Meta<ValueSetter>.Type.GetMethod(nameof(ValueSetter.Invoke)),
                 new AstCastclassRef(
                     (IAstRef)AstBuildHelper.ReadMemberRV(
-                        GetStoredObject(mappingItemId, typeof(SrcReadOperation)),
-                        typeof(SrcReadOperation).GetProperty(nameof(SrcReadOperation.Setter))),
+                        GetStoredObject(mappingItemId, Meta<SrcReadOperation>.Type),
+                        Meta<SrcReadOperation>.Type.GetProperty(nameof(SrcReadOperation.Setter))),
                     srcReadOperation.Setter.GetType()),
                 new List<IAstStackItem>
                 {
@@ -542,8 +542,8 @@ internal class MappingOperationsProcessor
                 rwMapOp.Converter.GetType().GetMethod("Invoke"),
                 new AstCastclassRef(
                     (IAstRef)AstBuildHelper.ReadMemberRV(
-                        GetStoredObject(operationId, typeof(ReadWriteSimple)),
-                        typeof(ReadWriteSimple).GetProperty(nameof(ReadWriteSimple.Converter))),
+                        GetStoredObject(operationId, Meta<ReadWriteSimple>.Type),
+                        Meta<ReadWriteSimple>.Type.GetProperty(nameof(ReadWriteSimple.Converter))),
                     rwMapOp.Converter.GetType()),
                 new List<IAstStackItem>
                 {
@@ -577,6 +577,12 @@ internal class MappingOperationsProcessor
         return convertedValue;
     }
 
+    private static readonly MethodInfo MapMethod = Meta<ObjectsMapperBaseImpl>.Type.GetMethod(
+        nameof(ObjectsMapperBaseImpl.Map),
+        new[]
+        {
+            Meta<object>.Type, Meta<object>.Type, Meta<object>.Type
+        });
     private IAstRefOrValue ConvertByMapper(ReadWriteSimple mapping)
     {
         var mapper = ObjectsMapperManager.GetMapperInt(
@@ -585,16 +591,10 @@ internal class MappingOperationsProcessor
             MappingConfigurator);
         var mapperId = AddObjectToStore(mapper);
 
-        var convertedValue = AstBuildHelper.CallMethod(
-            typeof(ObjectsMapperBaseImpl).GetMethod(
-                nameof(ObjectsMapperBaseImpl.Map),
-                new[]
-                {
-                    typeof(object), typeof(object), typeof(object)
-                }),
+        var convertedValue = AstBuildHelper.CallMethod(MapMethod,
             new AstReadFieldRef
             {
-                FieldInfo = typeof(ObjectsMapperDescr).GetField(nameof(ObjectsMapperDescr.Mapper)),
+                FieldInfo = Meta<ObjectsMapperDescr>.Type.GetField(nameof(ObjectsMapperDescr.Mapper)),
                 SourceObject = GetStoredObject(mapperId, mapper.GetType())
             },
             new List<IAstStackItem>
@@ -615,11 +615,11 @@ internal class MappingOperationsProcessor
             operation.Destination.MembersChain);
 
         return AstBuildHelper.CallMethod(
-            typeof(ValueProcessor).GetMethod(nameof(ValueProcessor.Invoke)),
+            Meta<ValueProcessor>.Type.GetMethod(nameof(ValueProcessor.Invoke)),
             new AstCastclassRef(
                 (IAstRef)AstBuildHelper.ReadMemberRV(
-                    GetStoredObject(operationId, typeof(DestSrcReadOperation)),
-                    typeof(DestSrcReadOperation).GetProperty(nameof(DestSrcReadOperation.ValueProcessor))),
+                    GetStoredObject(operationId, Meta<DestSrcReadOperation>.Type),
+                    Meta<DestSrcReadOperation>.Type.GetProperty(nameof(DestSrcReadOperation.ValueProcessor))),
                 operation.ValueProcessor.GetType()),
             new List<IAstStackItem>
             {
@@ -638,8 +638,8 @@ internal class MappingOperationsProcessor
                 destWriteOp.Getter.GetType().GetMethod("Invoke"),
                 new AstCastclassRef(
                     (IAstRef)AstBuildHelper.ReadMemberRV(
-                        GetStoredObject(operationId, typeof(DestWriteOperation)),
-                        typeof(DestWriteOperation).GetProperty(nameof(DestWriteOperation.Getter))),
+                        GetStoredObject(operationId, Meta<DestWriteOperation>.Type),
+                        Meta<DestWriteOperation>.Type.GetProperty(nameof(DestWriteOperation.Getter))),
                     destWriteOp.Getter.GetType()),
                 new List<IAstStackItem>
                 {

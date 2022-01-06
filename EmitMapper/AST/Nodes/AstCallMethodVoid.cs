@@ -23,7 +23,7 @@ internal class AstCallMethodVoid : IAstNode
     {
         new AstCallMethod(MethodInfo, InvocationObject, Arguments).Compile(context);
 
-        if (MethodInfo.ReturnType != typeof(void))
+        if (MethodInfo.ReturnType != TypeHome.Void)
             context.Emit(OpCodes.Pop);
     }
 }

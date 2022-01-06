@@ -17,7 +17,7 @@ internal class AstExprIsNull : IAstValue
 
     #region IAstReturnValueNode Members
 
-    public Type ItemType => typeof(int);
+    public Type ItemType => Meta<int>.Type;
 
     #endregion
 

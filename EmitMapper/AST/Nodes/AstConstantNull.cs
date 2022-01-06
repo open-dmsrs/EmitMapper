@@ -8,7 +8,7 @@ internal class AstConstantNull : IAstRefOrValue
 {
     #region IAstReturnValueNode Members
 
-    public Type ItemType => typeof(object);
+    public Type ItemType => Meta<object>.Type;
 
     #endregion
 

@@ -35,7 +35,7 @@ public class DynamicAssemblyManager
     static DynamicAssemblyManager()
     {
         // var curAssemblyName = Assembly.GetExecutingAssembly().GetName();
-        var curAssemblyName = Assembly.GetAssembly(typeof(DynamicAssemblyManager))?.GetName();
+        var curAssemblyName = Assembly.GetAssembly(Meta<DynamicAssemblyManager>.Type)?.GetName();
 
 #if !SILVERLIGHT
         _AssemblyName = new AssemblyName("EmitMapperAssembly");
@@ -69,7 +69,7 @@ public class DynamicAssemblyManager
             return _ModuleBuilder.DefineType(
                 CorrectTypeName(typeName + Guid.NewGuid().ToString().Replace("-", "")),
                 TypeAttributes.Public,
-                typeof(MapperForClassImpl),
+                Meta<MapperForClassImpl>.Type,
                 null);
         }
     }

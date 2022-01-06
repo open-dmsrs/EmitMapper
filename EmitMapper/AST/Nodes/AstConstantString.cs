@@ -10,7 +10,7 @@ internal class AstConstantString : IAstRef
 
     #region IAstStackItem Members
 
-    public Type ItemType => typeof(string);
+    public Type ItemType => Meta<String>.Type;
 
     #endregion
 

@@ -60,7 +60,7 @@ internal class CompilationContext
     {
         ProcessCommand(
             opCode,
-            (mi.GetParameters().Length + 1) * -1 + (mi.ReturnType == typeof(void) ? 0 : 1),
+            (mi.GetParameters().Length + 1) * -1 + (mi.ReturnType == TypeHome.Void ? 0 : 1),
             mi.ToString());
 
         ILGenerator.EmitCall(opCode, mi, null);

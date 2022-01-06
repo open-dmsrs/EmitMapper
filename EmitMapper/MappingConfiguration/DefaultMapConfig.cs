@@ -30,30 +30,7 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
     }
 
     #endregion
-
-    private class TypesPair
-    {
-        public readonly Type T1;
-
-        public readonly Type T2;
-
-        public TypesPair(Type t1, Type t2)
-        {
-            T1 = t1;
-            T2 = t2;
-        }
-
-        public override bool Equals(object obj)
-        {
-            var rhs = (TypesPair)obj;
-            return T1 == rhs.T1 && T2 == rhs.T2;
-        }
-
-        public override int GetHashCode()
-        {
-            return T1.GetHashCode() + T2.GetHashCode();
-        }
-    }
+  
 
     private class MappingItem
     {
@@ -96,7 +73,7 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
     /// <returns></returns>
     public DefaultMapConfig ShallowMap<T>()
     {
-        return ShallowMap(typeof(T));
+        return ShallowMap(Meta<T>.Type);
     }
 
     /// <summary>
@@ -130,7 +107,7 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
     /// <returns></returns>
     public DefaultMapConfig DeepMap<T>()
     {
-        return DeepMap(typeof(T));
+        return DeepMap(Meta<T>.Type);
     }
 
     /// <summary>
@@ -329,7 +306,9 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
 
         return new ReadWriteSimple
         {
-            Source = origSrcMemberDesc, Destination = origDestMemberDesc, ShallowCopy = shallowCopy
+            Source = origSrcMemberDesc,
+            Destination = origDestMemberDesc,
+            ShallowCopy = shallowCopy
         };
     }
 

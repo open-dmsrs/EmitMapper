@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using EmitMapper.EmitInvoker.Methods;
+using EmitMapper.Utils;
 
 namespace EmitMapper.Conversion;
 
@@ -15,20 +16,20 @@ public class StaticConvertersManager
     private readonly Dictionary<TypesPair, MethodInfo> _typesMethods = new();
 
     private readonly List<Func<Type, Type, MethodInfo>> _typesMethodsFunc = new();
-
+    private static readonly object locker = new object();
     public static StaticConvertersManager DefaultInstance
     {
         get
         {
             if (_defaultInstance == null)
-                lock (typeof(StaticConvertersManager))
+                lock (locker)
                 {
                     if (_defaultInstance == null)
                     {
                         _defaultInstance = new StaticConvertersManager();
-                        _defaultInstance.AddConverterClass(typeof(Convert));
-                        _defaultInstance.AddConverterClass(typeof(EMConvert));
-                        _defaultInstance.AddConverterClass(typeof(NullableConverter));
+                        _defaultInstance.AddConverterClass(TypeHome.Convert);
+                        _defaultInstance.AddConverterClass(Meta<EMConvert>.Type);
+                        _defaultInstance.AddConverterClass(Meta<NullableConverter>.Type);
                         _defaultInstance.AddConverterFunc(EMConvert.GetConversionMethod);
                     }
                 }
@@ -42,7 +43,7 @@ public class StaticConvertersManager
         foreach (var m in converterClass.GetMethods(BindingFlags.Static | BindingFlags.Public))
         {
             var parameters = m.GetParameters();
-            if (parameters.Length == 1 && m.ReturnType != typeof(void))
+            if (parameters.Length == 1 && m.ReturnType != TypeHome.Void)
                 _typesMethods[new TypesPair(parameters[0].ParameterType, m.ReturnType)] = m;
         }
     }
@@ -80,56 +81,6 @@ public class StaticConvertersManager
             res = ((MethodInvokerFunc1)MethodInvoker.GetMethodInvoker(null, mi)).CallFunc;
             _ConvertersFunc.Add(mi, res);
             return res;
-        }
-    }
-
-    private class TypesPair : IEqualityComparer<TypesPair>, IEquatable<TypesPair>
-    {
-        public readonly Type TypeFrom;
-
-        public readonly Type TypeTo;
-
-        private readonly int _hash;
-
-        public TypesPair(Type typeFrom, Type typeTo)
-        {
-            TypeFrom = typeFrom;
-            TypeTo = typeTo;
-
-            _hash = HashCode.Combine(typeFrom, typeTo);
-        }
-
-        public bool Equals(TypesPair x, TypesPair y)
-        {
-            if (x != null)
-                return x.Equals(y);
-            return y == null;
-        }
-
-        public int GetHashCode(TypesPair obj)
-        {
-            return obj.GetHashCode();
-        }
-
-        public bool Equals(TypesPair other)
-        {
-            if (other == null) return false;
-            return _hash == other._hash && TypeFrom == other.TypeFrom && TypeTo == other.TypeTo;
-        }
-
-        public override int GetHashCode()
-        {
-            return _hash;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as TypesPair);
-        }
-
-        public override string ToString()
-        {
-            return TypeFrom + " -> " + TypeTo;
         }
     }
 }

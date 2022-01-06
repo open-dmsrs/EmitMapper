@@ -13,7 +13,7 @@ internal class AstExprNot : IAstValue
         _value = value;
     }
 
-    public Type ItemType => typeof(int);
+    public Type ItemType => Meta<int>.Type;
 
     public void Compile(CompilationContext context)
     {

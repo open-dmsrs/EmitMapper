@@ -25,7 +25,7 @@ internal static class BuilderUtils
                 {
                     LocalIndex = loc.LocalIndex,
                     LocalType = loc.LocalType,
-                    Value = AstBuildHelper.ReadArgumentRV(argIndex, typeof(object))
+                    Value = AstBuildHelper.ReadArgumentRV(argIndex, Meta<object>.Type)
                 }
             }
         };

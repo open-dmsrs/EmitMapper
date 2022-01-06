@@ -35,7 +35,7 @@ public class ObjectMapperManager
     /// <returns></returns>
     public ObjectsMapper<TFrom, TTo> GetMapper<TFrom, TTo>()
     {
-        return new ObjectsMapper<TFrom, TTo>(GetMapperImpl(typeof(TFrom), typeof(TTo), DefaultMapConfig.Instance));
+        return new ObjectsMapper<TFrom, TTo>(GetMapperImpl(Meta<TFrom>.Type, Meta<TTo>.Type, DefaultMapConfig.Instance));
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ public class ObjectMapperManager
     /// <returns>Mapper</returns>
     public ObjectsMapper<TFrom, TTo> GetMapper<TFrom, TTo>(IMappingConfigurator mappingConfigurator)
     {
-        return new ObjectsMapper<TFrom, TTo>(GetMapperImpl(typeof(TFrom), typeof(TTo), mappingConfigurator));
+        return new ObjectsMapper<TFrom, TTo>(GetMapperImpl(Meta<TFrom>.Type, Meta<TTo>.Type, mappingConfigurator));
     }
 
     /// <summary>
@@ -70,8 +70,8 @@ public class ObjectMapperManager
 
     internal ObjectsMapperDescr GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
     {
-        to ??= typeof(object);
-        from ??= typeof(object);
+        to ??= Meta<object>.Type;
+        from ??= Meta<object>.Type;
         var mapperTypeKey = new MapperKey(from, to, mappingConfigurator.GetConfigurationName(), _currentInstanceId);
 
         if (_ObjectsMapperIds.TryGetValue(mapperTypeKey, out var result))
@@ -100,7 +100,7 @@ public class ObjectMapperManager
                     mappingConfigurator);
 
                 createdMapper = MapperForCollectionImpl.CreateInstance(
-                    mapperTypeName + GetNextMapperId(),
+                    mapperTypeName,
                     this,
                     from,
                     to,
@@ -110,7 +110,7 @@ public class ObjectMapperManager
             else
             {
                 createdMapper = BuildObjectsMapper(
-                    mapperTypeName + GetNextMapperId(),
+                    mapperTypeName,
                     from,
                     to,
                     mappingConfigurator);
@@ -140,11 +140,6 @@ public class ObjectMapperManager
     }
 
 
-    private int GetNextMapperId()
-    {
-        return _ObjectsMapperIds.Count;
-    }
-
     #endregion
 }
 
@@ -164,7 +159,7 @@ public class ObjectsMapperDescr
     }
 }
 
-public class MapperKey : IEqualityComparer<MapperKey>, IEquatable<MapperKey>
+public struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<MapperKey>
 {
     private readonly int _hash;
     private readonly string _mapperTypeName;

@@ -21,8 +21,8 @@ internal class MapperPrimitiveImpl : CustomMapperImpl
         IMappingConfigurator mappingConfigurator)
         : base(objectMapperManager, typeFrom, typeTo, mappingConfigurator, null)
     {
-        var to = typeTo == typeof(IEnumerable) ? typeof(object) : typeTo;
-        var from = typeFrom == typeof(IEnumerable) ? typeof(object) : typeFrom;
+        var to = typeTo == Meta<IEnumerable>.Type ? Meta<object>.Type : typeTo;
+        var from = typeFrom == Meta<IEnumerable>.Type ? Meta<object>.Type : typeFrom;
 
         var staticConv = mappingConfigurator.GetStaticConvertersManager() ?? StaticConvertersManager.DefaultInstance;
         var converterMethod = staticConv.GetStaticConverter(from, to);
@@ -33,9 +33,9 @@ internal class MapperPrimitiveImpl : CustomMapperImpl
 
     internal static bool IsSupportedType(Type type)
     {
-        return type.IsPrimitive || type == typeof(decimal) || type == typeof(float) || type == typeof(double)
-               || type == typeof(long) || type == typeof(ulong) || type == typeof(short) || type == typeof(Guid)
-               || type == typeof(string)
+        return type.IsPrimitive || type == Meta<Decimal>.Type || type == Meta<float>.Type || type == Meta<Double>.Type
+               || type == Meta<long>.Type || type == Meta<ulong>.Type || type == Meta<short>.Type || type == Meta<Guid>.Type
+               || type == Meta<String>.Type
                || ReflectionUtils.IsNullable(type) && IsSupportedType(Nullable.GetUnderlyingType(type)) || type.IsEnum;
     }
 

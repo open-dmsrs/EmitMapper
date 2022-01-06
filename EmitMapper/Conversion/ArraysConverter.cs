@@ -14,19 +14,19 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
     public void Initialize(Type from, Type to, MapConfigBaseImpl mappingConfig)
     {
         var staticConverters = mappingConfig.GetStaticConvertersManager() ?? StaticConvertersManager.DefaultInstance;
-        var staticConverterMethod = staticConverters.GetStaticConverter(typeof(TFrom), typeof(TTo));
+        var staticConverterMethod = staticConverters.GetStaticConverter(Meta<TFrom>.Type, Meta<TTo>.Type);
         if (staticConverterMethod != null)
         {
             _converter = (Func<TFrom, TTo>)Delegate.CreateDelegate(
-                typeof(Func<TFrom, TTo>),
+                Meta<Func<TFrom, TTo>>.Type,
                 null,
                 staticConverterMethod);
         }
         else
         {
             _subMapper = ObjectMapperManager.DefaultInstance.GetMapperInt(
-                typeof(TFrom),
-                typeof(TTo),
+                Meta<TFrom>.Type,
+                Meta<TTo>.Type,
                 mappingConfig);
             _converter = ConverterBySubmapper;
         }
