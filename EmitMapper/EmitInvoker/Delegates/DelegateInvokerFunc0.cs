@@ -2,5 +2,5 @@
 
 public abstract class DelegateInvokerFunc0 : DelegateInvokerBase
 {
-    public abstract object CallFunc();
+  public abstract object CallFunc();
 }

@@ -2,5 +2,5 @@
 
 public interface IDestOperation : IMappingOperation
 {
-    MemberDescriptor Destination { get; set; }
+  MemberDescriptor Destination { get; set; }
 }

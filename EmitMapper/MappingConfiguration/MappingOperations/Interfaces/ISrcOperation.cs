@@ -2,5 +2,5 @@
 
 public interface ISrcOperation : IMappingOperation
 {
-    MemberDescriptor Source { get; set; }
+  MemberDescriptor Source { get; set; }
 }

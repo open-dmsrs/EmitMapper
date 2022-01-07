@@ -3,12 +3,12 @@
 namespace EmitMapper.MappingConfiguration;
 
 /// <summary>
-///     Provider for getting detailed information about generic conversion
+///   Provider for getting detailed information about generic conversion
 /// </summary>
 public interface ICustomConverterProvider
 {
     /// <summary>
-    ///     Getting detailed information about generic conversion
+    ///   Getting detailed information about generic conversion
     /// </summary>
     /// <param name="from">Type of source. Can be also generic class or abstract array.</param>
     /// <param name="to">Type of destination. Can be also generic class or abstract array.</param>

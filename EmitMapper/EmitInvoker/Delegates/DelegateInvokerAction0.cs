@@ -3,5 +3,5 @@
 /// <inheritdoc />
 public abstract class DelegateInvokerAction0 : DelegateInvokerBase
 {
-    public abstract void CallAction();
+  public abstract void CallAction();
 }

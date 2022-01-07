@@ -6,2175 +6,2175 @@ namespace EmitMapper.Conversion;
 
 public class NullableConverter
 {
-    public static bool? ToBoolean(object par)
-    {
-        return par == null ? null : Convert.ToBoolean(par);
-    }
-
-    public static bool? ToBoolean(bool par)
-    {
-        return Convert.ToBoolean(par);
-    }
-
-    public static bool ToBoolean(bool? par)
-    {
-        return par != null && Convert.ToBoolean(par.Value);
-    }
-
-    public static bool? ToBoolean(sbyte par)
-    {
-        return Convert.ToBoolean(par);
-    }
-
-    public static bool ToBoolean(sbyte? par)
-    {
-        return par != null && Convert.ToBoolean(par.Value);
-    }
-
-    public static bool? ToBoolean(char par)
-    {
-        return Convert.ToBoolean(par);
-    }
-
-    public static bool ToBoolean(char? par)
-    {
-        return par.HasValue && Convert.ToBoolean(par.Value);
-    }
-
-    public static bool? ToBoolean(byte par)
-    {
-        return Convert.ToBoolean(par);
-    }
-
-    public static bool ToBoolean(byte? par)
-    {
-        return par != null && Convert.ToBoolean(par.Value);
-    }
-
-    public static bool? ToBoolean(short par)
-    {
-        return Convert.ToBoolean(par);
-    }
-
-    public static bool ToBoolean(short? par)
-    {
-        return par != null && Convert.ToBoolean(par.Value);
-    }
-
-    public static bool? ToBoolean(ushort par)
-    {
-        return Convert.ToBoolean(par);
-    }
-
-    public static bool ToBoolean(ushort? par)
-    {
-        return par != null && Convert.ToBoolean(par.Value);
-    }
-
-    public static bool? ToBoolean(int par)
-    {
-        return Convert.ToBoolean(par);
-    }
-
-    public static bool ToBoolean(int? par)
-    {
-        return par != null && Convert.ToBoolean(par.Value);
-    }
-
-    public static bool? ToBoolean(uint par)
-    {
-        return Convert.ToBoolean(par);
-    }
-
-    public static bool ToBoolean(uint? par)
-    {
-        return par != null && Convert.ToBoolean(par.Value);
-    }
-
-    public static bool? ToBoolean(long par)
-    {
-        return Convert.ToBoolean(par);
-    }
-
-    public static bool ToBoolean(long? par)
-    {
-        return par != null && Convert.ToBoolean(par.Value);
-    }
-
-    public static bool? ToBoolean(ulong par)
-    {
-        return Convert.ToBoolean(par);
-    }
-
-    public static bool ToBoolean(ulong? par)
-    {
-        return par != null && Convert.ToBoolean(par.Value);
-    }
-
-    public static bool? ToBoolean(string par)
-    {
-        return par == null ? null : Convert.ToBoolean(par);
-    }
-
-    public static bool? ToBoolean(float par)
-    {
-        return Convert.ToBoolean(par);
-    }
-
-    public static bool ToBoolean(float? par)
-    {
-        return par != null && Convert.ToBoolean(par.Value);
-    }
-
-    public static bool? ToBoolean(double par)
-    {
-        return Convert.ToBoolean(par);
-    }
-
-    public static bool ToBoolean(double? par)
-    {
-        return par != null && Convert.ToBoolean(par.Value);
-    }
-
-    public static bool? ToBoolean(decimal par)
-    {
-        return Convert.ToBoolean(par);
-    }
-
-    public static bool ToBoolean(decimal? par)
-    {
-        return par != null && Convert.ToBoolean(par.Value);
-    }
-
-    public static bool? ToBoolean(DateTime par)
-    {
-        return Convert.ToBoolean(par);
-    }
-
-    public static bool ToBoolean(DateTime? par)
-    {
-        return par != null && Convert.ToBoolean(par.Value);
-    }
-
-    public static char? ToChar(object par)
-    {
-        return par == null ? null : Convert.ToChar(par);
-    }
-
-    public static char? ToChar(bool par)
-    {
-        return Convert.ToChar(par);
-    }
-
-    public static char ToChar(bool? par)
-    {
-        return Convert.ToChar(par != null && par.Value);
-    }
-
-    public static char? ToChar(char par)
-    {
-        return Convert.ToChar(par);
-    }
-
-    public static char ToChar(char? par)
-    {
-        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-    }
-
-    public static char? ToChar(sbyte par)
-    {
-        return Convert.ToChar(par);
-    }
-
-    public static char ToChar(sbyte? par)
-    {
-        if (par != null)
-            return Convert.ToChar(par.Value);
-        return char.MinValue;
-    }
-
-    public static char? ToChar(byte par)
-    {
-        return Convert.ToChar(par);
-    }
-
-    public static char ToChar(byte? par)
-    {
-        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-    }
-
-    public static char? ToChar(short par)
-    {
-        return Convert.ToChar(par);
-    }
-
-    public static char ToChar(short? par)
-    {
-        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-    }
-
-    public static char? ToChar(ushort par)
-    {
-        return Convert.ToChar(par);
-    }
-
-    public static char ToChar(ushort? par)
-    {
-        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-    }
-
-    public static char? ToChar(int par)
-    {
-        return Convert.ToChar(par);
-    }
-
-    public static char ToChar(int? par)
-    {
-        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-    }
-
-    public static char? ToChar(uint par)
-    {
-        return Convert.ToChar(par);
-    }
-
-    public static char ToChar(uint? par)
-    {
-        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-    }
-
-    public static char? ToChar(long par)
-    {
-        return Convert.ToChar(par);
-    }
-
-    public static char ToChar(long? par)
-    {
-        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-    }
-
-    public static char? ToChar(ulong par)
-    {
-        return Convert.ToChar(par);
-    }
-
-    public static char ToChar(ulong? par)
-    {
-        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-    }
-
-    public static char? ToChar(string par)
-    {
-        return par == null ? null : Convert.ToChar(par);
-    }
-
-    public static char? ToChar(float par)
-    {
-        return Convert.ToChar(par);
-    }
-
-    public static char ToChar(float? par)
-    {
-        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-    }
-
-    public static char? ToChar(double par)
-    {
-        return Convert.ToChar(par);
-    }
-
-    public static char ToChar(double? par)
-    {
-        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-    }
-
-    public static char? ToChar(decimal par)
-    {
-        return Convert.ToChar(par);
-    }
-
-    public static char ToChar(decimal? par)
-    {
-        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-    }
-
-    public static char? ToChar(DateTime par)
-    {
-        return Convert.ToChar(par);
-    }
-
-    public static char ToChar(DateTime? par)
-    {
-        return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-    }
-
-    public static sbyte? ToSByte(object par)
-    {
-        return par == null ? null : Convert.ToSByte(par);
-    }
-
-    public static sbyte? ToSByte(bool par)
-    {
-        return Convert.ToSByte(par);
-    }
-
-    public static sbyte ToSByte(bool? par)
-    {
-        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-    }
-
-    public static sbyte? ToSByte(sbyte par)
-    {
-        return Convert.ToSByte(par);
-    }
-
-    public static sbyte ToSByte(sbyte? par)
-    {
-        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-    }
-
-    public static sbyte? ToSByte(char par)
-    {
-        return Convert.ToSByte(par);
-    }
-
-    public static sbyte ToSByte(char? par)
-    {
-        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-    }
-
-    public static sbyte? ToSByte(byte par)
-    {
-        return Convert.ToSByte(par);
-    }
-
-    public static sbyte ToSByte(byte? par)
-    {
-        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-    }
-
-    public static sbyte? ToSByte(short par)
-    {
-        return Convert.ToSByte(par);
-    }
-
-    public static sbyte ToSByte(short? par)
-    {
-        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-    }
-
-    public static sbyte? ToSByte(ushort par)
-    {
-        return Convert.ToSByte(par);
-    }
-
-    public static sbyte ToSByte(ushort? par)
-    {
-        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-    }
-
-    public static sbyte? ToSByte(int par)
-    {
-        return Convert.ToSByte(par);
-    }
-
-    public static sbyte ToSByte(int? par)
-    {
-        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-    }
-
-    public static sbyte? ToSByte(uint par)
-    {
-        return Convert.ToSByte(par);
-    }
-
-    public static sbyte ToSByte(uint? par)
-    {
-        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-    }
-
-    public static sbyte? ToSByte(long par)
-    {
-        return Convert.ToSByte(par);
-    }
-
-    public static sbyte ToSByte(long? par)
-    {
-        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-    }
-
-    public static sbyte? ToSByte(ulong par)
-    {
-        return Convert.ToSByte(par);
-    }
-
-    public static sbyte ToSByte(ulong? par)
-    {
-        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-    }
-
-    public static sbyte? ToSByte(float par)
-    {
-        return Convert.ToSByte(par);
-    }
-
-    public static sbyte ToSByte(float? par)
-    {
-        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-    }
-
-    public static sbyte? ToSByte(double par)
-    {
-        return Convert.ToSByte(par);
-    }
-
-    public static sbyte ToSByte(double? par)
-    {
-        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-    }
-
-    public static sbyte? ToSByte(decimal par)
-    {
-        return Convert.ToSByte(par);
-    }
-
-    public static sbyte ToSByte(decimal? par)
-    {
-        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-    }
-
-    public static sbyte? ToSByte(string par)
-    {
-        return par == null ? null : Convert.ToSByte(par);
-    }
-
-    public static sbyte? ToSByte(DateTime par)
-    {
-        return Convert.ToSByte(par);
-    }
-
-    public static sbyte ToSByte(DateTime? par)
-    {
-        return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-    }
-
-    public static byte? ToByte(object par)
-    {
-        return par == null ? null : Convert.ToByte(par);
-    }
-
-    public static byte? ToByte(bool par)
-    {
-        return Convert.ToByte(par);
-    }
-
-    public static byte ToByte(bool? par)
-    {
-        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-    }
-
-    public static byte? ToByte(byte par)
-    {
-        return Convert.ToByte(par);
-    }
-
-    public static byte ToByte(byte? par)
-    {
-        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-    }
-
-    public static byte? ToByte(char par)
-    {
-        return Convert.ToByte(par);
-    }
-
-    public static byte ToByte(char? par)
-    {
-        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-    }
-
-    public static byte? ToByte(sbyte par)
-    {
-        return Convert.ToByte(par);
-    }
-
-    public static byte ToByte(sbyte? par)
-    {
-        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-    }
-
-    public static byte? ToByte(short par)
-    {
-        return Convert.ToByte(par);
-    }
-
-    public static byte ToByte(short? par)
-    {
-        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-    }
-
-    public static byte? ToByte(ushort par)
-    {
-        return Convert.ToByte(par);
-    }
-
-    public static byte ToByte(ushort? par)
-    {
-        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-    }
-
-    public static byte? ToByte(int par)
-    {
-        return Convert.ToByte(par);
-    }
-
-    public static byte ToByte(int? par)
-    {
-        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-    }
-
-    public static byte? ToByte(uint par)
-    {
-        return Convert.ToByte(par);
-    }
-
-    public static byte ToByte(uint? par)
-    {
-        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-    }
-
-    public static byte? ToByte(long par)
-    {
-        return Convert.ToByte(par);
-    }
-
-    public static byte ToByte(long? par)
-    {
-        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-    }
-
-    public static byte? ToByte(ulong par)
-    {
-        return Convert.ToByte(par);
-    }
-
-    public static byte ToByte(ulong? par)
-    {
-        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-    }
-
-    public static byte? ToByte(float par)
-    {
-        return Convert.ToByte(par);
-    }
-
-    public static byte ToByte(float? par)
-    {
-        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-    }
-
-    public static byte? ToByte(double par)
-    {
-        return Convert.ToByte(par);
-    }
-
-    public static byte ToByte(double? par)
-    {
-        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-    }
-
-    public static byte? ToByte(decimal par)
-    {
-        return Convert.ToByte(par);
-    }
-
-    public static byte ToByte(decimal? par)
-    {
-        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-    }
-
-    public static byte? ToByte(string par)
-    {
-        return par == null ? null : Convert.ToByte(par);
-    }
-
-    public static byte? ToByte(DateTime par)
-    {
-        return Convert.ToByte(par);
-    }
-
-    public static byte ToByte(DateTime? par)
-    {
-        return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-    }
-
-    public static short? ToInt16(object par)
-    {
-        return par == null ? null : Convert.ToInt16(par);
-    }
-
-    public static short? ToInt16(bool par)
-    {
-        return Convert.ToInt16(par);
-    }
-
-    public static short ToInt16(bool? par)
-    {
-        return par.HasValue ? Convert.ToInt16(par.Value) : (short)0;
-    }
-
-    public static short? ToInt16(char par)
-    {
-        return Convert.ToInt16(par);
-    }
-
-    public static short ToInt16(char? par)
-    {
-        return Convert.ToInt16(par.Value);
-    }
-
-    public static short? ToInt16(sbyte par)
-    {
-        return Convert.ToInt16(par);
-    }
-
-    public static short ToInt16(sbyte? par)
-    {
-        return Convert.ToInt16(par.Value);
-    }
-
-    public static short? ToInt16(byte par)
-    {
-        return Convert.ToInt16(par);
-    }
-
-    public static short ToInt16(byte? par)
-    {
-        return Convert.ToInt16(par.Value);
-    }
-
-    public static short? ToInt16(ushort par)
-    {
-        return Convert.ToInt16(par);
-    }
-
-    public static short ToInt16(ushort? par)
-    {
-        return Convert.ToInt16(par.Value);
-    }
-
-    public static short? ToInt16(int par)
-    {
-        return Convert.ToInt16(par);
-    }
-
-    public static short ToInt16(int? par)
-    {
-        return Convert.ToInt16(par.Value);
-    }
-
-    public static short? ToInt16(uint par)
-    {
-        return Convert.ToInt16(par);
-    }
-
-    public static short ToInt16(uint? par)
-    {
-        return Convert.ToInt16(par.Value);
-    }
-
-    public static short? ToInt16(short par)
-    {
-        return Convert.ToInt16(par);
-    }
-
-    public static short ToInt16(short? par)
-    {
-        return Convert.ToInt16(par.Value);
-    }
-
-    public static short? ToInt16(long par)
-    {
-        return Convert.ToInt16(par);
-    }
-
-    public static short ToInt16(long? par)
-    {
-        return Convert.ToInt16(par.Value);
-    }
-
-    public static short? ToInt16(ulong par)
-    {
-        return Convert.ToInt16(par);
-    }
-
-    public static short ToInt16(ulong? par)
-    {
-        return Convert.ToInt16(par.Value);
-    }
-
-    public static short? ToInt16(float par)
-    {
-        return Convert.ToInt16(par);
-    }
-
-    public static short ToInt16(float? par)
-    {
-        return Convert.ToInt16(par.Value);
-    }
-
-    public static short? ToInt16(double par)
-    {
-        return Convert.ToInt16(par);
-    }
-
-    public static short ToInt16(double? par)
-    {
-        return Convert.ToInt16(par.Value);
-    }
-
-    public static short? ToInt16(decimal par)
-    {
-        return Convert.ToInt16(par);
-    }
-
-    public static short ToInt16(decimal? par)
-    {
-        return Convert.ToInt16(par.Value);
-    }
-
-    public static short? ToInt16(string par)
-    {
-        return par == null ? null : Convert.ToInt16(par);
-    }
-
-    public static short? ToInt16(DateTime par)
-    {
-        return Convert.ToInt16(par);
-    }
-
-    public static short ToInt16(DateTime? par)
-    {
-        return Convert.ToInt16(par.Value);
-    }
-
-    public static ushort? ToUInt16(object par)
-    {
-        return par == null ? null : Convert.ToUInt16(par);
-    }
-
-    public static ushort? ToUInt16(bool par)
-    {
-        return Convert.ToUInt16(par);
-    }
-
-    public static ushort ToUInt16(bool? par)
-    {
-        return Convert.ToUInt16(par.Value);
-    }
-
-    public static ushort? ToUInt16(char par)
-    {
-        return Convert.ToUInt16(par);
-    }
-
-    public static ushort ToUInt16(char? par)
-    {
-        return Convert.ToUInt16(par.Value);
-    }
-
-    public static ushort? ToUInt16(sbyte par)
-    {
-        return Convert.ToUInt16(par);
-    }
-
-    public static ushort ToUInt16(sbyte? par)
-    {
-        return Convert.ToUInt16(par.Value);
-    }
-
-    public static ushort? ToUInt16(byte par)
-    {
-        return Convert.ToUInt16(par);
-    }
-
-    public static ushort ToUInt16(byte? par)
-    {
-        return Convert.ToUInt16(par.Value);
-    }
-
-    public static ushort? ToUInt16(short par)
-    {
-        return Convert.ToUInt16(par);
-    }
-
-    public static ushort ToUInt16(short? par)
-    {
-        return Convert.ToUInt16(par.Value);
-    }
-
-    public static ushort? ToUInt16(int par)
-    {
-        return Convert.ToUInt16(par);
-    }
-
-    public static ushort ToUInt16(int? par)
-    {
-        return Convert.ToUInt16(par.Value);
-    }
-
-    public static ushort? ToUInt16(ushort par)
-    {
-        return Convert.ToUInt16(par);
-    }
-
-    public static ushort ToUInt16(ushort? par)
-    {
-        return Convert.ToUInt16(par.Value);
-    }
-
-    public static ushort? ToUInt16(uint par)
-    {
-        return Convert.ToUInt16(par);
-    }
-
-    public static ushort ToUInt16(uint? par)
-    {
-        return Convert.ToUInt16(par.Value);
-    }
-
-    public static ushort? ToUInt16(long par)
-    {
-        return Convert.ToUInt16(par);
-    }
-
-    public static ushort ToUInt16(long? par)
-    {
-        return Convert.ToUInt16(par.Value);
-    }
-
-    public static ushort? ToUInt16(ulong par)
-    {
-        return Convert.ToUInt16(par);
-    }
-
-    public static ushort ToUInt16(ulong? par)
-    {
-        return Convert.ToUInt16(par.Value);
-    }
-
-    public static ushort? ToUInt16(float par)
-    {
-        return Convert.ToUInt16(par);
-    }
-
-    public static ushort ToUInt16(float? par)
-    {
-        return Convert.ToUInt16(par.Value);
-    }
-
-    public static ushort? ToUInt16(double par)
-    {
-        return Convert.ToUInt16(par);
-    }
-
-    public static ushort ToUInt16(double? par)
-    {
-        return Convert.ToUInt16(par.Value);
-    }
-
-    public static ushort? ToUInt16(decimal par)
-    {
-        return Convert.ToUInt16(par);
-    }
-
-    public static ushort ToUInt16(decimal? par)
-    {
-        return Convert.ToUInt16(par.Value);
-    }
-
-    public static ushort? ToUInt16(string par)
-    {
-        return par == null ? null : Convert.ToUInt16(par);
-    }
-
-    public static ushort? ToUInt16(DateTime par)
-    {
-        return Convert.ToUInt16(par);
-    }
-
-    public static ushort ToUInt16(DateTime? par)
-    {
-        return Convert.ToUInt16(par.Value);
-    }
-
-    public static int? ToInt32(object par)
-    {
-        return par == null ? null : Convert.ToInt32(par);
-    }
-
-    public static int? ToInt32(bool par)
-    {
-        return Convert.ToInt32(par);
-    }
-
-    public static int ToInt32(bool? par)
-    {
-        return Convert.ToInt32(par.Value);
-    }
-
-    public static int? ToInt32(char par)
-    {
-        return Convert.ToInt32(par);
-    }
-
-    public static int ToInt32(char? par)
-    {
-        return Convert.ToInt32(par.Value);
-    }
-
-    public static int? ToInt32(sbyte par)
-    {
-        return Convert.ToInt32(par);
-    }
-
-    public static int ToInt32(sbyte? par)
-    {
-        return Convert.ToInt32(par.Value);
-    }
-
-    public static int? ToInt32(byte par)
-    {
-        return Convert.ToInt32(par);
-    }
-
-    public static int ToInt32(byte? par)
-    {
-        return Convert.ToInt32(par.Value);
-    }
-
-    public static int? ToInt32(short par)
-    {
-        return Convert.ToInt32(par);
-    }
-
-    public static int ToInt32(short? par)
-    {
-        return Convert.ToInt32(par.Value);
-    }
-
-    public static int? ToInt32(ushort par)
-    {
-        return Convert.ToInt32(par);
-    }
-
-    public static int ToInt32(ushort? par)
-    {
-        return Convert.ToInt32(par.Value);
-    }
-
-    public static int? ToInt32(uint par)
-    {
-        return Convert.ToInt32(par);
-    }
-
-    public static int ToInt32(uint? par)
-    {
-        return Convert.ToInt32(par.Value);
-    }
-
-    public static int? ToInt32(int par)
-    {
-        return Convert.ToInt32(par);
-    }
-
-    public static int ToInt32(int? par)
-    {
-        return Convert.ToInt32(par.Value);
-    }
-
-    public static int? ToInt32(long par)
-    {
-        return Convert.ToInt32(par);
-    }
-
-    public static int ToInt32(long? par)
-    {
-        return Convert.ToInt32(par.Value);
-    }
-
-    public static int? ToInt32(ulong par)
-    {
-        return Convert.ToInt32(par);
-    }
-
-    public static int ToInt32(ulong? par)
-    {
-        return Convert.ToInt32(par.Value);
-    }
-
-    public static int? ToInt32(float par)
-    {
-        return Convert.ToInt32(par);
-    }
-
-    public static int ToInt32(float? par)
-    {
-        return Convert.ToInt32(par.Value);
-    }
-
-    public static int? ToInt32(double par)
-    {
-        return Convert.ToInt32(par);
-    }
-
-    public static int ToInt32(double? par)
-    {
-        return Convert.ToInt32(par.Value);
-    }
-
-    public static int? ToInt32(decimal par)
-    {
-        return Convert.ToInt32(par);
-    }
-
-    public static int ToInt32(decimal? par)
-    {
-        return Convert.ToInt32(par.Value);
-    }
-
-    public static int? ToInt32(string par)
-    {
-        return par == null ? null : Convert.ToInt32(par);
-    }
-
-    public static int? ToInt32(DateTime par)
-    {
-        return Convert.ToInt32(par);
-    }
-
-    public static int ToInt32(DateTime? par)
-    {
-        return Convert.ToInt32(par.Value);
-    }
-
-    public static uint? ToUInt32(object par)
-    {
-        return par == null ? null : Convert.ToUInt32(par);
-    }
-
-    public static uint? ToUInt32(bool par)
-    {
-        return Convert.ToUInt32(par);
-    }
-
-    public static uint ToUInt32(bool? par)
-    {
-        return Convert.ToUInt32(par.Value);
-    }
-
-    public static uint? ToUInt32(char par)
-    {
-        return Convert.ToUInt32(par);
-    }
-
-    public static uint ToUInt32(char? par)
-    {
-        return Convert.ToUInt32(par.Value);
-    }
-
-    public static uint? ToUInt32(sbyte par)
-    {
-        return Convert.ToUInt32(par);
-    }
-
-    public static uint ToUInt32(sbyte? par)
-    {
-        return Convert.ToUInt32(par.Value);
-    }
-
-    public static uint? ToUInt32(byte par)
-    {
-        return Convert.ToUInt32(par);
-    }
-
-    public static uint ToUInt32(byte? par)
-    {
-        return Convert.ToUInt32(par.Value);
-    }
-
-    public static uint? ToUInt32(short par)
-    {
-        return Convert.ToUInt32(par);
-    }
-
-    public static uint ToUInt32(short? par)
-    {
-        return Convert.ToUInt32(par.Value);
-    }
-
-    public static uint? ToUInt32(ushort par)
-    {
-        return Convert.ToUInt32(par);
-    }
-
-    public static uint ToUInt32(ushort? par)
-    {
-        return Convert.ToUInt32(par.Value);
-    }
-
-    public static uint? ToUInt32(int par)
-    {
-        return Convert.ToUInt32(par);
-    }
-
-    public static uint ToUInt32(int? par)
-    {
-        return Convert.ToUInt32(par.Value);
-    }
-
-    public static uint? ToUInt32(uint par)
-    {
-        return Convert.ToUInt32(par);
-    }
-
-    public static uint ToUInt32(uint? par)
-    {
-        return Convert.ToUInt32(par.Value);
-    }
-
-    public static uint? ToUInt32(long par)
-    {
-        return Convert.ToUInt32(par);
-    }
-
-    public static uint ToUInt32(long? par)
-    {
-        return Convert.ToUInt32(par.Value);
-    }
-
-    public static uint? ToUInt32(ulong par)
-    {
-        return Convert.ToUInt32(par);
-    }
-
-    public static uint ToUInt32(ulong? par)
-    {
-        return Convert.ToUInt32(par.Value);
-    }
-
-    public static uint? ToUInt32(float par)
-    {
-        return Convert.ToUInt32(par);
-    }
-
-    public static uint ToUInt32(float? par)
-    {
-        return Convert.ToUInt32(par.Value);
-    }
-
-    public static uint? ToUInt32(double par)
-    {
-        return Convert.ToUInt32(par);
-    }
-
-    public static uint ToUInt32(double? par)
-    {
-        return Convert.ToUInt32(par.Value);
-    }
-
-    public static uint? ToUInt32(decimal par)
-    {
-        return Convert.ToUInt32(par);
-    }
-
-    public static uint ToUInt32(decimal? par)
-    {
-        return Convert.ToUInt32(par.Value);
-    }
-
-    public static uint? ToUInt32(string par)
-    {
-        return par == null ? null : Convert.ToUInt32(par);
-    }
-
-    public static uint? ToUInt32(DateTime par)
-    {
-        return Convert.ToUInt32(par);
-    }
-
-    public static uint ToUInt32(DateTime? par)
-    {
-        return Convert.ToUInt32(par.Value);
-    }
-
-    public static long? ToInt64(object par)
-    {
-        return par == null ? null : Convert.ToInt64(par);
-    }
-
-    public static long? ToInt64(bool par)
-    {
-        return Convert.ToInt64(par);
-    }
-
-    public static long ToInt64(bool? par)
-    {
-        return Convert.ToInt64(par.Value);
-    }
-
-    public static long? ToInt64(char par)
-    {
-        return Convert.ToInt64(par);
-    }
-
-    public static long ToInt64(char? par)
-    {
-        return Convert.ToInt64(par.Value);
-    }
-
-    public static long? ToInt64(sbyte par)
-    {
-        return Convert.ToInt64(par);
-    }
-
-    public static long ToInt64(sbyte? par)
-    {
-        return Convert.ToInt64(par.Value);
-    }
-
-    public static long? ToInt64(byte par)
-    {
-        return Convert.ToInt64(par);
-    }
-
-    public static long ToInt64(byte? par)
-    {
-        return Convert.ToInt64(par.Value);
-    }
-
-    public static long? ToInt64(short par)
-    {
-        return Convert.ToInt64(par);
-    }
-
-    public static long ToInt64(short? par)
-    {
-        return Convert.ToInt64(par.Value);
-    }
-
-    public static long? ToInt64(ushort par)
-    {
-        return Convert.ToInt64(par);
-    }
-
-    public static long ToInt64(ushort? par)
-    {
-        return Convert.ToInt64(par.Value);
-    }
-
-    public static long? ToInt64(int par)
-    {
-        return Convert.ToInt64(par);
-    }
-
-    public static long ToInt64(int? par)
-    {
-        return Convert.ToInt64(par.Value);
-    }
-
-    public static long? ToInt64(uint par)
-    {
-        return Convert.ToInt64(par);
-    }
-
-    public static long ToInt64(uint? par)
-    {
-        return Convert.ToInt64(par.Value);
-    }
-
-    public static long? ToInt64(ulong par)
-    {
-        return Convert.ToInt64(par);
-    }
-
-    public static long ToInt64(ulong? par)
-    {
-        return Convert.ToInt64(par.Value);
-    }
-
-    public static long? ToInt64(long par)
-    {
-        return Convert.ToInt64(par);
-    }
-
-    public static long ToInt64(long? par)
-    {
-        return Convert.ToInt64(par.Value);
-    }
-
-    public static long? ToInt64(float par)
-    {
-        return Convert.ToInt64(par);
-    }
-
-    public static long ToInt64(float? par)
-    {
-        return Convert.ToInt64(par.Value);
-    }
-
-    public static long? ToInt64(double par)
-    {
-        return Convert.ToInt64(par);
-    }
-
-    public static long ToInt64(double? par)
-    {
-        return Convert.ToInt64(par.Value);
-    }
-
-    public static long? ToInt64(decimal par)
-    {
-        return Convert.ToInt64(par);
-    }
-
-    public static long ToInt64(decimal? par)
-    {
-        return Convert.ToInt64(par.Value);
-    }
-
-    public static long? ToInt64(string par)
-    {
-        return par == null ? null : Convert.ToInt64(par);
-    }
-
-    public static long? ToInt64(DateTime par)
-    {
-        return Convert.ToInt64(par);
-    }
-
-    public static long ToInt64(DateTime? par)
-    {
-        return Convert.ToInt64(par.Value);
-    }
-
-    public static ulong? ToUInt64(object par)
-    {
-        return par == null ? null : Convert.ToUInt64(par);
-    }
-
-    public static ulong? ToUInt64(bool par)
-    {
-        return Convert.ToUInt64(par);
-    }
-
-    public static ulong ToUInt64(bool? par)
-    {
-        return Convert.ToUInt64(par.Value);
-    }
-
-    public static ulong? ToUInt64(char par)
-    {
-        return Convert.ToUInt64(par);
-    }
-
-    public static ulong ToUInt64(char? par)
-    {
-        return Convert.ToUInt64(par.Value);
-    }
-
-    public static ulong? ToUInt64(sbyte par)
-    {
-        return Convert.ToUInt64(par);
-    }
-
-    public static ulong ToUInt64(sbyte? par)
-    {
-        return Convert.ToUInt64(par.Value);
-    }
-
-    public static ulong? ToUInt64(byte par)
-    {
-        return Convert.ToUInt64(par);
-    }
-
-    public static ulong ToUInt64(byte? par)
-    {
-        return Convert.ToUInt64(par.Value);
-    }
-
-    public static ulong? ToUInt64(short par)
-    {
-        return Convert.ToUInt64(par);
-    }
-
-    public static ulong ToUInt64(short? par)
-    {
-        return Convert.ToUInt64(par.Value);
-    }
-
-    public static ulong? ToUInt64(ushort par)
-    {
-        return Convert.ToUInt64(par);
-    }
-
-    public static ulong ToUInt64(ushort? par)
-    {
-        return Convert.ToUInt64(par.Value);
-    }
-
-    public static ulong? ToUInt64(int par)
-    {
-        return Convert.ToUInt64(par);
-    }
-
-    public static ulong ToUInt64(int? par)
-    {
-        return Convert.ToUInt64(par.Value);
-    }
-
-    public static ulong? ToUInt64(uint par)
-    {
-        return Convert.ToUInt64(par);
-    }
-
-    public static ulong ToUInt64(uint? par)
-    {
-        return Convert.ToUInt64(par.Value);
-    }
-
-    public static ulong? ToUInt64(long par)
-    {
-        return Convert.ToUInt64(par);
-    }
-
-    public static ulong ToUInt64(long? par)
-    {
-        return Convert.ToUInt64(par.Value);
-    }
-
-    public static ulong? ToUInt64(ulong par)
-    {
-        return Convert.ToUInt64(par);
-    }
-
-    public static ulong ToUInt64(ulong? par)
-    {
-        return Convert.ToUInt64(par.Value);
-    }
-
-    public static ulong? ToUInt64(float par)
-    {
-        return Convert.ToUInt64(par);
-    }
-
-    public static ulong ToUInt64(float? par)
-    {
-        return Convert.ToUInt64(par.Value);
-    }
-
-    public static ulong? ToUInt64(double par)
-    {
-        return Convert.ToUInt64(par);
-    }
-
-    public static ulong ToUInt64(double? par)
-    {
-        return Convert.ToUInt64(par.Value);
-    }
-
-    public static ulong? ToUInt64(decimal par)
-    {
-        return Convert.ToUInt64(par);
-    }
-
-    public static ulong ToUInt64(decimal? par)
-    {
-        return Convert.ToUInt64(par.Value);
-    }
-
-    public static ulong? ToUInt64(string par)
-    {
-        return par == null ? null : Convert.ToUInt64(par);
-    }
-
-    public static ulong? ToUInt64(DateTime par)
-    {
-        return Convert.ToUInt64(par);
-    }
-
-    public static ulong ToUInt64(DateTime? par)
-    {
-        return Convert.ToUInt64(par.Value);
-    }
-
-    public static float? ToSingle(object par)
-    {
-        return par == null ? null : Convert.ToSingle(par);
-    }
-
-    public static float? ToSingle(sbyte par)
-    {
-        return Convert.ToSingle(par);
-    }
-
-    public static float ToSingle(sbyte? par)
-    {
-        return Convert.ToSingle(par.Value);
-    }
-
-    public static float? ToSingle(byte par)
-    {
-        return Convert.ToSingle(par);
-    }
-
-    public static float ToSingle(byte? par)
-    {
-        return Convert.ToSingle(par.Value);
-    }
-
-    public static float? ToSingle(char par)
-    {
-        return Convert.ToSingle(par);
-    }
-
-    public static float ToSingle(char? par)
-    {
-        return Convert.ToSingle(par.Value);
-    }
-
-    public static float? ToSingle(short par)
-    {
-        return Convert.ToSingle(par);
-    }
-
-    public static float ToSingle(short? par)
-    {
-        return Convert.ToSingle(par.Value);
-    }
-
-    public static float? ToSingle(ushort par)
-    {
-        return Convert.ToSingle(par);
-    }
-
-    public static float ToSingle(ushort? par)
-    {
-        return Convert.ToSingle(par.Value);
-    }
-
-    public static float? ToSingle(int par)
-    {
-        return Convert.ToSingle(par);
-    }
-
-    public static float ToSingle(int? par)
-    {
-        return Convert.ToSingle(par.Value);
-    }
-
-    public static float? ToSingle(uint par)
-    {
-        return Convert.ToSingle(par);
-    }
-
-    public static float ToSingle(uint? par)
-    {
-        return Convert.ToSingle(par.Value);
-    }
-
-    public static float? ToSingle(long par)
-    {
-        return Convert.ToSingle(par);
-    }
-
-    public static float ToSingle(long? par)
-    {
-        return Convert.ToSingle(par.Value);
-    }
-
-    public static float? ToSingle(ulong par)
-    {
-        return Convert.ToSingle(par);
-    }
-
-    public static float ToSingle(ulong? par)
-    {
-        return Convert.ToSingle(par.Value);
-    }
-
-    public static float? ToSingle(float par)
-    {
-        return Convert.ToSingle(par);
-    }
-
-    public static float ToSingle(float? par)
-    {
-        return Convert.ToSingle(par.Value);
-    }
-
-    public static float? ToSingle(double par)
-    {
-        return Convert.ToSingle(par);
-    }
-
-    public static float ToSingle(double? par)
-    {
-        return Convert.ToSingle(par.Value);
-    }
-
-    public static float? ToSingle(decimal par)
-    {
-        return Convert.ToSingle(par);
-    }
-
-    public static float ToSingle(decimal? par)
-    {
-        return Convert.ToSingle(par.Value);
-    }
-
-    public static float? ToSingle(string par)
-    {
-        return par == null ? null : Convert.ToSingle(par);
-    }
-
-    public static float? ToSingle(bool par)
-    {
-        return Convert.ToSingle(par);
-    }
-
-    public static float ToSingle(bool? par)
-    {
-        return Convert.ToSingle(par.Value);
-    }
-
-    public static float? ToSingle(DateTime par)
-    {
-        return Convert.ToSingle(par);
-    }
-
-    public static float ToSingle(DateTime? par)
-    {
-        return Convert.ToSingle(par.Value);
-    }
-
-    public static double? ToDouble(object par)
-    {
-        return par == null ? null : Convert.ToDouble(par);
-    }
-
-    public static double? ToDouble(sbyte par)
-    {
-        return Convert.ToDouble(par);
-    }
-
-    public static double ToDouble(sbyte? par)
-    {
-        return Convert.ToDouble(par.Value);
-    }
-
-    public static double? ToDouble(byte par)
-    {
-        return Convert.ToDouble(par);
-    }
-
-    public static double ToDouble(byte? par)
-    {
-        return Convert.ToDouble(par.Value);
-    }
-
-    public static double? ToDouble(short par)
-    {
-        return Convert.ToDouble(par);
-    }
-
-    public static double ToDouble(short? par)
-    {
-        return Convert.ToDouble(par.Value);
-    }
-
-    public static double? ToDouble(char par)
-    {
-        return Convert.ToDouble(par);
-    }
-
-    public static double ToDouble(char? par)
-    {
-        return Convert.ToDouble(par.Value);
-    }
-
-    public static double? ToDouble(ushort par)
-    {
-        return Convert.ToDouble(par);
-    }
-
-    public static double ToDouble(ushort? par)
-    {
-        return Convert.ToDouble(par.Value);
-    }
-
-    public static double? ToDouble(int par)
-    {
-        return Convert.ToDouble(par);
-    }
-
-    public static double ToDouble(int? par)
-    {
-        return Convert.ToDouble(par.Value);
-    }
-
-    public static double? ToDouble(uint par)
-    {
-        return Convert.ToDouble(par);
-    }
-
-    public static double ToDouble(uint? par)
-    {
-        return Convert.ToDouble(par.Value);
-    }
-
-    public static double? ToDouble(long par)
-    {
-        return Convert.ToDouble(par);
-    }
-
-    public static double ToDouble(long? par)
-    {
-        return Convert.ToDouble(par.Value);
-    }
-
-    public static double? ToDouble(ulong par)
-    {
-        return Convert.ToDouble(par);
-    }
-
-    public static double ToDouble(ulong? par)
-    {
-        return Convert.ToDouble(par.Value);
-    }
-
-    public static double? ToDouble(float par)
-    {
-        return Convert.ToDouble(par);
-    }
-
-    public static double ToDouble(float? par)
-    {
-        return Convert.ToDouble(par.Value);
-    }
-
-    public static double? ToDouble(double par)
-    {
-        return Convert.ToDouble(par);
-    }
-
-    public static double ToDouble(double? par)
-    {
-        return Convert.ToDouble(par.Value);
-    }
-
-    public static double? ToDouble(decimal par)
-    {
-        return Convert.ToDouble(par);
-    }
-
-    public static double ToDouble(decimal? par)
-    {
-        return Convert.ToDouble(par.Value);
-    }
-
-    public static double? ToDouble(string par)
-    {
-        return par == null ? null : Convert.ToDouble(par);
-    }
-
-    public static double? ToDouble(bool par)
-    {
-        return Convert.ToDouble(par);
-    }
-
-    public static double ToDouble(bool? par)
-    {
-        return Convert.ToDouble(par.Value);
-    }
-
-    public static double? ToDouble(DateTime par)
-    {
-        return Convert.ToDouble(par);
-    }
-
-    public static double ToDouble(DateTime? par)
-    {
-        return Convert.ToDouble(par.Value);
-    }
-
-    public static decimal? ToDecimal(object par)
-    {
-        return par == null ? null : Convert.ToDecimal(par);
-    }
-
-    public static decimal? ToDecimal(sbyte par)
-    {
-        return Convert.ToDecimal(par);
-    }
-
-    public static decimal ToDecimal(sbyte? par)
-    {
-        return Convert.ToDecimal(par.Value);
-    }
-
-    public static decimal? ToDecimal(byte par)
-    {
-        return Convert.ToDecimal(par);
-    }
-
-    public static decimal ToDecimal(byte? par)
-    {
-        return Convert.ToDecimal(par.Value);
-    }
-
-    public static decimal? ToDecimal(char par)
-    {
-        return Convert.ToDecimal(par);
-    }
-
-    public static decimal ToDecimal(char? par)
-    {
-        return Convert.ToDecimal(par.Value);
-    }
-
-    public static decimal? ToDecimal(short par)
-    {
-        return Convert.ToDecimal(par);
-    }
-
-    public static decimal ToDecimal(short? par)
-    {
-        return Convert.ToDecimal(par.Value);
-    }
-
-    public static decimal? ToDecimal(ushort par)
-    {
-        return Convert.ToDecimal(par);
-    }
-
-    public static decimal ToDecimal(ushort? par)
-    {
-        return Convert.ToDecimal(par.Value);
-    }
-
-    public static decimal? ToDecimal(int par)
-    {
-        return Convert.ToDecimal(par);
-    }
-
-    public static decimal ToDecimal(int? par)
-    {
-        return Convert.ToDecimal(par.Value);
-    }
-
-    public static decimal? ToDecimal(uint par)
-    {
-        return Convert.ToDecimal(par);
-    }
-
-    public static decimal ToDecimal(uint? par)
-    {
-        return Convert.ToDecimal(par.Value);
-    }
-
-    public static decimal? ToDecimal(long par)
-    {
-        return Convert.ToDecimal(par);
-    }
-
-    public static decimal ToDecimal(long? par)
-    {
-        return Convert.ToDecimal(par.Value);
-    }
-
-    public static decimal? ToDecimal(ulong par)
-    {
-        return Convert.ToDecimal(par);
-    }
-
-    public static decimal ToDecimal(ulong? par)
-    {
-        return Convert.ToDecimal(par.Value);
-    }
-
-    public static decimal? ToDecimal(float par)
-    {
-        return Convert.ToDecimal(par);
-    }
-
-    public static decimal ToDecimal(float? par)
-    {
-        return Convert.ToDecimal(par.Value);
-    }
-
-    public static decimal? ToDecimal(double par)
-    {
-        return Convert.ToDecimal(par);
-    }
-
-    public static decimal ToDecimal(double? par)
-    {
-        return Convert.ToDecimal(par.Value);
-    }
-
-    public static decimal? ToDecimal(string par)
-    {
-        return par == null ? null : Convert.ToDecimal(par);
-    }
-
-    public static decimal? ToDecimal(decimal par)
-    {
-        return Convert.ToDecimal(par);
-    }
-
-    public static decimal ToDecimal(decimal? par)
-    {
-        return Convert.ToDecimal(par.Value);
-    }
-
-    public static decimal? ToDecimal(bool par)
-    {
-        return Convert.ToDecimal(par);
-    }
-
-    public static decimal ToDecimal(bool? par)
-    {
-        return Convert.ToDecimal(par.Value);
-    }
-
-    public static decimal? ToDecimal(DateTime par)
-    {
-        return Convert.ToDecimal(par);
-    }
-
-    public static decimal ToDecimal(DateTime? par)
-    {
-        return Convert.ToDecimal(par.Value);
-    }
-
-    public static DateTime? ToDateTime(DateTime par)
-    {
-        return Convert.ToDateTime(par);
-    }
-
-    public static DateTime ToDateTime(DateTime? par)
-    {
-        return Convert.ToDateTime(par.Value);
-    }
-
-    public static DateTime? ToDateTime(object par)
-    {
-        return par == null ? null : Convert.ToDateTime(par);
-    }
-
-    public static DateTime? ToDateTime(string par)
-    {
-        return par == null ? null : Convert.ToDateTime(par);
-    }
-
-    public static DateTime? ToDateTime(sbyte par)
-    {
-        return Convert.ToDateTime(par);
-    }
-
-    public static DateTime ToDateTime(sbyte? par)
-    {
-        return Convert.ToDateTime(par.Value);
-    }
-
-    public static DateTime? ToDateTime(byte par)
-    {
-        return Convert.ToDateTime(par);
-    }
-
-    public static DateTime ToDateTime(byte? par)
-    {
-        return Convert.ToDateTime(par.Value);
-    }
-
-    public static DateTime? ToDateTime(short par)
-    {
-        return Convert.ToDateTime(par);
-    }
-
-    public static DateTime ToDateTime(short? par)
-    {
-        return Convert.ToDateTime(par.Value);
-    }
-
-    public static DateTime? ToDateTime(ushort par)
-    {
-        return Convert.ToDateTime(par);
-    }
-
-    public static DateTime ToDateTime(ushort? par)
-    {
-        return Convert.ToDateTime(par.Value);
-    }
-
-    public static DateTime? ToDateTime(int par)
-    {
-        return Convert.ToDateTime(par);
-    }
-
-    public static DateTime ToDateTime(int? par)
-    {
-        return Convert.ToDateTime(par.Value);
-    }
-
-    public static DateTime? ToDateTime(uint par)
-    {
-        return Convert.ToDateTime(par);
-    }
-
-    public static DateTime ToDateTime(uint? par)
-    {
-        return Convert.ToDateTime(par.Value);
-    }
-
-    public static DateTime? ToDateTime(long par)
-    {
-        return Convert.ToDateTime(par);
-    }
-
-    public static DateTime ToDateTime(long? par)
-    {
-        return Convert.ToDateTime(par.Value);
-    }
-
-    public static DateTime? ToDateTime(ulong par)
-    {
-        return Convert.ToDateTime(par);
-    }
-
-    public static DateTime ToDateTime(ulong? par)
-    {
-        return Convert.ToDateTime(par.Value);
-    }
-
-    public static DateTime? ToDateTime(bool par)
-    {
-        return Convert.ToDateTime(par);
-    }
-
-    public static DateTime ToDateTime(bool? par)
-    {
-        return Convert.ToDateTime(par.Value);
-    }
-
-    public static DateTime? ToDateTime(char par)
-    {
-        return Convert.ToDateTime(par);
-    }
-
-    public static DateTime ToDateTime(char? par)
-    {
-        return Convert.ToDateTime(par.Value);
-    }
-
-    public static DateTime? ToDateTime(float par)
-    {
-        return Convert.ToDateTime(par);
-    }
-
-    public static DateTime ToDateTime(float? par)
-    {
-        return Convert.ToDateTime(par.Value);
-    }
-
-    public static DateTime? ToDateTime(double par)
-    {
-        return Convert.ToDateTime(par);
-    }
-
-    public static DateTime ToDateTime(double? par)
-    {
-        return Convert.ToDateTime(par.Value);
-    }
-
-    public static DateTime? ToDateTime(decimal par)
-    {
-        return Convert.ToDateTime(par);
-    }
-
-    public static DateTime ToDateTime(decimal? par)
-    {
-        return Convert.ToDateTime(par.Value);
-    }
-
-    public static string ToString(bool? par)
-    {
-        return par == null ? null : Convert.ToString(par.Value);
-    }
-
-    public static string ToString(char? par)
-    {
-        return par == null ? null : Convert.ToString(par.Value);
-    }
-
-    public static string ToString(sbyte? par)
-    {
-        return par == null ? null : Convert.ToString(par.Value);
-    }
-
-    public static string ToString(byte? par)
-    {
-        return par == null ? null : Convert.ToString(par.Value);
-    }
-
-    public static string ToString(short? par)
-    {
-        return par == null ? null : Convert.ToString(par.Value);
-    }
-
-    public static string ToString(ushort? par)
-    {
-        return par == null ? null : Convert.ToString(par.Value);
-    }
-
-    public static string ToString(int? par)
-    {
-        return par == null ? null : Convert.ToString(par.Value);
-    }
-
-    public static string ToString(uint? par)
-    {
-        return par == null ? null : Convert.ToString(par.Value);
-    }
-
-    public static string ToString(long? par)
-    {
-        return par == null ? null : Convert.ToString(par.Value);
-    }
-
-    public static string ToString(ulong? par)
-    {
-        return par == null ? null : Convert.ToString(par.Value);
-    }
-
-    public static string ToString(float? par)
-    {
-        return par == null ? null : Convert.ToString(par.Value);
-    }
-
-    public static string ToString(double? par)
-    {
-        return par == null ? null : Convert.ToString(par.Value);
-    }
-
-    public static string ToString(decimal? par)
-    {
-        return par == null ? null : Convert.ToString(par.Value);
-    }
-
-    public static string ToString(DateTime? par)
-    {
-        return par == null ? null : Convert.ToString(par.Value);
-    }
+  public static bool? ToBoolean(object par)
+  {
+    return par == null ? null : Convert.ToBoolean(par);
+  }
+
+  public static bool? ToBoolean(bool par)
+  {
+    return Convert.ToBoolean(par);
+  }
+
+  public static bool ToBoolean(bool? par)
+  {
+    return par != null && Convert.ToBoolean(par.Value);
+  }
+
+  public static bool? ToBoolean(sbyte par)
+  {
+    return Convert.ToBoolean(par);
+  }
+
+  public static bool ToBoolean(sbyte? par)
+  {
+    return par != null && Convert.ToBoolean(par.Value);
+  }
+
+  public static bool? ToBoolean(char par)
+  {
+    return Convert.ToBoolean(par);
+  }
+
+  public static bool ToBoolean(char? par)
+  {
+    return par.HasValue && Convert.ToBoolean(par.Value);
+  }
+
+  public static bool? ToBoolean(byte par)
+  {
+    return Convert.ToBoolean(par);
+  }
+
+  public static bool ToBoolean(byte? par)
+  {
+    return par != null && Convert.ToBoolean(par.Value);
+  }
+
+  public static bool? ToBoolean(short par)
+  {
+    return Convert.ToBoolean(par);
+  }
+
+  public static bool ToBoolean(short? par)
+  {
+    return par != null && Convert.ToBoolean(par.Value);
+  }
+
+  public static bool? ToBoolean(ushort par)
+  {
+    return Convert.ToBoolean(par);
+  }
+
+  public static bool ToBoolean(ushort? par)
+  {
+    return par != null && Convert.ToBoolean(par.Value);
+  }
+
+  public static bool? ToBoolean(int par)
+  {
+    return Convert.ToBoolean(par);
+  }
+
+  public static bool ToBoolean(int? par)
+  {
+    return par != null && Convert.ToBoolean(par.Value);
+  }
+
+  public static bool? ToBoolean(uint par)
+  {
+    return Convert.ToBoolean(par);
+  }
+
+  public static bool ToBoolean(uint? par)
+  {
+    return par != null && Convert.ToBoolean(par.Value);
+  }
+
+  public static bool? ToBoolean(long par)
+  {
+    return Convert.ToBoolean(par);
+  }
+
+  public static bool ToBoolean(long? par)
+  {
+    return par != null && Convert.ToBoolean(par.Value);
+  }
+
+  public static bool? ToBoolean(ulong par)
+  {
+    return Convert.ToBoolean(par);
+  }
+
+  public static bool ToBoolean(ulong? par)
+  {
+    return par != null && Convert.ToBoolean(par.Value);
+  }
+
+  public static bool? ToBoolean(string par)
+  {
+    return par == null ? null : Convert.ToBoolean(par);
+  }
+
+  public static bool? ToBoolean(float par)
+  {
+    return Convert.ToBoolean(par);
+  }
+
+  public static bool ToBoolean(float? par)
+  {
+    return par != null && Convert.ToBoolean(par.Value);
+  }
+
+  public static bool? ToBoolean(double par)
+  {
+    return Convert.ToBoolean(par);
+  }
+
+  public static bool ToBoolean(double? par)
+  {
+    return par != null && Convert.ToBoolean(par.Value);
+  }
+
+  public static bool? ToBoolean(decimal par)
+  {
+    return Convert.ToBoolean(par);
+  }
+
+  public static bool ToBoolean(decimal? par)
+  {
+    return par != null && Convert.ToBoolean(par.Value);
+  }
+
+  public static bool? ToBoolean(DateTime par)
+  {
+    return Convert.ToBoolean(par);
+  }
+
+  public static bool ToBoolean(DateTime? par)
+  {
+    return par != null && Convert.ToBoolean(par.Value);
+  }
+
+  public static char? ToChar(object par)
+  {
+    return par == null ? null : Convert.ToChar(par);
+  }
+
+  public static char? ToChar(bool par)
+  {
+    return Convert.ToChar(par);
+  }
+
+  public static char ToChar(bool? par)
+  {
+    return Convert.ToChar(par != null && par.Value);
+  }
+
+  public static char? ToChar(char par)
+  {
+    return Convert.ToChar(par);
+  }
+
+  public static char ToChar(char? par)
+  {
+    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+  }
+
+  public static char? ToChar(sbyte par)
+  {
+    return Convert.ToChar(par);
+  }
+
+  public static char ToChar(sbyte? par)
+  {
+    if (par != null)
+      return Convert.ToChar(par.Value);
+    return char.MinValue;
+  }
+
+  public static char? ToChar(byte par)
+  {
+    return Convert.ToChar(par);
+  }
+
+  public static char ToChar(byte? par)
+  {
+    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+  }
+
+  public static char? ToChar(short par)
+  {
+    return Convert.ToChar(par);
+  }
+
+  public static char ToChar(short? par)
+  {
+    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+  }
+
+  public static char? ToChar(ushort par)
+  {
+    return Convert.ToChar(par);
+  }
+
+  public static char ToChar(ushort? par)
+  {
+    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+  }
+
+  public static char? ToChar(int par)
+  {
+    return Convert.ToChar(par);
+  }
+
+  public static char ToChar(int? par)
+  {
+    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+  }
+
+  public static char? ToChar(uint par)
+  {
+    return Convert.ToChar(par);
+  }
+
+  public static char ToChar(uint? par)
+  {
+    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+  }
+
+  public static char? ToChar(long par)
+  {
+    return Convert.ToChar(par);
+  }
+
+  public static char ToChar(long? par)
+  {
+    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+  }
+
+  public static char? ToChar(ulong par)
+  {
+    return Convert.ToChar(par);
+  }
+
+  public static char ToChar(ulong? par)
+  {
+    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+  }
+
+  public static char? ToChar(string par)
+  {
+    return par == null ? null : Convert.ToChar(par);
+  }
+
+  public static char? ToChar(float par)
+  {
+    return Convert.ToChar(par);
+  }
+
+  public static char ToChar(float? par)
+  {
+    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+  }
+
+  public static char? ToChar(double par)
+  {
+    return Convert.ToChar(par);
+  }
+
+  public static char ToChar(double? par)
+  {
+    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+  }
+
+  public static char? ToChar(decimal par)
+  {
+    return Convert.ToChar(par);
+  }
+
+  public static char ToChar(decimal? par)
+  {
+    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+  }
+
+  public static char? ToChar(DateTime par)
+  {
+    return Convert.ToChar(par);
+  }
+
+  public static char ToChar(DateTime? par)
+  {
+    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+  }
+
+  public static sbyte? ToSByte(object par)
+  {
+    return par == null ? null : Convert.ToSByte(par);
+  }
+
+  public static sbyte? ToSByte(bool par)
+  {
+    return Convert.ToSByte(par);
+  }
+
+  public static sbyte ToSByte(bool? par)
+  {
+    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+  }
+
+  public static sbyte? ToSByte(sbyte par)
+  {
+    return Convert.ToSByte(par);
+  }
+
+  public static sbyte ToSByte(sbyte? par)
+  {
+    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+  }
+
+  public static sbyte? ToSByte(char par)
+  {
+    return Convert.ToSByte(par);
+  }
+
+  public static sbyte ToSByte(char? par)
+  {
+    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+  }
+
+  public static sbyte? ToSByte(byte par)
+  {
+    return Convert.ToSByte(par);
+  }
+
+  public static sbyte ToSByte(byte? par)
+  {
+    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+  }
+
+  public static sbyte? ToSByte(short par)
+  {
+    return Convert.ToSByte(par);
+  }
+
+  public static sbyte ToSByte(short? par)
+  {
+    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+  }
+
+  public static sbyte? ToSByte(ushort par)
+  {
+    return Convert.ToSByte(par);
+  }
+
+  public static sbyte ToSByte(ushort? par)
+  {
+    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+  }
+
+  public static sbyte? ToSByte(int par)
+  {
+    return Convert.ToSByte(par);
+  }
+
+  public static sbyte ToSByte(int? par)
+  {
+    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+  }
+
+  public static sbyte? ToSByte(uint par)
+  {
+    return Convert.ToSByte(par);
+  }
+
+  public static sbyte ToSByte(uint? par)
+  {
+    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+  }
+
+  public static sbyte? ToSByte(long par)
+  {
+    return Convert.ToSByte(par);
+  }
+
+  public static sbyte ToSByte(long? par)
+  {
+    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+  }
+
+  public static sbyte? ToSByte(ulong par)
+  {
+    return Convert.ToSByte(par);
+  }
+
+  public static sbyte ToSByte(ulong? par)
+  {
+    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+  }
+
+  public static sbyte? ToSByte(float par)
+  {
+    return Convert.ToSByte(par);
+  }
+
+  public static sbyte ToSByte(float? par)
+  {
+    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+  }
+
+  public static sbyte? ToSByte(double par)
+  {
+    return Convert.ToSByte(par);
+  }
+
+  public static sbyte ToSByte(double? par)
+  {
+    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+  }
+
+  public static sbyte? ToSByte(decimal par)
+  {
+    return Convert.ToSByte(par);
+  }
+
+  public static sbyte ToSByte(decimal? par)
+  {
+    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+  }
+
+  public static sbyte? ToSByte(string par)
+  {
+    return par == null ? null : Convert.ToSByte(par);
+  }
+
+  public static sbyte? ToSByte(DateTime par)
+  {
+    return Convert.ToSByte(par);
+  }
+
+  public static sbyte ToSByte(DateTime? par)
+  {
+    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+  }
+
+  public static byte? ToByte(object par)
+  {
+    return par == null ? null : Convert.ToByte(par);
+  }
+
+  public static byte? ToByte(bool par)
+  {
+    return Convert.ToByte(par);
+  }
+
+  public static byte ToByte(bool? par)
+  {
+    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+  }
+
+  public static byte? ToByte(byte par)
+  {
+    return Convert.ToByte(par);
+  }
+
+  public static byte ToByte(byte? par)
+  {
+    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+  }
+
+  public static byte? ToByte(char par)
+  {
+    return Convert.ToByte(par);
+  }
+
+  public static byte ToByte(char? par)
+  {
+    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+  }
+
+  public static byte? ToByte(sbyte par)
+  {
+    return Convert.ToByte(par);
+  }
+
+  public static byte ToByte(sbyte? par)
+  {
+    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+  }
+
+  public static byte? ToByte(short par)
+  {
+    return Convert.ToByte(par);
+  }
+
+  public static byte ToByte(short? par)
+  {
+    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+  }
+
+  public static byte? ToByte(ushort par)
+  {
+    return Convert.ToByte(par);
+  }
+
+  public static byte ToByte(ushort? par)
+  {
+    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+  }
+
+  public static byte? ToByte(int par)
+  {
+    return Convert.ToByte(par);
+  }
+
+  public static byte ToByte(int? par)
+  {
+    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+  }
+
+  public static byte? ToByte(uint par)
+  {
+    return Convert.ToByte(par);
+  }
+
+  public static byte ToByte(uint? par)
+  {
+    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+  }
+
+  public static byte? ToByte(long par)
+  {
+    return Convert.ToByte(par);
+  }
+
+  public static byte ToByte(long? par)
+  {
+    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+  }
+
+  public static byte? ToByte(ulong par)
+  {
+    return Convert.ToByte(par);
+  }
+
+  public static byte ToByte(ulong? par)
+  {
+    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+  }
+
+  public static byte? ToByte(float par)
+  {
+    return Convert.ToByte(par);
+  }
+
+  public static byte ToByte(float? par)
+  {
+    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+  }
+
+  public static byte? ToByte(double par)
+  {
+    return Convert.ToByte(par);
+  }
+
+  public static byte ToByte(double? par)
+  {
+    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+  }
+
+  public static byte? ToByte(decimal par)
+  {
+    return Convert.ToByte(par);
+  }
+
+  public static byte ToByte(decimal? par)
+  {
+    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+  }
+
+  public static byte? ToByte(string par)
+  {
+    return par == null ? null : Convert.ToByte(par);
+  }
+
+  public static byte? ToByte(DateTime par)
+  {
+    return Convert.ToByte(par);
+  }
+
+  public static byte ToByte(DateTime? par)
+  {
+    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+  }
+
+  public static short? ToInt16(object par)
+  {
+    return par == null ? null : Convert.ToInt16(par);
+  }
+
+  public static short? ToInt16(bool par)
+  {
+    return Convert.ToInt16(par);
+  }
+
+  public static short ToInt16(bool? par)
+  {
+    return par.HasValue ? Convert.ToInt16(par.Value) : (short)0;
+  }
+
+  public static short? ToInt16(char par)
+  {
+    return Convert.ToInt16(par);
+  }
+
+  public static short ToInt16(char? par)
+  {
+    return Convert.ToInt16(par.Value);
+  }
+
+  public static short? ToInt16(sbyte par)
+  {
+    return Convert.ToInt16(par);
+  }
+
+  public static short ToInt16(sbyte? par)
+  {
+    return Convert.ToInt16(par.Value);
+  }
+
+  public static short? ToInt16(byte par)
+  {
+    return Convert.ToInt16(par);
+  }
+
+  public static short ToInt16(byte? par)
+  {
+    return Convert.ToInt16(par.Value);
+  }
+
+  public static short? ToInt16(ushort par)
+  {
+    return Convert.ToInt16(par);
+  }
+
+  public static short ToInt16(ushort? par)
+  {
+    return Convert.ToInt16(par.Value);
+  }
+
+  public static short? ToInt16(int par)
+  {
+    return Convert.ToInt16(par);
+  }
+
+  public static short ToInt16(int? par)
+  {
+    return Convert.ToInt16(par.Value);
+  }
+
+  public static short? ToInt16(uint par)
+  {
+    return Convert.ToInt16(par);
+  }
+
+  public static short ToInt16(uint? par)
+  {
+    return Convert.ToInt16(par.Value);
+  }
+
+  public static short? ToInt16(short par)
+  {
+    return Convert.ToInt16(par);
+  }
+
+  public static short ToInt16(short? par)
+  {
+    return Convert.ToInt16(par.Value);
+  }
+
+  public static short? ToInt16(long par)
+  {
+    return Convert.ToInt16(par);
+  }
+
+  public static short ToInt16(long? par)
+  {
+    return Convert.ToInt16(par.Value);
+  }
+
+  public static short? ToInt16(ulong par)
+  {
+    return Convert.ToInt16(par);
+  }
+
+  public static short ToInt16(ulong? par)
+  {
+    return Convert.ToInt16(par.Value);
+  }
+
+  public static short? ToInt16(float par)
+  {
+    return Convert.ToInt16(par);
+  }
+
+  public static short ToInt16(float? par)
+  {
+    return Convert.ToInt16(par.Value);
+  }
+
+  public static short? ToInt16(double par)
+  {
+    return Convert.ToInt16(par);
+  }
+
+  public static short ToInt16(double? par)
+  {
+    return Convert.ToInt16(par.Value);
+  }
+
+  public static short? ToInt16(decimal par)
+  {
+    return Convert.ToInt16(par);
+  }
+
+  public static short ToInt16(decimal? par)
+  {
+    return Convert.ToInt16(par.Value);
+  }
+
+  public static short? ToInt16(string par)
+  {
+    return par == null ? null : Convert.ToInt16(par);
+  }
+
+  public static short? ToInt16(DateTime par)
+  {
+    return Convert.ToInt16(par);
+  }
+
+  public static short ToInt16(DateTime? par)
+  {
+    return Convert.ToInt16(par.Value);
+  }
+
+  public static ushort? ToUInt16(object par)
+  {
+    return par == null ? null : Convert.ToUInt16(par);
+  }
+
+  public static ushort? ToUInt16(bool par)
+  {
+    return Convert.ToUInt16(par);
+  }
+
+  public static ushort ToUInt16(bool? par)
+  {
+    return Convert.ToUInt16(par.Value);
+  }
+
+  public static ushort? ToUInt16(char par)
+  {
+    return Convert.ToUInt16(par);
+  }
+
+  public static ushort ToUInt16(char? par)
+  {
+    return Convert.ToUInt16(par.Value);
+  }
+
+  public static ushort? ToUInt16(sbyte par)
+  {
+    return Convert.ToUInt16(par);
+  }
+
+  public static ushort ToUInt16(sbyte? par)
+  {
+    return Convert.ToUInt16(par.Value);
+  }
+
+  public static ushort? ToUInt16(byte par)
+  {
+    return Convert.ToUInt16(par);
+  }
+
+  public static ushort ToUInt16(byte? par)
+  {
+    return Convert.ToUInt16(par.Value);
+  }
+
+  public static ushort? ToUInt16(short par)
+  {
+    return Convert.ToUInt16(par);
+  }
+
+  public static ushort ToUInt16(short? par)
+  {
+    return Convert.ToUInt16(par.Value);
+  }
+
+  public static ushort? ToUInt16(int par)
+  {
+    return Convert.ToUInt16(par);
+  }
+
+  public static ushort ToUInt16(int? par)
+  {
+    return Convert.ToUInt16(par.Value);
+  }
+
+  public static ushort? ToUInt16(ushort par)
+  {
+    return Convert.ToUInt16(par);
+  }
+
+  public static ushort ToUInt16(ushort? par)
+  {
+    return Convert.ToUInt16(par.Value);
+  }
+
+  public static ushort? ToUInt16(uint par)
+  {
+    return Convert.ToUInt16(par);
+  }
+
+  public static ushort ToUInt16(uint? par)
+  {
+    return Convert.ToUInt16(par.Value);
+  }
+
+  public static ushort? ToUInt16(long par)
+  {
+    return Convert.ToUInt16(par);
+  }
+
+  public static ushort ToUInt16(long? par)
+  {
+    return Convert.ToUInt16(par.Value);
+  }
+
+  public static ushort? ToUInt16(ulong par)
+  {
+    return Convert.ToUInt16(par);
+  }
+
+  public static ushort ToUInt16(ulong? par)
+  {
+    return Convert.ToUInt16(par.Value);
+  }
+
+  public static ushort? ToUInt16(float par)
+  {
+    return Convert.ToUInt16(par);
+  }
+
+  public static ushort ToUInt16(float? par)
+  {
+    return Convert.ToUInt16(par.Value);
+  }
+
+  public static ushort? ToUInt16(double par)
+  {
+    return Convert.ToUInt16(par);
+  }
+
+  public static ushort ToUInt16(double? par)
+  {
+    return Convert.ToUInt16(par.Value);
+  }
+
+  public static ushort? ToUInt16(decimal par)
+  {
+    return Convert.ToUInt16(par);
+  }
+
+  public static ushort ToUInt16(decimal? par)
+  {
+    return Convert.ToUInt16(par.Value);
+  }
+
+  public static ushort? ToUInt16(string par)
+  {
+    return par == null ? null : Convert.ToUInt16(par);
+  }
+
+  public static ushort? ToUInt16(DateTime par)
+  {
+    return Convert.ToUInt16(par);
+  }
+
+  public static ushort ToUInt16(DateTime? par)
+  {
+    return Convert.ToUInt16(par.Value);
+  }
+
+  public static int? ToInt32(object par)
+  {
+    return par == null ? null : Convert.ToInt32(par);
+  }
+
+  public static int? ToInt32(bool par)
+  {
+    return Convert.ToInt32(par);
+  }
+
+  public static int ToInt32(bool? par)
+  {
+    return Convert.ToInt32(par.Value);
+  }
+
+  public static int? ToInt32(char par)
+  {
+    return Convert.ToInt32(par);
+  }
+
+  public static int ToInt32(char? par)
+  {
+    return Convert.ToInt32(par.Value);
+  }
+
+  public static int? ToInt32(sbyte par)
+  {
+    return Convert.ToInt32(par);
+  }
+
+  public static int ToInt32(sbyte? par)
+  {
+    return Convert.ToInt32(par.Value);
+  }
+
+  public static int? ToInt32(byte par)
+  {
+    return Convert.ToInt32(par);
+  }
+
+  public static int ToInt32(byte? par)
+  {
+    return Convert.ToInt32(par.Value);
+  }
+
+  public static int? ToInt32(short par)
+  {
+    return Convert.ToInt32(par);
+  }
+
+  public static int ToInt32(short? par)
+  {
+    return Convert.ToInt32(par.Value);
+  }
+
+  public static int? ToInt32(ushort par)
+  {
+    return Convert.ToInt32(par);
+  }
+
+  public static int ToInt32(ushort? par)
+  {
+    return Convert.ToInt32(par.Value);
+  }
+
+  public static int? ToInt32(uint par)
+  {
+    return Convert.ToInt32(par);
+  }
+
+  public static int ToInt32(uint? par)
+  {
+    return Convert.ToInt32(par.Value);
+  }
+
+  public static int? ToInt32(int par)
+  {
+    return Convert.ToInt32(par);
+  }
+
+  public static int ToInt32(int? par)
+  {
+    return Convert.ToInt32(par.Value);
+  }
+
+  public static int? ToInt32(long par)
+  {
+    return Convert.ToInt32(par);
+  }
+
+  public static int ToInt32(long? par)
+  {
+    return Convert.ToInt32(par.Value);
+  }
+
+  public static int? ToInt32(ulong par)
+  {
+    return Convert.ToInt32(par);
+  }
+
+  public static int ToInt32(ulong? par)
+  {
+    return Convert.ToInt32(par.Value);
+  }
+
+  public static int? ToInt32(float par)
+  {
+    return Convert.ToInt32(par);
+  }
+
+  public static int ToInt32(float? par)
+  {
+    return Convert.ToInt32(par.Value);
+  }
+
+  public static int? ToInt32(double par)
+  {
+    return Convert.ToInt32(par);
+  }
+
+  public static int ToInt32(double? par)
+  {
+    return Convert.ToInt32(par.Value);
+  }
+
+  public static int? ToInt32(decimal par)
+  {
+    return Convert.ToInt32(par);
+  }
+
+  public static int ToInt32(decimal? par)
+  {
+    return Convert.ToInt32(par.Value);
+  }
+
+  public static int? ToInt32(string par)
+  {
+    return par == null ? null : Convert.ToInt32(par);
+  }
+
+  public static int? ToInt32(DateTime par)
+  {
+    return Convert.ToInt32(par);
+  }
+
+  public static int ToInt32(DateTime? par)
+  {
+    return Convert.ToInt32(par.Value);
+  }
+
+  public static uint? ToUInt32(object par)
+  {
+    return par == null ? null : Convert.ToUInt32(par);
+  }
+
+  public static uint? ToUInt32(bool par)
+  {
+    return Convert.ToUInt32(par);
+  }
+
+  public static uint ToUInt32(bool? par)
+  {
+    return Convert.ToUInt32(par.Value);
+  }
+
+  public static uint? ToUInt32(char par)
+  {
+    return Convert.ToUInt32(par);
+  }
+
+  public static uint ToUInt32(char? par)
+  {
+    return Convert.ToUInt32(par.Value);
+  }
+
+  public static uint? ToUInt32(sbyte par)
+  {
+    return Convert.ToUInt32(par);
+  }
+
+  public static uint ToUInt32(sbyte? par)
+  {
+    return Convert.ToUInt32(par.Value);
+  }
+
+  public static uint? ToUInt32(byte par)
+  {
+    return Convert.ToUInt32(par);
+  }
+
+  public static uint ToUInt32(byte? par)
+  {
+    return Convert.ToUInt32(par.Value);
+  }
+
+  public static uint? ToUInt32(short par)
+  {
+    return Convert.ToUInt32(par);
+  }
+
+  public static uint ToUInt32(short? par)
+  {
+    return Convert.ToUInt32(par.Value);
+  }
+
+  public static uint? ToUInt32(ushort par)
+  {
+    return Convert.ToUInt32(par);
+  }
+
+  public static uint ToUInt32(ushort? par)
+  {
+    return Convert.ToUInt32(par.Value);
+  }
+
+  public static uint? ToUInt32(int par)
+  {
+    return Convert.ToUInt32(par);
+  }
+
+  public static uint ToUInt32(int? par)
+  {
+    return Convert.ToUInt32(par.Value);
+  }
+
+  public static uint? ToUInt32(uint par)
+  {
+    return Convert.ToUInt32(par);
+  }
+
+  public static uint ToUInt32(uint? par)
+  {
+    return Convert.ToUInt32(par.Value);
+  }
+
+  public static uint? ToUInt32(long par)
+  {
+    return Convert.ToUInt32(par);
+  }
+
+  public static uint ToUInt32(long? par)
+  {
+    return Convert.ToUInt32(par.Value);
+  }
+
+  public static uint? ToUInt32(ulong par)
+  {
+    return Convert.ToUInt32(par);
+  }
+
+  public static uint ToUInt32(ulong? par)
+  {
+    return Convert.ToUInt32(par.Value);
+  }
+
+  public static uint? ToUInt32(float par)
+  {
+    return Convert.ToUInt32(par);
+  }
+
+  public static uint ToUInt32(float? par)
+  {
+    return Convert.ToUInt32(par.Value);
+  }
+
+  public static uint? ToUInt32(double par)
+  {
+    return Convert.ToUInt32(par);
+  }
+
+  public static uint ToUInt32(double? par)
+  {
+    return Convert.ToUInt32(par.Value);
+  }
+
+  public static uint? ToUInt32(decimal par)
+  {
+    return Convert.ToUInt32(par);
+  }
+
+  public static uint ToUInt32(decimal? par)
+  {
+    return Convert.ToUInt32(par.Value);
+  }
+
+  public static uint? ToUInt32(string par)
+  {
+    return par == null ? null : Convert.ToUInt32(par);
+  }
+
+  public static uint? ToUInt32(DateTime par)
+  {
+    return Convert.ToUInt32(par);
+  }
+
+  public static uint ToUInt32(DateTime? par)
+  {
+    return Convert.ToUInt32(par.Value);
+  }
+
+  public static long? ToInt64(object par)
+  {
+    return par == null ? null : Convert.ToInt64(par);
+  }
+
+  public static long? ToInt64(bool par)
+  {
+    return Convert.ToInt64(par);
+  }
+
+  public static long ToInt64(bool? par)
+  {
+    return Convert.ToInt64(par.Value);
+  }
+
+  public static long? ToInt64(char par)
+  {
+    return Convert.ToInt64(par);
+  }
+
+  public static long ToInt64(char? par)
+  {
+    return Convert.ToInt64(par.Value);
+  }
+
+  public static long? ToInt64(sbyte par)
+  {
+    return Convert.ToInt64(par);
+  }
+
+  public static long ToInt64(sbyte? par)
+  {
+    return Convert.ToInt64(par.Value);
+  }
+
+  public static long? ToInt64(byte par)
+  {
+    return Convert.ToInt64(par);
+  }
+
+  public static long ToInt64(byte? par)
+  {
+    return Convert.ToInt64(par.Value);
+  }
+
+  public static long? ToInt64(short par)
+  {
+    return Convert.ToInt64(par);
+  }
+
+  public static long ToInt64(short? par)
+  {
+    return Convert.ToInt64(par.Value);
+  }
+
+  public static long? ToInt64(ushort par)
+  {
+    return Convert.ToInt64(par);
+  }
+
+  public static long ToInt64(ushort? par)
+  {
+    return Convert.ToInt64(par.Value);
+  }
+
+  public static long? ToInt64(int par)
+  {
+    return Convert.ToInt64(par);
+  }
+
+  public static long ToInt64(int? par)
+  {
+    return Convert.ToInt64(par.Value);
+  }
+
+  public static long? ToInt64(uint par)
+  {
+    return Convert.ToInt64(par);
+  }
+
+  public static long ToInt64(uint? par)
+  {
+    return Convert.ToInt64(par.Value);
+  }
+
+  public static long? ToInt64(ulong par)
+  {
+    return Convert.ToInt64(par);
+  }
+
+  public static long ToInt64(ulong? par)
+  {
+    return Convert.ToInt64(par.Value);
+  }
+
+  public static long? ToInt64(long par)
+  {
+    return Convert.ToInt64(par);
+  }
+
+  public static long ToInt64(long? par)
+  {
+    return Convert.ToInt64(par.Value);
+  }
+
+  public static long? ToInt64(float par)
+  {
+    return Convert.ToInt64(par);
+  }
+
+  public static long ToInt64(float? par)
+  {
+    return Convert.ToInt64(par.Value);
+  }
+
+  public static long? ToInt64(double par)
+  {
+    return Convert.ToInt64(par);
+  }
+
+  public static long ToInt64(double? par)
+  {
+    return Convert.ToInt64(par.Value);
+  }
+
+  public static long? ToInt64(decimal par)
+  {
+    return Convert.ToInt64(par);
+  }
+
+  public static long ToInt64(decimal? par)
+  {
+    return Convert.ToInt64(par.Value);
+  }
+
+  public static long? ToInt64(string par)
+  {
+    return par == null ? null : Convert.ToInt64(par);
+  }
+
+  public static long? ToInt64(DateTime par)
+  {
+    return Convert.ToInt64(par);
+  }
+
+  public static long ToInt64(DateTime? par)
+  {
+    return Convert.ToInt64(par.Value);
+  }
+
+  public static ulong? ToUInt64(object par)
+  {
+    return par == null ? null : Convert.ToUInt64(par);
+  }
+
+  public static ulong? ToUInt64(bool par)
+  {
+    return Convert.ToUInt64(par);
+  }
+
+  public static ulong ToUInt64(bool? par)
+  {
+    return Convert.ToUInt64(par.Value);
+  }
+
+  public static ulong? ToUInt64(char par)
+  {
+    return Convert.ToUInt64(par);
+  }
+
+  public static ulong ToUInt64(char? par)
+  {
+    return Convert.ToUInt64(par.Value);
+  }
+
+  public static ulong? ToUInt64(sbyte par)
+  {
+    return Convert.ToUInt64(par);
+  }
+
+  public static ulong ToUInt64(sbyte? par)
+  {
+    return Convert.ToUInt64(par.Value);
+  }
+
+  public static ulong? ToUInt64(byte par)
+  {
+    return Convert.ToUInt64(par);
+  }
+
+  public static ulong ToUInt64(byte? par)
+  {
+    return Convert.ToUInt64(par.Value);
+  }
+
+  public static ulong? ToUInt64(short par)
+  {
+    return Convert.ToUInt64(par);
+  }
+
+  public static ulong ToUInt64(short? par)
+  {
+    return Convert.ToUInt64(par.Value);
+  }
+
+  public static ulong? ToUInt64(ushort par)
+  {
+    return Convert.ToUInt64(par);
+  }
+
+  public static ulong ToUInt64(ushort? par)
+  {
+    return Convert.ToUInt64(par.Value);
+  }
+
+  public static ulong? ToUInt64(int par)
+  {
+    return Convert.ToUInt64(par);
+  }
+
+  public static ulong ToUInt64(int? par)
+  {
+    return Convert.ToUInt64(par.Value);
+  }
+
+  public static ulong? ToUInt64(uint par)
+  {
+    return Convert.ToUInt64(par);
+  }
+
+  public static ulong ToUInt64(uint? par)
+  {
+    return Convert.ToUInt64(par.Value);
+  }
+
+  public static ulong? ToUInt64(long par)
+  {
+    return Convert.ToUInt64(par);
+  }
+
+  public static ulong ToUInt64(long? par)
+  {
+    return Convert.ToUInt64(par.Value);
+  }
+
+  public static ulong? ToUInt64(ulong par)
+  {
+    return Convert.ToUInt64(par);
+  }
+
+  public static ulong ToUInt64(ulong? par)
+  {
+    return Convert.ToUInt64(par.Value);
+  }
+
+  public static ulong? ToUInt64(float par)
+  {
+    return Convert.ToUInt64(par);
+  }
+
+  public static ulong ToUInt64(float? par)
+  {
+    return Convert.ToUInt64(par.Value);
+  }
+
+  public static ulong? ToUInt64(double par)
+  {
+    return Convert.ToUInt64(par);
+  }
+
+  public static ulong ToUInt64(double? par)
+  {
+    return Convert.ToUInt64(par.Value);
+  }
+
+  public static ulong? ToUInt64(decimal par)
+  {
+    return Convert.ToUInt64(par);
+  }
+
+  public static ulong ToUInt64(decimal? par)
+  {
+    return Convert.ToUInt64(par.Value);
+  }
+
+  public static ulong? ToUInt64(string par)
+  {
+    return par == null ? null : Convert.ToUInt64(par);
+  }
+
+  public static ulong? ToUInt64(DateTime par)
+  {
+    return Convert.ToUInt64(par);
+  }
+
+  public static ulong ToUInt64(DateTime? par)
+  {
+    return Convert.ToUInt64(par.Value);
+  }
+
+  public static float? ToSingle(object par)
+  {
+    return par == null ? null : Convert.ToSingle(par);
+  }
+
+  public static float? ToSingle(sbyte par)
+  {
+    return Convert.ToSingle(par);
+  }
+
+  public static float ToSingle(sbyte? par)
+  {
+    return Convert.ToSingle(par.Value);
+  }
+
+  public static float? ToSingle(byte par)
+  {
+    return Convert.ToSingle(par);
+  }
+
+  public static float ToSingle(byte? par)
+  {
+    return Convert.ToSingle(par.Value);
+  }
+
+  public static float? ToSingle(char par)
+  {
+    return Convert.ToSingle(par);
+  }
+
+  public static float ToSingle(char? par)
+  {
+    return Convert.ToSingle(par.Value);
+  }
+
+  public static float? ToSingle(short par)
+  {
+    return Convert.ToSingle(par);
+  }
+
+  public static float ToSingle(short? par)
+  {
+    return Convert.ToSingle(par.Value);
+  }
+
+  public static float? ToSingle(ushort par)
+  {
+    return Convert.ToSingle(par);
+  }
+
+  public static float ToSingle(ushort? par)
+  {
+    return Convert.ToSingle(par.Value);
+  }
+
+  public static float? ToSingle(int par)
+  {
+    return Convert.ToSingle(par);
+  }
+
+  public static float ToSingle(int? par)
+  {
+    return Convert.ToSingle(par.Value);
+  }
+
+  public static float? ToSingle(uint par)
+  {
+    return Convert.ToSingle(par);
+  }
+
+  public static float ToSingle(uint? par)
+  {
+    return Convert.ToSingle(par.Value);
+  }
+
+  public static float? ToSingle(long par)
+  {
+    return Convert.ToSingle(par);
+  }
+
+  public static float ToSingle(long? par)
+  {
+    return Convert.ToSingle(par.Value);
+  }
+
+  public static float? ToSingle(ulong par)
+  {
+    return Convert.ToSingle(par);
+  }
+
+  public static float ToSingle(ulong? par)
+  {
+    return Convert.ToSingle(par.Value);
+  }
+
+  public static float? ToSingle(float par)
+  {
+    return Convert.ToSingle(par);
+  }
+
+  public static float ToSingle(float? par)
+  {
+    return Convert.ToSingle(par.Value);
+  }
+
+  public static float? ToSingle(double par)
+  {
+    return Convert.ToSingle(par);
+  }
+
+  public static float ToSingle(double? par)
+  {
+    return Convert.ToSingle(par.Value);
+  }
+
+  public static float? ToSingle(decimal par)
+  {
+    return Convert.ToSingle(par);
+  }
+
+  public static float ToSingle(decimal? par)
+  {
+    return Convert.ToSingle(par.Value);
+  }
+
+  public static float? ToSingle(string par)
+  {
+    return par == null ? null : Convert.ToSingle(par);
+  }
+
+  public static float? ToSingle(bool par)
+  {
+    return Convert.ToSingle(par);
+  }
+
+  public static float ToSingle(bool? par)
+  {
+    return Convert.ToSingle(par.Value);
+  }
+
+  public static float? ToSingle(DateTime par)
+  {
+    return Convert.ToSingle(par);
+  }
+
+  public static float ToSingle(DateTime? par)
+  {
+    return Convert.ToSingle(par.Value);
+  }
+
+  public static double? ToDouble(object par)
+  {
+    return par == null ? null : Convert.ToDouble(par);
+  }
+
+  public static double? ToDouble(sbyte par)
+  {
+    return Convert.ToDouble(par);
+  }
+
+  public static double ToDouble(sbyte? par)
+  {
+    return Convert.ToDouble(par.Value);
+  }
+
+  public static double? ToDouble(byte par)
+  {
+    return Convert.ToDouble(par);
+  }
+
+  public static double ToDouble(byte? par)
+  {
+    return Convert.ToDouble(par.Value);
+  }
+
+  public static double? ToDouble(short par)
+  {
+    return Convert.ToDouble(par);
+  }
+
+  public static double ToDouble(short? par)
+  {
+    return Convert.ToDouble(par.Value);
+  }
+
+  public static double? ToDouble(char par)
+  {
+    return Convert.ToDouble(par);
+  }
+
+  public static double ToDouble(char? par)
+  {
+    return Convert.ToDouble(par.Value);
+  }
+
+  public static double? ToDouble(ushort par)
+  {
+    return Convert.ToDouble(par);
+  }
+
+  public static double ToDouble(ushort? par)
+  {
+    return Convert.ToDouble(par.Value);
+  }
+
+  public static double? ToDouble(int par)
+  {
+    return Convert.ToDouble(par);
+  }
+
+  public static double ToDouble(int? par)
+  {
+    return Convert.ToDouble(par.Value);
+  }
+
+  public static double? ToDouble(uint par)
+  {
+    return Convert.ToDouble(par);
+  }
+
+  public static double ToDouble(uint? par)
+  {
+    return Convert.ToDouble(par.Value);
+  }
+
+  public static double? ToDouble(long par)
+  {
+    return Convert.ToDouble(par);
+  }
+
+  public static double ToDouble(long? par)
+  {
+    return Convert.ToDouble(par.Value);
+  }
+
+  public static double? ToDouble(ulong par)
+  {
+    return Convert.ToDouble(par);
+  }
+
+  public static double ToDouble(ulong? par)
+  {
+    return Convert.ToDouble(par.Value);
+  }
+
+  public static double? ToDouble(float par)
+  {
+    return Convert.ToDouble(par);
+  }
+
+  public static double ToDouble(float? par)
+  {
+    return Convert.ToDouble(par.Value);
+  }
+
+  public static double? ToDouble(double par)
+  {
+    return Convert.ToDouble(par);
+  }
+
+  public static double ToDouble(double? par)
+  {
+    return Convert.ToDouble(par.Value);
+  }
+
+  public static double? ToDouble(decimal par)
+  {
+    return Convert.ToDouble(par);
+  }
+
+  public static double ToDouble(decimal? par)
+  {
+    return Convert.ToDouble(par.Value);
+  }
+
+  public static double? ToDouble(string par)
+  {
+    return par == null ? null : Convert.ToDouble(par);
+  }
+
+  public static double? ToDouble(bool par)
+  {
+    return Convert.ToDouble(par);
+  }
+
+  public static double ToDouble(bool? par)
+  {
+    return Convert.ToDouble(par.Value);
+  }
+
+  public static double? ToDouble(DateTime par)
+  {
+    return Convert.ToDouble(par);
+  }
+
+  public static double ToDouble(DateTime? par)
+  {
+    return Convert.ToDouble(par.Value);
+  }
+
+  public static decimal? ToDecimal(object par)
+  {
+    return par == null ? null : Convert.ToDecimal(par);
+  }
+
+  public static decimal? ToDecimal(sbyte par)
+  {
+    return Convert.ToDecimal(par);
+  }
+
+  public static decimal ToDecimal(sbyte? par)
+  {
+    return Convert.ToDecimal(par.Value);
+  }
+
+  public static decimal? ToDecimal(byte par)
+  {
+    return Convert.ToDecimal(par);
+  }
+
+  public static decimal ToDecimal(byte? par)
+  {
+    return Convert.ToDecimal(par.Value);
+  }
+
+  public static decimal? ToDecimal(char par)
+  {
+    return Convert.ToDecimal(par);
+  }
+
+  public static decimal ToDecimal(char? par)
+  {
+    return Convert.ToDecimal(par.Value);
+  }
+
+  public static decimal? ToDecimal(short par)
+  {
+    return Convert.ToDecimal(par);
+  }
+
+  public static decimal ToDecimal(short? par)
+  {
+    return Convert.ToDecimal(par.Value);
+  }
+
+  public static decimal? ToDecimal(ushort par)
+  {
+    return Convert.ToDecimal(par);
+  }
+
+  public static decimal ToDecimal(ushort? par)
+  {
+    return Convert.ToDecimal(par.Value);
+  }
+
+  public static decimal? ToDecimal(int par)
+  {
+    return Convert.ToDecimal(par);
+  }
+
+  public static decimal ToDecimal(int? par)
+  {
+    return Convert.ToDecimal(par.Value);
+  }
+
+  public static decimal? ToDecimal(uint par)
+  {
+    return Convert.ToDecimal(par);
+  }
+
+  public static decimal ToDecimal(uint? par)
+  {
+    return Convert.ToDecimal(par.Value);
+  }
+
+  public static decimal? ToDecimal(long par)
+  {
+    return Convert.ToDecimal(par);
+  }
+
+  public static decimal ToDecimal(long? par)
+  {
+    return Convert.ToDecimal(par.Value);
+  }
+
+  public static decimal? ToDecimal(ulong par)
+  {
+    return Convert.ToDecimal(par);
+  }
+
+  public static decimal ToDecimal(ulong? par)
+  {
+    return Convert.ToDecimal(par.Value);
+  }
+
+  public static decimal? ToDecimal(float par)
+  {
+    return Convert.ToDecimal(par);
+  }
+
+  public static decimal ToDecimal(float? par)
+  {
+    return Convert.ToDecimal(par.Value);
+  }
+
+  public static decimal? ToDecimal(double par)
+  {
+    return Convert.ToDecimal(par);
+  }
+
+  public static decimal ToDecimal(double? par)
+  {
+    return Convert.ToDecimal(par.Value);
+  }
+
+  public static decimal? ToDecimal(string par)
+  {
+    return par == null ? null : Convert.ToDecimal(par);
+  }
+
+  public static decimal? ToDecimal(decimal par)
+  {
+    return Convert.ToDecimal(par);
+  }
+
+  public static decimal ToDecimal(decimal? par)
+  {
+    return Convert.ToDecimal(par.Value);
+  }
+
+  public static decimal? ToDecimal(bool par)
+  {
+    return Convert.ToDecimal(par);
+  }
+
+  public static decimal ToDecimal(bool? par)
+  {
+    return Convert.ToDecimal(par.Value);
+  }
+
+  public static decimal? ToDecimal(DateTime par)
+  {
+    return Convert.ToDecimal(par);
+  }
+
+  public static decimal ToDecimal(DateTime? par)
+  {
+    return Convert.ToDecimal(par.Value);
+  }
+
+  public static DateTime? ToDateTime(DateTime par)
+  {
+    return Convert.ToDateTime(par);
+  }
+
+  public static DateTime ToDateTime(DateTime? par)
+  {
+    return Convert.ToDateTime(par.Value);
+  }
+
+  public static DateTime? ToDateTime(object par)
+  {
+    return par == null ? null : Convert.ToDateTime(par);
+  }
+
+  public static DateTime? ToDateTime(string par)
+  {
+    return par == null ? null : Convert.ToDateTime(par);
+  }
+
+  public static DateTime? ToDateTime(sbyte par)
+  {
+    return Convert.ToDateTime(par);
+  }
+
+  public static DateTime ToDateTime(sbyte? par)
+  {
+    return Convert.ToDateTime(par.Value);
+  }
+
+  public static DateTime? ToDateTime(byte par)
+  {
+    return Convert.ToDateTime(par);
+  }
+
+  public static DateTime ToDateTime(byte? par)
+  {
+    return Convert.ToDateTime(par.Value);
+  }
+
+  public static DateTime? ToDateTime(short par)
+  {
+    return Convert.ToDateTime(par);
+  }
+
+  public static DateTime ToDateTime(short? par)
+  {
+    return Convert.ToDateTime(par.Value);
+  }
+
+  public static DateTime? ToDateTime(ushort par)
+  {
+    return Convert.ToDateTime(par);
+  }
+
+  public static DateTime ToDateTime(ushort? par)
+  {
+    return Convert.ToDateTime(par.Value);
+  }
+
+  public static DateTime? ToDateTime(int par)
+  {
+    return Convert.ToDateTime(par);
+  }
+
+  public static DateTime ToDateTime(int? par)
+  {
+    return Convert.ToDateTime(par.Value);
+  }
+
+  public static DateTime? ToDateTime(uint par)
+  {
+    return Convert.ToDateTime(par);
+  }
+
+  public static DateTime ToDateTime(uint? par)
+  {
+    return Convert.ToDateTime(par.Value);
+  }
+
+  public static DateTime? ToDateTime(long par)
+  {
+    return Convert.ToDateTime(par);
+  }
+
+  public static DateTime ToDateTime(long? par)
+  {
+    return Convert.ToDateTime(par.Value);
+  }
+
+  public static DateTime? ToDateTime(ulong par)
+  {
+    return Convert.ToDateTime(par);
+  }
+
+  public static DateTime ToDateTime(ulong? par)
+  {
+    return Convert.ToDateTime(par.Value);
+  }
+
+  public static DateTime? ToDateTime(bool par)
+  {
+    return Convert.ToDateTime(par);
+  }
+
+  public static DateTime ToDateTime(bool? par)
+  {
+    return Convert.ToDateTime(par.Value);
+  }
+
+  public static DateTime? ToDateTime(char par)
+  {
+    return Convert.ToDateTime(par);
+  }
+
+  public static DateTime ToDateTime(char? par)
+  {
+    return Convert.ToDateTime(par.Value);
+  }
+
+  public static DateTime? ToDateTime(float par)
+  {
+    return Convert.ToDateTime(par);
+  }
+
+  public static DateTime ToDateTime(float? par)
+  {
+    return Convert.ToDateTime(par.Value);
+  }
+
+  public static DateTime? ToDateTime(double par)
+  {
+    return Convert.ToDateTime(par);
+  }
+
+  public static DateTime ToDateTime(double? par)
+  {
+    return Convert.ToDateTime(par.Value);
+  }
+
+  public static DateTime? ToDateTime(decimal par)
+  {
+    return Convert.ToDateTime(par);
+  }
+
+  public static DateTime ToDateTime(decimal? par)
+  {
+    return Convert.ToDateTime(par.Value);
+  }
+
+  public static string ToString(bool? par)
+  {
+    return par == null ? null : Convert.ToString(par.Value);
+  }
+
+  public static string ToString(char? par)
+  {
+    return par == null ? null : Convert.ToString(par.Value);
+  }
+
+  public static string ToString(sbyte? par)
+  {
+    return par == null ? null : Convert.ToString(par.Value);
+  }
+
+  public static string ToString(byte? par)
+  {
+    return par == null ? null : Convert.ToString(par.Value);
+  }
+
+  public static string ToString(short? par)
+  {
+    return par == null ? null : Convert.ToString(par.Value);
+  }
+
+  public static string ToString(ushort? par)
+  {
+    return par == null ? null : Convert.ToString(par.Value);
+  }
+
+  public static string ToString(int? par)
+  {
+    return par == null ? null : Convert.ToString(par.Value);
+  }
+
+  public static string ToString(uint? par)
+  {
+    return par == null ? null : Convert.ToString(par.Value);
+  }
+
+  public static string ToString(long? par)
+  {
+    return par == null ? null : Convert.ToString(par.Value);
+  }
+
+  public static string ToString(ulong? par)
+  {
+    return par == null ? null : Convert.ToString(par.Value);
+  }
+
+  public static string ToString(float? par)
+  {
+    return par == null ? null : Convert.ToString(par.Value);
+  }
+
+  public static string ToString(double? par)
+  {
+    return par == null ? null : Convert.ToString(par.Value);
+  }
+
+  public static string ToString(decimal? par)
+  {
+    return par == null ? null : Convert.ToString(par.Value);
+  }
+
+  public static string ToString(DateTime? par)
+  {
+    return par == null ? null : Convert.ToString(par.Value);
+  }
 }

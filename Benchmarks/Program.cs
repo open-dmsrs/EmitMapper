@@ -2,16 +2,16 @@
 
 public class Program
 {
-    private static void Main(string[] args)
-    {
-        SimpleTest.Initialize();
-        NestedClassesTest.Initialize();
-        CustomizationTest.Initialize();
+  private static void Main(string[] args)
+  {
+    SimpleTest.Initialize();
+    NestedClassesTest.Initialize();
+    CustomizationTest.Initialize();
 
-        SimpleTest.Run();
-        NestedClassesTest.Run();
-        CustomizationTest.Run();
-    }
+    SimpleTest.Run();
+    NestedClassesTest.Run();
+    CustomizationTest.Run();
+  }
 }
 
 /*

@@ -6,21 +6,21 @@ namespace EmitMapper.AST.Nodes;
 
 internal class AstTypeof : IAstRef
 {
-    public Type Type;
+  public Type Type;
 
-    #region IAstStackItem Members
+  #region IAstStackItem Members
 
-    public Type ItemType => Meta<Type>.Type;
+  public Type ItemType => Meta<Type>.Type;
 
-    #endregion
+  #endregion
 
-    #region IAstNode Members
+  #region IAstNode Members
 
-    public void Compile(CompilationContext context)
-    {
-        context.Emit(OpCodes.Ldtoken, Type);
-        context.EmitCall(OpCodes.Call, Meta<Type>.Type.GetMethod(nameof(Type.GetTypeFromHandle)));
-    }
+  public void Compile(CompilationContext context)
+  {
+    context.Emit(OpCodes.Ldtoken, Type);
+    context.EmitCall(OpCodes.Call, Meta<Type>.Type.GetMethod(nameof(Type.GetTypeFromHandle)));
+  }
 
-    #endregion
+  #endregion
 }

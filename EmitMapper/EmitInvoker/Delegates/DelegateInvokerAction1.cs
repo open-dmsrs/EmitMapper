@@ -2,5 +2,5 @@
 
 public abstract class DelegateInvokerAction1 : DelegateInvokerBase
 {
-    public abstract void CallAction(object param1);
+  public abstract void CallAction(object param1);
 }

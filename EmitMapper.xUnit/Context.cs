@@ -2,5 +2,5 @@
 
 internal class Context
 {
-    public static ObjectMapperManager ObjMan = new();
+  public static ObjectMapperManager ObjMan = new();
 }

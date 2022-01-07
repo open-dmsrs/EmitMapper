@@ -17,22 +17,22 @@ using System.Collections.Generic;
 namespace LightDataAccess;
 
 /// <summary>
-///     Class CmdParams
+///   Class CmdParams
 /// </summary>
 public class CmdParams : Dictionary<string, object>
 {
     /// <summary>
-    ///     Initializes a new instance of the <see cref="CmdParams" /> class.
+    ///   Initializes a new instance of the <see cref="CmdParams" /> class.
     /// </summary>
     public CmdParams()
-    {
-    }
+  {
+  }
 
     /// <summary>
-    ///     Initializes a new instance of the <see cref="CmdParams" /> class.
+    ///   Initializes a new instance of the <see cref="CmdParams" /> class.
     /// </summary>
     /// <param name="init">The init.</param>
     public CmdParams(Dictionary<string, object> init) : base(init)
-    {
-    }
+  {
+  }
 }

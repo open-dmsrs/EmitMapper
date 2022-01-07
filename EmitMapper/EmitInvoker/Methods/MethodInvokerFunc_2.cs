@@ -2,5 +2,5 @@
 
 public abstract class MethodInvokerFunc2 : MethodInvokerBase
 {
-    public abstract object CallFunc(object param1, object param2);
+  public abstract object CallFunc(object param1, object param2);
 }

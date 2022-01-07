@@ -6,23 +6,23 @@ namespace EmitMapper.AST.Nodes;
 
 internal class AstBox : IAstRef
 {
-    public IAstRefOrValue Value;
+  public IAstRefOrValue Value;
 
-    #region IAstReturnValueNode Members
+  #region IAstReturnValueNode Members
 
-    public Type ItemType => Value.ItemType;
+  public Type ItemType => Value.ItemType;
 
-    #endregion
+  #endregion
 
-    #region IAstNode Members
+  #region IAstNode Members
 
-    public void Compile(CompilationContext context)
-    {
-        Value.Compile(context);
+  public void Compile(CompilationContext context)
+  {
+    Value.Compile(context);
 
-        if (Value.ItemType.IsValueType)
-            context.Emit(OpCodes.Box, ItemType);
-    }
+    if (Value.ItemType.IsValueType)
+      context.Emit(OpCodes.Box, ItemType);
+  }
 
-    #endregion
+  #endregion
 }

@@ -7,57 +7,57 @@ namespace EmitMapper.AST.Nodes;
 
 internal class AstReadLocal : IAstStackItem
 {
-    public int LocalIndex;
+  public int LocalIndex;
 
-    public Type LocalType;
+  public Type LocalType;
 
-    public AstReadLocal()
-    {
-    }
+  public AstReadLocal()
+  {
+  }
 
-    public AstReadLocal(LocalBuilder loc)
-    {
-        LocalIndex = loc.LocalIndex;
-        LocalType = loc.LocalType;
-    }
+  public AstReadLocal(LocalBuilder loc)
+  {
+    LocalIndex = loc.LocalIndex;
+    LocalType = loc.LocalType;
+  }
 
-    public Type ItemType => LocalType;
+  public Type ItemType => LocalType;
 
-    public virtual void Compile(CompilationContext context)
-    {
-        context.Emit(OpCodes.Ldloc, LocalIndex);
-    }
+  public virtual void Compile(CompilationContext context)
+  {
+    context.Emit(OpCodes.Ldloc, LocalIndex);
+  }
 }
 
 internal class AstReadLocalRef : AstReadLocal, IAstRef
 {
-    public override void Compile(CompilationContext context)
-    {
-        CompilationHelper.CheckIsRef(ItemType);
-        base.Compile(context);
-    }
+  public override void Compile(CompilationContext context)
+  {
+    CompilationHelper.CheckIsRef(ItemType);
+    base.Compile(context);
+  }
 }
 
 internal class AstReadLocalValue : AstReadLocal, IAstValue
 {
-    public override void Compile(CompilationContext context)
-    {
-        CompilationHelper.CheckIsValue(ItemType);
-        base.Compile(context);
-    }
+  public override void Compile(CompilationContext context)
+  {
+    CompilationHelper.CheckIsValue(ItemType);
+    base.Compile(context);
+  }
 }
 
 internal class AstReadLocalAddr : AstReadLocal, IAstAddr
 {
-    public AstReadLocalAddr(LocalBuilder loc)
-    {
-        LocalIndex = loc.LocalIndex;
-        LocalType = loc.LocalType.MakeByRefType();
-    }
+  public AstReadLocalAddr(LocalBuilder loc)
+  {
+    LocalIndex = loc.LocalIndex;
+    LocalType = loc.LocalType.MakeByRefType();
+  }
 
-    public override void Compile(CompilationContext context)
-    {
-        //CompilationHelper.CheckIsValue(itemType);
-        context.Emit(OpCodes.Ldloca, LocalIndex);
-    }
+  public override void Compile(CompilationContext context)
+  {
+    //CompilationHelper.CheckIsValue(itemType);
+    context.Emit(OpCodes.Ldloca, LocalIndex);
+  }
 }
