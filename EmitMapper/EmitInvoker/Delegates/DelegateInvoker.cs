@@ -58,7 +58,7 @@ public static class DelegateInvoker
     private static Type BuildActionCallerType(string typeName, Delegate del)
     {
         var par = del.Method.GetParameters();
-        Type actionCallerType = par.Length switch
+        var actionCallerType = par.Length switch
         {
             0 => Meta<DelegateInvokerAction0>.Type,
             1 => Meta<DelegateInvokerAction1>.Type,

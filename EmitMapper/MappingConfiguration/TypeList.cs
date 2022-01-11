@@ -34,12 +34,13 @@ internal class TypeDictionary<T>
 
     public bool IsTypesInList(Type[] types)
     {
-        return FindTypes(types) != null;
+        return FindTypes(types).HasValue;
     }
 
     public T GetValue(Type[] types)
     {
         var elem = FindTypes(types);
+
         return elem?.Value;
     }
 
@@ -52,7 +53,7 @@ internal class TypeDictionary<T>
         _elements.Add(new ListElement(types, value));
     }
 
-    private ListElement FindTypes(Type[] types)
+    private ListElement? FindTypes(Type[] types)
     {
         foreach (var element in _elements)
         {
@@ -62,11 +63,10 @@ internal class TypeDictionary<T>
                 if (i < types.Length)
                     j = i;
 
-                if (!IsGeneralType(element.Types[i], types[j]))
-                {
-                    isAssignable = false;
-                    break;
-                }
+                if (IsGeneralType(element.Types[i], types[j]))
+                    continue;
+                isAssignable = false;
+                break;
             }
 
             if (isAssignable)
@@ -76,7 +76,7 @@ internal class TypeDictionary<T>
         return null;
     }
 
-    private class ListElement
+    private struct ListElement : IEquatable<ListElement>
     {
         public readonly T Value;
         public readonly Type[] Types;
@@ -89,13 +89,17 @@ internal class TypeDictionary<T>
 
         public override int GetHashCode()
         {
-            return Types.Sum(t => t.GetHashCode());
+            return HashCode.Combine(Types);
         }
 
         public override bool Equals(object obj)
         {
-            var rhs = (ListElement)obj;
-            return !Types.Where((t, i) => rhs != null && t != rhs.Types[i]).Any();
+            return obj is ListElement other && Equals(other);
+        }
+
+        public bool Equals(ListElement other)
+        {
+            return !Types.Where((t, i) => t != other.Types[i]).Any();
         }
     }
 }
