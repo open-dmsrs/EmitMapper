@@ -1,4 +1,7 @@
-﻿using EmitMapper.MappingConfiguration;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using Xunit;
@@ -36,8 +39,16 @@ public class Flattering
         new[] { typeof(Destination).GetMember(nameof(Destination.Message2))[0] })
     };
 
+    IEnumerable<IMappingOperation> Get()
+    {
+      yield return rw1;
+      yield return rw2;
+    }
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<Source, Destination>(
-      new CustomMapConfig { GetMappingOperationFunc = (from, to) => new IMappingOperation[] { rw1, rw2 } });
+      new CustomMapConfig
+      {
+        GetMappingOperationFunc = (from, to) => Get()
+      });
     var b = new Source();
     var a = mapper.Map(b);
     Assert.Equal(b.InnerSource.Message, a.Message);

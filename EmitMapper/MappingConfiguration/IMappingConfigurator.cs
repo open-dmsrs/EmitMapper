@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EmitMapper.Conversion;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
@@ -17,7 +18,7 @@ public interface IMappingConfigurator
   /// <param name="from">Source type</param>
   /// <param name="to">Destination type</param>
   /// <returns></returns>
-  IMappingOperation[] GetMappingOperations(Type from, Type to);
+  IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to);
 
   IRootMappingOperation GetRootMappingOperation(Type from, Type to);
 

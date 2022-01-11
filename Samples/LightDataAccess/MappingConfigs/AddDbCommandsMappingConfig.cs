@@ -35,7 +35,7 @@ internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
 
   #region IMappingConfigurator Members
 
-  public override IMappingOperation[] GetMappingOperations(Type from, Type to)
+  public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
   {
     var members = ReflectionUtils.GetPublicFieldsAndProperties(from);
     if (_includeFields != null)

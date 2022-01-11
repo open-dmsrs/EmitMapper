@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EmitMapper.Conversion;
 using EmitMapper.MappingConfiguration;
@@ -12,7 +13,7 @@ namespace EmitMapper.Mvc.Net;
 
 public class FormCollectionMapConfig : MapConfigBaseImpl
 {
-  public override IMappingOperation[] GetMappingOperations(Type from, Type to)
+  public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
   {
     var members = ReflectionUtils.GetPublicFieldsAndProperties(to);
     return members

@@ -17,8 +17,12 @@ internal class TypeDictionary<T>
     if (generalType.IsGenericTypeDefinition)
     {
       if (generalType.IsInterface)
-        return (type.IsInterface ? new[] { type } : Type.EmptyTypes).Concat(type.GetInterfaces()).Any(
-          i => i.IsGenericType && i.GetGenericTypeDefinition() == generalType);
+      {
+        return type.GetInterfaces()
+          .Concat((type.IsInterface ? new[] { type } : Type.EmptyTypes))
+          //.Select(_ => new { })
+          .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == generalType);
+      }
 
       return type.IsGenericType && (type.GetGenericTypeDefinition() == generalType
                                     || type.GetGenericTypeDefinition().IsSubclassOf(generalType));
@@ -32,17 +36,17 @@ internal class TypeDictionary<T>
     return _elements.Select(e => e.Types.ToCsv("|") + (e.Value == null ? "|" : "|" + e.Value)).ToCsv("||");
   }
 
-    public bool IsTypesInList(Type[] types)
-    {
-        return FindTypes(types).HasValue;
-    }
+  public bool IsTypesInList(Type[] types)
+  {
+    return FindTypes(types).HasValue;
+  }
 
-    public T GetValue(Type[] types)
-    {
-        var elem = FindTypes(types);
+  public T GetValue(Type[] types)
+  {
+    var elem = FindTypes(types);
 
-        return elem?.Value;
-    }
+    return elem?.Value;
+  }
 
   public void Add(Type[] types, T value)
   {
@@ -53,21 +57,21 @@ internal class TypeDictionary<T>
     _elements.Add(new ListElement(types, value));
   }
 
-    private ListElement? FindTypes(Type[] types)
+  private ListElement? FindTypes(Type[] types)
+  {
+    foreach (var element in _elements)
     {
-        foreach (var element in _elements)
-        {
-            var isAssignable = true;
-            for (int i = 0, j = 0; i < element.Types.Length; ++i)
-            {
-                if (i < types.Length)
-                    j = i;
+      var isAssignable = true;
+      for (int i = 0, j = 0; i < element.Types.Length; ++i)
+      {
+        if (i < types.Length)
+          j = i;
 
-                if (IsGeneralType(element.Types[i], types[j]))
-                    continue;
-                isAssignable = false;
-                break;
-            }
+        if (IsGeneralType(element.Types[i], types[j]))
+          continue;
+        isAssignable = false;
+        break;
+      }
 
       if (isAssignable)
         return element;
@@ -76,30 +80,30 @@ internal class TypeDictionary<T>
     return null;
   }
 
-    private struct ListElement : IEquatable<ListElement>
+  private struct ListElement : IEquatable<ListElement>
+  {
+    public readonly T Value;
+    public readonly Type[] Types;
+
+    public ListElement(Type[] types, T value)
     {
-        public readonly T Value;
-        public readonly Type[] Types;
-
-        public ListElement(Type[] types, T value)
-        {
-            Types = types;
-            Value = value;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Types);
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is ListElement other && Equals(other);
-        }
-
-        public bool Equals(ListElement other)
-        {
-            return !Types.Where((t, i) => t != other.Types[i]).Any();
-        }
+      Types = types;
+      Value = value;
     }
+
+    public override int GetHashCode()
+    {
+      return HashCode.Combine(Types);
+    }
+
+    public override bool Equals(object obj)
+    {
+      return obj is ListElement other && Equals(other);
+    }
+
+    public bool Equals(ListElement other)
+    {
+      return !Types.Where((t, i) => t != other.Types[i]).Any();
+    }
+  }
 }

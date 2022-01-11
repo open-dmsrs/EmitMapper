@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EmitMapper.Conversion;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
@@ -6,7 +7,7 @@ namespace EmitMapper.MappingConfiguration;
 
 public class CustomMapConfig : MapConfigBaseImpl
 {
-  public Func<Type, Type, IMappingOperation[]> GetMappingOperationFunc { get; set; }
+  public Func<Type, Type, IEnumerable<IMappingOperation>> GetMappingOperationFunc { get; set; }
 
   public string ConfigurationName { get; set; }
 
@@ -24,7 +25,7 @@ public class CustomMapConfig : MapConfigBaseImpl
 
   #region IMappingConfigurator Members
 
-  public override IMappingOperation[] GetMappingOperations(Type from, Type to)
+  public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
   {
     if (GetMappingOperationFunc == null)
       return Array.Empty<IMappingOperation>();

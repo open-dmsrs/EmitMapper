@@ -1,4 +1,7 @@
-﻿using EmitMapper.MappingConfiguration;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using Xunit;

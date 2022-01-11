@@ -148,8 +148,8 @@ public class ObjectsChangeTracker
     /// </summary>
     /// <param name="from">From.</param>
     /// <param name="to">To.</param>
-    /// <returns>IMappingOperation[][].</returns>
-    public override IMappingOperation[] GetMappingOperations(Type from, Type to)
+    /// <returns>IEnumerable<IMappingOperation>[].</returns>
+    public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
     {
       return ReflectionUtils
         .GetPublicFieldsAndProperties(from)

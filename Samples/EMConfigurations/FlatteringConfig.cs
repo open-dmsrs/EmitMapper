@@ -19,25 +19,20 @@ public class FlatteringConfig : DefaultMapConfig
     NestedMembersMatcher = (m1, m2) => m1.StartsWith(m2);
   }
 
-  public override IMappingOperation[] GetMappingOperations(Type from, Type to)
+  public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
   {
     var destinationMembers = GetFieldsPropertiesMembers(to);
     var sourceMembers = GetSourceMembers(from);
-    var result = new List<IMappingOperation>();
-    foreach (var dest in destinationMembers)
-    {
-      var matchedChain = GetMatchedChain(dest.Name, sourceMembers).ToArray();
-      if (matchedChain == null || matchedChain.Length == 0) continue;
-      result.Add(
-        new ReadWriteSimple
-        {
-          Source = new MemberDescriptor(matchedChain),
-          Destination = new MemberDescriptor(new[] { dest })
-        }
-      );
-    }
 
-    return result.ToArray();
+    var result = destinationMembers.Select(dest => new { dest, matchedChain = GetMatchedChain(dest.Name, sourceMembers) })
+      .Select(x => new ReadWriteSimple
+      {
+        Source = new MemberDescriptor(x.matchedChain),
+        Destination = new MemberDescriptor(new[] { x.dest })
+      });
+
+
+    return FilterOperations(from, to, result);
   }
 
   public DefaultMapConfig MatchNestedMembers(Func<string, string, bool> nestedMembersMatcher)
@@ -68,10 +63,11 @@ public class FlatteringConfig : DefaultMapConfig
         result.AddRange(matchedChain);
       else
       {
+        //todo: need to add filter logic like DefaultMapConfig
         throw new EmitMapperException(
-          $" The member '{destName}' of target members can not match any in source member '{sourceMemberInfo.Name}'." +
-          $" pls ignore it or delete '{destName}' in the target object." +
-          $" or add new member '{destName.Substring(sourceMemberInfo.Name.Length)}' in source class '{ReflectionUtils.GetMemberReturnType(sourceMemberInfo).FullName}'.");
+        $" The member '{destName}' of target members can not match any in source member '{sourceMemberInfo.Name}'." +
+        $" pls ignore it or delete '{destName}' in the target object." +
+        $" or add new member '{destName.Substring(sourceMemberInfo.Name.Length)}' in source class '{ReflectionUtils.GetMemberReturnType(sourceMemberInfo).FullName}'.");
       }
     }
     return result;
@@ -90,13 +86,13 @@ public class FlatteringConfig : DefaultMapConfig
 
   private static IEnumerable<MemberInfo> GetSourceSubMembers(MemberInfo mi)
   {
-    //Type t = ReflectionUtils.GetMemberReturnType(mi);
+    Type t = ReflectionUtils.GetMemberReturnType(mi);
 
-    Type t;
-    if (mi.MemberType == MemberTypes.Field)
-      t = mi.DeclaringType.GetField(mi.Name).FieldType;
-    else
-      t = mi.DeclaringType.GetProperty(mi.Name).PropertyType;
+    //Type t;
+    //if (mi.MemberType == MemberTypes.Field)
+    //  t = mi.DeclaringType.GetField(mi.Name).FieldType;
+    //else
+    //  t = mi.DeclaringType.GetProperty(mi.Name).PropertyType;
     return GetFieldsPropertiesMembers(t);
   }
 

@@ -42,7 +42,7 @@ public class IgnoreByAttributes
 
   public class MyConfigurator : DefaultMapConfig
   {
-    public override IMappingOperation[] GetMappingOperations(Type from, Type to)
+    public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
     {
       IgnoreMembers<object, object>(
         GetIgnoreFields(from).Concat(GetIgnoreFields(to)).ToArray());

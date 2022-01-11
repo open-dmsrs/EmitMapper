@@ -135,7 +135,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 
   #region IMappingConfigurator Members
 
-  public override IMappingOperation[] GetMappingOperations(Type from, Type to)
+  public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
   {
     return FilterOperations(from, to, GetMappingItems(new HashSet<TypesPair>(), from, to, null, null))
       .ToArray();

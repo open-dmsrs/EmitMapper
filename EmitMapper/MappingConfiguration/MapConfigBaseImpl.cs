@@ -36,7 +36,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     RegisterDefaultCollectionConverters();
   }
 
-  public abstract IMappingOperation[] GetMappingOperations(Type from, Type to);
+  public abstract IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to);
 
   public virtual string GetConfigurationName()
   {
@@ -129,7 +129,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   /// <typeparam name="TTo">Destination type for which ignore members are defining</typeparam>
   /// <param name="ignoreNames">Array of member names which should be ignored</param>
   /// <returns></returns>
-  public IMappingConfigurator IgnoreMembers<TFrom, TTo>(string[] ignoreNames)
+  public IMappingConfigurator IgnoreMembers<TFrom, TTo>(params string[] ignoreNames)
   {
     return IgnoreMembers(Metadata<TFrom>.Type, Metadata<TTo>.Type, ignoreNames);
   }

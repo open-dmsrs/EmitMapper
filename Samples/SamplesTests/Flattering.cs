@@ -32,12 +32,13 @@ public class Flattering
     };
 
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<ModelObject, ModelDto>(
-      new FlatteringConfig()
+      new FlatteringConfig().IgnoreMembers<ModelObject, ModelDto>("SubSubSubNoExistInSourceProperty")
     );
 
     var b = mapper.Map(source);
 
     Assert.Equal(source.BaseDate, b.BaseDate);
+    Assert.Equal(source.TestMethod1(), b.TestMethod1);
     Assert.Equal(source.Sub.ProperName, b.SubProperName);
     Assert.Equal(source.Sub.SubSub.IAmACoolProperty, b.SubSubSubIAmACoolProperty);
     Assert.Equal(source.Sub2.ProperName, b.Sub2ProperName);
@@ -46,6 +47,8 @@ public class Flattering
 
   public class ModelObject
   {
+    public void TestMethod() { }
+    public string TestMethod1() { return "1"; }
     public DateTime BaseDate { get; set; }
     public ModelSubObject Sub { get; set; }
     public ModelSubObject Sub2 { get; set; }
@@ -54,6 +57,8 @@ public class Flattering
 
   public class ModelSubObject
   {
+    public void TestMethod() { }
+    public string TestMethod1() { return "1"; }
     public string ProperName { get; set; }
     public ModelSubSubObject SubSub { get; set; }
   }
@@ -71,7 +76,12 @@ public class Flattering
     public string SubWithExtraNameProperName { get; set; }
     public string SubSubSubIAmACoolProperty { get; set; }
 
-    //public string SubSubSubNoExistProperty { get; set; }
+    public string TestMethod1;
+
+    /// <summary>
+    /// cant support this property
+    /// </summary>
+    //public string SubSubSubNoExistInSourceProperty { get; set; }
 
     public void T() { }
   }

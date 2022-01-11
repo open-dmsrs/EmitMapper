@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using EmitMapper;
@@ -40,7 +41,7 @@ public class TestMappingToDataRow
 
   public class Map2DataRowConfig : MapConfigBaseImpl
   {
-    public override IMappingOperation[] GetMappingOperations(Type from, Type to)
+    public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
     {
       var objectMembers = ReflectionUtils.GetPublicFieldsAndProperties(from);
       return FilterOperations(

@@ -28,38 +28,29 @@ public class MappingList
   {
     _testOutputHelper.WriteLine(listFrom.Count.ToString());
 
-    var rw1 = new ReadWriteSimple
+    IEnumerable<IMappingOperation> Get()
     {
-      Source = new MemberDescriptor(
-        new[]
-        {
-          typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
-          typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[
-            0]
-        }),
-      Destination = new MemberDescriptor(
-        new[] { typeof(ToClass).GetMember(nameof(ToClass.Message))[0] })
-    };
+      yield return new ReadWriteSimple
+      {
+        Source = new MemberDescriptor(
+          new[]
+          {
+            typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
+            typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[
+              0]
+          }
+        ),
+        Destination = new MemberDescriptor(new[] { typeof(ToClass).GetMember(nameof(ToClass.Message))[0] })
+      };
 
 
-    var rw2 = new ReadWriteSimple
-    {
-      Source = new MemberDescriptor(
-        new[]
-        {
-          typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
-          typeof(FromClass.InnerClass).GetMember(
-            nameof(FromClass.InnerClass.GetMessage2))[0]
-        }),
-      Destination = new MemberDescriptor(
-        new[] { typeof(ToClass).GetMember(nameof(ToClass.Message2))[0] })
-    };
-
+      yield return new ReadWriteSimple { Source = new MemberDescriptor(new[] { typeof(FromClass).GetMember(nameof(FromClass.Inner))[0], typeof(FromClass.InnerClass).GetMember(nameof(FromClass.InnerClass.GetMessage2))[0] }), Destination = new MemberDescriptor(new[] { typeof(ToClass).GetMember(nameof(ToClass.Message2))[0] }) };
+    }
 
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<List<FromClass>, List<ToClass>>(
       new CustomMapConfig
       {
-        GetMappingOperationFunc = (from, to) => new IMappingOperation[] { rw1, rw2 }
+        GetMappingOperationFunc = (from, to) => Get()
       });
 
     var tolist = mapper.Map(listFrom);
@@ -108,11 +99,15 @@ public class MappingList
         new[] { typeof(ToClass).GetMember(nameof(ToClass.Message2))[0] })
     };
 
-
+    IEnumerable<IMappingOperation> Get()
+    {
+      yield return rw1;
+      yield return rw2;
+    }
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<ArrayList, ArrayList>(
       new CustomMapConfig
       {
-        GetMappingOperationFunc = (from, to) => new IMappingOperation[] { rw1, rw2 }
+        GetMappingOperationFunc = (from, to) => Get()
       });
 
     var tolist = mapper.Map(listFrom);
@@ -160,11 +155,16 @@ public class MappingList
         new[] { typeof(ToClass).GetMember(nameof(ToClass.Message2))[0] })
     };
 
+    IEnumerable<IMappingOperation> Get()
+    {
+      yield return rw1;
+      yield return rw2;
+    }
 
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<FromClass, ToClass>(
       new CustomMapConfig
       {
-        GetMappingOperationFunc = (from, to) => new IMappingOperation[] { rw1, rw2 }
+        GetMappingOperationFunc = (from, to) => Get()
       });
 
     var tolist = mapper.MapEnum(list);
