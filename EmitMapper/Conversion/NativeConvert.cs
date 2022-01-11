@@ -11,77 +11,88 @@ namespace EmitMapper.Conversion;
 
 internal class NativeConverter
 {
-    private static readonly Type[] _ConvertTypes =
-    {
-        Meta<Boolean>.Type, Meta<Char>.Type, Meta<SByte>.Type, Meta<Byte>.Type, Meta<short>.Type, Meta<int>.Type, Meta<long>.Type,
-        Meta<ushort>.Type, Meta<uint>.Type, Meta<ulong>.Type, Meta<float>.Type, Meta<Double>.Type, Meta<Decimal>.Type,
-        Meta<DateTime>.Type, Meta<String>.Type
-    };
+  private static readonly Type[] _ConvertTypes =
+  {
+    Metadata<bool>.Type, Metadata<char>.Type, Metadata<sbyte>.Type, Metadata<byte>.Type, Metadata<short>.Type,
+    Metadata<int>.Type,
+    Metadata<long>.Type,
+    Metadata<ushort>.Type, Metadata<uint>.Type, Metadata<ulong>.Type, Metadata<float>.Type, Metadata<double>.Type,
+    Metadata<decimal>.Type,
+    Metadata<DateTime>.Type, Metadata<string>.Type
+  };
 
-    public static bool IsNativeConvertionPossible(Type from, Type to)
-    {
-        if (from == null || to == null)
-            return false;
+  private static readonly MethodInfo ObjectToStringMethod = Metadata<NativeConverter>.Type.GetMethod(
+    nameof(ObjectToString),
+    BindingFlags.NonPublic | BindingFlags.Static);
 
-        if (_ConvertTypes.Contains(from) && _ConvertTypes.Contains(to))
-            return true;
+  private static readonly MethodInfo[] ConvertMethods =
+    TypeHome.Convert.GetMethods(BindingFlags.Static | BindingFlags.Public);
 
-        if (to == Meta<String>.Type)
-            return true;
+  private static readonly MethodInfo ChangeTypeMethod = Metadata<EMConvert>.Type.GetMethod(
+    nameof(EMConvert.ChangeType),
+    new[] { Metadata<object>.Type, Metadata<Type>.Type, Metadata<Type>.Type });
 
-        if (from == Meta<String>.Type && to == Meta<Guid>.Type)
-            return true;
+  public static bool IsNativeConvertionPossible(Type from, Type to)
+  {
+    if (from == null || to == null)
+      return false;
 
-        if (from.IsEnum && to.IsEnum)
-            return true;
+    if (_ConvertTypes.Contains(from) && _ConvertTypes.Contains(to))
+      return true;
 
-        if (from.IsEnum && _ConvertTypes.Contains(to))
-            return true;
+    if (to == Metadata<string>.Type)
+      return true;
 
-        if (to.IsEnum && _ConvertTypes.Contains(from))
-            return true;
+    if (from == Metadata<string>.Type && to == Metadata<Guid>.Type)
+      return true;
 
-        if (ReflectionUtils.IsNullable(from))
-            return IsNativeConvertionPossible(Nullable.GetUnderlyingType(from), to);
+    if (from.IsEnum && to.IsEnum)
+      return true;
 
-        if (ReflectionUtils.IsNullable(to))
-            return IsNativeConvertionPossible(from, Nullable.GetUnderlyingType(to));
+    if (from.IsEnum && _ConvertTypes.Contains(to))
+      return true;
 
-        return false;
-    }
+    if (to.IsEnum && _ConvertTypes.Contains(from))
+      return true;
 
-    private static readonly MethodInfo ObjectToStringMethod = Meta<NativeConverter>.Type.GetMethod(nameof(ObjectToString), BindingFlags.NonPublic | BindingFlags.Static);
+    if (ReflectionUtils.IsNullable(from))
+      return IsNativeConvertionPossible(Nullable.GetUnderlyingType(from), to);
 
-    private static readonly MethodInfo[] ConvertMethods = TypeHome.Convert.GetMethods(BindingFlags.Static | BindingFlags.Public);
+    if (ReflectionUtils.IsNullable(to))
+      return IsNativeConvertionPossible(from, Nullable.GetUnderlyingType(to));
 
-    private static readonly MethodInfo ChangeTypeMethod = Meta<EMConvert>.Type.GetMethod(nameof(EMConvert.ChangeType), new[] { Meta<object>.Type, Meta<Type>.Type, Meta<Type>.Type });
+    return false;
+  }
 
-    public static IAstRefOrValue Convert(Type destinationType, Type sourceType, IAstRefOrValue sourceValue)
-    {
-        if (destinationType == sourceValue.ItemType)
-            return sourceValue;
+  public static IAstRefOrValue Convert(Type destinationType, Type sourceType, IAstRefOrValue sourceValue)
+  {
+    if (destinationType == sourceValue.ItemType)
+      return sourceValue;
 
-        if (destinationType == Meta<String>.Type)
-            return new AstCallMethodRef(ObjectToStringMethod, null, new List<IAstStackItem> { sourceValue });
+    if (destinationType == Metadata<string>.Type)
+      return new AstCallMethodRef(ObjectToStringMethod, null, new List<IAstStackItem> { sourceValue });
 
-        foreach (var m in ConvertMethods)
-            if (m.ReturnType == destinationType)
-            {
-                var parameters = m.GetParameters();
-                if (parameters.Length == 1 && parameters[0].ParameterType == sourceType)
-                    return AstBuildHelper.CallMethod(m, null, new List<IAstStackItem> { sourceValue });
-            }
+    foreach (var m in ConvertMethods)
+      if (m.ReturnType == destinationType)
+      {
+        var parameters = m.GetParameters();
+        if (parameters.Length == 1 && parameters[0].ParameterType == sourceType)
+          return AstBuildHelper.CallMethod(m, null, new List<IAstStackItem> { sourceValue });
+      }
 
-        return AstBuildHelper.CallMethod(ChangeTypeMethod, null, new List<IAstStackItem>
-            {
-                sourceValue, new AstTypeof { Type = sourceType }, new AstTypeof { Type = destinationType }
-            });
-    }
+    return AstBuildHelper.CallMethod(
+      ChangeTypeMethod,
+      null,
+      new List<IAstStackItem>
+      {
+        sourceValue, new AstTypeof { Type = sourceType }, new AstTypeof { Type = destinationType }
+      });
+  }
 
-    internal static string ObjectToString(object obj)
-    {
-        if (obj == null)
-            return null;
-        return obj.ToString();
-    }
+  internal static string ObjectToString(object obj)
+  {
+    if (obj == null)
+      return null;
+    return obj.ToString();
+  }
 }

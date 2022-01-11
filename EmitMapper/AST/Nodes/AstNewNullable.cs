@@ -5,15 +5,15 @@ namespace EmitMapper.AST.Nodes;
 
 internal class AstNewNullable : IAstValue
 {
-    public AstNewNullable(Type nullableType)
-    {
-        ItemType = nullableType;
-    }
+  public AstNewNullable(Type nullableType)
+  {
+    ItemType = nullableType;
+  }
 
-    public Type ItemType { get; }
+  public Type ItemType { get; }
 
-    public void Compile(CompilationContext context)
-    {
-        throw new NotImplementedException();
-    }
+  public void Compile(CompilationContext context)
+  {
+    throw new NotImplementedException();
+  }
 }

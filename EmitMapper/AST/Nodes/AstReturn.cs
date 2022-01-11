@@ -7,15 +7,15 @@ namespace EmitMapper.AST.Nodes;
 
 internal class AstReturn : IAstAddr
 {
-    public IAstRefOrValue ReturnValue;
-    public Type ReturnType;
+  public IAstRefOrValue ReturnValue;
+  public Type ReturnType;
 
-    public Type ItemType => ReturnType;
+  public Type ItemType => ReturnType;
 
-    public void Compile(CompilationContext context)
-    {
-        ReturnValue.Compile(context);
-        CompilationHelper.PrepareValueOnStack(context, ReturnType, ReturnValue.ItemType);
-        context.Emit(OpCodes.Ret);
-    }
+  public void Compile(CompilationContext context)
+  {
+    ReturnValue.Compile(context);
+    CompilationHelper.PrepareValueOnStack(context, ReturnType, ReturnValue.ItemType);
+    context.Emit(OpCodes.Ret);
+  }
 }

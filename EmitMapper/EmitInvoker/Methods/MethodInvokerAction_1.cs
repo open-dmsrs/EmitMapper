@@ -2,5 +2,5 @@
 
 public abstract class MethodInvokerAction1 : MethodInvokerBase
 {
-    public abstract void CallAction(object param1);
+  public abstract void CallAction(object param1);
 }

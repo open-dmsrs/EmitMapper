@@ -6,120 +6,120 @@ namespace EmitMapper.Conversion;
 
 public class EMConvert
 {
-    public static object ChangeType(object value, Type conversionType)
+  public static object ChangeType(object value, Type conversionType)
+  {
+    if (value == null)
+      return null;
+    return ChangeType(value, value.GetType(), conversionType);
+  }
+
+  public static object ChangeTypeGeneric<TFrom, TTo>(object value)
+  {
+    return ChangeType(value, Metadata<TFrom>.Type, Metadata<TTo>.Type);
+  }
+
+  public static object ChangeType(object value, Type typeFrom, Type typeTo)
+  {
+    if (value == null)
+      return null;
+
+    if (typeTo.IsEnum)
+      return ConvertToEnum(value, typeFrom, typeTo);
+
+    if (typeFrom.IsEnum)
     {
-        if (value == null)
-            return null;
-        return ChangeType(value, value.GetType(), conversionType);
+      if (typeTo == Metadata<string>.Type)
+        return value.ToString();
+      return ChangeType(
+        Convert.ChangeType(value, Enum.GetUnderlyingType(typeFrom)),
+        Enum.GetUnderlyingType(typeFrom),
+        typeTo);
     }
 
-    public static object ChangeTypeGeneric<TFrom, TTo>(object value)
+    if (typeTo == Metadata<Guid>.Type)
     {
-        return ChangeType(value, Meta<TFrom>.Type, Meta<TTo>.Type);
+      var r = new Guid(value.ToString()!);
+      return r == Guid.Empty ? new Guid() : r;
     }
 
-    public static object ChangeType(object value, Type typeFrom, Type typeTo)
+    var isFromNullable = ReflectionUtils.IsNullable(typeFrom);
+    var isToNullable = ReflectionUtils.IsNullable(typeTo);
+
+    if (isFromNullable && !isToNullable)
+      return ChangeType(value, Nullable.GetUnderlyingType(typeFrom), typeTo);
+
+    if (isToNullable)
     {
-        if (value == null)
-            return null;
-
-        if (typeTo.IsEnum)
-            return ConvertToEnum(value, typeFrom, typeTo);
-
-        if (typeFrom.IsEnum)
-        {
-            if (typeTo == Meta<String>.Type)
-                return value.ToString();
-            return ChangeType(
-                Convert.ChangeType(value, Enum.GetUnderlyingType(typeFrom)),
-                Enum.GetUnderlyingType(typeFrom),
-                typeTo);
-        }
-
-        if (typeTo == Meta<Guid>.Type)
-        {
-            var r = new Guid(value.ToString()!);
-            return r == Guid.Empty ? new Guid() : r;
-        }
-
-        var isFromNullable = ReflectionUtils.IsNullable(typeFrom);
-        var isToNullable = ReflectionUtils.IsNullable(typeTo);
-
-        if (isFromNullable && !isToNullable)
-            return ChangeType(value, Nullable.GetUnderlyingType(typeFrom), typeTo);
-
-        if (isToNullable)
-        {
-            var ut = Nullable.GetUnderlyingType(typeTo);
-            if (ut.IsEnum)
-                return ConvertToEnum(value, typeFrom, ut);
-            return ChangeType(value, typeFrom, ut);
-        }
-
-        return Convert.ChangeType(value, typeTo);
+      var ut = Nullable.GetUnderlyingType(typeTo);
+      if (ut.IsEnum)
+        return ConvertToEnum(value, typeFrom, ut);
+      return ChangeType(value, typeFrom, ut);
     }
 
-    public static string ObjectToString(object obj)
+    return Convert.ChangeType(value, typeTo);
+  }
+
+  public static string ObjectToString(object obj)
+  {
+    if (obj == null)
+      return null;
+    return obj.ToString();
+  }
+
+  public static Guid StringToGuid(string str)
+  {
+    if (string.IsNullOrEmpty(str))
+      return Guid.Empty;
+    return new Guid(str);
+  }
+
+  public static TEnum ToEnum<TEnum, TUnder>(object obj)
+  {
+    if (obj is string)
     {
-        if (obj == null)
-            return null;
-        return obj.ToString();
+      var str = obj.ToString();
+      return (TEnum)Enum.Parse(Metadata<TEnum>.Type, str);
     }
 
-    public static Guid StringToGuid(string str)
-    {
-        if (string.IsNullOrEmpty(str))
-            return Guid.Empty;
-        return new Guid(str);
-    }
+    return (TEnum)Convert.ChangeType(obj, Metadata<TUnder>.Type);
+  }
 
-    public static TEnum ToEnum<TEnum, TUnder>(object obj)
-    {
-        if (obj is string)
-        {
-            var str = obj.ToString();
-            return (TEnum)Enum.Parse(Meta<TEnum>.Type, str);
-        }
+  public static MethodInfo GetConversionMethod(Type from, Type to)
+  {
+    if (from == null || to == null)
+      return null;
 
-        return (TEnum)Convert.ChangeType(obj, Meta<TUnder>.Type);
-    }
+    if (to == Metadata<string>.Type)
+      return Metadata<EMConvert>.Type.GetMethod(nameof(ObjectToString), BindingFlags.Static | BindingFlags.Public);
 
-    public static MethodInfo GetConversionMethod(Type from, Type to)
-    {
-        if (from == null || to == null)
-            return null;
+    if (to.IsEnum)
+      return Metadata<EMConvert>.Type.GetMethod(nameof(ToEnum), BindingFlags.Static | BindingFlags.Public)
+        ?.MakeGenericMethod(to, Enum.GetUnderlyingType(to));
 
-        if (to == Meta<String>.Type)
-            return Meta<EMConvert>.Type.GetMethod(nameof(ObjectToString), BindingFlags.Static | BindingFlags.Public);
+    if (IsComplexConvert(from) || IsComplexConvert(to))
+      return Metadata<EMConvert>.Type.GetMethod(nameof(ChangeTypeGeneric), BindingFlags.Static | BindingFlags.Public)
+        ?.MakeGenericMethod(from, to);
 
-        if (to.IsEnum)
-            return Meta<EMConvert>.Type.GetMethod(nameof(ToEnum), BindingFlags.Static | BindingFlags.Public)
-                .MakeGenericMethod(to, Enum.GetUnderlyingType(to));
+    return null;
+  }
 
-        if (IsComplexConvert(from) || IsComplexConvert(to))
-            return Meta<EMConvert>.Type.GetMethod(nameof(ChangeTypeGeneric), BindingFlags.Static | BindingFlags.Public)
-                .MakeGenericMethod(from, to);
+  private static bool IsComplexConvert(Type type)
+  {
+    if (type.IsEnum)
+      return true;
+    if (ReflectionUtils.IsNullable(type))
+      if (Nullable.GetUnderlyingType(type).IsEnum)
+        return true;
 
-        return null;
-    }
+    return false;
+  }
 
-    private static bool IsComplexConvert(Type type)
-    {
-        if (type.IsEnum)
-            return true;
-        if (ReflectionUtils.IsNullable(type))
-            if (Nullable.GetUnderlyingType(type).IsEnum)
-                return true;
+  private static object ConvertToEnum(object value, Type typeFrom, Type typeTo)
+  {
+    if (!typeFrom.IsEnum)
+      if (typeFrom == Metadata<string>.Type)
+        return Enum.Parse(typeTo, value.ToString());
 
-        return false;
-    }
-
-    private static object ConvertToEnum(object value, Type typeFrom, Type typeTo)
-    {
-        if (!typeFrom.IsEnum)
-            if (typeFrom == Meta<String>.Type)
-                return Enum.Parse(typeTo, value.ToString());
-
-        return Enum.ToObject(typeTo, Convert.ChangeType(value, Enum.GetUnderlyingType(typeTo)));
-    }
+    return Enum.ToObject(typeTo, Convert.ChangeType(value, Enum.GetUnderlyingType(typeTo)));
+  }
 }

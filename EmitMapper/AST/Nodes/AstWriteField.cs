@@ -7,17 +7,17 @@ namespace EmitMapper.AST.Nodes;
 
 internal class AstWriteField : IAstNode
 {
-    public FieldInfo FieldInfo;
+  public FieldInfo FieldInfo;
 
-    public IAstRefOrAddr TargetObject;
+  public IAstRefOrAddr TargetObject;
 
-    public IAstRefOrValue Value;
+  public IAstRefOrValue Value;
 
-    public void Compile(CompilationContext context)
-    {
-        TargetObject.Compile(context);
-        Value.Compile(context);
-        CompilationHelper.PrepareValueOnStack(context, FieldInfo.FieldType, Value.ItemType);
-        context.Emit(OpCodes.Stfld, FieldInfo);
-    }
+  public void Compile(CompilationContext context)
+  {
+    TargetObject.Compile(context);
+    Value.Compile(context);
+    CompilationHelper.PrepareValueOnStack(context, FieldInfo.FieldType, Value.ItemType);
+    context.Emit(OpCodes.Stfld, FieldInfo);
+  }
 }

@@ -8,28 +8,28 @@ namespace EmitMapper.AST.Nodes;
 
 internal class AstWriteProperty : IAstNode
 {
-    private readonly IAstRefOrAddr _targetObject;
+  private readonly IAstRefOrAddr _targetObject;
 
-    private readonly IAstRefOrValue _value;
+  private readonly IAstRefOrValue _value;
 
-    private readonly MethodInfo _setMethod;
-    private readonly PropertyInfo _propertyInfo;
+  private readonly MethodInfo _setMethod;
+  private readonly PropertyInfo _propertyInfo;
 
-    public AstWriteProperty(IAstRefOrAddr targetObject, IAstRefOrValue value, PropertyInfo propertyInfo)
-    {
-        _targetObject = targetObject;
-        _value = value;
-        _propertyInfo = propertyInfo;
-        _setMethod = propertyInfo.GetSetMethod();
-        if (_setMethod == null)
-            throw new Exception("Property " + propertyInfo.Name + " doesn't have set accessor");
-        if (_setMethod.GetParameters().Length != 1)
-            throw new EmitMapperException("Property " + propertyInfo.Name + " has invalid arguments");
-    }
+  public AstWriteProperty(IAstRefOrAddr targetObject, IAstRefOrValue value, PropertyInfo propertyInfo)
+  {
+    _targetObject = targetObject;
+    _value = value;
+    _propertyInfo = propertyInfo;
+    _setMethod = propertyInfo.GetSetMethod();
+    if (_setMethod == null)
+      throw new Exception("Property " + propertyInfo.Name + " doesn't have set accessor");
+    if (_setMethod.GetParameters().Length != 1)
+      throw new EmitMapperException("Property " + propertyInfo.Name + " has invalid arguments");
+  }
 
-    public void Compile(CompilationContext context)
-    {
-        AstBuildHelper.CallMethod(_setMethod, _targetObject, new List<IAstStackItem> { _value })
-            .Compile(context);
-    }
+  public void Compile(CompilationContext context)
+  {
+    AstBuildHelper.CallMethod(_setMethod, _targetObject, new List<IAstStackItem> { _value })
+      .Compile(context);
+  }
 }

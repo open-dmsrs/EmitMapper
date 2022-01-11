@@ -2,5 +2,5 @@
 
 internal interface IAstNode
 {
-    void Compile(CompilationContext context);
+  void Compile(CompilationContext context);
 }

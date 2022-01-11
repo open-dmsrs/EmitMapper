@@ -1,25 +1,26 @@
 ﻿using System;
 using System.Reflection.Emit;
 using EmitMapper.AST.Interfaces;
+using EmitMapper.Utils;
 
 namespace EmitMapper.AST.Nodes;
 
 internal class AstConstantString : IAstRef
 {
-    public string Str;
+  public string Str;
 
-    #region IAstStackItem Members
+  #region IAstStackItem Members
 
-    public Type ItemType => Meta<String>.Type;
+  public Type ItemType => Metadata<string>.Type;
 
-    #endregion
+  #endregion
 
-    #region IAstNode Members
+  #region IAstNode Members
 
-    public void Compile(CompilationContext context)
-    {
-        context.Emit(OpCodes.Ldstr, Str);
-    }
+  public void Compile(CompilationContext context)
+  {
+    context.Emit(OpCodes.Ldstr, Str);
+  }
 
-    #endregion
+  #endregion
 }

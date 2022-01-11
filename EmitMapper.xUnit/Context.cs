@@ -1,6 +1,6 @@
 ﻿namespace EmitMapper.Tests;
 
-internal class Context
+internal static class Context
 {
-    public static ObjectMapperManager ObjMan = new();
+  public static ObjectMapperManager ObjMan = new();
 }

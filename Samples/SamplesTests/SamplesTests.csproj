@@ -15,10 +15,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Include="..\EmitMapper\TypeExtensions.cs" Link="TypeExtensions.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
 		<PackageReference Include="System.Collections" Version="4.3.0" />
@@ -37,9 +33,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\EmitMapper\EmitMapper.csproj" />
-		<ProjectReference Include="..\Samples\EMConfigurations\EMConfigurations.csproj" />
-		<ProjectReference Include="..\Samples\LightDataAccess\LightDataAccess.csproj" />
+		<ProjectReference Include="..\..\EmitMapper\EmitMapper.csproj" />
+		<ProjectReference Include="..\EMConfigurations\EMConfigurations.csproj" />
+		<ProjectReference Include="..\LightDataAccess\LightDataAccess.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

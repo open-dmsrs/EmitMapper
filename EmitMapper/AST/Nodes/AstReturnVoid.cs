@@ -5,12 +5,12 @@ namespace EmitMapper.AST.Nodes;
 
 internal class AstReturnVoid : IAstNode
 {
-    #region IAstNode Members
+  #region IAstNode Members
 
-    public void Compile(CompilationContext context)
-    {
-        context.Emit(OpCodes.Ret);
-    }
+  public void Compile(CompilationContext context)
+  {
+    context.Emit(OpCodes.Ret);
+  }
 
-    #endregion
+  #endregion
 }

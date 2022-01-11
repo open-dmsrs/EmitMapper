@@ -18,59 +18,59 @@ using System.Linq;
 namespace LightDataAccess;
 
 /// <summary>
-///     Class FilterConstraints
+///   Class FilterConstraints
 /// </summary>
 public class FilterConstraints
 {
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="FilterConstraints" /> class.
-    /// </summary>
-    public FilterConstraints()
-    {
-        Constraints = new List<string>();
-        Params = new CmdParams();
-    }
+  /// <summary>
+  ///   Initializes a new instance of the <see cref="FilterConstraints" /> class.
+  /// </summary>
+  public FilterConstraints()
+  {
+    Constraints = new List<string>();
+    Params = new CmdParams();
+  }
 
-    /// <summary>
-    ///     Gets or sets the _ constraints.
-    /// </summary>
-    /// <value>The _ constraints.</value>
-    private List<string> Constraints { get; }
+  /// <summary>
+  ///   Gets or sets the _ constraints.
+  /// </summary>
+  /// <value>The _ constraints.</value>
+  private List<string> Constraints { get; }
 
-    /// <summary>
-    ///     Gets or sets the params.
-    /// </summary>
-    /// <value>The params.</value>
-    public CmdParams Params { get; set; }
+  /// <summary>
+  ///   Gets or sets the params.
+  /// </summary>
+  /// <value>The params.</value>
+  public CmdParams Params { get; set; }
 
-    /// <summary>
-    ///     Builds the where.
-    /// </summary>
-    /// <returns>System.String.</returns>
-    public string BuildWhere()
-    {
-        return (Constraints.Count > 0 ? "WHERE " : "") + Constraints.Select(c => "(" + c + ")").ToCsv(" AND ");
-    }
+  /// <summary>
+  ///   Builds the where.
+  /// </summary>
+  /// <returns>System.String.</returns>
+  public string BuildWhere()
+  {
+    return (Constraints.Count > 0 ? "WHERE " : "") + Constraints.Select(c => "(" + c + ")").ToCsv(" AND ");
+  }
 
-    /// <summary>
-    ///     Adds the specified constraint.
-    /// </summary>
-    /// <param name="constraint">The constraint.</param>
-    public void Add(string constraint)
-    {
-        Add(constraint, null);
-    }
+  /// <summary>
+  ///   Adds the specified constraint.
+  /// </summary>
+  /// <param name="constraint">The constraint.</param>
+  public void Add(string constraint)
+  {
+    Add(constraint, null);
+  }
 
-    /// <summary>
-    ///     Adds the specified constraint.
-    /// </summary>
-    /// <param name="constraint">The constraint.</param>
-    /// <param name="params">The params.</param>
-    public void Add(string constraint, CmdParams @params)
-    {
-        Constraints.Add(constraint);
-        if (@params != null)
-            foreach (var p in @params)
-                Params.Add(p.Key, p.Value);
-    }
+  /// <summary>
+  ///   Adds the specified constraint.
+  /// </summary>
+  /// <param name="constraint">The constraint.</param>
+  /// <param name="params">The params.</param>
+  public void Add(string constraint, CmdParams @params)
+  {
+    Constraints.Add(constraint);
+    if (@params != null)
+      foreach (var p in @params)
+        Params.Add(p.Key, p.Value);
+  }
 }

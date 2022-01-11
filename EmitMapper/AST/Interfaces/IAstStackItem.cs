@@ -4,5 +4,5 @@ namespace EmitMapper.AST.Interfaces;
 
 internal interface IAstStackItem : IAstNode
 {
-    Type ItemType { get; }
+  Type ItemType { get; }
 }

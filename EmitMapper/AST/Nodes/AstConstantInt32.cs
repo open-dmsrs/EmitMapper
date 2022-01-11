@@ -1,25 +1,26 @@
 ﻿using System;
 using System.Reflection.Emit;
 using EmitMapper.AST.Interfaces;
+using EmitMapper.Utils;
 
 namespace EmitMapper.AST.Nodes;
 
 internal class AstConstantInt32 : IAstValue
 {
-    public int Value;
+  public int Value;
 
-    #region IAstReturnValueNode Members
+  #region IAstReturnValueNode Members
 
-    public Type ItemType => Meta<int>.Type;
+  public Type ItemType => Metadata<int>.Type;
 
-    #endregion
+  #endregion
 
-    #region IAstNode Members
+  #region IAstNode Members
 
-    public void Compile(CompilationContext context)
-    {
-        context.Emit(OpCodes.Ldc_I4, Value);
-    }
+  public void Compile(CompilationContext context)
+  {
+    context.Emit(OpCodes.Ldc_I4, Value);
+  }
 
-    #endregion
+  #endregion
 }
