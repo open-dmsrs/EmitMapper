@@ -5,7 +5,7 @@ using EmitMapper;
 
 namespace Benchmarks;
 
-public class SimpleTest
+public static class SimpleTest
 {
   private static ObjectsMapper<B2, A2> _emitMapper;
   private static IMapper _autoMapper;

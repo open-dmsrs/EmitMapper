@@ -28,16 +28,16 @@ namespace LightDataAccess;
 /// </summary>
 public static partial class CommandBuilder
 {
-    /// <summary>
-    ///   Builds the update operator.
-    /// </summary>
-    /// <param name="cmd">The CMD.</param>
-    /// <param name="obj">The obj.</param>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="idFieldNames">The id field names.</param>
-    /// <param name="dbSettings">The db settings.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
-    public static bool BuildUpdateOperator(
+  /// <summary>
+  ///   Builds the update operator.
+  /// </summary>
+  /// <param name="cmd">The CMD.</param>
+  /// <param name="obj">The obj.</param>
+  /// <param name="tableName">Name of the table.</param>
+  /// <param name="idFieldNames">The id field names.</param>
+  /// <param name="dbSettings">The db settings.</param>
+  /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+  public static bool BuildUpdateOperator(
     this DbCommand cmd,
     object obj,
     string tableName,
@@ -48,19 +48,19 @@ public static partial class CommandBuilder
     return BuildUpdateCommand(cmd, obj, tableName, idFieldNames, null, null, null, dbSettings);
   }
 
-    /// <summary>
-    ///   Builds the update command.
-    /// </summary>
-    /// <param name="cmd">The CMD.</param>
-    /// <param name="obj">The obj.</param>
-    /// <param name="tableName">Name of the table.</param>
-    /// <param name="idFieldNames">The id field names.</param>
-    /// <param name="includeFields">The include fields.</param>
-    /// <param name="excludeFields">The exclude fields.</param>
-    /// <param name="changeTracker">The change tracker.</param>
-    /// <param name="dbSettings">The db settings.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
-    public static bool BuildUpdateCommand(
+  /// <summary>
+  ///   Builds the update command.
+  /// </summary>
+  /// <param name="cmd">The CMD.</param>
+  /// <param name="obj">The obj.</param>
+  /// <param name="tableName">Name of the table.</param>
+  /// <param name="idFieldNames">The id field names.</param>
+  /// <param name="includeFields">The include fields.</param>
+  /// <param name="excludeFields">The exclude fields.</param>
+  /// <param name="changeTracker">The change tracker.</param>
+  /// <param name="dbSettings">The db settings.</param>
+  /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+  public static bool BuildUpdateCommand(
     this DbCommand cmd,
     object obj,
     string tableName,

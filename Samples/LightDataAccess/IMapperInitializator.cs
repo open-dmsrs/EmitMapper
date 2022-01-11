@@ -5,9 +5,9 @@ namespace LightDataAccess;
 /// </summary>
 public interface IMapperInitializator
 {
-    /// <summary>
-    ///   Configures the mapper.
-    /// </summary>
-    /// <param name="mapperCore">The mapper core.</param>
-    void ConfigureMapper(MapperCore mapperCore);
+  /// <summary>
+  ///   Configures the mapper.
+  /// </summary>
+  /// <param name="mapperCore">The mapper core.</param>
+  void ConfigureMapper(MapperCore mapperCore);
 }

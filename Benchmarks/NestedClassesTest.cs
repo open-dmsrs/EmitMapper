@@ -5,7 +5,7 @@ using EmitMapper;
 
 namespace Benchmarks;
 
-public class NestedClassesTest
+public static class NestedClassesTest
 {
   private static ObjectsMapper<BenchSource, BenchDestination> _emitMapper;
   private static IMapper _autoMapper;

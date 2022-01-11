@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using EmitMapper.AST.Interfaces;
@@ -105,14 +106,34 @@ internal static class AstBuildHelper
     return new AstReadThisRef { ThisType = thisType };
   }
 
-  public static IAstRefOrValue ReadMembersChain(IAstRefOrAddr sourceObject, MemberInfo[] membersChain)
-  {
-    var src = sourceObject;
-    for (var i = 0; i < membersChain.Length - 1; ++i)
-      src = ReadMemberRA(src, membersChain[i]);
-    return ReadMemberRV(src, membersChain[membersChain.Length - 1]);
-  }
+  //public static IAstRefOrValue ReadMembersChain(IAstRefOrAddr sourceObject, MemberInfo[] membersChain)
+  //{
+  //  var src = sourceObject;
+  //  for (var i = 0; i < membersChain.Length - 1; ++i)
+  //    src = ReadMemberRA(src, membersChain[i]);
+  //  return ReadMemberRV(src, membersChain[membersChain.Length - 1]);
+  //}
 
+  public static IAstRefOrValue ReadMembersChain(IAstRefOrAddr sourceObject, IEnumerable<MemberInfo> membersChain)
+  {   
+    var src = sourceObject;
+    using var enumerator = membersChain.GetEnumerator();
+    MemberInfo cur = null;
+    if (enumerator.MoveNext())
+    {
+      cur = enumerator.Current;
+    }
+    while (enumerator.MoveNext())
+    {
+      src = ReadMemberRA(src, cur);
+      cur = enumerator.Current;
+    }
+    return ReadMemberRV(src, cur);
+  }
+  public static IAstRefOrValue ReadMembersChain(IAstRefOrAddr sourceObject, MemberInfo membersChainOfOne)
+  {     
+    return ReadMemberRV(sourceObject, membersChainOfOne);
+  }
   public static IAstStackItem ReadMember(IAstRefOrAddr sourceObject, MemberInfo memberInfo)
   {
     if (memberInfo.MemberType == MemberTypes.Method)
@@ -171,10 +192,13 @@ internal static class AstBuildHelper
   }
 
   public static IAstNode WriteMembersChain(
-    MemberInfo[] membersChain,
+    IEnumerable<MemberInfo> membersChain1,
     IAstRefOrAddr targetObject,
     IAstRefOrValue value)
   {
+    //todo: need to optimize
+    var membersChain = membersChain1.ToArray();
+
     if (membersChain.Length == 1)
       return WriteMember(membersChain[0], targetObject, value);
 

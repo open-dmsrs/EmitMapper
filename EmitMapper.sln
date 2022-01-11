@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{1821C660-299A-4BEE-8828-32911AE7F42F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamplesTests", "SamplesTests\SamplesTests.csproj", "{A98EB892-165D-44D8-90E9-773AE9A45849}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamplesTests", "Samples\SamplesTests\SamplesTests.csproj", "{A98EB892-165D-44D8-90E9-773AE9A45849}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightDataAccess", "Samples\LightDataAccess\LightDataAccess.csproj", "{A9E20509-B876-45AC-A377-B9AF1FBDE8DA}"
 EndProject
@@ -22,7 +22,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		EmitMapper.sln.DotSettings = EmitMapper.sln.DotSettings
 		readme.md = readme.md
+		sync all.sh = sync all.sh
+		syncing.sh = syncing.sh
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitMapper", "EmitMapper\EmitMapper.csproj", "{9E456898-83B2-44F9-BA09-D69CCC81D6C7}"

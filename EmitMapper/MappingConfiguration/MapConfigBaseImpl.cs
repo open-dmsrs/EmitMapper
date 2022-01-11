@@ -9,6 +9,8 @@ using EmitMapper.Utils;
 
 namespace EmitMapper.MappingConfiguration;
 
+/// <summary>
+/// </summary>
 public abstract class MapConfigBaseImpl : IMappingConfigurator
 {
   private readonly TypeDictionary<Delegate> _customConstructors = new();
@@ -61,27 +63,6 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     };
   }
 
-  protected static string ToStrEnum<T>(IEnumerable<T> t)
-  {
-    return t == null ? "" : t.ToCsv("|");
-  }
-
-  protected static string ToStr<T>(T t)
-    where T : class
-  {
-    return t == null ? "" : t.ToString();
-  }
-
-  public virtual void BuildConfigurationName()
-  {
-    _configurationName = new[]
-    {
-      ToStr(_customConverters), ToStr(_nullSubstitutors),
-      ToStr(_ignoreMembers), ToStr(_postProcessors),
-      ToStr(_customConstructors)
-    }.ToCsv(";");
-  }
-
   /// <summary>
   ///   Define custom type converter
   /// </summary>
@@ -92,7 +73,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   public IMappingConfigurator ConvertUsing<TFrom, To>(Func<TFrom, To> converter)
   {
     _customConverters.Add(
-      new[] { Meta<TFrom>.Type, Meta<To>.Type },
+      new[] { Metadata<TFrom>.Type, Metadata<To>.Type },
       (ValueConverter<TFrom, To>)((v, s) => converter(v)));
     return this;
   }
@@ -120,7 +101,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   /// <returns></returns>
   public IMappingConfigurator NullSubstitution<TFrom, TTo>(Func<object, TTo> nullSubstitutor)
   {
-    _nullSubstitutors.Add(new[] { Meta<TFrom>.Type, Meta<TTo>.Type }, nullSubstitutor);
+    _nullSubstitutors.Add(new[] { Metadata<TFrom>.Type, Metadata<TTo>.Type }, nullSubstitutor);
     return this;
   }
 
@@ -150,7 +131,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   /// <returns></returns>
   public IMappingConfigurator IgnoreMembers<TFrom, TTo>(string[] ignoreNames)
   {
-    return IgnoreMembers(Meta<TFrom>.Type, Meta<TTo>.Type, ignoreNames);
+    return IgnoreMembers(Metadata<TFrom>.Type, Metadata<TTo>.Type, ignoreNames);
   }
 
   /// <summary>
@@ -161,7 +142,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   /// <returns></returns>
   public IMappingConfigurator ConstructBy<T>(TargetConstructor<T> constructor)
   {
-    _customConstructors.Add(new[] { Meta<T>.Type }, constructor);
+    _customConstructors.Add(new[] { Metadata<T>.Type }, constructor);
     return this;
   }
 
@@ -173,7 +154,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   /// <returns></returns>
   public IMappingConfigurator PostProcess<T>(ValuesPostProcessor<T> postProcessor)
   {
-    _postProcessors.Add(new[] { Meta<T>.Type }, postProcessor);
+    _postProcessors.Add(new[] { Metadata<T>.Type }, postProcessor);
     return this;
   }
 
@@ -190,19 +171,40 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
   public IMappingConfigurator FilterDestination<T>(ValuesFilter<T> valuesFilter)
   {
-    _destinationFilters.Add(new[] { Meta<T>.Type }, valuesFilter);
+    _destinationFilters.Add(new[] { Metadata<T>.Type }, valuesFilter);
     return this;
   }
 
   public IMappingConfigurator FilterSource<T>(ValuesFilter<T> valuesFilter)
   {
-    _sourceFilters.Add(new[] { Meta<T>.Type }, valuesFilter);
+    _sourceFilters.Add(new[] { Metadata<T>.Type }, valuesFilter);
     return this;
+  }
+
+  protected static string ToStrEnum<T>(IEnumerable<T> t)
+  {
+    return t == null ? "" : t.ToCsv("|");
+  }
+
+  protected static string ToStr<T>(T t)
+    where T : class
+  {
+    return t == null ? "" : t.ToString();
+  }
+
+  public virtual void BuildConfigurationName()
+  {
+    _configurationName = new[]
+    {
+      ToStr(_customConverters), ToStr(_nullSubstitutors),
+      ToStr(_ignoreMembers), ToStr(_postProcessors),
+      ToStr(_customConstructors)
+    }.ToCsv(";");
   }
 
   protected void RegisterDefaultCollectionConverters()
   {
-    ConvertGeneric(typeof(ICollection<>), Meta<Array>.Type, new ArraysConverterProvider());
+    ConvertGeneric(typeof(ICollection<>), Metadata<Array>.Type, new ArraysConverterProvider());
   }
 
   protected IEnumerable<IMappingOperation> FilterOperations(
@@ -268,10 +270,13 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
 
     if (converterObj is not ICustomConverter customConverter)
-      return Delegate.CreateDelegate(typeof(Func<,,>).MakeGenericType(from, Meta<object>.Type, to), converterObj, mi);
+      return Delegate.CreateDelegate(
+        typeof(Func<,,>).MakeGenericType(from, Metadata<object>.Type, to),
+        converterObj,
+        mi);
     customConverter.Initialize(from, to, this);
 
-    return Delegate.CreateDelegate(typeof(Func<,,>).MakeGenericType(from, Meta<object>.Type, to), converterObj, mi);
+    return Delegate.CreateDelegate(typeof(Func<,,>).MakeGenericType(from, Metadata<object>.Type, to), converterObj, mi);
   }
 
   private bool TestIgnore(Type from, Type to, MemberDescriptor fromDescr, MemberDescriptor toDescr)

@@ -11,23 +11,23 @@ namespace LightDataAccess.Configurators;
 /// <summary>
 ///   The object to data container configuration.
 /// </summary>
-public class ObjectToDataContainerConfigurator : MapConfigBase<ObjectToDataContainerConfigurator>
+public class ObjectToDataContainerConfigurator : MapConfigBaseImpl
 {
-    /// <summary>
-    ///   Initializes a new instance of the <see cref="ObjectToDataContainerConfigurator" /> class.
-    /// </summary>
-    public ObjectToDataContainerConfigurator()
+  /// <summary>
+  ///   Initializes a new instance of the <see cref="ObjectToDataContainerConfigurator" /> class.
+  /// </summary>
+  public ObjectToDataContainerConfigurator()
   {
     ConstructBy(() => new DataContainer { Fields = new Dictionary<string, string>() });
   }
 
-    /// <summary>
-    ///   Gets the mapping operations.
-    /// </summary>
-    /// <param name="from">The type from.</param>
-    /// <param name="to">To type to.</param>
-    /// <returns>The mapping operations.</returns>
-    public override IMappingOperation[] GetMappingOperations(Type from, Type to)
+  /// <summary>
+  ///   Gets the mapping operations.
+  /// </summary>
+  /// <param name="from">The type from.</param>
+  /// <param name="to">To type to.</param>
+  /// <returns>The mapping operations.</returns>
+  public override IMappingOperation[] GetMappingOperations(Type from, Type to)
   {
     return FilterOperations(
         from,

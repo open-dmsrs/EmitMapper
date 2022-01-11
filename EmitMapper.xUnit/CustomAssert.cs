@@ -5,7 +5,7 @@ using Xunit;
 
 namespace EmitMapper.Tests;
 
-internal class CustomAssert
+internal static class CustomAssert
 {
   public static void AreEqual(ICollection expected, ICollection actual)
   {

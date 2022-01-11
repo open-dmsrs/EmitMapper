@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using EmitMapper;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+using EmitMapper.Utils;
 
 namespace EMConfigurations;
 
@@ -19,8 +21,8 @@ public class FlatteringConfig : DefaultMapConfig
 
   public override IMappingOperation[] GetMappingOperations(Type from, Type to)
   {
-    var destinationMembers = GetDestinationMemebers(to);
-    var sourceMembers = GetSourceMemebers(from);
+    var destinationMembers = GetFieldsPropertiesMembers(to);
+    var sourceMembers = GetSourceMembers(from);
     var result = new List<IMappingOperation>();
     foreach (var dest in destinationMembers)
     {
@@ -44,59 +46,68 @@ public class FlatteringConfig : DefaultMapConfig
     return this;
   }
 
-  private List<MemberInfo> GetMatchedChain(string destName, List<MemberInfo> sourceMembers)
+  private IEnumerable<MemberInfo> GetMatchedChain(string destName, IEnumerable<MemberInfo> sourceMembers)
   {
-    var matches =
+    var sourceMatches =
       sourceMembers.Where(s => MatchMembers(destName, s.Name) || NestedMembersMatcher(destName, s.Name));
     var len = 0;
-    MemberInfo match = null;
-    foreach (var m in matches)
-      if (m.Name.Length > len)
+    MemberInfo sourceMemberInfo = null;
+    foreach (var mi in sourceMatches)
+      if (mi.Name.Length > len)
       {
-        len = m.Name.Length;
-        match = m;
+        len = mi.Name.Length;
+        sourceMemberInfo = mi;
       }
 
-    if (match == null) return null;
-    var result = new List<MemberInfo> { match };
-    if (!MatchMembers(destName, match.Name))
-      result.AddRange(
-        GetMatchedChain(destName.Substring(match.Name.Length), GetDestinationMemebers(match))
-      );
+    if (sourceMemberInfo == null) return null;
+    var result = new List<MemberInfo> { sourceMemberInfo };
+    if (!MatchMembers(destName, sourceMemberInfo.Name))
+    {
+      var matchedChain = GetMatchedChain(destName.Substring(sourceMemberInfo.Name.Length), GetSourceSubMembers(sourceMemberInfo));
+      if (matchedChain != null && matchedChain.Any())
+        result.AddRange(matchedChain);
+      else
+      {
+        throw new EmitMapperException(
+          $" The member '{destName}' of target members can not match any in source member '{sourceMemberInfo.Name}'." +
+          $" pls ignore it or delete '{destName}' in the target object." +
+          $" or add new member '{destName.Substring(sourceMemberInfo.Name.Length)}' in source class '{ReflectionUtils.GetMemberReturnType(sourceMemberInfo).FullName}'.");
+      }
+    }
     return result;
   }
 
-  private static List<MemberInfo> GetSourceMemebers(Type t)
+  private static IEnumerable<MemberInfo> GetSourceMembers(Type t)
   {
-    return GetMemebers(t)
+    return GetAllMembers(t)
       .Where(
         m =>
           m.MemberType == MemberTypes.Field ||
           m.MemberType == MemberTypes.Property ||
           m.MemberType == MemberTypes.Method
-      )
-      .ToList();
+      );
   }
 
-  private static List<MemberInfo> GetDestinationMemebers(MemberInfo mi)
+  private static IEnumerable<MemberInfo> GetSourceSubMembers(MemberInfo mi)
   {
+    //Type t = ReflectionUtils.GetMemberReturnType(mi);
+
     Type t;
     if (mi.MemberType == MemberTypes.Field)
       t = mi.DeclaringType.GetField(mi.Name).FieldType;
     else
       t = mi.DeclaringType.GetProperty(mi.Name).PropertyType;
-    return GetDestinationMemebers(t);
+    return GetFieldsPropertiesMembers(t);
   }
 
-  private static List<MemberInfo> GetDestinationMemebers(Type t)
+  private static IEnumerable<MemberInfo> GetFieldsPropertiesMembers(Type t)
   {
-    return GetMemebers(t).Where(m => m.MemberType == MemberTypes.Field || m.MemberType == MemberTypes.Property)
-      .ToList();
+    return GetAllMembers(t).Where(m => m.MemberType == MemberTypes.Field || m.MemberType == MemberTypes.Property);
   }
 
-  private static List<MemberInfo> GetMemebers(Type t)
+  private static IEnumerable<MemberInfo> GetAllMembers(Type t)
   {
     var bindingFlags = BindingFlags.Instance | BindingFlags.Public;
-    return t.GetMembers(bindingFlags).ToList();
+    return t.GetMembers(bindingFlags);
   }
 }

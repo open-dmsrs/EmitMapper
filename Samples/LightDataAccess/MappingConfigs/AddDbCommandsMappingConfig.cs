@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
-using EmitMapper.Conversion;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
@@ -10,7 +9,7 @@ using EmitMapper.Utils;
 
 namespace LightDataAccess.MappingConfigs;
 
-internal class AddDbCommandsMappingConfig : IMappingConfigurator
+internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
 {
   private readonly DbSettings _dbSettings;
   private readonly IEnumerable<string> _excludeFields;
@@ -33,20 +32,10 @@ internal class AddDbCommandsMappingConfig : IMappingConfigurator
     if (_excludeFields != null) _excludeFields = _excludeFields.Select(f => f.ToUpper());
   }
 
-  public StaticConvertersManager GetStaticConvertersManager()
-  {
-    return null;
-  }
-
 
   #region IMappingConfigurator Members
 
-  public IRootMappingOperation GetRootMappingOperation(Type from, Type to)
-  {
-    return null;
-  }
-
-  public IMappingOperation[] GetMappingOperations(Type from, Type to)
+  public override IMappingOperation[] GetMappingOperations(Type from, Type to)
   {
     var members = ReflectionUtils.GetPublicFieldsAndProperties(from);
     if (_includeFields != null)
@@ -70,7 +59,7 @@ internal class AddDbCommandsMappingConfig : IMappingConfigurator
       .ToArray();
   }
 
-  public string GetConfigurationName()
+  public override string GetConfigurationName()
   {
     return _configName;
   }

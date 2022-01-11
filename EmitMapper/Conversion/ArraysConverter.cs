@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using EmitMapper.MappingConfiguration;
+using EmitMapper.Utils;
 
 namespace EmitMapper.Conversion;
 
@@ -14,19 +15,19 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
   public void Initialize(Type from, Type to, MapConfigBaseImpl mappingConfig)
   {
     var staticConverters = mappingConfig.GetStaticConvertersManager() ?? StaticConvertersManager.DefaultInstance;
-    var staticConverterMethod = staticConverters.GetStaticConverter(Meta<TFrom>.Type, Meta<TTo>.Type);
+    var staticConverterMethod = staticConverters.GetStaticConverter(Metadata<TFrom>.Type, Metadata<TTo>.Type);
     if (staticConverterMethod != null)
     {
       _converter = (Func<TFrom, TTo>)Delegate.CreateDelegate(
-        Meta<Func<TFrom, TTo>>.Type,
+        Metadata<Func<TFrom, TTo>>.Type,
         null,
         staticConverterMethod);
     }
     else
     {
       _subMapper = ObjectMapperManager.DefaultInstance.GetMapperInt(
-        Meta<TFrom>.Type,
-        Meta<TTo>.Type,
+        Metadata<TFrom>.Type,
+        Metadata<TTo>.Type,
         mappingConfig);
       _converter = ConverterBySubmapper;
     }

@@ -14,21 +14,21 @@ namespace LightDataAccess.Configurators;
 /// </summary>
 public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
 {
-    /// <summary>
-    ///   Initializes a new instance of the <see cref="EntityToDataContainerPropertyMappingConfigurator" /> class.
-    /// </summary>
-    public EntityToDataContainerPropertyMappingConfigurator()
+  /// <summary>
+  ///   Initializes a new instance of the <see cref="EntityToDataContainerPropertyMappingConfigurator" /> class.
+  /// </summary>
+  public EntityToDataContainerPropertyMappingConfigurator()
   {
     ConstructBy(() => new DataContainer { Fields = new Dictionary<string, string>() });
   }
 
-    /// <summary>
-    ///   Gets the mapping operations.
-    /// </summary>
-    /// <param name="from">The type from.</param>
-    /// <param name="to">To type to.</param>
-    /// <returns>The mapping operations.</returns>
-    public override IMappingOperation[] GetMappingOperations(Type from, Type to)
+  /// <summary>
+  ///   Gets the mapping operations.
+  /// </summary>
+  /// <param name="from">The type from.</param>
+  /// <param name="to">To type to.</param>
+  /// <returns>The mapping operations.</returns>
+  public override IMappingOperation[] GetMappingOperations(Type from, Type to)
   {
     return FilterOperations(
         from,
@@ -48,7 +48,7 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
                 if (destination == null || value == null || destination is not DataContainer container)
                   return;
 
-                var sourceType = ReflectionUtils.GetMemberType(sourceMember);
+                var sourceType = ReflectionUtils.GetMemberReturnType(sourceMember);
                 var fieldsDescription = ReflectionUtils.GetDataMemberDefinition(sourceMember);
                 ConvertSourcePropertyToFields(
                   value,
@@ -63,14 +63,14 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
       .ToArray();
   }
 
-    /// <summary>
-    ///   Converts the source property to fields.
-    /// </summary>
-    /// <param name="sourceType">Type of the property.</param>
-    /// <param name="sourceValue">The property value.</param>
-    /// <param name="container">The container.</param>
-    /// <param name="fieldsDescription">The fields description.</param>
-    private static void ConvertSourcePropertyToFields(object sourceValue, Type sourceType, DataContainer container,
+  /// <summary>
+  ///   Converts the source property to fields.
+  /// </summary>
+  /// <param name="sourceType">Type of the property.</param>
+  /// <param name="sourceValue">The property value.</param>
+  /// <param name="container">The container.</param>
+  /// <param name="fieldsDescription">The fields description.</param>
+  private static void ConvertSourcePropertyToFields(object sourceValue, Type sourceType, DataContainer container,
     List<Tuple<string, Type>> fieldsDescription)
   {
     if (container == null || container.Fields == null)

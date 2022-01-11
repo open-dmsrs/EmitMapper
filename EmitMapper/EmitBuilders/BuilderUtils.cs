@@ -3,18 +3,19 @@ using System.Reflection.Emit;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 using EmitMapper.AST.Nodes;
+using EmitMapper.Utils;
 
 namespace EmitMapper.EmitBuilders;
 
 internal static class BuilderUtils
 {
-    /// <summary>
-    ///   Copies an argument to local variable
-    /// </summary>
-    /// <param name="loc"></param>
-    /// <param name="argIndex"></param>
-    /// <returns></returns>
-    public static IAstNode InitializeLocal(LocalBuilder loc, int argIndex)
+  /// <summary>
+  ///   Copies an argument to local variable
+  /// </summary>
+  /// <param name="loc"></param>
+  /// <param name="argIndex"></param>
+  /// <returns></returns>
+  public static IAstNode InitializeLocal(LocalBuilder loc, int argIndex)
   {
     return new AstComplexNode
     {
@@ -25,7 +26,7 @@ internal static class BuilderUtils
         {
           LocalIndex = loc.LocalIndex,
           LocalType = loc.LocalType,
-          Value = AstBuildHelper.ReadArgumentRV(argIndex, Meta<object>.Type)
+          Value = AstBuildHelper.ReadArgumentRV(argIndex, Metadata<object>.Type)
         }
       }
     };

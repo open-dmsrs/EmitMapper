@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection.Emit;
 using EmitMapper.AST.Interfaces;
+using EmitMapper.Utils;
 
 namespace EmitMapper.AST.Nodes;
 
@@ -10,7 +11,7 @@ internal class AstConstantString : IAstRef
 
   #region IAstStackItem Members
 
-  public Type ItemType => Meta<string>.Type;
+  public Type ItemType => Metadata<string>.Type;
 
   #endregion
 

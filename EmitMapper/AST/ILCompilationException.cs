@@ -13,4 +13,12 @@ internal class ILCompilationException : Exception
     : base(string.Format(message, p))
   {
   }
+
+  public ILCompilationException()
+  {
+  }
+
+  public ILCompilationException(string message, Exception innerException) : base(message, innerException)
+  {
+  }
 }

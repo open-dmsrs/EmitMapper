@@ -6,6 +6,7 @@ using System.Threading;
 using EmitMapper.EmitBuilders;
 using EmitMapper.Mappers;
 using EmitMapper.MappingConfiguration;
+using EmitMapper.Utils;
 
 namespace EmitMapper;
 
@@ -35,7 +36,8 @@ public class ObjectMapperManager
   /// <returns></returns>
   public ObjectsMapper<TFrom, TTo> GetMapper<TFrom, TTo>()
   {
-    return new ObjectsMapper<TFrom, TTo>(GetMapperImpl(Meta<TFrom>.Type, Meta<TTo>.Type, DefaultMapConfig.Instance));
+    return new ObjectsMapper<TFrom, TTo>(
+      GetMapperImpl(Metadata<TFrom>.Type, Metadata<TTo>.Type, DefaultMapConfig.Instance));
   }
 
   /// <summary>
@@ -47,7 +49,7 @@ public class ObjectMapperManager
   /// <returns>Mapper</returns>
   public ObjectsMapper<TFrom, TTo> GetMapper<TFrom, TTo>(IMappingConfigurator mappingConfigurator)
   {
-    return new ObjectsMapper<TFrom, TTo>(GetMapperImpl(Meta<TFrom>.Type, Meta<TTo>.Type, mappingConfigurator));
+    return new ObjectsMapper<TFrom, TTo>(GetMapperImpl(Metadata<TFrom>.Type, Metadata<TTo>.Type, mappingConfigurator));
   }
 
   /// <summary>
@@ -70,8 +72,8 @@ public class ObjectMapperManager
 
   internal ObjectsMapperDescr GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
   {
-    to ??= Meta<object>.Type;
-    from ??= Meta<object>.Type;
+    to ??= Metadata<object>.Type;
+    from ??= Metadata<object>.Type;
     var mapperTypeKey = new MapperKey(from, to, mappingConfigurator.GetConfigurationName(), _currentInstanceId);
 
     if (_ObjectsMapperIds.TryGetValue(mapperTypeKey, out var result))

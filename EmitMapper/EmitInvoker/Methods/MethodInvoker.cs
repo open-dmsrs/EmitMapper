@@ -35,10 +35,10 @@ public static class MethodInvoker
     var par = mi.GetParameters();
     var funcCallerType = par.Length switch
     {
-      0 => Meta<MethodInvokerFunc0>.Type,
-      1 => Meta<MethodInvokerFunc1>.Type,
-      2 => Meta<MethodInvokerFunc2>.Type,
-      3 => Meta<MethodInvokerFunc3>.Type,
+      0 => Metadata<MethodInvokerFunc0>.Type,
+      1 => Metadata<MethodInvokerFunc1>.Type,
+      2 => Metadata<MethodInvokerFunc2>.Type,
+      3 => Metadata<MethodInvokerFunc3>.Type,
       _ => throw new EmitMapperException("too many method parameters")
     };
 
@@ -47,10 +47,10 @@ public static class MethodInvoker
     var methodBuilder = tb.DefineMethod(
       "CallFunc",
       MethodAttributes.Public | MethodAttributes.Virtual,
-      Meta<object>.Type,
-      Enumerable.Range(0, par.Length).Select(i => Meta<object>.Type).ToArray());
+      Metadata<object>.Type,
+      Enumerable.Range(0, par.Length).Select(i => Metadata<object>.Type).ToArray());
 
-    new AstReturn { ReturnType = Meta<object>.Type, ReturnValue = CreateCallMethod(mi, par) }.Compile(
+    new AstReturn { ReturnType = Metadata<object>.Type, ReturnValue = CreateCallMethod(mi, par) }.Compile(
       new CompilationContext(methodBuilder.GetILGenerator()));
 
     return tb.CreateType();
@@ -61,10 +61,10 @@ public static class MethodInvoker
     var par = mi.GetParameters();
     var actionCallerType = par.Length switch
     {
-      0 => Meta<MethodInvokerAction0>.Type,
-      1 => Meta<MethodInvokerAction1>.Type,
-      2 => Meta<MethodInvokerAction2>.Type,
-      3 => Meta<MethodInvokerAction3>.Type,
+      0 => Metadata<MethodInvokerAction0>.Type,
+      1 => Metadata<MethodInvokerAction1>.Type,
+      2 => Metadata<MethodInvokerAction2>.Type,
+      3 => Metadata<MethodInvokerAction3>.Type,
       _ => throw new EmitMapperException("too many method parameters")
     };
 
@@ -74,7 +74,7 @@ public static class MethodInvoker
       "CallAction",
       MethodAttributes.Public | MethodAttributes.Virtual,
       null,
-      Enumerable.Range(0, par.Length).Select(i => Meta<object>.Type).ToArray());
+      Enumerable.Range(0, par.Length).Select(i => Metadata<object>.Type).ToArray());
 
     new AstComplexNode { Nodes = new List<IAstNode> { CreateCallMethod(mi, par), new AstReturnVoid() } }.Compile(
       new CompilationContext(methodBuilder.GetILGenerator()));
@@ -90,12 +90,12 @@ public static class MethodInvoker
         ? null
         : new AstCastclassRef(
           AstBuildHelper.ReadFieldRV(
-            new AstReadThis { ThisType = Meta<MethodInvokerBase>.Type },
-            Meta<MethodInvokerBase>.Type.GetField(
+            new AstReadThis { ThisType = Metadata<MethodInvokerBase>.Type },
+            Metadata<MethodInvokerBase>.Type.GetField(
               nameof(MethodInvokerBase.TargetObject),
               BindingFlags.Public | BindingFlags.Instance)),
           mi.DeclaringType),
-      parameters.Select((p, idx) => (IAstStackItem)AstBuildHelper.ReadArgumentRV(idx + 1, Meta<object>.Type))
+      parameters.Select((p, idx) => (IAstStackItem)AstBuildHelper.ReadArgumentRV(idx + 1, Metadata<object>.Type))
         .ToList());
   }
 }

@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace EmitMapper.Mvc.Net;
 
-public class FormCollectionMapConfig : IMappingConfigurator
+public class FormCollectionMapConfig : MapConfigBaseImpl
 {
-  public IMappingOperation[] GetMappingOperations(Type from, Type to)
+  public override IMappingOperation[] GetMappingOperations(Type from, Type to)
   {
     var members = ReflectionUtils.GetPublicFieldsAndProperties(to);
     return members
@@ -28,7 +28,7 @@ public class FormCollectionMapConfig : IMappingConfigurator
                 {
                   if (((FormCollection)form).TryGetValue(m.Name, out var res))
                     return ValueToWrite<object>.ReturnValue(
-                      Convert(new ValueProviderResult(res), ReflectionUtils.GetMemberType(m)));
+                      Convert(new ValueProviderResult(res), ReflectionUtils.GetMemberReturnType(m)));
                   return ValueToWrite<object>.Skip();
                 }
               )
@@ -37,17 +37,17 @@ public class FormCollectionMapConfig : IMappingConfigurator
       .ToArray();
   }
 
-  public string GetConfigurationName()
+  public override string GetConfigurationName()
   {
     return null;
   }
 
-  public IRootMappingOperation GetRootMappingOperation(Type from, Type to)
+  public override IRootMappingOperation GetRootMappingOperation(Type from, Type to)
   {
     return null;
   }
 
-  public StaticConvertersManager GetStaticConvertersManager()
+  public override StaticConvertersManager GetStaticConvertersManager()
   {
     return null;
   }

@@ -10,7 +10,7 @@ using EmitMapper.Utils;
 
 namespace EmitMapper.MappingConfiguration;
 
-public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
+public class DefaultMapConfig : MapConfigBaseImpl
 {
   private readonly List<string> _deepCopyMembers = new();
 
@@ -32,21 +32,6 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
   #endregion
 
 
-  private class MappingItem
-  {
-    public bool ShallowCopy;
-    public MemberDescriptor From;
-
-    public MemberDescriptor To;
-
-    public MappingItem(MemberDescriptor from, MemberDescriptor to, bool shallowCopy)
-    {
-      From = from;
-      To = to;
-      ShallowCopy = shallowCopy;
-    }
-  }
-
   #region Constructors
 
   static DefaultMapConfig()
@@ -56,7 +41,6 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
 
   public DefaultMapConfig()
   {
-    Init(this);
     _shallowCopy = true;
     _membersMatcher = (m1, m2) => m1 == m2;
   }
@@ -73,7 +57,7 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
   /// <returns></returns>
   public DefaultMapConfig ShallowMap<T>()
   {
-    return ShallowMap(Meta<T>.Type);
+    return ShallowMap(Metadata<T>.Type);
   }
 
   /// <summary>
@@ -107,7 +91,7 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
   /// <returns></returns>
   public DefaultMapConfig DeepMap<T>()
   {
-    return DeepMap(Meta<T>.Type);
+    return DeepMap(Metadata<T>.Type);
   }
 
   /// <summary>
@@ -209,11 +193,11 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
     toPath ??= Array.Empty<MemberInfo>();
     fromPath ??= Array.Empty<MemberInfo>();
 
-    var membersFromPath = fromPath as MemberInfo[] ?? fromPath.ToArray();
-    var from = !membersFromPath.Any() ? fromRoot : ReflectionUtils.GetMemberType(membersFromPath.Last());
+    var membersFromPath = fromPath as IEnumerable<MemberInfo> ?? fromPath.ToArray();
+    var from = !membersFromPath.Any() ? fromRoot : ReflectionUtils.GetMemberReturnType(membersFromPath.Last());
 
-    var memberToPath = toPath as MemberInfo[] ?? toPath.ToArray();
-    var to = !memberToPath.Any() ? toRoot : ReflectionUtils.GetMemberType(memberToPath.Last());
+    var memberToPath = toPath as IEnumerable<MemberInfo> ?? toPath.ToArray();
+    var to = !memberToPath.Any() ? toRoot : ReflectionUtils.GetMemberReturnType(memberToPath.Last());
 
     var tp = new TypesPair(from, to);
     processedTypes.Add(tp);
@@ -266,13 +250,13 @@ public class DefaultMapConfig : MapConfigBase<DefaultMapConfig>
     var enumerable = fromPath.ToList();
     var origSrcMemberDesc = new MemberDescriptor(enumerable.Concat(new[] { fromMi }).ToArray());
 
-    if (ReflectionUtils.IsNullable(ReflectionUtils.GetMemberType(fromMi)))
+    if (ReflectionUtils.IsNullable(ReflectionUtils.GetMemberReturnType(fromMi)))
       //fromPath = enumerable.Concat(new[] { fromMi });//never use
-      fromMi = ReflectionUtils.GetMemberType(fromMi).GetProperty("Value");
+      fromMi = ReflectionUtils.GetMemberReturnType(fromMi).GetProperty("Value");
 
-    if (ReflectionUtils.IsNullable(ReflectionUtils.GetMemberType(toMi)))
+    if (ReflectionUtils.IsNullable(ReflectionUtils.GetMemberReturnType(toMi)))
       //toPath = enumerable.Concat(new[] { toMi });//never use
-      toMi = ReflectionUtils.GetMemberType(toMi).GetProperty("Value");
+      toMi = ReflectionUtils.GetMemberReturnType(toMi).GetProperty("Value");
 
     var destMemberDescr = new MemberDescriptor(memberInfos.Concat(new[] { toMi }).ToArray());
     var srcMemberDescr = new MemberDescriptor(enumerable.Concat(new[] { fromMi }).ToArray());

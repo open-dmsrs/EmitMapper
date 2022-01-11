@@ -6,7 +6,7 @@ using LightDataAccess;
 
 namespace Benchmarks;
 
-internal class DbTest
+internal static class DbTest
 {
   private static long BLToolkit_DB(int mappingsCount)
   {

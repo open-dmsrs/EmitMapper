@@ -13,22 +13,24 @@ internal class NativeConverter
 {
   private static readonly Type[] _ConvertTypes =
   {
-    Meta<bool>.Type, Meta<char>.Type, Meta<sbyte>.Type, Meta<byte>.Type, Meta<short>.Type, Meta<int>.Type,
-    Meta<long>.Type,
-    Meta<ushort>.Type, Meta<uint>.Type, Meta<ulong>.Type, Meta<float>.Type, Meta<double>.Type, Meta<decimal>.Type,
-    Meta<DateTime>.Type, Meta<string>.Type
+    Metadata<bool>.Type, Metadata<char>.Type, Metadata<sbyte>.Type, Metadata<byte>.Type, Metadata<short>.Type,
+    Metadata<int>.Type,
+    Metadata<long>.Type,
+    Metadata<ushort>.Type, Metadata<uint>.Type, Metadata<ulong>.Type, Metadata<float>.Type, Metadata<double>.Type,
+    Metadata<decimal>.Type,
+    Metadata<DateTime>.Type, Metadata<string>.Type
   };
 
-  private static readonly MethodInfo ObjectToStringMethod = Meta<NativeConverter>.Type.GetMethod(
+  private static readonly MethodInfo ObjectToStringMethod = Metadata<NativeConverter>.Type.GetMethod(
     nameof(ObjectToString),
     BindingFlags.NonPublic | BindingFlags.Static);
 
   private static readonly MethodInfo[] ConvertMethods =
     TypeHome.Convert.GetMethods(BindingFlags.Static | BindingFlags.Public);
 
-  private static readonly MethodInfo ChangeTypeMethod = Meta<EMConvert>.Type.GetMethod(
+  private static readonly MethodInfo ChangeTypeMethod = Metadata<EMConvert>.Type.GetMethod(
     nameof(EMConvert.ChangeType),
-    new[] { Meta<object>.Type, Meta<Type>.Type, Meta<Type>.Type });
+    new[] { Metadata<object>.Type, Metadata<Type>.Type, Metadata<Type>.Type });
 
   public static bool IsNativeConvertionPossible(Type from, Type to)
   {
@@ -38,10 +40,10 @@ internal class NativeConverter
     if (_ConvertTypes.Contains(from) && _ConvertTypes.Contains(to))
       return true;
 
-    if (to == Meta<string>.Type)
+    if (to == Metadata<string>.Type)
       return true;
 
-    if (from == Meta<string>.Type && to == Meta<Guid>.Type)
+    if (from == Metadata<string>.Type && to == Metadata<Guid>.Type)
       return true;
 
     if (from.IsEnum && to.IsEnum)
@@ -67,7 +69,7 @@ internal class NativeConverter
     if (destinationType == sourceValue.ItemType)
       return sourceValue;
 
-    if (destinationType == Meta<string>.Type)
+    if (destinationType == Metadata<string>.Type)
       return new AstCallMethodRef(ObjectToStringMethod, null, new List<IAstStackItem> { sourceValue });
 
     foreach (var m in ConvertMethods)

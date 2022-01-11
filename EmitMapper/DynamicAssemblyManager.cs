@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Reflection.Emit;
 using EmitMapper.Mappers;
+using EmitMapper.Utils;
 
 namespace EmitMapper;
 
@@ -10,10 +11,10 @@ namespace EmitMapper;
 /// </summary>
 public class DynamicAssemblyManager
 {
-    /// <summary>
-    ///   Saves assembly with created Mappers to file. This method is useful for debugging purpose.
-    /// </summary>
-    public static void SaveAssembly()
+  /// <summary>
+  ///   Saves assembly with created Mappers to file. This method is useful for debugging purpose.
+  /// </summary>
+  public static void SaveAssembly()
   {
     lock (_LockObject)
     {
@@ -35,7 +36,7 @@ public class DynamicAssemblyManager
   static DynamicAssemblyManager()
   {
     // var curAssemblyName = Assembly.GetExecutingAssembly().GetName();
-    var curAssemblyName = Assembly.GetAssembly(Meta<DynamicAssemblyManager>.Type)?.GetName();
+    var curAssemblyName = Assembly.GetAssembly(Metadata<DynamicAssemblyManager>.Type)?.GetName();
 
 #if !SILVERLIGHT
     _AssemblyName = new AssemblyName("EmitMapperAssembly");
@@ -69,7 +70,7 @@ public class DynamicAssemblyManager
       return _ModuleBuilder.DefineType(
         CorrectTypeName(typeName + Guid.NewGuid().ToString().Replace("-", "")),
         TypeAttributes.Public,
-        Meta<MapperForClassImpl>.Type,
+        Metadata<MapperForClassImpl>.Type,
         null);
     }
   }

@@ -15,10 +15,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Include="..\EmitMapper\TypeExtensions.cs" Link="TypeExtensions.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
 		<PackageReference Include="System.Collections" Version="4.3.0" />

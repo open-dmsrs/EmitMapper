@@ -5,8 +5,16 @@ namespace EmitMapper.Utils;
 
 public class LazyConcurrentDictionary<TKey, TValue>
 {
-  private readonly ConcurrentDictionary<TKey, Lazy<TValue>> _innerDictionary = new(Environment.ProcessorCount, 1024);
+  private readonly ConcurrentDictionary<TKey, Lazy<TValue>> _innerDictionary;
 
+  public LazyConcurrentDictionary()
+  {
+    _innerDictionary = new(Environment.ProcessorCount, 1024);
+  }
+  public LazyConcurrentDictionary(int concurrencyLevel, int capacity)
+  {
+    _innerDictionary = new(concurrencyLevel, capacity);
+  }
   public TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)
   {
     return _innerDictionary.GetOrAdd(

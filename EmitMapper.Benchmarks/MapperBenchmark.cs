@@ -6,6 +6,7 @@ using AutoMapper;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 using EmitMapper.Benchmarks.TestData;
+using EmitMapper.MappingConfiguration;
 
 namespace EmitMapper.Benchmarks;
 
@@ -34,7 +35,19 @@ public class MapperBenchmark
 
     var fixture = new Fixture();
     _benchSourceEmitMapper = ObjectMapperManager.DefaultInstance.GetMapper<BenchSource, BenchDestination>();
-    _simpleEmitMapper = ObjectMapperManager.DefaultInstance.GetMapper<B2, A2>();
+    _simpleEmitMapper = ObjectMapperManager.DefaultInstance.GetMapper<B2, A2>(
+      new DefaultMapConfig()
+        .ConstructBy(() => new A2())
+        .NullSubstitution<decimal?, int>(state => 0)
+        .NullSubstitution<bool?, bool>(state => true)
+        .NullSubstitution<int?, int>(state => 42)
+        .NullSubstitution<long?, long>(state => 42)
+        .ConvertUsing<long, int>(value => (int)value)
+        .ConvertUsing<short, int>(value => value)
+        .ConvertUsing<byte, int>(value => value)
+        //.ConvertUsing<decimal, int>(value => (int)value + 1)
+        .ConvertUsing<float, int>(value => (int)value)
+        .ConvertUsing<char, int>(value => value));
     var config = new MapperConfiguration(
       cfg =>
       {

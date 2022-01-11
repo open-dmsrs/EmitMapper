@@ -8,6 +8,7 @@ using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 using EmitMapper.AST.Nodes;
 using EmitMapper.MappingConfiguration;
+using EmitMapper.Utils;
 
 namespace EmitMapper.Mappers;
 
@@ -17,7 +18,7 @@ namespace EmitMapper.Mappers;
 /// </summary>
 public class MapperForCollectionImpl : CustomMapperImpl
 {
-  public static readonly Type MapperForCollectionImplType = Meta<MapperForCollectionImpl>.Type;
+  public static readonly Type MapperForCollectionImplType = Metadata<MapperForCollectionImpl>.Type;
   private ObjectsMapperDescr _subMapper;
 
   protected MapperForCollectionImpl()
@@ -50,8 +51,8 @@ public class MapperForCollectionImpl : CustomMapperImpl
       var methodBuilder = tb.DefineMethod(
         nameof(CopyToListInvoke),
         MethodAttributes.Family | MethodAttributes.Virtual,
-        Meta<object>.Type,
-        new[] { Meta<IEnumerable>.Type }
+        Metadata<object>.Type,
+        new[] { Metadata<IEnumerable>.Type }
       );
 
       InvokeCopyImpl(typeTo, nameof(CopyToList)).Compile(new CompilationContext(methodBuilder.GetILGenerator()));
@@ -59,8 +60,8 @@ public class MapperForCollectionImpl : CustomMapperImpl
       methodBuilder = tb.DefineMethod(
         nameof(CopyToListScalarInvoke),
         MethodAttributes.Family | MethodAttributes.Virtual,
-        Meta<object>.Type,
-        new[] { Meta<object>.Type }
+        Metadata<object>.Type,
+        new[] { Metadata<object>.Type }
       );
 
       InvokeCopyImpl(typeTo, nameof(CopyToListScalar))
@@ -84,7 +85,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
   internal static bool IsSupportedType(Type type)
   {
     return type.IsArray || type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>) ||
-           type == Meta<ArrayList>.Type || Meta<IList>.Type.IsAssignableFrom(type) ||
+           type == Metadata<ArrayList>.Type || Metadata<IList>.Type.IsAssignableFrom(type) ||
            typeof(IList<>).IsAssignableFrom(type);
   }
 
@@ -110,11 +111,11 @@ public class MapperForCollectionImpl : CustomMapperImpl
 
     return new AstReturn
     {
-      ReturnType = Meta<object>.Type,
+      ReturnType = Metadata<object>.Type,
       ReturnValue = AstBuildHelper.CallMethod(
         mi,
         AstBuildHelper.ReadThis(MapperForCollectionImplType),
-        new List<IAstStackItem> { new AstReadArgumentRef { ArgumentIndex = 1, ArgumentType = Meta<object>.Type } }
+        new List<IAstStackItem> { new AstReadArgumentRef { ArgumentIndex = 1, ArgumentType = Metadata<object>.Type } }
       )
     };
   }
@@ -123,8 +124,8 @@ public class MapperForCollectionImpl : CustomMapperImpl
   {
     if (collection.IsArray)
       return collection.GetElementType();
-    if (collection == Meta<ArrayList>.Type)
-      return Meta<object>.Type;
+    if (collection == Metadata<ArrayList>.Type)
+      return Metadata<object>.Type;
     if (collection.IsGenericType && collection.GetGenericTypeDefinition() == TypeHome.List1)
       return collection.GetGenericArguments()[0];
     return null;
@@ -156,14 +157,14 @@ public class MapperForCollectionImpl : CustomMapperImpl
       return CopyToListScalarInvoke(from);
     }
 
-    if (TypeTo == Meta<ArrayList>.Type)
+    if (TypeTo == Metadata<ArrayList>.Type)
     {
       if (from is IEnumerable fromEnumerable)
         return CopyToArrayList(fromEnumerable);
       return CopyToArrayListScalar(from);
     }
 
-    if (Meta<IList>.Type.IsAssignableFrom(TypeTo))
+    if (Metadata<IList>.Type.IsAssignableFrom(TypeTo))
       return CopyToIList((IList)to, from);
     return null;
   }

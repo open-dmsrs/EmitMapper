@@ -13,13 +13,13 @@ namespace LightDataAccess.Configurators;
 /// </summary>
 public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
 {
-    /// <summary>
-    ///   Gets the mapping operations.
-    /// </summary>
-    /// <param name="from">The type from.</param>
-    /// <param name="to">To type to.</param>
-    /// <returns>The mapping operations.</returns>
-    public override IMappingOperation[] GetMappingOperations(Type from, Type to)
+  /// <summary>
+  ///   Gets the mapping operations.
+  /// </summary>
+  /// <param name="from">The type from.</param>
+  /// <param name="to">To type to.</param>
+  /// <returns>The mapping operations.</returns>
+  public override IMappingOperation[] GetMappingOperations(Type from, Type to)
   {
     return FilterOperations(
       from,
@@ -36,7 +36,7 @@ public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
             {
               if (item is not DataContainer value)
                 return ValueToWrite<object>.Skip();
-              var destinationType = ReflectionUtils.GetMemberType(destinationMember);
+              var destinationType = ReflectionUtils.GetMemberReturnType(destinationMember);
 
               var fieldDescription = ReflectionUtils.GetDataMemberDefinition(destinationMember);
               var destinationMemberValue = ConvertFieldToDestinationProperty(
@@ -51,16 +51,16 @@ public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
           })).ToArray();
   }
 
-    /// <summary>
-    ///   Converts the field to destination property.
-    /// </summary>
-    /// <param name="container">The container.</param>
-    /// <param name="destinationType">The destination type.</param>
-    /// <param name="fieldDescription">The field description.</param>
-    /// <returns>
-    ///   The conversion result.
-    /// </returns>
-    private static object ConvertFieldToDestinationProperty(DataContainer container, Type destinationType,
+  /// <summary>
+  ///   Converts the field to destination property.
+  /// </summary>
+  /// <param name="container">The container.</param>
+  /// <param name="destinationType">The destination type.</param>
+  /// <param name="fieldDescription">The field description.</param>
+  /// <returns>
+  ///   The conversion result.
+  /// </returns>
+  private static object ConvertFieldToDestinationProperty(DataContainer container, Type destinationType,
     Tuple<string, Type> fieldDescription)
   {
     if (container == null || container.Fields == null || string.IsNullOrEmpty(fieldDescription.Item1)) return null;

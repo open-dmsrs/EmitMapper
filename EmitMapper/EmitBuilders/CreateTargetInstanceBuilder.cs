@@ -20,7 +20,7 @@ internal static class CreateTargetInstanceBuilder
     var methodBuilder = typeBuilder.DefineMethod(
       nameof(ObjectsMapperBaseImpl.CreateTargetInstance),
       MethodAttributes.Public | MethodAttributes.Virtual,
-      Meta<object>.Type,
+      Metadata<object>.Type,
       null);
 
     var ilGen = methodBuilder.GetILGenerator();

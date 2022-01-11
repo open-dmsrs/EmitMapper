@@ -29,8 +29,8 @@ public class StaticConvertersManager
           {
             _defaultInstance = new StaticConvertersManager();
             _defaultInstance.AddConverterClass(TypeHome.Convert);
-            _defaultInstance.AddConverterClass(Meta<EMConvert>.Type);
-            _defaultInstance.AddConverterClass(Meta<NullableConverter>.Type);
+            _defaultInstance.AddConverterClass(Metadata<EMConvert>.Type);
+            _defaultInstance.AddConverterClass(Metadata<NullableConverter>.Type);
             _defaultInstance.AddConverterFunc(EMConvert.GetConversionMethod);
           }
         }

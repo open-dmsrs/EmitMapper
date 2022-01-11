@@ -23,31 +23,31 @@ namespace LightDataAccess;
 /// </summary>
 public class ThreadConnection : IDisposable
 {
-    /// <summary>
-    ///   The connection
-    /// </summary>
-    [ThreadStatic] private static DbConnection _connection;
+  /// <summary>
+  ///   The connection
+  /// </summary>
+  [ThreadStatic] private static DbConnection _connection;
 
-    /// <summary>
-    ///   The entries count
-    /// </summary>
-    [ThreadStatic] private static int _entriesCount;
+  /// <summary>
+  ///   The entries count
+  /// </summary>
+  [ThreadStatic] private static int _entriesCount;
 
-    /// <summary>
-    ///   Initializes a new instance of the <see cref="ThreadConnection" /> class.
-    /// </summary>
-    /// <param name="connectionCreator">The connection creator.</param>
-    public ThreadConnection(Func<DbConnection> connectionCreator)
+  /// <summary>
+  ///   Initializes a new instance of the <see cref="ThreadConnection" /> class.
+  /// </summary>
+  /// <param name="connectionCreator">The connection creator.</param>
+  public ThreadConnection(Func<DbConnection> connectionCreator)
   {
     if (_connection == null || _connection.State == ConnectionState.Broken) _connection = connectionCreator();
     _entriesCount++;
   }
 
-    /// <summary>
-    ///   Gets the connection.
-    /// </summary>
-    /// <value>The connection.</value>
-    public DbConnection Connection
+  /// <summary>
+  ///   Gets the connection.
+  /// </summary>
+  /// <value>The connection.</value>
+  public DbConnection Connection
   {
     get
     {

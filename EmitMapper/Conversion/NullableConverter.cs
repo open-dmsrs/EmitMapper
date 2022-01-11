@@ -4,6 +4,8 @@ using System;
 
 namespace EmitMapper.Conversion;
 
+/// <summary>
+/// </summary>
 public class NullableConverter
 {
   public static bool? ToBoolean(object par)

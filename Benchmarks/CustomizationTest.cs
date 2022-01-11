@@ -6,7 +6,7 @@ using EmitMapper.MappingConfiguration;
 
 namespace Benchmarks;
 
-public class CustomizationTest
+public static class CustomizationTest
 {
   private static ObjectsMapper<B2, A2> _emitMapper;
   private static IMapper _autoMapper;

@@ -52,8 +52,8 @@ internal class MappingBuilder
     var methodBuilder = _typeBuilder.DefineMethod(
       nameof(ObjectsMapperBaseImpl.MapImpl),
       MethodAttributes.Public | MethodAttributes.Virtual,
-      Meta<object>.Type,
-      new[] { Meta<object>.Type, Meta<object>.Type, Meta<object>.Type });
+      Metadata<object>.Type,
+      new[] { Metadata<object>.Type, Metadata<object>.Type, Metadata<object>.Type });
 
     var ilGen = methodBuilder.GetILGenerator();
     var compilationContext = new CompilationContext(ilGen);
@@ -62,7 +62,7 @@ internal class MappingBuilder
 
     var locFrom = ilGen.DeclareLocal(_from);
     var locTo = ilGen.DeclareLocal(_to);
-    var locState = ilGen.DeclareLocal(Meta<object>.Type);
+    var locState = ilGen.DeclareLocal(Metadata<object>.Type);
     LocalBuilder locException = null;
 
     mapperAst.Nodes.Add(BuilderUtils.InitializeLocal(locFrom, 1));
@@ -70,7 +70,7 @@ internal class MappingBuilder
     mapperAst.Nodes.Add(BuilderUtils.InitializeLocal(locState, 3));
 
 #if DEBUG
-        locException = compilationContext.ILGenerator.DeclareLocal(Meta<Exception>.Type);
+    locException = compilationContext.ILGenerator.DeclareLocal(Metadata<Exception>.Type);
 #endif
 
     var mappingOperations = _mappingConfigurator.GetMappingOperations(_from, _to);
@@ -91,7 +91,7 @@ internal class MappingBuilder
         StaticConvertersManager = staticConverter ?? StaticConvertersManager.DefaultInstance
       }.ProcessOperations());
     mapperAst.Nodes.Add(
-      new AstReturn { ReturnType = Meta<object>.Type, ReturnValue = AstBuildHelper.ReadLocalRV(locTo) });
+      new AstReturn { ReturnType = Metadata<object>.Type, ReturnValue = AstBuildHelper.ReadLocalRV(locTo) });
 
     mapperAst.Compile(compilationContext);
   }

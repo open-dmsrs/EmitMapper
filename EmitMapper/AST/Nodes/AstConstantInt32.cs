@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection.Emit;
 using EmitMapper.AST.Interfaces;
+using EmitMapper.Utils;
 
 namespace EmitMapper.AST.Nodes;
 
@@ -10,7 +11,7 @@ internal class AstConstantInt32 : IAstValue
 
   #region IAstReturnValueNode Members
 
-  public Type ItemType => Meta<int>.Type;
+  public Type ItemType => Metadata<int>.Type;
 
   #endregion
 

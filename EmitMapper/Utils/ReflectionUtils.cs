@@ -15,7 +15,7 @@ public static class ReflectionUtils
   /// <summary>
   ///   Fixed: Get Full hierarchy with all parent interfaces members.
   /// </summary>
-  public static MemberInfo[] GetPublicFieldsAndProperties(Type type)
+  public static IEnumerable<MemberInfo> GetPublicFieldsAndProperties(Type type)
   {
     var result = type.GetMembers(BindingFlags.Instance | BindingFlags.Public).Where(
       mi => mi.MemberType == MemberTypes.Property || mi.MemberType == MemberTypes.Field).ToList();
@@ -50,17 +50,19 @@ public static class ReflectionUtils
   {
     throw new NotImplementedException();
   }
-
-  public static Type GetMemberType(MemberInfo mi)
+  private static readonly LazyConcurrentDictionary<MemberInfo, Type> MemberInfoReturnTypes = new LazyConcurrentDictionary<MemberInfo, Type>();
+  public static Type GetMemberReturnType(MemberInfo mi)
   {
-    return mi switch
-    {
-      PropertyInfo propertyInfo => propertyInfo.PropertyType,
-      FieldInfo fieldInfo => fieldInfo.FieldType,
-      MethodInfo methodInfo => methodInfo.ReturnType,
-      _ => null
-    };
+    return MemberInfoReturnTypes.GetOrAdd(mi, key => key switch
+     {
+       PropertyInfo propertyInfo => propertyInfo.PropertyType,
+       FieldInfo fieldInfo => fieldInfo.FieldType,
+       MethodInfo methodInfo => methodInfo.ReturnType,
+
+       _ => null
+     });
   }
+
 
   public static IEnumerable<Tuple<string, Type>> GetDataMemberDefinition(MemberInfo destinationMember)
   {
@@ -77,6 +79,37 @@ public static class ReflectionUtils
     throw new NotImplementedException();
   }
 
+  /// <summary>
+  ///   获取源的数据类型
+  /// </summary>
+  /// <param name="t"></param>
+  /// <returns></returns>
+  public static IEnumerable<MemberInfo> GetSourceMembers(Type t)
+  {
+    return GetMembers(t)
+      .Where(m => m.MemberType is MemberTypes.Field or MemberTypes.Property or MemberTypes.Method);
+  }
+
+  /// <summary>
+  ///   根据类型获取成员信息(字段与属性)
+  /// </summary>
+  /// <param name="t"></param>
+  /// <returns></returns>
+  private static IEnumerable<MemberInfo> GetDestinationMembers(Type t)
+  {
+    return GetMembers(t).Where(m => m.MemberType == MemberTypes.Field || m.MemberType == MemberTypes.Property);
+  }
+
+  /// <summary>
+  ///   根据类型获取成员信息(字段、属性、方法)
+  /// </summary>
+  /// <param name="t"></param>
+  /// <returns></returns>
+  private static IEnumerable<MemberInfo> GetMembers(Type t)
+  {
+    var bindingFlags = BindingFlags.Instance | BindingFlags.Public;
+    return t.GetMembers(bindingFlags);
+  }
   public class MatchedMember
   {
     public MatchedMember(MemberInfo first, MemberInfo second)

@@ -21,18 +21,18 @@ namespace LightDataAccess;
 /// </summary>
 public class CmdParams : Dictionary<string, object>
 {
-    /// <summary>
-    ///   Initializes a new instance of the <see cref="CmdParams" /> class.
-    /// </summary>
-    public CmdParams()
+  /// <summary>
+  ///   Initializes a new instance of the <see cref="CmdParams" /> class.
+  /// </summary>
+  public CmdParams()
   {
   }
 
-    /// <summary>
-    ///   Initializes a new instance of the <see cref="CmdParams" /> class.
-    /// </summary>
-    /// <param name="init">The init.</param>
-    public CmdParams(Dictionary<string, object> init) : base(init)
+  /// <summary>
+  ///   Initializes a new instance of the <see cref="CmdParams" /> class.
+  /// </summary>
+  /// <param name="init">The init.</param>
+  public CmdParams(Dictionary<string, object> init) : base(init)
   {
   }
 }

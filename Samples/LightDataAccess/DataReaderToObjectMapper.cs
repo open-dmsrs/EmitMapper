@@ -21,13 +21,13 @@ namespace LightDataAccess;
 /// <typeparam name="TEntity"></typeparam>
 public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEntity>
 {
-    /// <summary>
-    ///   Initializes a new instance of the <see cref="DataReaderToObjectMapper{TEntity}" /> class.
-    /// </summary>
-    /// <param name="mappingKey">The mapping key.</param>
-    /// <param name="mapperManager">The mapper manager.</param>
-    /// <param name="skipFields">The skip fields.</param>
-    public DataReaderToObjectMapper(
+  /// <summary>
+  ///   Initializes a new instance of the <see cref="DataReaderToObjectMapper{TEntity}" /> class.
+  /// </summary>
+  /// <param name="mappingKey">The mapping key.</param>
+  /// <param name="mapperManager">The mapper manager.</param>
+  /// <param name="skipFields">The skip fields.</param>
+  public DataReaderToObjectMapper(
     string mappingKey,
     ObjectMapperManager mapperManager,
     IEnumerable<string> skipFields)
@@ -35,49 +35,49 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
   {
   }
 
-    /// <summary>
-    ///   Initializes a new instance of the <see cref="DataReaderToObjectMapper{TEntity}" /> class.
-    /// </summary>
-    /// <param name="mapperManager">The mapper manager.</param>
-    public DataReaderToObjectMapper(ObjectMapperManager mapperManager)
+  /// <summary>
+  ///   Initializes a new instance of the <see cref="DataReaderToObjectMapper{TEntity}" /> class.
+  /// </summary>
+  /// <param name="mapperManager">The mapper manager.</param>
+  public DataReaderToObjectMapper(ObjectMapperManager mapperManager)
     : this(null, mapperManager, null)
   {
   }
 
-    /// <summary>
-    ///   Initializes a new instance of the <see cref="DataReaderToObjectMapper{TEntity}" /> class.
-    /// </summary>
-    public DataReaderToObjectMapper()
+  /// <summary>
+  ///   Initializes a new instance of the <see cref="DataReaderToObjectMapper{TEntity}" /> class.
+  /// </summary>
+  public DataReaderToObjectMapper()
     : this(null, null, null)
   {
   }
 
-    /// <summary>
-    ///   Initializes a new instance of the <see cref="DataReaderToObjectMapper{TEntity}" /> class.
-    /// </summary>
-    /// <param name="skipFields">The skip fields.</param>
-    public DataReaderToObjectMapper(IEnumerable<string> skipFields)
+  /// <summary>
+  ///   Initializes a new instance of the <see cref="DataReaderToObjectMapper{TEntity}" /> class.
+  /// </summary>
+  /// <param name="skipFields">The skip fields.</param>
+  public DataReaderToObjectMapper(IEnumerable<string> skipFields)
     : this(null, null, skipFields)
   {
   }
 
-    /// <summary>
-    ///   Reads the single.
-    /// </summary>
-    /// <param name="reader">The reader.</param>
-    /// <returns>`0.</returns>
-    public TEntity ReadSingle(IDataReader reader)
+  /// <summary>
+  ///   Reads the single.
+  /// </summary>
+  /// <param name="reader">The reader.</param>
+  /// <returns>`0.</returns>
+  public TEntity ReadSingle(IDataReader reader)
   {
     return ReadSingle(reader, null);
   }
 
-    /// <summary>
-    ///   Reads the single.
-    /// </summary>
-    /// <param name="reader">The reader.</param>
-    /// <param name="changeTracker">The change tracker.</param>
-    /// <returns>`0.</returns>
-    public TEntity ReadSingle(IDataReader reader, ObjectsChangeTracker changeTracker)
+  /// <summary>
+  ///   Reads the single.
+  /// </summary>
+  /// <param name="reader">The reader.</param>
+  /// <param name="changeTracker">The change tracker.</param>
+  /// <returns>`0.</returns>
+  public TEntity ReadSingle(IDataReader reader, ObjectsChangeTracker changeTracker)
   {
     var result = MapUsingState(reader, reader);
     changeTracker?.RegisterObject(result);
@@ -142,51 +142,51 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
   /// <summary>
   ///   Class DbReaderMappingConfig
   /// </summary>
-  private class DbReaderMappingConfig : IMappingConfigurator
+  private class DbReaderMappingConfig : MapConfigBaseImpl
   {
-      /// <summary>
-      ///   The _skip fields
-      /// </summary>
-      private readonly IEnumerable<string> _skipFields;
+    /// <summary>
+    ///   The _skip fields
+    /// </summary>
+    private readonly IEnumerable<string> _skipFields;
 
-      /// <summary>
-      ///   The _mapping key
-      /// </summary>
-      private readonly string _mappingKey;
+    /// <summary>
+    ///   The _mapping key
+    /// </summary>
+    private readonly string _mappingKey;
 
-      /// <summary>
-      ///   Initializes a new instance of the <see cref="DbReaderMappingConfig" /> class.
-      /// </summary>
-      /// <param name="skipFields">The skip fields.</param>
-      /// <param name="mappingKey">The mapping key.</param>
-      public DbReaderMappingConfig(IEnumerable<string> skipFields, string mappingKey)
+    /// <summary>
+    ///   Initializes a new instance of the <see cref="DbReaderMappingConfig" /> class.
+    /// </summary>
+    /// <param name="skipFields">The skip fields.</param>
+    /// <param name="mappingKey">The mapping key.</param>
+    public DbReaderMappingConfig(IEnumerable<string> skipFields, string mappingKey)
     {
       _skipFields = skipFields ?? new List<string>();
       _mappingKey = mappingKey;
     }
 
-      /// <summary>
-      ///   Gets the root mapping operation.
-      /// </summary>
-      /// <param name="from">From.</param>
-      /// <param name="to">To.</param>
-      /// <returns>IRootMappingOperation.</returns>
-      public IRootMappingOperation GetRootMappingOperation(Type from, Type to)
+    /// <summary>
+    ///   Gets the root mapping operation.
+    /// </summary>
+    /// <param name="from">From.</param>
+    /// <param name="to">To.</param>
+    /// <returns>IRootMappingOperation.</returns>
+    public override IRootMappingOperation GetRootMappingOperation(Type from, Type to)
     {
       return null;
     }
 
-      /// <summary>
-      ///   Get list of mapping operations. Each mapping mapping defines one copieng operation from source to destination. For
-      ///   this operation can be additionally defined the following custom operations:
-      ///   - Custom getter which extracts values from source
-      ///   - Custom values converter which converts extracted from source value
-      ///   - Custom setter which writes value to destination
-      /// </summary>
-      /// <param name="from">Source type</param>
-      /// <param name="to">Destination type</param>
-      /// <returns>IMappingOperation[][].</returns>
-      public IMappingOperation[] GetMappingOperations(Type from, Type to)
+    /// <summary>
+    ///   Get list of mapping operations. Each mapping mapping defines one copieng operation from source to destination. For
+    ///   this operation can be additionally defined the following custom operations:
+    ///   - Custom getter which extracts values from source
+    ///   - Custom values converter which converts extracted from source value
+    ///   - Custom setter which writes value to destination
+    /// </summary>
+    /// <param name="from">Source type</param>
+    /// <param name="to">Destination type</param>
+    /// <returns>IMappingOperation[][].</returns>
+    public override IMappingOperation[] GetMappingOperations(Type from, Type to)
     {
       return ReflectionUtils
         .GetPublicFieldsAndProperties(to)
@@ -206,36 +206,36 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
         .ToArray<IMappingOperation>();
     }
 
-      /// <summary>
-      ///   Get unique configuration name to force Emit Mapper create new mapper instead using appropriate cached one.
-      /// </summary>
-      /// <returns>System.String.</returns>
-      public string GetConfigurationName()
+    /// <summary>
+    ///   Get unique configuration name to force Emit Mapper create new mapper instead using appropriate cached one.
+    /// </summary>
+    /// <returns>System.String.</returns>
+    public override string GetConfigurationName()
     {
       if (_mappingKey != null)
         return "dbreader_" + _mappingKey;
       return "dbreader_";
     }
 
-      /// <summary>
-      ///   Gets the static converters manager.
-      /// </summary>
-      /// <returns>StaticConvertersManager.</returns>
-      public StaticConvertersManager GetStaticConvertersManager()
+    /// <summary>
+    ///   Gets the static converters manager.
+    /// </summary>
+    /// <returns>StaticConvertersManager.</returns>
+    public override StaticConvertersManager GetStaticConvertersManager()
     {
       return null;
     }
 
-      /// <summary>
-      ///   Gets the values getter.
-      /// </summary>
-      /// <param name="ind">The ind.</param>
-      /// <param name="m">The m.</param>
-      /// <returns>Delegate.</returns>
-      /// <exception cref="EmitMapper.EmitMapperException">Could not convert an object to  + memberType.ToString()</exception>
-      private Delegate GetValuesGetter(int ind, MemberInfo m)
+    /// <summary>
+    ///   Gets the values getter.
+    /// </summary>
+    /// <param name="ind">The ind.</param>
+    /// <param name="m">The m.</param>
+    /// <returns>Delegate.</returns>
+    /// <exception cref="EmitMapper.EmitMapperException">Could not convert an object to  + memberType.ToString()</exception>
+    private Delegate GetValuesGetter(int ind, MemberInfo m)
     {
-      var memberType = ReflectionUtils.GetMemberType(m);
+      var memberType = ReflectionUtils.GetMemberReturnType(m);
 
       if (_mappingKey != null)
       {
@@ -361,55 +361,56 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
         ;
     }
 
-      /// <summary>
-      ///   Class ReaderValuesExtrator
-      /// </summary>
-      /// <typeparam name="T"></typeparam>
-      private class ReaderValuesExtrator<T>
+
+    /// <summary>
+    ///   Class ReaderValuesExtrator
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    private class ReaderValuesExtrator<T>
     {
-        /// <summary>
-        ///   The value extractor
-        /// </summary>
-        public readonly Func<int, IDataReader, T> ValueExtractor;
+      /// <summary>
+      ///   The value extractor
+      /// </summary>
+      public readonly Func<int, IDataReader, T> ValueExtractor;
 
-        /// <summary>
-        ///   The field name
-        /// </summary>
-        public readonly string FieldName;
+      /// <summary>
+      ///   The field name
+      /// </summary>
+      public readonly string FieldName;
 
-        /// <summary>
-        ///   The field num
-        /// </summary>
-        public int FieldNum;
+      /// <summary>
+      ///   The field num
+      /// </summary>
+      public int FieldNum;
 
 
-        /// <summary>
-        ///   Initializes a new instance of the ReaderValuesExtrator`1 class.
-        /// </summary>
-        /// <param name="fieldName">Name of the field.</param>
-        /// <param name="valueExtractor">The value extractor.</param>
-        public ReaderValuesExtrator(string fieldName, Func<int, IDataReader, T> valueExtractor)
+      /// <summary>
+      ///   Initializes a new instance of the ReaderValuesExtrator`1 class.
+      /// </summary>
+      /// <param name="fieldName">Name of the field.</param>
+      /// <param name="valueExtractor">The value extractor.</param>
+      public ReaderValuesExtrator(string fieldName, Func<int, IDataReader, T> valueExtractor)
       {
         FieldNum = -1;
         FieldName = fieldName;
         ValueExtractor = valueExtractor;
       }
 
-        /// <summary>
-        ///   Gets the extration delegate.
-        /// </summary>
-        /// <value>The extration delegate.</value>
-        public Delegate ExtrationDelegate => (ValueGetter<T>)
+      /// <summary>
+      ///   Gets the extration delegate.
+      /// </summary>
+      /// <value>The extration delegate.</value>
+      public Delegate ExtrationDelegate => (ValueGetter<T>)
       (
         (value, state) => { return ValueToWrite<T>.ReturnValue(GetValue((IDataReader)state)); }
       );
 
-        /// <summary>
-        ///   Gets the value.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>`0.</returns>
-        private T GetValue(IDataReader reader)
+      /// <summary>
+      ///   Gets the value.
+      /// </summary>
+      /// <param name="reader">The reader.</param>
+      /// <returns>`0.</returns>
+      private T GetValue(IDataReader reader)
       {
         if (FieldNum == -1) FieldNum = reader.GetOrdinal(FieldName);
         return reader.IsDBNull(FieldNum) ? default : ValueExtractor(FieldNum, reader);

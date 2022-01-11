@@ -10,15 +10,15 @@ namespace LightDataAccess.Configurators;
 /// <summary>
 ///   The data container to object configuration.
 /// </summary>
-public class DataContainerToObjectConfigurator : MapConfigBase<DataContainerToObjectConfigurator>
+public class DataContainerToObjectConfigurator : MapConfigBaseImpl
 {
-    /// <summary>
-    ///   Gets the mapping operations.
-    /// </summary>
-    /// <param name="from">The type from.</param>
-    /// <param name="to">To type to.</param>
-    /// <returns>The mapping operations.</returns>
-    public override IMappingOperation[] GetMappingOperations(Type from, Type to)
+  /// <summary>
+  ///   Gets the mapping operations.
+  /// </summary>
+  /// <param name="from">The type from.</param>
+  /// <param name="to">To type to.</param>
+  /// <returns>The mapping operations.</returns>
+  public override IMappingOperation[] GetMappingOperations(Type from, Type to)
   {
     return FilterOperations(
         from,
@@ -43,7 +43,7 @@ public class DataContainerToObjectConfigurator : MapConfigBase<DataContainerToOb
                   if (container.Fields == null ||
                       !container.Fields.TryGetValue(fieldName, out var value))
                     return ValueToWrite<object>.Skip();
-                  var destinationType = ReflectionUtils.GetMemberType(destinationMember);
+                  var destinationType = ReflectionUtils.GetMemberReturnType(destinationMember);
                   var destinationMemberValue = ReflectionUtils.ConvertValue(
                     value,
                     fieldType,
