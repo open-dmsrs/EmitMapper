@@ -69,7 +69,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
     }
 
     var result = Expression.Lambda<Func<MapperForCollectionImpl>>(Expression.New(tb.CreateType()))
-      .Compile()
+      .CompileFast()
       .Invoke();
     result.Initialize(objectMapperManager, typeFrom, typeTo, mappingConfigurator, null);
     result._subMapper = subMapper;
@@ -216,7 +216,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
 
   private object CopyToIList(IList iList, object from)
   {
-    iList ??= Expression.Lambda<Func<IList>>(Expression.New(TypeTo)).Compile()();
+    iList ??= Expression.Lambda<Func<IList>>(Expression.New(TypeTo)).CompileFast()();
     foreach (var obj in from is IEnumerable fromEnumerable ? fromEnumerable : new[] { from })
       if (obj == null)
       {

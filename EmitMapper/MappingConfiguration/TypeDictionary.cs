@@ -20,8 +20,7 @@ internal class TypeDictionary<T>
       {
         return type.GetInterfaces()
           .Concat((type.IsInterface ? new[] { type } : Type.EmptyTypes))
-          //.Select(_ => new { })
-          .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == generalType);
+         .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == generalType);
       }
 
       return type.IsGenericType && (type.GetGenericTypeDefinition() == generalType
@@ -44,7 +43,6 @@ internal class TypeDictionary<T>
   public T GetValue(Type[] types)
   {
     var elem = FindTypes(types);
-
     return elem?.Value;
   }
 
@@ -98,7 +96,7 @@ internal class TypeDictionary<T>
 
     public override bool Equals(object obj)
     {
-      return obj is ListElement other && Equals(other);
+      return Equals(obj);
     }
 
     public bool Equals(ListElement other)

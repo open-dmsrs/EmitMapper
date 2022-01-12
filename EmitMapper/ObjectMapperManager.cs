@@ -136,7 +136,7 @@ public class ObjectMapperManager
     mappingBuilder.BuildCopyImplMethod();
 
     var result = Expression.Lambda<Func<ObjectsMapperBaseImpl>>(
-      Expression.New(typeBuilder.CreateType())).Compile()();
+      Expression.New(typeBuilder.CreateType())).CompileFast()();
     result.Initialize(this, from, to, mappingConfigurator, mappingBuilder.StoredObjects.ToArray());
     return result;
   }
