@@ -72,7 +72,7 @@ public static partial class CommandBuilder
   )
   {
     if (idFieldNames == null) idFieldNames = new string[0];
-    idFieldNames = idFieldNames.Select(n => n.ToUpper()).ToArray();
+    idFieldNames = idFieldNames.Select(n => n.ToUpper());
 
     if (changeTracker != null)
     {
@@ -80,9 +80,9 @@ public static partial class CommandBuilder
       if (changedFields != null)
       {
         if (includeFields == null)
-          includeFields = changedFields.Select(c => c.Name).ToArray();
+          includeFields = changedFields.Select(c => c.Name);
         else
-          includeFields = includeFields.Intersect(changedFields.Select(c => c.Name)).ToArray();
+          includeFields = includeFields.Intersect(changedFields.Select(c => c.Name));
       }
     }
 
@@ -105,9 +105,9 @@ public static partial class CommandBuilder
       .OfType<SrcReadOperation>()
       .Select(m => m.Source.MemberInfo.Name)
       .Where(f => !idFieldNames.Contains(f))
-      .ToArray();
+      ;
 
-    if (fields.Length == 0) return false;
+    if (!fields.Any()) return false;
 
     var cmdStr =
         "UPDATE " +

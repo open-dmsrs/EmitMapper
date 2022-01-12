@@ -74,14 +74,14 @@ internal class ArraysConverterProvider : ICustomConverterProvider
       {
         ConversionMethodName = "Convert",
         ConverterImplementation = typeof(ArraysConverterOneTypes<>),
-        ConverterClassTypeArguments = new[] { tFrom }
+        ConverterClassTypeArguments = tFrom.AsEnumerable()
       };
 
     return new CustomConverterDescriptor
     {
       ConversionMethodName = "Convert",
       ConverterImplementation = typeof(ArraysConverterDifferentTypes<,>),
-      ConverterClassTypeArguments = new[] { tFrom, tTo }
+      ConverterClassTypeArguments = tFrom.AsEnumerable(tTo)
     };
   }
 }

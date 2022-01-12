@@ -55,6 +55,6 @@ public class DataContainerToObjectConfigurator : MapConfigBaseImpl
             }
           )
       )
-      .ToArray();
+      ;
   }
 }

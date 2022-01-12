@@ -47,7 +47,7 @@ public static class DelegateInvoker
       "CallFunc",
       MethodAttributes.Public | MethodAttributes.Virtual,
       Metadata<object>.Type,
-      Enumerable.Range(0, par.Length).Select(i => Metadata<object>.Type).ToArray());
+      Enumerable.Repeat(Metadata<object>.Type, par.Length).ToArray());
 
     new AstReturn { ReturnType = Metadata<object>.Type, ReturnValue = CreateCallDelegate(del, par) }.Compile(
       new CompilationContext(methodBuilder.GetILGenerator()));
@@ -73,7 +73,7 @@ public static class DelegateInvoker
       "CallAction",
       MethodAttributes.Public | MethodAttributes.Virtual,
       null,
-      Enumerable.Range(0, par.Length).Select(i => Metadata<object>.Type).ToArray());
+      Enumerable.Repeat(Metadata<object>.Type, par.Length).ToArray());
 
     new AstComplexNode { Nodes = new List<IAstNode> { CreateCallDelegate(del, par), new AstReturnVoid() } }.Compile(
       new CompilationContext(methodBuilder.GetILGenerator()));

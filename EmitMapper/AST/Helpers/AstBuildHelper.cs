@@ -106,14 +106,6 @@ internal static class AstBuildHelper
     return new AstReadThisRef { ThisType = thisType };
   }
 
-  //public static IAstRefOrValue ReadMembersChain(IAstRefOrAddr sourceObject, MemberInfo[] membersChain)
-  //{
-  //  var src = sourceObject;
-  //  for (var i = 0; i < membersChain.Length - 1; ++i)
-  //    src = ReadMemberRA(src, membersChain[i]);
-  //  return ReadMemberRV(src, membersChain[membersChain.Length - 1]);
-  //}
-
   public static IAstRefOrValue ReadMembersChain(IAstRefOrAddr sourceObject, IEnumerable<MemberInfo> membersChain)
   {   
     var src = sourceObject;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace EmitMapper.MappingConfiguration;
 
@@ -21,5 +22,5 @@ public class CustomConverterDescriptor
   /// <summary>
   ///   Type arguments for parametrization generic converter determined by "ConverterImplementation" property.
   /// </summary>
-  public Type[] ConverterClassTypeArguments { get; set; }
+  public IEnumerable<Type> ConverterClassTypeArguments { get; set; }
 }

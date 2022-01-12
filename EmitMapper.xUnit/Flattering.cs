@@ -39,15 +39,11 @@ public class Flattering
         new[] { typeof(Destination).GetMember(nameof(Destination.Message2))[0] })
     };
 
-    IEnumerable<IMappingOperation> Get()
-    {
-      yield return rw1;
-      yield return rw2;
-    }
+     
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<Source, Destination>(
       new CustomMapConfig
       {
-        GetMappingOperationFunc = (from, to) => Get()
+        GetMappingOperationFunc = (from, to) => rw1.AsEnumerable(rw2)
       });
     var b = new Source();
     var a = mapper.Map(b);

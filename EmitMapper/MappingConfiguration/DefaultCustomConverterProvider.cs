@@ -20,7 +20,7 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
     return new CustomConverterDescriptor
     {
       ConverterClassTypeArguments =
-        GetGenericArguments(from).Concat(GetGenericArguments(to)).ToArray(),
+        GetGenericArguments(from).Concat(GetGenericArguments(to)),
       ConverterImplementation = _converterType,
       ConversionMethodName = "Convert"
     };

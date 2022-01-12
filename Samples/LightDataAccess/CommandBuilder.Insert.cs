@@ -77,7 +77,7 @@ public static partial class CommandBuilder
       config
     );
 
-    var fields = mapper.StoredObjects.OfType<SrcReadOperation>().Select(m => m.Source.MemberInfo.Name).ToArray();
+    var fields = mapper.StoredObjects.OfType<SrcReadOperation>().Select(m => m.Source.MemberInfo.Name);
 
     var cmdStr =
         "INSERT INTO "

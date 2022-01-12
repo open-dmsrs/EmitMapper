@@ -260,8 +260,8 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     if (converterDescr == null)
       return null;
 
-    var genericConverter = converterDescr.ConverterClassTypeArguments is { Length: > 0 }
-      ? converterDescr.ConverterImplementation.MakeGenericType(converterDescr.ConverterClassTypeArguments)
+    var genericConverter = converterDescr.ConverterClassTypeArguments.Any()
+      ? converterDescr.ConverterImplementation.MakeGenericType(converterDescr.ConverterClassTypeArguments.ToArray())
       : converterDescr.ConverterImplementation;
 
     var mi = genericConverter.GetMethod(converterDescr.ConversionMethodName);

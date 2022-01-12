@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using EmitMapper.AST.Helpers;
@@ -59,19 +60,15 @@ internal class AstNewObject : IAstRef
     }
     else
     {
-      Type[] types;
-      if (ConstructorParams == null || ConstructorParams.Length == 0)
+      IEnumerable<Type> types = Type.EmptyTypes;
+      if (ConstructorParams != null && ConstructorParams.Length > 0)
       {
-        types = Type.EmptyTypes;
-      }
-      else
-      {
-        types = ConstructorParams.Select(c => c.ItemType).ToArray();
+        types = ConstructorParams.Select(c => c.ItemType);
         foreach (var p in ConstructorParams)
           p.Compile(context);
       }
 
-      var ci = ObjectType.GetConstructor(types);
+      var ci = ObjectType.GetConstructor(types.ToArray());
       if (ci != null)
       {
         context.EmitNewObject(ci);

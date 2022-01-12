@@ -49,7 +49,7 @@ public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
                 ? ValueToWrite<object>.Skip()
                 : ValueToWrite<object>.ReturnValue(destinationMemberValue);
             })
-          })).ToArray();
+          }));
   }
 
   /// <summary>

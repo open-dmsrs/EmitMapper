@@ -107,21 +107,21 @@ public class MapperBenchmark
     return _simpleEmitMapper.MapEnum(_simple1000List);
   }
 
-    //[Benchmark(OperationsPerInvoke = IterationCount)]
-    //public List<A2> AutoMapper_SimpleList1000()
-    //{
-    //    return _autoMapper.Map<List<B2>, List<A2>>(_simple1000List);
-    //}
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public List<A2> AutoMapper_SimpleList1000()
+  {
+    return _autoMapper.Map<List<B2>, List<A2>>(_simple1000List);
+  }
 
-    //[Benchmark(OperationsPerInvoke = IterationCount)]
-    //public List<BenchDestination> EmitMapper_BenchSourceList1000()
-    //{
-    //    return _benchSourceEmitMapper.MapEnum(_benchSources1000List);
-    //}
+  //[Benchmark(OperationsPerInvoke = IterationCount)]
+  //public List<BenchDestination> EmitMapper_BenchSourceList1000()
+  //{
+  //    return _benchSourceEmitMapper.MapEnum(_benchSources1000List);
+  //}
 
-    //[Benchmark(OperationsPerInvoke = IterationCount)]
-    //public List<BenchDestination> AutoMapper_BenchSourceList1000()
-    //{
-    //    return _autoMapper.Map<List<BenchSource>, List<BenchDestination>>(_benchSources1000List);
-    //}
+  //[Benchmark(OperationsPerInvoke = IterationCount)]
+  //public List<BenchDestination> AutoMapper_BenchSourceList1000()
+  //{
+  //    return _autoMapper.Map<List<BenchSource>, List<BenchDestination>>(_benchSources1000List);
+  //}
 }

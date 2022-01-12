@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using EmitMapper;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
@@ -41,22 +42,22 @@ internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
     if (_includeFields != null)
       members = members
         .Where(m => _includeFields.Contains(m.Name.ToUpper()))
-        .ToArray();
+        ;
 
     if (_excludeFields != null)
       members = members
         .Where(m => !_excludeFields.Contains(m.Name.ToUpper()))
-        .ToArray();
+        ;
 
     return members
       .Select(
         m => new SrcReadOperation
         {
-          Source = new MemberDescriptor(new[] { m }),
+          Source = new MemberDescriptor(m.AsEnumerable()),
           Setter = (obj, v, s) => ((DbCommand)obj).AddParam(_dbSettings.ParamPrefix + m.Name, v)
         }
       )
-      .ToArray();
+      ;
   }
 
   public override string GetConfigurationName()
