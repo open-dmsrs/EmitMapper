@@ -10,23 +10,24 @@ namespace EmitMapper.Utils;
 
 public static class ProxyGenerator
 {
-    private static readonly MethodInfo DelegateCombine = typeof(Delegate).GetMethod(
+    private static readonly MethodInfo DelegateCombine = Metadata<Delegate>.Type.GetMethod(
         nameof(Delegate.Combine),
-        new[] { typeof(Delegate), typeof(Delegate) });
+        new[] { Metadata<Delegate>.Type, Metadata<Delegate>.Type });
 
-    private static readonly MethodInfo DelegateRemove = typeof(Delegate).GetMethod(nameof(Delegate.Remove));
+    private static readonly MethodInfo DelegateRemove = Metadata<Delegate>.Type.GetMethod(nameof(Delegate.Remove));
 
     private static readonly EventInfo PropertyChanged =
-        typeof(INotifyPropertyChanged).GetEvent(nameof(INotifyPropertyChanged.PropertyChanged));
+        Metadata<INotifyPropertyChanged>.Type.GetEvent(nameof(INotifyPropertyChanged.PropertyChanged));
 
-    private static readonly ConstructorInfo ProxyBaseCtor = typeof(ProxyBase).GetConstructor(Type.EmptyTypes);
+    private static readonly ConstructorInfo ProxyBaseCtor = Metadata<ProxyBase>.Type.GetConstructor(Type.EmptyTypes);
     private static readonly ModuleBuilder ProxyModule = CreateProxyModule();
     private static readonly LazyConcurrentDictionary<TypeDescription, Type> ProxyTypes = new();
+    private static readonly Type _Type = typeof(ProxyGenerator);
 
     private static ModuleBuilder CreateProxyModule()
     {
         var builder = AssemblyBuilder.DefineDynamicAssembly(
-            typeof(ProxyGenerator).Assembly.GetName(),
+            _Type.Assembly.GetName(),
             AssemblyBuilderAccess.Run);
         return builder.DefineDynamicModule("EmitMapper.ProxyGenerator.Proxies.emit");
     }
@@ -37,7 +38,7 @@ public static class ProxyGenerator
         var typeBuilder = GenerateType();
         GenerateConstructor();
         FieldBuilder propertyChangedField = null;
-        if (typeof(INotifyPropertyChanged).IsAssignableFrom(interfaceType)) GeneratePropertyChanged();
+        if (Metadata<INotifyPropertyChanged>.Type.IsAssignableFrom(interfaceType)) GeneratePropertyChanged();
         GenerateFields();
         return typeBuilder.CreateTypeInfo().AsType();
 
@@ -51,7 +52,7 @@ public static class ProxyGenerator
             return ProxyModule.DefineType(
                 typeName,
                 TypeAttributes.Class | TypeAttributes.Sealed | TypeAttributes.Public,
-                typeof(ProxyBase),
+                Metadata<ProxyBase>.Type,
                 interfaceType.IsInterface ? new[] { interfaceType } : Type.EmptyTypes);
         }
 
@@ -59,7 +60,7 @@ public static class ProxyGenerator
         {
             propertyChangedField = typeBuilder.DefineField(
                 PropertyChanged.Name,
-                typeof(PropertyChangedEventHandler),
+                Metadata<PropertyChangedEventHandler>.Type,
                 FieldAttributes.Private);
             EventAccessor(PropertyChanged.AddMethod, DelegateCombine);
             EventAccessor(PropertyChanged.RemoveMethod, DelegateRemove);
@@ -71,15 +72,15 @@ public static class ProxyGenerator
                 method.Name,
                 MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.SpecialName |
                 MethodAttributes.NewSlot | MethodAttributes.Virtual,
-                typeof(void),
-                new[] { typeof(PropertyChangedEventHandler) });
+                Metadata.Void,
+                new[] { Metadata<PropertyChangedEventHandler>.Type });
             var addIl = eventAccessor.GetILGenerator();
             addIl.Emit(OpCodes.Ldarg_0);
             addIl.Emit(OpCodes.Dup);
             addIl.Emit(OpCodes.Ldfld, propertyChangedField);
             addIl.Emit(OpCodes.Ldarg_1);
             addIl.Emit(OpCodes.Call, delegateMethod);
-            addIl.Emit(OpCodes.Castclass, typeof(PropertyChangedEventHandler));
+            addIl.Emit(OpCodes.Castclass, Metadata<PropertyChangedEventHandler>.Type);
             addIl.Emit(OpCodes.Stfld, propertyChangedField);
             addIl.Emit(OpCodes.Ret);
             typeBuilder.DefineMethodOverride(eventAccessor, method);
@@ -110,7 +111,7 @@ public static class ProxyGenerator
             var allInterfaces = new List<Type>(interfaceType.GetInterfaces()) { interfaceType };
             // first we collect all properties, those with setters before getters in order to enable less specific redundant getters
             foreach (var property in
-                     allInterfaces.Where(intf => intf != typeof(INotifyPropertyChanged))
+                     allInterfaces.Where(intf => intf != Metadata<INotifyPropertyChanged>.Type)
                          .SelectMany(intf => intf.GetProperties())
                          .Select(p => new PropertyDescription(p))
                          .Concat(typeDescription.AdditionalProperties))
@@ -147,7 +148,7 @@ public static class ProxyGenerator
     private class PropertyEmitter
     {
         private static readonly MethodInfo ProxyBaseNotifyPropertyChanged =
-            typeof(ProxyBase).GetMethod("NotifyPropertyChanged", TypeExtensions.InstanceFlags);
+            Metadata<ProxyBase>.Type.GetMethod("NotifyPropertyChanged", TypeExtensions.InstanceFlags);
 
         private readonly FieldBuilder _fieldBuilder;
         private readonly MethodBuilder _getterBuilder;
@@ -176,7 +177,7 @@ public static class ProxyGenerator
                 $"set_{name}",
                 MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig |
                 MethodAttributes.SpecialName,
-                typeof(void),
+                Metadata.Void,
                 new[] { propertyType });
             var setterIl = _setterBuilder.GetILGenerator();
             setterIl.Emit(OpCodes.Ldarg_0);

@@ -193,7 +193,7 @@ public class TypeDetails
     {
         return Type.GetMethods(BindingFlags.Instance | BindingFlags.Public)
             .Where(
-                m => m.DeclaringType != typeof(object) && m.ReturnType != typeof(void) && Config.ShouldMapMethod(m) &&
+                m => m.DeclaringType != Metadata<object>.Type && m.ReturnType != Metadata.Void && Config.ShouldMapMethod(m) &&
                      m.GetParameters().Length == 0);
     }
 }

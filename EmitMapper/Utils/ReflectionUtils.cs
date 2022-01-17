@@ -11,7 +11,7 @@ public static class ReflectionUtils
 
     public static bool IsNullable(Type type)
     {
-        return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
+        return type.IsGenericType && type.GetGenericTypeDefinition() == Metadata.Nullable1;
     }
 
     /// <summary>

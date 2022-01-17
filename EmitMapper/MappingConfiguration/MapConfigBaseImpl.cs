@@ -204,7 +204,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
   protected void RegisterDefaultCollectionConverters()
   {
-    ConvertGeneric(typeof(ICollection<>), Metadata<Array>.Type, new ArraysConverterProvider());
+    ConvertGeneric(Metadata.ICollection1, Metadata<Array>.Type, new ArraysConverterProvider());
   }
 
   protected IEnumerable<IMappingOperation> FilterOperations(
@@ -271,12 +271,12 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
     if (converterObj is not ICustomConverter customConverter)
       return Delegate.CreateDelegate(
-        typeof(Func<,,>).MakeGenericType(from, Metadata<object>.Type, to),
+        Metadata.Func3.MakeGenericType(from, Metadata<object>.Type, to),
         converterObj,
         mi);
     customConverter.Initialize(from, to, this);
 
-    return Delegate.CreateDelegate(typeof(Func<,,>).MakeGenericType(from, Metadata<object>.Type, to), converterObj, mi);
+    return Delegate.CreateDelegate(Metadata.Func3.MakeGenericType(from, Metadata<object>.Type, to), converterObj, mi);
   }
 
   private bool TestIgnore(Type from, Type to, MemberDescriptor fromDescr, MemberDescriptor toDescr)

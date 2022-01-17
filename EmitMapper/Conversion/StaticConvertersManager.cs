@@ -28,7 +28,7 @@ public class StaticConvertersManager
           if (_defaultInstance == null)
           {
             _defaultInstance = new StaticConvertersManager();
-            _defaultInstance.AddConverterClass(TypeHome.Convert);
+            _defaultInstance.AddConverterClass(Metadata.Convert);
             _defaultInstance.AddConverterClass(Metadata<EMConvert>.Type);
             _defaultInstance.AddConverterClass(Metadata<NullableConverter>.Type);
             _defaultInstance.AddConverterFunc(EMConvert.GetConversionMethod);
@@ -44,7 +44,7 @@ public class StaticConvertersManager
     foreach (var m in converterClass.GetMethods(BindingFlags.Static | BindingFlags.Public))
     {
       var parameters = m.GetParameters();
-      if (parameters.Length == 1 && m.ReturnType != TypeHome.Void)
+      if (parameters.Length == 1 && m.ReturnType != Metadata.Void)
         _typesMethods[new TypesPair(parameters[0].ParameterType, m.ReturnType)] = m;
     }
   }

@@ -33,7 +33,7 @@ public static class ObjectFactory
         return type switch
         {
             { IsValueType: true } => Default(type),
-            Type stringType when stringType == typeof(string) => Constant(string.Empty),
+            Type stringType when stringType == Metadata<string>.Type => Constant(string.Empty),
             { IsInterface: true } => CreateInterfaceExpression(type),
             { IsAbstract: true } => InvalidType(type, $"Cannot create an instance of abstract type {type}."),
             _ => CallConstructor(type)
@@ -57,16 +57,16 @@ public static class ObjectFactory
 
     private static Expression CreateInterfaceExpression(Type type)
     {
-        return type.IsGenericType(typeof(IDictionary<,>)) ? CreateCollection(type, typeof(Dictionary<,>)) :
-            type.IsGenericType(typeof(IReadOnlyDictionary<,>)) ? CreateReadOnlyDictionary(type.GenericTypeArguments) :
-            type.IsGenericType(typeof(ISet<>)) ? CreateCollection(type, typeof(HashSet<>)) :
-            type.IsCollection() ? CreateCollection(type, typeof(List<>), GetIEnumerableArguments(type)) :
+        return type.IsGenericType(Metadata.IDictionary2) ? CreateCollection(type, Metadata.Dictionary2) :
+            type.IsGenericType(Metadata.IReadOnlyDictionary2) ? CreateReadOnlyDictionary(type.GenericTypeArguments) :
+            type.IsGenericType(Metadata.ISet1) ? CreateCollection(type, Metadata.HashSet1) :
+            type.IsCollection() ? CreateCollection(type, Metadata.List1, GetIEnumerableArguments(type)) :
             InvalidType(type, $"Cannot create an instance of interface type {type}.");
     }
 
     private static Type[] GetIEnumerableArguments(Type type)
     {
-        return type.GetIEnumerableType()?.GenericTypeArguments ?? new[] { typeof(object) };
+        return type.GetIEnumerableType()?.GenericTypeArguments ?? new[] { Metadata<object>.Type };
     }
 
     private static Expression CreateCollection(Type type, Type collectionType, Type[] genericArguments = null)
@@ -76,8 +76,8 @@ public static class ObjectFactory
 
     private static Expression CreateReadOnlyDictionary(Type[] typeArguments)
     {
-        var ctor = typeof(ReadOnlyDictionary<,>).MakeGenericType(typeArguments).GetConstructors()[0];
-        return New(ctor, New(typeof(Dictionary<,>).MakeGenericType(typeArguments)));
+        var ctor = Metadata.ReadOnlyDictionary2.MakeGenericType(typeArguments).GetConstructors()[0];
+        return New(ctor, New(Metadata.Dictionary2.MakeGenericType(typeArguments)));
     }
 
     private static Expression InvalidType(Type type, string message)

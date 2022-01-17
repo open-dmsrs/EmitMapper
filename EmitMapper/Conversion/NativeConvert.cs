@@ -11,26 +11,12 @@ namespace EmitMapper.Conversion;
 
 internal class NativeConverter
 {
-  private static readonly Type[] _ConvertTypes =
-  {
-    Metadata<bool>.Type, Metadata<char>.Type, Metadata<sbyte>.Type, Metadata<byte>.Type, Metadata<short>.Type,
-    Metadata<int>.Type,
-    Metadata<long>.Type,
-    Metadata<ushort>.Type, Metadata<uint>.Type, Metadata<ulong>.Type, Metadata<float>.Type, Metadata<double>.Type,
-    Metadata<decimal>.Type,
-    Metadata<DateTime>.Type, Metadata<string>.Type
-  };
+  private static readonly Type[] _ConvertTypes = { Metadata<bool>.Type, Metadata<char>.Type, Metadata<sbyte>.Type, Metadata<byte>.Type, Metadata<short>.Type, Metadata<int>.Type, Metadata<long>.Type, Metadata<ushort>.Type, Metadata<uint>.Type, Metadata<ulong>.Type, Metadata<float>.Type, Metadata<double>.Type, Metadata<decimal>.Type, Metadata<DateTime>.Type, Metadata<string>.Type };
 
-  private static readonly MethodInfo ObjectToStringMethod = Metadata<NativeConverter>.Type.GetMethod(
-    nameof(ObjectToString),
-    BindingFlags.NonPublic | BindingFlags.Static);
+  private static readonly MethodInfo ObjectToStringMethod = Metadata<NativeConverter>.Type.GetMethod(nameof(ObjectToString), BindingFlags.NonPublic | BindingFlags.Static);
 
-  private static readonly MethodInfo[] ConvertMethods =
-    TypeHome.Convert.GetMethods(BindingFlags.Static | BindingFlags.Public);
-
-  private static readonly MethodInfo ChangeTypeMethod = Metadata<EMConvert>.Type.GetMethod(
-    nameof(EMConvert.ChangeType),
-    new[] { Metadata<object>.Type, Metadata<Type>.Type, Metadata<Type>.Type });
+  private static readonly MethodInfo[] ConvertMethods = Metadata.Convert.GetMethods(BindingFlags.Static | BindingFlags.Public);
+  private static readonly MethodInfo ChangeTypeMethod = Metadata<EMConvert>.Type.GetMethod(nameof(EMConvert.ChangeType), new[] { Metadata<object>.Type, Metadata<Type>.Type, Metadata<Type>.Type });
 
   public static bool IsNativeConvertionPossible(Type from, Type to)
   {
@@ -83,10 +69,8 @@ internal class NativeConverter
     return AstBuildHelper.CallMethod(
       ChangeTypeMethod,
       null,
-      new List<IAstStackItem>
-      {
-        sourceValue, new AstTypeof { Type = sourceType }, new AstTypeof { Type = destinationType }
-      });
+      new List<IAstStackItem> { sourceValue, new AstTypeof { Type = sourceType }, new AstTypeof { Type = destinationType } }
+    );
   }
 
   internal static string ObjectToString(object obj)

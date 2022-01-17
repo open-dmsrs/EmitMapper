@@ -39,7 +39,7 @@ public static class TypeExtensions
 
     public static bool IsDynamic(this Type type)
     {
-        return typeof(IDynamicMetaObjectProvider).IsAssignableFrom(type);
+        return Metadata<IDynamicMetaObjectProvider>.Type.IsAssignableFrom(type);
     }
 
     public static IEnumerable<Type> BaseClassesAndInterfaces(this Type type)
@@ -79,22 +79,22 @@ public static class TypeExtensions
 
     public static bool IsNullableType(this Type type)
     {
-        return type.IsGenericType(typeof(Nullable<>));
+        return type.IsGenericType(Metadata.Nullable1);
     }
 
     public static Type GetICollectionType(this Type type)
     {
-        return type.GetGenericInterface(typeof(ICollection<>));
+        return type.GetGenericInterface(Metadata.ICollection1);
     }
 
     public static bool IsCollection(this Type type)
     {
-        return type != typeof(string) && typeof(IEnumerable).IsAssignableFrom(type);
+        return type != Metadata<string>.Type && Metadata<IEnumerable>.Type.IsAssignableFrom(type);
     }
 
     public static bool IsListType(this Type type)
     {
-        return typeof(IList).IsAssignableFrom(type);
+        return Metadata<IList>.Type.IsAssignableFrom(type);
     }
 
     public static bool IsGenericType(this Type type, Type genericType)
@@ -104,7 +104,7 @@ public static class TypeExtensions
 
     public static Type GetIEnumerableType(this Type type)
     {
-        return type.GetGenericInterface(typeof(IEnumerable<>));
+        return type.GetGenericInterface(Metadata.IEnumerable1);
     }
 
     public static Type GetGenericInterface(this Type type, Type genericInterface)

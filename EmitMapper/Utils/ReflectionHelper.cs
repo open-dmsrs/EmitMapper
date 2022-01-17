@@ -13,7 +13,7 @@ public static class ReflectionHelper
 
     public static Type GetEnumerableElementType(Type type)
     {
-        return type.GetIEnumerableType()?.GenericTypeArguments[0] ?? typeof(object);
+        return type.GetIEnumerableType()?.GenericTypeArguments[0] ?? Metadata<object>.Type;
     }
 
     public static bool IsPublic(this PropertyInfo propertyInfo)
@@ -23,7 +23,7 @@ public static class ReflectionHelper
 
     public static bool Has<TAttribute>(this MemberInfo member) where TAttribute : Attribute
     {
-        return member.IsDefined(typeof(TAttribute));
+        return member.IsDefined(Metadata<TAttribute>.Type);
     }
 
     public static bool CanBeSet(this MemberInfo member)

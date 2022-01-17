@@ -20,7 +20,7 @@ public static class MethodInvoker
       typeName,
       _ =>
       {
-        if (mi.ReturnType == TypeHome.Void)
+        if (mi.ReturnType == Metadata.Void)
           return BuildActionCallerType(typeName, mi);
         return BuildFuncCallerType(typeName, mi);
       });

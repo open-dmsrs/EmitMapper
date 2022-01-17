@@ -19,6 +19,12 @@ public class FlatteringConfig : DefaultMapConfig
     NestedMembersMatcher = (m1, m2) => m1.StartsWith(m2);
   }
 
+  /// <summary>
+  /// Gets the mapping operations.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <returns><![CDATA[IEnumerable<IMappingOperation>]]></returns>
   public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
   {
     var destinationMembers = GetFieldsPropertiesMembers(to);
@@ -35,12 +41,24 @@ public class FlatteringConfig : DefaultMapConfig
     return FilterOperations(from, to, result);
   }
 
+  /// <summary>
+  /// Matches the nested members.
+  /// </summary>
+  /// <param name="nestedMembersMatcher">The nested members matcher.</param>
+  /// <returns>A DefaultMapConfig.</returns>
   public DefaultMapConfig MatchNestedMembers(Func<string, string, bool> nestedMembersMatcher)
   {
     NestedMembersMatcher = nestedMembersMatcher;
     return this;
   }
 
+  /// <summary>
+  /// Gets the matched chain.
+  /// </summary>
+  /// <param name="destName">The dest name.</param>
+  /// <param name="sourceMembers">The source members.</param>
+  /// <exception cref="EmitMapperException"></exception>
+  /// <returns><![CDATA[IEnumerable<MemberInfo>]]></returns>
   private IEnumerable<MemberInfo> GetMatchedChain(string destName, IEnumerable<MemberInfo> sourceMembers)
   {
     var sourceMatches =
@@ -73,6 +91,11 @@ public class FlatteringConfig : DefaultMapConfig
     return result;
   }
 
+  /// <summary>
+  /// Gets the source members.
+  /// </summary>
+  /// <param name="t">The t.</param>
+  /// <returns><![CDATA[IEnumerable<MemberInfo>]]></returns>
   private static IEnumerable<MemberInfo> GetSourceMembers(Type t)
   {
     return GetAllMembers(t)
@@ -84,6 +107,11 @@ public class FlatteringConfig : DefaultMapConfig
       );
   }
 
+  /// <summary>
+  /// Gets the source sub members.
+  /// </summary>
+  /// <param name="mi">The mi.</param>
+  /// <returns><![CDATA[IEnumerable<MemberInfo>]]></returns>
   private static IEnumerable<MemberInfo> GetSourceSubMembers(MemberInfo mi)
   {
     Type t = ReflectionUtils.GetMemberReturnType(mi);
@@ -96,11 +124,21 @@ public class FlatteringConfig : DefaultMapConfig
     return GetFieldsPropertiesMembers(t);
   }
 
+  /// <summary>
+  /// Gets the fields properties members.
+  /// </summary>
+  /// <param name="t">The t.</param>
+  /// <returns><![CDATA[IEnumerable<MemberInfo>]]></returns>
   private static IEnumerable<MemberInfo> GetFieldsPropertiesMembers(Type t)
   {
     return GetAllMembers(t).Where(m => m.MemberType == MemberTypes.Field || m.MemberType == MemberTypes.Property);
   }
 
+  /// <summary>
+  /// Gets the all members.
+  /// </summary>
+  /// <param name="t">The t.</param>
+  /// <returns><![CDATA[IEnumerable<MemberInfo>]]></returns>
   private static IEnumerable<MemberInfo> GetAllMembers(Type t)
   {
     var bindingFlags = BindingFlags.Instance | BindingFlags.Public;

@@ -61,6 +61,10 @@ internal class ArraysConverterOneTypes<T>
 
 internal class ArraysConverterProvider : ICustomConverterProvider
 {
+  // optimized the performance for converting arrays value
+  private static readonly Type _converterImplementation = typeof(ArraysConverterOneTypes<>);
+  private static readonly Type _Implementation = typeof(ArraysConverterDifferentTypes<,>);
+
   public CustomConverterDescriptor GetCustomConverterDescr(Type from, Type to, MapConfigBaseImpl mappingConfig)
   {
     var tFromTypeArgs = DefaultCustomConverterProvider.GetGenericArguments(from);
@@ -73,14 +77,14 @@ internal class ArraysConverterProvider : ICustomConverterProvider
       return new CustomConverterDescriptor
       {
         ConversionMethodName = "Convert",
-        ConverterImplementation = typeof(ArraysConverterOneTypes<>),
+        ConverterImplementation = _converterImplementation,
         ConverterClassTypeArguments = tFrom.AsEnumerable()
       };
 
     return new CustomConverterDescriptor
     {
       ConversionMethodName = "Convert",
-      ConverterImplementation = typeof(ArraysConverterDifferentTypes<,>),
+      ConverterImplementation = _Implementation,
       ConverterClassTypeArguments = tFrom.AsEnumerable(tTo)
     };
   }

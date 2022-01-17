@@ -131,7 +131,7 @@ public static class SwitchExpressions
         public static implicit operator SwitchExpression<TSwitch, TResult>(DefaultThrowExpression @switch)
         {
             throw new InvalidOperationException(
-                $"{typeof(DefaultThrowExpression).Name}s should be constructed via the factory method and not used directly");
+                $"{Metadata<DefaultThrowExpression>.Name}s should be constructed via the factory method and not used directly");
         }
 
         public static implicit operator CompletedSwitchExpression<TResult>(SwitchExpression<TSwitch, TResult> @switch)

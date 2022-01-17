@@ -3,3 +3,4 @@
 internal class class1
 {
 }
+ 

@@ -20,7 +20,7 @@ public static class DelegateInvoker
       typeName,
       key =>
       {
-        if (del.Method.ReturnType == TypeHome.Void)
+        if (del.Method.ReturnType == Metadata.Void)
           return BuildActionCallerType(key, del);
         return BuildFuncCallerType(key, del);
       });
