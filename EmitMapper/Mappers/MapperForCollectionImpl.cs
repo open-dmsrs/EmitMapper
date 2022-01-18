@@ -17,8 +17,7 @@ namespace EmitMapper.Mappers;
 ///   Collection type in source object and destination object can differ.
 /// </summary>
 public class MapperForCollectionImpl : CustomMapperImpl
-{
-  public static readonly Type MapperForCollectionImplType = Metadata<MapperForCollectionImpl>.Type;
+{ 
   private ObjectsMapperDescr _subMapper;
 
   protected MapperForCollectionImpl()
@@ -44,7 +43,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
     ObjectsMapperDescr subMapper,
     IMappingConfigurator mappingConfigurator)
   {
-    var tb = DynamicAssemblyManager.DefineType("GenericListInv_" + mapperName, MapperForCollectionImplType);
+    var tb = DynamicAssemblyManager.DefineType("GenericListInv_" + mapperName, Metadata<MapperForCollectionImpl>.Type);
 
     if (typeTo.IsGenericType && typeTo.GetGenericTypeDefinition() == Metadata.List1)
     {
@@ -55,7 +54,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
         new[] { Metadata<IEnumerable>.Type }
       );
 
-      InvokeCopyImpl(typeTo, nameof(CopyToList)).Compile(new CompilationContext(methodBuilder.GetILGenerator()));
+      InvokeCopyImpl(typeTo, CopyToListMethod).Compile(new CompilationContext(methodBuilder.GetILGenerator()));
 
       methodBuilder = tb.DefineMethod(
         nameof(CopyToListScalarInvoke),
@@ -64,7 +63,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
         new[] { Metadata<object>.Type }
       );
 
-      InvokeCopyImpl(typeTo, nameof(CopyToListScalar))
+      InvokeCopyImpl(typeTo, CopyToListScalarMethod)
         .Compile(new CompilationContext(methodBuilder.GetILGenerator()));
     }
 
@@ -77,16 +76,38 @@ public class MapperForCollectionImpl : CustomMapperImpl
     return result;
   }
 
+  private static MethodInfo CopyToListMethod = Metadata<MapperForCollectionImpl>.Type
+    .GetMethod(nameof(CopyToList), BindingFlags.Instance | BindingFlags.NonPublic);
+
+  private static MethodInfo CopyToListScalarMethod = Metadata<MapperForCollectionImpl>.Type
+    .GetMethod(nameof(CopyToListScalar), BindingFlags.Instance | BindingFlags.NonPublic);
+  private static IAstNode InvokeCopyImpl(Type copiedObjectType, MethodInfo copyMethod)
+  {
+    var mi = copyMethod // fixed BUG 
+      ?.MakeGenericMethod(ExtractElementType(copiedObjectType));
+
+    return new AstReturn
+    {
+      ReturnType = Metadata<object>.Type,
+      ReturnValue = AstBuildHelper.CallMethod(
+        mi,
+        AstBuildHelper.ReadThis(Metadata<MapperForCollectionImpl>.Type),
+        new List<IAstStackItem> { new AstReadArgumentRef { ArgumentIndex = 1, ArgumentType = Metadata<object>.Type } }
+      )
+    };
+  }
+
+  private static readonly LazyConcurrentDictionary<Type, bool> IsSupportedCache = new();
   /// <summary>
   ///   Returns true if specified type is supported by this Mapper
   /// </summary>
   /// <param name="type"></param>
   /// <returns></returns>
-  internal static bool IsSupportedType(Type type)
+  internal static bool IsSupportedType(Type t)
   {
-    return type.IsArray || type.IsGenericType && type.GetGenericTypeDefinition() == Metadata.List1 ||
-           type == Metadata<ArrayList>.Type || Metadata<IList>.Type.IsAssignableFrom(type) ||
-           Metadata.IList1.IsAssignableFrom(type);
+    return IsSupportedCache.GetOrAdd(t, type => type.IsArray || type.IsGenericType && type.GetGenericTypeDefinition() == Metadata.List1 ||
+            type == Metadata<ArrayList>.Type || Metadata<IList>.Type.IsAssignableFrom(type) ||
+            Metadata.IList1.IsAssignableFrom(type));
   }
 
   internal static Type GetSubMapperTypeTo(Type to)
@@ -101,23 +122,6 @@ public class MapperForCollectionImpl : CustomMapperImpl
       return from;
 
     return result;
-  }
-
-  private static IAstNode InvokeCopyImpl(Type copiedObjectType, string copyMethodName)
-  {
-    var mi = MapperForCollectionImplType
-      .GetMethod(copyMethodName, BindingFlags.Instance | BindingFlags.NonPublic) // fixed BUG 
-      ?.MakeGenericMethod(ExtractElementType(copiedObjectType));
-
-    return new AstReturn
-    {
-      ReturnType = Metadata<object>.Type,
-      ReturnValue = AstBuildHelper.CallMethod(
-        mi,
-        AstBuildHelper.ReadThis(MapperForCollectionImplType),
-        new List<IAstStackItem> { new AstReadArgumentRef { ArgumentIndex = 1, ArgumentType = Metadata<object>.Type } }
-      )
-    };
   }
 
   private static Type ExtractElementType(Type collection)

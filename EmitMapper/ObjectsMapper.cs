@@ -34,10 +34,6 @@ public class ObjectsMapper<TFrom, TTo>
 
   public IEnumerable<TTo> MapEnum(IEnumerable<TFrom> sourceCollection)
   {
-    if (sourceCollection is List<TFrom>)
-    {
-    }
-
     foreach (var src in sourceCollection)
       yield return Map(src);
   }

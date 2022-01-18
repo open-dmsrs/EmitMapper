@@ -1,20 +1,30 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace EmitMapper.Utils;
 
-public struct LazyConcurrentDictionary<TKey, TValue>
+public class LazyConcurrentDictionary<TKey, TValue>
 {
     private readonly ConcurrentDictionary<TKey, Lazy<TValue>> _inner;
 
-    public LazyConcurrentDictionary()
+    public LazyConcurrentDictionary() : this(Environment.ProcessorCount, 1024, null)
     {
-        _inner = new ConcurrentDictionary<TKey, Lazy<TValue>>(Environment.ProcessorCount, 1024);
-    }
 
-    public LazyConcurrentDictionary(int concurrencyLevel, int capacity)
+    }
+    public LazyConcurrentDictionary(IEqualityComparer<TKey> equatable) : this(Environment.ProcessorCount, 1024,
+        equatable)
     {
-        _inner = new ConcurrentDictionary<TKey, Lazy<TValue>>(concurrencyLevel, capacity);
+
+    }
+    public LazyConcurrentDictionary(int concurrencyLevel, int capacity)
+        : this(concurrencyLevel, capacity, null)
+    {
+
+    }
+    public LazyConcurrentDictionary(int concurrencyLevel, int capacity, IEqualityComparer<TKey> equatable)
+    {
+        _inner = new ConcurrentDictionary<TKey, Lazy<TValue>>(concurrencyLevel, capacity, equatable);
     }
 
     public TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)

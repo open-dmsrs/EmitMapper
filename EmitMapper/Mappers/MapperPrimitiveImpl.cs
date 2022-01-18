@@ -30,15 +30,13 @@ internal class MapperPrimitiveImpl : CustomMapperImpl
     if (converterMethod != null)
       _converter = (MethodInvokerFunc1)MethodInvoker.GetMethodInvoker(null, converterMethod);
   }
-
-  internal static bool IsSupportedType(Type type)
+  private static readonly LazyConcurrentDictionary<Type, bool> IsSupported = new LazyConcurrentDictionary<Type, bool>();
+  internal static bool IsSupportedType(Type t)
   {
-    return type.IsPrimitive || type == Metadata<decimal>.Type || type == Metadata<float>.Type ||
-           type == Metadata<double>.Type
-           || type == Metadata<long>.Type || type == Metadata<ulong>.Type || type == Metadata<short>.Type ||
-           type == Metadata<Guid>.Type
-           || type == Metadata<string>.Type
-           || ReflectionUtils.IsNullable(type) && IsSupportedType(Nullable.GetUnderlyingType(type)) || type.IsEnum;
+    return IsSupported.GetOrAdd(t, type => type.IsPrimitive || type == Metadata<decimal>.Type || type == Metadata<float>.Type ||
+            type == Metadata<double>.Type || type == Metadata<long>.Type || type == Metadata<ulong>.Type
+            || type == Metadata<short>.Type || type == Metadata<Guid>.Type || type == Metadata<string>.Type
+            || ReflectionUtils.IsNullable(type) && IsSupportedType(Nullable.GetUnderlyingType(type)) || type.IsEnum);
   }
 
   /// <summary>

@@ -13,21 +13,19 @@ namespace EmitMapper.Utils;
 ///     <para>THINKPADT61</para>
 ///     <para>tangjingbo</para>
 /// </summary>
-public class Metadata
+public static class Metadata
 {
 
-
-    #region 类型常量
+    public static Type UnderlineType(Type t)
+    {
+        return null;
+    }
 
     public static readonly Type Void = typeof(void);
     public static readonly Type List1 = typeof(List<>);
     public static readonly Type IList1 = typeof(IList<>);
     public static readonly Type Convert = typeof(Convert);
     public static readonly Type Math = typeof(Math);
-
-
-    #endregion //类型常量
-
     public static readonly Type ReadOnlyDictionary2 = typeof(ReadOnlyDictionary<,>);
     public static readonly Type Dictionary2 = typeof(Dictionary<,>);
     public static readonly Type IReadOnlyDictionary2 = typeof(IReadOnlyDictionary<,>);

@@ -3,7 +3,7 @@ Powerful customizable tool for mapping entities to each other. Entities can be p
 
 ## Road Map for migrating to netcore
 
-you can unload the project CoreEmitMapper if you have a plan to use this library
+you can unload the project EmitMapper if you have a plan to use this library
 
 *  Step one
   Initial import all of the codes from older emitmapper - Done
@@ -19,13 +19,14 @@ you can unload the project CoreEmitMapper if you have a plan to use this library
 
 ## Supported platforms:
 
-* NETStandard 1.6
-* .Net Framework 4.6?
-* Microsoft Silverlight 3
+* NETStandard 2.1
+* .Net Framework 4.8
+* net 6.0
+* netcore app 3.1
 ## About Emit Mapper
 
 * Overview
-* Benefits of Emit Mapper
+* Benefits of EmitMapper
 * Getting started
 * Type conversion
 * Customization
@@ -49,6 +50,4 @@ Low-level customization using custom configuratorors
 * Benchmark: EmitMapper vs Handwritten code vs AutoMapper
 * Objects change tracking
 * Mapping DbDatareader to objects
-* Mapping objects to DbCommand (UPDATE and INSERT)
-  Last edited Jan 11, 2010 at 3:01 PM by romankovs, version 25
-  from  https://github.com/68681395/CoreEmitMapper
+* Mapping objects to DbCommand (UPDATE and INSERT) Last edited Jan 11, 2010 at 3:01 PM by romankovs

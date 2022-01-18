@@ -8,10 +8,10 @@ namespace EmitMapper.Utils;
 public static class ReflectionUtils
 {
     private static readonly LazyConcurrentDictionary<MemberInfo, Type> MemberInfoReturnTypes = new();
-
-    public static bool IsNullable(Type type)
+    private static readonly LazyConcurrentDictionary<Type, bool> IsNullableCache = new();
+    public static bool IsNullable(Type t)
     {
-        return type.IsGenericType && type.GetGenericTypeDefinition() == Metadata.Nullable1;
+        return IsNullableCache.GetOrAdd(t, type => type.IsGenericType && type.GetGenericTypeDefinition() == Metadata.Nullable1);
     }
 
     /// <summary>
@@ -36,7 +36,7 @@ public static class ReflectionUtils
     {
         matcher ??= (f, s) => f == s;
         var firstMembers = GetPublicFieldsAndProperties(first);
-        var secondMembers = GetPublicFieldsAndProperties(first);
+        var secondMembers = GetPublicFieldsAndProperties(second);
         var result = new List<MatchedMember>();
         foreach (var f in firstMembers)
         {

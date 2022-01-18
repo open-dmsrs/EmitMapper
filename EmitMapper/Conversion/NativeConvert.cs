@@ -17,37 +17,44 @@ internal class NativeConverter
 
   private static readonly MethodInfo[] ConvertMethods = Metadata.Convert.GetMethods(BindingFlags.Static | BindingFlags.Public);
   private static readonly MethodInfo ChangeTypeMethod = Metadata<EMConvert>.Type.GetMethod(nameof(EMConvert.ChangeType), new[] { Metadata<object>.Type, Metadata<Type>.Type, Metadata<Type>.Type });
-
-  public static bool IsNativeConvertionPossible(Type from, Type to)
+  private static readonly LazyConcurrentDictionary<TypesPair, bool> IsNativeConvertionPossibleCache = new(new TypesPair());
+  public static bool IsNativeConvertionPossible(Type f, Type t)
   {
-    if (from == null || to == null)
+    return IsNativeConvertionPossibleCache.GetOrAdd(new TypesPair(f, t), p =>
+    {
+      var from = p.SourceType;
+      var to = p.DestinationType;
+
+      if (from == null || to == null)
+        return false;
+
+      if (_ConvertTypes.Contains(from) && _ConvertTypes.Contains(to))
+        return true;
+
+      if (to == Metadata<string>.Type)
+        return true;
+
+      if (from == Metadata<string>.Type && to == Metadata<Guid>.Type)
+        return true;
+
+      if (from.IsEnum && to.IsEnum)
+        return true;
+
+      if (from.IsEnum && _ConvertTypes.Contains(to))
+        return true;
+
+      if (to.IsEnum && _ConvertTypes.Contains(from))
+        return true;
+
+      if (ReflectionUtils.IsNullable(from))
+        return IsNativeConvertionPossible(Nullable.GetUnderlyingType(from), to);
+
+      if (ReflectionUtils.IsNullable(to))
+        return IsNativeConvertionPossible(from, Nullable.GetUnderlyingType(to));
+
       return false;
+    });
 
-    if (_ConvertTypes.Contains(from) && _ConvertTypes.Contains(to))
-      return true;
-
-    if (to == Metadata<string>.Type)
-      return true;
-
-    if (from == Metadata<string>.Type && to == Metadata<Guid>.Type)
-      return true;
-
-    if (from.IsEnum && to.IsEnum)
-      return true;
-
-    if (from.IsEnum && _ConvertTypes.Contains(to))
-      return true;
-
-    if (to.IsEnum && _ConvertTypes.Contains(from))
-      return true;
-
-    if (ReflectionUtils.IsNullable(from))
-      return IsNativeConvertionPossible(Nullable.GetUnderlyingType(from), to);
-
-    if (ReflectionUtils.IsNullable(to))
-      return IsNativeConvertionPossible(from, Nullable.GetUnderlyingType(to));
-
-    return false;
   }
 
   public static IAstRefOrValue Convert(Type destinationType, Type sourceType, IAstRefOrValue sourceValue)
