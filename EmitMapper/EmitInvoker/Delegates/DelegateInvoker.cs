@@ -81,10 +81,10 @@ public static class DelegateInvoker
     return tb.CreateType();
   }
 
-  private static IAstRefOrValue CreateCallDelegate(Delegate del, ParameterInfo[] parameters)
+  private static IAstRefOrValue CreateCallDelegate(Delegate del, IEnumerable<ParameterInfo> parameters)
   {
     return AstBuildHelper.CallMethod(
-      del.GetType().GetMethod("Invoke"),
+      del.GetType().GetMethodCache("Invoke"),
       new AstCastclassRef(
         AstBuildHelper.ReadFieldRV(
           new AstReadThis { ThisType = Metadata<DelegateInvokerBase>.Type },

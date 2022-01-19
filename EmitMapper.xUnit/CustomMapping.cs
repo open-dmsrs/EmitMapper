@@ -65,9 +65,9 @@ public class CustomMapping
 
   public class A1
   {
-    public string Fld1 = "";
+    public string Fld1 = string.Empty;
 
-    public string Fld2 { get; private set; } = "";
+    public string Fld2 { get; private set; } = string.Empty;
 
     public void SetFld2(string value)
     {

@@ -70,11 +70,11 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   /// <typeparam name="To">Destination type</typeparam>
   /// <param name="converter">Function which converts an instance of the source type to an instance of the destination type</param>
   /// <returns></returns>
-  public IMappingConfigurator ConvertUsing<TFrom, To>(Func<TFrom, To> converter)
+  public IMappingConfigurator ConvertUsing<TFrom, TTo>(Func<TFrom, TTo> converter)
   {
     _customConverters.Add(
-      new[] { Metadata<TFrom>.Type, Metadata<To>.Type },
-      (ValueConverter<TFrom, To>)((v, s) => converter(v)));
+      new[] { Metadata<TFrom>.Type, Metadata<TTo>.Type },
+      (ValueConverter<TFrom, TTo>)((v, s) => converter(v)));
     return this;
   }
 
@@ -183,13 +183,13 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
   protected static string ToStrEnum<T>(IEnumerable<T> t)
   {
-    return t == null ? "" : t.ToCsv("|");
+    return t == null ? string.Empty : t.ToCsv("|");
   }
 
   protected static string ToStr<T>(T t)
     where T : class
   {
-    return t == null ? "" : t.ToString();
+    return t == null ? string.Empty : t.ToString();
   }
 
   public virtual void BuildConfigurationName()
@@ -264,7 +264,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
       ? converterDescr.ConverterImplementation.MakeGenericType(converterDescr.ConverterClassTypeArguments.ToArray())
       : converterDescr.ConverterImplementation;
 
-    var mi = genericConverter.GetMethod(converterDescr.ConversionMethodName);
+    var mi = genericConverter.GetMethodCache(converterDescr.ConversionMethodName);
 
     var converterObj = Expression.Lambda<Func<object>>(Expression.New(genericConverter)).CompileFast()();
 

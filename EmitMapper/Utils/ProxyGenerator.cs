@@ -14,7 +14,7 @@ public static class ProxyGenerator
     nameof(Delegate.Combine),
     new[] { Metadata<Delegate>.Type, Metadata<Delegate>.Type });
 
-  private static readonly MethodInfo DelegateRemove = Metadata<Delegate>.Type.GetMethod(nameof(Delegate.Remove));
+  private static readonly MethodInfo DelegateRemove = Metadata<Delegate>.Type.GetMethodCache(nameof(Delegate.Remove));
 
   private static readonly EventInfo PropertyChanged =
     Metadata<INotifyPropertyChanged>.Type.GetEvent(nameof(INotifyPropertyChanged.PropertyChanged));
@@ -155,7 +155,7 @@ public static class ProxyGenerator
     private readonly MethodBuilder _setterBuilder;
     private readonly PropertyBuilder _propertyBuilder;
 
-    public PropertyEmitter(TypeBuilder owner, PropertyDescription property, FieldBuilder propertyChangedField)
+    public PropertyEmitter(TypeBuilder owner, PropertyDescription property, FieldInfo propertyChangedField)
     {
       var name = property.Name;
       var propertyType = property.Type;

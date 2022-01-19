@@ -34,7 +34,7 @@ internal class CompilationContext
 
   public void Emit(OpCode opCode)
   {
-    ProcessCommand(opCode, 0, "");
+    ProcessCommand(opCode, 0, string.Empty);
     ILGenerator.Emit(opCode);
   }
 
@@ -106,7 +106,7 @@ internal class CompilationContext
     WriteOutputCommand(opCode + " " + comment);
   }
 
-  private int GetStackChange(StackBehaviour beh)
+  private static int GetStackChange(StackBehaviour beh)
   {
     switch (beh)
     {

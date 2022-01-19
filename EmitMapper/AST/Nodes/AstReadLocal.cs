@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Reflection.Emit;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
@@ -15,7 +16,7 @@ internal class AstReadLocal : IAstStackItem
   {
   }
 
-  public AstReadLocal(LocalBuilder loc)
+  public AstReadLocal(LocalVariableInfo loc)
   {
     LocalIndex = loc.LocalIndex;
     LocalType = loc.LocalType;
@@ -49,7 +50,7 @@ internal class AstReadLocalValue : AstReadLocal, IAstValue
 
 internal class AstReadLocalAddr : AstReadLocal, IAstAddr
 {
-  public AstReadLocalAddr(LocalBuilder loc)
+  public AstReadLocalAddr(LocalVariableInfo loc)
   {
     LocalIndex = loc.LocalIndex;
     LocalType = loc.LocalType.MakeByRefType();

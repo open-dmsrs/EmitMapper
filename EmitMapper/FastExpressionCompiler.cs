@@ -5281,7 +5281,7 @@ namespace EmitMapper
         internal static MethodInfo DelegateTargetGetterMethod =
             Metadata<Delegate>.Type.GetProperty(nameof(Delegate.Target)).GetMethod;
 
-        internal static MethodInfo FindDelegateInvokeMethod(this Type type) => type.GetMethod("Invoke");
+        internal static MethodInfo FindDelegateInvokeMethod(this Type type) => type.GetMethodCache("Invoke");
 
         internal static MethodInfo FindNullableGetValueOrDefaultMethod(this Type type)
         {

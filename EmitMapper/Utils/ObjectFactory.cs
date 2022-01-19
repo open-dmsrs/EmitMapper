@@ -10,7 +10,10 @@ using static ExpressionExtension;
 public static class ObjectFactory
 {
   private static readonly LazyConcurrentDictionary<Type, Func<object>> CtorCache = new();
-
+  public static T CreateInstance<T>(Type type)
+  {
+    return (T)CreateInstance(type);
+  }
   public static object CreateInstance(Type type)
   {
     return CtorCache.GetOrAdd(type, GenerateConstructor)();

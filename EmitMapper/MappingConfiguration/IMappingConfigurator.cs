@@ -96,5 +96,5 @@ public interface IMappingConfigurator
 
   IMappingConfigurator FilterSource<T>(ValuesFilter<T> valuesFilter);
 
-  IMappingConfigurator ConvertUsing<TFrom, To>(Func<TFrom, To> converter);
+  IMappingConfigurator ConvertUsing<TFrom, TTo>(Func<TFrom, TTo> converter);
 }

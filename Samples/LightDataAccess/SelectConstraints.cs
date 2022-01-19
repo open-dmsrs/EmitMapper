@@ -49,7 +49,7 @@ public class FilterConstraints
   /// <returns>System.String.</returns>
   public string BuildWhere()
   {
-    return (Constraints.Count > 0 ? "WHERE " : "") + Constraints.Select(c => "(" + c + ")").ToCsv(" AND ");
+    return (Constraints.Count > 0 ? "WHERE " : string.Empty) + Constraints.Select(c => "(" + c + ")").ToCsv(" AND ");
   }
 
   /// <summary>

@@ -76,7 +76,7 @@ internal class TypeDictionary<T>
     return null;
   }
 
-  private struct ListElement : IEquatable<ListElement>
+  private readonly struct ListElement : IEquatable<ListElement>
   {
     public readonly T Value;
     public readonly Type[] Types;

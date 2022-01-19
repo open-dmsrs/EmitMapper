@@ -9,13 +9,19 @@ namespace EmitMapper.Utils;
 
 public static class ReflectionUtils
 {
+  private const BindingFlags BindingFlagsInstancePublic = BindingFlags.Instance | BindingFlags.Public;
   private static readonly LazyConcurrentDictionary<MemberInfo, Type> MemberInfoReturnTypes = new();
   private static readonly LazyConcurrentDictionary<Type, bool> IsNullableCache = new();
 
   public static readonly LazyConcurrentDictionary<Type, Type> GenericTypeDefinitionCache = new();
 
   public static readonly LazyConcurrentDictionary<Type, Type[]> Interfaces = new();
-
+  public static readonly LazyConcurrentDictionary<Type, MethodInfo> MethodsCahce = new();
+  //del.GetType().GetMethod("Invoke")
+  public static MethodInfo GetMethodCache(this Type t, string name)
+  {
+    return MethodsCahce.GetOrAdd(t, type => type.GetMethod(name));
+  }
   public static Type GetGenericTypeDefinitionCache(this Type t)
   {
     return GenericTypeDefinitionCache.GetOrAdd(t, type => type.IsGenericType ? type.GetGenericTypeDefinition() : null);
@@ -128,10 +134,9 @@ public static class ReflectionUtils
   /// </summary>
   /// <param name="t"></param>
   /// <returns></returns>
-  private static IEnumerable<MemberInfo> GetMembers(Type t)
-  {
-    var bindingFlags = BindingFlags.Instance | BindingFlags.Public;
-    return t.GetMembers(bindingFlags);
+  private static IEnumerable<MemberInfo> GetMembers(IReflect t)
+  { 
+    return t.GetMembers(BindingFlagsInstancePublic);
   }
 
 

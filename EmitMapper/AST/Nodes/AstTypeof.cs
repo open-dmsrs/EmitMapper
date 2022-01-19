@@ -20,7 +20,7 @@ internal class AstTypeof : IAstRef
   public void Compile(CompilationContext context)
   {
     context.Emit(OpCodes.Ldtoken, Type);
-    context.EmitCall(OpCodes.Call, Metadata<Type>.Type.GetMethod(nameof(Type.GetTypeFromHandle)));
+    context.EmitCall(OpCodes.Call, Metadata<Type>.Type.GetMethodCache(nameof(Type.GetTypeFromHandle)));
   }
 
   #endregion

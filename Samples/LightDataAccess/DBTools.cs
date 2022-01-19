@@ -251,7 +251,7 @@ public static class DbTools
   /// <returns>System.String.</returns>
   public static string ToCsv<T>(this IEnumerable<T> collection, string delim)
   {
-    if (collection == null) return "";
+    if (collection == null) return string.Empty;
 
     var result = new StringBuilder();
     foreach (var value in collection)

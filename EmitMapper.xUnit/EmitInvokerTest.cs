@@ -2,6 +2,7 @@
 using System.Reflection;
 using EmitMapper.EmitInvoker.Delegates;
 using EmitMapper.EmitInvoker.Methods;
+using EmitMapper.Utils;
 using Xunit;
 
 namespace EmitMapper.Tests;
@@ -51,7 +52,7 @@ public class EmitInvokerTest
   {
     var caller = (MethodInvokerFunc0)MethodInvoker.GetMethodInvoker(
       this,
-      GetType().GetMethod("InvokeTest1"));
+      GetType().GetMethodCache("InvokeTest1"));
     Assert.Equal(3, caller.CallFunc());
 
     var caller2 = (MethodInvokerFunc1)MethodInvoker.GetMethodInvoker(

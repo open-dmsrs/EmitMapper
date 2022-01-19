@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Reflection.Emit;
 using EmitMapper.AST.Interfaces;
 
@@ -14,7 +15,7 @@ internal class AstInitializeLocalVariable : IAstNode
   {
   }
 
-  public AstInitializeLocalVariable(LocalBuilder loc)
+  public AstInitializeLocalVariable(LocalVariableInfo loc)
   {
     LocalType = loc.LocalType;
     LocalIndex = loc.LocalIndex;

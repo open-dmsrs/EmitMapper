@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Reflection.Emit;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
@@ -16,7 +17,7 @@ internal class AstWriteLocal : IAstNode
   {
   }
 
-  public AstWriteLocal(LocalBuilder loc, IAstRefOrValue value)
+  public AstWriteLocal(LocalVariableInfo loc, IAstRefOrValue value)
   {
     LocalIndex = loc.LocalIndex;
     LocalType = loc.LocalType;

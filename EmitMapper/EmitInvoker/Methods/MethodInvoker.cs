@@ -82,7 +82,7 @@ public static class MethodInvoker
     return tb.CreateType();
   }
 
-  private static IAstRefOrValue CreateCallMethod(MethodInfo mi, ParameterInfo[] parameters)
+  private static IAstRefOrValue CreateCallMethod(MethodInfo mi, IEnumerable<ParameterInfo> parameters)
   {
     return AstBuildHelper.CallMethod(
       mi,

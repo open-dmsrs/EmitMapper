@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using EmitMapper.AST.Interfaces;
 using EmitMapper.AST.Nodes;
+using EmitMapper.Utils;
 
 namespace EmitMapper.AST.Helpers;
 
@@ -130,7 +131,7 @@ internal static class AstBuildHelper
   {
     if (memberInfo.MemberType == MemberTypes.Method)
     {
-      var methodInfo = memberInfo.DeclaringType.GetMethod(memberInfo.Name);
+      var methodInfo = memberInfo.DeclaringType.GetMethodCache(memberInfo.Name);
       if (methodInfo.ReturnType == null)
         throw new EmitMapperException("Invalid member:" + memberInfo.Name);
       if (methodInfo.GetParameters().Length > 0)
@@ -147,7 +148,7 @@ internal static class AstBuildHelper
   {
     if (memberInfo.MemberType == MemberTypes.Method)
     {
-      var methodInfo = memberInfo.DeclaringType.GetMethod(memberInfo.Name);
+      var methodInfo = memberInfo.DeclaringType.GetMethodCache(memberInfo.Name);
       if (methodInfo.ReturnType == null)
         throw new EmitMapperException("Invalid member:" + memberInfo.Name);
       if (methodInfo.GetParameters().Length > 0)
@@ -170,7 +171,7 @@ internal static class AstBuildHelper
   {
     if (memberInfo.MemberType == MemberTypes.Method)
     {
-      var methodInfo = memberInfo.DeclaringType.GetMethod(memberInfo.Name);
+      var methodInfo = memberInfo.DeclaringType.GetMethodCache(memberInfo.Name);
       if (methodInfo.ReturnType == null)
         throw new EmitMapperException("Invalid member:" + memberInfo.Name);
       if (methodInfo.GetParameters().Length > 0)

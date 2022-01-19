@@ -135,8 +135,7 @@ public class ObjectMapperManager
     var mappingBuilder = new MappingBuilder(this, from, to, typeBuilder, mappingConfigurator);
     mappingBuilder.BuildCopyImplMethod();
 
-    var result = Expression.Lambda<Func<ObjectsMapperBaseImpl>>(
-      Expression.New(typeBuilder.CreateType())).CompileFast()();
+    var result = ObjectFactory.CreateInstance<ObjectsMapperBaseImpl>(typeBuilder.CreateType());
     result.Initialize(this, from, to, mappingConfigurator, mappingBuilder.StoredObjects.ToArray());
     return result;
   }
@@ -160,7 +159,7 @@ public class ObjectsMapperDescr
   }
 }
 
-public struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<MapperKey>
+public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<MapperKey>
 {
   private readonly int _hash;
   private readonly string _mapperTypeName;

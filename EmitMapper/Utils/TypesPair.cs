@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EmitMapper.Utils;
 
-public struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<TypesPair>
+public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<TypesPair>
 {
   public readonly Type DestinationType;
   public readonly Type SourceType;

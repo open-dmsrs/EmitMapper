@@ -73,7 +73,7 @@ public class TypeDetails
     return accessors.Concat(publicNoArgMethods).Concat(publicNoArgExtensionMethods);
   }
 
-  private void CheckPrePostfixes(Dictionary<string, MemberInfo> nameToMember, MemberInfo member)
+  private void CheckPrePostfixes(IDictionary<string, MemberInfo> nameToMember, MemberInfo member)
   {
     foreach (var memberName in PossibleNames(member.Name, Config.Prefixes, Config.Postfixes))
       if (!nameToMember.ContainsKey(memberName))

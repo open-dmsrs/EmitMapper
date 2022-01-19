@@ -265,7 +265,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 
     var shallowCopy = IsShallowCopy(srcMemberDescr, destMemberDescr);
 
-    if (IsNativeDeepCopy(
+    if (DefaultMapConfig.IsNativeDeepCopy(
           typeFromMember,
           typeToMember,
           srcMemberDescr.MemberInfo,
@@ -306,7 +306,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
     return IsShallowCopy(from.MemberType, to.MemberType);
   }
 
-  private bool IsNativeDeepCopy(Type typeFrom, Type typeTo, MemberInfo fromMi, MemberInfo toMi, bool shallowCopy)
+  private static bool IsNativeDeepCopy(Type typeFrom, Type typeTo, MemberInfo fromMi, MemberInfo toMi, bool shallowCopy)
   {
     if (NativeConverter.IsNativeConvertionPossible(typeFrom, typeTo))
       return false;

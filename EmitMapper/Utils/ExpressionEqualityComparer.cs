@@ -11,24 +11,24 @@ namespace EmitMapper.Utils;
 /// </summary>
 public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 {
-    /// <summary>
-    ///   Creates a new <see cref="ExpressionEqualityComparer" />.
-    /// </summary>
-    private ExpressionEqualityComparer()
+  /// <summary>
+  ///   Creates a new <see cref="ExpressionEqualityComparer" />.
+  /// </summary>
+  private ExpressionEqualityComparer()
   {
   }
 
-    /// <summary>
-    ///   Gets an instance of <see cref="ExpressionEqualityComparer" />.
-    /// </summary>
-    public static ExpressionEqualityComparer Instance { get; } = new();
+  /// <summary>
+  ///   Gets an instance of <see cref="ExpressionEqualityComparer" />.
+  /// </summary>
+  public static ExpressionEqualityComparer Instance { get; } = new();
 
-    /// <summary>
-    ///   Returns the hash code for given expression.
-    /// </summary>
-    /// <param name="obj"> The <see cref="Expression" /> obj to compute hash code for. </param>
-    /// <returns> The hash code value for <paramref name="obj" />. </returns>
-    public int GetHashCode(Expression obj)
+  /// <summary>
+  ///   Returns the hash code for given expression.
+  /// </summary>
+  /// <param name="obj"> The <see cref="Expression" /> obj to compute hash code for. </param>
+  /// <returns> The hash code value for <paramref name="obj" />. </returns>
+  public int GetHashCode(Expression obj)
   {
     if (obj == null) return 0;
 
@@ -251,13 +251,13 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
   }
 
-    /// <summary>
-    ///   Returns a value indicating whether the given expressions are equal.
-    /// </summary>
-    /// <param name="x"> The left expression. </param>
-    /// <param name="y"> The right expression. </param>
-    /// <returns> <see langword="true" /> if the expressions are equal, <see langword="false" /> otherwise. </returns>
-    public bool Equals(Expression x, Expression y)
+  /// <summary>
+  ///   Returns a value indicating whether the given expressions are equal.
+  /// </summary>
+  /// <param name="x"> The left expression. </param>
+  /// <param name="y"> The right expression. </param>
+  /// <returns> <see langword="true" /> if the expressions are equal, <see langword="false" /> otherwise. </returns>
+  public bool Equals(Expression x, Expression y)
   {
     return new ExpressionComparer().Compare(x, y);
   }
@@ -626,7 +626,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 
     private bool CompareCatchBlock(CatchBlock a, CatchBlock b)
     {
-      return Equals(a.Test, b.Test)
+      return ReferenceEquals(a.Test, b.Test) && Equals(a.Test, b.Test)
              && Compare(a.Body, b.Body)
              && Compare(a.Filter, b.Filter)
              && Compare(a.Variable, b.Variable);

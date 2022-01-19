@@ -59,7 +59,7 @@ public class DynamicAssemblyManager
   private static string CorrectTypeName(string typeName)
   {
     if (typeName.Length >= 1042)
-      typeName = "type_" + typeName.Substring(0, 900) + Guid.NewGuid().ToString().Replace("-", "");
+      typeName = "type_" + typeName.Substring(0, 900) + Guid.NewGuid().ToString().Replace("-", string.Empty);
     return typeName;
   }
 
@@ -68,7 +68,7 @@ public class DynamicAssemblyManager
     lock (_LockObject)
     {
       return _ModuleBuilder.DefineType(
-        CorrectTypeName(typeName + Guid.NewGuid().ToString().Replace("-", "")),
+        CorrectTypeName(typeName + Guid.NewGuid().ToString().Replace("-", string.Empty)),
         TypeAttributes.Public,
         Metadata<MapperForClassImpl>.Type,
         null);

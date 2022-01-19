@@ -44,7 +44,7 @@ public static class SwitchExpressions
 
   #region ---- Helper Types ----
 
-  public struct SwitchExpression<TSwitch>
+  public readonly struct SwitchExpression<TSwitch>
   {
     internal SwitchExpression(TSwitch on, IEqualityComparer<TSwitch> comparer)
     {
@@ -239,7 +239,7 @@ public static class SwitchExpressions
     }
   }
 
-  public struct CompletedSwitchExpression<TResult>
+  public readonly struct  CompletedSwitchExpression<TResult>
   {
     private readonly bool completed;
     private readonly TResult value;
