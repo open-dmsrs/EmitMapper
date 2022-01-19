@@ -9,12 +9,12 @@ namespace EmitMapper.Conversion;
 
 public class StaticConvertersManager
 {
-  private static readonly Dictionary<MethodInfo, Func<object, object>> _ConvertersFunc = new();
+  private static readonly LazyConcurrentDictionary<MethodInfo, Func<object, object>> _ConvertersFunc = new();
 
   private static StaticConvertersManager _defaultInstance;
   private static readonly object locker = new();
 
-  private readonly Dictionary<TypesPair, MethodInfo> _typesMethods = new();
+  private readonly LazyConcurrentDictionary<TypesPair, MethodInfo> _typesMethods = new();
 
   private readonly List<Func<Type, Type, MethodInfo>> _typesMethodsFunc = new();
 
@@ -45,7 +45,7 @@ public class StaticConvertersManager
     {
       var parameters = m.GetParameters();
       if (parameters.Length == 1 && m.ReturnType != Metadata.Void)
-        _typesMethods[new TypesPair(parameters[0].ParameterType, m.ReturnType)] = m;
+        _typesMethods.TryAdd(new TypesPair(parameters[0].ParameterType, m.ReturnType), m);
     }
   }
 
@@ -75,13 +75,7 @@ public class StaticConvertersManager
     var mi = GetStaticConverter(from, to);
     if (mi == null)
       return null;
-    lock (_ConvertersFunc)
-    {
-      if (_ConvertersFunc.TryGetValue(mi, out var res))
-        return res;
-      res = ((MethodInvokerFunc1)MethodInvoker.GetMethodInvoker(null, mi)).CallFunc;
-      _ConvertersFunc.Add(mi, res);
-      return res;
-    }
+
+    return _ConvertersFunc.GetOrAdd(mi, m => ((MethodInvokerFunc1)MethodInvoker.GetMethodInvoker(null, m)).CallFunc);
   }
 }

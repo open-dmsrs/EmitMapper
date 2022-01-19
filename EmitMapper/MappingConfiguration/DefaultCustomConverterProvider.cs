@@ -1,6 +1,6 @@
-﻿using EmitMapper.Utils;
-using System;
+﻿using System;
 using System.Linq;
+using EmitMapper.Utils;
 
 namespace EmitMapper.MappingConfiguration;
 

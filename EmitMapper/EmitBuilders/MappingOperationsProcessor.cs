@@ -175,8 +175,8 @@ internal class MappingOperationsProcessor
           Condition = new AstExprEquals(
             (IAstValue)AstBuildHelper.ReadMembersChain(
               AstBuildHelper.ReadLocalRA(locValueToWrite),
-                (MemberInfo)locValueToWrite.LocalType.GetField(nameof(ValueToWrite<object>.Action))
-              ),
+              locValueToWrite.LocalType.GetField(nameof(ValueToWrite<object>.Action))
+            ),
             new AstConstantInt32
             {
               Value = 0
@@ -191,7 +191,7 @@ internal class MappingOperationsProcessor
                 AstBuildHelper.ReadMembersChain(
                   AstBuildHelper.ReadLocalRA(locValueToWrite),
                   locValueToWrite.LocalType.GetField(nameof(ValueToWrite<object>.Value))
-                  ))
+                ))
             }
           }
         }

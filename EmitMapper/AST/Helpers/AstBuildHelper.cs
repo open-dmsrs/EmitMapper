@@ -107,25 +107,25 @@ internal static class AstBuildHelper
   }
 
   public static IAstRefOrValue ReadMembersChain(IAstRefOrAddr sourceObject, IEnumerable<MemberInfo> membersChain)
-  {   
+  {
     var src = sourceObject;
     using var enumerator = membersChain.GetEnumerator();
     MemberInfo cur = null;
-    if (enumerator.MoveNext())
-    {
-      cur = enumerator.Current;
-    }
+    if (enumerator.MoveNext()) cur = enumerator.Current;
     while (enumerator.MoveNext())
     {
       src = ReadMemberRA(src, cur);
       cur = enumerator.Current;
     }
+
     return ReadMemberRV(src, cur);
   }
+
   public static IAstRefOrValue ReadMembersChain(IAstRefOrAddr sourceObject, MemberInfo membersChainOfOne)
-  {     
+  {
     return ReadMemberRV(sourceObject, membersChainOfOne);
   }
+
   public static IAstStackItem ReadMember(IAstRefOrAddr sourceObject, MemberInfo memberInfo)
   {
     if (memberInfo.MemberType == MemberTypes.Method)

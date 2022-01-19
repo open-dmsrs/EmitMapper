@@ -149,6 +149,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   }
 
   private string configName;
+
   public override string GetConfigurationName()
   {
     return configName ??= base.GetConfigurationName() + new[]
@@ -158,8 +159,6 @@ public class DefaultMapConfig : MapConfigBaseImpl
       ToStrEnum(_shallowCopyMembers),
       ToStrEnum(_deepCopyMembers)
     }.ToCsv(";");
-
-    
   }
 
   #endregion
@@ -194,10 +193,10 @@ public class DefaultMapConfig : MapConfigBaseImpl
     toPath ??= Array.Empty<MemberInfo>();
     fromPath ??= Array.Empty<MemberInfo>();
 
-    var membersFromPath = fromPath as IEnumerable<MemberInfo> ?? fromPath.ToArray();
+    var membersFromPath = fromPath ?? fromPath.ToArray();
     var from = !membersFromPath.Any() ? fromRoot : ReflectionUtils.GetMemberReturnType(membersFromPath.Last());
 
-    var memberToPath = toPath as IEnumerable<MemberInfo> ?? toPath.ToArray();
+    var memberToPath = toPath ?? toPath.ToArray();
     var to = !memberToPath.Any() ? toRoot : ReflectionUtils.GetMemberReturnType(memberToPath.Last());
 
     var tp = new TypesPair(from, to);

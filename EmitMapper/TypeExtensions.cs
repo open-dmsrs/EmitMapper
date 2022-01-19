@@ -1,20 +1,17 @@
-using EmitMapper.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
+using EmitMapper.Utils;
 
 namespace EmitMapper;
 
 public static class TypeExtensions
 {
-
   private static readonly LazyConcurrentDictionary<Type, string> cachedMethod = new(Environment.ProcessorCount, 1024);
 
   public static MethodInfo GetCachedMethod(this Type type, string methodName)
   {
-
     return type.GetTypeInfo().GetMethod(methodName);
   }
 
@@ -102,17 +99,17 @@ public static class TypeExtensions
   }
 
 
-
-  public static IEnumerable<T> AsEnumerable<T>(this T @any)
+  public static IEnumerable<T> AsEnumerable<T>(this T any)
   {
-    yield return @any;
+    yield return any;
   }
+
   public static IEnumerable<T> AsEnumerable<T>(this T p0, T p1)
   {
     yield return p0;
     yield return p1;
-
   }
+
   public static IEnumerable<T> AsEnumerable<T>(this T p0, T p1, T p2)
   {
     yield return p0;
@@ -127,20 +124,24 @@ public static class TypeExtensions
     yield return p2;
     yield return p3;
   }
-  public static IEnumerable<T> Concat<T>(this IEnumerable<T> @any, T p0)
+
+  public static IEnumerable<T> Concat<T>(this IEnumerable<T> any, T p0)
   {
-    return @any.Concat(p0.AsEnumerable());
+    return any.Concat(p0.AsEnumerable());
   }
-  public static IEnumerable<T> Concat<T>(this IEnumerable<T> @any, T p0, T p1)
+
+  public static IEnumerable<T> Concat<T>(this IEnumerable<T> any, T p0, T p1)
   {
-    return @any.Concat(p0.AsEnumerable(p1));
+    return any.Concat(p0.AsEnumerable(p1));
   }
-  public static IEnumerable<T> Concat<T>(this IEnumerable<T> @any, T p0, T p1, T p2)
+
+  public static IEnumerable<T> Concat<T>(this IEnumerable<T> any, T p0, T p1, T p2)
   {
-    return @any.Concat(p0.AsEnumerable(p1, p2));
+    return any.Concat(p0.AsEnumerable(p1, p2));
   }
-  public static IEnumerable<T> Concat<T>(this IEnumerable<T> @any, T p0, T p1, T p2, T p3)
+
+  public static IEnumerable<T> Concat<T>(this IEnumerable<T> any, T p0, T p1, T p2, T p3)
   {
-    return @any.Concat(p0.AsEnumerable(p1, p2, p3));
+    return any.Concat(p0.AsEnumerable(p1, p2, p3));
   }
 }

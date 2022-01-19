@@ -12,6 +12,7 @@ namespace EmitMapper.Mappers;
 /// </summary>
 internal class MapperPrimitiveImpl : CustomMapperImpl
 {
+  private static readonly LazyConcurrentDictionary<Type, bool> IsSupported = new();
   private readonly MethodInvokerFunc1 _converter;
 
   public MapperPrimitiveImpl(
@@ -30,13 +31,15 @@ internal class MapperPrimitiveImpl : CustomMapperImpl
     if (converterMethod != null)
       _converter = (MethodInvokerFunc1)MethodInvoker.GetMethodInvoker(null, converterMethod);
   }
-  private static readonly LazyConcurrentDictionary<Type, bool> IsSupported = new LazyConcurrentDictionary<Type, bool>();
+
   internal static bool IsSupportedType(Type t)
   {
-    return IsSupported.GetOrAdd(t, type => type.IsPrimitive || type == Metadata<decimal>.Type || type == Metadata<float>.Type ||
-            type == Metadata<double>.Type || type == Metadata<long>.Type || type == Metadata<ulong>.Type
-            || type == Metadata<short>.Type || type == Metadata<Guid>.Type || type == Metadata<string>.Type
-            || ReflectionUtils.IsNullable(type) && IsSupportedType(Nullable.GetUnderlyingType(type)) || type.IsEnum);
+    return IsSupported.GetOrAdd(
+      t,
+      type => type.IsPrimitive || type == Metadata<decimal>.Type || type == Metadata<float>.Type ||
+              type == Metadata<double>.Type || type == Metadata<long>.Type || type == Metadata<ulong>.Type
+              || type == Metadata<short>.Type || type == Metadata<Guid>.Type || type == Metadata<string>.Type
+              || ReflectionUtils.IsNullable(type) && IsSupportedType(Nullable.GetUnderlyingType(type)) || type.IsEnum);
   }
 
   /// <summary>

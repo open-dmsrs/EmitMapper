@@ -17,7 +17,14 @@ namespace EmitMapper.Mappers;
 ///   Collection type in source object and destination object can differ.
 /// </summary>
 public class MapperForCollectionImpl : CustomMapperImpl
-{ 
+{
+  private static readonly MethodInfo CopyToListMethod = Metadata<MapperForCollectionImpl>.Type
+    .GetMethod(nameof(CopyToList), BindingFlags.Instance | BindingFlags.NonPublic);
+
+  private static readonly MethodInfo CopyToListScalarMethod = Metadata<MapperForCollectionImpl>.Type
+    .GetMethod(nameof(CopyToListScalar), BindingFlags.Instance | BindingFlags.NonPublic);
+
+  private static readonly LazyConcurrentDictionary<Type, bool> IsSupportedCache = new();
   private ObjectsMapperDescr _subMapper;
 
   protected MapperForCollectionImpl()
@@ -76,11 +83,6 @@ public class MapperForCollectionImpl : CustomMapperImpl
     return result;
   }
 
-  private static MethodInfo CopyToListMethod = Metadata<MapperForCollectionImpl>.Type
-    .GetMethod(nameof(CopyToList), BindingFlags.Instance | BindingFlags.NonPublic);
-
-  private static MethodInfo CopyToListScalarMethod = Metadata<MapperForCollectionImpl>.Type
-    .GetMethod(nameof(CopyToListScalar), BindingFlags.Instance | BindingFlags.NonPublic);
   private static IAstNode InvokeCopyImpl(Type copiedObjectType, MethodInfo copyMethod)
   {
     var mi = copyMethod // fixed BUG 
@@ -97,7 +99,6 @@ public class MapperForCollectionImpl : CustomMapperImpl
     };
   }
 
-  private static readonly LazyConcurrentDictionary<Type, bool> IsSupportedCache = new();
   /// <summary>
   ///   Returns true if specified type is supported by this Mapper
   /// </summary>
@@ -105,9 +106,11 @@ public class MapperForCollectionImpl : CustomMapperImpl
   /// <returns></returns>
   internal static bool IsSupportedType(Type t)
   {
-    return IsSupportedCache.GetOrAdd(t, type => type.IsArray || type.IsGenericType && type.GetGenericTypeDefinitionCache() == Metadata.List1 ||
-            type == Metadata<ArrayList>.Type || Metadata<IList>.Type.IsAssignableFrom(type) ||
-            Metadata.IList1.IsAssignableFrom(type));
+    return IsSupportedCache.GetOrAdd(
+      t,
+      type => type.IsArray || type.IsGenericType && type.GetGenericTypeDefinitionCache() == Metadata.List1 ||
+              type == Metadata<ArrayList>.Type || Metadata<IList>.Type.IsAssignableFrom(type) ||
+              Metadata.IList1.IsAssignableFrom(type));
   }
 
   internal static Type GetSubMapperTypeTo(Type to)

@@ -21,7 +21,10 @@ public static class ReflectionUtils
     return GenericTypeDefinitionCache.GetOrAdd(t, type => type.IsGenericType ? type.GetGenericTypeDefinition() : null);
   }
 
-  public static Type[] GetInterfacesCache(this Type t) => Interfaces.GetOrAdd(t, type => type.GetInterfaces());
+  public static Type[] GetInterfacesCache(this Type t)
+  {
+    return Interfaces.GetOrAdd(t, type => type.GetInterfaces());
+  }
 
   public static bool IsNullable(Type t)
   {

@@ -17,11 +17,9 @@ internal class TypeDictionary<T>
     if (generalType.IsGenericTypeDefinition)
     {
       if (generalType.IsInterface)
-      {
         return type.GetInterfacesCache()
-          .Concat((type.IsInterface ? new[] { type } : Type.EmptyTypes))
-         .Any(i => i.IsGenericType && i.GetGenericTypeDefinitionCache() == generalType);
-      }
+          .Concat(type.IsInterface ? new[] { type } : Type.EmptyTypes)
+          .Any(i => i.IsGenericType && i.GetGenericTypeDefinitionCache() == generalType);
 
       return type.IsGenericType && (type.GetGenericTypeDefinitionCache() == generalType
                                     || type.GetGenericTypeDefinitionCache().IsSubclassOf(generalType));
@@ -89,6 +87,11 @@ internal class TypeDictionary<T>
       Value = value;
     }
 
+    public bool Equals(ListElement other)
+    {
+      return !Types.Where((t, i) => t != other.Types[i]).Any();
+    }
+
     public override int GetHashCode()
     {
       return HashCode.Combine(Types);
@@ -97,11 +100,6 @@ internal class TypeDictionary<T>
     public override bool Equals(object obj)
     {
       return Equals(obj);
-    }
-
-    public bool Equals(ListElement other)
-    {
-      return !Types.Where((t, i) => t != other.Types[i]).Any();
     }
   }
 }
