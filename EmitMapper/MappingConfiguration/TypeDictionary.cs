@@ -18,13 +18,13 @@ internal class TypeDictionary<T>
     {
       if (generalType.IsInterface)
       {
-        return type.GetInterfaces()
+        return type.GetInterfacesCache()
           .Concat((type.IsInterface ? new[] { type } : Type.EmptyTypes))
-         .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == generalType);
+         .Any(i => i.IsGenericType && i.GetGenericTypeDefinitionCache() == generalType);
       }
 
-      return type.IsGenericType && (type.GetGenericTypeDefinition() == generalType
-                                    || type.GetGenericTypeDefinition().IsSubclassOf(generalType));
+      return type.IsGenericType && (type.GetGenericTypeDefinitionCache() == generalType
+                                    || type.GetGenericTypeDefinitionCache().IsSubclassOf(generalType));
     }
 
     return generalType.IsAssignableFrom(type);

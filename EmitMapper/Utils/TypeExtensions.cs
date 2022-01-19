@@ -46,7 +46,7 @@ public static class TypeExtensions
     {
         var currentType = type;
         while ((currentType = currentType.BaseType) != null) yield return currentType;
-        foreach (var interfaceType in type.GetInterfaces()) yield return interfaceType;
+        foreach (var interfaceType in type.GetInterfacesCache()) yield return interfaceType;
     }
 
     public static PropertyInfo GetInheritedProperty(this Type type, string name)
@@ -99,7 +99,7 @@ public static class TypeExtensions
 
     public static bool IsGenericType(this Type type, Type genericType)
     {
-        return type.IsGenericType && type.GetGenericTypeDefinition() == genericType;
+        return type.IsGenericType && type.GetGenericTypeDefinitionCache() == genericType;
     }
 
     public static Type GetIEnumerableType(this Type type)
@@ -110,7 +110,7 @@ public static class TypeExtensions
     public static Type GetGenericInterface(this Type type, Type genericInterface)
     {
         if (type.IsGenericType(genericInterface)) return type;
-        foreach (var interfaceType in type.GetInterfaces())
+        foreach (var interfaceType in type.GetInterfacesCache())
             if (interfaceType.IsGenericType(genericInterface))
                 return interfaceType;
         return null;

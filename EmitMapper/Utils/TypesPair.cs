@@ -80,7 +80,7 @@ public struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<TypesPair>
 
     private static Type GetTypeDefinitionIfGeneric(Type type)
     {
-        return type.IsGenericType ? type.GetGenericTypeDefinition() : type;
+        return type.IsGenericType ? type.GetGenericTypeDefinitionCache() : type;
     }
 
     public static bool operator ==(in TypesPair left, in TypesPair right)

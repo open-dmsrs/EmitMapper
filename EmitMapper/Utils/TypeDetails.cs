@@ -106,7 +106,7 @@ public class TypeDetails
     {
         var explicitExtensionMethods =
             sourceExtensionMethodSearch.Where(method => method.GetParameters()[0].ParameterType.IsAssignableFrom(Type));
-        var genericInterfaces = Type.GetInterfaces().Where(t => t.IsGenericType);
+        var genericInterfaces = Type.GetInterfacesCache().Where(t => t.IsGenericType);
         if (Type.IsInterface && Type.IsGenericType) genericInterfaces = genericInterfaces.Union(new[] { Type });
         return explicitExtensionMethods.Union
         (
@@ -172,7 +172,7 @@ public class TypeDetails
 
     private IEnumerable<Type> GetTypeInheritance()
     {
-        return Type.IsInterface ? new[] { Type }.Concat(Type.GetInterfaces()) : Type.GetTypeInheritance();
+        return Type.IsInterface ? new[] { Type }.Concat(Type.GetInterfacesCache()) : Type.GetTypeInheritance();
     }
 
     private IEnumerable<PropertyInfo> GetProperties(Func<PropertyInfo, bool> propertyAvailableFor)

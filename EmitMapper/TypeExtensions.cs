@@ -9,12 +9,7 @@ namespace EmitMapper;
 
 public static class TypeExtensions
 {
-  private static readonly LazyConcurrentDictionary<Type, Func<object>> Creators = new(Environment.ProcessorCount, 1024);
 
-  public static object Create(this Type @this)
-  {
-    return Creators.GetOrAdd(@this, k => Expression.Lambda<Func<object>>(Expression.New(k)).CompileFast()).Invoke();
-  }
   private static readonly LazyConcurrentDictionary<Type, string> cachedMethod = new(Environment.ProcessorCount, 1024);
 
   public static MethodInfo GetCachedMethod(this Type type, string methodName)
@@ -103,7 +98,7 @@ public static class TypeExtensions
 
   public static Type[] GetCahcedInterfaces(this Type type)
   {
-    return type.GetTypeInfo().GetInterfaces();
+    return type.GetTypeInfo().GetInterfacesCache();
   }
 
 

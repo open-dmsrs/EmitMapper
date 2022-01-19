@@ -45,7 +45,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
   {
     var tb = DynamicAssemblyManager.DefineType("GenericListInv_" + mapperName, Metadata<MapperForCollectionImpl>.Type);
 
-    if (typeTo.IsGenericType && typeTo.GetGenericTypeDefinition() == Metadata.List1)
+    if (typeTo.IsGenericType && typeTo.GetGenericTypeDefinitionCache() == Metadata.List1)
     {
       var methodBuilder = tb.DefineMethod(
         nameof(CopyToListInvoke),
@@ -105,7 +105,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
   /// <returns></returns>
   internal static bool IsSupportedType(Type t)
   {
-    return IsSupportedCache.GetOrAdd(t, type => type.IsArray || type.IsGenericType && type.GetGenericTypeDefinition() == Metadata.List1 ||
+    return IsSupportedCache.GetOrAdd(t, type => type.IsArray || type.IsGenericType && type.GetGenericTypeDefinitionCache() == Metadata.List1 ||
             type == Metadata<ArrayList>.Type || Metadata<IList>.Type.IsAssignableFrom(type) ||
             Metadata.IList1.IsAssignableFrom(type));
   }
@@ -130,7 +130,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
       return collection.GetElementType();
     if (collection == Metadata<ArrayList>.Type)
       return Metadata<object>.Type;
-    if (collection.IsGenericType && collection.GetGenericTypeDefinition() == Metadata.List1)
+    if (collection.IsGenericType && collection.GetGenericTypeDefinitionCache() == Metadata.List1)
       return collection.GetGenericArguments()[0];
     return null;
   }
@@ -154,7 +154,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
       return CopyScalarToArray(from);
     }
 
-    if (TypeTo.IsGenericType && TypeTo.GetGenericTypeDefinition() == Metadata.List1)
+    if (TypeTo.IsGenericType && TypeTo.GetGenericTypeDefinitionCache() == Metadata.List1)
     {
       if (from is IEnumerable fromEnumerable)
         return CopyToListInvoke(fromEnumerable);

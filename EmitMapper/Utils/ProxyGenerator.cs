@@ -108,7 +108,7 @@ public static class ProxyGenerator
         List<PropertyDescription> PropertiesToImplement()
         {
             var propertiesToImplement = new List<PropertyDescription>();
-            var allInterfaces = new List<Type>(interfaceType.GetInterfaces()) { interfaceType };
+            var allInterfaces = new List<Type>(interfaceType.GetInterfacesCache()) { interfaceType };
             // first we collect all properties, those with setters before getters in order to enable less specific redundant getters
             foreach (var property in
                      allInterfaces.Where(intf => intf != Metadata<INotifyPropertyChanged>.Type)

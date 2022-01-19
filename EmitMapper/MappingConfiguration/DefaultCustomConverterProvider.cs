@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmitMapper.Utils;
+using System;
 using System.Linq;
 
 namespace EmitMapper.MappingConfiguration;
@@ -32,7 +33,7 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
       return new[] { type.GetElementType() };
     if (type.IsGenericType)
       return type.GetGenericArguments();
-    return type.GetInterfaces().Where(i => i.IsGenericType).Select(i => i.GetGenericArguments())
+    return type.GetInterfacesCache().Where(i => i.IsGenericType).Select(i => i.GetGenericArguments())
       .Where(a => a.Length == 1).Select(a => a[0]).ToArray();
   }
 }

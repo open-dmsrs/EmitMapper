@@ -148,9 +148,10 @@ public class DefaultMapConfig : MapConfigBaseImpl
     return res;
   }
 
+  private string configName;
   public override string GetConfigurationName()
   {
-    var configName = base.GetConfigurationName() + new[]
+    return configName ??= base.GetConfigurationName() + new[]
     {
       _shallowCopy.ToString(),
       ToStr(_membersMatcher),
@@ -158,7 +159,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
       ToStrEnum(_deepCopyMembers)
     }.ToCsv(";");
 
-    return configName;
+    
   }
 
   #endregion

@@ -79,7 +79,8 @@ public class Metadata<T>
         return (expression.Body as MethodCallExpression)?.Method;
     }
 
-
-    public static Type[] GetInterfaces() => Type.GetInterfaces();
-    public static Type MakeGenericType(params Type[] typeArguments) => Type.MakeGenericType(typeArguments);
+    public static Type[] GetInterfacesCache()
+    {
+        return Type.GetInterfacesCache();
+    }
 }

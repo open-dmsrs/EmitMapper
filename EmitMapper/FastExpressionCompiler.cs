@@ -5253,7 +5253,7 @@ namespace EmitMapper
             type == Metadata<ulong>.Type;
 
         internal static bool IsNullable(this Type type) =>
-            type.IsGenericType && type.GetGenericTypeDefinition() == Metadata.Nullable1;
+            type.IsGenericType && type.GetGenericTypeDefinitionCache() == Metadata.Nullable1;
 
         public static string GetArithmeticBinaryOperatorMethodName(this ExpressionType nodeType) =>
             nodeType switch
@@ -7292,7 +7292,7 @@ namespace EmitMapper
             $"new {itemType.ToCode(stripNamespace, printType)}[]{{{items.ToCommaSeparatedCode(notRecognizedToCode, stripNamespace, printType)}}}";
 
         private static readonly Type[] TypesImplementedByArray =
-            Metadata<object[]>.GetInterfaces().Where(t => t.GetTypeInfo().IsGenericType).Select(t => t.GetGenericTypeDefinition()).ToArray();
+            Metadata<object[]>.GetInterfacesCache().Where(t => t.GetTypeInfo().IsGenericType).Select(t => t.GetGenericTypeDefinitionCache()).ToArray();
 
         /// <summary>
         /// Prints a valid C# for known <paramref name="x"/>,
@@ -7337,7 +7337,7 @@ namespace EmitMapper
             // check if item is implemented by array and then use the array initializer only for these types, 
             // otherwise we may produce the array initializer but it will be incompatible with e.g. `List<T>`
             if (xTypeInfo.IsArray ||
-                xTypeInfo.IsGenericType && TypesImplementedByArray.Contains(xType.GetGenericTypeDefinition()))
+                xTypeInfo.IsGenericType && TypesImplementedByArray.Contains(xType.GetGenericTypeDefinitionCache()))
             {
                 var elemType = xTypeInfo.IsArray
                     ? xTypeInfo.GetElementType()
@@ -7347,7 +7347,7 @@ namespace EmitMapper
             }
 
             // unwrap the Nullable struct
-            if (xTypeInfo.IsGenericType && xTypeInfo.GetGenericTypeDefinition() == Metadata.Nullable1)
+            if (xTypeInfo.IsGenericType && xTypeInfo.GetGenericTypeDefinitionCache() == Metadata.Nullable1)
             {
                 xType = xTypeInfo.GetElementType();
                 xTypeInfo = xType.GetTypeInfo();
