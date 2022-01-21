@@ -7,42 +7,40 @@ using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 using EmitMapper.Utils;
 
-namespace EmitMapper.Benchmarks
+namespace EmitMapper.Benchmarks;
+
+public class Employee
 {
+  public Employee() { }
 
-  public class Employee
+}
+
+[SimpleJob(RuntimeMoniker.Net60, baseline: true)]
+[MemoryDiagnoser]
+public class TypeBenchmark
+{
+  private Employee e;
+  [GlobalSetup]
+  public void Setup()
   {
-    public Employee() { }
-
+    e = new Employee();
   }
-
-  [SimpleJob(RuntimeMoniker.Net60, baseline: true)]
-  [MemoryDiagnoser]
-  public class TypeBenchmark
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public Type Of_typeof()
   {
-    private Employee e;
-    [GlobalSetup]
-    public void Setup()
-    {
-      e = new Employee();
-    }
-    [Benchmark(OperationsPerInvoke = IterationCount)]
-    public Type Of_typeof()
-    {
-      return typeof(Employee);
-    }
-    [Benchmark(OperationsPerInvoke = IterationCount)]
-    public Type Of_GetType()
-    {
-      return e.GetType();
-    }
-    [Benchmark(OperationsPerInvoke = IterationCount)]
-    public Type Of_Metadata()
-    {
-      return Metadata<Employee>.Type;
-    }
-    private const int IterationCount = 1_000;
+    return typeof(Employee);
   }
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public Type Of_GetType()
+  {
+    return e.GetType();
+  }
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public Type Of_Metadata()
+  {
+    return Metadata<Employee>.Type;
+  }
+  private const int IterationCount = 1_000;
 }
 
 

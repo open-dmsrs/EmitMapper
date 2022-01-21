@@ -10,7 +10,7 @@ namespace EmitMapper.Utils;
 /// <summary>
 ///   Contains cached reflection information for easy retrieval
 /// </summary>
-[DebuggerDisplay("{Type}")]
+[DebuggerDisplay("{" + nameof(Type) + "}")]
 [EditorBrowsable(EditorBrowsableState.Never)]
 public class TypeDetails
 {
