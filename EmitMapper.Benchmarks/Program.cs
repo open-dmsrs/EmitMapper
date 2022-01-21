@@ -17,7 +17,7 @@ public static class Program
     var r = new MapperBenchmark();
     r.Setup();
 
-    foreach (var i in Enumerable.Range(1, 1000))
+    foreach (var i in Enumerable.Range(1, 100_000))
     {
       r.EmitMapper_SimpleList1000();
     }

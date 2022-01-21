@@ -137,8 +137,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 
   public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
   {
-    return FilterOperations(from, to, GetMappingItems(new HashSet<TypesPair>(), from, to, null, null))
-      ;
+    return FilterOperations(from, to, GetMappingItems(new HashSet<TypesPair>(), from, to, null, null));
   }
 
   public override IRootMappingOperation GetRootMappingOperation(Type from, Type to)
@@ -148,11 +147,11 @@ public class DefaultMapConfig : MapConfigBaseImpl
     return res;
   }
 
-  private string configName;
+  private string _configName;
 
   public override string GetConfigurationName()
   {
-    return configName ??= base.GetConfigurationName() + new[]
+    return _configName ??= base.GetConfigurationName() + new[]
     {
       _shallowCopy.ToString(),
       ToStr(_membersMatcher),

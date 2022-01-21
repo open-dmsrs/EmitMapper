@@ -212,41 +212,40 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     Type to,
     IEnumerable<IMappingOperation> operations)
   {
-    var result = new List<IMappingOperation>();
-    foreach (var op in operations)
-    {
-      if (op is IReadWriteOperation readwrite)
+    return operations.Select(
+      op =>
       {
-        if (TestIgnore(from, to, readwrite.Source, readwrite.Destination))
-          continue;
 
-        readwrite.NullSubstitutor =
-          _nullSubstitutors.GetValue(new[] { readwrite.Source.MemberType, readwrite.Destination.MemberType });
-        readwrite.TargetConstructor = _customConstructors.GetValue(new[] { readwrite.Destination.MemberType });
-        readwrite.Converter =
-          _customConverters.GetValue(new[] { readwrite.Source.MemberType, readwrite.Destination.MemberType }) ??
-          GetGenericConverter(readwrite.Source.MemberType, readwrite.Destination.MemberType);
-        readwrite.DestinationFilter = _destinationFilters.GetValue(new[] { readwrite.Destination.MemberType });
-        readwrite.SourceFilter = _sourceFilters.GetValue(new[] { readwrite.Source.MemberType });
-      }
+        if (op is IReadWriteOperation readwrite)
+        {
+          if (TestIgnore(from, to, readwrite.Source, readwrite.Destination))
+            return null;
 
-      if (op is ReadWriteComplex readWriteComplex)
-        readWriteComplex.ValuesPostProcessor =
-          _postProcessors.GetValue(new[] { readWriteComplex.Destination.MemberType });
+          readwrite.NullSubstitutor =
+            _nullSubstitutors.GetValue(new[] { readwrite.Source.MemberType, readwrite.Destination.MemberType });
+          readwrite.TargetConstructor = _customConstructors.GetValue(new[] { readwrite.Destination.MemberType });
+          readwrite.Converter =
+            _customConverters.GetValue(new[] { readwrite.Source.MemberType, readwrite.Destination.MemberType }) ??
+            GetGenericConverter(readwrite.Source.MemberType, readwrite.Destination.MemberType);
+          readwrite.DestinationFilter = _destinationFilters.GetValue(new[] { readwrite.Destination.MemberType });
+          readwrite.SourceFilter = _sourceFilters.GetValue(new[] { readwrite.Source.MemberType });
+        }
 
-      if (op is IComplexOperation complexOperation)
-      {
-        var orw = complexOperation as IReadWriteOperation;
-        complexOperation.Operations = FilterOperations(
-          orw == null ? from : orw.Source.MemberType,
-          orw == null ? to : orw.Destination.MemberType,
-          complexOperation.Operations).ToList();
-      }
+        if (op is ReadWriteComplex readWriteComplex)
+          readWriteComplex.ValuesPostProcessor =
+            _postProcessors.GetValue(new[] { readWriteComplex.Destination.MemberType });
 
-      result.Add(op);
-    }
+        if (op is IComplexOperation complexOperation)
+        {
+          var orw = complexOperation as IReadWriteOperation;
+          complexOperation.Operations = FilterOperations(
+            orw == null ? from : orw.Source.MemberType,
+            orw == null ? to : orw.Destination.MemberType,
+            complexOperation.Operations).ToList();
+        }
 
-    return result;
+        return op;
+      }).Where(x => x != null);
   }
 
   private Delegate GetGenericConverter(Type from, Type to)

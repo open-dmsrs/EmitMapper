@@ -41,22 +41,18 @@ public static class ReflectionHelper
       type => type.IsGenericType && type.GetGenericTypeDefinitionCache() == Metadata.Nullable1);
   }
 
+  private static readonly LazyConcurrentDictionary<Type, MemberInfo[]> allMemberInfo = new();
+
   /// <summary>
   ///   Fixed: Get Full hierarchy with all parent interfaces members.
   /// </summary>
-  public static IEnumerable<MemberInfo> GetPublicFieldsAndProperties(Type type)
+  public static IEnumerable<MemberInfo> GetPublicFieldsAndProperties(Type t)
   {
-    var result = type.GetMembers(BindingFlags.Instance | BindingFlags.Public).Where(
-      mi => mi.MemberType == MemberTypes.Property || mi.MemberType == MemberTypes.Field).ToList();
 
-    var interfaces = type.GetInterfacesCache();
-    foreach (var iface in interfaces)
-    {
-      var ifaceResult = GetPublicFieldsAndProperties(iface);
-      result.AddRange(ifaceResult);
-    }
+    return allMemberInfo.GetOrAdd(t, type => type.GetMembers(BindingFlags.Instance | BindingFlags.Public).Where(
+         mi => mi.MemberType == MemberTypes.Property || mi.MemberType == MemberTypes.Field)
+       .Concat(type.GetInterfacesCache().SelectMany(face => GetPublicFieldsAndProperties(face))).ToArray());
 
-    return result;
   }
 
   public static MatchedMember[] GetCommonMembers(Type first, Type second, Func<string, string, bool> matcher)

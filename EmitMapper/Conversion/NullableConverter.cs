@@ -633,7 +633,7 @@ public class NullableConverter
 
   public static short ToInt16(char? par)
   {
-    return Convert.ToInt16(par.Value);
+    return par.HasValue ? Convert.ToInt16(par.Value) : default;
   }
 
   public static short? ToInt16(sbyte par)
@@ -643,7 +643,7 @@ public class NullableConverter
 
   public static short ToInt16(sbyte? par)
   {
-    return Convert.ToInt16(par.Value);
+    return par.HasValue ? Convert.ToInt16(par.Value) : default;
   }
 
   public static short? ToInt16(byte par)
@@ -653,7 +653,7 @@ public class NullableConverter
 
   public static short ToInt16(byte? par)
   {
-    return Convert.ToInt16(par.Value);
+    return par.HasValue ? Convert.ToInt16(par.Value) : default;
   }
 
   public static short? ToInt16(ushort par)
@@ -663,7 +663,7 @@ public class NullableConverter
 
   public static short ToInt16(ushort? par)
   {
-    return Convert.ToInt16(par.Value);
+    return par.HasValue ? Convert.ToInt16(par.Value) : default;
   }
 
   public static short? ToInt16(int par)
@@ -673,7 +673,7 @@ public class NullableConverter
 
   public static short ToInt16(int? par)
   {
-    return Convert.ToInt16(par.Value);
+    return par.HasValue ? Convert.ToInt16(par.Value) : default;
   }
 
   public static short? ToInt16(uint par)
@@ -683,7 +683,7 @@ public class NullableConverter
 
   public static short ToInt16(uint? par)
   {
-    return Convert.ToInt16(par.Value);
+    return par.HasValue ? Convert.ToInt16(par.Value) : default;
   }
 
   public static short? ToInt16(short par)
@@ -693,7 +693,7 @@ public class NullableConverter
 
   public static short ToInt16(short? par)
   {
-    return Convert.ToInt16(par.Value);
+    return par.HasValue ? Convert.ToInt16(par.Value) : default;
   }
 
   public static short? ToInt16(long par)
@@ -703,7 +703,7 @@ public class NullableConverter
 
   public static short ToInt16(long? par)
   {
-    return Convert.ToInt16(par.Value);
+    return par.HasValue ? Convert.ToInt16(par.Value) : default;
   }
 
   public static short? ToInt16(ulong par)
@@ -713,7 +713,7 @@ public class NullableConverter
 
   public static short ToInt16(ulong? par)
   {
-    return Convert.ToInt16(par.Value);
+    return par.HasValue ? Convert.ToInt16(par.Value) : default;
   }
 
   public static short? ToInt16(float par)
@@ -723,7 +723,7 @@ public class NullableConverter
 
   public static short ToInt16(float? par)
   {
-    return Convert.ToInt16(par.Value);
+    return par.HasValue ? Convert.ToInt16(par.Value) : default;
   }
 
   public static short? ToInt16(double par)
@@ -733,7 +733,7 @@ public class NullableConverter
 
   public static short ToInt16(double? par)
   {
-    return Convert.ToInt16(par.Value);
+    return par.HasValue ? Convert.ToInt16(par.Value) : default;
   }
 
   public static short? ToInt16(decimal par)
@@ -743,7 +743,7 @@ public class NullableConverter
 
   public static short ToInt16(decimal? par)
   {
-    return Convert.ToInt16(par.Value);
+    return par.HasValue ? Convert.ToInt16(par.Value) : default;
   }
 
   public static short? ToInt16(string par)
@@ -758,7 +758,7 @@ public class NullableConverter
 
   public static short ToInt16(DateTime? par)
   {
-    return Convert.ToInt16(par.Value);
+    return par.HasValue ? Convert.ToInt16(par.Value) : default;
   }
 
   public static ushort? ToUInt16(object par)
@@ -773,7 +773,7 @@ public class NullableConverter
 
   public static ushort ToUInt16(bool? par)
   {
-    return Convert.ToUInt16(par.Value);
+    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
   }
 
   public static ushort? ToUInt16(char par)
@@ -783,7 +783,7 @@ public class NullableConverter
 
   public static ushort ToUInt16(char? par)
   {
-    return Convert.ToUInt16(par.Value);
+    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
   }
 
   public static ushort? ToUInt16(sbyte par)
@@ -793,7 +793,7 @@ public class NullableConverter
 
   public static ushort ToUInt16(sbyte? par)
   {
-    return Convert.ToUInt16(par.Value);
+    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
   }
 
   public static ushort? ToUInt16(byte par)
@@ -803,7 +803,7 @@ public class NullableConverter
 
   public static ushort ToUInt16(byte? par)
   {
-    return Convert.ToUInt16(par.Value);
+    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
   }
 
   public static ushort? ToUInt16(short par)
@@ -813,7 +813,7 @@ public class NullableConverter
 
   public static ushort ToUInt16(short? par)
   {
-    return Convert.ToUInt16(par.Value);
+    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
   }
 
   public static ushort? ToUInt16(int par)
@@ -823,7 +823,7 @@ public class NullableConverter
 
   public static ushort ToUInt16(int? par)
   {
-    return Convert.ToUInt16(par.Value);
+    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
   }
 
   public static ushort? ToUInt16(ushort par)
@@ -833,7 +833,7 @@ public class NullableConverter
 
   public static ushort ToUInt16(ushort? par)
   {
-    return Convert.ToUInt16(par.Value);
+    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
   }
 
   public static ushort? ToUInt16(uint par)
@@ -843,7 +843,7 @@ public class NullableConverter
 
   public static ushort ToUInt16(uint? par)
   {
-    return Convert.ToUInt16(par.Value);
+    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
   }
 
   public static ushort? ToUInt16(long par)
@@ -853,7 +853,7 @@ public class NullableConverter
 
   public static ushort ToUInt16(long? par)
   {
-    return Convert.ToUInt16(par.Value);
+    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
   }
 
   public static ushort? ToUInt16(ulong par)
@@ -863,7 +863,7 @@ public class NullableConverter
 
   public static ushort ToUInt16(ulong? par)
   {
-    return Convert.ToUInt16(par.Value);
+    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
   }
 
   public static ushort? ToUInt16(float par)
@@ -873,7 +873,7 @@ public class NullableConverter
 
   public static ushort ToUInt16(float? par)
   {
-    return Convert.ToUInt16(par.Value);
+    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
   }
 
   public static ushort? ToUInt16(double par)
@@ -883,7 +883,7 @@ public class NullableConverter
 
   public static ushort ToUInt16(double? par)
   {
-    return Convert.ToUInt16(par.Value);
+    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
   }
 
   public static ushort? ToUInt16(decimal par)
@@ -893,7 +893,7 @@ public class NullableConverter
 
   public static ushort ToUInt16(decimal? par)
   {
-    return Convert.ToUInt16(par.Value);
+    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
   }
 
   public static ushort? ToUInt16(string par)
@@ -908,7 +908,7 @@ public class NullableConverter
 
   public static ushort ToUInt16(DateTime? par)
   {
-    return Convert.ToUInt16(par.Value);
+    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
   }
 
   public static int? ToInt32(object par)
@@ -923,7 +923,7 @@ public class NullableConverter
 
   public static int ToInt32(bool? par)
   {
-    return Convert.ToInt32(par.Value);
+    return par.HasValue ? Convert.ToInt32(par.Value) : default;
   }
 
   public static int? ToInt32(char par)
@@ -933,7 +933,7 @@ public class NullableConverter
 
   public static int ToInt32(char? par)
   {
-    return Convert.ToInt32(par.Value);
+    return par.HasValue ? Convert.ToInt32(par.Value) : default;
   }
 
   public static int? ToInt32(sbyte par)
@@ -943,7 +943,7 @@ public class NullableConverter
 
   public static int ToInt32(sbyte? par)
   {
-    return Convert.ToInt32(par.Value);
+    return par.HasValue ? Convert.ToInt32(par.Value) : default;
   }
 
   public static int? ToInt32(byte par)
@@ -953,7 +953,7 @@ public class NullableConverter
 
   public static int ToInt32(byte? par)
   {
-    return Convert.ToInt32(par.Value);
+    return par.HasValue ? Convert.ToInt32(par.Value) : default;
   }
 
   public static int? ToInt32(short par)
@@ -963,7 +963,7 @@ public class NullableConverter
 
   public static int ToInt32(short? par)
   {
-    return Convert.ToInt32(par.Value);
+    return par.HasValue ? Convert.ToInt32(par.Value) : default;
   }
 
   public static int? ToInt32(ushort par)
@@ -973,7 +973,7 @@ public class NullableConverter
 
   public static int ToInt32(ushort? par)
   {
-    return Convert.ToInt32(par.Value);
+    return par.HasValue ? Convert.ToInt32(par.Value) : default;
   }
 
   public static int? ToInt32(uint par)
@@ -983,7 +983,7 @@ public class NullableConverter
 
   public static int ToInt32(uint? par)
   {
-    return Convert.ToInt32(par.Value);
+    return par.HasValue ? Convert.ToInt32(par.Value) : default;
   }
 
   public static int? ToInt32(int par)
@@ -993,7 +993,7 @@ public class NullableConverter
 
   public static int ToInt32(int? par)
   {
-    return Convert.ToInt32(par.Value);
+    return par.HasValue ? Convert.ToInt32(par.Value) : default;
   }
 
   public static int? ToInt32(long par)
@@ -1003,7 +1003,7 @@ public class NullableConverter
 
   public static int ToInt32(long? par)
   {
-    return Convert.ToInt32(par.Value);
+    return par.HasValue ? Convert.ToInt32(par.Value) : default;
   }
 
   public static int? ToInt32(ulong par)
@@ -1013,7 +1013,7 @@ public class NullableConverter
 
   public static int ToInt32(ulong? par)
   {
-    return Convert.ToInt32(par.Value);
+    return par.HasValue ? Convert.ToInt32(par.Value) : default;
   }
 
   public static int? ToInt32(float par)
@@ -1023,7 +1023,7 @@ public class NullableConverter
 
   public static int ToInt32(float? par)
   {
-    return Convert.ToInt32(par.Value);
+    return par.HasValue ? Convert.ToInt32(par.Value) : default;
   }
 
   public static int? ToInt32(double par)
@@ -1033,7 +1033,7 @@ public class NullableConverter
 
   public static int ToInt32(double? par)
   {
-    return Convert.ToInt32(par.Value);
+    return par.HasValue ? Convert.ToInt32(par.Value) : default;
   }
 
   public static int? ToInt32(decimal par)
@@ -1043,7 +1043,7 @@ public class NullableConverter
 
   public static int ToInt32(decimal? par)
   {
-    return Convert.ToInt32(par.Value);
+    return par.HasValue ? Convert.ToInt32(par.Value) : 0;
   }
 
   public static int? ToInt32(string par)
@@ -1058,7 +1058,7 @@ public class NullableConverter
 
   public static int ToInt32(DateTime? par)
   {
-    return Convert.ToInt32(par.Value);
+    return par.HasValue ? Convert.ToInt32(par.Value) : default;
   }
 
   public static uint? ToUInt32(object par)
@@ -1073,7 +1073,7 @@ public class NullableConverter
 
   public static uint ToUInt32(bool? par)
   {
-    return Convert.ToUInt32(par.Value);
+    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
   }
 
   public static uint? ToUInt32(char par)
@@ -1083,7 +1083,7 @@ public class NullableConverter
 
   public static uint ToUInt32(char? par)
   {
-    return Convert.ToUInt32(par.Value);
+    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
   }
 
   public static uint? ToUInt32(sbyte par)
@@ -1093,7 +1093,7 @@ public class NullableConverter
 
   public static uint ToUInt32(sbyte? par)
   {
-    return Convert.ToUInt32(par.Value);
+    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
   }
 
   public static uint? ToUInt32(byte par)
@@ -1103,7 +1103,7 @@ public class NullableConverter
 
   public static uint ToUInt32(byte? par)
   {
-    return Convert.ToUInt32(par.Value);
+    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
   }
 
   public static uint? ToUInt32(short par)
@@ -1113,7 +1113,7 @@ public class NullableConverter
 
   public static uint ToUInt32(short? par)
   {
-    return Convert.ToUInt32(par.Value);
+    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
   }
 
   public static uint? ToUInt32(ushort par)
@@ -1123,7 +1123,7 @@ public class NullableConverter
 
   public static uint ToUInt32(ushort? par)
   {
-    return Convert.ToUInt32(par.Value);
+    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
   }
 
   public static uint? ToUInt32(int par)
@@ -1133,7 +1133,7 @@ public class NullableConverter
 
   public static uint ToUInt32(int? par)
   {
-    return Convert.ToUInt32(par.Value);
+    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
   }
 
   public static uint? ToUInt32(uint par)
@@ -1143,7 +1143,7 @@ public class NullableConverter
 
   public static uint ToUInt32(uint? par)
   {
-    return Convert.ToUInt32(par.Value);
+    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
   }
 
   public static uint? ToUInt32(long par)
@@ -1153,7 +1153,7 @@ public class NullableConverter
 
   public static uint ToUInt32(long? par)
   {
-    return Convert.ToUInt32(par.Value);
+    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
   }
 
   public static uint? ToUInt32(ulong par)
@@ -1163,7 +1163,7 @@ public class NullableConverter
 
   public static uint ToUInt32(ulong? par)
   {
-    return Convert.ToUInt32(par.Value);
+    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
   }
 
   public static uint? ToUInt32(float par)
@@ -1173,7 +1173,7 @@ public class NullableConverter
 
   public static uint ToUInt32(float? par)
   {
-    return Convert.ToUInt32(par.Value);
+    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
   }
 
   public static uint? ToUInt32(double par)
@@ -1183,7 +1183,7 @@ public class NullableConverter
 
   public static uint ToUInt32(double? par)
   {
-    return Convert.ToUInt32(par.Value);
+    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
   }
 
   public static uint? ToUInt32(decimal par)
@@ -1193,7 +1193,7 @@ public class NullableConverter
 
   public static uint ToUInt32(decimal? par)
   {
-    return Convert.ToUInt32(par.Value);
+    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
   }
 
   public static uint? ToUInt32(string par)
@@ -1208,7 +1208,7 @@ public class NullableConverter
 
   public static uint ToUInt32(DateTime? par)
   {
-    return Convert.ToUInt32(par.Value);
+    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
   }
 
   public static long? ToInt64(object par)
@@ -1223,7 +1223,7 @@ public class NullableConverter
 
   public static long ToInt64(bool? par)
   {
-    return Convert.ToInt64(par.Value);
+    return par.HasValue ? Convert.ToInt64(par.Value) : default;
   }
 
   public static long? ToInt64(char par)
@@ -1233,7 +1233,7 @@ public class NullableConverter
 
   public static long ToInt64(char? par)
   {
-    return Convert.ToInt64(par.Value);
+    return par.HasValue ? Convert.ToInt64(par.Value) : default;
   }
 
   public static long? ToInt64(sbyte par)
@@ -1243,7 +1243,7 @@ public class NullableConverter
 
   public static long ToInt64(sbyte? par)
   {
-    return Convert.ToInt64(par.Value);
+    return par.HasValue ? Convert.ToInt64(par.Value) : default;
   }
 
   public static long? ToInt64(byte par)
@@ -1253,7 +1253,7 @@ public class NullableConverter
 
   public static long ToInt64(byte? par)
   {
-    return Convert.ToInt64(par.Value);
+    return par.HasValue ? Convert.ToInt64(par.Value) : default;
   }
 
   public static long? ToInt64(short par)
@@ -1263,7 +1263,7 @@ public class NullableConverter
 
   public static long ToInt64(short? par)
   {
-    return Convert.ToInt64(par.Value);
+    return par.HasValue ? Convert.ToInt64(par.Value) : default;
   }
 
   public static long? ToInt64(ushort par)
@@ -1273,7 +1273,7 @@ public class NullableConverter
 
   public static long ToInt64(ushort? par)
   {
-    return Convert.ToInt64(par.Value);
+    return par.HasValue ? Convert.ToInt64(par.Value) : default;
   }
 
   public static long? ToInt64(int par)
@@ -1283,7 +1283,7 @@ public class NullableConverter
 
   public static long ToInt64(int? par)
   {
-    return Convert.ToInt64(par.Value);
+    return par.HasValue ? Convert.ToInt64(par.Value) : default;
   }
 
   public static long? ToInt64(uint par)
@@ -1293,7 +1293,7 @@ public class NullableConverter
 
   public static long ToInt64(uint? par)
   {
-    return Convert.ToInt64(par.Value);
+    return par.HasValue ? Convert.ToInt64(par.Value) : default;
   }
 
   public static long? ToInt64(ulong par)
@@ -1303,7 +1303,7 @@ public class NullableConverter
 
   public static long ToInt64(ulong? par)
   {
-    return Convert.ToInt64(par.Value);
+    return par.HasValue ? Convert.ToInt64(par.Value) : default;
   }
 
   public static long? ToInt64(long par)
@@ -1313,7 +1313,7 @@ public class NullableConverter
 
   public static long ToInt64(long? par)
   {
-    return Convert.ToInt64(par.Value);
+    return par.HasValue ? Convert.ToInt64(par.Value) : default;
   }
 
   public static long? ToInt64(float par)
@@ -1323,7 +1323,7 @@ public class NullableConverter
 
   public static long ToInt64(float? par)
   {
-    return Convert.ToInt64(par.Value);
+    return par.HasValue ? Convert.ToInt64(par.Value) : default;
   }
 
   public static long? ToInt64(double par)
@@ -1333,7 +1333,7 @@ public class NullableConverter
 
   public static long ToInt64(double? par)
   {
-    return Convert.ToInt64(par.Value);
+    return par.HasValue ? Convert.ToInt64(par.Value) : default;
   }
 
   public static long? ToInt64(decimal par)
@@ -1343,7 +1343,7 @@ public class NullableConverter
 
   public static long ToInt64(decimal? par)
   {
-    return Convert.ToInt64(par.Value);
+    return par.HasValue ? Convert.ToInt64(par.Value) : default;
   }
 
   public static long? ToInt64(string par)
@@ -1358,7 +1358,7 @@ public class NullableConverter
 
   public static long ToInt64(DateTime? par)
   {
-    return Convert.ToInt64(par.Value);
+    return par.HasValue ? Convert.ToInt64(par.Value) : default;
   }
 
   public static ulong? ToUInt64(object par)
@@ -1373,7 +1373,7 @@ public class NullableConverter
 
   public static ulong ToUInt64(bool? par)
   {
-    return Convert.ToUInt64(par.Value);
+    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
   }
 
   public static ulong? ToUInt64(char par)
@@ -1383,7 +1383,7 @@ public class NullableConverter
 
   public static ulong ToUInt64(char? par)
   {
-    return Convert.ToUInt64(par.Value);
+    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
   }
 
   public static ulong? ToUInt64(sbyte par)
@@ -1393,7 +1393,7 @@ public class NullableConverter
 
   public static ulong ToUInt64(sbyte? par)
   {
-    return Convert.ToUInt64(par.Value);
+    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
   }
 
   public static ulong? ToUInt64(byte par)
@@ -1403,7 +1403,7 @@ public class NullableConverter
 
   public static ulong ToUInt64(byte? par)
   {
-    return Convert.ToUInt64(par.Value);
+    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
   }
 
   public static ulong? ToUInt64(short par)
@@ -1413,7 +1413,7 @@ public class NullableConverter
 
   public static ulong ToUInt64(short? par)
   {
-    return Convert.ToUInt64(par.Value);
+    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
   }
 
   public static ulong? ToUInt64(ushort par)
@@ -1423,7 +1423,7 @@ public class NullableConverter
 
   public static ulong ToUInt64(ushort? par)
   {
-    return Convert.ToUInt64(par.Value);
+    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
   }
 
   public static ulong? ToUInt64(int par)
@@ -1433,7 +1433,7 @@ public class NullableConverter
 
   public static ulong ToUInt64(int? par)
   {
-    return Convert.ToUInt64(par.Value);
+    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
   }
 
   public static ulong? ToUInt64(uint par)
@@ -1443,7 +1443,7 @@ public class NullableConverter
 
   public static ulong ToUInt64(uint? par)
   {
-    return Convert.ToUInt64(par.Value);
+    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
   }
 
   public static ulong? ToUInt64(long par)
@@ -1453,7 +1453,7 @@ public class NullableConverter
 
   public static ulong ToUInt64(long? par)
   {
-    return Convert.ToUInt64(par.Value);
+    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
   }
 
   public static ulong? ToUInt64(ulong par)
@@ -1463,7 +1463,7 @@ public class NullableConverter
 
   public static ulong ToUInt64(ulong? par)
   {
-    return Convert.ToUInt64(par.Value);
+    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
   }
 
   public static ulong? ToUInt64(float par)
@@ -1473,7 +1473,7 @@ public class NullableConverter
 
   public static ulong ToUInt64(float? par)
   {
-    return Convert.ToUInt64(par.Value);
+    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
   }
 
   public static ulong? ToUInt64(double par)
@@ -1483,7 +1483,7 @@ public class NullableConverter
 
   public static ulong ToUInt64(double? par)
   {
-    return Convert.ToUInt64(par.Value);
+    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
   }
 
   public static ulong? ToUInt64(decimal par)
@@ -1493,7 +1493,7 @@ public class NullableConverter
 
   public static ulong ToUInt64(decimal? par)
   {
-    return Convert.ToUInt64(par.Value);
+    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
   }
 
   public static ulong? ToUInt64(string par)
@@ -1508,7 +1508,7 @@ public class NullableConverter
 
   public static ulong ToUInt64(DateTime? par)
   {
-    return Convert.ToUInt64(par.Value);
+    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
   }
 
   public static float? ToSingle(object par)
@@ -1523,7 +1523,7 @@ public class NullableConverter
 
   public static float ToSingle(sbyte? par)
   {
-    return Convert.ToSingle(par.Value);
+    return par.HasValue ? Convert.ToSingle(par.Value) : default;
   }
 
   public static float? ToSingle(byte par)
@@ -1533,7 +1533,7 @@ public class NullableConverter
 
   public static float ToSingle(byte? par)
   {
-    return Convert.ToSingle(par.Value);
+    return par.HasValue ? Convert.ToSingle(par.Value) : default;
   }
 
   public static float? ToSingle(char par)
@@ -1543,7 +1543,7 @@ public class NullableConverter
 
   public static float ToSingle(char? par)
   {
-    return Convert.ToSingle(par.Value);
+    return par.HasValue ? Convert.ToSingle(par.Value) : default;
   }
 
   public static float? ToSingle(short par)
@@ -1553,7 +1553,7 @@ public class NullableConverter
 
   public static float ToSingle(short? par)
   {
-    return Convert.ToSingle(par.Value);
+    return par.HasValue ? Convert.ToSingle(par.Value) : default;
   }
 
   public static float? ToSingle(ushort par)
@@ -1563,7 +1563,7 @@ public class NullableConverter
 
   public static float ToSingle(ushort? par)
   {
-    return Convert.ToSingle(par.Value);
+    return par.HasValue ? Convert.ToSingle(par.Value) : default;
   }
 
   public static float? ToSingle(int par)
@@ -1573,7 +1573,7 @@ public class NullableConverter
 
   public static float ToSingle(int? par)
   {
-    return Convert.ToSingle(par.Value);
+    return par.HasValue ? Convert.ToSingle(par.Value) : default;
   }
 
   public static float? ToSingle(uint par)
@@ -1583,7 +1583,7 @@ public class NullableConverter
 
   public static float ToSingle(uint? par)
   {
-    return Convert.ToSingle(par.Value);
+    return par.HasValue ? Convert.ToSingle(par.Value) : default;
   }
 
   public static float? ToSingle(long par)
@@ -1593,7 +1593,7 @@ public class NullableConverter
 
   public static float ToSingle(long? par)
   {
-    return Convert.ToSingle(par.Value);
+    return par.HasValue ? Convert.ToSingle(par.Value) : default;
   }
 
   public static float? ToSingle(ulong par)
@@ -1603,7 +1603,7 @@ public class NullableConverter
 
   public static float ToSingle(ulong? par)
   {
-    return Convert.ToSingle(par.Value);
+    return par.HasValue ? Convert.ToSingle(par.Value) : default;
   }
 
   public static float? ToSingle(float par)
@@ -1613,7 +1613,7 @@ public class NullableConverter
 
   public static float ToSingle(float? par)
   {
-    return Convert.ToSingle(par.Value);
+    return par.HasValue ? Convert.ToSingle(par.Value) : default;
   }
 
   public static float? ToSingle(double par)
@@ -1623,7 +1623,7 @@ public class NullableConverter
 
   public static float ToSingle(double? par)
   {
-    return Convert.ToSingle(par.Value);
+    return par.HasValue ? Convert.ToSingle(par.Value) : default;
   }
 
   public static float? ToSingle(decimal par)
@@ -1633,7 +1633,7 @@ public class NullableConverter
 
   public static float ToSingle(decimal? par)
   {
-    return Convert.ToSingle(par.Value);
+    return par.HasValue ? Convert.ToSingle(par.Value) : default;
   }
 
   public static float? ToSingle(string par)
@@ -1648,7 +1648,7 @@ public class NullableConverter
 
   public static float ToSingle(bool? par)
   {
-    return Convert.ToSingle(par.Value);
+    return par.HasValue ? Convert.ToSingle(par.Value) : default;
   }
 
   public static float? ToSingle(DateTime par)
@@ -1658,7 +1658,7 @@ public class NullableConverter
 
   public static float ToSingle(DateTime? par)
   {
-    return Convert.ToSingle(par.Value);
+    return par.HasValue ? Convert.ToSingle(par.Value) : default;
   }
 
   public static double? ToDouble(object par)
@@ -1673,7 +1673,7 @@ public class NullableConverter
 
   public static double ToDouble(sbyte? par)
   {
-    return Convert.ToDouble(par.Value);
+    return par.HasValue ? Convert.ToDouble(par.Value) : default;
   }
 
   public static double? ToDouble(byte par)
@@ -1683,7 +1683,7 @@ public class NullableConverter
 
   public static double ToDouble(byte? par)
   {
-    return Convert.ToDouble(par.Value);
+    return par.HasValue ? Convert.ToDouble(par.Value) : default;
   }
 
   public static double? ToDouble(short par)
@@ -1693,7 +1693,7 @@ public class NullableConverter
 
   public static double ToDouble(short? par)
   {
-    return Convert.ToDouble(par.Value);
+    return par.HasValue ? Convert.ToDouble(par.Value) : default;
   }
 
   public static double? ToDouble(char par)
@@ -1703,7 +1703,7 @@ public class NullableConverter
 
   public static double ToDouble(char? par)
   {
-    return Convert.ToDouble(par.Value);
+    return par.HasValue ? Convert.ToDouble(par.Value) : default;
   }
 
   public static double? ToDouble(ushort par)
@@ -1713,7 +1713,7 @@ public class NullableConverter
 
   public static double ToDouble(ushort? par)
   {
-    return Convert.ToDouble(par.Value);
+    return par.HasValue ? Convert.ToDouble(par.Value) : default;
   }
 
   public static double? ToDouble(int par)
@@ -1723,7 +1723,7 @@ public class NullableConverter
 
   public static double ToDouble(int? par)
   {
-    return Convert.ToDouble(par.Value);
+    return par.HasValue ? Convert.ToDouble(par.Value) : default;
   }
 
   public static double? ToDouble(uint par)
@@ -1733,7 +1733,7 @@ public class NullableConverter
 
   public static double ToDouble(uint? par)
   {
-    return Convert.ToDouble(par.Value);
+    return par.HasValue ? Convert.ToDouble(par.Value) : default;
   }
 
   public static double? ToDouble(long par)
@@ -1743,7 +1743,7 @@ public class NullableConverter
 
   public static double ToDouble(long? par)
   {
-    return Convert.ToDouble(par.Value);
+    return par.HasValue ? Convert.ToDouble(par.Value) : default;
   }
 
   public static double? ToDouble(ulong par)
@@ -1753,7 +1753,7 @@ public class NullableConverter
 
   public static double ToDouble(ulong? par)
   {
-    return Convert.ToDouble(par.Value);
+    return par.HasValue ? Convert.ToDouble(par.Value) : default;
   }
 
   public static double? ToDouble(float par)
@@ -1763,7 +1763,7 @@ public class NullableConverter
 
   public static double ToDouble(float? par)
   {
-    return Convert.ToDouble(par.Value);
+    return par.HasValue ? Convert.ToDouble(par.Value) : default;
   }
 
   public static double? ToDouble(double par)
@@ -1773,7 +1773,7 @@ public class NullableConverter
 
   public static double ToDouble(double? par)
   {
-    return Convert.ToDouble(par.Value);
+    return par.HasValue ? Convert.ToDouble(par.Value) : default;
   }
 
   public static double? ToDouble(decimal par)
@@ -1783,7 +1783,7 @@ public class NullableConverter
 
   public static double ToDouble(decimal? par)
   {
-    return Convert.ToDouble(par.Value);
+    return par.HasValue ? Convert.ToDouble(par.Value) : default;
   }
 
   public static double? ToDouble(string par)
@@ -1798,7 +1798,7 @@ public class NullableConverter
 
   public static double ToDouble(bool? par)
   {
-    return Convert.ToDouble(par.Value);
+    return par.HasValue ? Convert.ToDouble(par.Value) : default;
   }
 
   public static double? ToDouble(DateTime par)
@@ -1808,7 +1808,7 @@ public class NullableConverter
 
   public static double ToDouble(DateTime? par)
   {
-    return Convert.ToDouble(par.Value);
+    return par.HasValue ? Convert.ToDouble(par.Value) : default;
   }
 
   public static decimal? ToDecimal(object par)
@@ -1823,7 +1823,7 @@ public class NullableConverter
 
   public static decimal ToDecimal(sbyte? par)
   {
-    return Convert.ToDecimal(par.Value);
+    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
   }
 
   public static decimal? ToDecimal(byte par)
@@ -1833,7 +1833,7 @@ public class NullableConverter
 
   public static decimal ToDecimal(byte? par)
   {
-    return Convert.ToDecimal(par.Value);
+    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
   }
 
   public static decimal? ToDecimal(char par)
@@ -1843,7 +1843,7 @@ public class NullableConverter
 
   public static decimal ToDecimal(char? par)
   {
-    return Convert.ToDecimal(par.Value);
+    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
   }
 
   public static decimal? ToDecimal(short par)
@@ -1853,7 +1853,7 @@ public class NullableConverter
 
   public static decimal ToDecimal(short? par)
   {
-    return Convert.ToDecimal(par.Value);
+    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
   }
 
   public static decimal? ToDecimal(ushort par)
@@ -1863,7 +1863,7 @@ public class NullableConverter
 
   public static decimal ToDecimal(ushort? par)
   {
-    return Convert.ToDecimal(par.Value);
+    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
   }
 
   public static decimal? ToDecimal(int par)
@@ -1873,7 +1873,7 @@ public class NullableConverter
 
   public static decimal ToDecimal(int? par)
   {
-    return Convert.ToDecimal(par.Value);
+    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
   }
 
   public static decimal? ToDecimal(uint par)
@@ -1883,7 +1883,7 @@ public class NullableConverter
 
   public static decimal ToDecimal(uint? par)
   {
-    return Convert.ToDecimal(par.Value);
+    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
   }
 
   public static decimal? ToDecimal(long par)
@@ -1893,7 +1893,7 @@ public class NullableConverter
 
   public static decimal ToDecimal(long? par)
   {
-    return Convert.ToDecimal(par.Value);
+    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
   }
 
   public static decimal? ToDecimal(ulong par)
@@ -1903,7 +1903,7 @@ public class NullableConverter
 
   public static decimal ToDecimal(ulong? par)
   {
-    return Convert.ToDecimal(par.Value);
+    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
   }
 
   public static decimal? ToDecimal(float par)
@@ -1913,7 +1913,7 @@ public class NullableConverter
 
   public static decimal ToDecimal(float? par)
   {
-    return Convert.ToDecimal(par.Value);
+    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
   }
 
   public static decimal? ToDecimal(double par)
@@ -1923,7 +1923,7 @@ public class NullableConverter
 
   public static decimal ToDecimal(double? par)
   {
-    return Convert.ToDecimal(par.Value);
+    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
   }
 
   public static decimal? ToDecimal(string par)
@@ -1938,7 +1938,7 @@ public class NullableConverter
 
   public static decimal ToDecimal(decimal? par)
   {
-    return Convert.ToDecimal(par.Value);
+    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
   }
 
   public static decimal? ToDecimal(bool par)
@@ -1948,7 +1948,7 @@ public class NullableConverter
 
   public static decimal ToDecimal(bool? par)
   {
-    return Convert.ToDecimal(par.Value);
+    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
   }
 
   public static decimal? ToDecimal(DateTime par)
@@ -1958,7 +1958,7 @@ public class NullableConverter
 
   public static decimal ToDecimal(DateTime? par)
   {
-    return Convert.ToDecimal(par.Value);
+    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
   }
 
   public static DateTime? ToDateTime(DateTime par)
@@ -1968,7 +1968,7 @@ public class NullableConverter
 
   public static DateTime ToDateTime(DateTime? par)
   {
-    return Convert.ToDateTime(par.Value);
+    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
   }
 
   public static DateTime? ToDateTime(object par)
@@ -1988,7 +1988,7 @@ public class NullableConverter
 
   public static DateTime ToDateTime(sbyte? par)
   {
-    return Convert.ToDateTime(par.Value);
+    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
   }
 
   public static DateTime? ToDateTime(byte par)
@@ -1998,7 +1998,7 @@ public class NullableConverter
 
   public static DateTime ToDateTime(byte? par)
   {
-    return Convert.ToDateTime(par.Value);
+    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
   }
 
   public static DateTime? ToDateTime(short par)
@@ -2008,7 +2008,7 @@ public class NullableConverter
 
   public static DateTime ToDateTime(short? par)
   {
-    return Convert.ToDateTime(par.Value);
+    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
   }
 
   public static DateTime? ToDateTime(ushort par)
@@ -2018,7 +2018,7 @@ public class NullableConverter
 
   public static DateTime ToDateTime(ushort? par)
   {
-    return Convert.ToDateTime(par.Value);
+    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
   }
 
   public static DateTime? ToDateTime(int par)
@@ -2028,7 +2028,7 @@ public class NullableConverter
 
   public static DateTime ToDateTime(int? par)
   {
-    return Convert.ToDateTime(par.Value);
+    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
   }
 
   public static DateTime? ToDateTime(uint par)
@@ -2038,7 +2038,7 @@ public class NullableConverter
 
   public static DateTime ToDateTime(uint? par)
   {
-    return Convert.ToDateTime(par.Value);
+    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
   }
 
   public static DateTime? ToDateTime(long par)
@@ -2048,7 +2048,7 @@ public class NullableConverter
 
   public static DateTime ToDateTime(long? par)
   {
-    return Convert.ToDateTime(par.Value);
+    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
   }
 
   public static DateTime? ToDateTime(ulong par)
@@ -2058,7 +2058,7 @@ public class NullableConverter
 
   public static DateTime ToDateTime(ulong? par)
   {
-    return Convert.ToDateTime(par.Value);
+    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
   }
 
   public static DateTime? ToDateTime(bool par)
@@ -2068,7 +2068,7 @@ public class NullableConverter
 
   public static DateTime ToDateTime(bool? par)
   {
-    return Convert.ToDateTime(par.Value);
+    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
   }
 
   public static DateTime? ToDateTime(char par)
@@ -2078,7 +2078,7 @@ public class NullableConverter
 
   public static DateTime ToDateTime(char? par)
   {
-    return Convert.ToDateTime(par.Value);
+    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
   }
 
   public static DateTime? ToDateTime(float par)
@@ -2088,7 +2088,7 @@ public class NullableConverter
 
   public static DateTime ToDateTime(float? par)
   {
-    return Convert.ToDateTime(par.Value);
+    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
   }
 
   public static DateTime? ToDateTime(double par)
@@ -2098,7 +2098,7 @@ public class NullableConverter
 
   public static DateTime ToDateTime(double? par)
   {
-    return Convert.ToDateTime(par.Value);
+    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
   }
 
   public static DateTime? ToDateTime(decimal par)
@@ -2108,7 +2108,7 @@ public class NullableConverter
 
   public static DateTime ToDateTime(decimal? par)
   {
-    return Convert.ToDateTime(par.Value);
+    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
   }
 
   public static string ToString(bool? par)

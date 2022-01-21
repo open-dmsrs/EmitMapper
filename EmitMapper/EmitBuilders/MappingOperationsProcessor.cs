@@ -116,6 +116,7 @@ internal class MappingOperationsProcessor
     return result;
   }
 
+  private static PropertyInfo HasValue = Metadata.Nullable1.GetProperty("HasValue");
   private IAstNode ProcessReadWriteSimple(ReadWriteSimple readWriteSimple, int operationId)
   {
     var sourceValue = ReadSrcMappingValue(readWriteSimple, operationId);

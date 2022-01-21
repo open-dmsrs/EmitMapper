@@ -22,7 +22,7 @@ public class MemberDescriptor
 
   public IEnumerable<MemberInfo> MembersChain
   {
-    get { return _membersChain; }
+    get => _membersChain;
     set
     {
       _membersChain = value;
