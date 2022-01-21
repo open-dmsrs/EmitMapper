@@ -32,7 +32,7 @@ public class ObjectToDataContainerConfigurator : MapConfigBaseImpl
     return FilterOperations(
         from,
         to,
-        ReflectionUtils.GetTypeDataContainerDescription(from)
+        ReflectionHelper.GetTypeDataContainerDescription(from)
           .Select(
             fieldsDescription =>
             {

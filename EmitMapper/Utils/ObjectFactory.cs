@@ -5,15 +5,17 @@ using System.Linq.Expressions;
 namespace EmitMapper.Utils;
 
 using static Expression;
-using static ExpressionExtension;
+using static ExpressionHelper;
 
 public static class ObjectFactory
 {
   private static readonly LazyConcurrentDictionary<Type, Func<object>> CtorCache = new();
+
   public static T CreateInstance<T>(Type type)
   {
     return (T)CreateInstance(type);
   }
+
   public static object CreateInstance(Type type)
   {
     return CtorCache.GetOrAdd(type, GenerateConstructor)();

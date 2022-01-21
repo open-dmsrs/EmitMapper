@@ -39,7 +39,7 @@ internal class MapperPrimitiveImpl : CustomMapperImpl
       type => type.IsPrimitive || type == Metadata<decimal>.Type || type == Metadata<float>.Type ||
               type == Metadata<double>.Type || type == Metadata<long>.Type || type == Metadata<ulong>.Type
               || type == Metadata<short>.Type || type == Metadata<Guid>.Type || type == Metadata<string>.Type
-              || ReflectionUtils.IsNullable(type) && IsSupportedType(Nullable.GetUnderlyingType(type)) || type.IsEnum);
+              || ReflectionHelper.IsNullable(type) && IsSupportedType(Nullable.GetUnderlyingType(type)) || type.IsEnum);
   }
 
   /// <summary>

@@ -62,10 +62,10 @@ internal class NativeConverter
         if (to.IsEnum && _ConvertTypes.Contains(from))
           return true;
 
-        if (ReflectionUtils.IsNullable(from))
+        if (ReflectionHelper.IsNullable(from))
           return IsNativeConvertionPossible(Nullable.GetUnderlyingType(from), to);
 
-        if (ReflectionUtils.IsNullable(to))
+        if (ReflectionHelper.IsNullable(to))
           return IsNativeConvertionPossible(from, Nullable.GetUnderlyingType(to));
 
         return false;

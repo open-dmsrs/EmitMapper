@@ -44,9 +44,9 @@ internal class MappingBuilder
 
   public void BuildCopyImplMethod()
   {
-    if (ReflectionUtils.IsNullable(_from))
+    if (ReflectionHelper.IsNullable(_from))
       _from = Nullable.GetUnderlyingType(_from);
-    if (ReflectionUtils.IsNullable(_to))
+    if (ReflectionHelper.IsNullable(_to))
       _to = Nullable.GetUnderlyingType(_to);
 
     var methodBuilder = _typeBuilder.DefineMethod(

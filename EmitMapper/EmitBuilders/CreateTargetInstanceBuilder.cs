@@ -14,7 +14,7 @@ internal static class CreateTargetInstanceBuilder
 {
   public static void BuildCreateTargetInstanceMethod(Type type, TypeBuilder typeBuilder)
   {
-    if (ReflectionUtils.IsNullable(type))
+    if (ReflectionHelper.IsNullable(type))
       type = Nullable.GetUnderlyingType(type);
 
     var methodBuilder = typeBuilder.DefineMethod(
@@ -36,7 +36,7 @@ internal static class CreateTargetInstanceBuilder
     }
     else
     {
-      returnValue = ReflectionUtils.HasDefaultConstructor(type)
+      returnValue = ReflectionHelper.HasDefaultConstructor(type)
         ? new AstNewObject { ObjectType = type }
         : new AstConstantNull();
     }

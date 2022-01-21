@@ -25,7 +25,7 @@ public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
     return FilterOperations(
       from,
       to,
-      ReflectionUtils.GetPublicFieldsAndProperties(to)
+      ReflectionHelper.GetPublicFieldsAndProperties(to)
         .Where(
           member => (member.MemberType == MemberTypes.Field || member.MemberType == MemberTypes.Property) &&
                     ((PropertyInfo)member).GetSetMethod() != null)
@@ -37,9 +37,9 @@ public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
             {
               if (item is not DataContainer value)
                 return ValueToWrite<object>.Skip();
-              var destinationType = ReflectionUtils.GetMemberReturnType(destinationMember);
+              var destinationType = ReflectionHelper.GetMemberReturnType(destinationMember);
 
-              var fieldDescription = ReflectionUtils.GetDataMemberDefinition(destinationMember);
+              var fieldDescription = ReflectionHelper.GetDataMemberDefinition(destinationMember);
               var destinationMemberValue = ConvertFieldToDestinationProperty(
                 value,
                 destinationType,
@@ -70,6 +70,6 @@ public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
     if (!container.Fields.TryGetValue(fieldDescription.Item1, out sourceValue) || sourceValue == null) return null;
 
     var sourceType = fieldDescription.Item2 ?? sourceValue.GetType();
-    return ReflectionUtils.ConvertValue(sourceValue, sourceType, destinationType);
+    return ReflectionHelper.ConvertValue(sourceValue, sourceType, destinationType);
   }
 }

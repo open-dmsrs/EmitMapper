@@ -22,11 +22,11 @@ public class MemberDescriptor
 
   public MemberInfo MemberInfo => MembersChain.LastOrDefault();
 
-  public Type MemberType => ReflectionUtils.GetMemberReturnType(MemberInfo);
+  public Type MemberType => ReflectionHelper.GetMemberReturnType(MemberInfo);
 
   public override string ToString()
   {
-    return "[" + MembersChain.Select(mc => ReflectionUtils.GetMemberReturnType(mc).Name + ":" + mc.Name).ToCsv(",")
+    return "[" + MembersChain.Select(mc => ReflectionHelper.GetMemberReturnType(mc).Name + ":" + mc.Name).ToCsv(",")
                + "]";
   }
 }

@@ -43,7 +43,7 @@ public class TestMappingToDataRow
   {
     public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
     {
-      var objectMembers = ReflectionUtils.GetPublicFieldsAndProperties(from);
+      var objectMembers = ReflectionHelper.GetPublicFieldsAndProperties(from);
       return FilterOperations(
           from,
           to,

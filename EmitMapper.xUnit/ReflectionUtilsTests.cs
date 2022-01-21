@@ -10,7 +10,7 @@ public class ReflectionUtilsTests
   [Fact]
   public void Test_GetPublicFieldsAndProperties_ShouldIncludeMembersFromAllInterfaces()
   {
-    var members = ReflectionUtils.GetPublicFieldsAndProperties(typeof(IDerived));
+    var members = ReflectionHelper.GetPublicFieldsAndProperties(typeof(IDerived));
     Assert.Equal(2, members.Count());
   }
 

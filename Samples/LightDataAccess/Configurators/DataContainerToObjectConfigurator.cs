@@ -24,7 +24,7 @@ public class DataContainerToObjectConfigurator : MapConfigBaseImpl
     return FilterOperations(
         from,
         to,
-        ReflectionUtils.GetTypeDataContainerDescription(to)
+        ReflectionHelper.GetTypeDataContainerDescription(to)
           .Select(
             fieldsDescription =>
             {
@@ -44,8 +44,8 @@ public class DataContainerToObjectConfigurator : MapConfigBaseImpl
                   if (container.Fields == null ||
                       !container.Fields.TryGetValue(fieldName, out var value))
                     return ValueToWrite<object>.Skip();
-                  var destinationType = ReflectionUtils.GetMemberReturnType(destinationMember);
-                  var destinationMemberValue = ReflectionUtils.ConvertValue(
+                  var destinationType = ReflectionHelper.GetMemberReturnType(destinationMember);
+                  var destinationMemberValue = ReflectionHelper.ConvertValue(
                     value,
                     fieldType,
                     destinationType);

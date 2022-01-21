@@ -122,10 +122,10 @@ internal class MappingOperationsProcessor
 
     IAstRefOrValue convertedValue;
 
-    if (readWriteSimple.NullSubstitutor != null && (ReflectionUtils.IsNullable(readWriteSimple.Source.MemberType) ||
+    if (readWriteSimple.NullSubstitutor != null && (ReflectionHelper.IsNullable(readWriteSimple.Source.MemberType) ||
                                                     !readWriteSimple.Source.MemberType.IsValueType))
       convertedValue = new AstIfTernar(
-        ReflectionUtils.IsNullable(readWriteSimple.Source.MemberType)
+        ReflectionHelper.IsNullable(readWriteSimple.Source.MemberType)
           ? new AstExprNot(
             AstBuildHelper.ReadPropertyRV(
               new AstValueToAddr((IAstValue)sourceValue),
@@ -331,7 +331,7 @@ internal class MappingOperationsProcessor
     var copying = new List<IAstNode>();
 
     // if destination is nullable, create a temp target variable with underlying destination type
-    if (ReflectionUtils.IsNullable(op.Source.MemberType))
+    if (ReflectionHelper.IsNullable(op.Source.MemberType))
     {
       tempSrc = CompilationContext.ILGenerator.DeclareLocal(Nullable.GetUnderlyingType(op.Source.MemberType));
       copying.Add(
@@ -343,12 +343,12 @@ internal class MappingOperationsProcessor
     }
 
     // If destination is null, initialize it.
-    if (ReflectionUtils.IsNullable(op.Destination.MemberType) || !op.Destination.MemberType.IsValueType)
+    if (ReflectionHelper.IsNullable(op.Destination.MemberType) || !op.Destination.MemberType.IsValueType)
     {
       copying.Add(
         new AstIf
         {
-          Condition = ReflectionUtils.IsNullable(op.Destination.MemberType)
+          Condition = ReflectionHelper.IsNullable(op.Destination.MemberType)
             ? new AstExprNot(
               (IAstValue)AstBuildHelper.ReadPropertyRV(
                 AstBuildHelper.ReadLocalRA(origTempDst),
@@ -359,7 +359,7 @@ internal class MappingOperationsProcessor
             Nodes = initDest
           }
         });
-      if (ReflectionUtils.IsNullable(op.Destination.MemberType))
+      if (ReflectionHelper.IsNullable(op.Destination.MemberType))
       {
         tempDst = CompilationContext.ILGenerator.DeclareLocal(
           Nullable.GetUnderlyingType(op.Destination.MemberType));
@@ -390,7 +390,7 @@ internal class MappingOperationsProcessor
       });
 
     IAstRefOrValue processedValue;
-    if (ReflectionUtils.IsNullable(op.Destination.MemberType))
+    if (ReflectionHelper.IsNullable(op.Destination.MemberType))
       processedValue = new AstNewObject(
         op.Destination.MemberType,
         new IAstStackItem[]
@@ -419,11 +419,11 @@ internal class MappingOperationsProcessor
         AstBuildHelper.ReadLocalRA(LocTo),
         processedValue));
 
-    if (ReflectionUtils.IsNullable(op.Source.MemberType) || !op.Source.MemberType.IsValueType)
+    if (ReflectionHelper.IsNullable(op.Source.MemberType) || !op.Source.MemberType.IsValueType)
       result.Nodes.Add(
         new AstIf
         {
-          Condition = ReflectionUtils.IsNullable(op.Source.MemberType)
+          Condition = ReflectionHelper.IsNullable(op.Source.MemberType)
             ? new AstExprNot(
               (IAstValue)AstBuildHelper.ReadPropertyRV(
                 AstBuildHelper.ReadLocalRA(origTempSrc),

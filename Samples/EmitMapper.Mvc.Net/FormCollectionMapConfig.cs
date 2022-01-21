@@ -15,7 +15,7 @@ public class FormCollectionMapConfig : MapConfigBaseImpl
 {
   public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
   {
-    var members = ReflectionUtils.GetPublicFieldsAndProperties(to);
+    var members = ReflectionHelper.GetPublicFieldsAndProperties(to);
     return members
       .Select(
         m =>
@@ -29,7 +29,7 @@ public class FormCollectionMapConfig : MapConfigBaseImpl
                 {
                   if (((FormCollection)form).TryGetValue(m.Name, out var res))
                     return ValueToWrite<object>.ReturnValue(
-                      Convert(new ValueProviderResult(res), ReflectionUtils.GetMemberReturnType(m)));
+                      Convert(new ValueProviderResult(res), ReflectionHelper.GetMemberReturnType(m)));
                   return ValueToWrite<object>.Skip();
                 }
               )

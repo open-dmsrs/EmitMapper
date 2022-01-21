@@ -33,7 +33,7 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
     return FilterOperations(
         from,
         to,
-        ReflectionUtils.GetPublicFieldsAndProperties(from)
+        ReflectionHelper.GetPublicFieldsAndProperties(from)
           .Where(
             member =>
               (member.MemberType == MemberTypes.Field || member.MemberType == MemberTypes.Property) &&
@@ -48,8 +48,8 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
                 if (destination == null || value == null || destination is not DataContainer container)
                   return;
 
-                var sourceType = ReflectionUtils.GetMemberReturnType(sourceMember);
-                var fieldsDescription = ReflectionUtils.GetDataMemberDefinition(sourceMember);
+                var sourceType = ReflectionHelper.GetMemberReturnType(sourceMember);
+                var fieldsDescription = ReflectionHelper.GetDataMemberDefinition(sourceMember);
                 ConvertSourcePropertyToFields(
                   value,
                   sourceType,
@@ -82,7 +82,7 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
         if (container.Fields.ContainsKey(fd.Item1))
           return;
 
-        var value = ReflectionUtils.ConvertValue(sourceValue, sourceType, fd.Item2);
+        var value = ReflectionHelper.ConvertValue(sourceValue, sourceType, fd.Item2);
 
         if (value != null)
           container.Fields.Add(fd.Item1, value.ToString());

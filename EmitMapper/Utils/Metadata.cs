@@ -7,7 +7,7 @@ using System.Reflection;
 namespace EmitMapper.Utils;
 
 /// <summary>
-///   ÀàÐÍ×å
+///   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ///   <para>2010/12/21</para>
 ///   <para>THINKPADT61</para>
 ///   <para>tangjingbo</para>

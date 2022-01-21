@@ -38,7 +38,7 @@ internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
 
   public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
   {
-    var members = ReflectionUtils.GetPublicFieldsAndProperties(from);
+    var members = ReflectionHelper.GetPublicFieldsAndProperties(from);
     if (_includeFields != null)
       members = members
         .Where(m => _includeFields.Contains(m.Name.ToUpper()))

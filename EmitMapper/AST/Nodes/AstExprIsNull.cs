@@ -25,11 +25,11 @@ internal class AstExprIsNull : IAstValue
 
   public void Compile(CompilationContext context)
   {
-    if (!(_value is IAstRef) && !ReflectionUtils.IsNullable(_value.ItemType))
+    if (!(_value is IAstRef) && !ReflectionHelper.IsNullable(_value.ItemType))
     {
       context.Emit(OpCodes.Ldc_I4_1);
     }
-    else if (ReflectionUtils.IsNullable(_value.ItemType))
+    else if (ReflectionHelper.IsNullable(_value.ItemType))
     {
       AstBuildHelper.ReadPropertyRV(
         new AstValueToAddr((IAstValue)_value),

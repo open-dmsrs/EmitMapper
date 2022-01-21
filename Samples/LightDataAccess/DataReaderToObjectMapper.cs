@@ -188,7 +188,7 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
     /// <returns>IEnumerable<IMappingOperation>[].</returns>
     public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
     {
-      return ReflectionUtils
+      return ReflectionHelper
         .GetPublicFieldsAndProperties(to)
         .Where(
           m => m.MemberType == MemberTypes.Field ||
@@ -235,7 +235,7 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
     /// <exception cref="EmitMapper.EmitMapperException">Could not convert an object to  + memberType.ToString()</exception>
     private Delegate GetValuesGetter(int ind, MemberInfo m)
     {
-      var memberType = ReflectionUtils.GetMemberReturnType(m);
+      var memberType = ReflectionHelper.GetMemberReturnType(m);
 
       if (_mappingKey != null)
       {

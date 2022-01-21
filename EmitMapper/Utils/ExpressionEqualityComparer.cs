@@ -627,9 +627,9 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     private bool CompareCatchBlock(CatchBlock a, CatchBlock b)
     {
       return ReferenceEquals(a.Test, b.Test) && Equals(a.Test, b.Test)
-             && Compare(a.Body, b.Body)
-             && Compare(a.Filter, b.Filter)
-             && Compare(a.Variable, b.Variable);
+                                             && Compare(a.Body, b.Body)
+                                             && Compare(a.Filter, b.Filter)
+                                             && Compare(a.Variable, b.Variable);
     }
   }
 }

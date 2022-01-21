@@ -34,7 +34,7 @@ internal class AstNewObject : IAstRef
 
   public void Compile(CompilationContext context)
   {
-    if (ReflectionUtils.IsNullable(ObjectType))
+    if (ReflectionHelper.IsNullable(ObjectType))
     {
       IAstRefOrValue underlyingValue;
       var underlyingType = Nullable.GetUnderlyingType(ObjectType);

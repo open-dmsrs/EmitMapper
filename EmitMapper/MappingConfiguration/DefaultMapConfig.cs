@@ -194,16 +194,16 @@ public class DefaultMapConfig : MapConfigBaseImpl
     fromPath ??= Array.Empty<MemberInfo>();
 
     var membersFromPath = fromPath ?? fromPath.ToArray();
-    var from = !membersFromPath.Any() ? fromRoot : ReflectionUtils.GetMemberReturnType(membersFromPath.Last());
+    var from = !membersFromPath.Any() ? fromRoot : ReflectionHelper.GetMemberReturnType(membersFromPath.Last());
 
     var memberToPath = toPath ?? toPath.ToArray();
-    var to = !memberToPath.Any() ? toRoot : ReflectionUtils.GetMemberReturnType(memberToPath.Last());
+    var to = !memberToPath.Any() ? toRoot : ReflectionHelper.GetMemberReturnType(memberToPath.Last());
 
     var tp = new TypesPair(from, to);
     processedTypes.Add(tp);
 
-    var toMembers = ReflectionUtils.GetPublicFieldsAndProperties(to);
-    var fromMembers = ReflectionUtils.GetPublicFieldsAndProperties(from);
+    var toMembers = ReflectionHelper.GetPublicFieldsAndProperties(to);
+    var fromMembers = ReflectionHelper.GetPublicFieldsAndProperties(from);
 
     var result = new List<IMappingOperation>();
 
@@ -250,13 +250,13 @@ public class DefaultMapConfig : MapConfigBaseImpl
     var enumerable = fromPath.ToList();
     var origSrcMemberDesc = new MemberDescriptor(enumerable.Concat(new[] { fromMi }).ToArray());
 
-    if (ReflectionUtils.IsNullable(ReflectionUtils.GetMemberReturnType(fromMi)))
+    if (ReflectionHelper.IsNullable(ReflectionHelper.GetMemberReturnType(fromMi)))
       //fromPath = enumerable.Concat(new[] { fromMi });//never use
-      fromMi = ReflectionUtils.GetMemberReturnType(fromMi).GetProperty("Value");
+      fromMi = ReflectionHelper.GetMemberReturnType(fromMi).GetProperty("Value");
 
-    if (ReflectionUtils.IsNullable(ReflectionUtils.GetMemberReturnType(toMi)))
+    if (ReflectionHelper.IsNullable(ReflectionHelper.GetMemberReturnType(toMi)))
       //toPath = enumerable.Concat(new[] { toMi });//never use
-      toMi = ReflectionUtils.GetMemberReturnType(toMi).GetProperty("Value");
+      toMi = ReflectionHelper.GetMemberReturnType(toMi).GetProperty("Value");
 
     var destMemberDescr = new MemberDescriptor(memberInfos.Concat(new[] { toMi }).ToArray());
     var srcMemberDescr = new MemberDescriptor(enumerable.Concat(new[] { fromMi }).ToArray());

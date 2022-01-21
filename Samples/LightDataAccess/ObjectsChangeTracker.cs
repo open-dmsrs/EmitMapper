@@ -151,7 +151,7 @@ public class ObjectsChangeTracker
     /// <returns>IEnumerable<IMappingOperation>[].</returns>
     public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
     {
-      return ReflectionUtils
+      return ReflectionHelper
         .GetPublicFieldsAndProperties(from)
         .Select(
           m =>

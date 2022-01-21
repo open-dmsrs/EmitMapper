@@ -98,7 +98,9 @@ public static class SwitchExpressions
       Func<TSwitch, TResult> valueFactory)
     {
       return new SwitchExpression<TSwitch, TResult>
-        { switchValue = matches, objectState = valueFactory, state = State.CaseWithValueFactory };
+      {
+        switchValue = matches, objectState = valueFactory, state = State.CaseWithValueFactory
+      };
     }
 
     internal static SwitchExpression<TSwitch, TResult> CreateCase(TypeCaseSwitchExpression<TResult> @switch)
@@ -109,15 +111,16 @@ public static class SwitchExpressions
     internal static SwitchExpression<TSwitch, TResult> CreateCase(SwitchExpression<TSwitch> @switch)
     {
       return new SwitchExpression<TSwitch, TResult>
-        { switchValue = @switch.On, objectState = @switch.Comparer, state = State.AwaitingMatch };
+      {
+        switchValue = @switch.On, objectState = @switch.Comparer, state = State.AwaitingMatch
+      };
     }
 
     public static implicit operator SwitchExpression<TSwitch, TResult>(BooleanSwitchExpression<TResult> @switch)
     {
       return new SwitchExpression<TSwitch, TResult>
       {
-        objectState = @switch.ValueFactory,
-        state = @switch.Condition ? State.TrueBooleanCase : State.FalseBooleanCase
+        objectState = @switch.ValueFactory, state = @switch.Condition ? State.TrueBooleanCase : State.FalseBooleanCase
       };
     }
 
@@ -165,8 +168,7 @@ public static class SwitchExpressions
           return ((IEqualityComparer<TSwitch>)first.objectState).Equals(first.switchValue, second.switchValue)
             ? new SwitchExpression<TSwitch, TResult>
             {
-              value = ((Func<TSwitch, TResult>)second.objectState)(first.switchValue),
-              state = State.Completed
+              value = ((Func<TSwitch, TResult>)second.objectState)(first.switchValue), state = State.Completed
             }
             : first; // still not matched
         case State.FalseBooleanCase:
@@ -239,7 +241,7 @@ public static class SwitchExpressions
     }
   }
 
-  public readonly struct  CompletedSwitchExpression<TResult>
+  public readonly struct CompletedSwitchExpression<TResult>
   {
     private readonly bool completed;
     private readonly TResult value;

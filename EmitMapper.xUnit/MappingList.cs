@@ -193,7 +193,7 @@ public class MappingList
     while (f.MoveNext() && t.MoveNext())
     {
       _testOutputHelper.WriteLine(f.Current?.N5.ToString());
-      var fv = ReflectionUtils.GetPublicFieldsAndProperties(typeof(B2Source))
+      var fv = ReflectionHelper.GetPublicFieldsAndProperties(typeof(B2Source))
         .Select(
           m => new
           {
@@ -201,7 +201,7 @@ public class MappingList
             FValue = (m as FieldInfo)?.GetValue(f.Current)?.ToString()
           });
 
-      var tv = ReflectionUtils.GetPublicFieldsAndProperties(typeof(A2Destination)).Select(
+      var tv = ReflectionHelper.GetPublicFieldsAndProperties(typeof(A2Destination)).Select(
         m => new
         {
           m.Name,

@@ -42,8 +42,8 @@ public class EMConvert
       return r == Guid.Empty ? new Guid() : r;
     }
 
-    var isFromNullable = ReflectionUtils.IsNullable(typeFrom);
-    var isToNullable = ReflectionUtils.IsNullable(typeTo);
+    var isFromNullable = ReflectionHelper.IsNullable(typeFrom);
+    var isToNullable = ReflectionHelper.IsNullable(typeTo);
 
     if (isFromNullable && !isToNullable)
       return ChangeType(value, Nullable.GetUnderlyingType(typeFrom), typeTo);
@@ -107,7 +107,7 @@ public class EMConvert
   {
     if (type.IsEnum)
       return true;
-    if (ReflectionUtils.IsNullable(type))
+    if (ReflectionHelper.IsNullable(type))
       if (Nullable.GetUnderlyingType(type).IsEnum)
         return true;
 

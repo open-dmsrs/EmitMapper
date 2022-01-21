@@ -85,7 +85,7 @@ public class FlatteringConfig : DefaultMapConfig
         throw new EmitMapperException(
         $" The member '{destName}' of target members can not match any in source member '{sourceMemberInfo.Name}'." +
         $" pls ignore it or delete '{destName}' in the target object." +
-        $" or add new member '{destName.Substring(sourceMemberInfo.Name.Length)}' in source class '{ReflectionUtils.GetMemberReturnType(sourceMemberInfo).FullName}'.");
+        $" or add new member '{destName.Substring(sourceMemberInfo.Name.Length)}' in source class '{ReflectionHelper.GetMemberReturnType(sourceMemberInfo).FullName}'.");
       }
     }
     return result;
@@ -114,7 +114,7 @@ public class FlatteringConfig : DefaultMapConfig
   /// <returns><![CDATA[IEnumerable<MemberInfo>]]></returns>
   private static IEnumerable<MemberInfo> GetSourceSubMembers(MemberInfo mi)
   {
-    Type t = ReflectionUtils.GetMemberReturnType(mi);
+    Type t = ReflectionHelper.GetMemberReturnType(mi);
 
     //Type t;
     //if (mi.MemberType == MemberTypes.Field)
