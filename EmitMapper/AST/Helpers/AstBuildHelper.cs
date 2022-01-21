@@ -112,7 +112,8 @@ internal static class AstBuildHelper
     var src = sourceObject;
     using var enumerator = membersChain.GetEnumerator();
     MemberInfo cur = null;
-    if (enumerator.MoveNext()) cur = enumerator.Current;
+    if (enumerator.MoveNext())
+      cur = enumerator.Current;
     while (enumerator.MoveNext())
     {
       src = ReadMemberRA(src, cur);
@@ -185,21 +186,22 @@ internal static class AstBuildHelper
   }
 
   public static IAstNode WriteMembersChain(
-    IEnumerable<MemberInfo> membersChain1,
+    IEnumerable<MemberInfo> membersChain,
     IAstRefOrAddr targetObject,
     IAstRefOrValue value)
   {
-    //todo: need to optimize
-    var membersChain = membersChain1.ToArray();
-
-    if (membersChain.Length == 1)
-      return WriteMember(membersChain[0], targetObject, value);
-
+ 
     var readTarget = targetObject;
-
-    for (var i = 0; i < membersChain.Length - 1; ++i)
-      readTarget = ReadMemberRA(readTarget, membersChain[i]);
-    return WriteMember(membersChain[membersChain.Length - 1], readTarget, value);
+    var enumerator= membersChain.GetEnumerator();
+    MemberInfo cur=null;
+    if(enumerator.MoveNext())
+      cur=enumerator.Current;
+    while (enumerator.MoveNext())
+    {
+      readTarget = ReadMemberRA(readTarget, cur);
+      cur = enumerator.Current;
+    }
+    return WriteMember(cur, readTarget, value);
   }
 
   public static IAstNode WriteMember(MemberInfo memberInfo, IAstRefOrAddr targetObject, IAstRefOrValue value)

@@ -56,7 +56,7 @@ public static class ReflectionHelper
       result.AddRange(ifaceResult);
     }
 
-    return result.ToArray();
+    return result;
   }
 
   public static MatchedMember[] GetCommonMembers(Type first, Type second, Func<string, string, bool> matcher)

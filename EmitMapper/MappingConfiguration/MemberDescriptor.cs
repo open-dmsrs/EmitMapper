@@ -8,6 +8,8 @@ namespace EmitMapper.MappingConfiguration;
 
 public class MemberDescriptor
 {
+  private IEnumerable<MemberInfo> _membersChain;
+
   public MemberDescriptor(MemberInfo singleMember)
   {
     MembersChain = Enumerable.Repeat(singleMember, 1);
@@ -18,11 +20,20 @@ public class MemberDescriptor
     MembersChain = membersChain;
   }
 
-  public IEnumerable<MemberInfo> MembersChain { get; set; }
+  public IEnumerable<MemberInfo> MembersChain
+  {
+    get { return _membersChain; }
+    set
+    {
+      _membersChain = value;
+      MemberInfo = _membersChain.LastOrDefault();
+      MemberType = ReflectionHelper.GetMemberReturnType(MemberInfo);
+    }
+  }
 
-  public MemberInfo MemberInfo => MembersChain.LastOrDefault();
+  public MemberInfo MemberInfo { get; private set; }
 
-  public Type MemberType => ReflectionHelper.GetMemberReturnType(MemberInfo);
+  public Type MemberType { get; private set; }
 
   public override string ToString()
   {

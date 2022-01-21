@@ -138,7 +138,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
   {
     return FilterOperations(from, to, GetMappingItems(new HashSet<TypesPair>(), from, to, null, null))
-      .ToArray();
+      ;
   }
 
   public override IRootMappingOperation GetRootMappingOperation(Type from, Type to)
@@ -193,11 +193,11 @@ public class DefaultMapConfig : MapConfigBaseImpl
     toPath ??= Array.Empty<MemberInfo>();
     fromPath ??= Array.Empty<MemberInfo>();
 
-    var membersFromPath = fromPath ?? fromPath.ToArray();
-    var from = !membersFromPath.Any() ? fromRoot : ReflectionHelper.GetMemberReturnType(membersFromPath.Last());
+    var membersFromPath = fromPath.ToArray();
+    var from = membersFromPath.Length == 0 ? fromRoot : ReflectionHelper.GetMemberReturnType(membersFromPath[membersFromPath.Length - 1]);
 
-    var memberToPath = toPath ?? toPath.ToArray();
-    var to = !memberToPath.Any() ? toRoot : ReflectionHelper.GetMemberReturnType(memberToPath.Last());
+    var memberToPath = toPath.ToArray();
+    var to = memberToPath.Length == 0 ? toRoot : ReflectionHelper.GetMemberReturnType(memberToPath[memberToPath.Length - 1]);
 
     var tp = new TypesPair(from, to);
     processedTypes.Add(tp);
@@ -246,9 +246,9 @@ public class DefaultMapConfig : MapConfigBaseImpl
     MemberInfo toMi)
   {
     var memberInfos = toPath.ToList();
-    var origDestMemberDesc = new MemberDescriptor(memberInfos.Concat(new[] { toMi }).ToArray());
+    var origDestMemberDesc = new MemberDescriptor(memberInfos.Concat(new[] { toMi }));
     var enumerable = fromPath.ToList();
-    var origSrcMemberDesc = new MemberDescriptor(enumerable.Concat(new[] { fromMi }).ToArray());
+    var origSrcMemberDesc = new MemberDescriptor(enumerable.Concat(new[] { fromMi }));
 
     if (ReflectionHelper.IsNullable(ReflectionHelper.GetMemberReturnType(fromMi)))
       //fromPath = enumerable.Concat(new[] { fromMi });//never use
@@ -258,8 +258,8 @@ public class DefaultMapConfig : MapConfigBaseImpl
       //toPath = enumerable.Concat(new[] { toMi });//never use
       toMi = ReflectionHelper.GetMemberReturnType(toMi).GetProperty("Value");
 
-    var destMemberDescr = new MemberDescriptor(memberInfos.Concat(new[] { toMi }).ToArray());
-    var srcMemberDescr = new MemberDescriptor(enumerable.Concat(new[] { fromMi }).ToArray());
+    var destMemberDescr = new MemberDescriptor(memberInfos.Concat(new[] { toMi }));
+    var srcMemberDescr = new MemberDescriptor(enumerable.Concat(new[] { fromMi }));
     var typeFromMember = srcMemberDescr.MemberType;
     var typeToMember = destMemberDescr.MemberType;
 
