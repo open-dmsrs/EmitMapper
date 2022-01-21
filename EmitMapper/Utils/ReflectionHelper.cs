@@ -82,16 +82,24 @@ public static class ReflectionHelper
 
   public static Type GetMemberReturnType(MemberInfo member)
   {
-    return MemberInfoReturnTypes.GetOrAdd(
-      member,
-      m => m switch
-      {
-        PropertyInfo property => property.PropertyType,
-        MethodInfo method => method.ReturnType,
-        FieldInfo field => field.FieldType,
-        null => throw new ArgumentNullException(nameof(member)),
-        _ => throw new ArgumentOutOfRangeException(nameof(member))
-      });
+    return member switch
+    {
+      PropertyInfo property => property.PropertyType,
+      MethodInfo method => method.ReturnType,
+      FieldInfo field => field.FieldType,
+      null => throw new ArgumentNullException(nameof(member)),
+      _ => throw new ArgumentOutOfRangeException(nameof(member))
+    };
+    //return MemberInfoReturnTypes.GetOrAdd(
+    //  member,
+    //  m => m switch
+    //  {
+    //    PropertyInfo property => property.PropertyType,
+    //    MethodInfo method => method.ReturnType,
+    //    FieldInfo field => field.FieldType,
+    //    null => throw new ArgumentNullException(nameof(member)),
+    //    _ => throw new ArgumentOutOfRangeException(nameof(member))
+    //  });
   }
 
 
