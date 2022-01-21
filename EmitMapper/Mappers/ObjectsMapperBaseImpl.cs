@@ -61,9 +61,8 @@ public abstract class ObjectsMapperBaseImpl
   public virtual object Map(object from)
   {
     if (from == null)
-      return null;
-    var to = ConstructTarget();
-    return Map(from, to, null);
+      return null; 
+    return Map(from, ConstructTarget(), null);
   }
 
   #region Non-public members

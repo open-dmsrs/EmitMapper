@@ -7,11 +7,7 @@ namespace EmitMapper.Tests;
 ////[TestFixture]
 public class GeneralTests
 {
-  public static void TestRefl(object obj)
-  {
-    var field = obj.GetType().GetField("a");
-    field.SetValue(obj, 10);
-  }
+ 
 
   [Fact]
   public void ConstructByTest()

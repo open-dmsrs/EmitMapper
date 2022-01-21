@@ -70,7 +70,7 @@ public class MappingList
 
   //[Theory]
   // [AutoData]
-  public void TestCopyList1(List<FromClass> list)
+  private void TestCopyList1(List<FromClass> list)
   {
     ArrayList listFrom = new(list.ToArray());
 

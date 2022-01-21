@@ -83,7 +83,7 @@ public class ObjectMapperManager
     {
       if (_ObjectsMapperIds.TryGetValue(mapperTypeKey, out result))
         return result;
-       
+
       result = new ObjectsMapperDescr(null, mapperTypeKey, 0);
       _ObjectsMapperIds.Add(mapperTypeKey, result);
 
@@ -166,7 +166,7 @@ public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<Mapp
   public MapperKey(Type typeFrom, Type typeTo, IMappingConfigurator config, int currentInstantId)
   {
     _mapperTypeName = $"M{currentInstantId}_{typeFrom?.FullName}_{typeTo?.FullName}_{config?.GetConfigurationName()}";
-    _hash = _mapperTypeName.GetHashCode();
+    _hash = HashCode.Combine(typeFrom, typeTo, config, currentInstantId);
   }
 
 
