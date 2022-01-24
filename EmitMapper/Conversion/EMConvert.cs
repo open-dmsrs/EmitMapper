@@ -46,11 +46,11 @@ public class EMConvert
     var isToNullable = ReflectionHelper.IsNullable(typeTo);
 
     if (isFromNullable && !isToNullable)
-      return ChangeType(value, Nullable.GetUnderlyingType(typeFrom), typeTo);
+      return ChangeType(value, typeFrom.GetUnderlyingTypeCache(), typeTo);
 
     if (isToNullable)
     {
-      var ut = Nullable.GetUnderlyingType(typeTo);
+      var ut = typeTo.GetUnderlyingTypeCache();
       if (ut.IsEnum)
         return ConvertToEnum(value, typeFrom, ut);
       return ChangeType(value, typeFrom, ut);
@@ -108,7 +108,7 @@ public class EMConvert
     if (type.IsEnum)
       return true;
     if (ReflectionHelper.IsNullable(type))
-      if (Nullable.GetUnderlyingType(type).IsEnum)
+      if (type.GetUnderlyingTypeCache().IsEnum)
         return true;
 
     return false;

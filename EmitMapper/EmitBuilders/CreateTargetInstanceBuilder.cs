@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
 using EmitMapper.AST;
@@ -14,8 +15,12 @@ internal static class CreateTargetInstanceBuilder
 {
   public static void BuildCreateTargetInstanceMethod(Type type, TypeBuilder typeBuilder)
   {
+
+    //var expr = (Expression<Func<object>>)ObjectFactory.GenerateConstructorExpression(type).ToObject();
+     
+
     if (ReflectionHelper.IsNullable(type))
-      type = Nullable.GetUnderlyingType(type);
+      type = type.GetUnderlyingTypeCache();
 
     var methodBuilder = typeBuilder.DefineMethod(
       nameof(ObjectsMapperBaseImpl.CreateTargetInstance),

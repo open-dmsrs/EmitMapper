@@ -37,7 +37,7 @@ internal class AstNewObject : IAstRef
     if (ReflectionHelper.IsNullable(ObjectType))
     {
       IAstRefOrValue underlyingValue;
-      var underlyingType = Nullable.GetUnderlyingType(ObjectType);
+      var underlyingType = ObjectType.GetUnderlyingTypeCache();
       if (ConstructorParams == null || ConstructorParams.Length == 0)
       {
         var temp = context.ILGenerator.DeclareLocal(underlyingType);

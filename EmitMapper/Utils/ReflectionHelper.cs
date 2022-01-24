@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -13,11 +14,20 @@ public static class ReflectionHelper
   private static readonly LazyConcurrentDictionary<MemberInfo, Type> MemberInfoReturnTypes = new();
   private static readonly LazyConcurrentDictionary<Type, bool> IsNullableCache = new();
 
-  public static readonly LazyConcurrentDictionary<Type, Type> GenericTypeDefinitionCache = new();
+  private static readonly LazyConcurrentDictionary<Type, Type> GenericTypeDefinitionCache = new();
 
-  public static readonly LazyConcurrentDictionary<Type, Type[]> Interfaces = new();
+  private static readonly LazyConcurrentDictionary<Type, Type[]> Interfaces = new();
 
-  public static readonly LazyConcurrentDictionary<Type, MethodInfo> MethodsCahce = new();
+  private static readonly LazyConcurrentDictionary<Type, MethodInfo> MethodsCahce = new();
+
+  private static readonly LazyConcurrentDictionary<Type, Type> UnderlyingTypes = new();
+
+  private static readonly LazyConcurrentDictionary<Type, ReadOnlyCollection<MemberInfo>> AllMemberInfo = new();
+
+  public static Type GetUnderlyingTypeCache(this Type t)
+  {
+    return UnderlyingTypes.GetOrAdd(t, type => Nullable.GetUnderlyingType(type));
+  }
 
   public static MethodInfo GetMethodCache(this Type t, string name)
   {
@@ -41,18 +51,16 @@ public static class ReflectionHelper
       type => type.IsGenericType && type.GetGenericTypeDefinitionCache() == Metadata.Nullable1);
   }
 
-  private static readonly LazyConcurrentDictionary<Type, MemberInfo[]> allMemberInfo = new();
-
   /// <summary>
   ///   Fixed: Get Full hierarchy with all parent interfaces members.
   /// </summary>
   public static IEnumerable<MemberInfo> GetPublicFieldsAndProperties(Type t)
   {
-
-    return allMemberInfo.GetOrAdd(t, type => type.GetMembers(BindingFlags.Instance | BindingFlags.Public).Where(
-         mi => mi.MemberType == MemberTypes.Property || mi.MemberType == MemberTypes.Field)
-       .Concat(type.GetInterfacesCache().SelectMany(face => GetPublicFieldsAndProperties(face))).ToArray());
-
+    return AllMemberInfo.GetOrAdd(
+      t,
+      type => type.GetMembers(BindingFlags.Instance | BindingFlags.Public).Where(
+          mi => mi.MemberType == MemberTypes.Property || mi.MemberType == MemberTypes.Field)
+        .Concat(type.GetInterfacesCache().SelectMany(selector: GetPublicFieldsAndProperties)).ToList().AsReadOnly());
   }
 
   public static MatchedMember[] GetCommonMembers(Type first, Type second, Func<string, string, bool> matcher)
@@ -78,24 +86,16 @@ public static class ReflectionHelper
 
   public static Type GetMemberReturnType(MemberInfo member)
   {
-    return member switch
-    {
-      PropertyInfo property => property.PropertyType,
-      MethodInfo method => method.ReturnType,
-      FieldInfo field => field.FieldType,
-      null => throw new ArgumentNullException(nameof(member)),
-      _ => throw new ArgumentOutOfRangeException(nameof(member))
-    };
-    //return MemberInfoReturnTypes.GetOrAdd(
-    //  member,
-    //  m => m switch
-    //  {
-    //    PropertyInfo property => property.PropertyType,
-    //    MethodInfo method => method.ReturnType,
-    //    FieldInfo field => field.FieldType,
-    //    null => throw new ArgumentNullException(nameof(member)),
-    //    _ => throw new ArgumentOutOfRangeException(nameof(member))
-    //  });
+    return MemberInfoReturnTypes.GetOrAdd(
+          member,
+          m => m switch
+          {
+            PropertyInfo property => property.PropertyType,
+            MethodInfo method => method.ReturnType,
+            FieldInfo field => field.FieldType,
+            null => throw new ArgumentNullException(nameof(member)),
+            _ => throw new ArgumentOutOfRangeException(nameof(member))
+          });
   }
 
 

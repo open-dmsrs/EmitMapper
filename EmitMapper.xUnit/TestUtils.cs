@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Xunit;
 
 namespace EmitMapper.Tests;
 
@@ -18,5 +20,10 @@ public static class TestUtils
         return false;
 
     return true;
+  }
+
+  public static void Run(this Assert a, Action m)
+  {
+    m();
   }
 }

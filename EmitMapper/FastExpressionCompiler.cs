@@ -2772,7 +2772,7 @@ namespace EmitMapper
 
                 var sourceType = opExpr.Type;
                 var sourceTypeIsNullable = sourceType.IsNullable();
-                var underlyingNullableSourceType = Nullable.GetUnderlyingType(sourceType);
+                var underlyingNullableSourceType = sourceType.GetUnderlyingTypeCache();
                 var targetType = expr.Type;
 
                 if (targetType.IsAssignableFrom(sourceType) && (parent & ParentFlags.IgnoreResult) != 0)
@@ -2798,7 +2798,7 @@ namespace EmitMapper
                     return false;
 
                 var targetTypeIsNullable = targetType.IsNullable();
-                var underlyingNullableTargetType = Nullable.GetUnderlyingType(targetType);
+                var underlyingNullableTargetType = targetType.GetUnderlyingTypeCache();
                 if (targetTypeIsNullable && sourceType == underlyingNullableTargetType)
                 {
                     il.Emit(OpCodes.Newobj, targetType.GetTypeInfo().DeclaredConstructors.GetFirst());
@@ -3040,7 +3040,7 @@ namespace EmitMapper
                         return false;
                 }
 
-                var underlyingNullableType = Nullable.GetUnderlyingType(exprType);
+                var underlyingNullableType = exprType.GetUnderlyingTypeCache();
                 if (underlyingNullableType != null)
                     il.Emit(OpCodes.Newobj, exprType.GetConstructors().GetFirst());
 
@@ -4450,7 +4450,7 @@ namespace EmitMapper
                 {
                     lVarIndex = EmitStoreAndLoadLocalVariableAddress(il, leftOpType);
                     EmitMethodCall(il, leftOpType.FindNullableGetValueOrDefaultMethod());
-                    leftOpType = Nullable.GetUnderlyingType(leftOpType);
+                    leftOpType = leftOpType.GetUnderlyingTypeCache();
                 }
 
                 if (!TryEmit(exprRight, paramExprs, il, ref closure, setup, operandParent))
@@ -4481,7 +4481,7 @@ namespace EmitMapper
                     rVarIndex = EmitStoreAndLoadLocalVariableAddress(il, rightOpType);
                     EmitMethodCall(il, rightOpType.FindNullableGetValueOrDefaultMethod());
                     // ReSharper disable once AssignNullToNotNullAttribute
-                    rightOpType = Nullable.GetUnderlyingType(rightOpType);
+                    rightOpType = rightOpType.GetUnderlyingTypeCache();
                 }
 
                 if (!leftOpType.IsPrimitive && !leftOpType.IsEnum)
@@ -4735,7 +4735,7 @@ namespace EmitMapper
                 if (!exprType.IsPrimitive)
                 {
                     if (exprType.IsNullable())
-                        exprType = Nullable.GetUnderlyingType(exprType);
+                        exprType = exprType.GetUnderlyingTypeCache();
 
                     if (!exprType.IsPrimitive)
                     {
@@ -7086,7 +7086,7 @@ namespace EmitMapper
                 return !printGenericTypeArgs ? string.Empty
                     : (printType?.Invoke(type, type.Name) ?? type.Name);
 
-            if (Nullable.GetUnderlyingType(type) is Type nullableElementType && !type.IsGenericTypeDefinition)
+            if (type.GetUnderlyingTypeCache() is Type nullableElementType && !type.IsGenericTypeDefinition)
             {
                 var result = nullableElementType.ToCode(stripNamespace, printType, printGenericTypeArgs) + "?";
                 return printType?.Invoke(type, result) ?? result;

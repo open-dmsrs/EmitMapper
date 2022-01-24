@@ -334,7 +334,7 @@ internal class MappingOperationsProcessor
     // if destination is nullable, create a temp target variable with underlying destination type
     if (ReflectionHelper.IsNullable(op.Source.MemberType))
     {
-      tempSrc = CompilationContext.ILGenerator.DeclareLocal(Nullable.GetUnderlyingType(op.Source.MemberType));
+      tempSrc = CompilationContext.ILGenerator.DeclareLocal(op.Source.MemberType.GetUnderlyingTypeCache());
       copying.Add(
         new AstWriteLocal(
           tempSrc,
@@ -363,7 +363,7 @@ internal class MappingOperationsProcessor
       if (ReflectionHelper.IsNullable(op.Destination.MemberType))
       {
         tempDst = CompilationContext.ILGenerator.DeclareLocal(
-          Nullable.GetUnderlyingType(op.Destination.MemberType));
+          op.Destination.MemberType.GetUnderlyingTypeCache());
         copying.Add(
           new AstWriteLocal(
             tempDst,

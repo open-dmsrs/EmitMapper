@@ -1,5 +1,4 @@
-﻿namespace EmitMapper.Utils;
-
-internal class class1
+﻿namespace EmitMapper.Utils
 {
+  
 }

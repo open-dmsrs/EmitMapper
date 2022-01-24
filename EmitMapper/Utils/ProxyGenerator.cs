@@ -148,7 +148,7 @@ public static class ProxyGenerator
   private class PropertyEmitter
   {
     private static readonly MethodInfo ProxyBaseNotifyPropertyChanged =
-      Metadata<ProxyBase>.Type.GetMethod("NotifyPropertyChanged", TypeExtensions.InstanceFlags);
+      Metadata<ProxyBase>.Type.GetMethod(nameof(ProxyBase.NotifyPropertyChanged), TypeExtensions.InstanceFlags);
 
     private readonly FieldBuilder _fieldBuilder;
     private readonly MethodBuilder _getterBuilder;

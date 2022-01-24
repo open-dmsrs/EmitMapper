@@ -81,6 +81,9 @@ public static class DelegateInvoker
     return tb.CreateType();
   }
 
+  private static FieldInfo delField = Metadata<DelegateInvokerBase>.Type.GetField(
+    nameof(DelegateInvokerBase.Del),
+    BindingFlags.Public | BindingFlags.Instance);
   private static IAstRefOrValue CreateCallDelegate(Delegate del, IEnumerable<ParameterInfo> parameters)
   {
     return AstBuildHelper.CallMethod(
@@ -88,9 +91,7 @@ public static class DelegateInvoker
       new AstCastclassRef(
         AstBuildHelper.ReadFieldRV(
           new AstReadThis { ThisType = Metadata<DelegateInvokerBase>.Type },
-          Metadata<DelegateInvokerBase>.Type.GetField(
-            nameof(DelegateInvokerBase.Del),
-            BindingFlags.Public | BindingFlags.Instance)),
+          delField),
         del.GetType()),
       parameters.Select((p, idx) => (IAstStackItem)AstBuildHelper.ReadArgumentRV(idx + 1, Metadata<object>.Type))
         .ToList());

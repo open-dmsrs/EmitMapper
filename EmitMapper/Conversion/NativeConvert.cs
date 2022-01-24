@@ -63,10 +63,10 @@ internal class NativeConverter
           return true;
 
         if (ReflectionHelper.IsNullable(from))
-          return IsNativeConvertionPossible(Nullable.GetUnderlyingType(from), to);
+          return IsNativeConvertionPossible(from.GetUnderlyingTypeCache(), to);
 
         if (ReflectionHelper.IsNullable(to))
-          return IsNativeConvertionPossible(from, Nullable.GetUnderlyingType(to));
+          return IsNativeConvertionPossible(from, to.GetUnderlyingTypeCache());
 
         return false;
       });
