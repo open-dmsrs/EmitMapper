@@ -12,11 +12,12 @@ namespace EmitMapper.EmitInvoker.Delegates;
 
 public static class DelegateInvoker
 {
+  private static readonly LazyConcurrentDictionary<string, Type> Cache = new();
   public static DelegateInvokerBase GetDelegateInvoker(Delegate del)
   {
     var typeName = "EmitMapper.DelegateCaller_" + del;
 
-    var creator = ThreadSaveCache.GetCreator(
+    var type = Cache.GetOrAdd(
       typeName,
       key =>
       {
@@ -24,7 +25,8 @@ public static class DelegateInvoker
           return BuildActionCallerType(key, del);
         return BuildFuncCallerType(key, del);
       });
-    var result = (DelegateInvokerBase)creator();
+
+    var result = (DelegateInvokerBase)ObjectFactory.CreateInstance(type);
     result.Del = del;
     return result;
   }

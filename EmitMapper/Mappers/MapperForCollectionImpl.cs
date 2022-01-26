@@ -25,7 +25,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
     .GetMethod(nameof(CopyToListScalar), BindingFlags.Instance | BindingFlags.NonPublic);
 
   private static readonly LazyConcurrentDictionary<Type, bool> IsSupportedCache = new();
-  private ObjectsMapperDescr _subMapper;
+  private MapperDescription _subMapper;
 
   protected MapperForCollectionImpl()
     : base(null, null, null, null, null)
@@ -47,7 +47,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
     ObjectMapperManager objectMapperManager,
     Type typeFrom,
     Type typeTo,
-    ObjectsMapperDescr subMapper,
+    MapperDescription subMapper,
     IMappingConfigurator mappingConfigurator)
   {
     var tb = DynamicAssemblyManager.DefineType("GenericListInv_" + mapperName, Metadata<MapperForCollectionImpl>.Type);
@@ -74,9 +74,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
         .Compile(new CompilationContext(methodBuilder.GetILGenerator()));
     }
 
-    var result = Expression.Lambda<Func<MapperForCollectionImpl>>(Expression.New(tb.CreateType()))
-      .CompileFast()
-      .Invoke();
+    var result = ObjectFactory.CreateInstance<MapperForCollectionImpl>(tb.CreateType());
     result.Initialize(objectMapperManager, typeFrom, typeTo, mappingConfigurator, null);
     result._subMapper = subMapper;
 
@@ -85,7 +83,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
 
   private static IAstNode InvokeCopyImpl(Type copiedObjectType, MethodInfo copyMethod)
   {
-    var mi = copyMethod // fixed BUG 
+    var mi = copyMethod
       ?.MakeGenericMethod(ExtractElementType(copiedObjectType));
 
     return new AstReturn
@@ -223,7 +221,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
 
   private object CopyToIList(IList iList, object from)
   {
-    iList ??= Expression.Lambda<Func<IList>>(Expression.New(TypeTo)).CompileFast()();
+    iList ??= ObjectFactory.CreateInstance<IList>(TypeTo);
     foreach (var obj in from is IEnumerable fromEnumerable ? fromEnumerable : new[] { from })
       if (obj == null)
       {

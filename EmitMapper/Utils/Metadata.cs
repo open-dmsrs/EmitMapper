@@ -15,6 +15,9 @@ namespace EmitMapper.Utils;
 public static class Metadata
 {
   public static readonly Type Void = typeof(void);
+  /// <summary>
+  /// List&lt;&gt;
+  /// </summary>
   public static readonly Type List1 = typeof(List<>);
   public static readonly Type IList1 = typeof(IList<>);
   public static readonly Type Convert = typeof(Convert);

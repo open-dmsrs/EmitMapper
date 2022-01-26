@@ -601,7 +601,7 @@ internal class MappingOperationsProcessor
       MapMethod,
       new AstReadFieldRef
       {
-        FieldInfo = Metadata<ObjectsMapperDescr>.Type.GetField(nameof(ObjectsMapperDescr.Mapper)),
+        FieldInfo = Metadata<MapperDescription>.Type.GetField(nameof(MapperDescription.Mapper)),
         SourceObject = GetStoredObject(mapperId, mapper.GetType())
       },
       new List<IAstStackItem>

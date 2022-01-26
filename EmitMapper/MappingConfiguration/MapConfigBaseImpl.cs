@@ -265,7 +265,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
     var mi = genericConverter.GetMethodCache(converterDescr.ConversionMethodName);
 
-    var converterObj = Expression.Lambda<Func<object>>(Expression.New(genericConverter)).CompileFast()();
+    var converterObj = ObjectFactory.CreateInstance(genericConverter);
 
 
     if (converterObj is not ICustomConverter customConverter)

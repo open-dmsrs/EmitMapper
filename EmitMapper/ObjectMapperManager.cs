@@ -15,7 +15,7 @@ namespace EmitMapper;
 /// </summary>
 public class ObjectMapperManager
 {
-  private static readonly Lazy<ObjectMapperManager> _LazyDefaultInstance = new();
+  private static readonly Lazy<ObjectMapperManager> LazyDefaultInstance = new();
 
   private static int _totalInstCount;
 
@@ -26,7 +26,7 @@ public class ObjectMapperManager
     _currentInstanceId = Interlocked.Increment(ref _totalInstCount);
   }
 
-  public static ObjectMapperManager DefaultInstance => _LazyDefaultInstance.Value;
+  public static ObjectMapperManager DefaultInstance => LazyDefaultInstance.Value;
 
   /// <summary>
   ///   Returns a Mapper instance for specified types.
@@ -66,26 +66,26 @@ public class ObjectMapperManager
 
   #region Non-public members
 
-  private static readonly Dictionary<MapperKey, ObjectsMapperDescr> _ObjectsMapperIds =
+  private static readonly Dictionary<MapperKey, MapperDescription> ObjectsMapperIds =
     new(new MapperKey(null, null, null, 0));
 
 
-  internal ObjectsMapperDescr GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
+  internal MapperDescription GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
   {
     to ??= Metadata<object>.Type;
     from ??= Metadata<object>.Type;
     var mapperTypeKey = new MapperKey(from, to, mappingConfigurator, _currentInstanceId);
 
-    if (_ObjectsMapperIds.TryGetValue(mapperTypeKey, out var result))
+    if (ObjectsMapperIds.TryGetValue(mapperTypeKey, out var result))
       return result;
 
-    lock (_ObjectsMapperIds)
+    lock (ObjectsMapperIds)
     {
-      if (_ObjectsMapperIds.TryGetValue(mapperTypeKey, out result))
+      if (ObjectsMapperIds.TryGetValue(mapperTypeKey, out result))
         return result;
 
-      result = new ObjectsMapperDescr(null, mapperTypeKey, 0);
-      _ObjectsMapperIds.Add(mapperTypeKey, result);
+      result = new MapperDescription(null, mapperTypeKey, 0);
+      ObjectsMapperIds.Add(mapperTypeKey, result);
 
       var mapperTypeName = mapperTypeKey.GetMapperTypeName();
       ObjectsMapperBaseImpl createdMapper;
@@ -142,7 +142,7 @@ public class ObjectMapperManager
   #endregion
 }
 
-public class ObjectsMapperDescr
+public class MapperDescription
 {
   public int Id;
 
@@ -150,7 +150,7 @@ public class ObjectsMapperDescr
 
   public ObjectsMapperBaseImpl Mapper;
 
-  public ObjectsMapperDescr(ObjectsMapperBaseImpl mapper, MapperKey key, int id)
+  public MapperDescription(ObjectsMapperBaseImpl mapper, MapperKey key, int id)
   {
     Mapper = mapper;
     Key = key;

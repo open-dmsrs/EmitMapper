@@ -12,11 +12,12 @@ namespace EmitMapper.EmitInvoker.Methods;
 
 public static class MethodInvoker
 {
+  private static readonly LazyConcurrentDictionary<string, Type> Cache = new();
   public static MethodInvokerBase GetMethodInvoker(object targetObject, MethodInfo mi)
   {
     var typeName = "EmitMapper.MethodCaller_" + mi;
 
-    var creator = ThreadSaveCache.GetCreator(
+    var type = Cache.GetOrAdd(
       typeName,
       _ =>
       {
@@ -25,7 +26,7 @@ public static class MethodInvoker
         return BuildFuncCallerType(typeName, mi);
       });
 
-    var result = (MethodInvokerBase)creator();
+    var result = (MethodInvokerBase)ObjectFactory.CreateInstance(type);
     result.TargetObject = targetObject;
     return result;
   }

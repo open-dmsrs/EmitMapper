@@ -10,7 +10,7 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
 {
   private Func<TFrom, TTo> _converter;
 
-  private ObjectsMapperDescr _subMapper;
+  private MapperDescription _subMapper;
 
   public void Initialize(Type from, Type to, MapConfigBaseImpl mappingConfig)
   {
