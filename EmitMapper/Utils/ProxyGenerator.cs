@@ -40,7 +40,7 @@ public static class ProxyGenerator
     FieldBuilder propertyChangedField = null;
     if (Metadata<INotifyPropertyChanged>.Type.IsAssignableFrom(interfaceType)) GeneratePropertyChanged();
     GenerateFields();
-    return typeBuilder.CreateTypeInfo().AsType();
+    return typeBuilder.CreateType();
 
     TypeBuilder GenerateType()
     {
