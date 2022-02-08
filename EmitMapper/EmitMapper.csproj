@@ -14,13 +14,13 @@
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
-		<Version>2.0.0</Version>
+		<Version>2.0.1-build.1</Version>
 		<Description>The most fast mapper tool - EmitMapper runs base on netcore</Description>
 		<PackageProjectUrl>https://github.com/niubilitynetcore/EmitMapper</PackageProjectUrl>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<PackageIcon>icon.png</PackageIcon>
 		<RepositoryUrl>https://github.com/niubilitynetcore/EmitMapper</RepositoryUrl>
-		<PackageTags>2.0.1-build.1</PackageTags>
+		<PackageTags></PackageTags>
 		<NeutralLanguage>zh-CN</NeutralLanguage>
 		<IsPublishable>True</IsPublishable>
 		<PackageId>Niubility.$(AssemblyName)</PackageId>
