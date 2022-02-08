@@ -23,6 +23,9 @@
 		<PackageTags>2.0.0</PackageTags>
 		<NeutralLanguage>zh-CN</NeutralLanguage>
 		<IsPublishable>True</IsPublishable>
+		<PackageId>Niubility.$(AssemblyName)</PackageId>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
