@@ -3,6 +3,7 @@ Powerful customizable tool for mapping entities to each other. Entities can be p
 
 ## Changelog
 * Feb 8, 2022 The newest benchmark test is shown that the performance problem has been resolved. to see the method ToInt32(decimal?) of class NullableConverter
+* Add github action for publish the package to nuget.org automatically
 ## Road Map for migrating to netcore
 
 you can unload the project EmitMapper if you have a plan to use this library
