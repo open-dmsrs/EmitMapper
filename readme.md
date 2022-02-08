@@ -1,6 +1,8 @@
 ## Project Description
 Powerful customizable tool for mapping entities to each other. Entities can be plain objects, DataReaders, SQL commands and anything you need. The tool uses run-time code generation via the Emit library. It is useful for dealing with DTO objects, data access layers an so on.
 
+## Changelog
+* Feb 8, 2022 The newest benchmark test is shown that the performance problem has been resolved. to see the method ToInt32(decimal?) of class NullableConverter
 ## Road Map for migrating to netcore
 
 you can unload the project EmitMapper if you have a plan to use this library
@@ -16,6 +18,7 @@ you can unload the project EmitMapper if you have a plan to use this library
 *  Step three
   Import all of components - Work in Process
   Running success
+
 
 ## Supported platforms:
 

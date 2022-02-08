@@ -2,9 +2,8 @@
 using EmitMapper.Utils;
 using Xunit;
 
-namespace EmitMapper.Tests
+namespace EmitMapper.Tests;
+
+public class Class1
 {
-  public class Class1
-  {
-  }
 }

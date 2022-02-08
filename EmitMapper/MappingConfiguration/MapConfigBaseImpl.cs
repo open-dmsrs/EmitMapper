@@ -54,12 +54,12 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
     return new RootMappingOperation(from, to)
     {
-      TargetConstructor = _customConstructors.GetValue(new[] { to }),
-      NullSubstitutor = _nullSubstitutors.GetValue(new[] { to }),
-      ValuesPostProcessor = _postProcessors.GetValue(new[] { to }),
+      TargetConstructor = _customConstructors.GetValue(to),
+      NullSubstitutor = _nullSubstitutors.GetValue(to),
+      ValuesPostProcessor = _postProcessors.GetValue(to),
       Converter = converter,
-      DestinationFilter = _destinationFilters.GetValue(new[] { to }),
-      SourceFilter = _sourceFilters.GetValue(new[] { from })
+      DestinationFilter = _destinationFilters.GetValue(to),
+      SourceFilter = _sourceFilters.GetValue(from)
     };
   }
 
@@ -223,17 +223,17 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
           readwrite.NullSubstitutor =
             _nullSubstitutors.GetValue(new[] { readwrite.Source.MemberType, readwrite.Destination.MemberType });
-          readwrite.TargetConstructor = _customConstructors.GetValue(new[] { readwrite.Destination.MemberType });
+          readwrite.TargetConstructor = _customConstructors.GetValue(readwrite.Destination.MemberType);
           readwrite.Converter =
             _customConverters.GetValue(new[] { readwrite.Source.MemberType, readwrite.Destination.MemberType }) ??
             GetGenericConverter(readwrite.Source.MemberType, readwrite.Destination.MemberType);
-          readwrite.DestinationFilter = _destinationFilters.GetValue(new[] { readwrite.Destination.MemberType });
-          readwrite.SourceFilter = _sourceFilters.GetValue(new[] { readwrite.Source.MemberType });
+          readwrite.DestinationFilter = _destinationFilters.GetValue(readwrite.Destination.MemberType);
+          readwrite.SourceFilter = _sourceFilters.GetValue(readwrite.Source.MemberType);
         }
 
         if (op is ReadWriteComplex readWriteComplex)
           readWriteComplex.ValuesPostProcessor =
-            _postProcessors.GetValue(new[] { readWriteComplex.Destination.MemberType });
+            _postProcessors.GetValue(readWriteComplex.Destination.MemberType);
 
         if (op is IComplexOperation complexOperation)
         {

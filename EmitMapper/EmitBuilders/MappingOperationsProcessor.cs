@@ -252,7 +252,7 @@ internal class MappingOperationsProcessor
     string fieldName,
     Delegate filterDelegate)
   {
-    var t = filterDelegate.GetType();
+    var delegateType = filterDelegate.GetType();
     result = new AstComplexNode
     {
       Nodes = new List<IAstNode>
@@ -260,12 +260,12 @@ internal class MappingOperationsProcessor
         new AstIf
         {
           Condition = (IAstValue)AstBuildHelper.CallMethod(
-            t.GetMethodCache("Invoke"),
+            delegateType.GetMethodCache("Invoke"),
             new AstCastclassRef(
               (IAstRef)AstBuildHelper.ReadMemberRV(
                 GetStoredObject(operationId, Metadata<IReadWriteOperation>.Type),
                 Metadata<IReadWriteOperation>.Type.GetProperty(fieldName)),
-              t),
+              delegateType),
             new List<IAstStackItem>
             {
               value, AstBuildHelper.ReadLocalRV(LocState)

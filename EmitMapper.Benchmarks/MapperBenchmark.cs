@@ -36,19 +36,7 @@ public class MapperBenchmark
     var fixture = new Fixture();
     _benchSourceEmitMapper = ObjectMapperManager.DefaultInstance.GetMapper<BenchSource, BenchDestination>();
     _simpleEmitMapper = ObjectMapperManager.DefaultInstance.GetMapper<B2, A2>(
-      new DefaultMapConfig()
-        .ConstructBy(() => new A2())
-        //.NullSubstitution<decimal?, int>(state => 0)
-        //.NullSubstitution<bool?, bool>(state => true)
-        //.NullSubstitution<int?, int>(state => 42)
-        //.NullSubstitution<long?, long>(state => 42)
-        //.ConvertUsing<long, int>(value => (int)value)
-        //.ConvertUsing<short, int>(value => value)
-        //.ConvertUsing<byte, int>(value => value)
-        ////.ConvertUsing<decimal, int>(value => (int)value + 1)
-        //.ConvertUsing<float, int>(value => (int)value)
-        //.ConvertUsing<char, int>(value => value)
-      );
+      new DefaultMapConfig());
     var config = new MapperConfiguration(
       cfg =>
       {
@@ -129,6 +117,26 @@ public class MapperBenchmark
 
 /*
 * Summary *
+ * Feb 8, 2022
+ * The newest benchmark test is shown that the performance problem has been resolved. to see the method ToInt32(decimal?) of class NullableConverter
+ BenchmarkDotNet=v0.13.1, OS=Windows 10.0.18363.2037 (1909/November2019Update/19H2)
+   Intel Core i5-8350U CPU 1.70GHz (Kaby Lake R), 1 CPU, 8 logical and 4 physical cores
+   .NET SDK=6.0.101
+   [Host]   : .NET 6.0.1 (6.0.121.56705), X64 RyuJIT
+   .NET 6.0 : .NET 6.0.1 (6.0.121.56705), X64 RyuJIT
+   
+   Job=.NET 6.0  Runtime=.NET 6.0
+   
+   |                         Method |        Mean |     Error |    StdDev | Ratio |  Gen 0 |  Gen 1 | Allocated |
+   |------------------------------- |------------:|----------:|----------:|------:|-------:|-------:|----------:|
+   |      EmitMapper_SimpleList1000 |    102.6 ns |   2.17 ns |   5.99 ns |  1.00 | 0.0306 | 0.0101 |     128 B |
+   |                                |             |           |           |       |        |        |           |
+   |      AutoMapper_SimpleList1000 |    120.8 ns |   5.34 ns |  15.14 ns |  1.00 | 0.0359 | 0.0098 |     137 B |
+   |                                |             |           |           |       |        |        |           |
+   | EmitMapper_BenchSourceList1000 |  4,607.4 ns | 106.53 ns | 298.73 ns |  1.00 | 0.4766 | 0.2344 |   3,024 B |
+   |                                |             |           |           |       |        |        |           |
+   | AutoMapper_BenchSourceList1000 | 16,540.4 ns | 305.95 ns | 603.91 ns |  1.00 | 0.4688 | 0.2344 |   3,033 B |
+
 
   BenchmarkDotNet = v0.13.1, OS=Windows 10.0.18363.1977 (1909/November2019Update/19H2)
 Intel Core i5-8350U CPU 1.70GHz(Kaby Lake R), 1 CPU, 8 logical and 4 physical cores

@@ -18,7 +18,7 @@ public static class ReflectionHelper
 
   private static readonly LazyConcurrentDictionary<Type, Type[]> Interfaces = new();
 
-  private static readonly LazyConcurrentDictionary<Type, MethodInfo> MethodsCahce = new();
+  private static readonly LazyConcurrentDictionary<string, MethodInfo> MethodsCahce = new();
 
   private static readonly LazyConcurrentDictionary<Type, Type> UnderlyingTypes = new();
 
@@ -29,9 +29,16 @@ public static class ReflectionHelper
     return UnderlyingTypes.GetOrAdd(t, type => Nullable.GetUnderlyingType(type));
   }
 
+  /// <summary>
+  /// Bug: cached a method info on a type, just one method on one type. there is bug if get two methods from a same type
+  /// </summary>
+  /// <param name="t"></param>
+  /// <param name="name"></param>
+  /// <returns></returns>
   public static MethodInfo GetMethodCache(this Type t, string name)
   {
-    return MethodsCahce.GetOrAdd(t, type => type.GetMethod(name));
+    var k = $"{t.FullName}::{name}";
+    return MethodsCahce.GetOrAdd(k, _ => t.GetMethod(name));
   }
 
   public static Type GetGenericTypeDefinitionCache(this Type t)

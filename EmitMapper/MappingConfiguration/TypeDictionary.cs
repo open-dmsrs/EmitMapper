@@ -43,7 +43,11 @@ internal class TypeDictionary<T>
     var elem = FindTypes(types);
     return elem?.Value;
   }
-
+  public T GetValue(Type type)
+  {
+    var elem = FindTypes(type);
+    return elem?.Value;
+  }
   public void Add(Type[] types, T value)
   {
     var newElem = new ListElement(types, value);
@@ -75,7 +79,25 @@ internal class TypeDictionary<T>
 
     return null;
   }
+  private ListElement? FindTypes(Type type)
+  {
+    foreach (var element in _elements)
+    {
+      var isAssignable = true;
+      foreach (var t in element.Types)
+      {
+        if (IsGeneralType(t, type))
+          continue;
+        isAssignable = false;
+        break;
+      }
 
+      if (isAssignable)
+        return element;
+    }
+
+    return null;
+  }
   private readonly struct ListElement : IEquatable<ListElement>
   {
     public readonly T Value;

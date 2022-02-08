@@ -1,4 +1,1 @@
-﻿namespace EmitMapper.Utils
-{
-  
-}
+﻿namespace EmitMapper.Utils;

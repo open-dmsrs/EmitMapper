@@ -16,11 +16,11 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
   {
     var staticConverters = mappingConfig.GetStaticConvertersManager() ?? StaticConvertersManager.DefaultInstance;
     var staticConverterMethod = staticConverters.GetStaticConverter(Metadata<TFrom>.Type, Metadata<TTo>.Type);
-    if (staticConverterMethod != null)
+    if (staticConverterMethod != default)
     {
       _converter = (Func<TFrom, TTo>)Delegate.CreateDelegate(
         Metadata<Func<TFrom, TTo>>.Type,
-        null,
+        default,
         staticConverterMethod);
     }
     else
@@ -35,8 +35,8 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
 
   public TTo[] Convert(ICollection<TFrom> from, object state)
   {
-    if (from == null)
-      return null;
+    if (from == default)
+      return default;
 
     var result = new TTo[from.Count];
     var idx = 0;
@@ -69,8 +69,8 @@ internal class ArraysConverterProvider : ICustomConverterProvider
   {
     var tFromTypeArgs = DefaultCustomConverterProvider.GetGenericArguments(from);
     var tToTypeArgs = DefaultCustomConverterProvider.GetGenericArguments(to);
-    if (tFromTypeArgs == null || tToTypeArgs == null || tFromTypeArgs.Length != 1 || tToTypeArgs.Length != 1)
-      return null;
+    if (tFromTypeArgs == default || tToTypeArgs == default || tFromTypeArgs.Length != 1 || tToTypeArgs.Length != 1)
+      return default;
     var tFrom = tFromTypeArgs[0];
     var tTo = tToTypeArgs[0];
     if (tFrom == tTo && (tFrom.IsValueType || mappingConfig.GetRootMappingOperation(tFrom, tTo).ShallowCopy))

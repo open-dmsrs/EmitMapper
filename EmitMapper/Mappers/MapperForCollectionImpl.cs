@@ -222,24 +222,24 @@ public class MapperForCollectionImpl : CustomMapperImpl
   private object CopyToIList(IList iList, object from)
   {
     iList ??= ObjectFactory.CreateInstance<IList>(TypeTo);
-    foreach (var obj in from is IEnumerable fromEnumerable ? fromEnumerable : new[] { from })
+    foreach (var obj in from is IEnumerable fromEnumerable ? fromEnumerable : from.AsEnumerable())
       if (obj == null)
-      {
-        iList.Add(null);
-      }
-      else if (RootOperation == null || RootOperation.ShallowCopy)
-      {
-        iList.Add(obj);
-      }
-      else
-      {
-        var mapper = ObjectMapperManager.GetMapperImpl(
-          obj.GetType(),
-          obj.GetType(),
-          MappingConfigurator
-        );
-        iList.Add(mapper.Map(obj));
-      }
+    {
+      iList.Add(null);
+    }
+    else if (RootOperation == null || RootOperation.ShallowCopy)
+    {
+      iList.Add(obj);
+    }
+    else
+    {
+      var mapper = ObjectMapperManager.GetMapperImpl(
+        obj.GetType(),
+        obj.GetType(),
+        MappingConfigurator
+      );
+      iList.Add(mapper.Map(obj));
+    }
 
     return iList;
   }
