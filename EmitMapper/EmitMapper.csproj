@@ -20,7 +20,7 @@
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<PackageIcon>icon.png</PackageIcon>
 		<RepositoryUrl>https://github.com/niubilitynetcore/EmitMapper</RepositoryUrl>
-		<PackageTags>2.0.0</PackageTags>
+		<PackageTags>2.0.1-build.1</PackageTags>
 		<NeutralLanguage>zh-CN</NeutralLanguage>
 		<IsPublishable>True</IsPublishable>
 		<PackageId>Niubility.$(AssemblyName)</PackageId>
