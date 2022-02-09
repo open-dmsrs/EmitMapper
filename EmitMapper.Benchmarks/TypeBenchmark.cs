@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 using EmitMapper.Utils;
@@ -11,36 +7,38 @@ namespace EmitMapper.Benchmarks;
 
 public class Employee
 {
-  public Employee() { }
-
 }
 
 [SimpleJob(RuntimeMoniker.Net60, baseline: true)]
 [MemoryDiagnoser]
 public class TypeBenchmark
 {
+  private const int IterationCount = 1_000;
   private Employee e;
+
   [GlobalSetup]
   public void Setup()
   {
     e = new Employee();
   }
+
   [Benchmark(OperationsPerInvoke = IterationCount)]
   public Type Of_typeof()
   {
     return typeof(Employee);
   }
+
   [Benchmark(OperationsPerInvoke = IterationCount)]
   public Type Of_GetType()
   {
     return e.GetType();
   }
+
   [Benchmark(OperationsPerInvoke = IterationCount)]
   public Type Of_Metadata()
   {
     return Metadata<Employee>.Type;
   }
-  private const int IterationCount = 1_000;
 }
 
 

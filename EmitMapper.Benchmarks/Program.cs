@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using BenchmarkDotNet.Configs;
-using BenchmarkDotNet.Running;
+﻿using BenchmarkDotNet.Running;
 
 namespace EmitMapper.Benchmarks;
 
@@ -24,10 +21,10 @@ public static class Program
 
     BenchmarkRunner.Run<MapperBenchmark>(
 
-    /****
-                                     ManualConfig.Create(DefaultConfig.Instance)
-                                         .WithOptions(ConfigOptions.DisableOptimizationsValidator)
-    /****/
+      /****
+                                       ManualConfig.Create(DefaultConfig.Instance)
+                                           .WithOptions(ConfigOptions.DisableOptimizationsValidator)
+      /****/
     );
 
     //BenchmarkRunner.Run<TypeBenchmark>(

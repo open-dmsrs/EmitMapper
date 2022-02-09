@@ -1,6 +1,6 @@
-﻿namespace EmitMapper.Benchmarks.TestData;
+﻿namespace EmitMapper.Benchmarks.TestObject;
 
-public class A2
+public class SimpleTypesDestination : ITestObject
 {
   public int N1;
   public int N2;
@@ -9,6 +9,7 @@ public class A2
   public int N5;
   public int N6;
   public int N7;
+  public int N8;
   public string Str1;
   public string Str2;
   public string Str3;

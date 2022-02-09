@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
 using AutoMapper;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
-using EmitMapper.Benchmarks.TestData;
+using EmitMapper.Benchmarks.TestObject;
 using EmitMapper.MappingConfiguration;
 
 namespace EmitMapper.Benchmarks;
@@ -16,102 +15,127 @@ namespace EmitMapper.Benchmarks;
 public class MapperBenchmark
 {
   private const int IterationCount = 1_000;
-  private B2 _simpleSource;
-
-  private BenchSource _benchSource;
   private IMapper _autoMapper;
-  private List<B2> _simple1000List;
 
-  private List<B2> _simple100List;
-  private List<BenchSource> _benchSources1000List;
-  private ObjectsMapper<B2, A2> _simpleEmitMapper;
+  private BenchNestedSource _benchSource;
 
-  private ObjectsMapper<BenchSource, BenchDestination> _benchSourceEmitMapper;
+  private ObjectsMapper<BenchNestedSource, BenchNestedDestination> _benchSourceEmitMapper;
+  private List<BenchNestedSource> _benchSources1000List;
+  private List<SimpleTypesSource> _simple1000List;
+
+  private List<SimpleTypesSource> _simple100List;
+  private ObjectsMapper<SimpleTypesSource, SimpleTypesDestination> _simpleEmitMapper;
+  private SimpleTypesSource _simpleSource;
 
   [GlobalSetup]
   public void Setup()
   {
-    //Console.WriteLine($"Current:{DateTime.Now.Ticks}");
-
     var fixture = new Fixture();
-    _benchSourceEmitMapper = ObjectMapperManager.DefaultInstance.GetMapper<BenchSource, BenchDestination>();
-    _simpleEmitMapper = ObjectMapperManager.DefaultInstance.GetMapper<B2, A2>(
-      new DefaultMapConfig());
+    _benchSourceEmitMapper = ObjectMapperManager.DefaultInstance.GetMapper<BenchNestedSource, BenchNestedDestination>();
+    _simpleEmitMapper = ObjectMapperManager.DefaultInstance
+      .GetMapper<SimpleTypesSource, SimpleTypesDestination>(
+        new DefaultMapConfig());
     var config = new MapperConfiguration(
       cfg =>
       {
-        cfg.CreateMap<BenchSource, BenchDestination>();
-        cfg.CreateMap<BenchSource.Int1, BenchDestination.Int1>();
-        cfg.CreateMap<BenchSource.Int2, BenchDestination.Int2>();
-        cfg.CreateMap<B2, A2>();
+        cfg.CreateMap<BenchNestedSource, BenchNestedDestination>();
+        cfg.CreateMap<BenchNestedSource.Nested2, BenchNestedDestination.Inner2>();
+        cfg.CreateMap<BenchNestedSource.Nested1, BenchNestedDestination.Inner1>();
+        cfg.CreateMap<SimpleTypesSource, SimpleTypesDestination>();
       });
     _autoMapper = config.CreateMapper();
 
-    _benchSource = fixture.Create<BenchSource>();
-    _simpleSource = fixture.Create<B2>();
-    _simple100List = fixture.CreateMany<B2>(100).ToList();
-    _simple1000List = fixture.CreateMany<B2>(1000).ToList();
-    _benchSources1000List = fixture.CreateMany<BenchSource>(1000).ToList();
+    _benchSource = fixture.Create<BenchNestedSource>();
+    _simpleSource = fixture.Create<SimpleTypesSource>();
+    _simple100List = fixture.CreateMany<SimpleTypesSource>(100).ToList();
+    _simple1000List = fixture.CreateMany<SimpleTypesSource>(1000).ToList();
+    _benchSources1000List = fixture.CreateMany<BenchNestedSource>(1000).ToList();
   }
+
+  private static SimpleTypesDestination HandwrittenMap(SimpleTypesSource s,
+    SimpleTypesDestination result)
+  {
+    result.Str1 = s.Str1;
+    result.Str2 = s.Str2;
+    result.Str3 = s.Str3;
+    result.Str4 = s.Str4;
+    result.Str5 = s.Str5;
+    result.Str6 = s.Str6;
+    result.Str7 = s.Str7;
+    result.Str8 = s.Str8;
+    result.Str9 = s.Str9;
+
+    result.N1 = s.N1;
+    result.N2 = (int)s.N2;
+    result.N3 = s.N3;
+    result.N4 = s.N4;
+    if (s.N5.HasValue)
+      result.N5 = decimal.ToInt32(s.N5.Value);
+    result.N6 = (int)s.N6;
+    result.N7 = s.N7;
+    result.N8 = s.N8;
+    return result;
+  }
+
   //
-  // [Benchmark(OperationsPerInvoke = IterationCount)]
-  // public BenchDestination EmitMapper_BenchSource()
-  // {
-  //     return _benchSourceEmitMapper.Map(_benchSource);
-  // }
-  //
-  // [Benchmark(OperationsPerInvoke = IterationCount)]
-  // public BenchDestination AutoMapper_BenchSource()
-  // {
-  //     return _autoMapper.Map<BenchSource, BenchDestination>(_benchSource);
-  // }
-  //
-  // [Benchmark(OperationsPerInvoke = IterationCount)]
-  // public A2 EmitMapper_Simple()
-  // {
-  //     return _simpleEmitMapper.Map(_simpleSource);
-  // }
-  //
-  // [Benchmark(OperationsPerInvoke = IterationCount)]
-  // public A2 AutoMapper_Simple()
-  // {
-  //     return _autoMapper.Map<B2, A2>(_simpleSource);
-  // }
-  //
-  // [Benchmark(OperationsPerInvoke = IterationCount)]
-  // public List<A2> EmitMapper_SimpleList100()
-  // {
-  //     return _simpleEmitMapper.MapEnum(_simple100List).ToList();
-  // }
-  //
-  // [Benchmark(OperationsPerInvoke = IterationCount)]
-  // public List<A2> AutoMapper_SimpleList100()
-  // {
-  //     return _autoMapper.Map<List<B2>, List<A2>>(_simple100List);
-  // }
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public BenchNestedDestination EmitMapper_BenchSource()
+  {
+    return _benchSourceEmitMapper.Map(_benchSource);
+  }
 
   [Benchmark(OperationsPerInvoke = IterationCount)]
-  public List<A2> EmitMapper_SimpleList1000()
+  public BenchNestedDestination AutoMapper_BenchSource()
+  {
+    return _autoMapper.Map<BenchNestedSource, BenchNestedDestination>(_benchSource);
+  }
+
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public SimpleTypesDestination EmitMapper_Simple()
+  {
+    return _simpleEmitMapper.Map(_simpleSource);
+  }
+
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public SimpleTypesDestination AutoMapper_Simple()
+  {
+    return _autoMapper.Map<SimpleTypesSource, SimpleTypesDestination>(_simpleSource);
+  }
+
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public List<SimpleTypesDestination> EmitMapper_SimpleList100()
+  {
+    return _simpleEmitMapper.MapEnum(_simple100List).ToList();
+  }
+
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public List<SimpleTypesDestination> AutoMapper_SimpleList100()
+  {
+    return _autoMapper.Map<List<SimpleTypesSource>, List<SimpleTypesDestination>>(_simple100List);
+  }
+
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public List<SimpleTypesDestination> EmitMapper_SimpleList1000()
   {
     return _simpleEmitMapper.MapEnum(_simple1000List);
   }
 
   [Benchmark(OperationsPerInvoke = IterationCount)]
-  public List<A2> AutoMapper_SimpleList1000()
+  public List<SimpleTypesDestination> AutoMapper_SimpleList1000()
   {
-    return _autoMapper.Map<List<B2>, List<A2>>(_simple1000List);
+    return _autoMapper.Map<List<SimpleTypesSource>, List<SimpleTypesDestination>>(_simple1000List);
   }
 
   [Benchmark(OperationsPerInvoke = IterationCount)]
-  public List<BenchDestination> EmitMapper_BenchSourceList1000()
+  public List<BenchNestedDestination> EmitMapper_BenchSourceList1000()
   {
     return _benchSourceEmitMapper.MapEnum(_benchSources1000List);
   }
 
   [Benchmark(OperationsPerInvoke = IterationCount)]
-  public List<BenchDestination> AutoMapper_BenchSourceList1000()
+  public List<BenchNestedDestination> AutoMapper_BenchSourceList1000()
   {
-    return _autoMapper.Map<List<BenchSource>, List<BenchDestination>>(_benchSources1000List);
+    return _autoMapper.Map<List<BenchNestedSource>, List<BenchNestedDestination>>(_benchSources1000List);
   }
 }
 

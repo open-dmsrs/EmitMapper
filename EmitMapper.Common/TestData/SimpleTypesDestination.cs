@@ -1,15 +1,15 @@
-﻿namespace EmitMapper.Benchmarks.TestData;
+﻿namespace EmitMapper.Common.TestData;
 
-public class B2
+public class SimpleTypesDestination : ITestObject
 {
-  public byte N4;
-  public decimal? N5;
-  public float N6;
-
   public int N1;
+  public int N2;
+  public int N3;
+  public int N4;
+  public int N5;
+  public int N6;
   public int N7;
-  public long N2;
-  public short N3;
+  public int N8;
   public string Str1;
   public string Str2;
   public string Str3;

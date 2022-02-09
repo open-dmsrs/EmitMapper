@@ -6,9 +6,9 @@ using System.Reflection;
 using AutoFixture;
 using AutoFixture.Kernel;
 using AutoFixture.Xunit2;
+using EmitMapper.Common.TestData;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
-using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
 using Xunit;
 using Xunit.Abstractions;
@@ -33,29 +33,25 @@ public class MappingList
     var rw1 = new ReadWriteSimple
     {
       Source = new MemberDescriptor(
-
-            typeof(FromClass).GetMember(nameof(FromClass.Inner))[0].AsEnumerable(
-            typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[0])
-
-          ),
+        typeof(FromClass).GetMember(nameof(FromClass.Inner))[0].AsEnumerable(
+          typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[0])
+      ),
       Destination = new MemberDescriptor(typeof(ToClass).GetMember(nameof(ToClass.Message))[0].AsEnumerable())
     };
 
 
     var rw2 = new ReadWriteSimple
     {
-      Source = new MemberDescriptor(typeof(FromClass).GetMember(nameof(FromClass.Inner))[0].AsEnumerable(
-        typeof(FromClass.InnerClass).GetMember(nameof(FromClass.InnerClass.GetMessage2))[0])
+      Source = new MemberDescriptor(
+        typeof(FromClass).GetMember(nameof(FromClass.Inner))[0].AsEnumerable(
+          typeof(FromClass.InnerClass).GetMember(nameof(FromClass.InnerClass.GetMessage2))[0])
       ),
       Destination = new MemberDescriptor(typeof(ToClass).GetMember(nameof(ToClass.Message2))[0].AsEnumerable())
     };
 
 
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<List<FromClass>, List<ToClass>>(
-      new CustomMapConfig
-      {
-        GetMappingOperationFunc = (from, to) => rw1.AsEnumerable(rw2)
-      });
+      new CustomMapConfig { GetMappingOperationFunc = (from, to) => rw1.AsEnumerable(rw2) });
 
     var tolist = mapper.Map(listFrom);
     using var f = listFrom.GetEnumerator();
@@ -95,8 +91,7 @@ public class MappingList
       Source = new MemberDescriptor(
         new[]
         {
-          typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
-          typeof(FromClass.InnerClass).GetMember(
+          typeof(FromClass).GetMember(nameof(FromClass.Inner))[0], typeof(FromClass.InnerClass).GetMember(
             nameof(FromClass.InnerClass.GetMessage2))[0]
         }),
       Destination = new MemberDescriptor(
@@ -105,10 +100,7 @@ public class MappingList
 
 
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<ArrayList, ArrayList>(
-      new CustomMapConfig
-      {
-        GetMappingOperationFunc = (from, to) => rw1.AsEnumerable(rw2)
-      });
+      new CustomMapConfig { GetMappingOperationFunc = (from, to) => rw1.AsEnumerable(rw2) });
 
     var tolist = mapper.Map(listFrom);
     var f = listFrom.GetEnumerator();
@@ -147,8 +139,7 @@ public class MappingList
       Source = new MemberDescriptor(
         new[]
         {
-          typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
-          typeof(FromClass.InnerClass).GetMember(
+          typeof(FromClass).GetMember(nameof(FromClass.Inner))[0], typeof(FromClass.InnerClass).GetMember(
             nameof(FromClass.InnerClass.GetMessage2))[0]
         }),
       Destination = new MemberDescriptor(
@@ -156,12 +147,8 @@ public class MappingList
     };
 
 
-
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<FromClass, ToClass>(
-      new CustomMapConfig
-      {
-        GetMappingOperationFunc = (from, to) => rw1.AsEnumerable(rw2)
-      });
+      new CustomMapConfig { GetMappingOperationFunc = (from, to) => rw1.AsEnumerable(rw2) });
 
     var tolist = mapper.MapEnum(list);
     using var f = list.GetEnumerator();
@@ -175,87 +162,59 @@ public class MappingList
   }
 
   [Fact]
+  public void ConvertCharToInt32()
+  {
+    char m = 'a';
+    int n = Convert.ToInt32(m);
+
+    _testOutputHelper.WriteLine(n + "");
+  }
+
+  [Fact]
   public void TestManyValueType()
   {
     Fixture fixture = new();
     //fixture.Customizations.Add(
     //  new RandomDoublePrecisionFloatingPointSequenceGenerator());
 
-    var list = fixture.CreateMany<B2Source>(3).ToList();
+    var list = fixture.CreateMany<SimpleTypesSource>(3).ToList();
     //list.FirstOrDefault().N5 = 3.3232423424234M;
     _testOutputHelper.WriteLine(list.Count.ToString());
 
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B2Source, A2Destination>();
-    mapper = ObjectMapperManager.DefaultInstance.GetMapper<B2Source, A2Destination>();
+    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
+    mapper = ObjectMapperManager.DefaultInstance.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
     var tolist = mapper.MapEnum(list);
     using var f = list.GetEnumerator();
     using var t = tolist.GetEnumerator();
     while (f.MoveNext() && t.MoveNext())
     {
       _testOutputHelper.WriteLine(f.Current?.N5.ToString());
-      var fv = ReflectionHelper.GetPublicFieldsAndProperties(typeof(B2Source))
-        .Select(
-          m => new
-          {
-            m.Name,
-            FValue = (m as FieldInfo)?.GetValue(f.Current)?.ToString()
-          });
+      var fv = ReflectionHelper.GetPublicFieldsAndProperties(typeof(SimpleTypesSource))
+        .Select(m => GetMemberValue(m, f.Current)).Select(m => new { Name = m.Key, FValue = m.Value });
 
-      var tv = ReflectionHelper.GetPublicFieldsAndProperties(typeof(A2Destination)).Select(
-        m => new
-        {
-          m.Name,
-          TValue = (m as FieldInfo)?.GetValue(t.Current)?.ToString()
-        });
+      var tv = ReflectionHelper.GetPublicFieldsAndProperties(typeof(SimpleTypesDestination)).Select(
+        m => GetMemberValue(m, t.Current)).Select(m => new { Name = m.Key, TValue = m.Value });
 
       var result = fv
         .Join(tv, a => a.Name, b => b.Name, (a, b) => new { a.Name, a.FValue, b.TValue });
 
-      foreach (var temp in result) Assert.Equal(temp.FValue, temp.TValue);
+      foreach (var temp in result)
+      {
+        Assert.True(Assert.Equal(temp.FValue, temp.TValue), $"Member '{temp.Name} is not equal. Source value£º{temp.FValue}, Destination:{temp.TValue}");
+      }
     }
   }
-
-  public class B2Source
+  public static KeyValuePair<string, object> GetMemberValue(MemberInfo member, object target)
   {
-    public byte N4;
-    public decimal? N5;
-    public float N6;
-
-    public int N1;
-    public int N7;
-    public long N2;
-    public short N3;
-    public string Str1;
-    public string Str2;
-    public string Str3;
-    public string Str4;
-    public string Str5;
-    public string Str6;
-    public string Str7;
-    public string Str8;
-    public string Str9;
+    return member switch
+    {
+      PropertyInfo property => KeyValuePair.Create(property.Name, property.GetValue(target)),
+      MethodInfo method => KeyValuePair.Create(method.Name, method.Invoke(target, null)),
+      FieldInfo field => KeyValuePair.Create(field.Name, field.GetValue(target)),
+      null => throw new ArgumentNullException(nameof(member)),
+      _ => throw new ArgumentOutOfRangeException(nameof(member))
+    };
   }
-
-  public class A2Destination
-  {
-    public int N1;
-    public int N2;
-    public int N3;
-    public int N4;
-    public int N5;
-    public int N6;
-    public int N7;
-    public string Str1;
-    public string Str2;
-    public string Str3;
-    public string Str4;
-    public string Str5;
-    public string Str6;
-    public string Str7;
-    public string Str8;
-    public string Str9;
-  }
-
   public class ToClass
   {
     public string Message;
@@ -287,8 +246,8 @@ public class MappingList
 
     internal RandomDoublePrecisionFloatingPointSequenceGenerator()
     {
-      this.syncRoot = new object();
-      this.random = new Random();
+      syncRoot = new object();
+      random = new Random();
     }
 
     public object Create(object request, ISpecimenContext context)
@@ -297,14 +256,14 @@ public class MappingList
       if (type == null)
         return new NoSpecimen();
 
-      return this.CreateRandom(type);
+      return CreateRandom(type);
     }
 
     private double GetNextRandom()
     {
-      lock (this.syncRoot)
+      lock (syncRoot)
       {
-        return this.random.NextDouble();
+        return random.NextDouble();
       }
     }
 
@@ -314,20 +273,18 @@ public class MappingList
       {
         case TypeCode.Decimal:
           return (decimal)
-            this.GetNextRandom();
+            GetNextRandom();
 
         case TypeCode.Double:
-          return (double)
-            this.GetNextRandom();
+          return GetNextRandom();
 
         case TypeCode.Single:
           return (float)
-            this.GetNextRandom();
+            GetNextRandom();
 
         default:
           return new NoSpecimen();
       }
     }
   }
-
 }
