@@ -200,7 +200,12 @@ public class MappingList
 
       foreach (var temp in result)
       {
-        Assert.True(Assert.Equal(temp.FValue, temp.TValue), $"Member '{temp.Name} is not equal. Source value£º{temp.FValue}, Destination:{temp.TValue}");
+        if (temp.Name == "N8")
+        {
+          Assert.True(Convert.ToInt32(temp.FValue) == Convert.ToInt32(temp.TValue), $"Member '{temp.Name} is not equal. Source value£º{temp.FValue}, Destination:{temp.TValue}");
+        }
+        else
+          Assert.True(Convert.ToString(temp.FValue) == Convert.ToString(temp.TValue), $"Member '{temp.Name} is not equal. Source value£º{temp.FValue}, Destination:{temp.TValue}");
       }
     }
   }
