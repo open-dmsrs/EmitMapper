@@ -12,9 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System.Collections.Generic;
-
 namespace LightDataAccess;
+
+using System.Collections.Generic;
 
 /// <summary>
 ///   Class CmdParams
@@ -32,7 +32,8 @@ public class CmdParams : Dictionary<string, object>
   ///   Initializes a new instance of the <see cref="CmdParams" /> class.
   /// </summary>
   /// <param name="init">The init.</param>
-  public CmdParams(Dictionary<string, object> init) : base(init)
+  public CmdParams(Dictionary<string, object> init)
+    : base(init)
   {
   }
 }

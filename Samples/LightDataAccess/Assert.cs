@@ -12,12 +12,12 @@
 // <summary></summary>
 // ***********************************************************************
 
+namespace LightDataAccess;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-
-namespace LightDataAccess;
 
 /// <summary>
 ///   The Assert class.
@@ -31,7 +31,8 @@ public static class AssertCore
   /// <param name="value1">The value1.</param>
   /// <param name="value2">The value2.</param>
   /// <param name="getException">The get exception.</param>
-  public static void AreEqual<T>(int value1, int value2, Func<T> getException) where T : Exception
+  public static void AreEqual<T>(int value1, int value2, Func<T> getException)
+    where T : Exception
   {
     if (value1 == value2) return;
 
@@ -87,7 +88,8 @@ public static class AssertCore
   /// <param name="value1">The value1.</param>
   /// <param name="value2">The value2.</param>
   /// <param name="getException">The get exception.</param>
-  public static void AreEqual<T>(string value1, string value2, Func<T> getException) where T : Exception
+  public static void AreEqual<T>(string value1, string value2, Func<T> getException)
+    where T : Exception
   {
     if (value1 == null && value2 != null) throw getException.Invoke();
 
@@ -126,7 +128,8 @@ public static class AssertCore
   /// <typeparam name="T">The exception type.</typeparam>
   /// <param name="condition">if set to <c>true</c> [condition].</param>
   /// <param name="getException">The get exception.</param>
-  public static void ArgumentCondition<T>(bool condition, Func<T> getException) where T : Exception
+  public static void ArgumentCondition<T>(bool condition, Func<T> getException)
+    where T : Exception
   {
     if (condition) return;
 
@@ -147,8 +150,8 @@ public static class AssertCore
 
     var message = getMessage.Invoke();
     message = string.IsNullOrEmpty(message)
-      ? "An argument condition was false."
-      : string.Concat("An argument condition was false.", message);
+                ? "An argument condition was false."
+                : string.Concat("An argument condition was false.", message);
 
     if (argumentName != null) throw new ArgumentException(message, argumentName);
 
@@ -172,7 +175,8 @@ public static class AssertCore
   /// <typeparam name="T">The exception type.</typeparam>
   /// <param name="argument">The argument.</param>
   /// <param name="getException">The get exception.</param>
-  public static void ArgumentNotNull<T>(object argument, Func<T> getException) where T : Exception
+  public static void ArgumentNotNull<T>(object argument, Func<T> getException)
+    where T : Exception
   {
     if (argument != null) return;
 
@@ -190,8 +194,8 @@ public static class AssertCore
 
     var argumentName = getArgumentName.Invoke();
     var exception = string.IsNullOrEmpty(argumentName)
-      ? new ArgumentNullException()
-      : new ArgumentNullException(argumentName);
+                      ? new ArgumentNullException()
+                      : new ArgumentNullException(argumentName);
 
     throw exception;
   }
@@ -305,7 +309,8 @@ public static class AssertCore
   /// <typeparam name="T">The exception type.</typeparam>
   /// <param name="condition">if set to <c>true</c> [condition].</param>
   /// <param name="getException">The get exception.</param>
-  public static void IsFalse<T>(bool condition, Func<T> getException) where T : Exception
+  public static void IsFalse<T>(bool condition, Func<T> getException)
+    where T : Exception
   {
     if (condition) throw getException.Invoke();
   }
@@ -336,7 +341,8 @@ public static class AssertCore
   /// <typeparam name="T">The exception type.</typeparam>
   /// <param name="value">The value.</param>
   /// <param name="getException">The get exception.</param>
-  public static void IsNotNull<T>(object value, Func<T> getException) where T : Exception
+  public static void IsNotNull<T>(object value, Func<T> getException)
+    where T : Exception
   {
     if (value == null) throw getException.Invoke();
   }
@@ -412,7 +418,8 @@ public static class AssertCore
   /// <typeparam name="T">The exception type.</typeparam>
   /// <param name="value">The value.</param>
   /// <param name="getException">The get exception.</param>
-  public static void IsNotNullOrEmpty<T>(string value, Func<T> getException) where T : Exception
+  public static void IsNotNullOrEmpty<T>(string value, Func<T> getException)
+    where T : Exception
   {
     if (string.IsNullOrEmpty(value)) throw getException.Invoke();
   }
@@ -446,7 +453,8 @@ public static class AssertCore
   /// <typeparam name="Te">The type of the exception.</typeparam>
   /// <param name="value">The value.</param>
   /// <param name="getException">The get exception.</param>
-  public static void IsNotNullOrEmpty<T, Te>(IEnumerable<T> value, Func<Te> getException) where Te : Exception
+  public static void IsNotNullOrEmpty<T, Te>(IEnumerable<T> value, Func<Te> getException)
+    where Te : Exception
   {
     if (value == null) throw getException.Invoke();
 
@@ -501,7 +509,8 @@ public static class AssertCore
   /// <typeparam name="T">The exception type.</typeparam>
   /// <param name="condition">if set to <c>true</c> [condition].</param>
   /// <param name="getException">The get exception.</param>
-  public static void IsTrue<T>(bool condition, Func<T> getException) where T : Exception
+  public static void IsTrue<T>(bool condition, Func<T> getException)
+    where T : Exception
   {
     if (!condition) throw getException.Invoke();
   }
@@ -525,6 +534,58 @@ public static class AssertCore
   public static void IsTrue(bool condition, Func<string> getMessage)
   {
     IsTrue(condition, () => GetInvalidOperationException(getMessage));
+  }
+
+  /// <summary>
+  ///   Results the not null.
+  /// </summary>
+  /// <typeparam name="T">The exception type.</typeparam>
+  /// <param name="result">The result.</param>
+  /// <param name="getException">The get exception.</param>
+  /// <returns>The result object.</returns>
+  public static T ResultNotNull<T>(T result, Func<T> getException)
+    where T : Exception
+  {
+    IsNotNull(result, getException);
+
+    return result;
+  }
+
+  /// <summary>
+  ///   Results the not null.
+  /// </summary>
+  /// <typeparam name="T">The result type</typeparam>
+  /// <param name="result">The result.</param>
+  /// <param name="getMessage">The get message.</param>
+  /// <returns>The result object.</returns>
+  public static T ResultNotNull<T>(T result, Func<string> getMessage)
+  {
+    IsNotNull(result, getMessage);
+
+    return result;
+  }
+
+  /// <summary>
+  ///   Results the not null.
+  /// </summary>
+  /// <typeparam name="T">The result type</typeparam>
+  /// <param name="result">The result.</param>
+  /// <param name="message">The message.</param>
+  /// <returns>The result object.</returns>
+  public static T ResultNotNull<T>(T result, string message)
+  {
+    return ResultNotNull(result, () => message);
+  }
+
+  /// <summary>
+  ///   Results the not null.
+  /// </summary>
+  /// <typeparam name="T">The result type.</typeparam>
+  /// <param name="result">The result.</param>
+  /// <returns>The result object.</returns>
+  public static T ResultNotNull<T>(T result)
+  {
+    return ResultNotNull(result, "Post condition failed.");
   }
 
   /// <summary>
@@ -585,63 +646,13 @@ public static class AssertCore
   }
 
   /// <summary>
-  ///   Results the not null.
-  /// </summary>
-  /// <typeparam name="T">The exception type.</typeparam>
-  /// <param name="result">The result.</param>
-  /// <param name="getException">The get exception.</param>
-  /// <returns>The result object.</returns>
-  public static T ResultNotNull<T>(T result, Func<T> getException) where T : Exception
-  {
-    IsNotNull(result, getException);
-
-    return result;
-  }
-
-  /// <summary>
-  ///   Results the not null.
-  /// </summary>
-  /// <typeparam name="T">The result type</typeparam>
-  /// <param name="result">The result.</param>
-  /// <param name="getMessage">The get message.</param>
-  /// <returns>The result object.</returns>
-  public static T ResultNotNull<T>(T result, Func<string> getMessage)
-  {
-    IsNotNull(result, getMessage);
-
-    return result;
-  }
-
-  /// <summary>
-  ///   Results the not null.
-  /// </summary>
-  /// <typeparam name="T">The result type</typeparam>
-  /// <param name="result">The result.</param>
-  /// <param name="message">The message.</param>
-  /// <returns>The result object.</returns>
-  public static T ResultNotNull<T>(T result, string message)
-  {
-    return ResultNotNull(result, () => message);
-  }
-
-  /// <summary>
-  ///   Results the not null.
-  /// </summary>
-  /// <typeparam name="T">The result type.</typeparam>
-  /// <param name="result">The result.</param>
-  /// <returns>The result object.</returns>
-  public static T ResultNotNull<T>(T result)
-  {
-    return ResultNotNull(result, "Post condition failed.");
-  }
-
-  /// <summary>
   ///   Asserts that some function finished successfully.
   /// </summary>
   /// <typeparam name="T">The exception type.</typeparam>
   /// <param name="condition">The condition.</param>
   /// <param name="getException">The get exception.</param>
-  public static void That<T>(Func<bool> condition, Func<T> getException) where T : Exception
+  public static void That<T>(Func<bool> condition, Func<T> getException)
+    where T : Exception
   {
     if (condition.Invoke()) throw getException.Invoke();
   }
@@ -695,8 +706,6 @@ public static class AssertCore
   private static InvalidOperationException GetInvalidOperationException(Func<string> getMessage)
   {
     var message = getMessage.Invoke();
-    return string.IsNullOrEmpty(message)
-      ? new InvalidOperationException()
-      : new InvalidOperationException(message);
+    return string.IsNullOrEmpty(message) ? new InvalidOperationException() : new InvalidOperationException(message);
   }
 }

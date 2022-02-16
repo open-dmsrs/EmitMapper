@@ -1,16 +1,16 @@
-﻿using System.Reflection.Emit;
-using EmitMapper.AST.Interfaces;
+﻿namespace EmitMapper.AST.Nodes;
 
-namespace EmitMapper.AST.Nodes;
+using System.Reflection.Emit;
+
+using EmitMapper.AST.Interfaces;
 
 internal class AstIf : IAstNode
 {
+  public IAstValue Condition;
+
   public AstComplexNode FalseBranch;
 
   public AstComplexNode TrueBranch;
-  public IAstValue Condition;
-
-  #region IAstNode Members
 
   public void Compile(CompilationContext context)
   {
@@ -30,6 +30,4 @@ internal class AstIf : IAstNode
       FalseBranch.Compile(context);
     context.ILGenerator.MarkLabel(endIfLabel);
   }
-
-  #endregion
 }

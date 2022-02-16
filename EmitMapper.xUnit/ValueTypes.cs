@@ -1,6 +1,6 @@
-﻿using Xunit;
+﻿namespace EmitMapper.Tests;
 
-namespace EmitMapper.Tests;
+using Xunit;
 
 ////[TestFixture]
 public class ValueTypes
@@ -18,7 +18,8 @@ public class ValueTypes
   public void Test_NestedStructs()
   {
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B6From, A6To>();
-    //DynamicAssemblyManager.SaveAssembly();
+
+    // DynamicAssemblyManager.SaveAssembly();
     var b = new B6From();
 
     var bs2 = new B6From.S2Struct();
@@ -49,7 +50,8 @@ public class ValueTypes
   public void Test_StructFields()
   {
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B5, A5>();
-    //DynamicAssemblyManager.SaveAssembly();
+
+    // DynamicAssemblyManager.SaveAssembly();
     var b = new B5();
     b.A.Fld1 = 10;
     var a = mapper.Map(b);
@@ -62,8 +64,8 @@ public class ValueTypes
     var a = new A4();
     var b = new B4();
     var mapper = Context.ObjMan.GetMapper<B4, A4>();
-    //DynamicAssemblyManager.SaveAssembly();
 
+    // DynamicAssemblyManager.SaveAssembly();
     a = mapper.Map(b, a);
     Assert.Equal(b.Fld1.Fld1.ToString(), a.Fld1.Fld1);
     Assert.Equal(b.Fld2.Fld1.ToString(), a.Fld2.Fld1);
@@ -88,12 +90,52 @@ public class ValueTypes
     Assert.Equal(99, a.Fld1);
   }
 
+  public struct A1
+  {
+    public int Fld1;
+  }
+
+  public struct A2
+  {
+    public int Fld1;
+  }
+
+  public struct A4
+  {
+    public Int Fld2;
+
+    public Int Fld1 { get; set; }
+
+    public Int Fld3 { get; set; }
+
+    public struct Int
+    {
+      public string Fld1;
+    }
+  }
+
+  public struct B3
+  {
+    public int Fld1;
+  }
+
+  public class A3
+  {
+    public int Fld1;
+  }
+
+  public class A5
+  {
+    public A1 A;
+  }
+
   public class A6To
   {
+    public S2Struct S2;
+
     public C2 S4;
 
     public C3Class S5;
-    public S2Struct S2;
 
     public S2Struct S { get; set; }
 
@@ -129,12 +171,49 @@ public class ValueTypes
     }
   }
 
+  public class B1
+  {
+    public int Fld1 = 10;
+  }
+
+  public class B2
+  {
+    public int Fld1;
+  }
+
+  public class B4
+  {
+    public Int Fld3;
+
+    public B4()
+    {
+      Fld1 = new Int { Fld1 = 12.444M };
+      Fld2 = new Int { Fld1 = 1111 };
+      Fld3.Fld1 = 444;
+    }
+
+    public Int Fld1 { get; set; }
+
+    public Int Fld2 { get; set; }
+
+    public struct Int
+    {
+      public decimal Fld1;
+    }
+  }
+
+  public class B5
+  {
+    public A1 A;
+  }
+
   public class B6From
   {
-    public C3Class S5;
     public S2Struct S = new();
 
     public S2Struct S3;
+
+    public C3Class S5;
 
     public S2Struct S2 { get; set; }
 
@@ -163,80 +242,5 @@ public class ValueTypes
 
       public C1 C3;
     }
-  }
-
-  public struct A1
-  {
-    public int Fld1;
-  }
-
-  public class B1
-  {
-    public int Fld1 = 10;
-  }
-
-  public struct A2
-  {
-    public int Fld1;
-  }
-
-  public class B2
-  {
-    public int Fld1;
-  }
-
-  public class A3
-  {
-    public int Fld1;
-  }
-
-  public struct B3
-  {
-    public int Fld1;
-  }
-
-  public struct A4
-  {
-    public Int Fld2;
-
-    public Int Fld1 { get; set; }
-
-    public Int Fld3 { get; set; }
-
-    public struct Int
-    {
-      public string Fld1;
-    }
-  }
-
-  public class B4
-  {
-    public Int Fld3;
-
-    public B4()
-    {
-      Fld1 = new Int { Fld1 = 12.444M };
-      Fld2 = new Int { Fld1 = 1111 };
-      Fld3.Fld1 = 444;
-    }
-
-    public Int Fld1 { get; set; }
-
-    public Int Fld2 { get; set; }
-
-    public struct Int
-    {
-      public decimal Fld1;
-    }
-  }
-
-  public class A5
-  {
-    public A1 A;
-  }
-
-  public class B5
-  {
-    public A1 A;
   }
 }

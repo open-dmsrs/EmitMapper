@@ -1,18 +1,20 @@
-﻿using System;
+﻿namespace EmitMapper.Conversion;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+
 using EmitMapper.EmitInvoker.Methods;
 using EmitMapper.Utils;
-
-namespace EmitMapper.Conversion;
 
 public class StaticConvertersManager
 {
   private static readonly LazyConcurrentDictionary<MethodInfo, Func<object, object>> _ConvertersFunc = new();
 
-  private static StaticConvertersManager _defaultInstance;
   private static readonly object locker = new();
+
+  private static StaticConvertersManager _defaultInstance;
 
   private readonly LazyConcurrentDictionary<TypesPair, MethodInfo> _typesMethods = new();
 

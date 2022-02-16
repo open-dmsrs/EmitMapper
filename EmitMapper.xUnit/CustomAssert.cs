@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿namespace EmitMapper.Tests;
+
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Xunit;
 
-namespace EmitMapper.Tests;
+using Xunit;
 
 internal static class CustomAssert
 {

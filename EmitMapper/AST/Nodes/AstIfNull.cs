@@ -1,16 +1,18 @@
-﻿using System;
-using System.Reflection.Emit;
-using EmitMapper.AST.Interfaces;
+﻿namespace EmitMapper.AST.Nodes;
 
-namespace EmitMapper.AST.Nodes;
+using System;
+using System.Reflection.Emit;
+
+using EmitMapper.AST.Interfaces;
 
 /// <summary>
 ///   Generates "value ?? ifNullValue" expression.
 /// </summary>
 internal class AstIfNull : IAstRefOrValue
 {
-  private readonly IAstRef _value;
   private readonly IAstRefOrValue _ifNullValue;
+
+  private readonly IAstRef _value;
 
   public AstIfNull(IAstRef value, IAstRefOrValue ifNullValue)
   {

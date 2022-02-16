@@ -12,9 +12,12 @@
 // <summary></summary>
 // ***********************************************************************
 
+namespace LightDataAccess;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using EmitMapper;
 using EmitMapper.Conversion;
 using EmitMapper.MappingConfiguration;
@@ -22,22 +25,20 @@ using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
 
-namespace LightDataAccess;
-
 /// <summary>
 ///   Class ObjectsChangeTracker
 /// </summary>
 public class ObjectsChangeTracker
 {
   /// <summary>
-  ///   The _tracking objects
-  /// </summary>
-  private readonly Dictionary<object, List<TrackingMember>> _trackingObjects = new();
-
-  /// <summary>
   ///   The _map manager
   /// </summary>
   private readonly ObjectMapperManager _mapManager;
+
+  /// <summary>
+  ///   The _tracking objects
+  /// </summary>
+  private readonly Dictionary<object, List<TrackingMember>> _trackingObjects = new();
 
   /// <summary>
   ///   Initializes a new instance of the <see cref="ObjectsChangeTracker" /> class.
@@ -57,16 +58,6 @@ public class ObjectsChangeTracker
   }
 
   /// <summary>
-  ///   Registers the object.
-  /// </summary>
-  /// <param name="obj">The obj.</param>
-  public void RegisterObject(object obj)
-  {
-    // var type = Obj.GetType();
-    if (obj != null) _trackingObjects[obj] = GetObjectMembers(obj);
-  }
-
-  /// <summary>
   ///   Gets the changes.
   /// </summary>
   /// <param name="obj">The obj.</param>
@@ -76,22 +67,17 @@ public class ObjectsChangeTracker
     if (!_trackingObjects.TryGetValue(obj, out var originalValues)) return null;
     var currentValues = GetObjectMembers(obj);
     return currentValues.Select(
-        (x, idx) =>
+      (x, idx) =>
         {
           var original = originalValues[idx];
           x.OriginalValue = original.CurrentValue;
           return x;
-        })
-      .Where(
-        (current, idx) =>
+        }).Where(
+      (current, idx) =>
         {
-          return
-            current.OriginalValue == null != (current.CurrentValue == null)
-            ||
-            current.OriginalValue != null && !current.OriginalValue.Equals(current.CurrentValue);
-        }
-      )
-      .ToArray();
+          return current.OriginalValue == null != (current.CurrentValue == null) || current.OriginalValue != null
+                 && !current.OriginalValue.Equals(current.CurrentValue);
+        }).ToArray();
   }
 
   public TrackingMember[] GetChanges(object originalObj, object currentObj)
@@ -101,22 +87,27 @@ public class ObjectsChangeTracker
     var originalValues = GetObjectMembers(originalObj);
     var currentValues = GetObjectMembers(currentObj);
     return currentValues.Select(
-        (x, idx) =>
+      (x, idx) =>
         {
           var original = originalValues[idx];
           x.OriginalValue = original.CurrentValue;
           return x;
-        })
-      .Where(
-        (current, idx) =>
+        }).Where(
+      (current, idx) =>
         {
-          return
-            current.OriginalValue == null != (current.CurrentValue == null)
-            ||
-            current.OriginalValue != null && !current.OriginalValue.Equals(current.CurrentValue);
-        }
-      )
-      .ToArray();
+          return current.OriginalValue == null != (current.CurrentValue == null) || current.OriginalValue != null
+                 && !current.OriginalValue.Equals(current.CurrentValue);
+        }).ToArray();
+  }
+
+  /// <summary>
+  ///   Registers the object.
+  /// </summary>
+  /// <param name="obj">The obj.</param>
+  public void RegisterObject(object obj)
+  {
+    // var type = Obj.GetType();
+    if (obj != null) _trackingObjects[obj] = GetObjectMembers(obj);
   }
 
   /// <summary>
@@ -129,73 +120,30 @@ public class ObjectsChangeTracker
     var type = obj?.GetType();
     while (type != null && type.Assembly.IsDynamic) type = type.BaseType;
     var fields = new TrackingMembersList();
-    _mapManager.GetMapperImpl(
-      type,
-      null,
-      new MappingConfiguration()
-    ).Map(obj, null, fields);
+    _mapManager.GetMapperImpl(type, null, new MappingConfiguration()).Map(obj, null, fields);
 
     return fields.TrackingMembers;
   }
 
   /// <summary>
-  ///   Class MappingConfiguration
+  ///   Struct TrackingMember
   /// </summary>
-  private class MappingConfiguration : MapConfigBaseImpl
+  public struct TrackingMember
   {
     /// <summary>
-    ///   Gets the mapping operations.
+    ///   The current value
     /// </summary>
-    /// <param name="from">From.</param>
-    /// <param name="to">To.</param>
-    /// <returns>IEnumerable<IMappingOperation>[].</returns>
-    public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
-    {
-      return ReflectionHelper
-        .GetPublicFieldsAndProperties(from)
-        .Select(
-          m =>
-            new SrcReadOperation
-            {
-              Source = new MemberDescriptor(m),
-              Setter =
-                (obj, value, state) =>
-                  (state as TrackingMembersList).TrackingMembers.Add(
-                    new TrackingMember { Name = m.Name, CurrentValue = value }
-                  )
-            }
-        )
-        .ToArray();
-    }
+    public object CurrentValue;
 
     /// <summary>
-    ///   Gets the root mapping operation.
+    ///   The name
     /// </summary>
-    /// <param name="from">From.</param>
-    /// <param name="to">To.</param>
-    /// <returns>IRootMappingOperation.</returns>
-    public override IRootMappingOperation GetRootMappingOperation(Type from, Type to)
-    {
-      return null;
-    }
+    public string Name;
 
     /// <summary>
-    ///   Gets the name of the configuration.
+    ///   The original value
     /// </summary>
-    /// <returns>System.String.</returns>
-    public override string GetConfigurationName()
-    {
-      return "ObjectsTracker";
-    }
-
-    /// <summary>
-    ///   Gets the static converters manager.
-    /// </summary>
-    /// <returns>StaticConvertersManager.</returns>
-    public override StaticConvertersManager GetStaticConvertersManager()
-    {
-      return null;
-    }
+    public object OriginalValue;
   }
 
   /// <summary>
@@ -210,23 +158,55 @@ public class ObjectsChangeTracker
   }
 
   /// <summary>
-  ///   Struct TrackingMember
+  ///   Class MappingConfiguration
   /// </summary>
-  public struct TrackingMember
+  private class MappingConfiguration : MapConfigBaseImpl
   {
     /// <summary>
-    ///   The current value
+    ///   Gets the name of the configuration.
     /// </summary>
-    public object CurrentValue;
+    /// <returns>System.String.</returns>
+    public override string GetConfigurationName()
+    {
+      return "ObjectsTracker";
+    }
 
     /// <summary>
-    ///   The original value
+    ///   Gets the mapping operations.
     /// </summary>
-    public object OriginalValue;
+    /// <param name="from">From.</param>
+    /// <param name="to">To.</param>
+    /// <returns>IEnumerable<IMappingOperation>[].</returns>
+    public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
+    {
+      return ReflectionHelper.GetPublicFieldsAndProperties(from).Select(
+        m => new SrcReadOperation
+               {
+                 Source = new MemberDescriptor(m),
+                 Setter = (obj, value, state) =>
+                   (state as TrackingMembersList).TrackingMembers.Add(
+                     new TrackingMember { Name = m.Name, CurrentValue = value })
+               }).ToArray();
+    }
 
     /// <summary>
-    ///   The name
+    ///   Gets the root mapping operation.
     /// </summary>
-    public string Name;
+    /// <param name="from">From.</param>
+    /// <param name="to">To.</param>
+    /// <returns>IRootMappingOperation.</returns>
+    public override IRootMappingOperation GetRootMappingOperation(Type from, Type to)
+    {
+      return null;
+    }
+
+    /// <summary>
+    ///   Gets the static converters manager.
+    /// </summary>
+    /// <returns>StaticConvertersManager.</returns>
+    public override StaticConvertersManager GetStaticConvertersManager()
+    {
+      return null;
+    }
   }
 }

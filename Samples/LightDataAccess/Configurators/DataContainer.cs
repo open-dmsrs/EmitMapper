@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿namespace LightDataAccess.Configurators;
 
-namespace LightDataAccess.Configurators;
+using System.Collections.Generic;
 
 internal class DataContainer
 {

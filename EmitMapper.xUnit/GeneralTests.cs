@@ -1,14 +1,14 @@
-﻿using System;
-using EmitMapper.MappingConfiguration;
-using Xunit;
+﻿namespace EmitMapper.Tests;
 
-namespace EmitMapper.Tests;
+using System;
+
+using EmitMapper.MappingConfiguration;
+
+using Xunit;
 
 ////[TestFixture]
 public class GeneralTests
 {
- 
-
   [Fact]
   public void ConstructByTest()
   {
@@ -55,7 +55,8 @@ public class GeneralTests
   public void GeneralTests_Exception()
   {
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B3, A3>();
-    //DynamicAssemblyManager.SaveAssembly();
+
+    // DynamicAssemblyManager.SaveAssembly();
     var a = mapper.Map(new B3());
     Assert.NotNull(a);
     Assert.Null(a.I1);
@@ -85,8 +86,8 @@ public class GeneralTests
   [Fact]
   public void GeneralTests_Ignore()
   {
-    var a = ObjectMapperManager.DefaultInstance.GetMapper<B, A>(
-      new DefaultMapConfig().IgnoreMembers<B, A>(new[] { "Str1" })).Map(new B());
+    var a = ObjectMapperManager.DefaultInstance.GetMapper<B, A>(new DefaultMapConfig().IgnoreMembers<B, A>("Str1"))
+      .Map(new B());
     Assert.Equal("Destination::str1", a.Str1);
     Assert.Equal(A.EnType.En2, a.En);
   }
@@ -97,7 +98,8 @@ public class GeneralTests
     var a = new A();
     var b = new B();
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B, A>(new DefaultMapConfig().DeepMap());
-    //DynamicAssemblyManager.SaveAssembly();
+
+    // DynamicAssemblyManager.SaveAssembly();
     mapper.Map(b, a);
     Assert.Equal(A.EnType.En2, a.En);
     Assert.Equal(a.Str1, b.Str1);
@@ -125,7 +127,8 @@ public class GeneralTests
     b.Obj = null;
 
     var mapper = Context.ObjMan.GetMapper<B, A>();
-    //DynamicAssemblyManager.SaveAssembly();
+
+    // DynamicAssemblyManager.SaveAssembly();
     mapper.Map(b, a);
     Assert.Null(a.Obj);
   }
@@ -146,7 +149,8 @@ public class GeneralTests
   public void SimpleTest()
   {
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<Simple2, Simple1>();
-    //DynamicAssemblyManager.SaveAssembly();
+
+    // DynamicAssemblyManager.SaveAssembly();
     var s = mapper.Map(new Simple2());
     Assert.Equal(20, s.I);
     Assert.Equal(A.EnType.En2, s.Fld1);
@@ -156,7 +160,8 @@ public class GeneralTests
   public void SimpleTestClass()
   {
     var mapper = Context.ObjMan.GetMapper<Class2, Class1>();
-    //DynamicAssemblyManager.SaveAssembly();
+
+    // DynamicAssemblyManager.SaveAssembly();
     var s = mapper.Map(new Class2 { Fld = 13 });
     Assert.Equal(13, s.Fld);
   }
@@ -165,7 +170,8 @@ public class GeneralTests
   public void SimpleTestEnum()
   {
     var mapper = Context.ObjMan.GetMapper<B.EnType, A.EnType>();
-    //DynamicAssemblyManager.SaveAssembly();
+
+    // DynamicAssemblyManager.SaveAssembly();
     var aen = mapper.Map(B.EnType.En3);
     Assert.Equal(A.EnType.En3, aen);
   }
@@ -174,7 +180,8 @@ public class GeneralTests
   public void SimpleTestStruct()
   {
     var mapper = Context.ObjMan.GetMapper<Struct2, Struct1>();
-    //DynamicAssemblyManager.SaveAssembly();
+
+    // DynamicAssemblyManager.SaveAssembly();
     var s = mapper.Map(new Struct2 { Fld = 13 });
     Assert.Equal(13, s.Fld);
   }
@@ -183,28 +190,24 @@ public class GeneralTests
   public void TestRecursiveClass()
   {
     var tree = new TreeNode
-    {
-      Data = "node 1",
-      Next = new TreeNode
-      {
-        Data = "node 2",
-        Next = new TreeNode
-        {
-          Data = "node 3",
-          SubNodes = new[]
-          {
-            new TreeNode
-            {
-              Data = "sub sub data 1"
-            },
-            new TreeNode { Data = "sub sub data 2" }
-          }
-        }
-      },
-      SubNodes = new[] { new TreeNode { Data = "sub data 1" } }
-    };
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<TreeNode, TreeNode>(
-      new DefaultMapConfig().DeepMap());
+                 {
+                   Data = "node 1",
+                   Next = new TreeNode
+                            {
+                              Data = "node 2",
+                              Next = new TreeNode
+                                       {
+                                         Data = "node 3",
+                                         SubNodes = new[]
+                                                      {
+                                                        new TreeNode { Data = "sub sub data 1" },
+                                                        new TreeNode { Data = "sub sub data 2" }
+                                                      }
+                                       }
+                            },
+                   SubNodes = new[] { new TreeNode { Data = "sub data 1" } }
+                 };
+    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<TreeNode, TreeNode>(new DefaultMapConfig().DeepMap());
     var tree2 = mapper.Map(tree);
     Assert.Equal("node 1", tree2.Data);
     Assert.Equal("node 2", tree2.Next.Data);
@@ -215,21 +218,33 @@ public class GeneralTests
     Assert.Null(tree2.Next.Next.Next);
   }
 
+  public struct Class1
+  {
+    public int Fld;
+  }
+
+  public struct Class2
+  {
+    public int Fld;
+  }
+
+  public struct Struct1
+  {
+    public int Fld;
+  }
+
+  public struct Struct2
+  {
+    public int Fld;
+  }
+
   public class A
   {
-    public enum EnType
-    {
-      En1,
-
-      En2,
-
-      En3
-    }
+    public EnType En = EnType.En3;
 
     public AInt Obj;
 
     public AInt[] ObjArr;
-    public EnType En = EnType.En3;
 
     public string Str2 = "Destination::str2";
 
@@ -240,9 +255,18 @@ public class GeneralTests
       Console.WriteLine("Destination::Destination()");
     }
 
-    public string Str1 { get; set; } = "Destination::str1";
+    public enum EnType
+    {
+      En1,
 
-    public int[] Arr { set; get; }
+      En2,
+
+      En3
+    }
+
+    public int[] Arr { get; set; }
+
+    public string Str1 { get; set; } = "Destination::str1";
 
     public class AInt
     {
@@ -257,129 +281,9 @@ public class GeneralTests
     }
   }
 
-  public class B
-  {
-    public enum EnType
-    {
-      En1,
-
-      En2,
-
-      En3
-    }
-
-    public BInt Obj = new();
-
-    public BInt[] ObjArr;
-    public EnType En = EnType.En2;
-
-    public object Str3 = null;
-
-    public string Str1 = "Source::str1";
-
-    public B()
-    {
-      Console.WriteLine("Source::Source()");
-
-      ObjArr = new BInt[2];
-      ObjArr[0] = new BInt { Str = "b objArr 1" };
-      ObjArr[1] = new BInt { Str = "b objArr 2" };
-    }
-
-    public string Str2 => "Source::str2";
-
-    public int[] Arr => new[] { 1, 5, 9 };
-
-    public class BInt
-    {
-      public string Str = "BInt";
-      /*
-      public string str
-      {
-          get
-          {
-              throw new Exception("reading BInt::str");
-          }
-          set { }
-      }
-       */
-    }
-  }
-
-  internal class A1
-  {
-    public string F1 = "A1::f1";
-
-    public string F2 = "A1::f2";
-  }
-
-  internal class B1
-  {
-    public string F1 = "B1::f1";
-
-    public string F2 = "B1::f2";
-  }
-
-  public class Simple1
-  {
-    public A.EnType Fld1 = A.EnType.En1;
-
-    public int I = 10;
-  }
-
-  public class Simple2
-  {
-    public B.EnType Fld1 = B.EnType.En2;
-
-    public int I = 20;
-  }
-
-  public struct Struct1
-  {
-    public int Fld;
-  }
-
-  public struct Struct2
-  {
-    public int Fld;
-  }
-
-  public struct Class1
-  {
-    public int Fld;
-  }
-
-  public struct Class2
-  {
-    public int Fld;
-  }
-
-  public class Source
-  {
-    public string Field1 = "Source::field1";
-
-    public string Field2 = "Source::field2";
-
-    public string Field3 = "Source::field3";
-  }
-
-  public class Destination
-  {
-    public string MField1;
-
-    public string MField2;
-
-    public string MField3;
-  }
-
   public class A2
   {
     public string Str;
-  }
-
-  public class B2
-  {
-    public string Str = "str";
   }
 
   public class A3
@@ -409,6 +313,62 @@ public class GeneralTests
     }
   }
 
+  public class B
+  {
+    public EnType En = EnType.En2;
+
+    public BInt Obj = new();
+
+    public BInt[] ObjArr;
+
+    public string Str1 = "Source::str1";
+
+    public object Str3 = null;
+
+    public B()
+    {
+      Console.WriteLine("Source::Source()");
+
+      ObjArr = new BInt[2];
+      ObjArr[0] = new BInt { Str = "b objArr 1" };
+      ObjArr[1] = new BInt { Str = "b objArr 2" };
+    }
+
+    public enum EnType
+    {
+      En1,
+
+      En2,
+
+      En3
+    }
+
+    public int[] Arr => new[] { 1, 5, 9 };
+
+    public string Str2 => "Source::str2";
+
+    public class BInt
+    {
+      public string Str = "BInt";
+
+      /*
+            public string str
+            {
+                get
+                {
+                    throw new Exception("reading BInt::str");
+                }
+                set { }
+            }
+             */
+    }
+  }
+
+  public class B2
+  {
+    public string Str = "str";
+  }
+
   public class B3
   {
     public Int2 I1 = null;
@@ -436,16 +396,6 @@ public class GeneralTests
     }
   }
 
-  public class ConstructBySource
-  {
-    public NestedClass Field = new();
-
-    public class NestedClass
-    {
-      public string Str = "ConstructBy_Source::str";
-    }
-  }
-
   public class ConstructByDestination
   {
     public NestedClass Field;
@@ -468,6 +418,48 @@ public class GeneralTests
     }
   }
 
+  public class ConstructBySource
+  {
+    public NestedClass Field = new();
+
+    public class NestedClass
+    {
+      public string Str = "ConstructBy_Source::str";
+    }
+  }
+
+  public class Destination
+  {
+    public string MField1;
+
+    public string MField2;
+
+    public string MField3;
+  }
+
+  public class Simple1
+  {
+    public A.EnType Fld1 = A.EnType.En1;
+
+    public int I = 10;
+  }
+
+  public class Simple2
+  {
+    public B.EnType Fld1 = B.EnType.En2;
+
+    public int I = 20;
+  }
+
+  public class Source
+  {
+    public string Field1 = "Source::field1";
+
+    public string Field2 = "Source::field2";
+
+    public string Field3 = "Source::field3";
+  }
+
   public class TreeNode
   {
     public string Data;
@@ -475,5 +467,19 @@ public class GeneralTests
     public TreeNode Next;
 
     public TreeNode[] SubNodes;
+  }
+
+  internal class A1
+  {
+    public string F1 = "A1::f1";
+
+    public string F2 = "A1::f2";
+  }
+
+  internal class B1
+  {
+    public string F1 = "B1::f1";
+
+    public string F2 = "B1::f2";
   }
 }

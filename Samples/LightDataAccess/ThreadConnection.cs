@@ -12,11 +12,11 @@
 // <summary></summary>
 // ***********************************************************************
 
+namespace LightDataAccess;
+
 using System;
 using System.Data;
 using System.Data.Common;
-
-namespace LightDataAccess;
 
 /// <summary>
 ///   Class ThreadConnection
@@ -26,12 +26,14 @@ public class ThreadConnection : IDisposable
   /// <summary>
   ///   The connection
   /// </summary>
-  [ThreadStatic] private static DbConnection _connection;
+  [ThreadStatic]
+  private static DbConnection _connection;
 
   /// <summary>
   ///   The entries count
   /// </summary>
-  [ThreadStatic] private static int _entriesCount;
+  [ThreadStatic]
+  private static int _entriesCount;
 
   /// <summary>
   ///   Initializes a new instance of the <see cref="ThreadConnection" /> class.
@@ -56,8 +58,6 @@ public class ThreadConnection : IDisposable
     }
   }
 
-  #region IDisposable Members
-
   /// <summary>
   ///   执行与释放或重置非托管资源相关的应用程序定义的任务。
   /// </summary>
@@ -79,6 +79,4 @@ public class ThreadConnection : IDisposable
       _entriesCount--;
     }
   }
-
-  #endregion
 }

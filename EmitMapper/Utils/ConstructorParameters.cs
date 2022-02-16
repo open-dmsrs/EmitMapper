@@ -1,11 +1,12 @@
-﻿using System.Linq;
-using System.Reflection;
+﻿namespace EmitMapper.Utils;
 
-namespace EmitMapper.Utils;
+using System.Linq;
+using System.Reflection;
 
 public readonly struct ConstructorParameters
 {
   public readonly ConstructorInfo Constructor;
+
   public readonly ParameterInfo[] Parameters;
 
   public ConstructorParameters(ConstructorInfo constructor)

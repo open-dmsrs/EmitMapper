@@ -1,14 +1,16 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection;
+
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes;
-
 internal class AstReadProperty : IAstRefOrValue
 {
-  public IAstRefOrAddr SourceObject;
   public PropertyInfo PropertyInfo;
+
+  public IAstRefOrAddr SourceObject;
 
   public Type ItemType => PropertyInfo.PropertyType;
 

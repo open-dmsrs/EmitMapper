@@ -1,13 +1,26 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Helpers;
+
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
-using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Helpers;
+using EmitMapper.AST.Interfaces;
 
 internal static class CompilationHelper
 {
+  public static void CheckIsRef(Type type)
+  {
+    if (type.IsValueType)
+      throw new ILCompilationException("A reference type was expected, but it was: " + type);
+  }
+
+  public static void CheckIsValue(Type type)
+  {
+    if (!type.IsValueType)
+      throw new ILCompilationException("A value type was expected, but it was: " + type);
+  }
+
   public static void EmitCall(
     CompilationContext context,
     IAstRefOrAddr invocationObject,
@@ -39,17 +52,5 @@ internal static class CompilationHelper
       context.Emit(OpCodes.Unbox_Any, desiredType);
     else if (desiredType != typeOnStack)
       context.Emit(OpCodes.Castclass, desiredType);
-  }
-
-  public static void CheckIsRef(Type type)
-  {
-    if (type.IsValueType)
-      throw new ILCompilationException("A reference type was expected, but it was: " + type);
-  }
-
-  public static void CheckIsValue(Type type)
-  {
-    if (!type.IsValueType)
-      throw new ILCompilationException("A value type was expected, but it was: " + type);
   }
 }

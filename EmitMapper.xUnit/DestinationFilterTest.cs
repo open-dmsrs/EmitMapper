@@ -1,10 +1,21 @@
-﻿using EmitMapper.MappingConfiguration;
-using Xunit;
+﻿namespace EmitMapper.Tests;
 
-namespace EmitMapper.Tests;
+using EmitMapper.MappingConfiguration;
+
+using Xunit;
 
 public class DestinationFilterTest
 {
+  public interface IBase
+  {
+    string BaseProperty { get; set; }
+  }
+
+  public interface IDerived : IBase
+  {
+    string DerivedProperty { get; set; }
+  }
+
   [Fact]
   public void Test_Derived()
   {
@@ -20,14 +31,13 @@ public class DestinationFilterTest
   [Fact]
   public void TestdestinationFilter()
   {
-    var mapper =
-      ObjectMapperManager.DefaultInstance.GetMapper<DestinationTestFilterSrc, DestinationTestFilterDest>(
-        new DefaultMapConfig().FilterDestination<string>((value, state) => false)
-          .FilterDestination<int>((value, state) => value >= 0)
-          .FilterSource<int>((value, state) => value >= 10).FilterSource<object>(
-            (value, state) =>
-              value is not long && (value is not DestinationTestFilterSrc
-                                    || (value as DestinationTestFilterSrc).I1 != 666)));
+    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<DestinationTestFilterSrc, DestinationTestFilterDest>(
+      new DefaultMapConfig().FilterDestination<string>((value, state) => false)
+        .FilterDestination<int>((value, state) => value >= 0).FilterSource<int>((value, state) => value >= 10)
+        .FilterSource<object>(
+          (value, state) => value is not long
+                            && (value is not DestinationTestFilterSrc
+                                || (value as DestinationTestFilterSrc).I1 != 666)));
     var dest = mapper.Map(new DestinationTestFilterSrc());
 
     Assert.Equal(13, dest.I1);
@@ -43,15 +53,13 @@ public class DestinationFilterTest
   [Fact]
   public void TestdestinationFilter1()
   {
-    var mapper =
-      ObjectMapperManager.DefaultInstance.GetMapper<DestinationTestFilterSrc, DestinationTestFilterDest>(
-        new DefaultMapConfig()
-          .FilterDestination<string>((value, state) => false)
-          .FilterDestination<int>((value, state) => value >= 0)
-          .FilterSource<int>((value, state) => value >= 10).FilterSource<object>(
-            (value, state) =>
-              value is not long && (value is not DestinationTestFilterSrc
-                                    || (value as DestinationTestFilterSrc).I1 != 666)));
+    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<DestinationTestFilterSrc, DestinationTestFilterDest>(
+      new DefaultMapConfig().FilterDestination<string>((value, state) => false)
+        .FilterDestination<int>((value, state) => value >= 0).FilterSource<int>((value, state) => value >= 10)
+        .FilterSource<object>(
+          (value, state) => value is not long
+                            && (value is not DestinationTestFilterSrc
+                                || (value as DestinationTestFilterSrc).I1 != 666)));
     var dest = mapper.Map(new DestinationTestFilterSrc());
 
     Assert.Equal(13, dest.I1);
@@ -75,27 +83,13 @@ public class DestinationFilterTest
     Assert.Equal(3, dest.I3);
   }
 
-  public class DestinationTestFilterDest
+  public class BaseSource
   {
     public int I1;
 
-    public int I2 = -5;
+    public int I2;
 
-    public int I3 = 0;
-
-    public long L1;
-
-    public string Str;
-  }
-
-  public interface IBase
-  {
-    string BaseProperty { get; set; }
-  }
-
-  public interface IDerived : IBase
-  {
-    string DerivedProperty { get; set; }
+    public int I3;
   }
 
   public class Derived : IDerived
@@ -113,6 +107,24 @@ public class DestinationFilterTest
     #endregion
   }
 
+  public class DerivedSource : BaseSource
+  {
+    public int I4;
+  }
+
+  public class DestinationTestFilterDest
+  {
+    public int I1;
+
+    public int I2 = -5;
+
+    public int I3 = 0;
+
+    public long L1;
+
+    public string Str;
+  }
+
   public class DestinationTestFilterSrc
   {
     public int I1 = 13;
@@ -126,27 +138,6 @@ public class DestinationFilterTest
     public string Str = "hello";
   }
 
-  public class Target
-  {
-    public string BaseProperty { get; set; }
-
-    public string DerivedProperty { get; set; }
-  }
-
-  public class BaseSource
-  {
-    public int I1;
-
-    public int I2;
-
-    public int I3;
-  }
-
-  public class DerivedSource : BaseSource
-  {
-    public int I4;
-  }
-
   public class InherDestination
   {
     public int I1;
@@ -154,5 +145,12 @@ public class DestinationFilterTest
     public int I2;
 
     public int I3;
+  }
+
+  public class Target
+  {
+    public string BaseProperty { get; set; }
+
+    public string DerivedProperty { get; set; }
   }
 }

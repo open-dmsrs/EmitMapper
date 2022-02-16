@@ -1,8 +1,9 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
+
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
-
-namespace EmitMapper.AST.Nodes;
 
 internal class AstReadThis : IAstRefOrAddr
 {

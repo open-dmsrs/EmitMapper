@@ -1,12 +1,13 @@
-﻿using System;
+﻿namespace SamplesTests;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SamplesTests;
-
 public static class TestUtils
 {
-  public static bool AreEqual<T>(IEnumerable<T> arr1, IEnumerable<T> arr2) where T : IEquatable<T>
+  public static bool AreEqual<T>(IEnumerable<T> arr1, IEnumerable<T> arr2)
+    where T : IEquatable<T>
   {
     if (arr1 is ICollection<T> list1 && arr2 is ICollection<T> list2)
       return list1.Count == list2.Count && list1.All(list2.Contains);
@@ -22,7 +23,8 @@ public static class TestUtils
     return true;
   }
 
-  public static bool AreEqual<T>(ICollection<T> arr1, ICollection<T> arr2) where T : IEquatable<T>
+  public static bool AreEqual<T>(ICollection<T> arr1, ICollection<T> arr2)
+    where T : IEquatable<T>
   {
     if (arr1 == null || arr2 == null)
       return arr1 == null && arr2 == null;

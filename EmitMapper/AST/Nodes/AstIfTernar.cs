@@ -1,8 +1,9 @@
-﻿using System;
-using System.Reflection.Emit;
-using EmitMapper.AST.Interfaces;
+﻿namespace EmitMapper.AST.Nodes;
 
-namespace EmitMapper.AST.Nodes;
+using System;
+using System.Reflection.Emit;
+
+using EmitMapper.AST.Interfaces;
 
 internal class AstIfTernar : IAstRefOrValue
 {
@@ -11,10 +12,6 @@ internal class AstIfTernar : IAstRefOrValue
   public IAstRefOrValue FalseBranch;
 
   public IAstRefOrValue TrueBranch;
-
-  #region IAstNode Members
-
-  public Type ItemType => TrueBranch.ItemType;
 
   public AstIfTernar(IAstRefOrValue condition, IAstRefOrValue trueBranch, IAstRefOrValue falseBranch)
   {
@@ -25,6 +22,8 @@ internal class AstIfTernar : IAstRefOrValue
     TrueBranch = trueBranch;
     FalseBranch = falseBranch;
   }
+
+  public Type ItemType => TrueBranch.ItemType;
 
   public void Compile(CompilationContext context)
   {
@@ -44,6 +43,4 @@ internal class AstIfTernar : IAstRefOrValue
       FalseBranch.Compile(context);
     context.ILGenerator.MarkLabel(endIfLabel);
   }
-
-  #endregion
 }

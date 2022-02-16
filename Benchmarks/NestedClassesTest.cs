@@ -1,22 +1,47 @@
-﻿using System;
-using System.Diagnostics;
-using AutoMapper;
-using EmitMapper;
+﻿namespace Benchmarks;
 
-namespace Benchmarks;
+using System;
+using System.Diagnostics;
+
+using AutoMapper;
+
+using EmitMapper;
 
 public static class NestedClassesTest
 {
-  private static ObjectsMapper<BenchSource, BenchDestination> _emitMapper;
   private static IMapper _autoMapper;
 
-  private static long BenchHandwrittenMapper(int mappingsCount)
+  private static ObjectsMapper<BenchSource, BenchDestination> _emitMapper;
+
+  public static void Initialize()
+  {
+    _emitMapper = ObjectMapperManager.DefaultInstance.GetMapper<BenchSource, BenchDestination>();
+    var config = new MapperConfiguration(
+      cfg =>
+        {
+          cfg.CreateMap<BenchSource.Int1, BenchDestination.Int1>();
+          cfg.CreateMap<BenchSource.Int2, BenchDestination.Int2>();
+          cfg.CreateMap<BenchSource, BenchDestination>();
+        });
+    _autoMapper = config.CreateMapper();
+  }
+
+  public static void Run()
+  {
+    var mappingsCount = 100000;
+    Console.WriteLine("Auto Mapper (Nested): {0} milliseconds", BenchAutoMapper(mappingsCount));
+    Console.WriteLine("Emit Mapper (Nested): {0} milliseconds", BenchEmitMapper(mappingsCount));
+    Console.WriteLine("Handwritten Mapper (Nested): {0} milliseconds", BenchHandwrittenMapper(mappingsCount));
+  }
+
+  private static long BenchAutoMapper(int mappingsCount)
   {
     var s = new BenchSource();
     var d = new BenchDestination();
+
     var sw = new Stopwatch();
     sw.Start();
-    for (var i = 0; i < mappingsCount; ++i) d = Map(s, d);
+    for (var i = 0; i < mappingsCount; ++i) _autoMapper.Map(s, d);
     sw.Stop();
     return sw.ElapsedMilliseconds;
   }
@@ -33,136 +58,16 @@ public static class NestedClassesTest
     return sw.ElapsedMilliseconds;
   }
 
-  private static long BenchAutoMapper(int mappingsCount)
+  private static long BenchHandwrittenMapper(int mappingsCount)
   {
     var s = new BenchSource();
     var d = new BenchDestination();
-
     var sw = new Stopwatch();
     sw.Start();
-    for (var i = 0; i < mappingsCount; ++i) _autoMapper.Map(s, d);
+    for (var i = 0; i < mappingsCount; ++i) d = Map(s, d);
     sw.Stop();
     return sw.ElapsedMilliseconds;
   }
-
-  public static void Initialize()
-  {
-    _emitMapper = ObjectMapperManager.DefaultInstance.GetMapper<BenchSource, BenchDestination>();
-    var config = new MapperConfiguration(
-      cfg =>
-      {
-        cfg.CreateMap<BenchSource.Int1, BenchDestination.Int1>();
-        cfg.CreateMap<BenchSource.Int2, BenchDestination.Int2>();
-        cfg.CreateMap<BenchSource, BenchDestination>();
-      });
-    _autoMapper = config.CreateMapper();
-  }
-
-  public static void Run()
-  {
-    var mappingsCount = 100000;
-    Console.WriteLine("Auto Mapper (Nested): {0} milliseconds", BenchAutoMapper(mappingsCount));
-    Console.WriteLine("Emit Mapper (Nested): {0} milliseconds", BenchEmitMapper(mappingsCount));
-    Console.WriteLine("Handwritten Mapper (Nested): {0} milliseconds", BenchHandwrittenMapper(mappingsCount));
-  }
-
-  public class BenchSource
-  {
-    public byte N4;
-
-    public int N2;
-    public int N7;
-    public int N8;
-    public int N9;
-
-    public Int2 I1 = new();
-    public Int2 I2 = new();
-    public Int2 I3 = new();
-    public Int2 I4 = new();
-    public Int2 I5 = new();
-    public Int2 I6 = new();
-    public Int2 I7 = new();
-    public Int2 I8 = new();
-    public long N3;
-    public short N5;
-
-    public string S1 = "1";
-    public string S2 = "2";
-    public string S3 = "3";
-    public string S4 = "4";
-    public string S5 = "5";
-    public string S6 = "6";
-    public string S7 = "7";
-    public uint N6;
-
-    public class Int1
-    {
-      public int I = 10;
-      public string Str1 = "1";
-      public string Str2 = null;
-    }
-
-    public class Int2
-    {
-      public Int1 I1 = new();
-      public Int1 I2 = new();
-      public Int1 I3 = new();
-      public Int1 I4 = new();
-      public Int1 I5 = new();
-      public Int1 I6 = new();
-      public Int1 I7 = new();
-    }
-  }
-
-  public class BenchDestination
-  {
-    public long N2 = 2;
-    public long N3 = 3;
-    public long N4 = 4;
-    public long N5 = 5;
-    public long N6 = 6;
-    public long N7 = 7;
-    public long N8 = 8;
-    public long N9 = 9;
-
-    public string S1;
-    public string S2;
-    public string S3;
-    public string S4;
-    public string S5;
-    public string S6;
-    public string S7;
-
-    public Int2 I1 { get; set; }
-    public Int2 I2 { get; set; }
-    public Int2 I3 { get; set; }
-    public Int2 I4 { get; set; }
-    public Int2 I5 { get; set; }
-    public Int2 I6 { get; set; }
-    public Int2 I7 { get; set; }
-    public Int2 I8 { get; set; }
-
-    public class Int1
-    {
-      public int I;
-      public string Str1;
-      public string Str2;
-    }
-
-    public class Int2
-    {
-      public Int1 I1;
-      public Int1 I2;
-      public Int1 I3;
-      public Int1 I4;
-      public Int1 I5;
-      public Int1 I6;
-      public Int1 I7;
-    }
-  }
-
-
-  #region Hndwritten mapper
 
   private static BenchDestination.Int1 Map(BenchSource.Int1 s, BenchDestination.Int1 d)
   {
@@ -223,7 +128,155 @@ public static class NestedClassesTest
     return d;
   }
 
-  #endregion
+  public class BenchDestination
+  {
+    public long N2 = 2;
+
+    public long N3 = 3;
+
+    public long N4 = 4;
+
+    public long N5 = 5;
+
+    public long N6 = 6;
+
+    public long N7 = 7;
+
+    public long N8 = 8;
+
+    public long N9 = 9;
+
+    public string S1;
+
+    public string S2;
+
+    public string S3;
+
+    public string S4;
+
+    public string S5;
+
+    public string S6;
+
+    public string S7;
+
+    public Int2 I1 { get; set; }
+
+    public Int2 I2 { get; set; }
+
+    public Int2 I3 { get; set; }
+
+    public Int2 I4 { get; set; }
+
+    public Int2 I5 { get; set; }
+
+    public Int2 I6 { get; set; }
+
+    public Int2 I7 { get; set; }
+
+    public Int2 I8 { get; set; }
+
+    public class Int1
+    {
+      public int I;
+
+      public string Str1;
+
+      public string Str2;
+    }
+
+    public class Int2
+    {
+      public Int1 I1;
+
+      public Int1 I2;
+
+      public Int1 I3;
+
+      public Int1 I4;
+
+      public Int1 I5;
+
+      public Int1 I6;
+
+      public Int1 I7;
+    }
+  }
+
+  public class BenchSource
+  {
+    public Int2 I1 = new();
+
+    public Int2 I2 = new();
+
+    public Int2 I3 = new();
+
+    public Int2 I4 = new();
+
+    public Int2 I5 = new();
+
+    public Int2 I6 = new();
+
+    public Int2 I7 = new();
+
+    public Int2 I8 = new();
+
+    public int N2;
+
+    public long N3;
+
+    public byte N4;
+
+    public short N5;
+
+    public uint N6;
+
+    public int N7;
+
+    public int N8;
+
+    public int N9;
+
+    public string S1 = "1";
+
+    public string S2 = "2";
+
+    public string S3 = "3";
+
+    public string S4 = "4";
+
+    public string S5 = "5";
+
+    public string S6 = "6";
+
+    public string S7 = "7";
+
+    public class Int1
+    {
+      public int I = 10;
+
+      public string Str1 = "1";
+
+      public string Str2 = null;
+    }
+
+    public class Int2
+    {
+      public Int1 I1 = new();
+
+      public Int1 I2 = new();
+
+      public Int1 I3 = new();
+
+      public Int1 I4 = new();
+
+      public Int1 I5 = new();
+
+      public Int1 I6 = new();
+
+      public Int1 I7 = new();
+    }
+  }
 }
 
 /*

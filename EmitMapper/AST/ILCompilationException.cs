@@ -1,6 +1,6 @@
-﻿using System;
+﻿namespace EmitMapper.AST;
 
-namespace EmitMapper.AST;
+using System;
 
 internal class ILCompilationException : Exception
 {
@@ -18,7 +18,8 @@ internal class ILCompilationException : Exception
   {
   }
 
-  public ILCompilationException(string message, Exception innerException) : base(message, innerException)
+  public ILCompilationException(string message, Exception innerException)
+    : base(message, innerException)
   {
   }
 }

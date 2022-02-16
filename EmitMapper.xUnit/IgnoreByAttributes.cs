@@ -1,11 +1,13 @@
-﻿using System;
+﻿namespace EmitMapper.Tests;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
-using Xunit;
 
-namespace EmitMapper.Tests;
+using Xunit;
 
 ////[TestFixture]
 public class IgnoreByAttributes
@@ -14,23 +16,10 @@ public class IgnoreByAttributes
   public void Test()
   {
     var mapper =
-      ObjectMapperManager.DefaultInstance.GetMapper<IgnoreByAttributesSrc, IgnoreByAttributesDst>(
-        new MyConfigurator());
+      ObjectMapperManager.DefaultInstance.GetMapper<IgnoreByAttributesSrc, IgnoreByAttributesDst>(new MyConfigurator());
     var dst = mapper.Map(new IgnoreByAttributesSrc());
     Assert.Equal("IgnoreByAttributesDst::str1", dst.Str1);
     Assert.Equal("IgnoreByAttributesSrc::str2", dst.Str2);
-  }
-
-  [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
-  public class MyIgnoreAttribute : Attribute
-  {
-  }
-
-  public class IgnoreByAttributesSrc
-  {
-    [MyIgnore] public string Str1 = "IgnoreByAttributesSrc::str1";
-
-    public string Str2 = "IgnoreByAttributesSrc::str2";
   }
 
   public class IgnoreByAttributesDst
@@ -40,12 +29,19 @@ public class IgnoreByAttributes
     public string Str2 = "IgnoreByAttributesDst::str2";
   }
 
+  public class IgnoreByAttributesSrc
+  {
+    [MyIgnore]
+    public string Str1 = "IgnoreByAttributesSrc::str1";
+
+    public string Str2 = "IgnoreByAttributesSrc::str2";
+  }
+
   public class MyConfigurator : DefaultMapConfig
   {
     public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
     {
-      IgnoreMembers<object, object>(
-        GetIgnoreFields(from).Concat(GetIgnoreFields(to)).ToArray());
+      IgnoreMembers<object, object>(GetIgnoreFields(from).Concat(GetIgnoreFields(to)).ToArray());
       return base.GetMappingOperations(from, to);
     }
 
@@ -56,5 +52,10 @@ public class IgnoreByAttributes
           type.GetProperties().Where(p => p.GetCustomAttributes(typeof(MyIgnoreAttribute), false).Any())
             .Select(p => p.Name));
     }
+  }
+
+  [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
+  public class MyIgnoreAttribute : Attribute
+  {
   }
 }

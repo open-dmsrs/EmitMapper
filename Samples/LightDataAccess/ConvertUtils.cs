@@ -12,15 +12,35 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System;
-
 namespace LightDataAccess;
+
+using System;
 
 /// <summary>
 ///   Class ConvertUtils
 /// </summary>
 public static class ConvertUtils
 {
+  /// <summary>
+  ///   To the bool.
+  /// </summary>
+  /// <param name="s">The s.</param>
+  /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+  public static bool ToBool(this short s)
+  {
+    return s != 0;
+  }
+
+  /// <summary>
+  ///   To the bool.
+  /// </summary>
+  /// <param name="s">The s.</param>
+  /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+  public static bool ToBool(this short? s)
+  {
+    return s != 0;
+  }
+
   /// <summary>
   ///   To the GUID.
   /// </summary>
@@ -65,16 +85,6 @@ public static class ConvertUtils
   }
 
   /// <summary>
-  ///   To the bool.
-  /// </summary>
-  /// <param name="s">The s.</param>
-  /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
-  public static bool ToBool(this short s)
-  {
-    return s != 0;
-  }
-
-  /// <summary>
   ///   To the short.
   /// </summary>
   /// <param name="b">if set to <c>true</c> [b].</param>
@@ -82,15 +92,5 @@ public static class ConvertUtils
   public static short ToShort(this bool b)
   {
     return b ? (short)1 : (short)0;
-  }
-
-  /// <summary>
-  ///   To the bool.
-  /// </summary>
-  /// <param name="s">The s.</param>
-  /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
-  public static bool ToBool(this short? s)
-  {
-    return s != 0;
   }
 }

@@ -1,8 +1,10 @@
-﻿using System;
-using EmitMapper.MappingConfiguration;
-using Xunit;
+﻿namespace EmitMapper.Tests;
 
-namespace EmitMapper.Tests;
+using System;
+
+using EmitMapper.MappingConfiguration;
+
+using Xunit;
 
 ////[TestFixture]
 public class NullableTypes
@@ -13,7 +15,8 @@ public class NullableTypes
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B1, A1>(
       new DefaultMapConfig().NullSubstitution<B1.Int1, A1.Int1>(state => new A1.Int1(0))
         .NullSubstitution<int?, int>(state => 3).NullSubstitution<int?, int?>(state => 4));
-    //DynamicAssemblyManager.SaveAssembly();
+
+    // DynamicAssemblyManager.SaveAssembly();
     var a = mapper.Map(new B1());
     Assert.Equal(10, a.Fld1);
     Assert.NotNull(a.I);
@@ -27,17 +30,17 @@ public class NullableTypes
   {
     var bint = new B3.BInt { Fld1 = "b" };
     var b = new B3
-    {
-      Fld1 = bint,
-      Fld2 = bint,
-      Fld3 = bint,
-      Fld4 = bint,
-      Fld6 = bint,
-      Fld7 = bint
-    };
+              {
+                Fld1 = bint,
+                Fld2 = bint,
+                Fld3 = bint,
+                Fld4 = bint,
+                Fld6 = bint,
+                Fld7 = bint
+              };
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B3, A3>();
-    //DynamicAssemblyManager.SaveAssembly();
 
+    // DynamicAssemblyManager.SaveAssembly();
     var a = mapper.Map(b);
     Assert.Equal("b", a.Fld1.Value.Fld1);
     Assert.Equal("b", a.Fld2.Value.Fld1);
@@ -74,8 +77,7 @@ public class NullableTypes
   public void Test_Object_Nullable()
   {
     var a = ObjectMapperManager.DefaultInstance
-      .GetMapper<B6, A6>(new DefaultMapConfig().DeepMap().ConvertUsing<object, object>(v => null))
-      .Map(new B6());
+      .GetMapper<B6, A6>(new DefaultMapConfig().DeepMap().ConvertUsing<object, object>(v => null)).Map(new B6());
     Assert.Null(a);
   }
 
@@ -120,35 +122,13 @@ public class NullableTypes
     }
   }
 
-  public class B1
-  {
-    public int? Fld1 = 10;
-
-    public int? Fld2;
-
-    public int? Fld3;
-
-    public Int1 I;
-
-    public class Int1
-    {
-      public string S = "B1::Int1::s";
-    }
-  }
-
   public class A2
   {
     public int? Fld1;
   }
 
-  public class B2
-  {
-    public int Fld1 = 10;
-  }
-
   public class A3
   {
-    public AInt Fld7;
     public AInt? Fld1;
 
     public AInt? Fld4;
@@ -156,6 +136,8 @@ public class NullableTypes
     public AInt? Fld5;
 
     public AInt? Fld6;
+
+    public AInt Fld7;
 
     public A3()
     {
@@ -178,14 +160,82 @@ public class NullableTypes
     }
   }
 
+  public class A4
+  {
+    public AInt Fld1;
+
+    public struct AInt
+    {
+      public string Fld1;
+    }
+  }
+
+  public class A5
+  {
+    public int? Fld1 = 0;
+
+    public int? Fld2 = 10;
+
+    public En? Fld3 = En.Value1;
+
+    public En Fld4 = En.Value1;
+
+    public int? Fld5 = 0;
+
+    public int? Fld6 = null;
+
+    public enum En
+    {
+      Value1,
+
+      Value2,
+
+      Value3
+    }
+  }
+
+  public class A6
+  {
+    public DateTime? Dt { get; set; }
+
+    public int? I { get; set; }
+  }
+
+  public class A7
+  {
+    public int? I { get; set; }
+  }
+
+  public class B1
+  {
+    public int? Fld1 = 10;
+
+    public int? Fld2;
+
+    public int? Fld3;
+
+    public Int1 I;
+
+    public class Int1
+    {
+      public string S = "B1::Int1::s";
+    }
+  }
+
+  public class B2
+  {
+    public int Fld1 = 10;
+  }
+
   public class B3
   {
-    public BInt Fld6;
     public BInt? Fld1;
 
     public BInt? Fld3;
 
     public BInt? Fld5;
+
+    public BInt Fld6;
 
     public BInt? Fld7;
 
@@ -201,16 +251,6 @@ public class NullableTypes
     }
   }
 
-  public class A4
-  {
-    public AInt Fld1;
-
-    public struct AInt
-    {
-      public string Fld1;
-    }
-  }
-
   public class B4
   {
     public BInt? Fld1 = new BInt();
@@ -221,66 +261,32 @@ public class NullableTypes
     }
   }
 
-  public class A5
-  {
-    public enum En
-    {
-      Value1,
-
-      Value2,
-
-      Value3
-    }
-
-    public En Fld4 = En.Value1;
-
-    public En? Fld3 = En.Value1;
-    public int? Fld1 = 0;
-
-    public int? Fld2 = 10;
-
-    public int? Fld5 = 0;
-
-    public int? Fld6 = null;
-  }
-
   public class B5
   {
-    public enum En
-    {
-      Value1,
+    public int Fld1 = 10;
 
-      Value2,
-
-      Value3
-    }
+    public string Fld2 = null;
 
     public En Fld3 = En.Value2;
 
     public En? Fld4 = En.Value3;
-    public int Fld1 = 10;
 
     public int? Fld5 = 13;
 
-    public string Fld2 = null;
-
     public string Fld6 = "11";
-  }
 
-  public class A6
-  {
-    public int? I { get; set; }
+    public enum En
+    {
+      Value1,
 
-    public DateTime? Dt { get; set; }
+      Value2,
+
+      Value3
+    }
   }
 
   public class B6
   {
-  }
-
-  public class A7
-  {
-    public int? I { get; set; }
   }
 
   public class B7

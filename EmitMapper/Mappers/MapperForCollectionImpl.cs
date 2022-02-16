@@ -1,8 +1,10 @@
-﻿using System;
+﻿namespace EmitMapper.Mappers;
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Reflection;
+
 using EmitMapper.AST;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
@@ -10,21 +12,22 @@ using EmitMapper.AST.Nodes;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.Utils;
 
-namespace EmitMapper.Mappers;
-
 /// <summary>
 ///   Mapper for collections. It can copy Array, List&lt;&gt;, ArrayList collections.
 ///   Collection type in source object and destination object can differ.
 /// </summary>
 public class MapperForCollectionImpl : CustomMapperImpl
 {
-  private static readonly MethodInfo CopyToListMethod = Metadata<MapperForCollectionImpl>.Type
-    .GetMethod(nameof(CopyToList), BindingFlags.Instance | BindingFlags.NonPublic);
+  private static readonly MethodInfo CopyToListMethod = Metadata<MapperForCollectionImpl>.Type.GetMethod(
+    nameof(CopyToList),
+    BindingFlags.Instance | BindingFlags.NonPublic);
 
-  private static readonly MethodInfo CopyToListScalarMethod = Metadata<MapperForCollectionImpl>.Type
-    .GetMethod(nameof(CopyToListScalar), BindingFlags.Instance | BindingFlags.NonPublic);
+  private static readonly MethodInfo CopyToListScalarMethod = Metadata<MapperForCollectionImpl>.Type.GetMethod(
+    nameof(CopyToListScalar),
+    BindingFlags.Instance | BindingFlags.NonPublic);
 
   private static readonly LazyConcurrentDictionary<Type, bool> IsSupportedCache = new();
+
   private MapperDescription _subMapper;
 
   protected MapperForCollectionImpl()
@@ -58,8 +61,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
         nameof(CopyToListInvoke),
         MethodAttributes.Family | MethodAttributes.Virtual,
         Metadata<object>.Type,
-        new[] { Metadata<IEnumerable>.Type }
-      );
+        new[] { Metadata<IEnumerable>.Type });
 
       InvokeCopyImpl(typeTo, CopyToListMethod).Compile(new CompilationContext(methodBuilder.GetILGenerator()));
 
@@ -67,11 +69,9 @@ public class MapperForCollectionImpl : CustomMapperImpl
         nameof(CopyToListScalarInvoke),
         MethodAttributes.Family | MethodAttributes.Virtual,
         Metadata<object>.Type,
-        new[] { Metadata<object>.Type }
-      );
+        new[] { Metadata<object>.Type });
 
-      InvokeCopyImpl(typeTo, CopyToListScalarMethod)
-        .Compile(new CompilationContext(methodBuilder.GetILGenerator()));
+      InvokeCopyImpl(typeTo, CopyToListScalarMethod).Compile(new CompilationContext(methodBuilder.GetILGenerator()));
     }
 
     var result = ObjectFactory.CreateInstance<MapperForCollectionImpl>(tb.CreateType());
@@ -81,59 +81,21 @@ public class MapperForCollectionImpl : CustomMapperImpl
     return result;
   }
 
-  private static IAstNode InvokeCopyImpl(Type copiedObjectType, MethodInfo copyMethod)
+  public override object CreateTargetInstance()
   {
-    var mi = copyMethod
-      ?.MakeGenericMethod(ExtractElementType(copiedObjectType));
-
-    return new AstReturn
-    {
-      ReturnType = Metadata<object>.Type,
-      ReturnValue = AstBuildHelper.CallMethod(
-        mi,
-        AstBuildHelper.ReadThis(Metadata<MapperForCollectionImpl>.Type),
-        new List<IAstStackItem> { new AstReadArgumentRef { ArgumentIndex = 1, ArgumentType = Metadata<object>.Type } }
-      )
-    };
+    return null;
   }
 
   /// <summary>
-  ///   Returns true if specified type is supported by this Mapper
+  ///   Copies object properties and members of "from" to object "to"
   /// </summary>
-  /// <param name="type"></param>
-  /// <returns></returns>
-  internal static bool IsSupportedType(Type t)
+  /// <param name="from">Source object</param>
+  /// <param name="to">Destination object</param>
+  /// <param name="state"></param>
+  /// <returns>Destination object</returns>
+  public override object Map(object from, object to, object state)
   {
-    return IsSupportedCache.GetOrAdd(
-      t,
-      type => type.IsArray || type.IsGenericType && type.GetGenericTypeDefinitionCache() == Metadata.List1 ||
-              type == Metadata<ArrayList>.Type || Metadata<IList>.Type.IsAssignableFrom(type) ||
-              Metadata.IList1.IsAssignableFrom(type));
-  }
-
-  internal static Type GetSubMapperTypeTo(Type to)
-  {
-    return ExtractElementType(to);
-  }
-
-  internal static Type GetSubMapperTypeFrom(Type from)
-  {
-    var result = ExtractElementType(from);
-    if (result == null)
-      return from;
-
-    return result;
-  }
-
-  private static Type ExtractElementType(Type collection)
-  {
-    if (collection.IsArray)
-      return collection.GetElementType();
-    if (collection == Metadata<ArrayList>.Type)
-      return Metadata<object>.Type;
-    if (collection.IsGenericType && collection.GetGenericTypeDefinitionCache() == Metadata.List1)
-      return collection.GetGenericArguments()[0];
-    return null;
+    return base.Map(from, null, state);
   }
 
   /// <summary>
@@ -174,31 +136,32 @@ public class MapperForCollectionImpl : CustomMapperImpl
     return null;
   }
 
+  internal static Type GetSubMapperTypeFrom(Type from)
+  {
+    var result = ExtractElementType(from);
+    if (result == null)
+      return from;
+
+    return result;
+  }
+
+  internal static Type GetSubMapperTypeTo(Type to)
+  {
+    return ExtractElementType(to);
+  }
+
   /// <summary>
-  ///   Copies object properties and members of "from" to object "to"
+  ///   Returns true if specified type is supported by this Mapper
   /// </summary>
-  /// <param name="from">Source object</param>
-  /// <param name="to">Destination object</param>
-  /// <param name="state"></param>
-  /// <returns>Destination object</returns>
-  public override object Map(object from, object to, object state)
+  /// <param name="type"></param>
+  /// <returns></returns>
+  internal static bool IsSupportedType(Type t)
   {
-    return base.Map(from, null, state);
-  }
-
-  public override object CreateTargetInstance()
-  {
-    return null;
-  }
-
-  protected virtual object CopyToListInvoke(IEnumerable from)
-  {
-    return null;
-  }
-
-  protected virtual object CopyToListScalarInvoke(object from)
-  {
-    return null;
+    return IsSupportedCache.GetOrAdd(
+      t,
+      type => type.IsArray || type.IsGenericType && type.GetGenericTypeDefinitionCache() == Metadata.List1
+                           || type == Metadata<ArrayList>.Type || Metadata<IList>.Type.IsAssignableFrom(type)
+                           || Metadata.IList1.IsAssignableFrom(type));
   }
 
   protected List<T> CopyToList<T>(IEnumerable from)
@@ -213,35 +176,55 @@ public class MapperForCollectionImpl : CustomMapperImpl
     return result;
   }
 
+  protected virtual object CopyToListInvoke(IEnumerable from)
+  {
+    return null;
+  }
+
   protected List<T> CopyToListScalar<T>(object from)
   {
     var result = new List<T>(1) { (T)_subMapper.Mapper.Map(from) };
     return result;
   }
 
-  private object CopyToIList(IList iList, object from)
+  protected virtual object CopyToListScalarInvoke(object from)
   {
-    iList ??= ObjectFactory.CreateInstance<IList>(TypeTo);
-    foreach (var obj in from is IEnumerable fromEnumerable ? fromEnumerable : from.AsEnumerable())
-      if (obj == null)
-    {
-      iList.Add(null);
-    }
-    else if (RootOperation == null || RootOperation.ShallowCopy)
-    {
-      iList.Add(obj);
-    }
-    else
-    {
-      var mapper = ObjectMapperManager.GetMapperImpl(
-        obj.GetType(),
-        obj.GetType(),
-        MappingConfigurator
-      );
-      iList.Add(mapper.Map(obj));
-    }
+    return null;
+  }
 
-    return iList;
+  private static Type ExtractElementType(Type collection)
+  {
+    if (collection.IsArray)
+      return collection.GetElementType();
+    if (collection == Metadata<ArrayList>.Type)
+      return Metadata<object>.Type;
+    if (collection.IsGenericType && collection.GetGenericTypeDefinitionCache() == Metadata.List1)
+      return collection.GetGenericArguments()[0];
+    return null;
+  }
+
+  private static IAstNode InvokeCopyImpl(Type copiedObjectType, MethodInfo copyMethod)
+  {
+    var mi = copyMethod?.MakeGenericMethod(ExtractElementType(copiedObjectType));
+
+    return new AstReturn
+             {
+               ReturnType = Metadata<object>.Type,
+               ReturnValue = AstBuildHelper.CallMethod(
+                 mi,
+                 AstBuildHelper.ReadThis(Metadata<MapperForCollectionImpl>.Type),
+                 new List<IAstStackItem>
+                   {
+                     new AstReadArgumentRef { ArgumentIndex = 1, ArgumentType = Metadata<object>.Type }
+                   })
+             };
+  }
+
+  private Array CopyScalarToArray(object scalar)
+  {
+    var result = Array.CreateInstance(TypeTo.GetElementType(), 1);
+    result.SetValue(_subMapper.Mapper.Map(scalar), 0);
+    return result;
   }
 
   private Array CopyToArray(IEnumerable from)
@@ -289,11 +272,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
       }
       else
       {
-        var mapper = ObjectMapperManager.GetMapperImpl(
-          obj.GetType(),
-          obj.GetType(),
-          MappingConfigurator
-        );
+        var mapper = ObjectMapperManager.GetMapperImpl(obj.GetType(), obj.GetType(), MappingConfigurator);
         result.Add(mapper.Map(obj));
       }
 
@@ -314,10 +293,24 @@ public class MapperForCollectionImpl : CustomMapperImpl
     return result;
   }
 
-  private Array CopyScalarToArray(object scalar)
+  private object CopyToIList(IList iList, object from)
   {
-    var result = Array.CreateInstance(TypeTo.GetElementType(), 1);
-    result.SetValue(_subMapper.Mapper.Map(scalar), 0);
-    return result;
+    iList ??= ObjectFactory.CreateInstance<IList>(TypeTo);
+    foreach (var obj in from is IEnumerable fromEnumerable ? fromEnumerable : from.AsEnumerable())
+      if (obj == null)
+      {
+        iList.Add(null);
+      }
+      else if (RootOperation == null || RootOperation.ShallowCopy)
+      {
+        iList.Add(obj);
+      }
+      else
+      {
+        var mapper = ObjectMapperManager.GetMapperImpl(obj.GetType(), obj.GetType(), MappingConfigurator);
+        iList.Add(mapper.Map(obj));
+      }
+
+    return iList;
   }
 }

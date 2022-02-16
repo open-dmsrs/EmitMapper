@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+﻿namespace EmitMapper.MappingConfiguration.MappingOperations;
 
-namespace EmitMapper.MappingConfiguration.MappingOperations;
+using System;
+using System.Collections.Generic;
+
+using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
 /// <summary>
 ///   Generates the following code:
@@ -27,25 +28,25 @@ namespace EmitMapper.MappingConfiguration.MappingOperations;
 /// </summary>
 public class ReadWriteComplex : IComplexOperation, IReadWriteOperation
 {
-  public bool ShallowCopy { get; set; }
-
-  public Delegate ValuesPostProcessor { get; set; }
-
-  public List<IMappingOperation> Operations { get; set; }
+  public Delegate Converter { get; set; }
 
   public MemberDescriptor Destination { get; set; }
 
-  public Delegate Converter { get; set; }
+  public Delegate DestinationFilter { get; set; }
 
   public Delegate NullSubstitutor { get; set; }
 
-  public Delegate TargetConstructor { get; set; }
+  public List<IMappingOperation> Operations { get; set; }
 
-  public Delegate DestinationFilter { get; set; }
+  public bool ShallowCopy { get; set; }
+
+  public MemberDescriptor Source { get; set; }
 
   public Delegate SourceFilter { get; set; }
 
-  public MemberDescriptor Source { get; set; }
+  public Delegate TargetConstructor { get; set; }
+
+  public Delegate ValuesPostProcessor { get; set; }
 
   public override string ToString()
   {

@@ -1,12 +1,13 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 using EmitMapper.Utils;
-
-namespace EmitMapper.AST.Nodes;
 
 internal class AstNewObject : IAstRef
 {
@@ -24,13 +25,7 @@ internal class AstNewObject : IAstRef
     ConstructorParams = constructorParams;
   }
 
-  #region IAstStackItem Members
-
   public Type ItemType => ObjectType;
-
-  #endregion
-
-  #region IAstNode Members
 
   public void Compile(CompilationContext context)
   {
@@ -85,6 +80,4 @@ internal class AstNewObject : IAstRef
       }
     }
   }
-
-  #endregion
 }

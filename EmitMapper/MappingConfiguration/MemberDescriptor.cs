@@ -1,10 +1,11 @@
-﻿using System;
+﻿namespace EmitMapper.MappingConfiguration;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using EmitMapper.Utils;
 
-namespace EmitMapper.MappingConfiguration;
+using EmitMapper.Utils;
 
 public class MemberDescriptor
 {
@@ -20,6 +21,8 @@ public class MemberDescriptor
     MembersChain = membersChain;
   }
 
+  public MemberInfo MemberInfo { get; private set; }
+
   public IEnumerable<MemberInfo> MembersChain
   {
     get => _membersChain;
@@ -30,8 +33,6 @@ public class MemberDescriptor
       MemberType = ReflectionHelper.GetMemberReturnType(MemberInfo);
     }
   }
-
-  public MemberInfo MemberInfo { get; private set; }
 
   public Type MemberType { get; private set; }
 

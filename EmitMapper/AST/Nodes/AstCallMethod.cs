@@ -1,15 +1,17 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Collections.Generic;
 using System.Reflection;
+
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes;
-
 internal class AstCallMethod : IAstRefOrValue
 {
-  public IAstRefOrAddr InvocationObject;
   public List<IAstStackItem> Arguments;
+
+  public IAstRefOrAddr InvocationObject;
 
   public MethodInfo MethodInfo;
 

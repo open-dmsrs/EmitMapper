@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿namespace EmitMapper.Utils;
 
-namespace EmitMapper.Utils;
+using System.Collections.Generic;
 
 internal static class MiscUtils
 {

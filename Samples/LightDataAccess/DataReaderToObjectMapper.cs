@@ -1,8 +1,11 @@
-﻿using System;
+﻿namespace LightDataAccess;
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
+
 using EmitMapper;
 using EmitMapper.Conversion;
 using EmitMapper.Mappers;
@@ -10,8 +13,6 @@ using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
-
-namespace LightDataAccess;
 
 /// <summary>
 ///   Class DataReaderToObjectMapper
@@ -27,10 +28,7 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
   /// <param name="mappingKey">The mapping key.</param>
   /// <param name="mapperManager">The mapper manager.</param>
   /// <param name="skipFields">The skip fields.</param>
-  public DataReaderToObjectMapper(
-    string mappingKey,
-    ObjectMapperManager mapperManager,
-    IEnumerable<string> skipFields)
+  public DataReaderToObjectMapper(string mappingKey, ObjectMapperManager mapperManager, IEnumerable<string> skipFields)
     : base(GetMapperImpl(mappingKey, mapperManager, skipFields))
   {
   }
@@ -89,10 +87,10 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
   ///// </summary>
   ///// <param name="reader">The reader.</param>
   ///// <returns>IEnumerable{`0}.</returns>
-  //public IEnumerable<TEntity> ReadCollection(IDataReader reader)
-  //{
-  //    return ReadCollection(reader, null);
-  //}
+  // public IEnumerable<TEntity> ReadCollection(IDataReader reader)
+  // {
+  // return ReadCollection(reader, null);
+  // }
 
   ///// <summary>
   ///// Reads the collection.
@@ -100,18 +98,18 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
   ///// <param name="reader">The reader.</param>
   ///// <param name="changeTracker">The change tracker.</param>
   ///// <returns>IEnumerable{`0}.</returns>
-  //public IEnumerable<TEntity> ReadCollection(IDataReader reader, ObjectsChangeTracker changeTracker)
-  //{
-  //    while (reader.Read())
-  //    {
-  //        TEntity result = MapUsingState(reader, reader);
-  //        if (changeTracker != null)
-  //        {
-  //            changeTracker.RegisterObject(result);
-  //        }
-  //        yield return result;
-  //    }
-  //}
+  // public IEnumerable<TEntity> ReadCollection(IDataReader reader, ObjectsChangeTracker changeTracker)
+  // {
+  // while (reader.Read())
+  // {
+  // TEntity result = MapUsingState(reader, reader);
+  // if (changeTracker != null)
+  // {
+  // changeTracker.RegisterObject(result);
+  // }
+  // yield return result;
+  // }
+  // }
 
   /// <summary>
   ///   Gets the mapper impl.
@@ -128,15 +126,9 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
     IMappingConfigurator config = new DbReaderMappingConfig(skipFields, mappingKey);
 
     if (mapperManager != null)
-      return mapperManager.GetMapperImpl(
-        typeof(IDataReader),
-        typeof(TEntity),
-        config);
+      return mapperManager.GetMapperImpl(typeof(IDataReader), typeof(TEntity), config);
 
-    return ObjectMapperManager.DefaultInstance.GetMapperImpl(
-      typeof(IDataReader),
-      typeof(TEntity),
-      config);
+    return ObjectMapperManager.DefaultInstance.GetMapperImpl(typeof(IDataReader), typeof(TEntity), config);
   }
 
   /// <summary>
@@ -145,14 +137,14 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
   private class DbReaderMappingConfig : MapConfigBaseImpl
   {
     /// <summary>
-    ///   The _skip fields
-    /// </summary>
-    private readonly IEnumerable<string> _skipFields;
-
-    /// <summary>
     ///   The _mapping key
     /// </summary>
     private readonly string _mappingKey;
+
+    /// <summary>
+    ///   The _skip fields
+    /// </summary>
+    private readonly IEnumerable<string> _skipFields;
 
     /// <summary>
     ///   Initializes a new instance of the <see cref="DbReaderMappingConfig" /> class.
@@ -166,14 +158,14 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
     }
 
     /// <summary>
-    ///   Gets the root mapping operation.
+    ///   Get unique configuration name to force Emit Mapper create new mapper instead using appropriate cached one.
     /// </summary>
-    /// <param name="from">From.</param>
-    /// <param name="to">To.</param>
-    /// <returns>IRootMappingOperation.</returns>
-    public override IRootMappingOperation GetRootMappingOperation(Type from, Type to)
+    /// <returns>System.String.</returns>
+    public override string GetConfigurationName()
     {
-      return null;
+      if (_mappingKey != null)
+        return "dbreader_" + _mappingKey;
+      return "dbreader_";
     }
 
     /// <summary>
@@ -188,33 +180,26 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
     /// <returns>IEnumerable<IMappingOperation>[].</returns>
     public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
     {
-      return ReflectionHelper
-        .GetPublicFieldsAndProperties(to)
+      return ReflectionHelper.GetPublicFieldsAndProperties(to)
         .Where(
-          m => m.MemberType == MemberTypes.Field ||
-               m.MemberType == MemberTypes.Property && ((PropertyInfo)m).GetSetMethod() != null
-        )
-        .Where(m => !_skipFields.Select(sf => sf.ToUpper()).Contains(m.Name.ToUpper()))
-        .Select(
-          (m, ind) =>
-            new DestWriteOperation
-            {
-              Destination = new MemberDescriptor(new[] { m }),
-              Getter = GetValuesGetter(ind, m)
-            }
-        )
-        .ToArray<IMappingOperation>();
+          m => m.MemberType == MemberTypes.Field
+               || m.MemberType == MemberTypes.Property && ((PropertyInfo)m).GetSetMethod() != null)
+        .Where(m => !_skipFields.Select(sf => sf.ToUpper()).Contains(m.Name.ToUpper())).Select(
+          (m, ind) => new DestWriteOperation
+                        {
+                          Destination = new MemberDescriptor(new[] { m }), Getter = GetValuesGetter(ind, m)
+                        }).ToArray<IMappingOperation>();
     }
 
     /// <summary>
-    ///   Get unique configuration name to force Emit Mapper create new mapper instead using appropriate cached one.
+    ///   Gets the root mapping operation.
     /// </summary>
-    /// <returns>System.String.</returns>
-    public override string GetConfigurationName()
+    /// <param name="from">From.</param>
+    /// <param name="to">To.</param>
+    /// <returns>IRootMappingOperation.</returns>
+    public override IRootMappingOperation GetRootMappingOperation(Type from, Type to)
     {
-      if (_mappingKey != null)
-        return "dbreader_" + _mappingKey;
-      return "dbreader_";
+      return null;
     }
 
     /// <summary>
@@ -245,122 +230,95 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
             (idx, reader) => reader.IsDBNull(idx) ? null : reader.GetString(idx)).ExtrationDelegate;
 
         if (memberType == typeof(bool))
-          return new ReaderValuesExtrator<bool>(m.Name, (idx, reader) => reader.GetBoolean(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<bool>(m.Name, (idx, reader) => reader.GetBoolean(idx)).ExtrationDelegate;
 
         if (memberType == typeof(bool?))
-          return new ReaderValuesExtrator<bool?>(m.Name, (idx, reader) => reader.GetBoolean(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<bool?>(m.Name, (idx, reader) => reader.GetBoolean(idx)).ExtrationDelegate;
 
         if (memberType == typeof(short))
-          return new ReaderValuesExtrator<short>(m.Name, (idx, reader) => reader.GetInt16(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<short>(m.Name, (idx, reader) => reader.GetInt16(idx)).ExtrationDelegate;
 
         if (memberType == typeof(short?))
-          return new ReaderValuesExtrator<short?>(m.Name, (idx, reader) => reader.GetInt16(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<short?>(m.Name, (idx, reader) => reader.GetInt16(idx)).ExtrationDelegate;
 
         if (memberType == typeof(int))
-          return new ReaderValuesExtrator<int>(m.Name, (idx, reader) => reader.GetInt32(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<int>(m.Name, (idx, reader) => reader.GetInt32(idx)).ExtrationDelegate;
 
         if (memberType == typeof(int?))
-          return new ReaderValuesExtrator<int?>(m.Name, (idx, reader) => reader.GetInt32(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<int?>(m.Name, (idx, reader) => reader.GetInt32(idx)).ExtrationDelegate;
 
         if (memberType == typeof(long))
-          return new ReaderValuesExtrator<long>(m.Name, (idx, reader) => reader.GetInt64(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<long>(m.Name, (idx, reader) => reader.GetInt64(idx)).ExtrationDelegate;
 
         if (memberType == typeof(long?))
-          return new ReaderValuesExtrator<long?>(m.Name, (idx, reader) => reader.GetInt64(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<long?>(m.Name, (idx, reader) => reader.GetInt64(idx)).ExtrationDelegate;
 
         if (memberType == typeof(byte))
-          return new ReaderValuesExtrator<byte>(m.Name, (idx, reader) => reader.GetByte(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<byte>(m.Name, (idx, reader) => reader.GetByte(idx)).ExtrationDelegate;
 
         if (memberType == typeof(byte?))
-          return new ReaderValuesExtrator<byte?>(m.Name, (idx, reader) => reader.GetByte(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<byte?>(m.Name, (idx, reader) => reader.GetByte(idx)).ExtrationDelegate;
 
         if (memberType == typeof(char))
-          return new ReaderValuesExtrator<char>(m.Name, (idx, reader) => reader.GetChar(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<char>(m.Name, (idx, reader) => reader.GetChar(idx)).ExtrationDelegate;
 
         if (memberType == typeof(char?))
-          return new ReaderValuesExtrator<char?>(m.Name, (idx, reader) => reader.GetChar(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<char?>(m.Name, (idx, reader) => reader.GetChar(idx)).ExtrationDelegate;
 
         if (memberType == typeof(DateTime))
-          return new ReaderValuesExtrator<DateTime>(m.Name, (idx, reader) => reader.GetDateTime(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<DateTime>(m.Name, (idx, reader) => reader.GetDateTime(idx)).ExtrationDelegate;
 
         if (memberType == typeof(DateTime?))
           return new ReaderValuesExtrator<DateTime?>(m.Name, (idx, reader) => reader.GetDateTime(idx))
             .ExtrationDelegate;
 
         if (memberType == typeof(decimal))
-          return new ReaderValuesExtrator<decimal>(m.Name, (idx, reader) => reader.GetDecimal(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<decimal>(m.Name, (idx, reader) => reader.GetDecimal(idx)).ExtrationDelegate;
 
         if (memberType == typeof(decimal?))
-          return new ReaderValuesExtrator<decimal?>(m.Name, (idx, reader) => reader.GetDecimal(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<decimal?>(m.Name, (idx, reader) => reader.GetDecimal(idx)).ExtrationDelegate;
 
         if (memberType == typeof(double))
-          return new ReaderValuesExtrator<double>(m.Name, (idx, reader) => reader.GetDouble(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<double>(m.Name, (idx, reader) => reader.GetDouble(idx)).ExtrationDelegate;
 
         if (memberType == typeof(double?))
-          return new ReaderValuesExtrator<double?>(m.Name, (idx, reader) => reader.GetDouble(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<double?>(m.Name, (idx, reader) => reader.GetDouble(idx)).ExtrationDelegate;
 
         if (memberType == typeof(float))
-          return new ReaderValuesExtrator<float>(m.Name, (idx, reader) => reader.GetFloat(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<float>(m.Name, (idx, reader) => reader.GetFloat(idx)).ExtrationDelegate;
 
         if (memberType == typeof(float?))
-          return new ReaderValuesExtrator<float?>(m.Name, (idx, reader) => reader.GetFloat(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<float?>(m.Name, (idx, reader) => reader.GetFloat(idx)).ExtrationDelegate;
 
         if (memberType == typeof(Guid))
-          return new ReaderValuesExtrator<Guid>(m.Name, (idx, reader) => reader.GetGuid(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<Guid>(m.Name, (idx, reader) => reader.GetGuid(idx)).ExtrationDelegate;
 
         if (memberType == typeof(Guid?))
-          return new ReaderValuesExtrator<Guid?>(m.Name, (idx, reader) => reader.GetGuid(idx))
-            .ExtrationDelegate;
+          return new ReaderValuesExtrator<Guid?>(m.Name, (idx, reader) => reader.GetGuid(idx)).ExtrationDelegate;
       }
 
       var converter = StaticConvertersManager.DefaultInstance.GetStaticConverterFunc(typeof(object), memberType);
       if (converter == null) throw new EmitMapperException("Could not convert an object to " + memberType);
       var fieldNum = -1;
       var fieldName = m.Name;
-      return
-        (ValueGetter<object>)
-        (
-          (value, state) =>
-          {
-            var reader = (IDataReader)state;
-            object result = null;
-            if (_mappingKey != null)
-            {
-              if (fieldNum == -1) fieldNum = reader.GetOrdinal(fieldName);
-              result = reader[fieldNum];
-            }
-            else
-            {
-              result = reader[fieldName];
-            }
+      return (ValueGetter<object>)((value, state) =>
+                                      {
+                                        var reader = (IDataReader)state;
+                                        object result = null;
+                                        if (_mappingKey != null)
+                                        {
+                                          if (fieldNum == -1) fieldNum = reader.GetOrdinal(fieldName);
+                                          result = reader[fieldNum];
+                                        }
+                                        else
+                                        {
+                                          result = reader[fieldName];
+                                        }
 
-            if (result is DBNull) return ValueToWrite<object>.ReturnValue(null);
-            return ValueToWrite<object>.ReturnValue(converter(result));
-          }
-        )
-        ;
+                                        if (result is DBNull) return ValueToWrite<object>.ReturnValue(null);
+                                        return ValueToWrite<object>.ReturnValue(converter(result));
+                                      });
     }
-
 
     /// <summary>
     ///   Class ReaderValuesExtrator
@@ -369,20 +327,19 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
     private class ReaderValuesExtrator<T>
     {
       /// <summary>
-      ///   The value extractor
-      /// </summary>
-      public readonly Func<int, IDataReader, T> ValueExtractor;
-
-      /// <summary>
       ///   The field name
       /// </summary>
       public readonly string FieldName;
 
       /// <summary>
+      ///   The value extractor
+      /// </summary>
+      public readonly Func<int, IDataReader, T> ValueExtractor;
+
+      /// <summary>
       ///   The field num
       /// </summary>
       public int FieldNum;
-
 
       /// <summary>
       ///   Initializes a new instance of the ReaderValuesExtrator`1 class.
@@ -400,10 +357,8 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
       ///   Gets the extration delegate.
       /// </summary>
       /// <value>The extration delegate.</value>
-      public Delegate ExtrationDelegate => (ValueGetter<T>)
-      (
-        (value, state) => { return ValueToWrite<T>.ReturnValue(GetValue((IDataReader)state)); }
-      );
+      public Delegate ExtrationDelegate =>
+        (ValueGetter<T>)((value, state) => { return ValueToWrite<T>.ReturnValue(GetValue((IDataReader)state)); });
 
       /// <summary>
       ///   Gets the value.

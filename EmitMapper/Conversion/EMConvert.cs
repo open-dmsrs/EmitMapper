@@ -1,8 +1,9 @@
-﻿using System;
-using System.Reflection;
-using EmitMapper.Utils;
+﻿namespace EmitMapper.Conversion;
 
-namespace EmitMapper.Conversion;
+using System;
+using System.Reflection;
+
+using EmitMapper.Utils;
 
 public class EMConvert
 {
@@ -11,11 +12,6 @@ public class EMConvert
     if (value == null)
       return null;
     return ChangeType(value, value.GetType(), conversionType);
-  }
-
-  public static object ChangeTypeGeneric<TFrom, TTo>(object value)
-  {
-    return ChangeType(value, Metadata<TFrom>.Type, Metadata<TTo>.Type);
   }
 
   public static object ChangeType(object value, Type typeFrom, Type typeTo)
@@ -59,6 +55,30 @@ public class EMConvert
     return Convert.ChangeType(value, typeTo);
   }
 
+  public static object ChangeTypeGeneric<TFrom, TTo>(object value)
+  {
+    return ChangeType(value, Metadata<TFrom>.Type, Metadata<TTo>.Type);
+  }
+
+  public static MethodInfo GetConversionMethod(Type from, Type to)
+  {
+    if (from == null || to == null)
+      return null;
+
+    if (to == Metadata<string>.Type)
+      return Metadata<EMConvert>.Type.GetMethod(nameof(ObjectToString), BindingFlags.Static | BindingFlags.Public);
+
+    if (to.IsEnum)
+      return Metadata<EMConvert>.Type.GetMethod(nameof(ToEnum), BindingFlags.Static | BindingFlags.Public)
+        ?.MakeGenericMethod(to, Enum.GetUnderlyingType(to));
+
+    if (IsComplexConvert(from) || IsComplexConvert(to))
+      return Metadata<EMConvert>.Type.GetMethod(nameof(ChangeTypeGeneric), BindingFlags.Static | BindingFlags.Public)
+        ?.MakeGenericMethod(from, to);
+
+    return null;
+  }
+
   public static string ObjectToString(object obj)
   {
     if (obj == null)
@@ -84,23 +104,13 @@ public class EMConvert
     return (TEnum)Convert.ChangeType(obj, Metadata<TUnder>.Type);
   }
 
-  public static MethodInfo GetConversionMethod(Type from, Type to)
+  private static object ConvertToEnum(object value, Type typeFrom, Type typeTo)
   {
-    if (from == null || to == null)
-      return null;
+    if (!typeFrom.IsEnum)
+      if (typeFrom == Metadata<string>.Type)
+        return Enum.Parse(typeTo, value.ToString());
 
-    if (to == Metadata<string>.Type)
-      return Metadata<EMConvert>.Type.GetMethod(nameof(ObjectToString), BindingFlags.Static | BindingFlags.Public);
-
-    if (to.IsEnum)
-      return Metadata<EMConvert>.Type.GetMethod(nameof(ToEnum), BindingFlags.Static | BindingFlags.Public)
-        ?.MakeGenericMethod(to, Enum.GetUnderlyingType(to));
-
-    if (IsComplexConvert(from) || IsComplexConvert(to))
-      return Metadata<EMConvert>.Type.GetMethod(nameof(ChangeTypeGeneric), BindingFlags.Static | BindingFlags.Public)
-        ?.MakeGenericMethod(from, to);
-
-    return null;
+    return Enum.ToObject(typeTo, Convert.ChangeType(value, Enum.GetUnderlyingType(typeTo)));
   }
 
   private static bool IsComplexConvert(Type type)
@@ -112,14 +122,5 @@ public class EMConvert
         return true;
 
     return false;
-  }
-
-  private static object ConvertToEnum(object value, Type typeFrom, Type typeTo)
-  {
-    if (!typeFrom.IsEnum)
-      if (typeFrom == Metadata<string>.Type)
-        return Enum.Parse(typeTo, value.ToString());
-
-    return Enum.ToObject(typeTo, Convert.ChangeType(value, Enum.GetUnderlyingType(typeTo)));
   }
 }

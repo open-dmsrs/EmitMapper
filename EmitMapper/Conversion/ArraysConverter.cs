@@ -1,16 +1,29 @@
-﻿using System;
+﻿namespace EmitMapper.Conversion;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using EmitMapper.MappingConfiguration;
 using EmitMapper.Utils;
-
-namespace EmitMapper.Conversion;
 
 internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
 {
   private Func<TFrom, TTo> _converter;
 
   private MapperDescription _subMapper;
+
+  public TTo[] Convert(ICollection<TFrom> from, object state)
+  {
+    if (from == default)
+      return default;
+
+    var result = new TTo[from.Count];
+    var idx = 0;
+    foreach (var f in from)
+      result[idx++] = _converter(f);
+    return result;
+  }
 
   public void Initialize(Type from, Type to, MapConfigBaseImpl mappingConfig)
   {
@@ -33,18 +46,6 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
     }
   }
 
-  public TTo[] Convert(ICollection<TFrom> from, object state)
-  {
-    if (from == default)
-      return default;
-
-    var result = new TTo[from.Count];
-    var idx = 0;
-    foreach (var f in from)
-      result[idx++] = _converter(f);
-    return result;
-  }
-
   private TTo ConverterBySubmapper(TFrom from)
   {
     return (TTo)_subMapper.Mapper.Map(from);
@@ -63,6 +64,7 @@ internal class ArraysConverterProvider : ICustomConverterProvider
 {
   // optimized the performance for converting arrays value
   private static readonly Type _converterImplementation = typeof(ArraysConverterOneTypes<>);
+
   private static readonly Type _Implementation = typeof(ArraysConverterDifferentTypes<,>);
 
   public CustomConverterDescriptor GetCustomConverterDescr(Type from, Type to, MapConfigBaseImpl mappingConfig)
@@ -75,17 +77,17 @@ internal class ArraysConverterProvider : ICustomConverterProvider
     var tTo = tToTypeArgs[0];
     if (tFrom == tTo && (tFrom.IsValueType || mappingConfig.GetRootMappingOperation(tFrom, tTo).ShallowCopy))
       return new CustomConverterDescriptor
-      {
-        ConversionMethodName = "Convert",
-        ConverterImplementation = _converterImplementation,
-        ConverterClassTypeArguments = tFrom.AsEnumerable()
-      };
+               {
+                 ConversionMethodName = "Convert",
+                 ConverterImplementation = _converterImplementation,
+                 ConverterClassTypeArguments = tFrom.AsEnumerable()
+               };
 
     return new CustomConverterDescriptor
-    {
-      ConversionMethodName = "Convert",
-      ConverterImplementation = _Implementation,
-      ConverterClassTypeArguments = tFrom.AsEnumerable(tTo)
-    };
+             {
+               ConversionMethodName = "Convert",
+               ConverterImplementation = _Implementation,
+               ConverterClassTypeArguments = tFrom.AsEnumerable(tTo)
+             };
   }
 }

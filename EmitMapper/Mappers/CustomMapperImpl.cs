@@ -1,7 +1,8 @@
-﻿using System;
-using EmitMapper.MappingConfiguration;
+﻿namespace EmitMapper.Mappers;
 
-namespace EmitMapper.Mappers;
+using System;
+
+using EmitMapper.MappingConfiguration;
 
 public abstract class CustomMapperImpl : ObjectsMapperBaseImpl
 {

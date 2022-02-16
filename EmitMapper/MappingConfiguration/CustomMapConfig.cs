@@ -1,29 +1,21 @@
-﻿using System;
+﻿namespace EmitMapper.MappingConfiguration;
+
+using System;
 using System.Collections.Generic;
+
 using EmitMapper.Conversion;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
-namespace EmitMapper.MappingConfiguration;
-
 public class CustomMapConfig : MapConfigBaseImpl
 {
-  public Func<Type, Type, IEnumerable<IMappingOperation>> GetMappingOperationFunc { get; set; }
-
   public string ConfigurationName { get; set; }
 
-  #region IMappingConfigurator Members
+  public Func<Type, Type, IEnumerable<IMappingOperation>> GetMappingOperationFunc { get; set; }
 
-  /// <summary>
-  /// </summary>
-  /// <returns></returns>
-  public override StaticConvertersManager GetStaticConvertersManager()
+  public override string GetConfigurationName()
   {
-    return null;
+    return ConfigurationName;
   }
-
-  #endregion
-
-  #region IMappingConfigurator Members
 
   public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
   {
@@ -32,15 +24,16 @@ public class CustomMapConfig : MapConfigBaseImpl
     return GetMappingOperationFunc(from, to);
   }
 
-  public override string GetConfigurationName()
-  {
-    return ConfigurationName;
-  }
-
   public override IRootMappingOperation GetRootMappingOperation(Type from, Type to)
   {
     return null;
   }
 
-  #endregion
+  /// <summary>
+  /// </summary>
+  /// <returns></returns>
+  public override StaticConvertersManager GetStaticConvertersManager()
+  {
+    return null;
+  }
 }

@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿namespace EmitMapper.Tests;
 
-namespace EmitMapper.Tests;
+using System.Collections.Generic;
+using System.Linq;
 
 public static class TestUtils
 {
-  public static bool AreEqual<T>(IEnumerable<T> arr1, IEnumerable<T> arr2) where T : IEqualityComparer<T>
+  public static bool AreEqual<T>(IEnumerable<T> arr1, IEnumerable<T> arr2)
+    where T : IEqualityComparer<T>
   {
     if (arr1 == null || arr2 == null)
       return arr1 == null && arr2 == null;

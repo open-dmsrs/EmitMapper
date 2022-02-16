@@ -1,13 +1,15 @@
-﻿using System.Linq;
-using LightDataAccess;
-using Xunit;
+﻿namespace SamplesTests;
 
-namespace SamplesTests;
+using System.Linq;
+
+using LightDataAccess;
+
+using Xunit;
 
 public class TestObjectsTracker
 {
   [Fact]
-  public void TestObjectsTracking()
+  public void Test_ObjectsChangeTracker_GetChanges_RegisterObject()
   {
     var tracker = new ObjectsChangeTracker();
     var a = new A();
@@ -33,7 +35,7 @@ public class TestObjectsTracker
   }
 
   [Fact]
-  public void TestTwoVersionOfObjects()
+  public void Test_ObjectsChangeTracker_GetChanges_two_objects()
   {
     var tracker = new ObjectsChangeTracker();
     var original = new A { F1 = "F1old", F2 = 2, F3 = true };
@@ -41,10 +43,10 @@ public class TestObjectsTracker
     var changes = tracker.GetChanges(original, current);
 
     Assert.Equal(2, changes.Count());
-    Assert.Equal("F3", changes[0].Name);
-    Assert.Equal(false, changes[0].CurrentValue);
-    Assert.Equal("F1", changes[1].Name);
-    Assert.Equal("F1New", changes[1].CurrentValue);
+    Assert.Equal("F3", changes[1].Name);
+    Assert.Equal(false, changes[1].CurrentValue);
+    Assert.Equal("F1", changes[0].Name);
+    Assert.Equal("F1New", changes[0].CurrentValue);
 
     changes = tracker.GetChanges(original, null);
     Assert.Null(changes);
@@ -55,8 +57,10 @@ public class TestObjectsTracker
 
   public class A
   {
-    public bool F3 = true;
-    public int F2 = 2;
     public string F1 = "F1";
+
+    public int F2 = 2;
+
+    public bool F3 = true;
   }
 }

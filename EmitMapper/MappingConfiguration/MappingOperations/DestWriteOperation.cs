@@ -1,22 +1,23 @@
-﻿using System;
-using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+﻿namespace EmitMapper.MappingConfiguration.MappingOperations;
 
-namespace EmitMapper.MappingConfiguration.MappingOperations;
+using System;
+
+using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
 public delegate ValueToWrite<T> ValueGetter<T>(object value, object state);
 
 public struct ValueToWrite<T>
 {
+  public Actions Action;
+
+  public T Value;
+
   public enum Actions
   {
     Write = 0,
 
     Skip = 1
   }
-
-  public T Value;
-
-  public Actions Action;
 
   public static ValueToWrite<T> ReturnValue(T value)
   {
@@ -31,9 +32,9 @@ public struct ValueToWrite<T>
 
 public class DestWriteOperation : IDestWriteOperation
 {
-  public Delegate Getter { get; set; }
-
   public MemberDescriptor Destination { get; set; }
+
+  public Delegate Getter { get; set; }
 
   public override string ToString()
   {

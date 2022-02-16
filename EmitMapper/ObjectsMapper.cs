@@ -1,16 +1,17 @@
-﻿using System.Collections.Generic;
-using EmitMapper.Mappers;
+﻿namespace EmitMapper;
 
-namespace EmitMapper;
+using System.Collections.Generic;
+
+using EmitMapper.Mappers;
 
 public class ObjectsMapper<TFrom, TTo>
 {
+  private readonly ObjectsMapperBaseImpl _mapperImpl;
+
   public ObjectsMapper(ObjectsMapperBaseImpl mapperImpl)
   {
     _mapperImpl = mapperImpl;
   }
-
-  private readonly ObjectsMapperBaseImpl _mapperImpl;
 
   public TTo Map(TFrom from, TTo to, object state)
   {
@@ -27,11 +28,6 @@ public class ObjectsMapper<TFrom, TTo>
     return (TTo)_mapperImpl.Map(from);
   }
 
-  public TTo MapUsingState(TFrom from, object state)
-  {
-    return (TTo)_mapperImpl.Map(from, null, state);
-  }
-
   public IEnumerable<TTo> MapEnum(IEnumerable<TFrom> sourceCollection)
   {
     foreach (var src in sourceCollection)
@@ -44,5 +40,10 @@ public class ObjectsMapper<TFrom, TTo>
     foreach (var src in sourceCollection)
       result.Add(Map(src));
     return result;
+  }
+
+  public TTo MapUsingState(TFrom from, object state)
+  {
+    return (TTo)_mapperImpl.Map(from, null, state);
   }
 }

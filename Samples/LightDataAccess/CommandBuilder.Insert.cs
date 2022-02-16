@@ -12,15 +12,17 @@
 // <summary></summary>
 // ***********************************************************************
 
+namespace LightDataAccess;
+
 using System.Data;
 using System.Data.Common;
 using System.Linq;
+
 using EmitMapper;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
-using LightDataAccess.MappingConfigs;
 
-namespace LightDataAccess;
+using LightDataAccess.MappingConfigs;
 
 /// <summary>
 ///   Class CommandBuilder
@@ -35,12 +37,7 @@ public static partial class CommandBuilder
   /// <param name="tableName">Name of the table.</param>
   /// <param name="dbSettings">The db settings.</param>
   /// <returns>DbCommand.</returns>
-  public static DbCommand BuildInsertCommand(
-    this DbCommand cmd,
-    object obj,
-    string tableName,
-    DbSettings dbSettings
-  )
+  public static DbCommand BuildInsertCommand(this DbCommand cmd, object obj, string tableName, DbSettings dbSettings)
   {
     return BuildInsertCommand(cmd, obj, tableName, dbSettings, null, null);
   }
@@ -61,37 +58,20 @@ public static partial class CommandBuilder
     string tableName,
     DbSettings dbSettings,
     string[] includeFields,
-    string[] excludeFields
-  )
+    string[] excludeFields)
   {
     IMappingConfigurator config = new AddDbCommandsMappingConfig(
       dbSettings,
       includeFields,
       excludeFields,
-      "insertop_inc_" + includeFields.ToCsv("_") + "_exc_" + excludeFields.ToCsv("_")
-    );
+      "insertop_inc_" + includeFields.ToCsv("_") + "_exc_" + excludeFields.ToCsv("_"));
 
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapperImpl(
-      obj.GetType(),
-      typeof(DbCommand),
-      config
-    );
+    var mapper = ObjectMapperManager.DefaultInstance.GetMapperImpl(obj.GetType(), typeof(DbCommand), config);
 
     var fields = mapper.StoredObjects.OfType<SrcReadOperation>().Select(m => m.Source.MemberInfo.Name);
 
-    var cmdStr =
-        "INSERT INTO "
-        + tableName +
-        "("
-        + fields
-          .Select(dbSettings.GetEscapedName)
-          .ToCsv(",")
-        + ") VALUES ("
-        + fields
-          .Select(dbSettings.GetParamName)
-          .ToCsv(",")
-        + ")"
-      ;
+    var cmdStr = "INSERT INTO " + tableName + "(" + fields.Select(dbSettings.GetEscapedName).ToCsv(",") + ") VALUES ("
+                 + fields.Select(dbSettings.GetParamName).ToCsv(",") + ")";
     cmd.CommandText = cmdStr;
     cmd.CommandType = CommandType.Text;
 

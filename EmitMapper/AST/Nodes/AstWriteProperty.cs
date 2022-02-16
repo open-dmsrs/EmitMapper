@@ -1,19 +1,21 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Collections.Generic;
 using System.Reflection;
+
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes;
-
 internal class AstWriteProperty : IAstNode
 {
+  private readonly PropertyInfo _propertyInfo;
+
+  private readonly MethodInfo _setMethod;
+
   private readonly IAstRefOrAddr _targetObject;
 
   private readonly IAstRefOrValue _value;
-
-  private readonly MethodInfo _setMethod;
-  private readonly PropertyInfo _propertyInfo;
 
   public AstWriteProperty(IAstRefOrAddr targetObject, IAstRefOrValue value, PropertyInfo propertyInfo)
   {
@@ -29,7 +31,6 @@ internal class AstWriteProperty : IAstNode
 
   public void Compile(CompilationContext context)
   {
-    AstBuildHelper.CallMethod(_setMethod, _targetObject, new List<IAstStackItem> { _value })
-      .Compile(context);
+    AstBuildHelper.CallMethod(_setMethod, _targetObject, new List<IAstStackItem> { _value }).Compile(context);
   }
 }

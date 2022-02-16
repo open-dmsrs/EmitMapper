@@ -1,6 +1,6 @@
-﻿using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+﻿namespace EmitMapper.MappingConfiguration.MappingOperations;
 
-namespace EmitMapper.MappingConfiguration.MappingOperations;
+using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
 public delegate void ValueSetter(object obj, object value, object state);
 

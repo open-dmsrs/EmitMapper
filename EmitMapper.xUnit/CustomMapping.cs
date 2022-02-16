@@ -1,17 +1,23 @@
-﻿using EmitMapper.MappingConfiguration;
-using Xunit;
+﻿namespace EmitMapper.Tests;
 
-namespace EmitMapper.Tests;
+using EmitMapper.MappingConfiguration;
+
+using Xunit;
 
 ////[TestFixture]
 public class CustomMapping
 {
+  public interface IWithName
+  {
+    string Name { get; set; }
+  }
+
   [Fact]
   public void Test_CustomConverter()
   {
     var a = Context.ObjMan.GetMapper<B2, A2>(
-      new DefaultMapConfig().ConvertUsing<object, string>(v => "333")
-        .ConvertUsing<object, string>(v => "hello").SetConfigName("ignore")).Map(new B2());
+      new DefaultMapConfig().ConvertUsing<object, string>(v => "333").ConvertUsing<object, string>(v => "hello")
+        .SetConfigName("ignore")).Map(new B2());
     Assert.Null(a.Fld1);
     Assert.Equal("hello", a.Fld2);
 
@@ -22,8 +28,8 @@ public class CustomMapping
   [Fact]
   public void Test_CustomConverter2()
   {
-    var a = Context.ObjMan.GetMapper<Bb, Aa>(
-      new DefaultMapConfig().ConvertUsing<object, string>(v => "converted " + v)).Map(new Bb());
+    var a = Context.ObjMan.GetMapper<Bb, Aa>(new DefaultMapConfig().ConvertUsing<object, string>(v => "converted " + v))
+      .Map(new Bb());
     Assert.Equal("converted B2::fld1", a.Fld1);
     Assert.Equal("converted B2::fld2", a.Fld2);
   }
@@ -43,17 +49,17 @@ public class CustomMapping
   {
     var a = Context.ObjMan.GetMapper<B3, A3>(
       new DefaultMapConfig().PostProcess<A3.Int>(
-        (i, state) =>
-        {
-          i.Str2 = "processed";
-          return i;
-        }).PostProcess<A3.SInt?>(
-        (i, state) => { return new A3.SInt { Str1 = i.Value.Str1, Str2 = "processed" }; }).PostProcess<A3>(
-        (i, state) =>
-        {
-          i.Status = "processed";
-          return i;
-        })).Map(new B3());
+          (i, state) =>
+            {
+              i.Str2 = "processed";
+              return i;
+            }).PostProcess<A3.SInt?>((i, state) => { return new A3.SInt { Str1 = i.Value.Str1, Str2 = "processed" }; })
+        .PostProcess<A3>(
+          (i, state) =>
+            {
+              i.Status = "processed";
+              return i;
+            })).Map(new B3());
     Assert.Equal("B3::Int::str1", a.Fld.Str1);
     Assert.Equal("processed", a.Fld.Str2);
 
@@ -82,37 +88,6 @@ public class CustomMapping
     public string Fld2;
   }
 
-  public class B2
-  {
-    public string Fld2 = "B2::fld2";
-
-    public string Fld3 = "B2::fld3";
-  }
-
-  public interface IWithName
-  {
-    string Name { get; set; }
-  }
-
-  public class WithName : IWithName
-  {
-    public string Name { get; set; }
-  }
-
-  public class Aa
-  {
-    public string Fld1;
-
-    public string Fld2;
-  }
-
-  public class Bb
-  {
-    public string Fld1 = "B2::fld1";
-
-    public string Fld2 = "B2::fld2";
-  }
-
   public class A3
   {
     public Int Fld;
@@ -136,6 +111,20 @@ public class CustomMapping
     }
   }
 
+  public class Aa
+  {
+    public string Fld1;
+
+    public string Fld2;
+  }
+
+  public class B2
+  {
+    public string Fld2 = "B2::fld2";
+
+    public string Fld3 = "B2::fld3";
+  }
+
   public class B3
   {
     public Int Fld = new();
@@ -156,5 +145,17 @@ public class CustomMapping
     {
       public string Str1 = "B3::Int::str1";
     }
+  }
+
+  public class Bb
+  {
+    public string Fld1 = "B2::fld1";
+
+    public string Fld2 = "B2::fld2";
+  }
+
+  public class WithName : IWithName
+  {
+    public string Name { get; set; }
   }
 }

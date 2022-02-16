@@ -1,14 +1,46 @@
-﻿using System;
+﻿namespace EmitMapper.MappingConfiguration;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using EmitMapper.Utils;
 
-namespace EmitMapper.MappingConfiguration;
+using EmitMapper.Utils;
 
 internal class TypeDictionary<T>
   where T : class
 {
   private readonly List<ListElement> _elements = new();
+
+  public void Add(Type[] types, T value)
+  {
+    var newElem = new ListElement(types, value);
+    if (_elements.Contains(newElem))
+      _elements.Remove(newElem);
+
+    _elements.Add(new ListElement(types, value));
+  }
+
+  public T GetValue(Type[] types)
+  {
+    var elem = FindTypes(types);
+    return elem?.Value;
+  }
+
+  public T GetValue(Type type)
+  {
+    var elem = FindTypes(type);
+    return elem?.Value;
+  }
+
+  public bool IsTypesInList(Type[] types)
+  {
+    return FindTypes(types).HasValue;
+  }
+
+  public override string ToString()
+  {
+    return _elements.Select(e => e.Types.ToCsv("|") + (e.Value == null ? "|" : "|" + e.Value)).ToCsv("||");
+  }
 
   private static bool IsGeneralType(Type generalType, Type type)
   {
@@ -17,8 +49,7 @@ internal class TypeDictionary<T>
     if (generalType.IsGenericTypeDefinition)
     {
       if (generalType.IsInterface)
-        return type.GetInterfacesCache()
-          .Concat(type.IsInterface ? new[] { type } : Type.EmptyTypes)
+        return type.GetInterfacesCache().Concat(type.IsInterface ? new[] { type } : Type.EmptyTypes)
           .Any(i => i.IsGenericType && i.GetGenericTypeDefinitionCache() == generalType);
 
       return type.IsGenericType && (type.GetGenericTypeDefinitionCache() == generalType
@@ -26,35 +57,6 @@ internal class TypeDictionary<T>
     }
 
     return generalType.IsAssignableFrom(type);
-  }
-
-  public override string ToString()
-  {
-    return _elements.Select(e => e.Types.ToCsv("|") + (e.Value == null ? "|" : "|" + e.Value)).ToCsv("||");
-  }
-
-  public bool IsTypesInList(Type[] types)
-  {
-    return FindTypes(types).HasValue;
-  }
-
-  public T GetValue(Type[] types)
-  {
-    var elem = FindTypes(types);
-    return elem?.Value;
-  }
-  public T GetValue(Type type)
-  {
-    var elem = FindTypes(type);
-    return elem?.Value;
-  }
-  public void Add(Type[] types, T value)
-  {
-    var newElem = new ListElement(types, value);
-    if (_elements.Contains(newElem))
-      _elements.Remove(newElem);
-
-    _elements.Add(new ListElement(types, value));
   }
 
   private ListElement? FindTypes(Type[] types)
@@ -79,6 +81,7 @@ internal class TypeDictionary<T>
 
     return null;
   }
+
   private ListElement? FindTypes(Type type)
   {
     foreach (var element in _elements)
@@ -98,10 +101,12 @@ internal class TypeDictionary<T>
 
     return null;
   }
+
   private readonly struct ListElement : IEquatable<ListElement>
   {
-    public readonly T Value;
     public readonly Type[] Types;
+
+    public readonly T Value;
 
     public ListElement(Type[] types, T value)
     {
@@ -114,14 +119,14 @@ internal class TypeDictionary<T>
       return !Types.Where((t, i) => t != other.Types[i]).Any();
     }
 
-    public override int GetHashCode()
-    {
-      return HashCode.Combine(Types);
-    }
-
     public override bool Equals(object obj)
     {
       return Equals(obj);
+    }
+
+    public override int GetHashCode()
+    {
+      return HashCode.Combine(Types);
     }
   }
 }

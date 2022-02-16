@@ -1,9 +1,10 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection;
 using System.Reflection.Emit;
-using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes;
+using EmitMapper.AST.Interfaces;
 
 internal class AstInitializeLocalVariable : IAstNode
 {

@@ -1,10 +1,10 @@
-﻿using System;
+﻿namespace EmitMapper.Utils;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-
-namespace EmitMapper.Utils;
 
 /// <summary>
 ///   A comparer which implements <see cref="IEqualityComparer{T}" /> for <see cref="Expression" />.
@@ -22,6 +22,17 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
   ///   Gets an instance of <see cref="ExpressionEqualityComparer" />.
   /// </summary>
   public static ExpressionEqualityComparer Instance { get; } = new();
+
+  /// <summary>
+  ///   Returns a value indicating whether the given expressions are equal.
+  /// </summary>
+  /// <param name="x"> The left expression. </param>
+  /// <param name="y"> The right expression. </param>
+  /// <returns> <see langword="true" /> if the expressions are equal, <see langword="false" /> otherwise. </returns>
+  public bool Equals(Expression x, Expression y)
+  {
+    return new ExpressionComparer().Compare(x, y);
+  }
 
   /// <summary>
   ///   Returns the hash code for given expression.
@@ -60,8 +71,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
           break;
 
         case ConstantExpression constantExpression:
-          if (constantExpression.Value != null
-              && !(constantExpression.Value is IQueryable))
+          if (constantExpression.Value != null && !(constantExpression.Value is IQueryable))
             hash.Add(constantExpression.Value);
 
           break;
@@ -251,17 +261,6 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
   }
 
-  /// <summary>
-  ///   Returns a value indicating whether the given expressions are equal.
-  /// </summary>
-  /// <param name="x"> The left expression. </param>
-  /// <param name="y"> The right expression. </param>
-  /// <returns> <see langword="true" /> if the expressions are equal, <see langword="false" /> otherwise. </returns>
-  public bool Equals(Expression x, Expression y)
-  {
-    return new ExpressionComparer().Compare(x, y);
-  }
-
   private struct ExpressionComparer
   {
     private Dictionary<ParameterExpression, ParameterExpression> _parameterScope;
@@ -270,8 +269,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     {
       if (left == right) return true;
 
-      if (left == null
-          || right == null)
+      if (left == null || right == null)
         return false;
 
       if (left.NodeType != right.NodeType) return false;
@@ -279,63 +277,38 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
       if (left.Type != right.Type) return false;
 
       return left switch
-      {
-        BinaryExpression leftBinary => CompareBinary(leftBinary, (BinaryExpression)right),
-        BlockExpression leftBlock => CompareBlock(leftBlock, (BlockExpression)right),
-        ConditionalExpression leftConditional => CompareConditional(
-          leftConditional,
-          (ConditionalExpression)right),
-        ConstantExpression leftConstant => CompareConstant(leftConstant, (ConstantExpression)right),
-        DefaultExpression _ => true, // Intentionally empty. No additional members
-        GotoExpression leftGoto => CompareGoto(leftGoto, (GotoExpression)right),
-        IndexExpression leftIndex => CompareIndex(leftIndex, (IndexExpression)right),
-        InvocationExpression leftInvocation => CompareInvocation(leftInvocation, (InvocationExpression)right),
-        LabelExpression leftLabel => CompareLabel(leftLabel, (LabelExpression)right),
-        LambdaExpression leftLambda => CompareLambda(leftLambda, (LambdaExpression)right),
-        ListInitExpression leftListInit => CompareListInit(leftListInit, (ListInitExpression)right),
-        LoopExpression leftLoop => CompareLoop(leftLoop, (LoopExpression)right),
-        MemberExpression leftMember => CompareMember(leftMember, (MemberExpression)right),
-        MemberInitExpression leftMemberInit => CompareMemberInit(leftMemberInit, (MemberInitExpression)right),
-        MethodCallExpression leftMethodCall => CompareMethodCall(leftMethodCall, (MethodCallExpression)right),
-        NewArrayExpression leftNewArray => CompareNewArray(leftNewArray, (NewArrayExpression)right),
-        NewExpression leftNew => CompareNew(leftNew, (NewExpression)right),
-        ParameterExpression leftParameter => CompareParameter(leftParameter, (ParameterExpression)right),
-        RuntimeVariablesExpression leftRuntimeVariables => CompareRuntimeVariables(
-          leftRuntimeVariables,
-          (RuntimeVariablesExpression)right),
-        SwitchExpression leftSwitch => CompareSwitch(leftSwitch, (SwitchExpression)right),
-        TryExpression leftTry => CompareTry(leftTry, (TryExpression)right),
-        TypeBinaryExpression leftTypeBinary => CompareTypeBinary(leftTypeBinary, (TypeBinaryExpression)right),
-        UnaryExpression leftUnary => CompareUnary(leftUnary, (UnaryExpression)right),
+        {
+          BinaryExpression leftBinary => CompareBinary(leftBinary, (BinaryExpression)right),
+          BlockExpression leftBlock => CompareBlock(leftBlock, (BlockExpression)right),
+          ConditionalExpression leftConditional => CompareConditional(leftConditional, (ConditionalExpression)right),
+          ConstantExpression leftConstant => CompareConstant(leftConstant, (ConstantExpression)right),
+          DefaultExpression _ => true, // Intentionally empty. No additional members
+          GotoExpression leftGoto => CompareGoto(leftGoto, (GotoExpression)right),
+          IndexExpression leftIndex => CompareIndex(leftIndex, (IndexExpression)right),
+          InvocationExpression leftInvocation => CompareInvocation(leftInvocation, (InvocationExpression)right),
+          LabelExpression leftLabel => CompareLabel(leftLabel, (LabelExpression)right),
+          LambdaExpression leftLambda => CompareLambda(leftLambda, (LambdaExpression)right),
+          ListInitExpression leftListInit => CompareListInit(leftListInit, (ListInitExpression)right),
+          LoopExpression leftLoop => CompareLoop(leftLoop, (LoopExpression)right),
+          MemberExpression leftMember => CompareMember(leftMember, (MemberExpression)right),
+          MemberInitExpression leftMemberInit => CompareMemberInit(leftMemberInit, (MemberInitExpression)right),
+          MethodCallExpression leftMethodCall => CompareMethodCall(leftMethodCall, (MethodCallExpression)right),
+          NewArrayExpression leftNewArray => CompareNewArray(leftNewArray, (NewArrayExpression)right),
+          NewExpression leftNew => CompareNew(leftNew, (NewExpression)right),
+          ParameterExpression leftParameter => CompareParameter(leftParameter, (ParameterExpression)right),
+          RuntimeVariablesExpression leftRuntimeVariables => CompareRuntimeVariables(
+            leftRuntimeVariables,
+            (RuntimeVariablesExpression)right),
+          SwitchExpression leftSwitch => CompareSwitch(leftSwitch, (SwitchExpression)right),
+          TryExpression leftTry => CompareTry(leftTry, (TryExpression)right),
+          TypeBinaryExpression leftTypeBinary => CompareTypeBinary(leftTypeBinary, (TypeBinaryExpression)right),
+          UnaryExpression leftUnary => CompareUnary(leftUnary, (UnaryExpression)right),
 
-        _ => left.NodeType == ExpressionType.Extension
-          ? left.Equals(right)
-          : throw new InvalidOperationException(
-            $"The comparison operation has not implemented to expression type {left.NodeType}")
-      };
-    }
-
-    private bool CompareBinary(BinaryExpression a, BinaryExpression b)
-    {
-      return Equals(a.Method, b.Method)
-             && a.IsLifted == b.IsLifted
-             && a.IsLiftedToNull == b.IsLiftedToNull
-             && Compare(a.Left, b.Left)
-             && Compare(a.Right, b.Right)
-             && Compare(a.Conversion, b.Conversion);
-    }
-
-    private bool CompareBlock(BlockExpression a, BlockExpression b)
-    {
-      return CompareExpressionList(a.Variables, b.Variables)
-             && CompareExpressionList(a.Expressions, b.Expressions);
-    }
-
-    private bool CompareConditional(ConditionalExpression a, ConditionalExpression b)
-    {
-      return Compare(a.Test, b.Test)
-             && Compare(a.IfTrue, b.IfTrue)
-             && Compare(a.IfFalse, b.IfFalse);
+          _ => left.NodeType == ExpressionType.Extension
+                 ? left.Equals(right)
+                 : throw new InvalidOperationException(
+                     $"The comparison operation has not implemented to expression type {left.NodeType}")
+        };
     }
 
     private static bool CompareConstant(ConstantExpression a, ConstantExpression b)
@@ -343,30 +316,124 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
       return Equals(a.Value, b.Value);
     }
 
+    private bool CompareBinary(BinaryExpression a, BinaryExpression b)
+    {
+      return Equals(a.Method, b.Method) && a.IsLifted == b.IsLifted && a.IsLiftedToNull == b.IsLiftedToNull
+             && Compare(a.Left, b.Left) && Compare(a.Right, b.Right) && Compare(a.Conversion, b.Conversion);
+    }
+
+    private bool CompareBinding(MemberBinding a, MemberBinding b)
+    {
+      if (a == b) return true;
+
+      if (a == null || b == null)
+        return false;
+
+      if (a.BindingType != b.BindingType) return false;
+
+      if (!Equals(a.Member, b.Member)) return false;
+
+#pragma warning disable IDE0066 // Convert switch statement to expression
+      switch (a)
+#pragma warning restore IDE0066
+      {
+        // Convert switch statement to expression
+        case MemberAssignment aMemberAssignment:
+          return Compare(aMemberAssignment.Expression, ((MemberAssignment)b).Expression);
+
+        case MemberListBinding aMemberListBinding:
+          return CompareElementInitList(aMemberListBinding.Initializers, ((MemberListBinding)b).Initializers);
+
+        case MemberMemberBinding aMemberMemberBinding:
+          return CompareMemberBindingList(aMemberMemberBinding.Bindings, ((MemberMemberBinding)b).Bindings);
+
+        default:
+          throw new InvalidOperationException("The expression has not an supported MemberBindingExpression");
+      }
+    }
+
+    private bool CompareBlock(BlockExpression a, BlockExpression b)
+    {
+      return CompareExpressionList(a.Variables, b.Variables) && CompareExpressionList(a.Expressions, b.Expressions);
+    }
+
+    private bool CompareCatchBlock(CatchBlock a, CatchBlock b)
+    {
+      return ReferenceEquals(a.Test, b.Test) && Equals(a.Test, b.Test) && Compare(a.Body, b.Body)
+             && Compare(a.Filter, b.Filter) && Compare(a.Variable, b.Variable);
+    }
+
+    private bool CompareCatchBlockList(IReadOnlyList<CatchBlock> a, IReadOnlyList<CatchBlock> b)
+    {
+      if (ReferenceEquals(a, b)) return true;
+
+      if (a == null || b == null || a.Count != b.Count)
+        return false;
+
+      for (int i = 0, n = a.Count; i < n; i++)
+        if (!CompareCatchBlock(a[i], b[i]))
+          return false;
+
+      return true;
+    }
+
+    private bool CompareConditional(ConditionalExpression a, ConditionalExpression b)
+    {
+      return Compare(a.Test, b.Test) && Compare(a.IfTrue, b.IfTrue) && Compare(a.IfFalse, b.IfFalse);
+    }
+
+    private bool CompareElementInit(ElementInit a, ElementInit b)
+    {
+      return Equals(a.AddMethod, b.AddMethod) && CompareExpressionList(a.Arguments, b.Arguments);
+    }
+
+    private bool CompareElementInitList(IReadOnlyList<ElementInit> a, IReadOnlyList<ElementInit> b)
+    {
+      if (ReferenceEquals(a, b)) return true;
+
+      if (a == null || b == null || a.Count != b.Count)
+        return false;
+
+      for (int i = 0, n = a.Count; i < n; i++)
+        if (!CompareElementInit(a[i], b[i]))
+          return false;
+
+      return true;
+    }
+
+    private bool CompareExpressionList(IReadOnlyList<Expression> a, IReadOnlyList<Expression> b)
+    {
+      if (ReferenceEquals(a, b)) return true;
+
+      if (a == null || b == null || a.Count != b.Count)
+        return false;
+
+      for (int i = 0, n = a.Count; i < n; i++)
+        if (!Compare(a[i], b[i]))
+          return false;
+
+      return true;
+    }
+
     private bool CompareGoto(GotoExpression a, GotoExpression b)
     {
-      return a.Kind == b.Kind
-             && Equals(a.Target, b.Target)
-             && Compare(a.Value, b.Value);
+      return a.Kind == b.Kind && Equals(a.Target, b.Target) && Compare(a.Value, b.Value);
     }
 
     private bool CompareIndex(IndexExpression a, IndexExpression b)
     {
-      return Equals(a.Indexer, b.Indexer)
-             && Compare(a.Object, b.Object)
-             && CompareExpressionList(a.Arguments, b.Arguments);
+      return Equals(a.Indexer, b.Indexer) && Compare(a.Object, b.Object)
+                                          && CompareExpressionList(a.Arguments, b.Arguments);
     }
 
     private bool CompareInvocation(InvocationExpression a, InvocationExpression b)
     {
-      return Compare(a.Expression, b.Expression)
-             && CompareExpressionList(a.Arguments, b.Arguments);
+      return Compare(a.Expression, b.Expression) && CompareExpressionList(a.Arguments, b.Arguments);
     }
 
     private bool CompareLabel(LabelExpression a, LabelExpression b)
     {
-      return Equals(a.Target, b.Target)
-             && Compare(a.DefaultValue, b.DefaultValue);
+      return Equals(a.Target, b.Target) && Compare(a.DefaultValue, b.DefaultValue);
     }
 
     private bool CompareLambda(LambdaExpression a, LambdaExpression b)
@@ -401,130 +468,24 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 
     private bool CompareListInit(ListInitExpression a, ListInitExpression b)
     {
-      return Compare(a.NewExpression, b.NewExpression)
-             && CompareElementInitList(a.Initializers, b.Initializers);
+      return Compare(a.NewExpression, b.NewExpression) && CompareElementInitList(a.Initializers, b.Initializers);
     }
 
     private bool CompareLoop(LoopExpression a, LoopExpression b)
     {
-      return Equals(a.BreakLabel, b.BreakLabel)
-             && Equals(a.ContinueLabel, b.ContinueLabel)
-             && Compare(a.Body, b.Body);
+      return Equals(a.BreakLabel, b.BreakLabel) && Equals(a.ContinueLabel, b.ContinueLabel) && Compare(a.Body, b.Body);
     }
 
     private bool CompareMember(MemberExpression a, MemberExpression b)
     {
-      return Equals(a.Member, b.Member)
-             && Compare(a.Expression, b.Expression);
-    }
-
-    private bool CompareMemberInit(MemberInitExpression a, MemberInitExpression b)
-    {
-      return Compare(a.NewExpression, b.NewExpression)
-             && CompareMemberBindingList(a.Bindings, b.Bindings);
-    }
-
-    private bool CompareMethodCall(MethodCallExpression a, MethodCallExpression b)
-    {
-      return Equals(a.Method, b.Method)
-             && Compare(a.Object, b.Object)
-             && CompareExpressionList(a.Arguments, b.Arguments);
-    }
-
-    private bool CompareNewArray(NewArrayExpression a, NewArrayExpression b)
-    {
-      return CompareExpressionList(a.Expressions, b.Expressions);
-    }
-
-    private bool CompareNew(NewExpression a, NewExpression b)
-    {
-      return Equals(a.Constructor, b.Constructor)
-             && CompareExpressionList(a.Arguments, b.Arguments)
-             && CompareMemberList(a.Members, b.Members);
-    }
-
-    private bool CompareParameter(ParameterExpression a, ParameterExpression b)
-    {
-      return _parameterScope != null
-             && _parameterScope.TryGetValue(a, out var mapped)
-        ? mapped.Name == b.Name
-        : a.Name == b.Name;
-    }
-
-    private bool CompareRuntimeVariables(RuntimeVariablesExpression a, RuntimeVariablesExpression b)
-    {
-      return CompareExpressionList(a.Variables, b.Variables);
-    }
-
-    private bool CompareSwitch(SwitchExpression a, SwitchExpression b)
-    {
-      return Equals(a.Comparison, b.Comparison)
-             && Compare(a.SwitchValue, b.SwitchValue)
-             && Compare(a.DefaultBody, b.DefaultBody)
-             && CompareSwitchCaseList(a.Cases, b.Cases);
-    }
-
-    private bool CompareTry(TryExpression a, TryExpression b)
-    {
-      return Compare(a.Body, b.Body)
-             && Compare(a.Fault, b.Fault)
-             && Compare(a.Finally, b.Finally)
-             && CompareCatchBlockList(a.Handlers, b.Handlers);
-    }
-
-    private bool CompareTypeBinary(TypeBinaryExpression a, TypeBinaryExpression b)
-    {
-      return a.TypeOperand == b.TypeOperand
-             && Compare(a.Expression, b.Expression);
-    }
-
-    private bool CompareUnary(UnaryExpression a, UnaryExpression b)
-    {
-      return Equals(a.Method, b.Method)
-             && a.IsLifted == b.IsLifted
-             && a.IsLiftedToNull == b.IsLiftedToNull
-             && Compare(a.Operand, b.Operand);
-    }
-
-    private bool CompareExpressionList(IReadOnlyList<Expression> a, IReadOnlyList<Expression> b)
-    {
-      if (ReferenceEquals(a, b)) return true;
-
-      if (a == null
-          || b == null
-          || a.Count != b.Count)
-        return false;
-
-      for (int i = 0, n = a.Count; i < n; i++)
-        if (!Compare(a[i], b[i]))
-          return false;
-
-      return true;
-    }
-
-    private bool CompareMemberList(IReadOnlyList<MemberInfo> a, IReadOnlyList<MemberInfo> b)
-    {
-      if (ReferenceEquals(a, b)) return true;
-
-      if (a == null
-          || b == null
-          || a.Count != b.Count)
-        return false;
-
-      for (int i = 0, n = a.Count; i < n; i++)
-        if (!Equals(a[i], b[i]))
-          return false;
-
-      return true;
+      return Equals(a.Member, b.Member) && Compare(a.Expression, b.Expression);
     }
 
     private bool CompareMemberBindingList(IReadOnlyList<MemberBinding> a, IReadOnlyList<MemberBinding> b)
     {
       if (ReferenceEquals(a, b)) return true;
 
-      if (a == null
-          || b == null
-          || a.Count != b.Count)
+      if (a == null || b == null || a.Count != b.Count)
         return false;
 
       for (int i = 0, n = a.Count; i < n; i++)
@@ -534,65 +495,71 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
       return true;
     }
 
-    private bool CompareBinding(MemberBinding a, MemberBinding b)
+    private bool CompareMemberInit(MemberInitExpression a, MemberInitExpression b)
     {
-      if (a == b) return true;
-
-      if (a == null
-          || b == null)
-        return false;
-
-      if (a.BindingType != b.BindingType) return false;
-
-      if (!Equals(a.Member, b.Member)) return false;
-
-#pragma warning disable IDE0066 // Convert switch statement to expression
-      switch (a)
-#pragma warning restore IDE0066 // Convert switch statement to expression
-      {
-        case MemberAssignment aMemberAssignment:
-          return Compare(aMemberAssignment.Expression, ((MemberAssignment)b).Expression);
-
-        case MemberListBinding aMemberListBinding:
-          return CompareElementInitList(aMemberListBinding.Initializers, ((MemberListBinding)b).Initializers);
-
-        case MemberMemberBinding aMemberMemberBinding:
-          return CompareMemberBindingList(aMemberMemberBinding.Bindings, ((MemberMemberBinding)b).Bindings);
-
-        default:
-          throw new InvalidOperationException("The expression has not an supported MemberBindingExpression");
-      }
+      return Compare(a.NewExpression, b.NewExpression) && CompareMemberBindingList(a.Bindings, b.Bindings);
     }
 
-    private bool CompareElementInitList(IReadOnlyList<ElementInit> a, IReadOnlyList<ElementInit> b)
+    private bool CompareMemberList(IReadOnlyList<MemberInfo> a, IReadOnlyList<MemberInfo> b)
     {
       if (ReferenceEquals(a, b)) return true;
 
-      if (a == null
-          || b == null
-          || a.Count != b.Count)
+      if (a == null || b == null || a.Count != b.Count)
         return false;
 
       for (int i = 0, n = a.Count; i < n; i++)
-        if (!CompareElementInit(a[i], b[i]))
+        if (!Equals(a[i], b[i]))
           return false;
 
       return true;
     }
 
-    private bool CompareElementInit(ElementInit a, ElementInit b)
+    private bool CompareMethodCall(MethodCallExpression a, MethodCallExpression b)
     {
-      return Equals(a.AddMethod, b.AddMethod)
-             && CompareExpressionList(a.Arguments, b.Arguments);
+      return Equals(a.Method, b.Method) && Compare(a.Object, b.Object)
+                                        && CompareExpressionList(a.Arguments, b.Arguments);
+    }
+
+    private bool CompareNew(NewExpression a, NewExpression b)
+    {
+      return Equals(a.Constructor, b.Constructor) && CompareExpressionList(a.Arguments, b.Arguments)
+                                                  && CompareMemberList(a.Members, b.Members);
+    }
+
+    private bool CompareNewArray(NewArrayExpression a, NewArrayExpression b)
+    {
+      return CompareExpressionList(a.Expressions, b.Expressions);
+    }
+
+    private bool CompareParameter(ParameterExpression a, ParameterExpression b)
+    {
+      return _parameterScope != null && _parameterScope.TryGetValue(a, out var mapped)
+               ? mapped.Name == b.Name
+               : a.Name == b.Name;
+    }
+
+    private bool CompareRuntimeVariables(RuntimeVariablesExpression a, RuntimeVariablesExpression b)
+    {
+      return CompareExpressionList(a.Variables, b.Variables);
+    }
+
+    private bool CompareSwitch(SwitchExpression a, SwitchExpression b)
+    {
+      return Equals(a.Comparison, b.Comparison) && Compare(a.SwitchValue, b.SwitchValue)
+                                                && Compare(a.DefaultBody, b.DefaultBody)
+                                                && CompareSwitchCaseList(a.Cases, b.Cases);
+    }
+
+    private bool CompareSwitchCase(SwitchCase a, SwitchCase b)
+    {
+      return Compare(a.Body, b.Body) && CompareExpressionList(a.TestValues, b.TestValues);
     }
 
     private bool CompareSwitchCaseList(IReadOnlyList<SwitchCase> a, IReadOnlyList<SwitchCase> b)
     {
       if (ReferenceEquals(a, b)) return true;
 
-      if (a == null
-          || b == null
-          || a.Count != b.Count)
+      if (a == null || b == null || a.Count != b.Count)
         return false;
 
       for (int i = 0, n = a.Count; i < n; i++)
@@ -602,34 +569,21 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
       return true;
     }
 
-    private bool CompareSwitchCase(SwitchCase a, SwitchCase b)
+    private bool CompareTry(TryExpression a, TryExpression b)
     {
-      return Compare(a.Body, b.Body)
-             && CompareExpressionList(a.TestValues, b.TestValues);
+      return Compare(a.Body, b.Body) && Compare(a.Fault, b.Fault) && Compare(a.Finally, b.Finally)
+             && CompareCatchBlockList(a.Handlers, b.Handlers);
     }
 
-    private bool CompareCatchBlockList(IReadOnlyList<CatchBlock> a, IReadOnlyList<CatchBlock> b)
+    private bool CompareTypeBinary(TypeBinaryExpression a, TypeBinaryExpression b)
     {
-      if (ReferenceEquals(a, b)) return true;
-
-      if (a == null
-          || b == null
-          || a.Count != b.Count)
-        return false;
-
-      for (int i = 0, n = a.Count; i < n; i++)
-        if (!CompareCatchBlock(a[i], b[i]))
-          return false;
-
-      return true;
+      return a.TypeOperand == b.TypeOperand && Compare(a.Expression, b.Expression);
     }
 
-    private bool CompareCatchBlock(CatchBlock a, CatchBlock b)
+    private bool CompareUnary(UnaryExpression a, UnaryExpression b)
     {
-      return ReferenceEquals(a.Test, b.Test) && Equals(a.Test, b.Test)
-                                             && Compare(a.Body, b.Body)
-                                             && Compare(a.Filter, b.Filter)
-                                             && Compare(a.Variable, b.Variable);
+      return Equals(a.Method, b.Method) && a.IsLifted == b.IsLifted && a.IsLiftedToNull == b.IsLiftedToNull
+             && Compare(a.Operand, b.Operand);
     }
   }
 }

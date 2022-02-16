@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
+
 using EmitMapper.AST.Interfaces;
 using EmitMapper.Utils;
 
-namespace EmitMapper.AST.Nodes;
-
 internal class AstCallMethodVoid : IAstNode
 {
-  protected IAstRefOrAddr InvocationObject;
   protected List<IAstStackItem> Arguments;
+
+  protected IAstRefOrAddr InvocationObject;
 
   protected MethodInfo MethodInfo;
 

@@ -1,0 +1,335 @@
+<patterns xmlns="urn:schemas-jetbrains-com:member-reordering-patterns">
+	<typepattern displayname="COM interfaces or structs">
+		<typepattern.match>
+			<or>
+				<and>
+					<kind is="Interface" />
+					<or>
+						<hasattribute name="System.Runtime.InteropServices.InterfaceTypeAttribute" />
+						<hasattribute name="System.Runtime.InteropServices.ComImport" />
+					</or>
+					<and>
+						<kind is="Struct" />
+						<or>
+							<hasattribute name="StructureLayout" />
+							<hasattribute name="NoReorder" />
+						</or>
+					</and>
+				</and>
+			</or>
+		</typepattern.match>
+	</typepattern>
+	<typepattern displayname="P/Invoke classes called 'NativeMethods' (StyleCop)">
+		<typepattern.match>
+			<and>
+				<kind is="Class" />
+				<name is=".*NativeMethods" />
+			</and>
+		</typepattern.match>
+	</typepattern>
+	<typepattern displayname="DataMember serialisation classes (StyleCop)">
+		<typepattern.match>
+			<and>
+				<or>
+					<kind is="Field" />
+					<kind is="Property" />
+				</or>
+				<hasattribute name="System.Runtime.Serialization.DataMemberAttribute" />
+			</and>
+		</typepattern.match>
+	</typepattern>
+	<typepattern displayname="NUnit Test Fixtures" removeregions="All">
+		<typepattern.match>
+			<and>
+				<kind is="Class" />
+				<hasattribute name="NUnit.Framework.TestFixtureAttribute" inherited="True" />
+			</and>
+		</typepattern.match>
+		<entry displayname="Setup/Teardown Methods">
+			<entry.match>
+				<and>
+					<kind is="Method" />
+					<or>
+						<hasattribute name="NUnit.Framework.SetUpAttribute" inherited="True" />
+						<hasattribute name="NUnit.Framework.TearDownAttribute" inherited="True" />
+						<hasattribute name="NUnit.Framework.FixtureSetUpAttribute" inherited="True" />
+						<hasattribute name="NUnit.Framework.FixtureTearDownAttribute" inherited="True" />
+					</or>
+				</and>
+			</entry.match>
+		</entry>
+		<entry displayname="All other members" />
+		<entry priority="100" displayname="Test Methods">
+			<entry.match>
+				<and>
+					<kind is="Method" />
+					<hasattribute name="NUnit.Framework.TestAttribute" />
+				</and>
+			</entry.match>
+			<entry.sortby>
+				<name />
+			</entry.sortby>
+		</entry>
+	</typepattern>
+	<typepattern displayname="Default Pattern (StyleCop)" removeregions="All">
+		<entry displayname="Constants">
+			<entry.match>
+				<kind is="Constant" />
+			</entry.match>
+			<entry.sortby>
+				<access order="Public Internal ProtectedInternal Protected Private" />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry displayname="Static fields">
+			<entry.match>
+				<and>
+					<kind is="Field" />
+					<static />
+				</and>
+			</entry.match>
+			<entry.sortby>
+				<access order="Public Internal ProtectedInternal Protected Private" />
+				<readonly />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry displayname="Fields">
+			<entry.match>
+				<kind is="Field" />
+			</entry.match>
+			<entry.sortby>
+				<access order="Public Internal ProtectedInternal Protected Private" />
+				<readonly />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry priority="200" displayname="Constructors and Destructors">
+			<entry.match>
+				<or>
+					<kind is="Constructor" />
+					<kind is="Destructor" />
+				</or>
+			</entry.match>
+			<entry.sortby>
+				<static />
+				<kind order="Constructor Destructor" />
+				<access order="Public Internal ProtectedInternal Protected Private" />
+			</entry.sortby>
+		</entry>
+		<entry displayname="Delegates">
+			<entry.match>
+				<kind is="Delegate" />
+			</entry.match>
+			<entry.sortby>
+				<access order="Public Internal ProtectedInternal Protected Private" />
+				<static />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry displayname="Public events">
+			<entry.match>
+				<and>
+					<kind is="Event" />
+					<access is="Public" />
+				</and>
+			</entry.match>
+			<entry.sortby>
+				<access order="Public" />
+				<static />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry displayname="Interface events">
+			<entry.match>
+				<and>
+					<kind is="Event" />
+					<implementsinterface />
+				</and>
+			</entry.match>
+			<entry.sortby>
+				<implementsinterface immediate="True" />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry displayname="Other events">
+			<entry.match>
+				<kind is="Event" />
+			</entry.match>
+			<entry.sortby>
+				<access order="Public Internal ProtectedInternal Protected Private" />
+				<static />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry displayname="Enums">
+			<entry.match>
+				<kind is="Enum" />
+			</entry.match>
+			<entry.sortby>
+				<access order="Public Internal ProtectedInternal Protected Private" />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry displayname="Interfaces">
+			<entry.match>
+				<kind is="Interface" />
+			</entry.match>
+			<entry.sortby>
+				<access order="Public Internal ProtectedInternal Protected Private" />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry displayname="Public properties">
+			<entry.match>
+				<and>
+					<kind is="Property" />
+					<access is="Public" />
+				</and>
+			</entry.match>
+			<entry.sortby>
+				<static />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry displayname="Interface properties">
+			<entry.match>
+				<and>
+					<kind is="Property" />
+					<implementsinterface />
+				</and>
+			</entry.match>
+			<entry.sortby>
+				<implementsinterface immediate="True" />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry displayname="Other properties">
+			<entry.match>
+				<kind is="Property" />
+			</entry.match>
+			<entry.sortby>
+				<access order="Public Internal ProtectedInternal Protected Private" />
+				<static />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry priority="1000" displayname="Public indexers">
+			<entry.match>
+				<and>
+					<kind is="Indexer" />
+					<access is="Public" />
+				</and>
+			</entry.match>
+			<entry.sortby>
+				<static />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry priority="1000" displayname="Interface indexers">
+			<entry.match>
+				<and>
+					<kind is="Indexer" />
+					<implementsinterface />
+				</and>
+			</entry.match>
+			<entry.sortby>
+				<implementsinterface immediate="True" />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry priority="1000" displayname="Other indexers">
+			<entry.match>
+				<kind is="Indexer" />
+			</entry.match>
+			<entry.sortby>
+				<access order="Public Internal ProtectedInternal Protected Private" />
+				<static />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry priority="150" displayname="Public conversion operators">
+			<entry.match>
+				<and>
+					<access is="Public" />
+					<kind is="Operator" />
+					<not>
+						<name is="=" />
+					</not>
+				</and>
+			</entry.match>
+			<entry.sortby>
+				<static />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry displayname="Public methods and operators">
+			<entry.match>
+				<and>
+					<or>
+						<kind is="Method" />
+						<kind is="Operator" />
+					</or>
+					<access is="Public" />
+				</and>
+			</entry.match>
+			<entry.sortby>
+				<static />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry displayname="Interface methods">
+			<entry.match>
+				<and>
+					<kind is="Method" />
+					<implementsinterface />
+				</and>
+			</entry.match>
+			<entry.sortby>
+				<implementsinterface immediate="True" />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry displayname="Other methods">
+			<entry.match>
+				<kind is="Method" />
+			</entry.match>
+			<entry.sortby>
+				<access order="Public Internal ProtectedInternal Protected Private" />
+				<static />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry displayname="Operators">
+			<entry.match>
+				<kind is="Operator" />
+			</entry.match>
+			<entry.sortby>
+				<access order="Public Internal ProtectedInternal Protected Private" />
+				<static />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry priority="600" displayname="Nested structs">
+			<entry.match>
+				<kind is="Struct" />
+			</entry.match>
+			<entry.sortby>
+				<static />
+				<access order="Public Internal ProtectedInternal Protected Private" />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry priority="700" displayname="Nested classes">
+			<entry.match>
+				<kind is="Class" />
+			</entry.match>
+			<entry.sortby>
+				<static />
+				<access order="Public Internal ProtectedInternal Protected Private" />
+				<name />
+			</entry.sortby>
+		</entry>
+		<entry displayname="All other members" />
+	</typepattern>
+</patterns>

@@ -1,10 +1,11 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection.Emit;
+
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 using EmitMapper.Utils;
-
-namespace EmitMapper.AST.Nodes;
 
 internal class AstExprIsNull : IAstValue
 {
@@ -15,13 +16,7 @@ internal class AstExprIsNull : IAstValue
     _value = value;
   }
 
-  #region IAstReturnValueNode Members
-
   public Type ItemType => Metadata<int>.Type;
-
-  #endregion
-
-  #region IAstNode Members
 
   public void Compile(CompilationContext context)
   {
@@ -31,9 +26,8 @@ internal class AstExprIsNull : IAstValue
     }
     else if (ReflectionHelper.IsNullable(_value.ItemType))
     {
-      AstBuildHelper.ReadPropertyRV(
-        new AstValueToAddr((IAstValue)_value),
-        _value.ItemType.GetProperty("HasValue")).Compile(context);
+      AstBuildHelper.ReadPropertyRV(new AstValueToAddr((IAstValue)_value), _value.ItemType.GetProperty("HasValue"))
+        .Compile(context);
       context.Emit(OpCodes.Ldc_I4_0);
       context.Emit(OpCodes.Ceq);
     }
@@ -44,6 +38,4 @@ internal class AstExprIsNull : IAstValue
       context.Emit(OpCodes.Ceq);
     }
   }
-
-  #endregion
 }

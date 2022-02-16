@@ -1,18 +1,18 @@
-﻿using System;
+﻿namespace EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
-namespace EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+using System;
 
 public interface IReadWriteOperation : IDestWriteOperation, ISrcReadOperation
 {
-  Delegate NullSubstitutor { get; set; } // generic type: NullSubstitutor
-
-  Delegate TargetConstructor { get; set; } // generic type: TargetConstructor
-
   Delegate Converter { get; set; }
 
   Delegate DestinationFilter { get; set; }
 
+  Delegate NullSubstitutor { get; set; } // generic type: NullSubstitutor
+
   Delegate SourceFilter { get; set; }
+
+  Delegate TargetConstructor { get; set; } // generic type: TargetConstructor
 }
 //public class ReadWriteOperation : IReadWriteOperation
 //{
@@ -28,7 +28,6 @@ public interface IReadWriteOperation : IDestWriteOperation, ISrcReadOperation
 
 //  public Delegate SourceFilter { get; set; }
 //  public Type TypeSourceFilter { get; }
-
 
 //  public MemberDescriptor Destination { get; set; }
 //  public MemberDescriptor Source { get; set; }

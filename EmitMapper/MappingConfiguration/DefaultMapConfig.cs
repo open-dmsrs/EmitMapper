@@ -1,14 +1,15 @@
-﻿using System;
+﻿namespace EmitMapper.MappingConfiguration;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+
 using EmitMapper.Conversion;
 using EmitMapper.Mappers;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
-
-namespace EmitMapper.MappingConfiguration;
 
 public class DefaultMapConfig : MapConfigBaseImpl
 {
@@ -16,23 +17,11 @@ public class DefaultMapConfig : MapConfigBaseImpl
 
   private readonly List<string> _shallowCopyMembers = new();
 
-  private bool _shallowCopy;
+  private string _configName;
 
   private Func<string, string, bool> _membersMatcher;
 
-  public static DefaultMapConfig Instance { get; }
-
-  #region protected members
-
-  protected virtual bool MatchMembers(string m1, string m2)
-  {
-    return _membersMatcher(m1, m2);
-  }
-
-  #endregion
-
-
-  #region Constructors
+  private bool _shallowCopy;
 
   static DefaultMapConfig()
   {
@@ -45,43 +34,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
     _membersMatcher = (m1, m2) => m1 == m2;
   }
 
-  #endregion
-
-  #region Configuration methods
-
-  /// <summary>
-  ///   Define shallow map mode for the specified type. In that case all members of this type will be copied by reference
-  ///   if it is possible
-  /// </summary>
-  /// <typeparam name="T">Type for which shallow map mode is defining</typeparam>
-  /// <returns></returns>
-  public DefaultMapConfig ShallowMap<T>()
-  {
-    return ShallowMap(Metadata<T>.Type);
-  }
-
-  /// <summary>
-  ///   Define shallow map mode for the specified type. In that case all members of this type will be copied by reference
-  ///   if it is possible
-  /// </summary>
-  /// <param name="type">Type for which shallow map mode is defining</param>
-  /// <returns></returns>
-  public DefaultMapConfig ShallowMap(Type type)
-  {
-    _shallowCopyMembers.Add(type.FullName);
-    return this;
-  }
-
-  /// <summary>
-  ///   Define default shallow map mode. In that case all members will be copied by reference (if it is possible) by
-  ///   default.
-  /// </summary>
-  /// <returns></returns>
-  public DefaultMapConfig ShallowMap()
-  {
-    _shallowCopy = true;
-    return this;
-  }
+  public static DefaultMapConfig Instance { get; }
 
   /// <summary>
   ///   Define deep map mode for the specified type. In that case all members of this type will be copied by value (new
@@ -117,6 +70,27 @@ public class DefaultMapConfig : MapConfigBaseImpl
     return this;
   }
 
+  public override string GetConfigurationName()
+  {
+    return _configName ??= base.GetConfigurationName() + new[]
+                                                           {
+                                                             _shallowCopy.ToString(), ToStr(_membersMatcher),
+                                                             ToStrEnum(_shallowCopyMembers), ToStrEnum(_deepCopyMembers)
+                                                           }.ToCsv(";");
+  }
+
+  public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
+  {
+    return FilterOperations(from, to, GetMappingItems(new HashSet<TypesPair>(), from, to, null, null));
+  }
+
+  public override IRootMappingOperation GetRootMappingOperation(Type from, Type to)
+  {
+    var res = base.GetRootMappingOperation(from, to);
+    res.ShallowCopy = IsShallowCopy(from, to);
+    return res;
+  }
+
   /// <summary>
   ///   Define a function to test two members if they have identical names.
   /// </summary>
@@ -131,55 +105,113 @@ public class DefaultMapConfig : MapConfigBaseImpl
     return this;
   }
 
-  #endregion
-
-  #region IMappingConfigurator Members
-
-  public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
+  /// <summary>
+  ///   Define shallow map mode for the specified type. In that case all members of this type will be copied by reference
+  ///   if it is possible
+  /// </summary>
+  /// <typeparam name="T">Type for which shallow map mode is defining</typeparam>
+  /// <returns></returns>
+  public DefaultMapConfig ShallowMap<T>()
   {
-    return FilterOperations(from, to, GetMappingItems(new HashSet<TypesPair>(), from, to, null, null));
+    return ShallowMap(Metadata<T>.Type);
   }
 
-  public override IRootMappingOperation GetRootMappingOperation(Type from, Type to)
+  /// <summary>
+  ///   Define shallow map mode for the specified type. In that case all members of this type will be copied by reference
+  ///   if it is possible
+  /// </summary>
+  /// <param name="type">Type for which shallow map mode is defining</param>
+  /// <returns></returns>
+  public DefaultMapConfig ShallowMap(Type type)
   {
-    var res = base.GetRootMappingOperation(from, to);
-    res.ShallowCopy = IsShallowCopy(from, to);
-    return res;
+    _shallowCopyMembers.Add(type.FullName);
+    return this;
   }
 
-  private string _configName;
-
-  public override string GetConfigurationName()
+  /// <summary>
+  ///   Define default shallow map mode. In that case all members will be copied by reference (if it is possible) by
+  ///   default.
+  /// </summary>
+  /// <returns></returns>
+  public DefaultMapConfig ShallowMap()
   {
-    return _configName ??= base.GetConfigurationName() + new[]
-    {
-      _shallowCopy.ToString(),
-      ToStr(_membersMatcher),
-      ToStrEnum(_shallowCopyMembers),
-      ToStrEnum(_deepCopyMembers)
-    }.ToCsv(";");
+    _shallowCopy = true;
+    return this;
   }
 
-  #endregion
-
-  #region private util method
-
-  private bool MappingItemNameInList(IEnumerable<string> list, ReadWriteSimple mo)
+  protected virtual bool MatchMembers(string m1, string m2)
   {
-    var enumerable = list.ToList();
-    return enumerable.Any(l => MatchMembers(l, mo.Destination.MemberInfo.Name))
-           || enumerable.Any(l => MatchMembers(l, mo.Source.MemberInfo.Name));
+    return _membersMatcher(m1, m2);
   }
 
-  private bool TypeInList(IEnumerable<string> list, Type t)
+  private static bool IsNativeDeepCopy(Type typeFrom, Type typeTo, MemberInfo fromMi, MemberInfo toMi, bool shallowCopy)
   {
-    return list.Any(l => MatchMembers(l, t.FullName));
+    if (NativeConverter.IsNativeConvertionPossible(typeFrom, typeTo))
+      return false;
+
+    if (MapperForCollectionImpl.IsSupportedType(typeFrom) || MapperForCollectionImpl.IsSupportedType(typeTo))
+      return false;
+
+    if (typeTo != typeFrom || !shallowCopy)
+      return true;
+
+    return false;
   }
 
-  private bool MappingItemTypeInList(IEnumerable<string> list, ReadWriteSimple mo)
+  private IMappingOperation CreateMappingOperation(
+    HashSet<TypesPair> processedTypes,
+    Type fromRoot,
+    Type toRoot,
+    IEnumerable<MemberInfo> toPath,
+    IEnumerable<MemberInfo> fromPath,
+    MemberInfo fromMi,
+    MemberInfo toMi)
   {
-    var enumerable = list.ToList();
-    return TypeInList(enumerable, mo.Destination.MemberType) || TypeInList(enumerable, mo.Source.MemberType);
+    var memberInfos = toPath.ToList();
+    var origDestMemberDesc = new MemberDescriptor(memberInfos.Concat(new[] { toMi }));
+    var enumerable = fromPath.ToList();
+    var origSrcMemberDesc = new MemberDescriptor(enumerable.Concat(new[] { fromMi }));
+
+    if (ReflectionHelper.IsNullable(ReflectionHelper.GetMemberReturnType(fromMi)))
+
+      // fromPath = enumerable.Concat(new[] { fromMi });//never use
+      fromMi = ReflectionHelper.GetMemberReturnType(fromMi).GetProperty("Value");
+
+    if (ReflectionHelper.IsNullable(ReflectionHelper.GetMemberReturnType(toMi)))
+
+      // toPath = enumerable.Concat(new[] { toMi });//never use
+      toMi = ReflectionHelper.GetMemberReturnType(toMi).GetProperty("Value");
+
+    var destMemberDescr = new MemberDescriptor(memberInfos.Concat(new[] { toMi }));
+    var srcMemberDescr = new MemberDescriptor(enumerable.Concat(new[] { fromMi }));
+    var typeFromMember = srcMemberDescr.MemberType;
+    var typeToMember = destMemberDescr.MemberType;
+
+    var shallowCopy = IsShallowCopy(srcMemberDescr, destMemberDescr);
+
+    if (IsNativeDeepCopy(
+          typeFromMember,
+          typeToMember,
+          srcMemberDescr.MemberInfo,
+          destMemberDescr.MemberInfo,
+          shallowCopy) && !processedTypes.Contains(new TypesPair(typeFromMember, typeToMember)))
+      return new ReadWriteComplex
+               {
+                 Destination = origDestMemberDesc,
+                 Source = origSrcMemberDesc,
+                 ShallowCopy = shallowCopy,
+                 Operations = GetMappingItems(
+                   processedTypes,
+                   srcMemberDescr.MemberType,
+                   destMemberDescr.MemberType,
+                   null,
+                   null)
+               };
+
+    return new ReadWriteSimple
+             {
+               Source = origSrcMemberDesc, Destination = origDestMemberDesc, ShallowCopy = shallowCopy
+             };
   }
 
   private List<IMappingOperation> GetMappingItems(
@@ -193,10 +225,14 @@ public class DefaultMapConfig : MapConfigBaseImpl
     fromPath ??= Array.Empty<MemberInfo>();
 
     var membersFromPath = fromPath.ToArray();
-    var from = membersFromPath.Length == 0 ? fromRoot : ReflectionHelper.GetMemberReturnType(membersFromPath[membersFromPath.Length - 1]);
+    var from = membersFromPath.Length == 0
+                 ? fromRoot
+                 : ReflectionHelper.GetMemberReturnType(membersFromPath[membersFromPath.Length - 1]);
 
     var memberToPath = toPath.ToArray();
-    var to = memberToPath.Length == 0 ? toRoot : ReflectionHelper.GetMemberReturnType(memberToPath[memberToPath.Length - 1]);
+    var to = memberToPath.Length == 0
+               ? toRoot
+               : ReflectionHelper.GetMemberReturnType(memberToPath[memberToPath.Length - 1]);
 
     var tp = new TypesPair(from, to);
     processedTypes.Add(tp);
@@ -235,62 +271,6 @@ public class DefaultMapConfig : MapConfigBaseImpl
     return result;
   }
 
-  private IMappingOperation CreateMappingOperation(
-    HashSet<TypesPair> processedTypes,
-    Type fromRoot,
-    Type toRoot,
-    IEnumerable<MemberInfo> toPath,
-    IEnumerable<MemberInfo> fromPath,
-    MemberInfo fromMi,
-    MemberInfo toMi)
-  {
-    var memberInfos = toPath.ToList();
-    var origDestMemberDesc = new MemberDescriptor(memberInfos.Concat(new[] { toMi }));
-    var enumerable = fromPath.ToList();
-    var origSrcMemberDesc = new MemberDescriptor(enumerable.Concat(new[] { fromMi }));
-
-    if (ReflectionHelper.IsNullable(ReflectionHelper.GetMemberReturnType(fromMi)))
-      //fromPath = enumerable.Concat(new[] { fromMi });//never use
-      fromMi = ReflectionHelper.GetMemberReturnType(fromMi).GetProperty("Value");
-
-    if (ReflectionHelper.IsNullable(ReflectionHelper.GetMemberReturnType(toMi)))
-      //toPath = enumerable.Concat(new[] { toMi });//never use
-      toMi = ReflectionHelper.GetMemberReturnType(toMi).GetProperty("Value");
-
-    var destMemberDescr = new MemberDescriptor(memberInfos.Concat(new[] { toMi }));
-    var srcMemberDescr = new MemberDescriptor(enumerable.Concat(new[] { fromMi }));
-    var typeFromMember = srcMemberDescr.MemberType;
-    var typeToMember = destMemberDescr.MemberType;
-
-    var shallowCopy = IsShallowCopy(srcMemberDescr, destMemberDescr);
-
-    if (DefaultMapConfig.IsNativeDeepCopy(
-          typeFromMember,
-          typeToMember,
-          srcMemberDescr.MemberInfo,
-          destMemberDescr.MemberInfo,
-          shallowCopy) && !processedTypes.Contains(new TypesPair(typeFromMember, typeToMember)))
-      return new ReadWriteComplex
-      {
-        Destination = origDestMemberDesc,
-        Source = origSrcMemberDesc,
-        ShallowCopy = shallowCopy,
-        Operations = GetMappingItems(
-          processedTypes,
-          srcMemberDescr.MemberType,
-          destMemberDescr.MemberType,
-          null,
-          null)
-      };
-
-    return new ReadWriteSimple
-    {
-      Source = origSrcMemberDesc,
-      Destination = origDestMemberDesc,
-      ShallowCopy = shallowCopy
-    };
-  }
-
   private bool IsShallowCopy(Type from, Type to)
   {
     if (TypeInList(_shallowCopyMembers, to) || TypeInList(_shallowCopyMembers, from))
@@ -305,19 +285,21 @@ public class DefaultMapConfig : MapConfigBaseImpl
     return IsShallowCopy(from.MemberType, to.MemberType);
   }
 
-  private static bool IsNativeDeepCopy(Type typeFrom, Type typeTo, MemberInfo fromMi, MemberInfo toMi, bool shallowCopy)
+  private bool MappingItemNameInList(IEnumerable<string> list, ReadWriteSimple mo)
   {
-    if (NativeConverter.IsNativeConvertionPossible(typeFrom, typeTo))
-      return false;
-
-    if (MapperForCollectionImpl.IsSupportedType(typeFrom) || MapperForCollectionImpl.IsSupportedType(typeTo))
-      return false;
-
-    if (typeTo != typeFrom || !shallowCopy)
-      return true;
-
-    return false;
+    var enumerable = list.ToList();
+    return enumerable.Any(l => MatchMembers(l, mo.Destination.MemberInfo.Name))
+           || enumerable.Any(l => MatchMembers(l, mo.Source.MemberInfo.Name));
   }
 
-  #endregion
+  private bool MappingItemTypeInList(IEnumerable<string> list, ReadWriteSimple mo)
+  {
+    var enumerable = list.ToList();
+    return TypeInList(enumerable, mo.Destination.MemberType) || TypeInList(enumerable, mo.Source.MemberType);
+  }
+
+  private bool TypeInList(IEnumerable<string> list, Type t)
+  {
+    return list.Any(l => MatchMembers(l, t.FullName));
+  }
 }

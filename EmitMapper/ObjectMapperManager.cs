@@ -1,14 +1,13 @@
-﻿using System;
+﻿namespace EmitMapper;
+
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq.Expressions;
 using System.Threading;
+
 using EmitMapper.EmitBuilders;
 using EmitMapper.Mappers;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.Utils;
-
-namespace EmitMapper;
 
 /// <summary>
 ///   Class for maintaining and generating Mappers.
@@ -16,6 +15,9 @@ namespace EmitMapper;
 public class ObjectMapperManager
 {
   private static readonly Lazy<ObjectMapperManager> LazyDefaultInstance = new();
+
+  private static readonly Dictionary<MapperKey, MapperDescription> ObjectsMapperIds =
+    new(new MapperKey(null, null, null, 0));
 
   private static int _totalInstCount;
 
@@ -64,12 +66,6 @@ public class ObjectMapperManager
     return GetMapperInt(from, to, mappingConfigurator).Mapper;
   }
 
-  #region Non-public members
-
-  private static readonly Dictionary<MapperKey, MapperDescription> ObjectsMapperIds =
-    new(new MapperKey(null, null, null, 0));
-
-
   internal MapperDescription GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
   {
     to ??= Metadata<object>.Type;
@@ -110,11 +106,7 @@ public class ObjectMapperManager
       }
       else
       {
-        createdMapper = BuildObjectsMapper(
-          mapperTypeName,
-          from,
-          to,
-          mappingConfigurator);
+        createdMapper = BuildObjectsMapper(mapperTypeName, from, to, mappingConfigurator);
       }
 
       result.Mapper = createdMapper;
@@ -138,8 +130,6 @@ public class ObjectMapperManager
     result.Initialize(this, from, to, mappingConfigurator, mappingBuilder.StoredObjects.ToArray());
     return result;
   }
-
-  #endregion
 }
 
 public class MapperDescription
@@ -161,6 +151,7 @@ public class MapperDescription
 public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<MapperKey>
 {
   private readonly int _hash;
+
   private readonly string _mapperTypeName;
 
   public MapperKey(Type typeFrom, Type typeTo, IMappingConfigurator config, int currentInstantId)
@@ -169,16 +160,9 @@ public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<Mapp
     _hash = HashCode.Combine(typeFrom, typeTo, config, currentInstantId);
   }
 
-
   public bool Equals(MapperKey x, MapperKey y)
   {
     return x._mapperTypeName == y._mapperTypeName;
-  }
-
-
-  public int GetHashCode(MapperKey obj)
-  {
-    return obj._hash;
   }
 
   public bool Equals(MapperKey rhs)
@@ -194,17 +178,22 @@ public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<Mapp
     return _hash == rhs._hash && _mapperTypeName == rhs._mapperTypeName;
   }
 
+  public int GetHashCode(MapperKey obj)
+  {
+    return obj._hash;
+  }
+
   public override int GetHashCode()
   {
     return _hash;
   }
 
-  public override string ToString()
+  public string GetMapperTypeName()
   {
     return _mapperTypeName;
   }
 
-  public string GetMapperTypeName()
+  public override string ToString()
   {
     return _mapperTypeName;
   }

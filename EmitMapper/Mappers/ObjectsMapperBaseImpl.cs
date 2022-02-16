@@ -1,16 +1,62 @@
-﻿using System;
+﻿namespace EmitMapper.Mappers;
+
+using System;
+
 using EmitMapper.EmitInvoker.Delegates;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
-
-namespace EmitMapper.Mappers;
 
 /// <summary>
 ///   Base class for Mappers
 /// </summary>
 public abstract class ObjectsMapperBaseImpl
 {
+  public object[] StoredObjects;
+
+  /// <summary>
+  ///   Mapper manager
+  /// </summary>
+  internal ObjectMapperManager ObjectMapperManager;
+
+  /// <summary>
+  ///   True, if reference properties and members of same type should
+  ///   be copied by reference (shallow copy, without creating new instance for destination object)
+  /// </summary>
+  internal bool ShallowCopy = true;
+
+  /// <summary>
+  ///   Type of source object
+  /// </summary>
+  internal Type TypeFrom;
+
+  /// <summary>
+  ///   Type of destination object
+  /// </summary>
+  internal Type TypeTo;
+
+  protected DelegateInvokerFunc2 Converter;
+
+  protected DelegateInvokerFunc2 DestinationFilter;
+
+  protected IMappingConfigurator MappingConfigurator;
+
+  protected DelegateInvokerFunc0 NullSubstitutor;
+
+  protected IRootMappingOperation RootOperation;
+
+  protected DelegateInvokerFunc2 SourceFilter;
+
+  protected DelegateInvokerFunc0 TargetConstructor;
+
+  protected DelegateInvokerFunc2 ValuesPostProcessor;
+
+  /// <summary>
+  ///   Creates an instance of destination object
+  /// </summary>
+  /// <returns>Destination object</returns>
+  public abstract object CreateTargetInstance();
+
   // public IMappingConfigurator MappingConfigurator => this._mappingConfigurator;
 
   /// <summary>
@@ -61,32 +107,9 @@ public abstract class ObjectsMapperBaseImpl
   public virtual object Map(object from)
   {
     if (from == null)
-      return null; 
+      return null;
     return Map(from, ConstructTarget(), null);
   }
-
-  #region Non-public members
-
-  /// <summary>
-  ///   Mapper manager
-  /// </summary>
-  internal ObjectMapperManager ObjectMapperManager;
-
-  /// <summary>
-  ///   Type of source object
-  /// </summary>
-  internal Type TypeFrom;
-
-  /// <summary>
-  ///   Type of destination object
-  /// </summary>
-  internal Type TypeTo;
-
-  /// <summary>
-  ///   True, if reference properties and members of same type should
-  ///   be copied by reference (shallow copy, without creating new instance for destination object)
-  /// </summary>
-  internal bool ShallowCopy = true;
 
   /// <summary>
   ///   Copies object properties and members of "from" to object "to"
@@ -96,30 +119,6 @@ public abstract class ObjectsMapperBaseImpl
   /// <param name="state"></param>
   /// <returns>Destination object</returns>
   public abstract object MapImpl(object from, object to, object state);
-
-  /// <summary>
-  ///   Creates an instance of destination object
-  /// </summary>
-  /// <returns>Destination object</returns>
-  public abstract object CreateTargetInstance();
-
-  protected IMappingConfigurator MappingConfigurator;
-
-  protected IRootMappingOperation RootOperation;
-
-  public object[] StoredObjects;
-
-  protected DelegateInvokerFunc0 TargetConstructor;
-
-  protected DelegateInvokerFunc0 NullSubstitutor;
-
-  protected DelegateInvokerFunc2 Converter;
-
-  protected DelegateInvokerFunc2 ValuesPostProcessor;
-
-  protected DelegateInvokerFunc2 DestinationFilter;
-
-  protected DelegateInvokerFunc2 SourceFilter;
 
   internal void Initialize(
     ObjectMapperManager objectMapperManager,
@@ -135,8 +134,8 @@ public abstract class ObjectsMapperBaseImpl
     StoredObjects = storedObjects;
     if (MappingConfigurator != null)
     {
-      RootOperation = MappingConfigurator.GetRootMappingOperation(typeFrom, typeTo) ??
-                      new RootMappingOperation(typeFrom, typeTo);
+      RootOperation = MappingConfigurator.GetRootMappingOperation(typeFrom, typeTo)
+                      ?? new RootMappingOperation(typeFrom, typeTo);
 
       var constructor = RootOperation.TargetConstructor;
       if (constructor != null)
@@ -144,8 +143,7 @@ public abstract class ObjectsMapperBaseImpl
 
       var valuesPostProcessor = RootOperation.ValuesPostProcessor;
       if (valuesPostProcessor != null)
-        ValuesPostProcessor =
-          (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(valuesPostProcessor);
+        ValuesPostProcessor = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(valuesPostProcessor);
 
       var converter = RootOperation.Converter;
       if (converter != null)
@@ -171,6 +169,4 @@ public abstract class ObjectsMapperBaseImpl
       return TargetConstructor.CallFunc();
     return CreateTargetInstance();
   }
-
-  #endregion
 }

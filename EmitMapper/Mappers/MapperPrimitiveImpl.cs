@@ -1,11 +1,12 @@
-﻿using System;
+﻿namespace EmitMapper.Mappers;
+
+using System;
 using System.Collections;
+
 using EmitMapper.Conversion;
 using EmitMapper.EmitInvoker.Methods;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.Utils;
-
-namespace EmitMapper.Mappers;
 
 /// <summary>
 ///   Mapper for primitive objects
@@ -13,6 +14,7 @@ namespace EmitMapper.Mappers;
 internal class MapperPrimitiveImpl : CustomMapperImpl
 {
   private static readonly LazyConcurrentDictionary<Type, bool> IsSupported = new();
+
   private readonly MethodInvokerFunc1 _converter;
 
   public MapperPrimitiveImpl(
@@ -32,14 +34,13 @@ internal class MapperPrimitiveImpl : CustomMapperImpl
       _converter = (MethodInvokerFunc1)MethodInvoker.GetMethodInvoker(null, converterMethod);
   }
 
-  internal static bool IsSupportedType(Type t)
+  /// <summary>
+  ///   Creates an instance of destination object
+  /// </summary>
+  /// <returns>Destination object</returns>
+  public override object CreateTargetInstance()
   {
-    return IsSupported.GetOrAdd(
-      t,
-      type => type.IsPrimitive || type == Metadata<decimal>.Type || type == Metadata<float>.Type ||
-              type == Metadata<double>.Type || type == Metadata<long>.Type || type == Metadata<ulong>.Type
-              || type == Metadata<short>.Type || type == Metadata<Guid>.Type || type == Metadata<string>.Type
-              || ReflectionHelper.IsNullable(type) && IsSupportedType(type.GetUnderlyingTypeCache()) || type.IsEnum);
+    return null;
   }
 
   /// <summary>
@@ -56,12 +57,13 @@ internal class MapperPrimitiveImpl : CustomMapperImpl
     return _converter.CallFunc(from);
   }
 
-  /// <summary>
-  ///   Creates an instance of destination object
-  /// </summary>
-  /// <returns>Destination object</returns>
-  public override object CreateTargetInstance()
+  internal static bool IsSupportedType(Type t)
   {
-    return null;
+    return IsSupported.GetOrAdd(
+      t,
+      type => type.IsPrimitive || type == Metadata<decimal>.Type || type == Metadata<float>.Type
+              || type == Metadata<double>.Type || type == Metadata<long>.Type || type == Metadata<ulong>.Type
+              || type == Metadata<short>.Type || type == Metadata<Guid>.Type || type == Metadata<string>.Type
+              || ReflectionHelper.IsNullable(type) && IsSupportedType(type.GetUnderlyingTypeCache()) || type.IsEnum);
   }
 }

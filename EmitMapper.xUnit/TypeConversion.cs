@@ -1,7 +1,8 @@
-﻿using EmitMapper.MappingConfiguration;
-using Xunit;
+﻿namespace EmitMapper.Tests;
 
-namespace EmitMapper.Tests;
+using EmitMapper.MappingConfiguration;
+
+using Xunit;
 
 ////[TestFixture]
 public class TypeConversion
@@ -12,7 +13,8 @@ public class TypeConversion
     var a = new A1();
     var b = new B1();
     var mapper = Context.ObjMan.GetMapper<B1, A1>();
-    //DynamicAssemblyManager.SaveAssembly();
+
+    // DynamicAssemblyManager.SaveAssembly();
     mapper.Map(b, a);
     Assert.Equal(15, a.Fld1);
     Assert.Equal("11", a.Fld2);
@@ -24,7 +26,8 @@ public class TypeConversion
     var a = new A2();
     var b = new B2();
     Context.ObjMan.GetMapper<B2, A2>().Map(b, a);
-    //DynamicAssemblyManager.SaveAssembly();
+
+    // DynamicAssemblyManager.SaveAssembly();
     Assert.Equal("99", a.Fld3[0]);
   }
 
@@ -68,21 +71,9 @@ public class TypeConversion
     public string Fld2;
   }
 
-  public class B1
-  {
-    public decimal Fld1 = 15;
-
-    public decimal Fld2 = 11;
-  }
-
   public class A2
   {
     public string[] Fld3;
-  }
-
-  public class B2
-  {
-    public int Fld3 = 99;
   }
 
   public class A3
@@ -92,16 +83,33 @@ public class TypeConversion
     public A2 A2 = new();
   }
 
+  public class A4
+  {
+    public string Str { get; set; }
+  }
+
+  public class A5
+  {
+    public string Fld2;
+  }
+
+  public class B1
+  {
+    public decimal Fld1 = 15;
+
+    public decimal Fld2 = 11;
+  }
+
+  public class B2
+  {
+    public int Fld3 = 99;
+  }
+
   public class B3
   {
     public A1 A1 = new();
 
     public A2 A2 = new();
-  }
-
-  public class A4
-  {
-    public string Str { set; get; }
   }
 
   public class B4
@@ -115,11 +123,6 @@ public class TypeConversion
         return "string";
       }
     }
-  }
-
-  public class A5
-  {
-    public string Fld2;
   }
 
   public class B5

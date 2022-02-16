@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace EmitMapper.Tests;
+
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
-using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
-using Xunit;
 
-namespace EmitMapper.Tests;
+using Xunit;
 
 ////[TestFixture]
 public class Flattering
@@ -15,36 +12,30 @@ public class Flattering
   public void TestFlattering1()
   {
     var rw1 = new ReadWriteSimple
-    {
-      Source = new MemberDescriptor(
-        new[]
-        {
-          typeof(Source).GetMember(nameof(Source.InnerSource))[0],
-          typeof(Source.InnerSourceClass).GetMember(nameof(Source.InnerSource.Message))[
-            0]
-        }),
-      Destination = new MemberDescriptor(
-        new[] { typeof(Destination).GetMember(nameof(Destination.Message))[0] })
-    };
+                {
+                  Source = new MemberDescriptor(
+                    new[]
+                      {
+                        typeof(Source).GetMember(nameof(Source.InnerSource))[0],
+                        typeof(Source.InnerSourceClass).GetMember(nameof(Source.InnerSource.Message))[0]
+                      }),
+                  Destination = new MemberDescriptor(
+                    new[] { typeof(Destination).GetMember(nameof(Destination.Message))[0] })
+                };
     var rw2 = new ReadWriteSimple
-    {
-      Source = new MemberDescriptor(
-        new[]
-        {
-          typeof(Source).GetMember(nameof(Source.InnerSource))[0],
-          typeof(Source.InnerSourceClass).GetMember(
-            nameof(Source.InnerSourceClass.GetMessage2))[0]
-        }),
-      Destination = new MemberDescriptor(
-        new[] { typeof(Destination).GetMember(nameof(Destination.Message2))[0] })
-    };
+                {
+                  Source = new MemberDescriptor(
+                    new[]
+                      {
+                        typeof(Source).GetMember(nameof(Source.InnerSource))[0],
+                        typeof(Source.InnerSourceClass).GetMember(nameof(Source.InnerSourceClass.GetMessage2))[0]
+                      }),
+                  Destination = new MemberDescriptor(
+                    new[] { typeof(Destination).GetMember(nameof(Destination.Message2))[0] })
+                };
 
-     
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<Source, Destination>(
-      new CustomMapConfig
-      {
-        GetMappingOperationFunc = (from, to) => rw1.AsEnumerable(rw2)
-      });
+      new CustomMapConfig { GetMappingOperationFunc = (from, to) => rw1.AsEnumerable(rw2) });
     var b = new Source();
     var a = mapper.Map(b);
     Assert.Equal(b.InnerSource.Message, a.Message);

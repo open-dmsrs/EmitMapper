@@ -1,10 +1,10 @@
+namespace EmitMapper;
+
 using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
-
-namespace EmitMapper;
 
 /// <summary>
 ///   Implements a <see cref="TextWriter" /> for writing information to the debugger log.
@@ -13,6 +13,7 @@ namespace EmitMapper;
 public class DebuggerWriter : TextWriter
 {
   private static UnicodeEncoding _encoding;
+
   private bool _isOpen;
 
   /// <summary>
@@ -48,17 +49,11 @@ public class DebuggerWriter : TextWriter
     _isOpen = true;
   }
 
+  public string Category { get; }
+
   public override Encoding Encoding => _encoding ??= new UnicodeEncoding(false, false);
 
   public int Level { get; }
-
-  public string Category { get; }
-
-  protected override void Dispose(bool disposing)
-  {
-    _isOpen = false;
-    base.Dispose(disposing);
-  }
 
   public override void Write(char value)
   {
@@ -78,5 +73,11 @@ public class DebuggerWriter : TextWriter
     if (index < 0 || count < 0 || buffer.Length - index < count)
       base.Write(buffer, index, count); // delegate throw exception to base class
     Debugger.Log(Level, Category, new string(buffer, index, count));
+  }
+
+  protected override void Dispose(bool disposing)
+  {
+    _isOpen = false;
+    base.Dispose(disposing);
   }
 }

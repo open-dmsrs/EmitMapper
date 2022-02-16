@@ -1,6 +1,6 @@
-﻿using Xunit;
+﻿namespace EmitMapper.Tests;
 
-namespace EmitMapper.Tests;
+using Xunit;
 
 ////[TestFixture]
 public class EnumTests
@@ -36,8 +36,8 @@ public class EnumTests
   public void EnumTests1()
   {
     var mapper = Context.ObjMan.GetMapper<B, A>();
-    //DynamicAssemblyManager.SaveAssembly();
 
+    // DynamicAssemblyManager.SaveAssembly();
     var a = mapper.Map(new B());
     Assert.True(a.En1 == En1.C);
     Assert.True(a.En2 == En2.C);
@@ -51,18 +51,19 @@ public class EnumTests
 
   public class A
   {
+    public En2 En2;
+
     public decimal En4;
 
+    public string En5;
+
     public En1? En6;
-    public En2 En2;
 
     public En3 En7;
 
     public En3? En8;
 
     public En3? En9 = En3.C;
-
-    public string En5;
 
     public En1 En1 { get; set; }
 
@@ -73,19 +74,19 @@ public class EnumTests
   {
     public decimal En1 = 3;
 
+    public string En3 = "C";
+
+    public En2 En4 = EnumTests.En2.B;
+
+    public En3 En5 = EnumTests.En3.A;
+
+    public En2 En6 = EnumTests.En2.C;
+
     public En1? En7 = EnumTests.En1.C;
 
     public En1? En8 = EnumTests.En1.C;
 
-    public En2 En4 = EnumTests.En2.B;
-
-    public En2 En6 = EnumTests.En2.C;
-
     public En2? En9 = null;
-
-    public En3 En5 = EnumTests.En3.A;
-
-    public string En3 = "C";
 
     public B()
     {

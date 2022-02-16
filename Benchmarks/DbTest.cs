@@ -1,51 +1,48 @@
-﻿using System.Data;
+﻿namespace Benchmarks;
+
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
-using LightDataAccess;
 
-namespace Benchmarks;
+using LightDataAccess;
 
 internal static class DbTest
 {
   private static long BLToolkit_DB(int mappingsCount)
   {
-    //DbManager.AddConnectionString("Data Source=acer\\sqlserver;Initial Catalog=Northwind;Persist Security Info=True;User Id=sa;Password=1");
-
+    // DbManager.AddConnectionString("Data Source=acer\\sqlserver;Initial Catalog=Northwind;Persist Security Info=True;User Id=sa;Password=1");
     var sw = new Stopwatch();
     sw.Start();
 
-    //for (int i = 0; i < mappingsCount; i++)
-    //{
-    //    using (BLToolkit.Data.DbManager db = new BLToolkit.Data.DbManager())
-    //    {
-    //        List<Customer> list = db
-    //            .SetCommand("SELECT * FROM Customers")
-    //            .ExecuteList<Customer>();
-    //    }
-    //}
-
+    // for (int i = 0; i < mappingsCount; i++)
+    // {
+    // using (BLToolkit.Data.DbManager db = new BLToolkit.Data.DbManager())
+    // {
+    // List<Customer> list = db
+    // .SetCommand("SELECT * FROM Customers")
+    // .ExecuteList<Customer>();
+    // }
+    // }
     sw.Stop();
     return sw.ElapsedMilliseconds;
   }
 
   private static long BLToolkit_DB2(int mappingsCount)
   {
-    //BLToolkit.Data.DbManager.AddConnectionString("Data Source=acer\\sqlserver;Initial Catalog=Northwind;Persist Security Info=True;User Id=sa;Password=1");
-
+    // BLToolkit.Data.DbManager.AddConnectionString("Data Source=acer\\sqlserver;Initial Catalog=Northwind;Persist Security Info=True;User Id=sa;Password=1");
     var sw = new Stopwatch();
     sw.Start();
 
-    //for (int i = 0; i < mappingsCount; i++)
-    //{
-    //    using (BLToolkit.Data.DbManager db = new BLToolkit.Data.DbManager())
-    //    {
-    //        List<test> list = db
-    //            .SetCommand("SELECT * FROM test")
-    //            .ExecuteList<test>();
-    //    }
-    //}
-
+    // for (int i = 0; i < mappingsCount; i++)
+    // {
+    // using (BLToolkit.Data.DbManager db = new BLToolkit.Data.DbManager())
+    // {
+    // List<test> list = db
+    // .SetCommand("SELECT * FROM test")
+    // .ExecuteList<test>();
+    // }
+    // }
     sw.Stop();
     return sw.ElapsedMilliseconds;
   }
@@ -103,28 +100,43 @@ internal static class DbTest
     return sw.ElapsedMilliseconds;
   }
 
-  public class Test
-  {
-    public int Col1;
-    public int Col2;
-    public int Col3;
-    public int Col4;
-    public int? Col5;
-    public int? Col6;
-  }
-
   public class Customer
   {
     public string Address;
+
     public string City;
+
     public string CompanyName;
+
     public string ContactName;
+
     public string ContactTitle;
+
     public string Country;
+
     public string CustomerId;
+
     public string Fax;
+
     public string Phone;
+
     public string PostalCode;
+
     public string Region;
+  }
+
+  public class Test
+  {
+    public int Col1;
+
+    public int Col2;
+
+    public int Col3;
+
+    public int Col4;
+
+    public int? Col5;
+
+    public int? Col6;
   }
 }

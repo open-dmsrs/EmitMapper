@@ -1,19 +1,13 @@
-﻿using System;
+﻿namespace EmitMapper.Utils;
+
+using System;
 using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
 
-namespace EmitMapper.Utils;
-
 public static class SwitchExpressions
 {
-  #region ---- API Methods ----
-
-  public static SwitchExpression<TSwitch> Switch<TSwitch>(TSwitch on, IEqualityComparer<TSwitch> comparer = null)
-  {
-    return new SwitchExpression<TSwitch>(on, comparer ?? EqualityComparer<TSwitch>.Default);
-  }
-
-  public static SwitchExpression<TSwitch, TResult> Case<TSwitch, TResult>(TSwitch matches,
+  public static SwitchExpression<TSwitch, TResult> Case<TSwitch, TResult>(
+    TSwitch matches,
     Func<TSwitch, TResult> valueFactory)
   {
     if (valueFactory == null) throw new ArgumentNullException(nameof(valueFactory));
@@ -40,9 +34,72 @@ public static class SwitchExpressions
     throw exceptionToThrow;
   }
 
-  #endregion
+  public static SwitchExpression<TSwitch> Switch<TSwitch>(TSwitch on, IEqualityComparer<TSwitch> comparer = null)
+  {
+    return new SwitchExpression<TSwitch>(on, comparer ?? EqualityComparer<TSwitch>.Default);
+  }
 
-  #region ---- Helper Types ----
+  public struct BooleanSwitchExpression<TResult>
+  {
+    internal BooleanSwitchExpression(bool condition, Func<TResult> valueFactory)
+    {
+      Condition = condition;
+      ValueFactory = valueFactory;
+    }
+
+    internal bool Condition { get; }
+
+    internal Func<TResult> ValueFactory { get; }
+  }
+
+  public readonly struct CompletedSwitchExpression<TResult>
+  {
+    private readonly bool completed;
+
+    private readonly TResult value;
+
+    internal CompletedSwitchExpression(TResult value)
+    {
+      this.value = value;
+      completed = true;
+    }
+
+    public TResult Value
+    {
+      get
+      {
+        if (!completed) throw new InvalidOperationException("the switch has not completed");
+        return value;
+      }
+    }
+
+    public static CompletedSwitchExpression<TResult> operator |(
+      CompletedSwitchExpression<TResult> first,
+      CompletedSwitchExpression<TResult> second)
+    {
+      if (first.completed) throw new InvalidOperationException("use ||, not | to combine switch cases");
+      return second;
+    }
+
+    public static bool operator false(CompletedSwitchExpression<TResult> @switch)
+    {
+      return !@switch.completed;
+    }
+
+    public static implicit operator TResult(CompletedSwitchExpression<TResult> @switch)
+    {
+      return @switch.Value;
+    }
+
+    public static bool operator true(CompletedSwitchExpression<TResult> @switch)
+    {
+      return @switch.completed;
+    }
+  }
+
+  public struct DefaultThrowExpression
+  {
+  }
 
   public readonly struct SwitchExpression<TSwitch>
   {
@@ -52,10 +109,9 @@ public static class SwitchExpressions
       Comparer = comparer;
     }
 
-    internal TSwitch On { get; }
     internal IEqualityComparer<TSwitch> Comparer { get; }
 
-    #region ---- API methods ----
+    internal TSwitch On { get; }
 
     public SwitchExpression<TSwitch, TResult> Case<TResult>(TSwitch matches, Func<TSwitch, TResult> valueFactory)
     {
@@ -66,16 +122,34 @@ public static class SwitchExpressions
     {
       return SwitchExpression<TSwitch, TResult>.CreateCase(this) | SwitchExpressions.Case(valueFactory);
     }
-
-    #endregion
   }
 
   public struct SwitchExpression<TSwitch, TResult>
   {
     private object objectState;
+
     private State state;
-    private TResult value;
+
     private TSwitch switchValue;
+
+    private TResult value;
+
+    private enum State : byte
+    {
+      None,
+
+      CaseWithValueFactory,
+
+      TrueBooleanCase,
+
+      FalseBooleanCase,
+
+      TypeCase,
+
+      AwaitingMatch,
+
+      Completed
+    }
 
     public TResult Value
     {
@@ -94,34 +168,56 @@ public static class SwitchExpressions
       }
     }
 
-    internal static SwitchExpression<TSwitch, TResult> CreateCase(TSwitch matches,
-      Func<TSwitch, TResult> valueFactory)
+    public static SwitchExpression<TSwitch, TResult> operator |(
+      SwitchExpression<TSwitch, TResult> first,
+      SwitchExpression<TSwitch, TResult> second)
     {
-      return new SwitchExpression<TSwitch, TResult>
+      if (first.state != State.AwaitingMatch)
+        throw new InvalidOperationException("use ||, not | to combine switch cases");
+
+      switch (second.state)
       {
-        switchValue = matches, objectState = valueFactory, state = State.CaseWithValueFactory
-      };
+        case State.Completed:
+          return second;
+        case State.CaseWithValueFactory:
+          return ((IEqualityComparer<TSwitch>)first.objectState).Equals(first.switchValue, second.switchValue)
+                   ? new SwitchExpression<TSwitch, TResult>
+                       {
+                         value = ((Func<TSwitch, TResult>)second.objectState)(first.switchValue),
+                         state = State.Completed
+                       }
+                   : first; // still not matched
+        case State.FalseBooleanCase:
+          return first; // still not matched
+        case State.TrueBooleanCase:
+          return new SwitchExpression<TSwitch, TResult>
+                   {
+                     value = ((Func<TSwitch, TResult>)second.objectState)(first.switchValue), state = State.Completed
+                   };
+        case State.TypeCase:
+          TResult typeCaseResult;
+          return ((TypeCaseSwitchExpression<TResult>)second.objectState).TryGetResult(
+                   first.switchValue,
+                   out typeCaseResult)
+                   ? new SwitchExpression<TSwitch, TResult> { value = typeCaseResult, state = State.Completed }
+                   : first; // still not matched
+        default:
+          throw new InvalidOperationException("right-hand side of || is not a valid case");
+      }
     }
 
-    internal static SwitchExpression<TSwitch, TResult> CreateCase(TypeCaseSwitchExpression<TResult> @switch)
+    public static bool operator false(SwitchExpression<TSwitch, TResult> switchState)
     {
-      return new SwitchExpression<TSwitch, TResult> { objectState = @switch, state = State.TypeCase };
-    }
-
-    internal static SwitchExpression<TSwitch, TResult> CreateCase(SwitchExpression<TSwitch> @switch)
-    {
-      return new SwitchExpression<TSwitch, TResult>
-      {
-        switchValue = @switch.On, objectState = @switch.Comparer, state = State.AwaitingMatch
-      };
+      return switchState.state != State.Completed;
     }
 
     public static implicit operator SwitchExpression<TSwitch, TResult>(BooleanSwitchExpression<TResult> @switch)
     {
       return new SwitchExpression<TSwitch, TResult>
-      {
-        objectState = @switch.ValueFactory, state = @switch.Condition ? State.TrueBooleanCase : State.FalseBooleanCase
-      };
+               {
+                 objectState = @switch.ValueFactory,
+                 state = @switch.Condition ? State.TrueBooleanCase : State.FalseBooleanCase
+               };
     }
 
     public static implicit operator SwitchExpression<TSwitch, TResult>(TypeCaseSwitchExpression<TResult> @switch)
@@ -139,9 +235,7 @@ public static class SwitchExpressions
 
     public static implicit operator CompletedSwitchExpression<TResult>(SwitchExpression<TSwitch, TResult> @switch)
     {
-      return @switch.state == State.Completed
-        ? new CompletedSwitchExpression<TResult>(@switch.value)
-        : default;
+      return @switch.state == State.Completed ? new CompletedSwitchExpression<TResult>(@switch.value) : default;
     }
 
     public static bool operator true(SwitchExpression<TSwitch, TResult> switchState)
@@ -149,69 +243,26 @@ public static class SwitchExpressions
       return switchState.state == State.Completed;
     }
 
-    public static bool operator false(SwitchExpression<TSwitch, TResult> switchState)
+    internal static SwitchExpression<TSwitch, TResult> CreateCase(TSwitch matches, Func<TSwitch, TResult> valueFactory)
     {
-      return switchState.state != State.Completed;
+      return new SwitchExpression<TSwitch, TResult>
+               {
+                 switchValue = matches, objectState = valueFactory, state = State.CaseWithValueFactory
+               };
     }
 
-    public static SwitchExpression<TSwitch, TResult> operator |(SwitchExpression<TSwitch, TResult> first,
-      SwitchExpression<TSwitch, TResult> second)
+    internal static SwitchExpression<TSwitch, TResult> CreateCase(TypeCaseSwitchExpression<TResult> @switch)
     {
-      if (first.state != State.AwaitingMatch)
-        throw new InvalidOperationException("use ||, not | to combine switch cases");
-
-      switch (second.state)
-      {
-        case State.Completed:
-          return second;
-        case State.CaseWithValueFactory:
-          return ((IEqualityComparer<TSwitch>)first.objectState).Equals(first.switchValue, second.switchValue)
-            ? new SwitchExpression<TSwitch, TResult>
-            {
-              value = ((Func<TSwitch, TResult>)second.objectState)(first.switchValue), state = State.Completed
-            }
-            : first; // still not matched
-        case State.FalseBooleanCase:
-          return first; // still not matched
-        case State.TrueBooleanCase:
-          return new SwitchExpression<TSwitch, TResult>
-          {
-            value = ((Func<TSwitch, TResult>)second.objectState)(first.switchValue), state = State.Completed
-          };
-        case State.TypeCase:
-          TResult typeCaseResult;
-          return ((TypeCaseSwitchExpression<TResult>)second.objectState).TryGetResult(
-            first.switchValue,
-            out typeCaseResult)
-            ? new SwitchExpression<TSwitch, TResult> { value = typeCaseResult, state = State.Completed }
-            : first; // still not matched
-        default:
-          throw new InvalidOperationException("right-hand side of || is not a valid case");
-      }
+      return new SwitchExpression<TSwitch, TResult> { objectState = @switch, state = State.TypeCase };
     }
 
-    private enum State : byte
+    internal static SwitchExpression<TSwitch, TResult> CreateCase(SwitchExpression<TSwitch> @switch)
     {
-      None,
-      CaseWithValueFactory,
-      TrueBooleanCase,
-      FalseBooleanCase,
-      TypeCase,
-      AwaitingMatch,
-      Completed
+      return new SwitchExpression<TSwitch, TResult>
+               {
+                 switchValue = @switch.On, objectState = @switch.Comparer, state = State.AwaitingMatch
+               };
     }
-  }
-
-  public struct BooleanSwitchExpression<TResult>
-  {
-    internal BooleanSwitchExpression(bool condition, Func<TResult> valueFactory)
-    {
-      Condition = condition;
-      ValueFactory = valueFactory;
-    }
-
-    internal bool Condition { get; }
-    internal Func<TResult> ValueFactory { get; }
   }
 
   public abstract class TypeCaseSwitchExpression<TResult>
@@ -240,53 +291,4 @@ public static class SwitchExpressions
       return false;
     }
   }
-
-  public readonly struct CompletedSwitchExpression<TResult>
-  {
-    private readonly bool completed;
-    private readonly TResult value;
-
-    internal CompletedSwitchExpression(TResult value)
-    {
-      this.value = value;
-      completed = true;
-    }
-
-    public TResult Value
-    {
-      get
-      {
-        if (!completed) throw new InvalidOperationException("the switch has not completed");
-        return value;
-      }
-    }
-
-    public static implicit operator TResult(CompletedSwitchExpression<TResult> @switch)
-    {
-      return @switch.Value;
-    }
-
-    public static bool operator true(CompletedSwitchExpression<TResult> @switch)
-    {
-      return @switch.completed;
-    }
-
-    public static bool operator false(CompletedSwitchExpression<TResult> @switch)
-    {
-      return !@switch.completed;
-    }
-
-    public static CompletedSwitchExpression<TResult> operator |(CompletedSwitchExpression<TResult> first,
-      CompletedSwitchExpression<TResult> second)
-    {
-      if (first.completed) throw new InvalidOperationException("use ||, not | to combine switch cases");
-      return second;
-    }
-  }
-
-  public struct DefaultThrowExpression
-  {
-  }
-
-  #endregion
 }

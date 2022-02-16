@@ -12,14 +12,15 @@
 // <summary></summary>
 // ***********************************************************************
 
+namespace LightDataAccess;
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+
 using EmitMapper;
 using EmitMapper.MappingConfiguration;
-
-namespace LightDataAccess;
 
 /// <summary>
 ///   The mapper core.
@@ -58,15 +59,6 @@ public class MapperCore
   public virtual Tuple<Type, Type, IMappingConfigurator>[] Configurations => _MappingConfigurations.ToArray();
 
   /// <summary>
-  ///   Initializes the mapper.
-  /// </summary>
-  /// <param name="mapperInitializator">The mapper initialization.</param>
-  public void Initialize(IMapperInitializator mapperInitializator)
-  {
-    mapperInitializator.ConfigureMapper(this);
-  }
-
-  /// <summary>
   ///   Adds the configurator instance.
   /// </summary>
   /// <typeparam name="TFrom">The type of from.</typeparam>
@@ -76,11 +68,16 @@ public class MapperCore
   {
     AssertCore.IsNotNull(configurator, "configurator");
 
-    _MappingConfigurations.Add(
-      new Tuple<Type, Type, IMappingConfigurator>(
-        typeof(TFrom),
-        typeof(TTo),
-        configurator));
+    _MappingConfigurations.Add(new Tuple<Type, Type, IMappingConfigurator>(typeof(TFrom), typeof(TTo), configurator));
+  }
+
+  /// <summary>
+  ///   Initializes the mapper.
+  /// </summary>
+  /// <param name="mapperInitializator">The mapper initialization.</param>
+  public void Initialize(IMapperInitializator mapperInitializator)
+  {
+    mapperInitializator.ConfigureMapper(this);
   }
 
   /// <summary>
@@ -143,10 +140,8 @@ public class MapperCore
 
     if (mapper == null)
     {
-      var configuration =
-        _MappingConfigurations.FirstOrDefault(
-          mp =>
-            mp.Item1.IsAssignableFrom(typeof(TFrom)) && mp.Item2.IsAssignableFrom(typeof(TTo)));
+      var configuration = _MappingConfigurations.FirstOrDefault(
+        mp => mp.Item1.IsAssignableFrom(typeof(TFrom)) && mp.Item2.IsAssignableFrom(typeof(TTo)));
       var config = configuration == null ? _DefaultConfigurator : configuration.Item3;
 
       mapper = ObjectMapperManager.DefaultInstance.GetMapper<TFrom, TTo>(config);

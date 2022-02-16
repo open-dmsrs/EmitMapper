@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
+﻿namespace EmitMapper.Utils;
 
-namespace EmitMapper.Utils;
+using System.ComponentModel;
 
 public abstract class ProxyBase
 {

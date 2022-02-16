@@ -1,13 +1,46 @@
-﻿using System;
+﻿namespace EmitMapper.MappingConfiguration;
+
+using System;
 using System.Collections.Generic;
+
 using EmitMapper.Conversion;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
-namespace EmitMapper.MappingConfiguration;
-
 public interface IMappingConfigurator
 {
+  /// <summary>
+  ///   Define a custom constructor for the specified type
+  /// </summary>
+  /// <typeparam name="T">Type for which constructor is defining</typeparam>
+  /// <param name="constructor">Custom constructor</param>
+  /// <returns></returns>
+  IMappingConfigurator ConstructBy<T>(TargetConstructor<T> constructor);
+
+  /// <summary>
+  ///   Define conversion for a generic. It is able to convert not one particular class but all generic family
+  ///   providing a generic converter.
+  /// </summary>
+  /// <param name="from">Type of source. Can be also generic class or abstract array.</param>
+  /// <param name="to">Type of destination. Can be also generic class or abstract array.</param>
+  /// <param name="converterProvider">
+  ///   Provider for getting detailed information about generic conversion.
+  /// </param>
+  /// <returns></returns>
+  IMappingConfigurator ConvertGeneric(Type from, Type to, ICustomConverterProvider converterProvider);
+
+  IMappingConfigurator ConvertUsing<TFrom, TTo>(Func<TFrom, TTo> converter);
+
+  IMappingConfigurator FilterDestination<T>(ValuesFilter<T> valuesFilter);
+
+  IMappingConfigurator FilterSource<T>(ValuesFilter<T> valuesFilter);
+
+  /// <summary>
+  ///   Get unique configuration name to force Emit Mapper create new mapper instead using appropriate cached one.
+  /// </summary>
+  /// <returns></returns>
+  string GetConfigurationName();
+
   /// <summary>
   ///   Get list of mapping operations. Each mapping mapping defines one coping operation from source to destination. For
   ///   this operation can be additionally defined the following custom operations:
@@ -22,35 +55,7 @@ public interface IMappingConfigurator
 
   IRootMappingOperation GetRootMappingOperation(Type from, Type to);
 
-  /// <summary>
-  ///   Get unique configuration name to force Emit Mapper create new mapper instead using appropriate cached one.
-  /// </summary>
-  /// <returns></returns>
-  string GetConfigurationName();
-
   StaticConvertersManager GetStaticConvertersManager();
-
-
-  /// <summary>
-  ///   Define conversion for a generic. It is able to convert not one particular class but all generic family
-  ///   providing a generic converter.
-  /// </summary>
-  /// <param name="from">Type of source. Can be also generic class or abstract array.</param>
-  /// <param name="to">Type of destination. Can be also generic class or abstract array.</param>
-  /// <param name="converterProvider">
-  ///   Provider for getting detailed information about generic conversion.
-  /// </param>
-  /// <returns></returns>
-  IMappingConfigurator ConvertGeneric(Type from, Type to, ICustomConverterProvider converterProvider);
-
-  /// <summary>
-  ///   Setup function which returns value for destination if appropriate source member is null.
-  /// </summary>
-  /// <typeparam name="TFrom">Type of source member</typeparam>
-  /// <typeparam name="TTo">Type of destination member</typeparam>
-  /// <param name="nullSubstitutor">Function which returns value for destination if appropriate source member is null</param>
-  /// <returns></returns>
-  IMappingConfigurator NullSubstitution<TFrom, TTo>(Func<object, TTo> nullSubstitutor);
 
   /// <summary>
   ///   Define members which should be ignored
@@ -71,12 +76,13 @@ public interface IMappingConfigurator
   IMappingConfigurator IgnoreMembers<TFrom, TTo>(string[] ignoreNames);
 
   /// <summary>
-  ///   Define a custom constructor for the specified type
+  ///   Setup function which returns value for destination if appropriate source member is null.
   /// </summary>
-  /// <typeparam name="T">Type for which constructor is defining</typeparam>
-  /// <param name="constructor">Custom constructor</param>
+  /// <typeparam name="TFrom">Type of source member</typeparam>
+  /// <typeparam name="TTo">Type of destination member</typeparam>
+  /// <param name="nullSubstitutor">Function which returns value for destination if appropriate source member is null</param>
   /// <returns></returns>
-  IMappingConfigurator ConstructBy<T>(TargetConstructor<T> constructor);
+  IMappingConfigurator NullSubstitution<TFrom, TTo>(Func<object, TTo> nullSubstitutor);
 
   /// <summary>
   ///   Define postprocessor for specified type
@@ -91,10 +97,4 @@ public interface IMappingConfigurator
   /// </summary>
   /// <returns></returns>
   IMappingConfigurator SetConfigName(string configurationName);
-
-  IMappingConfigurator FilterDestination<T>(ValuesFilter<T> valuesFilter);
-
-  IMappingConfigurator FilterSource<T>(ValuesFilter<T> valuesFilter);
-
-  IMappingConfigurator ConvertUsing<TFrom, TTo>(Func<TFrom, TTo> converter);
 }

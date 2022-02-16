@@ -1,14 +1,16 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection.Emit;
+
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
-namespace EmitMapper.AST.Nodes;
-
 internal class AstCastclass : IAstRefOrValue
 {
-  protected IAstRefOrValue Value;
   protected Type TargetType;
+
+  protected IAstRefOrValue Value;
 
   public AstCastclass(IAstRefOrValue value, Type targetType)
   {
@@ -16,13 +18,7 @@ internal class AstCastclass : IAstRefOrValue
     TargetType = targetType;
   }
 
-  #region IAstStackItem Members
-
   public Type ItemType => TargetType;
-
-  #endregion
-
-  #region IAstNode Members
 
   public virtual void Compile(CompilationContext context)
   {
@@ -46,8 +42,6 @@ internal class AstCastclass : IAstRefOrValue
 
     Value.Compile(context);
   }
-
-  #endregion
 }
 
 internal class AstCastclassRef : AstCastclass, IAstRef

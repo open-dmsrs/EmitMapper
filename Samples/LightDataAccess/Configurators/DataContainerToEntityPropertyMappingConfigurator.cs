@@ -1,13 +1,14 @@
+namespace LightDataAccess.Configurators;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
-
-namespace LightDataAccess.Configurators;
 
 /// <summary>
 ///   The data container to object configuration.
@@ -27,29 +28,34 @@ public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
       to,
       ReflectionHelper.GetPublicFieldsAndProperties(to)
         .Where(
-          member => (member.MemberType == MemberTypes.Field || member.MemberType == MemberTypes.Property) &&
-                    ((PropertyInfo)member).GetSetMethod() != null)
-        .Select(
+          member => (member.MemberType == MemberTypes.Field || member.MemberType == MemberTypes.Property)
+                    && ((PropertyInfo)member).GetSetMethod() != null).Select(
           destinationMember => (IMappingOperation)new DestWriteOperation
-          {
-            Destination = new MemberDescriptor(destinationMember),
-            Getter = (ValueGetter<object>)((item, state) =>
-            {
-              if (item is not DataContainer value)
-                return ValueToWrite<object>.Skip();
-              var destinationType = ReflectionHelper.GetMemberReturnType(destinationMember);
+                                                    {
+                                                      Destination = new MemberDescriptor(destinationMember),
+                                                      Getter = (ValueGetter<object>)((item, state) =>
+                                                              {
+                                                                if (item is not DataContainer value)
+                                                                  return ValueToWrite<object>.Skip();
+                                                                var destinationType =
+                                                                  ReflectionHelper.GetMemberReturnType(
+                                                                    destinationMember);
 
-              var fieldDescription = ReflectionHelper.GetDataMemberDefinition(destinationMember);
-              var destinationMemberValue = ConvertFieldToDestinationProperty(
-                value,
-                destinationType,
-                fieldDescription.FirstOrDefault());
+                                                                var fieldDescription =
+                                                                  ReflectionHelper.GetDataMemberDefinition(
+                                                                    destinationMember);
+                                                                var destinationMemberValue =
+                                                                  ConvertFieldToDestinationProperty(
+                                                                    value,
+                                                                    destinationType,
+                                                                    fieldDescription.FirstOrDefault());
 
-              return destinationMemberValue == null
-                ? ValueToWrite<object>.Skip()
-                : ValueToWrite<object>.ReturnValue(destinationMemberValue);
-            })
-          }));
+                                                                return destinationMemberValue == null
+                                                                         ? ValueToWrite<object>.Skip()
+                                                                         : ValueToWrite<object>.ReturnValue(
+                                                                           destinationMemberValue);
+                                                              })
+                                                    }));
   }
 
   /// <summary>
@@ -61,7 +67,9 @@ public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
   /// <returns>
   ///   The conversion result.
   /// </returns>
-  private static object ConvertFieldToDestinationProperty(DataContainer container, Type destinationType,
+  private static object ConvertFieldToDestinationProperty(
+    DataContainer container,
+    Type destinationType,
     Tuple<string, Type> fieldDescription)
   {
     if (container == null || container.Fields == null || string.IsNullOrEmpty(fieldDescription.Item1)) return null;

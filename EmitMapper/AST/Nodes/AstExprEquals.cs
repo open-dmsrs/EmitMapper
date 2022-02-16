@@ -1,9 +1,10 @@
-﻿using System;
+﻿namespace EmitMapper.AST.Nodes;
+
+using System;
 using System.Reflection.Emit;
+
 using EmitMapper.AST.Interfaces;
 using EmitMapper.Utils;
-
-namespace EmitMapper.AST.Nodes;
 
 internal class AstExprEquals : IAstValue
 {
@@ -17,13 +18,7 @@ internal class AstExprEquals : IAstValue
     _rightValue = rightValue;
   }
 
-  #region IAstReturnValueNode Members
-
   public Type ItemType => Metadata<int>.Type;
-
-  #endregion
-
-  #region IAstNode Members
 
   public void Compile(CompilationContext context)
   {
@@ -31,6 +26,4 @@ internal class AstExprEquals : IAstValue
     _rightValue.Compile(context);
     context.Emit(OpCodes.Ceq);
   }
-
-  #endregion
 }

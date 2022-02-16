@@ -1,7 +1,10 @@
-﻿using System;
+﻿namespace EmitMapper.EmitBuilders;
+
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
+
 using EmitMapper.AST;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Nodes;
@@ -9,8 +12,6 @@ using EmitMapper.Conversion;
 using EmitMapper.Mappers;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.Utils;
-
-namespace EmitMapper.EmitBuilders;
 
 internal class MappingBuilder
 {
@@ -77,19 +78,19 @@ internal class MappingBuilder
     var staticConverter = _mappingConfigurator.GetStaticConvertersManager();
     mapperAst.Nodes.Add(
       new MappingOperationsProcessor
-      {
-        LocException = locException,
-        LocFrom = locFrom,
-        LocState = locState,
-        LocTo = locTo,
-        ObjectsMapperManager = _objectsMapperManager,
-        CompilationContext = compilationContext,
-        StoredObjects = StoredObjects,
-        Operations = mappingOperations,
-        MappingConfigurator = _mappingConfigurator,
-        RootOperation = _mappingConfigurator.GetRootMappingOperation(_from, _to),
-        StaticConvertersManager = staticConverter ?? StaticConvertersManager.DefaultInstance
-      }.ProcessOperations());
+        {
+          LocException = locException,
+          LocFrom = locFrom,
+          LocState = locState,
+          LocTo = locTo,
+          ObjectsMapperManager = _objectsMapperManager,
+          CompilationContext = compilationContext,
+          StoredObjects = StoredObjects,
+          Operations = mappingOperations,
+          MappingConfigurator = _mappingConfigurator,
+          RootOperation = _mappingConfigurator.GetRootMappingOperation(_from, _to),
+          StaticConvertersManager = staticConverter ?? StaticConvertersManager.DefaultInstance
+        }.ProcessOperations());
     mapperAst.Nodes.Add(
       new AstReturn { ReturnType = Metadata<object>.Type, ReturnValue = AstBuildHelper.ReadLocalRV(locTo) });
 

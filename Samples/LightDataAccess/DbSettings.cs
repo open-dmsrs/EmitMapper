@@ -20,14 +20,14 @@ namespace LightDataAccess;
 public class DbSettings
 {
   /// <summary>
-  ///   My SQL
-  /// </summary>
-  public static DbSettings MySql;
-
-  /// <summary>
   ///   The MSSQL
   /// </summary>
   public static DbSettings Mssql;
+
+  /// <summary>
+  ///   My SQL
+  /// </summary>
+  public static DbSettings MySql;
 
   /// <summary>
   ///   The SQLITE
@@ -54,35 +54,10 @@ public class DbSettings
   /// </summary>
   static DbSettings()
   {
-    MySql = new DbSettings
-    {
-      FirstNameEscapeSymbol = "`",
-      SecondNameEscapeSymbol = "`",
-      ParamPrefix = "@p_"
-    };
+    MySql = new DbSettings { FirstNameEscapeSymbol = "`", SecondNameEscapeSymbol = "`", ParamPrefix = "@p_" };
 
-    Mssql = new DbSettings
-    {
-      FirstNameEscapeSymbol = "[",
-      SecondNameEscapeSymbol = "]",
-      ParamPrefix = "@p_"
-    };
-    Sqlite = new DbSettings
-    {
-      FirstNameEscapeSymbol = "\"",
-      SecondNameEscapeSymbol = "\"",
-      ParamPrefix = "@p_"
-    };
-  }
-
-  /// <summary>
-  ///   Gets the name of the param.
-  /// </summary>
-  /// <param name="fieldName">Name of the field.</param>
-  /// <returns>System.String.</returns>
-  public string GetParamName(string fieldName)
-  {
-    return ParamPrefix + fieldName;
+    Mssql = new DbSettings { FirstNameEscapeSymbol = "[", SecondNameEscapeSymbol = "]", ParamPrefix = "@p_" };
+    Sqlite = new DbSettings { FirstNameEscapeSymbol = "\"", SecondNameEscapeSymbol = "\"", ParamPrefix = "@p_" };
   }
 
   /// <summary>
@@ -93,5 +68,15 @@ public class DbSettings
   public string GetEscapedName(string name)
   {
     return FirstNameEscapeSymbol + name + SecondNameEscapeSymbol;
+  }
+
+  /// <summary>
+  ///   Gets the name of the param.
+  /// </summary>
+  /// <param name="fieldName">Name of the field.</param>
+  /// <returns>System.String.</returns>
+  public string GetParamName(string fieldName)
+  {
+    return ParamPrefix + fieldName;
   }
 }

@@ -1,12 +1,12 @@
-﻿using System;
+﻿namespace EmitMapper.Utils;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-
-namespace EmitMapper.Utils;
 
 public static class ProxyGenerator
 {
@@ -20,15 +20,26 @@ public static class ProxyGenerator
     Metadata<INotifyPropertyChanged>.Type.GetEvent(nameof(INotifyPropertyChanged.PropertyChanged));
 
   private static readonly ConstructorInfo ProxyBaseCtor = Metadata<ProxyBase>.Type.GetConstructor(Type.EmptyTypes);
+
   private static readonly ModuleBuilder ProxyModule = CreateProxyModule();
-  private static readonly LazyConcurrentDictionary<TypeDescription, Type> ProxyTypes = new();
+
   private static readonly Type _Type = typeof(ProxyGenerator);
+
+  private static readonly LazyConcurrentDictionary<TypeDescription, Type> ProxyTypes = new();
+
+  public static Type GetProxyType(Type interfaceType)
+  {
+    return ProxyTypes.GetOrAdd(new TypeDescription(interfaceType), EmitProxy);
+  }
+
+  public static Type GetSimilarType(Type sourceType, IEnumerable<PropertyDescription> additionalProperties)
+  {
+    return ProxyTypes.GetOrAdd(new TypeDescription(sourceType, additionalProperties), EmitProxy);
+  }
 
   private static ModuleBuilder CreateProxyModule()
   {
-    var builder = AssemblyBuilder.DefineDynamicAssembly(
-      _Type.Assembly.GetName(),
-      AssemblyBuilderAccess.Run);
+    var builder = AssemblyBuilder.DefineDynamicAssembly(_Type.Assembly.GetName(), AssemblyBuilderAccess.Run);
     return builder.DefineDynamicModule("EmitMapper.ProxyGenerator.Proxies.emit");
   }
 
@@ -70,8 +81,8 @@ public static class ProxyGenerator
     {
       var eventAccessor = typeBuilder.DefineMethod(
         method.Name,
-        MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.SpecialName |
-        MethodAttributes.NewSlot | MethodAttributes.Virtual,
+        MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.NewSlot
+        | MethodAttributes.Virtual,
         Metadata.Void,
         new[] { Metadata<PropertyChangedEventHandler>.Type });
       var addIl = eventAccessor.GetILGenerator();
@@ -92,9 +103,8 @@ public static class ProxyGenerator
       foreach (var property in PropertiesToImplement())
         if (fieldBuilders.TryGetValue(property.Name, out var propertyEmitter))
         {
-          if (propertyEmitter.PropertyType != property.Type && (property.CanWrite ||
-                                                                !property.Type.IsAssignableFrom(
-                                                                  propertyEmitter.PropertyType)))
+          if (propertyEmitter.PropertyType != property.Type
+              && (property.CanWrite || !property.Type.IsAssignableFrom(propertyEmitter.PropertyType)))
             throw new ArgumentException(
               $"The interface has a conflicting property {property.Name}",
               nameof(interfaceType));
@@ -109,11 +119,10 @@ public static class ProxyGenerator
     {
       var propertiesToImplement = new List<PropertyDescription>();
       var allInterfaces = new List<Type>(interfaceType.GetInterfacesCache()) { interfaceType };
+
       // first we collect all properties, those with setters before getters in order to enable less specific redundant getters
-      foreach (var property in
-               allInterfaces.Where(intf => intf != Metadata<INotifyPropertyChanged>.Type)
-                 .SelectMany(intf => intf.GetProperties())
-                 .Select(p => new PropertyDescription(p))
+      foreach (var property in allInterfaces.Where(intf => intf != Metadata<INotifyPropertyChanged>.Type)
+                 .SelectMany(intf => intf.GetProperties()).Select(p => new PropertyDescription(p))
                  .Concat(typeDescription.AdditionalProperties))
         if (property.CanWrite)
           propertiesToImplement.Insert(0, property);
@@ -135,25 +144,19 @@ public static class ProxyGenerator
     }
   }
 
-  public static Type GetProxyType(Type interfaceType)
-  {
-    return ProxyTypes.GetOrAdd(new TypeDescription(interfaceType), EmitProxy);
-  }
-
-  public static Type GetSimilarType(Type sourceType, IEnumerable<PropertyDescription> additionalProperties)
-  {
-    return ProxyTypes.GetOrAdd(new TypeDescription(sourceType, additionalProperties), EmitProxy);
-  }
-
   private class PropertyEmitter
   {
-    private static readonly MethodInfo ProxyBaseNotifyPropertyChanged =
-      Metadata<ProxyBase>.Type.GetMethod(nameof(ProxyBase.NotifyPropertyChanged), TypeExtensions.InstanceFlags);
+    private static readonly MethodInfo ProxyBaseNotifyPropertyChanged = Metadata<ProxyBase>.Type.GetMethod(
+      nameof(ProxyBase.NotifyPropertyChanged),
+      TypeExtensions.InstanceFlags);
 
     private readonly FieldBuilder _fieldBuilder;
+
     private readonly MethodBuilder _getterBuilder;
-    private readonly MethodBuilder _setterBuilder;
+
     private readonly PropertyBuilder _propertyBuilder;
+
+    private readonly MethodBuilder _setterBuilder;
 
     public PropertyEmitter(TypeBuilder owner, PropertyDescription property, FieldInfo propertyChangedField)
     {
@@ -163,8 +166,7 @@ public static class ProxyGenerator
       _propertyBuilder = owner.DefineProperty(name, PropertyAttributes.None, propertyType, null);
       _getterBuilder = owner.DefineMethod(
         $"get_{name}",
-        MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig |
-        MethodAttributes.SpecialName,
+        MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig | MethodAttributes.SpecialName,
         propertyType,
         Type.EmptyTypes);
       var getterIl = _getterBuilder.GetILGenerator();
@@ -175,8 +177,7 @@ public static class ProxyGenerator
       if (!property.CanWrite) return;
       _setterBuilder = owner.DefineMethod(
         $"set_{name}",
-        MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig |
-        MethodAttributes.SpecialName,
+        MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig | MethodAttributes.SpecialName,
         Metadata.Void,
         new[] { propertyType });
       var setterIl = _setterBuilder.GetILGenerator();

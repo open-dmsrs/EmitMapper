@@ -12,10 +12,10 @@
 // <summary></summary>
 // ***********************************************************************
 
+namespace LightDataAccess;
+
 using System.Collections.Generic;
 using System.Linq;
-
-namespace LightDataAccess;
 
 /// <summary>
 ///   Class FilterConstraints
@@ -32,25 +32,16 @@ public class FilterConstraints
   }
 
   /// <summary>
-  ///   Gets or sets the _ constraints.
-  /// </summary>
-  /// <value>The _ constraints.</value>
-  private List<string> Constraints { get; }
-
-  /// <summary>
   ///   Gets or sets the params.
   /// </summary>
   /// <value>The params.</value>
   public CmdParams Params { get; set; }
 
   /// <summary>
-  ///   Builds the where.
+  ///   Gets or sets the _ constraints.
   /// </summary>
-  /// <returns>System.String.</returns>
-  public string BuildWhere()
-  {
-    return (Constraints.Count > 0 ? "WHERE " : string.Empty) + Constraints.Select(c => "(" + c + ")").ToCsv(" AND ");
-  }
+  /// <value>The _ constraints.</value>
+  private List<string> Constraints { get; }
 
   /// <summary>
   ///   Adds the specified constraint.
@@ -72,5 +63,14 @@ public class FilterConstraints
     if (@params != null)
       foreach (var p in @params)
         Params.Add(p.Key, p.Value);
+  }
+
+  /// <summary>
+  ///   Builds the where.
+  /// </summary>
+  /// <returns>System.String.</returns>
+  public string BuildWhere()
+  {
+    return (Constraints.Count > 0 ? "WHERE " : string.Empty) + Constraints.Select(c => "(" + c + ")").ToCsv(" AND ");
   }
 }

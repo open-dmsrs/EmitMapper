@@ -14,20 +14,21 @@
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
-		<Version>2.0.1-build.1</Version>
+		<Version>2.0.2</Version>
 		<Description>The most fast mapper tool - EmitMapper runs base on netcore</Description>
 		<PackageProjectUrl>https://github.com/niubilitynetcore/EmitMapper</PackageProjectUrl>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<PackageIcon>icon.png</PackageIcon>
 		<RepositoryUrl>https://github.com/niubilitynetcore/EmitMapper</RepositoryUrl>
-		<PackageTags></PackageTags>
+		<PackageTags>EmitMapper;Mapper;POCO;Object Mapping</PackageTags>
 		<NeutralLanguage>zh-CN</NeutralLanguage>
 		<IsPublishable>True</IsPublishable>
 		<PackageId>Niubility.$(AssemblyName)</PackageId>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-		<PackageReleaseNotes>Optimized performance. It is faster than others</PackageReleaseNotes>
+		<PackageReleaseNotes>Optimized the performance</PackageReleaseNotes>
+		<Copyright>Jimbo</Copyright>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">

@@ -1,9 +1,11 @@
-﻿using System;
+﻿namespace EmitMapper.Benchmarks;
+
+using System;
+
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
-using EmitMapper.Utils;
 
-namespace EmitMapper.Benchmarks;
+using EmitMapper.Utils;
 
 public class Employee
 {
@@ -14,19 +16,8 @@ public class Employee
 public class TypeBenchmark
 {
   private const int IterationCount = 1_000;
+
   private Employee e;
-
-  [GlobalSetup]
-  public void Setup()
-  {
-    e = new Employee();
-  }
-
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public Type Of_typeof()
-  {
-    return typeof(Employee);
-  }
 
   [Benchmark(OperationsPerInvoke = IterationCount)]
   public Type Of_GetType()
@@ -39,8 +30,19 @@ public class TypeBenchmark
   {
     return Metadata<Employee>.Type;
   }
-}
 
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public Type Of_typeof()
+  {
+    return typeof(Employee);
+  }
+
+  [GlobalSetup]
+  public void Setup()
+  {
+    e = new Employee();
+  }
+}
 
 /*/ * Summary *
 

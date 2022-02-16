@@ -1,15 +1,17 @@
-﻿using System;
+﻿namespace SamplesTests;
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+
 using EmitMapper;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
-using Xunit;
 
-namespace SamplesTests;
+using Xunit;
 
 public class TestMappingToDataRow
 {
@@ -45,25 +47,29 @@ public class TestMappingToDataRow
     {
       var objectMembers = ReflectionHelper.GetPublicFieldsAndProperties(from);
       return FilterOperations(
-          from,
-          to,
-          objectMembers.Select(
-            m => (IMappingOperation)new SrcReadOperation
-            {
-              Source = new MemberDescriptor(m),
-              Setter = (obj, value, state) => { ((DataRow)obj)[m.Name] = value ?? DBNull.Value; }
-            })
-        )
-        .ToArray();
+        from,
+        to,
+        objectMembers.Select(
+          m => (IMappingOperation)new SrcReadOperation
+                                    {
+                                      Source = new MemberDescriptor(m),
+                                      Setter = (obj, value, state) =>
+                                        {
+                                          ((DataRow)obj)[m.Name] = value ?? DBNull.Value;
+                                        }
+                                    })).ToArray();
     }
   }
+
   // Using: 
 
   // Test data object
   public class TestDto
   {
-    public bool Field3 = true;
-    public int Field2 = 10;
     public string Field1 = "field1";
+
+    public int Field2 = 10;
+
+    public bool Field3 = true;
   }
 }

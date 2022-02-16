@@ -1,11 +1,13 @@
-﻿using System;
+﻿namespace EmitMapper.Utils;
+
+using System;
 using System.Linq.Expressions;
 
-namespace EmitMapper.Utils;
-
-public class VersatileLambda<T> where T : class
+public class VersatileLambda<T>
+  where T : class
 {
   private readonly Expression<T> _expression;
+
   private readonly Lazy<T> _funcLazy;
 
   public VersatileLambda(Expression<T> expression)

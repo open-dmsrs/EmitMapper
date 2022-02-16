@@ -1,27 +1,40 @@
-﻿using System;
+﻿namespace SamplesTests;
+
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Transactions;
-using EmitMapper;
-using LightDataAccess;
-using Xunit;
 
-namespace SamplesTests;
+using EmitMapper;
+
+using LightDataAccess;
+
+using Xunit;
 
 public class Customer
 {
   public string Address;
+
   public string City;
+
   public string CompanyName;
+
   public string ContactName;
+
   public string ContactTitle;
+
   public string Country;
+
   public string CustomerId;
+
   public string Fax;
+
   public string Phone;
+
   public string PostalCode;
+
   public string Region;
 }
 
@@ -40,15 +53,7 @@ public class CustormTests
     _factory = DbProviderFactories.GetFactory(_connectionConfig.ProviderName);
   }
 
-  private DbConnection CreateConnection()
-  {
-    var result = _factory.CreateConnection();
-    result.ConnectionString = _connectionConfig.ConnectionString;
-    result.Open();
-    return result;
-  }
-
-  //[Fact]
+  // [Fact]
   public void GetCustomers()
   {
     Customer[] customers;
@@ -65,24 +70,44 @@ public class CustormTests
     Assert.True(customers.Length == 91);
   }
 
-  //[Fact]
+  // [Fact]
+  public void InsertTest()
+  {
+    using var ts = new TransactionScope();
+    using var connection = CreateConnection();
+    var rs = DbTools.InsertObject(
+      connection,
+      new
+        {
+          col1 = 10,
+          col2 = 11,
+          col3 = 12,
+          col4 = 13,
+          col5 = 1,
+          col6 = 2
+        },
+      "test",
+      DbSettings.Mssql).Result;
+    ts.Complete();
+    Assert.True(rs == 1);
+  }
+
+  // [Fact]
   public void UpdateCustomer()
   {
     var objMan = new ObjectMapperManager();
 
     var guid = Guid.NewGuid();
-    // todo: there is a bug , In the callstack of DBTools and DataReaderToObjectMapper ocur two times Reader.Read(); so..
 
+    // todo: there is a bug , In the callstack of DBTools and DataReaderToObjectMapper ocur two times Reader.Read(); so..
     using var ts = new TransactionScope();
     using var connection = CreateConnection();
     var customer = DbTools.ExecuteReader(
       connection,
       "select * from Customers limit 1 ",
       null,
-      r => r.ToObject<Customer>()
-    );
+      r => r.ToObject<Customer>());
     Assert.NotNull(customer);
-
 
     var tracker = new ObjectsChangeTracker();
     tracker.RegisterObject(customer);
@@ -94,32 +119,15 @@ public class CustormTests
       "Customers",
       new[] { "CustomerID" },
       tracker,
-      DbSettings.Mssql
-    );
+      DbSettings.Mssql);
     Assert.True(result.Result == 1);
   }
 
-  //[Fact]
-  public void InsertTest()
+  private DbConnection CreateConnection()
   {
-    using var ts = new TransactionScope();
-    using var connection = CreateConnection();
-    var rs = DbTools.InsertObject(
-        connection,
-        new
-        {
-          col1 = 10,
-          col2 = 11,
-          col3 = 12,
-          col4 = 13,
-          col5 = 1,
-          col6 = 2
-        },
-        "test",
-        DbSettings.Mssql
-      )
-      .Result;
-    ts.Complete();
-    Assert.True(rs == 1);
+    var result = _factory.CreateConnection();
+    result.ConnectionString = _connectionConfig.ConnectionString;
+    result.Open();
+    return result;
   }
 }

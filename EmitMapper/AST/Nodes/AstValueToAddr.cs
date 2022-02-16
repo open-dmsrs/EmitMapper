@@ -1,7 +1,8 @@
-﻿using System;
-using EmitMapper.AST.Interfaces;
+﻿namespace EmitMapper.AST.Nodes;
 
-namespace EmitMapper.AST.Nodes;
+using System;
+
+using EmitMapper.AST.Interfaces;
 
 internal class AstValueToAddr : IAstAddr
 {
@@ -18,8 +19,7 @@ internal class AstValueToAddr : IAstAddr
   {
     var loc = context.ILGenerator.DeclareLocal(ItemType);
     new AstInitializeLocalVariable(loc).Compile(context);
-    new AstWriteLocal { LocalIndex = loc.LocalIndex, LocalType = loc.LocalType, Value = Value }.Compile(
-      context);
+    new AstWriteLocal { LocalIndex = loc.LocalIndex, LocalType = loc.LocalType, Value = Value }.Compile(context);
     new AstReadLocalAddr(loc).Compile(context);
   }
 }
