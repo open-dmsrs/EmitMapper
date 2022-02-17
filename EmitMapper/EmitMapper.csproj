@@ -14,7 +14,7 @@
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
-		<Version>2.0.3-prerelease.2</Version>
+		<Version>2.0.3-prerelease.3</Version>
 		<Description>The most fast mapper tool - EmitMapper runs base on netcore</Description>
 		<PackageProjectUrl>https://github.com/niubilitynetcore/EmitMapper</PackageProjectUrl>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
@@ -30,15 +30,7 @@
 		<PackageReleaseNotes>Optimized the performance</PackageReleaseNotes>
 		<Copyright>Jimbo</Copyright>
 		<RepositoryType>git</RepositoryType>
-		<!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-
-		<!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
-		<EmbedUntrackedSources>true</EmbedUntrackedSources>
-
-		<!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
-		<IncludeSymbols>true</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
