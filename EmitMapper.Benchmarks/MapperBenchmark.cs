@@ -38,63 +38,27 @@ public class MapperBenchmark
   private SimpleTypesSource _simpleSource;
 
   [Benchmark(OperationsPerInvoke = IterationCount)]
-  public BenchNestedDestination AutoMapper_BenchSource()
-  {
-    return _autoMapper.Map<BenchNestedSource, BenchNestedDestination>(_benchSource);
-  }
-
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public List<BenchNestedDestination> AutoMapper_BenchSourceList1000()
+  public List<BenchNestedDestination> BenchNested_1000_AutoMapper()
   {
     return _autoMapper.Map<List<BenchNestedSource>, List<BenchNestedDestination>>(_benchSources1000List);
   }
 
   [Benchmark(OperationsPerInvoke = IterationCount)]
-  public SimpleTypesDestination AutoMapper_Simple()
+  public BenchNestedDestination BenchNested_AutoMapper()
   {
-    return _autoMapper.Map<SimpleTypesSource, SimpleTypesDestination>(_simpleSource);
+    return _autoMapper.Map<BenchNestedSource, BenchNestedDestination>(_benchSource);
   }
 
   [Benchmark(OperationsPerInvoke = IterationCount)]
-  public List<SimpleTypesDestination> AutoMapper_SimpleList100()
-  {
-    return _autoMapper.Map<List<SimpleTypesSource>, List<SimpleTypesDestination>>(_simple100List);
-  }
-
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public List<SimpleTypesDestination> AutoMapper_SimpleList1000()
-  {
-    return _autoMapper.Map<List<SimpleTypesSource>, List<SimpleTypesDestination>>(_simple1000List);
-  }
-
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public BenchNestedDestination EmitMapper_BenchSource()
+  public BenchNestedDestination BenchSource_EmitMapper()
   {
     return _benchSourceEmitMapper.Map(_benchSource);
   }
 
   [Benchmark(OperationsPerInvoke = IterationCount)]
-  public List<BenchNestedDestination> EmitMapper_BenchSourceList1000()
+  public List<BenchNestedDestination> BenchSourceList_1000_EmitMapper()
   {
     return _benchSourceEmitMapper.MapEnum(_benchSources1000List);
-  }
-
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public SimpleTypesDestination EmitMapper_Simple()
-  {
-    return _simpleEmitMapper.Map(_simpleSource);
-  }
-
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public List<SimpleTypesDestination> EmitMapper_SimpleList100()
-  {
-    return _simpleEmitMapper.MapEnum(_simple100List).ToList();
-  }
-
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public List<SimpleTypesDestination> EmitMapper_SimpleList1000()
-  {
-    return _simpleEmitMapper.MapEnum(_simple1000List);
   }
 
   [GlobalSetup]
@@ -119,6 +83,42 @@ public class MapperBenchmark
     _simple100List = fixture.CreateMany<SimpleTypesSource>(100).ToList();
     _simple1000List = fixture.CreateMany<SimpleTypesSource>(1000).ToList();
     _benchSources1000List = fixture.CreateMany<BenchNestedSource>(1000).ToList();
+  }
+
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public SimpleTypesDestination SimpleTypes_AutoMapper()
+  {
+    return _autoMapper.Map<SimpleTypesSource, SimpleTypesDestination>(_simpleSource);
+  }
+
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public SimpleTypesDestination SimpleTypes_EmitMapper()
+  {
+    return _simpleEmitMapper.Map(_simpleSource);
+  }
+
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public List<SimpleTypesDestination> SimpleTypes100_AutoMapper()
+  {
+    return _autoMapper.Map<List<SimpleTypesSource>, List<SimpleTypesDestination>>(_simple100List);
+  }
+
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public List<SimpleTypesDestination> SimpleTypes100_EmitMapper()
+  {
+    return _simpleEmitMapper.MapEnum(_simple100List).ToList();
+  }
+
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public List<SimpleTypesDestination> SimpleTypes1000_AutoMapper()
+  {
+    return _autoMapper.Map<List<SimpleTypesSource>, List<SimpleTypesDestination>>(_simple1000List);
+  }
+
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public List<SimpleTypesDestination> SimpleTypes1000_EmitMapper()
+  {
+    return _simpleEmitMapper.MapEnum(_simple1000List);
   }
 
   private static SimpleTypesDestination HandwrittenMap(SimpleTypesSource s, SimpleTypesDestination result)
@@ -160,9 +160,9 @@ public class MapperBenchmark
    
    |                         Method |        Mean |     Error |    StdDev | Ratio |  Gen 0 |  Gen 1 | Allocated |
    |------------------------------- |------------:|----------:|----------:|------:|-------:|-------:|----------:|
-   |      EmitMapper_SimpleList1000 |    102.6 ns |   2.17 ns |   5.99 ns |  1.00 | 0.0306 | 0.0101 |     128 B |
+   |      EmitMapper_SimpleTypes1000 |    102.6 ns |   2.17 ns |   5.99 ns |  1.00 | 0.0306 | 0.0101 |     128 B |
    |                                |             |           |           |       |        |        |           |
-   |      AutoMapper_SimpleList1000 |    120.8 ns |   5.34 ns |  15.14 ns |  1.00 | 0.0359 | 0.0098 |     137 B |
+   |      AutoMapper_SimpleTypes1000 |    120.8 ns |   5.34 ns |  15.14 ns |  1.00 | 0.0359 | 0.0098 |     137 B |
    |                                |             |           |           |       |        |        |           |
    | EmitMapper_BenchSourceList1000 |  4,607.4 ns | 106.53 ns | 298.73 ns |  1.00 | 0.4766 | 0.2344 |   3,024 B |
    |                                |             |           |           |       |        |        |           |
@@ -180,9 +180,9 @@ Intel Core i5-8350U CPU 1.70GHz(Kaby Lake R), 1 CPU, 8 logical and 4 physical co
 
   |                         Method |         Mean |      Error |     StdDev |       Median | Ratio |  Gen 0 |  Gen 1 | Allocated |
   |------------------------------- |-------------:|-----------:|-----------:|-------------:|------:|-------:|-------:|----------:|
-  |      EmitMapper_SimpleList1000 |     77.40 ns |   1.538 ns |   3.344 ns |     76.89 ns |  1.00 | 0.0305 | 0.0101 |     128 B |
+  |      EmitMapper_SimpleTypes1000 |     77.40 ns |   1.538 ns |   3.344 ns |     76.89 ns |  1.00 | 0.0305 | 0.0101 |     128 B |
   |                                |              |            |            |              |       |        |        |           |
-  |      AutoMapper_SimpleList1000 |     60.30 ns |   1.201 ns |   2.103 ns |     59.26 ns |  1.00 | 0.0363 | 0.0110 |     137 B |
+  |      AutoMapper_SimpleTypes1000 |     60.30 ns |   1.201 ns |   2.103 ns |     59.26 ns |  1.00 | 0.0363 | 0.0110 |     137 B |
   |                                |              |            |            |              |       |        |        |           |
   | EmitMapper_BenchSourceList1000 |  3,261.09 ns |  16.168 ns |  14.333 ns |  3,261.93 ns |  1.00 | 0.4805 | 0.2383 |   3,024 B |
   |                                |              |            |            |              |       |        |        |           |
@@ -200,9 +200,9 @@ Intel Core i5-8350U CPU 1.70GHz(Kaby Lake R), 1 CPU, 8 logical and 4 physical co
 
   |                         Method |         Mean |      Error |     StdDev | Ratio |  Gen 0 |  Gen 1 | Allocated |
   |------------------------------- |-------------:|-----------:|-----------:|------:|-------:|-------:|----------:|
-  |      EmitMapper_SimpleList1000 |    126.07 ns |   2.281 ns |   2.134 ns |  1.00 | 0.0305 | 0.0100 |     128 B |
+  |      EmitMapper_SimpleTypes1000 |    126.07 ns |   2.281 ns |   2.134 ns |  1.00 | 0.0305 | 0.0100 |     128 B |
   |                                |              |            |            |       |        |        |           |
-  |      AutoMapper_SimpleList1000 |     90.71 ns |   0.934 ns |   0.874 ns |  1.00 | 0.0361 | 0.0089 |     137 B |
+  |      AutoMapper_SimpleTypes1000 |     90.71 ns |   0.934 ns |   0.874 ns |  1.00 | 0.0361 | 0.0089 |     137 B |
   |                                |              |            |            |       |        |        |           |
   | EmitMapper_BenchSourceList1000 |  4,469.99 ns |  87.383 ns |  81.738 ns |  1.00 | 0.4766 | 0.2344 |   3,024 B |
   |                                |              |            |            |       |        |        |           |

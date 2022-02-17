@@ -1,9 +1,31 @@
 name: publish to nuget
 on:
   push:
-    branches:
-      - master # Default release branch
+    branches: [ master ]
+  pull_request:
+    branches: [ master ] # Default release branch
+
 jobs:
+
+  build:
+    name: build and test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    #- name: Setup .NET
+    #  uses: actions/setup-dotnet@v1
+    #  with:
+    #    dotnet-version: 3.1.*
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: EmitMapper Unit Tests
+      run: dotnet test EmitMapper.xUnit/EmitMapper.Tests.csproj --no-build --verbosity normal -p:ParallelizeTestCollections=false
+    - name: Sample Unit Tests
+      run: dotnet test .\Samples\SamplesTests\SamplesTests.csproj --no-build --verbosity normal -p:ParallelizeTestCollections=false
+
   publish:
     name: build, pack & publish
     runs-on: ubuntu-latest
