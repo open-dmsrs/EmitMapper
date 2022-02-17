@@ -24,7 +24,7 @@ jobs:
     - name: EmitMapper Unit Tests
       run: dotnet test EmitMapper.xUnit/EmitMapper.Tests.csproj --no-build --verbosity normal -p:ParallelizeTestCollections=false
     - name: Sample Unit Tests
-      run: dotnet test .\Samples\SamplesTests\SamplesTests.csproj --no-build --verbosity normal -p:ParallelizeTestCollections=false
+      run: dotnet test Samples/SamplesTests/SamplesTests.csproj --no-build --verbosity normal -p:ParallelizeTestCollections=false
 
   publish:
     name: build, pack & publish
