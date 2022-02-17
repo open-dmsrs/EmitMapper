@@ -14,7 +14,7 @@
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
-		<Version>2.0.3-prerelease.1</Version>
+		<Version>2.0.3-prerelease.2</Version>
 		<Description>The most fast mapper tool - EmitMapper runs base on netcore</Description>
 		<PackageProjectUrl>https://github.com/niubilitynetcore/EmitMapper</PackageProjectUrl>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
