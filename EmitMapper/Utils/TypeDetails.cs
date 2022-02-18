@@ -182,7 +182,7 @@ public class TypeDetails
   private IEnumerable<Type> GetTypeInheritance()
   {
     return Type.IsInterface
-             ? PrimitiveHelper.Concat(new[] { Type }, Type.GetInterfacesCache())
+             ? Enumerable.Concat(new[] { Type }, Type.GetInterfacesCache())
              : Type.GetTypeInheritance();
   }
 

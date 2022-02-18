@@ -12,12 +12,12 @@ public static class PrimitiveHelper
     types.DestinationType.CheckIsDerivedFrom(baseTypes.DestinationType);
   }
 
-  public static IEnumerable<T> Concat<T>(this IReadOnlyCollection<T> collection, IReadOnlyCollection<T> otherCollection)
-  {
-    otherCollection ??= Array.Empty<T>();
-    if (collection.Count == 0) return otherCollection;
-    return otherCollection.Count == 0 ? collection : collection.Concat(otherCollection);
-  }
+  //public static IEnumerable<T> Concat<T>(this IReadOnlyCollection<T> collection, IReadOnlyCollection<T> otherCollection)
+  //{
+  //  otherCollection ??= Array.Empty<T>();
+  //  if (collection.Count == 0) return otherCollection;
+  //  return otherCollection.Count == 0 ? collection : collection.Concat(otherCollection);
+  //}
 
   public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
   {
