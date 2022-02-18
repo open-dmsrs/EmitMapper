@@ -21,9 +21,9 @@ public static class Program
     BenchmarkRunner.Run<MapperBenchmark>(
 
       /****
-                                                   ManualConfig.Create(DefaultConfig.Instance)
-                                                       .WithOptions(ConfigOptions.DisableOptimizationsValidator)
-                  /****/
+                                                         ManualConfig.Create(DefaultConfig.Instance)
+                                                             .WithOptions(ConfigOptions.DisableOptimizationsValidator)
+                        /****/
     );
 
     // BenchmarkRunner.Run<TypeBenchmark>(

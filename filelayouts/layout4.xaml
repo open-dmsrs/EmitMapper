@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-16"?>
+<Patterns xmlns="urn:schemas-jetbrains-com:member-reordering-patterns">
+  <TypePattern DisplayName="TestObject">
+    <TypePattern.Match>
+      <Or>
+        <InheritsFromType Name="ITestObject" />
+        <Name Is=".*Test.*" IgnoreCase="True" />
+        <And>
+          <Kind Is="Class" />
+          <HasMember>
+            <And>
+              <Kind Is="Namespace" />
+              <Name Is=".*Test.*" />
+            </And>
+          </HasMember>
+        </And>
+      </Or>
+    </TypePattern.Match>
+    <Entry DisplayName="Entry">
+      <Entry.Match>
+        <Or>
+          <Kind Is="Member" />
+          <Kind Is="Field" />
+          <Kind Is="Property" />
+          <Kind Is="Autoproperty" />
+          <Kind Is="Field" />
+        </Or>
+      </Entry.Match>
+      <Entry.SortBy>
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="Nested">
+      <Entry.Match>
+        <Or>
+          <Kind Is="Class" />
+          <Kind Is="Struct" />
+          <Kind Is="Record" />
+        </Or>
+      </Entry.Match>
+      <Entry.SortBy>
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+  </TypePattern>
+  <TypePattern DisplayName="Benchmark" RemoveRegions="All">
+    <TypePattern.Match>
+      <And>
+        <Kind Is="Class" />
+      </And>
+    </TypePattern.Match>
+    <Entry DisplayName="Setup/Teardown Methods">
+      <Entry.Match>
+        <And>
+          <Kind Is="Method" />
+          <HasAttribute Name="BenchmarkDotNet.Attributes.GlobalSetupAttribute" Inherited="True" />
+        </And>
+      </Entry.Match>
+      <Entry.SortBy>
+        <Kind Order="Constructor" />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="Entry">
+      <Entry.Match>
+        <Kind Is="Field" />
+      </Entry.Match>
+    </Entry>
+    <Group DisplayName="Group">
+      <Entry DisplayName="Entry">
+        <Entry.Match>
+          <Kind Is="Method" />
+        </Entry.Match>
+      </Entry>
+    </Group>
+  </TypePattern>
+  <TypePattern Priority="2000" DisplayName="COM interfaces">
+    <TypePattern.Match>
+      <And>
+        <Kind Is="Interface" />
+        <Or>
+          <HasAttribute Name="System.Runtime.InteropServices.InterfaceTypeAttribute" />
+          <HasAttribute Name="System.Runtime.InteropServices.ComImport" />
+        </Or>
+      </And>
+    </TypePattern.Match>
+  </TypePattern>
+  <TypePattern Priority="2000" DisplayName="P/Invoke structs">
+    <TypePattern.Match>
+      <And>
+        <Or>
+          <Kind Is="Struct" />
+          <Kind Is="Class" />
+        </Or>
+        <HasAttribute Name="System.Runtime.InteropServices.StructLayoutAttribute" />
+      </And>
+    </TypePattern.Match>
+  </TypePattern>
+  <TypePattern Priority="2000" DisplayName="P/Invoke classes (xxxNativeMethods)">
+    <TypePattern.Match>
+      <And>
+        <Name Is=".*NativeMethods" />
+      </And>
+    </TypePattern.Match>
+  </TypePattern>
+  <TypePattern Priority="2000" DisplayName="DataMembers">
+    <TypePattern.Match>
+      <And>
+        <Or>
+          <Kind Is="Field" />
+          <Kind Is="Property" />
+        </Or>
+        <HasAttribute Name="System.Runtime.Serialization.DataMemberAttribute " />
+      </And>
+    </TypePattern.Match>
+  </TypePattern>
+  <TypePattern DisplayName="xUnit.net Test Classes" RemoveRegions="All">
+    <TypePattern.Match>
+      <And>
+        <Kind Is="Class" />
+        <HasMember>
+          <And>
+            <Kind Is="Method" />
+            <HasAttribute Name="Xunit.FactAttribute" Inherited="True" />
+            <HasAttribute Name="Xunit.TheoryAttribute" Inherited="True" />
+          </And>
+        </HasMember>
+      </And>
+    </TypePattern.Match>
+    <Entry DisplayName="Setup/Teardown Methods">
+      <Entry.Match>
+        <Or>
+          <Kind Is="Constructor" />
+          <And>
+            <Kind Is="Method" />
+            <ImplementsInterface Name="System.IDisposable" />
+          </And>
+        </Or>
+      </Entry.Match>
+      <Entry.SortBy>
+        <Kind Order="Constructor" />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="All other members" />
+    <Entry Priority="100" DisplayName="Test Methods">
+      <Entry.Match>
+        <And>
+          <Kind Is="Method" />
+          <HasAttribute Name="Xunit.FactAttribute" />
+          <HasAttribute Name="Xunit.TheoryAttribute" />
+        </And>
+      </Entry.Match>
+      <Entry.SortBy>
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+  </TypePattern>
+  <TypePattern Priority="2000" DisplayName="NUnit Test Fixtures">
+    <TypePattern.Match>
+      <And>
+        <Kind Is="Class" />
+        <HasAttribute Name="NUnit.Framework.TestFixtureAttribute" Inherited="True" />
+        <HasAttribute Name="NUnit.Framework.TestCaseFixtureAttribute" Inherited="True" />
+      </And>
+    </TypePattern.Match>
+    <Entry DisplayName="Setup/Teardown Methods">
+      <Entry.Match>
+        <And>
+          <Kind Is="Method" />
+          <Or>
+            <HasAttribute Name="NUnit.Framework.SetUpAttribute" Inherited="True" />
+            <HasAttribute Name="NUnit.Framework.TearDownAttribute" Inherited="True" />
+            <HasAttribute Name="NUnit.Framework.FixtureSetUpAttribute" Inherited="True" />
+            <HasAttribute Name="NUnit.Framework.FixtureTearDownAttribute" Inherited="True" />
+          </Or>
+        </And>
+      </Entry.Match>
+    </Entry>
+    <Entry DisplayName="All other members" />
+    <Entry Priority="100" DisplayName="Test Methods">
+      <Entry.Match>
+        <And>
+          <Kind Is="Method" />
+          <HasAttribute Name="NUnit.Framework.TestAttribute" />
+        </And>
+      </Entry.Match>
+      <Entry.SortBy>
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+  </TypePattern>
+  <TypePattern Priority="1000" DisplayName="StyleCop Layout" RemoveRegions="All">
+    <TypePattern.Match>
+      <And>
+        <Or>
+          <Kind Is="Class" />
+          <Kind Is="Struct" />
+          <Kind Is="Interface" />
+        </Or>
+        <Not>
+          <And>
+            <InheritsFromType Name=".*Test.*" />
+          </And>
+        </Not>
+      </And>
+    </TypePattern.Match>
+    <Entry DisplayName="Constants">
+      <Entry.Match>
+        <Kind Is="Constant" />
+      </Entry.Match>
+      <Entry.SortBy>
+        <Access Order="Public Internal ProtectedInternal Protected Private" />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="Static fields">
+      <Entry.Match>
+        <And>
+          <Kind Is="Field" />
+          <Static />
+        </And>
+      </Entry.Match>
+      <Entry.SortBy>
+        <Kind Order="Constant Field" />
+        <Access Order="Public Internal ProtectedInternal Protected Private" />
+        <Readonly />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="Fields">
+      <Entry.Match>
+        <Kind Is="Field" />
+      </Entry.Match>
+      <Entry.SortBy>
+        <Access Order="Public Internal ProtectedInternal Protected Private" />
+        <Readonly />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry Priority="200" DisplayName="Constructors and destructors">
+      <Entry.Match>
+        <Or>
+          <Kind Is="Constructor" />
+          <Kind Is="Destructor" />
+        </Or>
+      </Entry.Match>
+      <Entry.SortBy>
+        <Static />
+        <Kind Order="Constructor Destructor" />
+        <Access Order="Public Internal ProtectedInternal Protected Private" />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="Delegates">
+      <Entry.Match>
+        <Kind Is="Delegate" />
+      </Entry.Match>
+      <Entry.SortBy>
+        <Access Order="Public Internal ProtectedInternal Protected Private" />
+        <Static />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="Public events">
+      <Entry.Match>
+        <And>
+          <Kind Is="Event" />
+          <Access Is="Public" />
+        </And>
+      </Entry.Match>
+      <Entry.SortBy>
+        <Access Order="Public" />
+        <Static />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="Interface events">
+      <Entry.Match>
+        <And>
+          <Kind Is="Event" />
+          <ImplementsInterface />
+        </And>
+      </Entry.Match>
+      <Entry.SortBy>
+        <ImplementsInterface Immediate="True" />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="Other events">
+      <Entry.Match>
+        <Kind Is="Event" />
+      </Entry.Match>
+      <Entry.SortBy>
+        <Access Order="Public Internal ProtectedInternal Protected Private" />
+        <Static />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="Enums">
+      <Entry.Match>
+        <Kind Is="Enum" />
+      </Entry.Match>
+      <Entry.SortBy>
+        <Access Order="Public Internal ProtectedInternal Protected Private" />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="Interfaces">
+      <Entry.Match>
+        <Kind Is="Interface" />
+      </Entry.Match>
+      <Entry.SortBy>
+        <Access Order="Public Internal ProtectedInternal Protected Private" />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="Public properties">
+      <Entry.Match>
+        <And>
+          <Kind Is="Property" />
+          <Access Is="Public" />
+        </And>
+      </Entry.Match>
+      <Entry.SortBy>
+        <Access Order="Public" />
+        <Static />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="Interface properties">
+      <Entry.Match>
+        <And>
+          <Kind Is="Property" />
+          <ImplementsInterface />
+        </And>
+      </Entry.Match>
+      <Entry.SortBy>
+        <ImplementsInterface Immediate="True" />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="Other properties">
+      <Entry.Match>
+        <Kind Is="Property" />
+      </Entry.Match>
+      <Entry.SortBy>
+        <Access Order="Public Internal ProtectedInternal Protected Private" />
+        <Static />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry Priority="1000" DisplayName="Public indexers">
+      <Entry.Match>
+        <And>
+          <Kind Is="Indexer" />
+          <Access Is="Public" />
+        </And>
+      </Entry.Match>
+      <Entry.SortBy>
+        <Access Order="Public" />
+        <Static />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry Priority="1000" DisplayName="Interface indexers">
+      <Entry.Match>
+        <And>
+          <Kind Is="Indexer" />
+          <ImplementsInterface />
+        </And>
+      </Entry.Match>
+      <Entry.SortBy>
+        <ImplementsInterface Immediate="True" />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry Priority="1000" DisplayName="Other indexers">
+      <Entry.Match>
+        <Kind Is="Indexer" />
+      </Entry.Match>
+      <Entry.SortBy>
+        <Access Order="Public Internal ProtectedInternal Protected Private" />
+        <Static />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="Public methods">
+      <Entry.Match>
+        <And>
+          <Kind Is="Method" />
+          <Access Is="Public" />
+        </And>
+      </Entry.Match>
+      <Entry.SortBy>
+        <Access Order="Public" />
+        <Static />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="Interface methods">
+      <Entry.Match>
+        <And>
+          <Kind Is="Method" />
+          <ImplementsInterface />
+        </And>
+      </Entry.Match>
+      <Entry.SortBy>
+        <ImplementsInterface Immediate="True" />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="Other methods">
+      <Entry.Match>
+        <Kind Is="Method" />
+      </Entry.Match>
+      <Entry.SortBy>
+        <Access Order="Public Internal ProtectedInternal Protected Private" />
+        <Static />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="Operators">
+      <Entry.Match>
+        <Kind Is="Operator" />
+      </Entry.Match>
+      <Entry.SortBy>
+        <Access Order="Public Internal ProtectedInternal Protected Private" />
+        <Static />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry Priority="600" DisplayName="Nested structs">
+      <Entry.Match>
+        <Kind Is="Struct" />
+      </Entry.Match>
+      <Entry.SortBy>
+        <Static />
+        <Access Order="Public Internal ProtectedInternal Protected Private" />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry Priority="700" DisplayName="Nested classes">
+      <Entry.Match>
+        <Kind Is="Class" />
+      </Entry.Match>
+      <Entry.SortBy>
+        <Static />
+        <Access Order="Public Internal ProtectedInternal Protected Private" />
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="All other members" />
+  </TypePattern>
+</Patterns>

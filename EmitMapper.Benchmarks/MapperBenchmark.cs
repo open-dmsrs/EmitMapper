@@ -19,8 +19,6 @@ using EmitMapper.MappingConfiguration;
 [MemoryDiagnoser]
 public class MapperBenchmark
 {
-  private const int IterationCount = 1_000;
-
   private IMapper _autoMapper;
 
   private BenchNestedSource _benchSource;
@@ -36,6 +34,30 @@ public class MapperBenchmark
   private ObjectsMapper<SimpleTypesSource, SimpleTypesDestination> _simpleEmitMapper;
 
   private SimpleTypesSource _simpleSource;
+
+  [GlobalSetup]
+  public void Setup()
+  {
+    var fixture = new Fixture();
+    _benchSourceEmitMapper = ObjectMapperManager.DefaultInstance.GetMapper<BenchNestedSource, BenchNestedDestination>();
+    _simpleEmitMapper =
+      ObjectMapperManager.DefaultInstance.GetMapper<SimpleTypesSource, SimpleTypesDestination>(new DefaultMapConfig());
+    var config = new MapperConfiguration(
+      cfg =>
+        {
+          cfg.CreateMap<BenchNestedSource, BenchNestedDestination>();
+          cfg.CreateMap<BenchNestedSource.Nested2, BenchNestedDestination.Inner2>();
+          cfg.CreateMap<BenchNestedSource.Nested1, BenchNestedDestination.Inner1>();
+          cfg.CreateMap<SimpleTypesSource, SimpleTypesDestination>();
+        });
+    _autoMapper = config.CreateMapper();
+
+    _benchSource = fixture.Create<BenchNestedSource>();
+    _simpleSource = fixture.Create<SimpleTypesSource>();
+    _simple100List = fixture.CreateMany<SimpleTypesSource>(100).ToList();
+    _simple1000List = fixture.CreateMany<SimpleTypesSource>(1000).ToList();
+    _benchSources1000List = fixture.CreateMany<BenchNestedSource>(1000).ToList();
+  }
 
   [Benchmark(OperationsPerInvoke = IterationCount)]
   public BenchNestedDestination BenchNested_a_HardMapper()
@@ -71,30 +93,6 @@ public class MapperBenchmark
   public List<BenchNestedDestination> BenchNested1000_c_AutoMapper()
   {
     return _autoMapper.Map<List<BenchNestedSource>, List<BenchNestedDestination>>(_benchSources1000List);
-  }
-
-  [GlobalSetup]
-  public void Setup()
-  {
-    var fixture = new Fixture();
-    _benchSourceEmitMapper = ObjectMapperManager.DefaultInstance.GetMapper<BenchNestedSource, BenchNestedDestination>();
-    _simpleEmitMapper =
-      ObjectMapperManager.DefaultInstance.GetMapper<SimpleTypesSource, SimpleTypesDestination>(new DefaultMapConfig());
-    var config = new MapperConfiguration(
-      cfg =>
-        {
-          cfg.CreateMap<BenchNestedSource, BenchNestedDestination>();
-          cfg.CreateMap<BenchNestedSource.Nested2, BenchNestedDestination.Inner2>();
-          cfg.CreateMap<BenchNestedSource.Nested1, BenchNestedDestination.Inner1>();
-          cfg.CreateMap<SimpleTypesSource, SimpleTypesDestination>();
-        });
-    _autoMapper = config.CreateMapper();
-
-    _benchSource = fixture.Create<BenchNestedSource>();
-    _simpleSource = fixture.Create<SimpleTypesSource>();
-    _simple100List = fixture.CreateMany<SimpleTypesSource>(100).ToList();
-    _simple1000List = fixture.CreateMany<SimpleTypesSource>(1000).ToList();
-    _benchSources1000List = fixture.CreateMany<BenchNestedSource>(1000).ToList();
   }
 
   [Benchmark(OperationsPerInvoke = IterationCount)]
@@ -235,6 +233,8 @@ public class MapperBenchmark
     result.N8 = s.N8;
     return result;
   }
+
+  private const int IterationCount = 1_000;
 }
 
 /*******

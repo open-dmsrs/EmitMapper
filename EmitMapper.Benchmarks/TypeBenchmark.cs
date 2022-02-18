@@ -15,9 +15,13 @@ public class Employee
 [MemoryDiagnoser]
 public class TypeBenchmark
 {
-  private const int IterationCount = 1_000;
-
   private Employee e;
+
+  [GlobalSetup]
+  public void Setup()
+  {
+    e = new Employee();
+  }
 
   [Benchmark(OperationsPerInvoke = IterationCount)]
   public Type Of_GetType()
@@ -37,11 +41,7 @@ public class TypeBenchmark
     return typeof(Employee);
   }
 
-  [GlobalSetup]
-  public void Setup()
-  {
-    e = new Employee();
-  }
+  private const int IterationCount = 1_000;
 }
 
 /*/ * Summary *
