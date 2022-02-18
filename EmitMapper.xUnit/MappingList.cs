@@ -1,22 +1,19 @@
-namespace EmitMapper.Tests;
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
 using AutoFixture;
 using AutoFixture.Kernel;
 using AutoFixture.Xunit2;
-
 using EmitMapper.Common.TestData;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.Utils;
-
 using Xunit;
 using Xunit.Abstractions;
+
+namespace EmitMapper.Tests;
 
 public class MapListObject
 {
@@ -58,13 +55,13 @@ public class MapListObject
   public static KeyValuePair<string, object> GetMemberValue(MemberInfo member, object target)
   {
     return member switch
-      {
-        PropertyInfo property => KeyValuePair.Create(property.Name, property.GetValue(target)),
-        MethodInfo method => KeyValuePair.Create(method.Name, method.Invoke(target, null)),
-        FieldInfo field => KeyValuePair.Create(field.Name, field.GetValue(target)),
-        null => throw new ArgumentNullException(nameof(member)),
-        _ => throw new ArgumentOutOfRangeException(nameof(member))
-      };
+    {
+      PropertyInfo property => KeyValuePair.Create(property.Name, property.GetValue(target)),
+      MethodInfo method => KeyValuePair.Create(method.Name, method.Invoke(target, null)),
+      FieldInfo field => KeyValuePair.Create(field.Name, field.GetValue(target)),
+      null => throw new ArgumentNullException(nameof(member)),
+      _ => throw new ArgumentOutOfRangeException(nameof(member))
+    };
   }
 
   [Fact]
@@ -83,22 +80,22 @@ public class MapListObject
     _testOutputHelper.WriteLine(listFrom.Count.ToString());
 
     var rw1 = new ReadWriteSimple
-                {
-                  Source = new MemberDescriptor(
-                    typeof(FromClass).GetMember(nameof(FromClass.Inner))[0].AsEnumerable(
-                      typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[0])),
-                  Destination = new MemberDescriptor(
-                    typeof(ToClass).GetMember(nameof(ToClass.Message))[0].AsEnumerable())
-                };
+    {
+      Source = new MemberDescriptor(
+        typeof(FromClass).GetMember(nameof(FromClass.Inner))[0].AsEnumerable(
+          typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[0])),
+      Destination = new MemberDescriptor(
+        typeof(ToClass).GetMember(nameof(ToClass.Message))[0].AsEnumerable())
+    };
 
     var rw2 = new ReadWriteSimple
-                {
-                  Source = new MemberDescriptor(
-                    typeof(FromClass).GetMember(nameof(FromClass.Inner))[0].AsEnumerable(
-                      typeof(FromClass.InnerClass).GetMember(nameof(FromClass.InnerClass.GetMessage2))[0])),
-                  Destination = new MemberDescriptor(
-                    typeof(ToClass).GetMember(nameof(ToClass.Message2))[0].AsEnumerable())
-                };
+    {
+      Source = new MemberDescriptor(
+        typeof(FromClass).GetMember(nameof(FromClass.Inner))[0].AsEnumerable(
+          typeof(FromClass.InnerClass).GetMember(nameof(FromClass.InnerClass.GetMessage2))[0])),
+      Destination = new MemberDescriptor(
+        typeof(ToClass).GetMember(nameof(ToClass.Message2))[0].AsEnumerable())
+    };
 
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<List<FromClass>, List<ToClass>>(
       new CustomMapConfig { GetMappingOperationFunc = (from, to) => rw1.AsEnumerable(rw2) });
@@ -141,26 +138,26 @@ public class MapListObject
     _testOutputHelper.WriteLine(listFrom.Count.ToString());
 
     var rw1 = new ReadWriteSimple
-                {
-                  Source = new MemberDescriptor(
-                    new[]
-                      {
-                        typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
-                        typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[0]
-                      }),
-                  Destination = new MemberDescriptor(new[] { typeof(ToClass).GetMember(nameof(ToClass.Message))[0] })
-                };
+    {
+      Source = new MemberDescriptor(
+        new[]
+        {
+          typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
+          typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[0]
+        }),
+      Destination = new MemberDescriptor(new[] { typeof(ToClass).GetMember(nameof(ToClass.Message))[0] })
+    };
 
     var rw2 = new ReadWriteSimple
-                {
-                  Source = new MemberDescriptor(
-                    new[]
-                      {
-                        typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
-                        typeof(FromClass.InnerClass).GetMember(nameof(FromClass.InnerClass.GetMessage2))[0]
-                      }),
-                  Destination = new MemberDescriptor(new[] { typeof(ToClass).GetMember(nameof(ToClass.Message2))[0] })
-                };
+    {
+      Source = new MemberDescriptor(
+        new[]
+        {
+          typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
+          typeof(FromClass.InnerClass).GetMember(nameof(FromClass.InnerClass.GetMessage2))[0]
+        }),
+      Destination = new MemberDescriptor(new[] { typeof(ToClass).GetMember(nameof(ToClass.Message2))[0] })
+    };
 
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<ArrayList, ArrayList>(
       new CustomMapConfig { GetMappingOperationFunc = (from, to) => rw1.AsEnumerable(rw2) });

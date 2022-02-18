@@ -1,15 +1,14 @@
-﻿namespace EmitMapper.EmitInvoker.Methods;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
 using EmitMapper.AST;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 using EmitMapper.AST.Nodes;
 using EmitMapper.Utils;
+
+namespace EmitMapper.EmitInvoker.Methods;
 
 public static class MethodInvoker
 {
@@ -22,11 +21,11 @@ public static class MethodInvoker
     var type = Cache.GetOrAdd(
       typeName,
       _ =>
-        {
-          if (mi.ReturnType == Metadata.Void)
-            return BuildActionCallerType(typeName, mi);
-          return BuildFuncCallerType(typeName, mi);
-        });
+      {
+        if (mi.ReturnType == Metadata.Void)
+          return BuildActionCallerType(typeName, mi);
+        return BuildFuncCallerType(typeName, mi);
+      });
 
     var result = (MethodInvokerBase)ObjectFactory.CreateInstance(type);
     result.TargetObject = targetObject;
@@ -37,13 +36,13 @@ public static class MethodInvoker
   {
     var par = mi.GetParameters();
     var actionCallerType = par.Length switch
-      {
-        0 => Metadata<MethodInvokerAction0>.Type,
-        1 => Metadata<MethodInvokerAction1>.Type,
-        2 => Metadata<MethodInvokerAction2>.Type,
-        3 => Metadata<MethodInvokerAction3>.Type,
-        _ => throw new EmitMapperException("too many method parameters")
-      };
+    {
+      0 => Metadata<MethodInvokerAction0>.Type,
+      1 => Metadata<MethodInvokerAction1>.Type,
+      2 => Metadata<MethodInvokerAction2>.Type,
+      3 => Metadata<MethodInvokerAction3>.Type,
+      _ => throw new EmitMapperException("too many method parameters")
+    };
 
     var tb = DynamicAssemblyManager.DefineType(typeName, actionCallerType);
 
@@ -63,13 +62,13 @@ public static class MethodInvoker
   {
     var par = mi.GetParameters();
     var funcCallerType = par.Length switch
-      {
-        0 => Metadata<MethodInvokerFunc0>.Type,
-        1 => Metadata<MethodInvokerFunc1>.Type,
-        2 => Metadata<MethodInvokerFunc2>.Type,
-        3 => Metadata<MethodInvokerFunc3>.Type,
-        _ => throw new EmitMapperException("too many method parameters")
-      };
+    {
+      0 => Metadata<MethodInvokerFunc0>.Type,
+      1 => Metadata<MethodInvokerFunc1>.Type,
+      2 => Metadata<MethodInvokerFunc2>.Type,
+      3 => Metadata<MethodInvokerFunc3>.Type,
+      _ => throw new EmitMapperException("too many method parameters")
+    };
 
     var tb = DynamicAssemblyManager.DefineType(typeName, funcCallerType);
 

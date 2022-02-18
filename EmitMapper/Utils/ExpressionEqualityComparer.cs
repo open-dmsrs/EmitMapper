@@ -1,10 +1,10 @@
-﻿namespace EmitMapper.Utils;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+
+namespace EmitMapper.Utils;
 
 /// <summary>
 ///   A comparer which implements <see cref="IEqualityComparer{T}" /> for <see cref="Expression" />.
@@ -277,38 +277,38 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
       if (left.Type != right.Type) return false;
 
       return left switch
-        {
-          BinaryExpression leftBinary => CompareBinary(leftBinary, (BinaryExpression)right),
-          BlockExpression leftBlock => CompareBlock(leftBlock, (BlockExpression)right),
-          ConditionalExpression leftConditional => CompareConditional(leftConditional, (ConditionalExpression)right),
-          ConstantExpression leftConstant => CompareConstant(leftConstant, (ConstantExpression)right),
-          DefaultExpression _ => true, // Intentionally empty. No additional members
-          GotoExpression leftGoto => CompareGoto(leftGoto, (GotoExpression)right),
-          IndexExpression leftIndex => CompareIndex(leftIndex, (IndexExpression)right),
-          InvocationExpression leftInvocation => CompareInvocation(leftInvocation, (InvocationExpression)right),
-          LabelExpression leftLabel => CompareLabel(leftLabel, (LabelExpression)right),
-          LambdaExpression leftLambda => CompareLambda(leftLambda, (LambdaExpression)right),
-          ListInitExpression leftListInit => CompareListInit(leftListInit, (ListInitExpression)right),
-          LoopExpression leftLoop => CompareLoop(leftLoop, (LoopExpression)right),
-          MemberExpression leftMember => CompareMember(leftMember, (MemberExpression)right),
-          MemberInitExpression leftMemberInit => CompareMemberInit(leftMemberInit, (MemberInitExpression)right),
-          MethodCallExpression leftMethodCall => CompareMethodCall(leftMethodCall, (MethodCallExpression)right),
-          NewArrayExpression leftNewArray => CompareNewArray(leftNewArray, (NewArrayExpression)right),
-          NewExpression leftNew => CompareNew(leftNew, (NewExpression)right),
-          ParameterExpression leftParameter => CompareParameter(leftParameter, (ParameterExpression)right),
-          RuntimeVariablesExpression leftRuntimeVariables => CompareRuntimeVariables(
-            leftRuntimeVariables,
-            (RuntimeVariablesExpression)right),
-          SwitchExpression leftSwitch => CompareSwitch(leftSwitch, (SwitchExpression)right),
-          TryExpression leftTry => CompareTry(leftTry, (TryExpression)right),
-          TypeBinaryExpression leftTypeBinary => CompareTypeBinary(leftTypeBinary, (TypeBinaryExpression)right),
-          UnaryExpression leftUnary => CompareUnary(leftUnary, (UnaryExpression)right),
+      {
+        BinaryExpression leftBinary => CompareBinary(leftBinary, (BinaryExpression)right),
+        BlockExpression leftBlock => CompareBlock(leftBlock, (BlockExpression)right),
+        ConditionalExpression leftConditional => CompareConditional(leftConditional, (ConditionalExpression)right),
+        ConstantExpression leftConstant => CompareConstant(leftConstant, (ConstantExpression)right),
+        DefaultExpression _ => true, // Intentionally empty. No additional members
+        GotoExpression leftGoto => CompareGoto(leftGoto, (GotoExpression)right),
+        IndexExpression leftIndex => CompareIndex(leftIndex, (IndexExpression)right),
+        InvocationExpression leftInvocation => CompareInvocation(leftInvocation, (InvocationExpression)right),
+        LabelExpression leftLabel => CompareLabel(leftLabel, (LabelExpression)right),
+        LambdaExpression leftLambda => CompareLambda(leftLambda, (LambdaExpression)right),
+        ListInitExpression leftListInit => CompareListInit(leftListInit, (ListInitExpression)right),
+        LoopExpression leftLoop => CompareLoop(leftLoop, (LoopExpression)right),
+        MemberExpression leftMember => CompareMember(leftMember, (MemberExpression)right),
+        MemberInitExpression leftMemberInit => CompareMemberInit(leftMemberInit, (MemberInitExpression)right),
+        MethodCallExpression leftMethodCall => CompareMethodCall(leftMethodCall, (MethodCallExpression)right),
+        NewArrayExpression leftNewArray => CompareNewArray(leftNewArray, (NewArrayExpression)right),
+        NewExpression leftNew => CompareNew(leftNew, (NewExpression)right),
+        ParameterExpression leftParameter => CompareParameter(leftParameter, (ParameterExpression)right),
+        RuntimeVariablesExpression leftRuntimeVariables => CompareRuntimeVariables(
+          leftRuntimeVariables,
+          (RuntimeVariablesExpression)right),
+        SwitchExpression leftSwitch => CompareSwitch(leftSwitch, (SwitchExpression)right),
+        TryExpression leftTry => CompareTry(leftTry, (TryExpression)right),
+        TypeBinaryExpression leftTypeBinary => CompareTypeBinary(leftTypeBinary, (TypeBinaryExpression)right),
+        UnaryExpression leftUnary => CompareUnary(leftUnary, (UnaryExpression)right),
 
-          _ => left.NodeType == ExpressionType.Extension
-                 ? left.Equals(right)
-                 : throw new InvalidOperationException(
-                     $"The comparison operation has not implemented to expression type {left.NodeType}")
-        };
+        _ => left.NodeType == ExpressionType.Extension
+          ? left.Equals(right)
+          : throw new InvalidOperationException(
+            $"The comparison operation has not implemented to expression type {left.NodeType}")
+      };
     }
 
     private static bool CompareConstant(ConstantExpression a, ConstantExpression b)
@@ -534,8 +534,8 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     private bool CompareParameter(ParameterExpression a, ParameterExpression b)
     {
       return _parameterScope != null && _parameterScope.TryGetValue(a, out var mapped)
-               ? mapped.Name == b.Name
-               : a.Name == b.Name;
+        ? mapped.Name == b.Name
+        : a.Name == b.Name;
     }
 
     private bool CompareRuntimeVariables(RuntimeVariablesExpression a, RuntimeVariablesExpression b)

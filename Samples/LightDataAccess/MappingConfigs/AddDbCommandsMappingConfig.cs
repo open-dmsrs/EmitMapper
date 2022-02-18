@@ -1,15 +1,14 @@
-﻿namespace LightDataAccess.MappingConfigs;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
-
 using EmitMapper;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
+
+namespace LightDataAccess.MappingConfigs;
 
 internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
 {
@@ -53,9 +52,9 @@ internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
 
     return members.Select(
       m => new SrcReadOperation
-             {
-               Source = new MemberDescriptor(m.AsEnumerable()),
-               Setter = (obj, v, s) => ((DbCommand)obj).AddParam(_dbSettings.ParamPrefix + m.Name, v)
-             });
+      {
+        Source = new MemberDescriptor(m.AsEnumerable()),
+        Setter = (obj, v, s) => ((DbCommand)obj).AddParam(_dbSettings.ParamPrefix + m.Name, v)
+      });
   }
 }

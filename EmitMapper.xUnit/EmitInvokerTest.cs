@@ -1,21 +1,14 @@
-﻿namespace EmitMapper.Tests;
-
-using System;
+﻿using System;
 using System.Reflection;
-
 using EmitMapper.EmitInvoker.Delegates;
 using EmitMapper.EmitInvoker.Methods;
 using EmitMapper.Utils;
-
 using Xunit;
+
+namespace EmitMapper.Tests;
 
 public class EmitInvokerTest
 {
-  public static int InvokeTest2(int par)
-  {
-    return par;
-  }
-
   [Fact]
   public void EmitInvokerTest_TestCall1()
   {
@@ -59,5 +52,10 @@ public class EmitInvokerTest
   public int InvokeTest1()
   {
     return 3;
+  }
+
+  public static int InvokeTest2(int par)
+  {
+    return par;
   }
 }

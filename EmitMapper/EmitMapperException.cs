@@ -1,8 +1,7 @@
-﻿namespace EmitMapper;
-
-using System;
-
+﻿using System;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+
+namespace EmitMapper;
 
 public class EmitMapperException : ApplicationException
 {

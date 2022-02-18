@@ -1,7 +1,7 @@
-﻿namespace EmitMapper.Utils;
-
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
+
+namespace EmitMapper.Utils;
 
 public readonly struct ConstructorParameters
 {

@@ -1,15 +1,14 @@
-﻿namespace EMConfigurations;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
 using EmitMapper;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
+
+namespace EMConfigurations;
 
 public class FlatteringConfig : DefaultMapConfig
 {
@@ -34,9 +33,9 @@ public class FlatteringConfig : DefaultMapConfig
     var result = destinationMembers
       .Select(dest => new { dest, matchedChain = GetMatchedChain(dest.Name, sourceMembers) }).Select(
         x => new ReadWriteSimple
-               {
-                 Source = new MemberDescriptor(x.matchedChain), Destination = new MemberDescriptor(new[] { x.dest })
-               });
+        {
+          Source = new MemberDescriptor(x.matchedChain), Destination = new MemberDescriptor(new[] { x.dest })
+        });
 
     return FilterOperations(from, to, result);
   }

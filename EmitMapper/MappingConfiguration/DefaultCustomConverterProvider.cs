@@ -1,9 +1,8 @@
-﻿namespace EmitMapper.MappingConfiguration;
-
-using System;
+﻿using System;
 using System.Linq;
-
 using EmitMapper.Utils;
+
+namespace EmitMapper.MappingConfiguration;
 
 public class DefaultCustomConverterProvider : ICustomConverterProvider
 {
@@ -27,10 +26,10 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
   public virtual CustomConverterDescriptor GetCustomConverterDescr(Type from, Type to, MapConfigBaseImpl mappingConfig)
   {
     return new CustomConverterDescriptor
-             {
-               ConverterClassTypeArguments = GetGenericArguments(from).Concat(GetGenericArguments(to)),
-               ConverterImplementation = _converterType,
-               ConversionMethodName = "Convert"
-             };
+    {
+      ConverterClassTypeArguments = GetGenericArguments(from).Concat(GetGenericArguments(to)),
+      ConverterImplementation = _converterType,
+      ConversionMethodName = "Convert"
+    };
   }
 }

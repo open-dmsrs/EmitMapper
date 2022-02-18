@@ -1,10 +1,8 @@
-﻿namespace EmitMapper.Tests;
-
-using System;
-
+﻿using System;
 using EmitMapper.MappingConfiguration;
-
 using Xunit;
+
+namespace EmitMapper.Tests;
 
 ////[TestFixture]
 public class NullableTypes
@@ -30,14 +28,14 @@ public class NullableTypes
   {
     var bint = new B3.BInt { Fld1 = "b" };
     var b = new B3
-              {
-                Fld1 = bint,
-                Fld2 = bint,
-                Fld3 = bint,
-                Fld4 = bint,
-                Fld6 = bint,
-                Fld7 = bint
-              };
+    {
+      Fld1 = bint,
+      Fld2 = bint,
+      Fld3 = bint,
+      Fld4 = bint,
+      Fld6 = bint,
+      Fld7 = bint
+    };
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B3, A3>();
 
     // DynamicAssemblyManager.SaveAssembly();

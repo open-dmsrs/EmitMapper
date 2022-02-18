@@ -1,6 +1,6 @@
-namespace LightDataAccess;
-
 using System.Collections.Generic;
+
+namespace LightDataAccess;
 
 /// <summary>
 ///   The class to map objects.

@@ -1,16 +1,15 @@
-﻿namespace EmitMapper.Mappers;
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-
 using EmitMapper.AST;
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 using EmitMapper.AST.Nodes;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.Utils;
+
+namespace EmitMapper.Mappers;
 
 /// <summary>
 ///   Mapper for collections. It can copy Array, List&lt;&gt;, ArrayList collections.
@@ -208,16 +207,13 @@ public class MapperForCollectionImpl : CustomMapperImpl
     var mi = copyMethod?.MakeGenericMethod(ExtractElementType(copiedObjectType));
 
     return new AstReturn
-             {
-               ReturnType = Metadata<object>.Type,
-               ReturnValue = AstBuildHelper.CallMethod(
-                 mi,
-                 AstBuildHelper.ReadThis(Metadata<MapperForCollectionImpl>.Type),
-                 new List<IAstStackItem>
-                   {
-                     new AstReadArgumentRef { ArgumentIndex = 1, ArgumentType = Metadata<object>.Type }
-                   })
-             };
+    {
+      ReturnType = Metadata<object>.Type,
+      ReturnValue = AstBuildHelper.CallMethod(
+        mi,
+        AstBuildHelper.ReadThis(Metadata<MapperForCollectionImpl>.Type),
+        new List<IAstStackItem> { new AstReadArgumentRef { ArgumentIndex = 1, ArgumentType = Metadata<object>.Type } })
+    };
   }
 
   private Array CopyScalarToArray(object scalar)

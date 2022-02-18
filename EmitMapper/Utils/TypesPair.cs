@@ -1,7 +1,7 @@
-﻿namespace EmitMapper.Utils;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+
+namespace EmitMapper.Utils;
 
 public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<TypesPair>
 {
@@ -44,11 +44,11 @@ public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<Type
       sourceArguments = destinationArguments;
     else if (destinationArguments.Length == 0) destinationArguments = sourceArguments;
     var closedSourceType = SourceType.IsGenericTypeDefinition
-                             ? SourceType.MakeGenericType(sourceArguments)
-                             : SourceType;
+      ? SourceType.MakeGenericType(sourceArguments)
+      : SourceType;
     var closedDestinationType = DestinationType.IsGenericTypeDefinition
-                                  ? DestinationType.MakeGenericType(destinationArguments)
-                                  : DestinationType;
+      ? DestinationType.MakeGenericType(destinationArguments)
+      : DestinationType;
     return new TypesPair(closedSourceType, closedDestinationType);
   }
 

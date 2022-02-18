@@ -1,17 +1,14 @@
-﻿namespace SamplesTests;
-
-using System;
+﻿using System;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Transactions;
-
 using EmitMapper;
-
 using LightDataAccess;
-
 using Xunit;
+
+namespace SamplesTests;
 
 public class Customer
 {
@@ -43,14 +40,22 @@ public class Customer
 /// </summary>
 public class CustormTests
 {
-  private readonly ConnectionStringSettings _connectionConfig;
-
-  private readonly DbProviderFactory _factory;
-
   public CustormTests()
   {
     _connectionConfig = ConfigurationManager.ConnectionStrings["NorthWindSqlite"];
     _factory = DbProviderFactories.GetFactory(_connectionConfig.ProviderName);
+  }
+
+  private readonly ConnectionStringSettings _connectionConfig;
+
+  private readonly DbProviderFactory _factory;
+
+  private DbConnection CreateConnection()
+  {
+    var result = _factory.CreateConnection();
+    result.ConnectionString = _connectionConfig.ConnectionString;
+    result.Open();
+    return result;
   }
 
   // [Fact]
@@ -78,14 +83,14 @@ public class CustormTests
     var rs = DbTools.InsertObject(
       connection,
       new
-        {
-          col1 = 10,
-          col2 = 11,
-          col3 = 12,
-          col4 = 13,
-          col5 = 1,
-          col6 = 2
-        },
+      {
+        col1 = 10,
+        col2 = 11,
+        col3 = 12,
+        col4 = 13,
+        col5 = 1,
+        col6 = 2
+      },
       "test",
       DbSettings.Mssql).Result;
     ts.Complete();
@@ -121,13 +126,5 @@ public class CustormTests
       tracker,
       DbSettings.Mssql);
     Assert.True(result.Result == 1);
-  }
-
-  private DbConnection CreateConnection()
-  {
-    var result = _factory.CreateConnection();
-    result.ConnectionString = _connectionConfig.ConnectionString;
-    result.Open();
-    return result;
   }
 }

@@ -12,10 +12,10 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace LightDataAccess;
-
 using System.Collections.Generic;
 using System.Linq;
+
+namespace LightDataAccess;
 
 /// <summary>
 ///   Class FilterConstraints

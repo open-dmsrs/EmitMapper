@@ -1,17 +1,15 @@
-﻿namespace SamplesTests;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-
 using EmitMapper;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
-
 using Xunit;
+
+namespace SamplesTests;
 
 public class TestMappingToDataRow
 {
@@ -51,13 +49,10 @@ public class TestMappingToDataRow
         to,
         objectMembers.Select(
           m => (IMappingOperation)new SrcReadOperation
-                                    {
-                                      Source = new MemberDescriptor(m),
-                                      Setter = (obj, value, state) =>
-                                        {
-                                          ((DataRow)obj)[m.Name] = value ?? DBNull.Value;
-                                        }
-                                    })).ToArray();
+          {
+            Source = new MemberDescriptor(m),
+            Setter = (obj, value, state) => { ((DataRow)obj)[m.Name] = value ?? DBNull.Value; }
+          })).ToArray();
     }
   }
 

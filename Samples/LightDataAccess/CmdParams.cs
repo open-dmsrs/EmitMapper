@@ -12,9 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace LightDataAccess;
-
 using System.Collections.Generic;
+
+namespace LightDataAccess;
 
 /// <summary>
 ///   Class CmdParams

@@ -1,10 +1,8 @@
-﻿namespace SamplesTests;
-
-using System.Linq;
-
+﻿using System.Linq;
 using LightDataAccess;
-
 using Xunit;
+
+namespace SamplesTests;
 
 public class TestObjectsTracker
 {

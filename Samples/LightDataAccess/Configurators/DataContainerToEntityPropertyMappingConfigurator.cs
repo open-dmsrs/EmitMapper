@@ -1,14 +1,13 @@
-namespace LightDataAccess.Configurators;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
+
+namespace LightDataAccess.Configurators;
 
 /// <summary>
 ///   The data container to object configuration.
@@ -31,31 +30,31 @@ public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
           member => (member.MemberType == MemberTypes.Field || member.MemberType == MemberTypes.Property)
                     && ((PropertyInfo)member).GetSetMethod() != null).Select(
           destinationMember => (IMappingOperation)new DestWriteOperation
-                                                    {
-                                                      Destination = new MemberDescriptor(destinationMember),
-                                                      Getter = (ValueGetter<object>)((item, state) =>
-                                                              {
-                                                                if (item is not DataContainer value)
-                                                                  return ValueToWrite<object>.Skip();
-                                                                var destinationType =
-                                                                  ReflectionHelper.GetMemberReturnType(
-                                                                    destinationMember);
+          {
+            Destination = new MemberDescriptor(destinationMember),
+            Getter = (ValueGetter<object>)((item, state) =>
+            {
+              if (item is not DataContainer value)
+                return ValueToWrite<object>.Skip();
+              var destinationType =
+                ReflectionHelper.GetMemberReturnType(
+                  destinationMember);
 
-                                                                var fieldDescription =
-                                                                  ReflectionHelper.GetDataMemberDefinition(
-                                                                    destinationMember);
-                                                                var destinationMemberValue =
-                                                                  ConvertFieldToDestinationProperty(
-                                                                    value,
-                                                                    destinationType,
-                                                                    fieldDescription.FirstOrDefault());
+              var fieldDescription =
+                ReflectionHelper.GetDataMemberDefinition(
+                  destinationMember);
+              var destinationMemberValue =
+                ConvertFieldToDestinationProperty(
+                  value,
+                  destinationType,
+                  fieldDescription.FirstOrDefault());
 
-                                                                return destinationMemberValue == null
-                                                                         ? ValueToWrite<object>.Skip()
-                                                                         : ValueToWrite<object>.ReturnValue(
-                                                                           destinationMemberValue);
-                                                              })
-                                                    }));
+              return destinationMemberValue == null
+                ? ValueToWrite<object>.Skip()
+                : ValueToWrite<object>.ReturnValue(
+                  destinationMemberValue);
+            })
+          }));
   }
 
   /// <summary>

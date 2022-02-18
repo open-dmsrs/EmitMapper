@@ -1,13 +1,12 @@
-﻿namespace EmitMapper.MappingConfiguration;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using EmitMapper.Conversion;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
+
+namespace EmitMapper.MappingConfiguration;
 
 /// <summary>
 /// </summary>
@@ -39,10 +38,10 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   public virtual void BuildConfigurationName()
   {
     _configurationName = new[]
-                           {
-                             ToStr(_customConverters), ToStr(_nullSubstitutors), ToStr(_ignoreMembers),
-                             ToStr(_postProcessors), ToStr(_customConstructors)
-                           }.ToCsv(";");
+    {
+      ToStr(_customConverters), ToStr(_nullSubstitutors), ToStr(_ignoreMembers), ToStr(_postProcessors),
+      ToStr(_customConstructors)
+    }.ToCsv(";");
   }
 
   /// <summary>
@@ -110,14 +109,14 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     var converter = _customConverters.GetValue(new[] { from, to }) ?? GetGenericConverter(from, to);
 
     return new RootMappingOperation(from, to)
-             {
-               TargetConstructor = _customConstructors.GetValue(to),
-               NullSubstitutor = _nullSubstitutors.GetValue(to),
-               ValuesPostProcessor = _postProcessors.GetValue(to),
-               Converter = converter,
-               DestinationFilter = _destinationFilters.GetValue(to),
-               SourceFilter = _sourceFilters.GetValue(from)
-             };
+    {
+      TargetConstructor = _customConstructors.GetValue(to),
+      NullSubstitutor = _nullSubstitutors.GetValue(to),
+      ValuesPostProcessor = _postProcessors.GetValue(to),
+      Converter = converter,
+      DestinationFilter = _destinationFilters.GetValue(to),
+      SourceFilter = _sourceFilters.GetValue(from)
+    };
   }
 
   public virtual StaticConvertersManager GetStaticConvertersManager()
@@ -208,36 +207,36 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   {
     return operations.Select(
       op =>
+      {
+        if (op is IReadWriteOperation readwrite)
         {
-          if (op is IReadWriteOperation readwrite)
-          {
-            if (TestIgnore(from, to, readwrite.Source, readwrite.Destination))
-              return null;
+          if (TestIgnore(from, to, readwrite.Source, readwrite.Destination))
+            return null;
 
-            readwrite.NullSubstitutor =
-              _nullSubstitutors.GetValue(new[] { readwrite.Source.MemberType, readwrite.Destination.MemberType });
-            readwrite.TargetConstructor = _customConstructors.GetValue(readwrite.Destination.MemberType);
-            readwrite.Converter =
-              _customConverters.GetValue(new[] { readwrite.Source.MemberType, readwrite.Destination.MemberType })
-              ?? GetGenericConverter(readwrite.Source.MemberType, readwrite.Destination.MemberType);
-            readwrite.DestinationFilter = _destinationFilters.GetValue(readwrite.Destination.MemberType);
-            readwrite.SourceFilter = _sourceFilters.GetValue(readwrite.Source.MemberType);
-          }
+          readwrite.NullSubstitutor =
+            _nullSubstitutors.GetValue(new[] { readwrite.Source.MemberType, readwrite.Destination.MemberType });
+          readwrite.TargetConstructor = _customConstructors.GetValue(readwrite.Destination.MemberType);
+          readwrite.Converter =
+            _customConverters.GetValue(new[] { readwrite.Source.MemberType, readwrite.Destination.MemberType })
+            ?? GetGenericConverter(readwrite.Source.MemberType, readwrite.Destination.MemberType);
+          readwrite.DestinationFilter = _destinationFilters.GetValue(readwrite.Destination.MemberType);
+          readwrite.SourceFilter = _sourceFilters.GetValue(readwrite.Source.MemberType);
+        }
 
-          if (op is ReadWriteComplex readWriteComplex)
-            readWriteComplex.ValuesPostProcessor = _postProcessors.GetValue(readWriteComplex.Destination.MemberType);
+        if (op is ReadWriteComplex readWriteComplex)
+          readWriteComplex.ValuesPostProcessor = _postProcessors.GetValue(readWriteComplex.Destination.MemberType);
 
-          if (op is IComplexOperation complexOperation)
-          {
-            var orw = complexOperation as IReadWriteOperation;
-            complexOperation.Operations = FilterOperations(
-              orw == null ? from : orw.Source.MemberType,
-              orw == null ? to : orw.Destination.MemberType,
-              complexOperation.Operations).ToList();
-          }
+        if (op is IComplexOperation complexOperation)
+        {
+          var orw = complexOperation as IReadWriteOperation;
+          complexOperation.Operations = FilterOperations(
+            orw == null ? from : orw.Source.MemberType,
+            orw == null ? to : orw.Destination.MemberType,
+            complexOperation.Operations).ToList();
+        }
 
-          return op;
-        }).Where(x => x != null);
+        return op;
+      }).Where(x => x != null);
   }
 
   protected void RegisterDefaultCollectionConverters()
@@ -257,9 +256,9 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
       return null;
 
     var genericConverter = converterDescr.ConverterClassTypeArguments.Any()
-                             ? converterDescr.ConverterImplementation.MakeGenericType(
-                               converterDescr.ConverterClassTypeArguments.ToArray())
-                             : converterDescr.ConverterImplementation;
+      ? converterDescr.ConverterImplementation.MakeGenericType(
+        converterDescr.ConverterClassTypeArguments.ToArray())
+      : converterDescr.ConverterImplementation;
 
     var mi = genericConverter.GetMethodCache(converterDescr.ConversionMethodName);
 

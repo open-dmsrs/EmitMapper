@@ -1,9 +1,9 @@
-namespace EmitMapper.Utils;
-
 using System;
 using System.Linq.Expressions;
 
-using static System.Linq.Expressions.Expression;
+namespace EmitMapper.Utils;
+
+using static Expression;
 
 public static class ExpressionHelper
 {

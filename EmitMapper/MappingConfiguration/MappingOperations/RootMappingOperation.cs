@@ -1,8 +1,7 @@
-﻿namespace EmitMapper.MappingConfiguration.MappingOperations;
-
-using System;
-
+﻿using System;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+
+namespace EmitMapper.MappingConfiguration.MappingOperations;
 
 public class RootMappingOperation : IRootMappingOperation
 {

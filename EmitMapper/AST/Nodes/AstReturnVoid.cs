@@ -1,8 +1,7 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System.Reflection.Emit;
-
+﻿using System.Reflection.Emit;
 using EmitMapper.AST.Interfaces;
+
+namespace EmitMapper.AST.Nodes;
 
 internal class AstReturnVoid : IAstNode
 {

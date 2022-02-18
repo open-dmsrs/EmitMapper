@@ -1,6 +1,6 @@
-﻿namespace EmitMapper.EmitInvoker.Delegates;
+﻿using System;
 
-using System;
+namespace EmitMapper.EmitInvoker.Delegates;
 
 public class DelegateInvokerBase
 {

@@ -1,10 +1,9 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System;
+﻿using System;
 using System.Reflection.Emit;
-
 using EmitMapper.AST.Interfaces;
 using EmitMapper.Utils;
+
+namespace EmitMapper.AST.Nodes;
 
 internal class AstExprNot : IAstValue
 {

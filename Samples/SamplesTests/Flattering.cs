@@ -1,12 +1,9 @@
-﻿namespace SamplesTests;
-
-using System;
-
+﻿using System;
 using EMConfigurations;
-
 using EmitMapper;
-
 using Xunit;
+
+namespace SamplesTests;
 
 public class Flattering
 {
@@ -14,16 +11,15 @@ public class Flattering
   public void TestFlattering()
   {
     var source = new ModelObject
-                   {
-                     BaseDate = DateTime.Now,
-                     Sub = new ModelSubObject
-                             {
-                               ProperName = "Some name",
-                               SubSub = new ModelSubSubObject { IAmACoolProperty = "Cool daddy-o" }
-                             },
-                     Sub2 = new ModelSubObject { ProperName = "Sub 2 name" },
-                     SubWithExtraName = new ModelSubObject { ProperName = "Some other name" }
-                   };
+    {
+      BaseDate = DateTime.Now,
+      Sub = new ModelSubObject
+      {
+        ProperName = "Some name", SubSub = new ModelSubSubObject { IAmACoolProperty = "Cool daddy-o" }
+      },
+      Sub2 = new ModelSubObject { ProperName = "Sub 2 name" },
+      SubWithExtraName = new ModelSubObject { ProperName = "Some other name" }
+    };
 
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<ModelObject, ModelDto>(
       new FlatteringConfig().IgnoreMembers<ModelObject, ModelDto>("SubSubSubNoExistInSourceProperty"));

@@ -1,6 +1,6 @@
-﻿namespace EmitMapper.MappingConfiguration.MappingOperations;
+﻿using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
-using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+namespace EmitMapper.MappingConfiguration.MappingOperations;
 
 public delegate void ValueProcessor(object srcValue, object dstValue, object state);
 

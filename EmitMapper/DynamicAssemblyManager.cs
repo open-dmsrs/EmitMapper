@@ -1,11 +1,10 @@
-﻿namespace EmitMapper;
-
-using System;
+﻿using System;
 using System.Reflection;
 using System.Reflection.Emit;
-
 using EmitMapper.Mappers;
 using EmitMapper.Utils;
+
+namespace EmitMapper;
 
 /// <summary>
 ///   Class which maintains an assembly for created object Mappers

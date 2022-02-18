@@ -1,8 +1,7 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System.Collections.Generic;
-
+﻿using System.Collections.Generic;
 using EmitMapper.AST.Interfaces;
+
+namespace EmitMapper.AST.Nodes;
 
 internal class AstComplexNode : IAstNode
 {

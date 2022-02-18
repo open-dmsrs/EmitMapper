@@ -12,18 +12,16 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace LightDataAccess;
-
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
-
 using EmitMapper;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
-
 using LightDataAccess.MappingConfigs;
+
+namespace LightDataAccess;
 
 /// <summary>
 ///   Class CommandBuilder

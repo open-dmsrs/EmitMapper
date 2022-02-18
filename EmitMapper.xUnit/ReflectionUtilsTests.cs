@@ -1,14 +1,19 @@
-﻿namespace EmitMapper.Tests;
-
-using System.Linq;
-
+﻿using System.Linq;
 using EmitMapper.Utils;
-
 using Xunit;
+
+namespace EmitMapper.Tests;
 
 //////[TestFixture]
 public class ReflectionUtilsTests
 {
+  [Fact]
+  public void Test_GetPublicFieldsAndProperties_ShouldIncludeMembersFromAllInterfaces()
+  {
+    var members = ReflectionHelper.GetPublicFieldsAndProperties(typeof(IDerived));
+    Assert.Equal(2, members.Count());
+  }
+
   public interface IBase
   {
     string BaseProperty { get; set; }
@@ -17,12 +22,5 @@ public class ReflectionUtilsTests
   public interface IDerived : IBase
   {
     string DerivedProperty { get; set; }
-  }
-
-  [Fact]
-  public void Test_GetPublicFieldsAndProperties_ShouldIncludeMembersFromAllInterfaces()
-  {
-    var members = ReflectionHelper.GetPublicFieldsAndProperties(typeof(IDerived));
-    Assert.Equal(2, members.Count());
   }
 }

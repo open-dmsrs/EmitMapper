@@ -1,37 +1,10 @@
-﻿namespace EmitMapper.Tests;
+﻿using Xunit;
 
-using Xunit;
+namespace EmitMapper.Tests;
 
 ////[TestFixture]
 public class EnumTests
 {
-  public enum En1 : byte
-  {
-    A = 1,
-
-    B = 2,
-
-    C = 3
-  }
-
-  public enum En2 : long
-  {
-    A = 1,
-
-    B = 2,
-
-    C = 3
-  }
-
-  public enum En3
-  {
-    B = 2,
-
-    C = 3,
-
-    A = 1
-  }
-
   [Fact]
   public void EnumTests1()
   {
@@ -94,5 +67,32 @@ public class EnumTests
     }
 
     public En1 En2 { get; set; }
+  }
+
+  public enum En1 : byte
+  {
+    A = 1,
+
+    B = 2,
+
+    C = 3
+  }
+
+  public enum En2 : long
+  {
+    A = 1,
+
+    B = 2,
+
+    C = 3
+  }
+
+  public enum En3
+  {
+    B = 2,
+
+    C = 3,
+
+    A = 1
   }
 }

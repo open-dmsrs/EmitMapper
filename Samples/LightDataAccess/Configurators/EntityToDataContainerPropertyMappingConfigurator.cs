@@ -1,14 +1,13 @@
-namespace LightDataAccess.Configurators;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
+
+namespace LightDataAccess.Configurators;
 
 /// <summary>
 ///   The item configuration.
@@ -39,26 +38,26 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
           member => (member.MemberType == MemberTypes.Field || member.MemberType == MemberTypes.Property)
                     && ((PropertyInfo)member).GetGetMethod() != null).Select(
           sourceMember => (IMappingOperation)new SrcReadOperation
-                                               {
-                                                 Source = new MemberDescriptor(sourceMember),
-                                                 Setter = (destination, value, state) =>
-                                                   {
-                                                     if (destination == null || value == null
-                                                                             || destination is not DataContainer
-                                                                               container)
-                                                       return;
+          {
+            Source = new MemberDescriptor(sourceMember),
+            Setter = (destination, value, state) =>
+            {
+              if (destination == null || value == null
+                                      || destination is not DataContainer
+                                        container)
+                return;
 
-                                                     var sourceType =
-                                                       ReflectionHelper.GetMemberReturnType(sourceMember);
-                                                     var fieldsDescription =
-                                                       ReflectionHelper.GetDataMemberDefinition(sourceMember);
-                                                     ConvertSourcePropertyToFields(
-                                                       value,
-                                                       sourceType,
-                                                       container,
-                                                       (List<Tuple<string, Type>>)fieldsDescription);
-                                                   }
-                                               })).ToArray();
+              var sourceType =
+                ReflectionHelper.GetMemberReturnType(sourceMember);
+              var fieldsDescription =
+                ReflectionHelper.GetDataMemberDefinition(sourceMember);
+              ConvertSourcePropertyToFields(
+                value,
+                sourceType,
+                container,
+                (List<Tuple<string, Type>>)fieldsDescription);
+            }
+          })).ToArray();
   }
 
   /// <summary>
@@ -79,14 +78,14 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
 
     fieldsDescription.ForEach(
       fd =>
-        {
-          if (container.Fields.ContainsKey(fd.Item1))
-            return;
+      {
+        if (container.Fields.ContainsKey(fd.Item1))
+          return;
 
-          var value = ReflectionHelper.ConvertValue(sourceValue, sourceType, fd.Item2);
+        var value = ReflectionHelper.ConvertValue(sourceValue, sourceType, fd.Item2);
 
-          if (value != null)
-            container.Fields.Add(fd.Item1, value.ToString());
-        });
+        if (value != null)
+          container.Fields.Add(fd.Item1, value.ToString());
+      });
   }
 }

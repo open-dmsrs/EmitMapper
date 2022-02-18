@@ -1,13 +1,11 @@
-﻿namespace EmitMapper.Tests;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
-
 using Xunit;
+
+namespace EmitMapper.Tests;
 
 ////[TestFixture]
 public class IgnoreByAttributes
@@ -31,8 +29,7 @@ public class IgnoreByAttributes
 
   public class IgnoreByAttributesSrc
   {
-    [MyIgnore]
-    public string Str1 = "IgnoreByAttributesSrc::str1";
+    [MyIgnore] public string Str1 = "IgnoreByAttributesSrc::str1";
 
     public string Str2 = "IgnoreByAttributesSrc::str2";
   }

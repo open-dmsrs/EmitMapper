@@ -1,11 +1,8 @@
-﻿namespace LightDataAccess;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
-
 using EmitMapper;
 using EmitMapper.Conversion;
 using EmitMapper.Mappers;
@@ -13,6 +10,8 @@ using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
+
+namespace LightDataAccess;
 
 /// <summary>
 ///   Class DataReaderToObjectMapper
@@ -186,9 +185,9 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
                || m.MemberType == MemberTypes.Property && ((PropertyInfo)m).GetSetMethod() != null)
         .Where(m => !_skipFields.Select(sf => sf.ToUpper()).Contains(m.Name.ToUpper())).Select(
           (m, ind) => new DestWriteOperation
-                        {
-                          Destination = new MemberDescriptor(new[] { m }), Getter = GetValuesGetter(ind, m)
-                        }).ToArray<IMappingOperation>();
+          {
+            Destination = new MemberDescriptor(new[] { m }), Getter = GetValuesGetter(ind, m)
+          }).ToArray<IMappingOperation>();
     }
 
     /// <summary>
@@ -302,22 +301,22 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
       var fieldNum = -1;
       var fieldName = m.Name;
       return (ValueGetter<object>)((value, state) =>
-                                      {
-                                        var reader = (IDataReader)state;
-                                        object result = null;
-                                        if (_mappingKey != null)
-                                        {
-                                          if (fieldNum == -1) fieldNum = reader.GetOrdinal(fieldName);
-                                          result = reader[fieldNum];
-                                        }
-                                        else
-                                        {
-                                          result = reader[fieldName];
-                                        }
+      {
+        var reader = (IDataReader)state;
+        object result = null;
+        if (_mappingKey != null)
+        {
+          if (fieldNum == -1) fieldNum = reader.GetOrdinal(fieldName);
+          result = reader[fieldNum];
+        }
+        else
+        {
+          result = reader[fieldName];
+        }
 
-                                        if (result is DBNull) return ValueToWrite<object>.ReturnValue(null);
-                                        return ValueToWrite<object>.ReturnValue(converter(result));
-                                      });
+        if (result is DBNull) return ValueToWrite<object>.ReturnValue(null);
+        return ValueToWrite<object>.ReturnValue(converter(result));
+      });
     }
 
     /// <summary>

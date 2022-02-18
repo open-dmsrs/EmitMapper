@@ -1,13 +1,12 @@
-namespace LightDataAccess.Configurators;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
+
+namespace LightDataAccess.Configurators;
 
 /// <summary>
 ///   The object to data container configuration.
@@ -35,24 +34,24 @@ public class ObjectToDataContainerConfigurator : MapConfigBaseImpl
       to,
       ReflectionHelper.GetTypeDataContainerDescription(from).Select(
         fieldsDescription =>
+        {
+          var fieldName = fieldsDescription.Key;
+          var sourceMember = fieldsDescription.Value.Item1;
+          var fieldType = fieldsDescription.Value.Item2;
+          return new SrcReadOperation
           {
-            var fieldName = fieldsDescription.Key;
-            var sourceMember = fieldsDescription.Value.Item1;
-            var fieldType = fieldsDescription.Value.Item2;
-            return new SrcReadOperation
-                     {
-                       Source = new MemberDescriptor(sourceMember),
-                       Setter = (destination, value, state) =>
-                         {
-                           if (destination == null || value == null || !(destination is DataContainer container))
-                             return;
+            Source = new MemberDescriptor(sourceMember),
+            Setter = (destination, value, state) =>
+            {
+              if (destination == null || value == null || !(destination is DataContainer container))
+                return;
 
-                           // var sourceType = EmitMapper.Utils.ReflectionUtils.GetMemberType(sourceMember);
-                           // var destinationMemberValue = ReflectionUtils.ConvertValue(value, sourceType, fieldType);
-                           var destinationMemberValue = value.ToString();
-                           container.Fields.Add(fieldName, destinationMemberValue);
-                         }
-                     };
-          })).ToArray();
+              // var sourceType = EmitMapper.Utils.ReflectionUtils.GetMemberType(sourceMember);
+              // var destinationMemberValue = ReflectionUtils.ConvertValue(value, sourceType, fieldType);
+              var destinationMemberValue = value.ToString();
+              container.Fields.Add(fieldName, destinationMemberValue);
+            }
+          };
+        })).ToArray();
   }
 }

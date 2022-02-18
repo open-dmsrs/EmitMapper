@@ -1,8 +1,8 @@
-﻿namespace EmitMapper.Utils;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
+
+namespace EmitMapper.Utils;
 
 public static class SwitchExpressions
 {
@@ -181,26 +181,25 @@ public static class SwitchExpressions
           return second;
         case State.CaseWithValueFactory:
           return ((IEqualityComparer<TSwitch>)first.objectState).Equals(first.switchValue, second.switchValue)
-                   ? new SwitchExpression<TSwitch, TResult>
-                       {
-                         value = ((Func<TSwitch, TResult>)second.objectState)(first.switchValue),
-                         state = State.Completed
-                       }
-                   : first; // still not matched
+            ? new SwitchExpression<TSwitch, TResult>
+            {
+              value = ((Func<TSwitch, TResult>)second.objectState)(first.switchValue), state = State.Completed
+            }
+            : first; // still not matched
         case State.FalseBooleanCase:
           return first; // still not matched
         case State.TrueBooleanCase:
           return new SwitchExpression<TSwitch, TResult>
-                   {
-                     value = ((Func<TSwitch, TResult>)second.objectState)(first.switchValue), state = State.Completed
-                   };
+          {
+            value = ((Func<TSwitch, TResult>)second.objectState)(first.switchValue), state = State.Completed
+          };
         case State.TypeCase:
           TResult typeCaseResult;
           return ((TypeCaseSwitchExpression<TResult>)second.objectState).TryGetResult(
-                   first.switchValue,
-                   out typeCaseResult)
-                   ? new SwitchExpression<TSwitch, TResult> { value = typeCaseResult, state = State.Completed }
-                   : first; // still not matched
+            first.switchValue,
+            out typeCaseResult)
+            ? new SwitchExpression<TSwitch, TResult> { value = typeCaseResult, state = State.Completed }
+            : first; // still not matched
         default:
           throw new InvalidOperationException("right-hand side of || is not a valid case");
       }
@@ -214,10 +213,9 @@ public static class SwitchExpressions
     public static implicit operator SwitchExpression<TSwitch, TResult>(BooleanSwitchExpression<TResult> @switch)
     {
       return new SwitchExpression<TSwitch, TResult>
-               {
-                 objectState = @switch.ValueFactory,
-                 state = @switch.Condition ? State.TrueBooleanCase : State.FalseBooleanCase
-               };
+      {
+        objectState = @switch.ValueFactory, state = @switch.Condition ? State.TrueBooleanCase : State.FalseBooleanCase
+      };
     }
 
     public static implicit operator SwitchExpression<TSwitch, TResult>(TypeCaseSwitchExpression<TResult> @switch)
@@ -246,9 +244,9 @@ public static class SwitchExpressions
     internal static SwitchExpression<TSwitch, TResult> CreateCase(TSwitch matches, Func<TSwitch, TResult> valueFactory)
     {
       return new SwitchExpression<TSwitch, TResult>
-               {
-                 switchValue = matches, objectState = valueFactory, state = State.CaseWithValueFactory
-               };
+      {
+        switchValue = matches, objectState = valueFactory, state = State.CaseWithValueFactory
+      };
     }
 
     internal static SwitchExpression<TSwitch, TResult> CreateCase(TypeCaseSwitchExpression<TResult> @switch)
@@ -259,9 +257,9 @@ public static class SwitchExpressions
     internal static SwitchExpression<TSwitch, TResult> CreateCase(SwitchExpression<TSwitch> @switch)
     {
       return new SwitchExpression<TSwitch, TResult>
-               {
-                 switchValue = @switch.On, objectState = @switch.Comparer, state = State.AwaitingMatch
-               };
+      {
+        switchValue = @switch.On, objectState = @switch.Comparer, state = State.AwaitingMatch
+      };
     }
   }
 

@@ -1,12 +1,11 @@
-﻿namespace EmitMapper.Conversion;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
 using EmitMapper.EmitInvoker.Methods;
 using EmitMapper.Utils;
+
+namespace EmitMapper.Conversion;
 
 public class StaticConvertersManager
 {

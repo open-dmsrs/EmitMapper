@@ -1,11 +1,10 @@
-namespace EmitMapper.Utils;
-
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-using static System.Linq.Expressions.Expression;
+namespace EmitMapper.Utils;
 
+using static Expression;
 using static ExpressionHelper;
 
 public static class ObjectFactory
@@ -30,13 +29,13 @@ public static class ObjectFactory
   public static Expression GenerateConstructorExpression(Type type)
   {
     return type switch
-      {
-          { IsValueType: true } => Default(type),
-        Type stringType when stringType == Metadata<string>.Type => Constant(string.Empty),
-          { IsInterface: true } => CreateInterfaceExpression(type),
-          { IsAbstract: true } => InvalidType(type, $"Cannot create an instance of abstract type {type}."),
-        _ => CallConstructor(type)
-      };
+    {
+      { IsValueType: true } => Default(type),
+      Type stringType when stringType == Metadata<string>.Type => Constant(string.Empty),
+      { IsInterface: true } => CreateInterfaceExpression(type),
+      { IsAbstract: true } => InvalidType(type, $"Cannot create an instance of abstract type {type}."),
+      _ => CallConstructor(type)
+    };
   }
 
   private static Expression CallConstructor(Type type)
@@ -65,10 +64,10 @@ public static class ObjectFactory
   private static Expression CreateInterfaceExpression(Type type)
   {
     return type.IsGenericType(Metadata.IDictionary2) ? CreateCollection(type, Metadata.Dictionary2) :
-           type.IsGenericType(Metadata.IReadOnlyDictionary2) ? CreateReadOnlyDictionary(type.GenericTypeArguments) :
-           type.IsGenericType(Metadata.ISet1) ? CreateCollection(type, Metadata.HashSet1) :
-           type.IsCollection() ? CreateCollection(type, Metadata.List1, GetIEnumerableArguments(type)) :
-           InvalidType(type, $"Cannot create an instance of interface type {type}.");
+      type.IsGenericType(Metadata.IReadOnlyDictionary2) ? CreateReadOnlyDictionary(type.GenericTypeArguments) :
+      type.IsGenericType(Metadata.ISet1) ? CreateCollection(type, Metadata.HashSet1) :
+      type.IsCollection() ? CreateCollection(type, Metadata.List1, GetIEnumerableArguments(type)) :
+      InvalidType(type, $"Cannot create an instance of interface type {type}.");
   }
 
   private static Expression CreateReadOnlyDictionary(Type[] typeArguments)

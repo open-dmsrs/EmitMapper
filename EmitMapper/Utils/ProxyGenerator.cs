@@ -1,12 +1,12 @@
-﻿namespace EmitMapper.Utils;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+
+namespace EmitMapper.Utils;
 
 public static class ProxyGenerator
 {

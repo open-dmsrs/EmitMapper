@@ -1,7 +1,7 @@
-﻿namespace EmitMapper.Utils;
-
-using System;
+﻿using System;
 using System.Linq.Expressions;
+
+namespace EmitMapper.Utils;
 
 public class VersatileLambda<T>
   where T : class

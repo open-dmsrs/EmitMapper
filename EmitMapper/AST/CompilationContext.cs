@@ -1,11 +1,10 @@
-﻿namespace EmitMapper.AST;
-
-using System;
+﻿using System;
 using System.IO;
 using System.Reflection;
 using System.Reflection.Emit;
-
 using EmitMapper.Utils;
+
+namespace EmitMapper.AST;
 
 internal class CompilationContext
 {

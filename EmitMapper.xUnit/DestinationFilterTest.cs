@@ -1,21 +1,10 @@
-﻿namespace EmitMapper.Tests;
-
-using EmitMapper.MappingConfiguration;
-
+﻿using EmitMapper.MappingConfiguration;
 using Xunit;
+
+namespace EmitMapper.Tests;
 
 public class DestinationFilterTest
 {
-  public interface IBase
-  {
-    string BaseProperty { get; set; }
-  }
-
-  public interface IDerived : IBase
-  {
-    string DerivedProperty { get; set; }
-  }
-
   [Fact]
   public void Test_Derived()
   {
@@ -152,5 +141,15 @@ public class DestinationFilterTest
     public string BaseProperty { get; set; }
 
     public string DerivedProperty { get; set; }
+  }
+
+  public interface IBase
+  {
+    string BaseProperty { get; set; }
+  }
+
+  public interface IDerived : IBase
+  {
+    string DerivedProperty { get; set; }
   }
 }

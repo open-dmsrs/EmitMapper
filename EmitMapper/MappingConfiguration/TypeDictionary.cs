@@ -1,10 +1,9 @@
-﻿namespace EmitMapper.MappingConfiguration;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using EmitMapper.Utils;
+
+namespace EmitMapper.MappingConfiguration;
 
 internal class TypeDictionary<T>
   where T : class

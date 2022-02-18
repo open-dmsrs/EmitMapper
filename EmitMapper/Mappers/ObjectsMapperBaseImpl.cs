@@ -1,11 +1,10 @@
-﻿namespace EmitMapper.Mappers;
-
-using System;
-
+﻿using System;
 using EmitMapper.EmitInvoker.Delegates;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+
+namespace EmitMapper.Mappers;
 
 /// <summary>
 ///   Base class for Mappers

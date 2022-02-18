@@ -1,8 +1,7 @@
-﻿namespace EmitMapper.Tests;
-
-using EmitMapper.MappingConfiguration;
-
+﻿using EmitMapper.MappingConfiguration;
 using Xunit;
+
+namespace EmitMapper.Tests;
 
 ////[TestFixture]
 public class CustomMapping
@@ -50,16 +49,16 @@ public class CustomMapping
     var a = Context.ObjMan.GetMapper<B3, A3>(
       new DefaultMapConfig().PostProcess<A3.Int>(
           (i, state) =>
-            {
-              i.Str2 = "processed";
-              return i;
-            }).PostProcess<A3.SInt?>((i, state) => { return new A3.SInt { Str1 = i.Value.Str1, Str2 = "processed" }; })
+          {
+            i.Str2 = "processed";
+            return i;
+          }).PostProcess<A3.SInt?>((i, state) => { return new A3.SInt { Str1 = i.Value.Str1, Str2 = "processed" }; })
         .PostProcess<A3>(
           (i, state) =>
-            {
-              i.Status = "processed";
-              return i;
-            })).Map(new B3());
+          {
+            i.Status = "processed";
+            return i;
+          })).Map(new B3());
     Assert.Equal("B3::Int::str1", a.Fld.Str1);
     Assert.Equal("processed", a.Fld.Str2);
 

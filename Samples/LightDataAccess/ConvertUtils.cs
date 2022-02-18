@@ -12,9 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace LightDataAccess;
-
 using System;
+
+namespace LightDataAccess;
 
 /// <summary>
 ///   Class ConvertUtils

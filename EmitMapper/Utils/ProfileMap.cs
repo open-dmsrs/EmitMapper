@@ -1,8 +1,8 @@
-﻿namespace EmitMapper.Utils;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+
+namespace EmitMapper.Utils;
 
 public class ProfileMap
 {

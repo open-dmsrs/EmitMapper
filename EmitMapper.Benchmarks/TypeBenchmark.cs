@@ -1,11 +1,9 @@
-﻿namespace EmitMapper.Benchmarks;
-
-using System;
-
+﻿using System;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
-
 using EmitMapper.Utils;
+
+namespace EmitMapper.Benchmarks;
 
 public class Employee
 {

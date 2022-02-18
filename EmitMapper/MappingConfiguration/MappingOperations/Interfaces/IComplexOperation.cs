@@ -1,6 +1,6 @@
-﻿namespace EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+﻿using System.Collections.Generic;
 
-using System.Collections.Generic;
+namespace EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
 internal interface IComplexOperation : IMappingOperation
 {

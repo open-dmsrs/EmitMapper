@@ -1,6 +1,6 @@
-﻿namespace EmitMapper.Benchmarks;
+﻿using BenchmarkDotNet.Running;
 
-using BenchmarkDotNet.Running;
+namespace EmitMapper.Benchmarks;
 
 public static class Program
 {

@@ -1,8 +1,7 @@
-﻿namespace EmitMapper;
-
-using System.Collections.Generic;
-
+﻿using System.Collections.Generic;
 using EmitMapper.Mappers;
+
+namespace EmitMapper;
 
 public class ObjectsMapper<TFrom, TTo>
 {

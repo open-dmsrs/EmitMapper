@@ -1,11 +1,11 @@
-﻿namespace EmitMapper.Utils;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+
+namespace EmitMapper.Utils;
 
 /// <summary>
 ///   Contains cached reflection information for easy retrieval
@@ -160,8 +160,8 @@ public class TypeDetails
       let genericInterfaceArguments = genericInterface.GenericTypeArguments
       let matchedMethods =
         (from extensionMethod in sourceExtensionMethodSearch
-         where !extensionMethod.IsGenericMethodDefinition
-         select extensionMethod)
+          where !extensionMethod.IsGenericMethodDefinition
+          select extensionMethod)
         .Concat(
           from extensionMethod in sourceExtensionMethodSearch
           where extensionMethod.IsGenericMethodDefinition
@@ -182,8 +182,8 @@ public class TypeDetails
   private IEnumerable<Type> GetTypeInheritance()
   {
     return Type.IsInterface
-             ? Enumerable.Concat(new[] { Type }, Type.GetInterfacesCache())
-             : Type.GetTypeInheritance();
+      ? new[] { Type }.Concat(Type.GetInterfacesCache())
+      : Type.GetTypeInheritance();
   }
 
   private Dictionary<string, MemberInfo> PossibleNames()

@@ -12,12 +12,12 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace LightDataAccess;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+
+namespace LightDataAccess;
 
 /// <summary>
 ///   The Assert class.
@@ -150,8 +150,8 @@ public static class AssertCore
 
     var message = getMessage.Invoke();
     message = string.IsNullOrEmpty(message)
-                ? "An argument condition was false."
-                : string.Concat("An argument condition was false.", message);
+      ? "An argument condition was false."
+      : string.Concat("An argument condition was false.", message);
 
     if (argumentName != null) throw new ArgumentException(message, argumentName);
 
@@ -194,8 +194,8 @@ public static class AssertCore
 
     var argumentName = getArgumentName.Invoke();
     var exception = string.IsNullOrEmpty(argumentName)
-                      ? new ArgumentNullException()
-                      : new ArgumentNullException(argumentName);
+      ? new ArgumentNullException()
+      : new ArgumentNullException(argumentName);
 
     throw exception;
   }

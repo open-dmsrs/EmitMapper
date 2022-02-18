@@ -1,6 +1,6 @@
-﻿namespace EmitMapper.Tests;
+﻿using Xunit;
 
-using Xunit;
+namespace EmitMapper.Tests;
 
 ////[TestFixture]
 public class ValueTypes

@@ -1,10 +1,8 @@
-﻿namespace EmitMapper.Tests;
-
-using System;
-
+﻿using System;
 using EmitMapper.MappingConfiguration;
-
 using Xunit;
+
+namespace EmitMapper.Tests;
 
 ////[TestFixture]
 public class GeneralTests
@@ -190,23 +188,19 @@ public class GeneralTests
   public void TestRecursiveClass()
   {
     var tree = new TreeNode
-                 {
-                   Data = "node 1",
-                   Next = new TreeNode
-                            {
-                              Data = "node 2",
-                              Next = new TreeNode
-                                       {
-                                         Data = "node 3",
-                                         SubNodes = new[]
-                                                      {
-                                                        new TreeNode { Data = "sub sub data 1" },
-                                                        new TreeNode { Data = "sub sub data 2" }
-                                                      }
-                                       }
-                            },
-                   SubNodes = new[] { new TreeNode { Data = "sub data 1" } }
-                 };
+    {
+      Data = "node 1",
+      Next = new TreeNode
+      {
+        Data = "node 2",
+        Next = new TreeNode
+        {
+          Data = "node 3",
+          SubNodes = new[] { new TreeNode { Data = "sub sub data 1" }, new TreeNode { Data = "sub sub data 2" } }
+        }
+      },
+      SubNodes = new[] { new TreeNode { Data = "sub data 1" } }
+    };
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<TreeNode, TreeNode>(new DefaultMapConfig().DeepMap());
     var tree2 = mapper.Map(tree);
     Assert.Equal("node 1", tree2.Data);
@@ -216,26 +210,6 @@ public class GeneralTests
     Assert.Equal("sub sub data 1", tree2.Next.Next.SubNodes[0].Data);
     Assert.Equal("sub sub data 2", tree2.Next.Next.SubNodes[1].Data);
     Assert.Null(tree2.Next.Next.Next);
-  }
-
-  public struct Class1
-  {
-    public int Fld;
-  }
-
-  public struct Class2
-  {
-    public int Fld;
-  }
-
-  public struct Struct1
-  {
-    public int Fld;
-  }
-
-  public struct Struct2
-  {
-    public int Fld;
   }
 
   public class A
@@ -279,6 +253,13 @@ public class GeneralTests
         Intern = 13;
       }
     }
+  }
+
+  internal class A1
+  {
+    public string F1 = "A1::f1";
+
+    public string F2 = "A1::f2";
   }
 
   public class A2
@@ -364,6 +345,13 @@ public class GeneralTests
     }
   }
 
+  internal class B1
+  {
+    public string F1 = "B1::f1";
+
+    public string F2 = "B1::f2";
+  }
+
   public class B2
   {
     public string Str = "str";
@@ -394,6 +382,16 @@ public class GeneralTests
 
       public Int1 I3 = null;
     }
+  }
+
+  public struct Class1
+  {
+    public int Fld;
+  }
+
+  public struct Class2
+  {
+    public int Fld;
   }
 
   public class ConstructByDestination
@@ -460,6 +458,16 @@ public class GeneralTests
     public string Field3 = "Source::field3";
   }
 
+  public struct Struct1
+  {
+    public int Fld;
+  }
+
+  public struct Struct2
+  {
+    public int Fld;
+  }
+
   public class TreeNode
   {
     public string Data;
@@ -467,19 +475,5 @@ public class GeneralTests
     public TreeNode Next;
 
     public TreeNode[] SubNodes;
-  }
-
-  internal class A1
-  {
-    public string F1 = "A1::f1";
-
-    public string F2 = "A1::f2";
-  }
-
-  internal class B1
-  {
-    public string F1 = "B1::f1";
-
-    public string F2 = "B1::f2";
   }
 }

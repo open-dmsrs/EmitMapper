@@ -1,11 +1,10 @@
-﻿namespace EmitMapper.AST.Helpers;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
-
 using EmitMapper.AST.Interfaces;
+
+namespace EmitMapper.AST.Helpers;
 
 internal static class CompilationHelper
 {

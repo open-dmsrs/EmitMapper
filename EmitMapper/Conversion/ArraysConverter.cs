@@ -1,11 +1,10 @@
-﻿namespace EmitMapper.Conversion;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using EmitMapper.MappingConfiguration;
 using EmitMapper.Utils;
+
+namespace EmitMapper.Conversion;
 
 internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
 {
@@ -77,17 +76,17 @@ internal class ArraysConverterProvider : ICustomConverterProvider
     var tTo = tToTypeArgs[0];
     if (tFrom == tTo && (tFrom.IsValueType || mappingConfig.GetRootMappingOperation(tFrom, tTo).ShallowCopy))
       return new CustomConverterDescriptor
-               {
-                 ConversionMethodName = "Convert",
-                 ConverterImplementation = _converterImplementation,
-                 ConverterClassTypeArguments = tFrom.AsEnumerable()
-               };
+      {
+        ConversionMethodName = "Convert",
+        ConverterImplementation = _converterImplementation,
+        ConverterClassTypeArguments = tFrom.AsEnumerable()
+      };
 
     return new CustomConverterDescriptor
-             {
-               ConversionMethodName = "Convert",
-               ConverterImplementation = _Implementation,
-               ConverterClassTypeArguments = tFrom.AsEnumerable(tTo)
-             };
+    {
+      ConversionMethodName = "Convert",
+      ConverterImplementation = _Implementation,
+      ConverterClassTypeArguments = tFrom.AsEnumerable(tTo)
+    };
   }
 }

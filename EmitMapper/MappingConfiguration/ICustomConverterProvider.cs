@@ -1,6 +1,6 @@
-﻿namespace EmitMapper.MappingConfiguration;
+﻿using System;
 
-using System;
+namespace EmitMapper.MappingConfiguration;
 
 /// <summary>
 ///   Provider for getting detailed information about generic conversion

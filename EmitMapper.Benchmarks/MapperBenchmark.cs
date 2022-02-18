@@ -1,17 +1,13 @@
-﻿namespace EmitMapper.Benchmarks;
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-
 using AutoFixture;
-
 using AutoMapper;
-
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
-
 using EmitMapper.Benchmarks.TestObject;
 using EmitMapper.MappingConfiguration;
+
+namespace EmitMapper.Benchmarks;
 
 [SimpleJob(RuntimeMoniker.Net60, baseline: true)]
 
@@ -44,12 +40,12 @@ public class MapperBenchmark
       ObjectMapperManager.DefaultInstance.GetMapper<SimpleTypesSource, SimpleTypesDestination>(new DefaultMapConfig());
     var config = new MapperConfiguration(
       cfg =>
-        {
-          cfg.CreateMap<BenchNestedSource, BenchNestedDestination>();
-          cfg.CreateMap<BenchNestedSource.Nested2, BenchNestedDestination.Inner2>();
-          cfg.CreateMap<BenchNestedSource.Nested1, BenchNestedDestination.Inner1>();
-          cfg.CreateMap<SimpleTypesSource, SimpleTypesDestination>();
-        });
+      {
+        cfg.CreateMap<BenchNestedSource, BenchNestedDestination>();
+        cfg.CreateMap<BenchNestedSource.Nested2, BenchNestedDestination.Inner2>();
+        cfg.CreateMap<BenchNestedSource.Nested1, BenchNestedDestination.Inner1>();
+        cfg.CreateMap<SimpleTypesSource, SimpleTypesDestination>();
+      });
     _autoMapper = config.CreateMapper();
 
     _benchSource = fixture.Create<BenchNestedSource>();

@@ -1,11 +1,11 @@
-﻿namespace LightDataAccess;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Text;
 using System.Threading.Tasks;
+
+namespace LightDataAccess;
 
 /// <summary>
 ///   Class DBTools
@@ -61,11 +61,11 @@ public static class DbTools
       foreach (var param in cmdParams)
       {
         var value = param.Value switch
-          {
-            Guid guid => guid.ToGuidStr(),
-            bool b => b.ToShort(),
-            _ => param.Value
-          };
+        {
+          Guid guid => guid.ToGuidStr(),
+          bool b => b.ToShort(),
+          _ => param.Value
+        };
         result.AddParam(param.Key, value);
       }
 

@@ -1,6 +1,6 @@
-﻿namespace EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+﻿using System;
 
-using System;
+namespace EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
 public interface IReadWriteOperation : IDestWriteOperation, ISrcReadOperation
 {

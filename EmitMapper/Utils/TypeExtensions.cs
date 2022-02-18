@@ -1,11 +1,11 @@
-namespace EmitMapper.Utils;
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Reflection;
+
+namespace EmitMapper.Utils;
 
 public static class TypeExtensions
 {
@@ -42,7 +42,7 @@ public static class TypeExtensions
   public static MemberInfo GetFieldOrProperty(this Type type, string name)
   {
     return type.GetInheritedProperty(name) ?? (MemberInfo)type.GetInheritedField(name)
-           ?? throw new ArgumentOutOfRangeException(nameof(name), $"Cannot find member {name} of type {type}.");
+      ?? throw new ArgumentOutOfRangeException(nameof(name), $"Cannot find member {name} of type {type}.");
   }
 
   public static Type GetGenericInterface(this Type type, Type genericInterface)
@@ -67,7 +67,7 @@ public static class TypeExtensions
   public static FieldInfo GetInheritedField(this Type type, string name)
   {
     return type.GetField(name, InstanceFlags) ?? type.BaseClassesAndInterfaces()
-             .Select(t => t.GetField(name, InstanceFlags)).FirstOrDefault(f => f != null);
+      .Select(t => t.GetField(name, InstanceFlags)).FirstOrDefault(f => f != null);
   }
 
   public static MethodInfo GetInheritedMethod(this Type type, string name)
@@ -82,7 +82,7 @@ public static class TypeExtensions
   public static PropertyInfo GetInheritedProperty(this Type type, string name)
   {
     return type.GetProperty(name, InstanceFlags) ?? type.BaseClassesAndInterfaces()
-             .Select(t => t.GetProperty(name, InstanceFlags)).FirstOrDefault(p => p != null);
+      .Select(t => t.GetProperty(name, InstanceFlags)).FirstOrDefault(p => p != null);
   }
 
   public static MethodInfo GetStaticMethod(this Type type, string name)

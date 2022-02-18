@@ -1,13 +1,12 @@
-﻿using static System.Linq.Expressions.Expression;
-
-namespace EmitMapper.Utils;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using static System.Linq.Expressions.Expression;
+
+namespace EmitMapper.Utils;
 
 public static class ReflectionHelper
 {
@@ -44,9 +43,9 @@ public static class ReflectionHelper
       switch (expressionToCheck)
       {
         case MemberExpression
-          {
-            Member: var member, Expression: { NodeType: ExpressionType.Parameter or ExpressionType.Convert }
-          }:
+        {
+          Member: var member, Expression: { NodeType: ExpressionType.Parameter or ExpressionType.Convert }
+        }:
           return member;
         case UnaryExpression { Operand: var operand }:
           expressionToCheck = operand;
@@ -82,8 +81,8 @@ public static class ReflectionHelper
   public static Expression GetDefaultValue(this ParameterInfo parameter)
   {
     return parameter is { DefaultValue: null, ParameterType: { IsValueType: true } type }
-             ? Default(type)
-             : Constant(parameter.DefaultValue);
+      ? Default(type)
+      : Constant(parameter.DefaultValue);
   }
 
   public static Type GetElementType(Type type)
@@ -147,35 +146,35 @@ public static class ReflectionHelper
     return MemberInfoReturnTypes.GetOrAdd(
       member,
       m => m switch
-        {
-          PropertyInfo property => property.PropertyType,
-          MethodInfo method => method.ReturnType,
-          FieldInfo field => field.FieldType,
-          null => throw new ArgumentNullException(nameof(member)),
-          _ => throw new ArgumentOutOfRangeException(nameof(member))
-        });
-  }
-
-  public static Type GetMemberType(this MemberInfo member)
-  {
-    return member switch
       {
         PropertyInfo property => property.PropertyType,
         MethodInfo method => method.ReturnType,
         FieldInfo field => field.FieldType,
         null => throw new ArgumentNullException(nameof(member)),
         _ => throw new ArgumentOutOfRangeException(nameof(member))
-      };
+      });
+  }
+
+  public static Type GetMemberType(this MemberInfo member)
+  {
+    return member switch
+    {
+      PropertyInfo property => property.PropertyType,
+      MethodInfo method => method.ReturnType,
+      FieldInfo field => field.FieldType,
+      null => throw new ArgumentNullException(nameof(member)),
+      _ => throw new ArgumentOutOfRangeException(nameof(member))
+    };
   }
 
   public static object GetMemberValue(this MemberInfo propertyOrField, object target)
   {
     return propertyOrField switch
-      {
-        PropertyInfo property => property.GetValue(target, null),
-        FieldInfo field => field.GetValue(target),
-        _ => throw Expected(propertyOrField)
-      };
+    {
+      PropertyInfo property => property.GetValue(target, null),
+      FieldInfo field => field.GetValue(target),
+      _ => throw Expected(propertyOrField)
+    };
   }
 
   /// <summary>

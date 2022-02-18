@@ -1,10 +1,9 @@
-﻿namespace EmitMapper.AST.Nodes;
-
-using System.Reflection;
+﻿using System.Reflection;
 using System.Reflection.Emit;
-
 using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
+
+namespace EmitMapper.AST.Nodes;
 
 internal class AstWriteField : IAstNode
 {

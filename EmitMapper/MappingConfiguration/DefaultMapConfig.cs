@@ -1,15 +1,14 @@
-﻿namespace EmitMapper.MappingConfiguration;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
 using EmitMapper.Conversion;
 using EmitMapper.Mappers;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
+
+namespace EmitMapper.MappingConfiguration;
 
 public class DefaultMapConfig : MapConfigBaseImpl
 {
@@ -73,10 +72,9 @@ public class DefaultMapConfig : MapConfigBaseImpl
   public override string GetConfigurationName()
   {
     return _configName ??= base.GetConfigurationName() + new[]
-                                                           {
-                                                             _shallowCopy.ToString(), ToStr(_membersMatcher),
-                                                             ToStrEnum(_shallowCopyMembers), ToStrEnum(_deepCopyMembers)
-                                                           }.ToCsv(";");
+    {
+      _shallowCopy.ToString(), ToStr(_membersMatcher), ToStrEnum(_shallowCopyMembers), ToStrEnum(_deepCopyMembers)
+    }.ToCsv(";");
   }
 
   public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
@@ -196,22 +194,22 @@ public class DefaultMapConfig : MapConfigBaseImpl
           destMemberDescr.MemberInfo,
           shallowCopy) && !processedTypes.Contains(new TypesPair(typeFromMember, typeToMember)))
       return new ReadWriteComplex
-               {
-                 Destination = origDestMemberDesc,
-                 Source = origSrcMemberDesc,
-                 ShallowCopy = shallowCopy,
-                 Operations = GetMappingItems(
-                   processedTypes,
-                   srcMemberDescr.MemberType,
-                   destMemberDescr.MemberType,
-                   null,
-                   null)
-               };
+      {
+        Destination = origDestMemberDesc,
+        Source = origSrcMemberDesc,
+        ShallowCopy = shallowCopy,
+        Operations = GetMappingItems(
+          processedTypes,
+          srcMemberDescr.MemberType,
+          destMemberDescr.MemberType,
+          null,
+          null)
+      };
 
     return new ReadWriteSimple
-             {
-               Source = origSrcMemberDesc, Destination = origDestMemberDesc, ShallowCopy = shallowCopy
-             };
+    {
+      Source = origSrcMemberDesc, Destination = origDestMemberDesc, ShallowCopy = shallowCopy
+    };
   }
 
   private List<IMappingOperation> GetMappingItems(
@@ -226,13 +224,13 @@ public class DefaultMapConfig : MapConfigBaseImpl
 
     var membersFromPath = fromPath.ToArray();
     var from = membersFromPath.Length == 0
-                 ? fromRoot
-                 : ReflectionHelper.GetMemberReturnType(membersFromPath[membersFromPath.Length - 1]);
+      ? fromRoot
+      : ReflectionHelper.GetMemberReturnType(membersFromPath[membersFromPath.Length - 1]);
 
     var memberToPath = toPath.ToArray();
     var to = memberToPath.Length == 0
-               ? toRoot
-               : ReflectionHelper.GetMemberReturnType(memberToPath[memberToPath.Length - 1]);
+      ? toRoot
+      : ReflectionHelper.GetMemberReturnType(memberToPath[memberToPath.Length - 1]);
 
     var tp = new TypesPair(from, to);
     processedTypes.Add(tp);

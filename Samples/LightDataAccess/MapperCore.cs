@@ -12,15 +12,14 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace LightDataAccess;
-
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-
 using EmitMapper;
 using EmitMapper.MappingConfiguration;
+
+namespace LightDataAccess;
 
 /// <summary>
 ///   The mapper core.

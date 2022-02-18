@@ -12,18 +12,17 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace LightDataAccess;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using EmitMapper;
 using EmitMapper.Conversion;
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
+
+namespace LightDataAccess;
 
 /// <summary>
 ///   Class ObjectsChangeTracker
@@ -68,16 +67,16 @@ public class ObjectsChangeTracker
     var currentValues = GetObjectMembers(obj);
     return currentValues.Select(
       (x, idx) =>
-        {
-          var original = originalValues[idx];
-          x.OriginalValue = original.CurrentValue;
-          return x;
-        }).Where(
+      {
+        var original = originalValues[idx];
+        x.OriginalValue = original.CurrentValue;
+        return x;
+      }).Where(
       (current, idx) =>
-        {
-          return current.OriginalValue == null != (current.CurrentValue == null) || current.OriginalValue != null
-                 && !current.OriginalValue.Equals(current.CurrentValue);
-        }).ToArray();
+      {
+        return current.OriginalValue == null != (current.CurrentValue == null) || current.OriginalValue != null
+          && !current.OriginalValue.Equals(current.CurrentValue);
+      }).ToArray();
   }
 
   public TrackingMember[] GetChanges(object originalObj, object currentObj)
@@ -88,16 +87,16 @@ public class ObjectsChangeTracker
     var currentValues = GetObjectMembers(currentObj);
     return currentValues.Select(
       (x, idx) =>
-        {
-          var original = originalValues[idx];
-          x.OriginalValue = original.CurrentValue;
-          return x;
-        }).Where(
+      {
+        var original = originalValues[idx];
+        x.OriginalValue = original.CurrentValue;
+        return x;
+      }).Where(
       (current, idx) =>
-        {
-          return current.OriginalValue == null != (current.CurrentValue == null) || current.OriginalValue != null
-                 && !current.OriginalValue.Equals(current.CurrentValue);
-        }).ToArray();
+      {
+        return current.OriginalValue == null != (current.CurrentValue == null) || current.OriginalValue != null
+          && !current.OriginalValue.Equals(current.CurrentValue);
+      }).ToArray();
   }
 
   /// <summary>
@@ -181,12 +180,12 @@ public class ObjectsChangeTracker
     {
       return ReflectionHelper.GetPublicFieldsAndProperties(from).Select(
         m => new SrcReadOperation
-               {
-                 Source = new MemberDescriptor(m),
-                 Setter = (obj, value, state) =>
-                   (state as TrackingMembersList).TrackingMembers.Add(
-                     new TrackingMember { Name = m.Name, CurrentValue = value })
-               }).ToArray();
+        {
+          Source = new MemberDescriptor(m),
+          Setter = (obj, value, state) =>
+            (state as TrackingMembersList).TrackingMembers.Add(
+              new TrackingMember { Name = m.Name, CurrentValue = value })
+        }).ToArray();
     }
 
     /// <summary>

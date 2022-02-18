@@ -1,8 +1,7 @@
-﻿namespace EmitMapper.Tests;
-
-using EmitMapper.MappingConfiguration;
-
+﻿using EmitMapper.MappingConfiguration;
 using Xunit;
+
+namespace EmitMapper.Tests;
 
 ////[TestFixture]
 public class TypeConversion

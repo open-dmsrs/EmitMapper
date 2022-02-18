@@ -1,10 +1,10 @@
-namespace EmitMapper;
-
 using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
+
+namespace EmitMapper;
 
 /// <summary>
 ///   Implements a <see cref="TextWriter" /> for writing information to the debugger log.

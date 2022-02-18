@@ -1,6 +1,6 @@
-﻿namespace EmitMapper.AST.Interfaces;
+﻿using System;
 
-using System;
+namespace EmitMapper.AST.Interfaces;
 
 internal interface IAstStackItem : IAstNode
 {

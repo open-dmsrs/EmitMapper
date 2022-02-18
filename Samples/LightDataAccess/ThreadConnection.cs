@@ -12,11 +12,11 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace LightDataAccess;
-
 using System;
 using System.Data;
 using System.Data.Common;
+
+namespace LightDataAccess;
 
 /// <summary>
 ///   Class ThreadConnection
@@ -26,14 +26,12 @@ public class ThreadConnection : IDisposable
   /// <summary>
   ///   The connection
   /// </summary>
-  [ThreadStatic]
-  private static DbConnection _connection;
+  [ThreadStatic] private static DbConnection _connection;
 
   /// <summary>
   ///   The entries count
   /// </summary>
-  [ThreadStatic]
-  private static int _entriesCount;
+  [ThreadStatic] private static int _entriesCount;
 
   /// <summary>
   ///   Initializes a new instance of the <see cref="ThreadConnection" /> class.
