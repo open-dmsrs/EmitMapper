@@ -42,6 +42,48 @@
       </And>
     </TypePattern.Match>
   </TypePattern>
+    <TypePattern DisplayName="xUnit.net Test Classes" RemoveRegions="All">
+    <TypePattern.Match>
+      <And>
+        <Kind Is="Class" />
+        <HasMember>
+          <And>
+            <Kind Is="Method" />
+            <HasAttribute Name="Xunit.FactAttribute" Inherited="True" />
+            <HasAttribute Name="Xunit.TheoryAttribute" Inherited="True" />
+          </And>
+        </HasMember>
+      </And>
+    </TypePattern.Match>
+    <Entry DisplayName="Setup/Teardown Methods">
+      <Entry.Match>
+        <Or>
+          <Kind Is="Constructor" />
+          <And>
+            <Kind Is="Method" />
+            <ImplementsInterface Name="System.IDisposable" />
+          </And>
+        </Or>
+      </Entry.Match>
+      <Entry.SortBy>
+        <Kind Order="Constructor" />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="All other members" />
+    <Entry Priority="100" DisplayName="Test Methods">
+      <Entry.Match>
+        <And>
+          <Kind Is="Method" />
+          <HasAttribute Name="Xunit.FactAttribute" />
+          <HasAttribute Name="Xunit.TheoryAttribute" />
+        </And>
+      </Entry.Match>
+      <Entry.SortBy>
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+  </TypePattern>
+ 
   <TypePattern DisplayName="NUnit Test Fixtures" Priority="2000">
     <TypePattern.Match>
       <And>

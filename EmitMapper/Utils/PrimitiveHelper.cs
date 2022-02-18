@@ -16,7 +16,7 @@ public static class PrimitiveHelper
   {
     otherCollection ??= Array.Empty<T>();
     if (collection.Count == 0) return otherCollection;
-    return otherCollection.Count == 0 ? collection : Enumerable.Concat(collection, otherCollection);
+    return otherCollection.Count == 0 ? collection : collection.Concat(otherCollection);
   }
 
   public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
