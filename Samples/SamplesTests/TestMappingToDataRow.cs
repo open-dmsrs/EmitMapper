@@ -34,9 +34,9 @@ public class TestMappingToDataRow
     mapper.Map(testDataObject, dr);
 
     // Check if object is correctly mapped
-    Assert.Equal("field1", dr["field1"]);
-    Assert.Equal(10, dr["field2"]);
-    Assert.Equal(true, dr["field3"]);
+    dr["field1"].ShouldBe("field1");
+    dr["field2"].ShouldBe(10);
+    dr["field3"].ShouldBe(true);
   }
 
   public class Map2DataRowConfig : MapConfigBaseImpl

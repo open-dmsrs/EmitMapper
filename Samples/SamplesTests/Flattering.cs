@@ -26,12 +26,12 @@ public class Flattering
 
     var b = mapper.Map(source);
 
-    Assert.Equal(source.BaseDate, b.BaseDate);
-    Assert.Equal(source.TestMethod1(), b.TestMethod1);
-    Assert.Equal(source.Sub.ProperName, b.SubProperName);
-    Assert.Equal(source.Sub.SubSub.IAmACoolProperty, b.SubSubSubIAmACoolProperty);
-    Assert.Equal(source.Sub2.ProperName, b.Sub2ProperName);
-    Assert.Equal(source.SubWithExtraName.ProperName, b.SubWithExtraNameProperName);
+    b.BaseDate.ShouldBe(source.BaseDate);
+    b.TestMethod1.ShouldBe(source.TestMethod1());
+    b.SubProperName.ShouldBe(source.Sub.ProperName);
+    b.SubSubSubIAmACoolProperty.ShouldBe(source.Sub.SubSub.IAmACoolProperty);
+    b.Sub2ProperName.ShouldBe(source.Sub2.ProperName);
+    b.SubWithExtraNameProperName.ShouldBe(source.SubWithExtraName.ProperName);
   }
 
   public class ModelDto

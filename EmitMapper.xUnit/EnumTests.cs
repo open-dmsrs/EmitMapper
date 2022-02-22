@@ -1,6 +1,8 @@
-﻿using Xunit;
+﻿namespace EmitMapper.Tests;
 
-namespace EmitMapper.Tests;
+using Shouldly;
+
+using Xunit;
 
 ////[TestFixture]
 public class EnumTests
@@ -12,14 +14,15 @@ public class EnumTests
 
     // DynamicAssemblyManager.SaveAssembly();
     var a = mapper.Map(new B());
-    Assert.True(a.En1 == En1.C);
-    Assert.True(a.En2 == En2.C);
-    Assert.True(a.En3 == En3.C);
-    Assert.True(a.En4 == 2);
-    Assert.True(a.En6 == En1.C);
-    Assert.True(a.En7 == En3.C);
-    Assert.True(a.En8 == En3.C);
-    Assert.Null(a.En9);
+
+    a.En1.ShouldBe(En1.C);
+    a.En2.ShouldBe(En2.C);
+    a.En3.ShouldBe(En3.C);
+    a.En4.ShouldBe(2);
+    a.En6.ShouldBe(En1.C);
+    a.En7.ShouldBe(En3.C);
+    a.En8.ShouldBe(En3.C);
+    a.En9.ShouldBeNull();
   }
 
   public class A

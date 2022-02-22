@@ -1,8 +1,12 @@
-﻿using System;
-using EmitMapper.MappingConfiguration;
-using Xunit;
+﻿namespace EmitMapper.Tests;
 
-namespace EmitMapper.Tests;
+using System;
+
+using EmitMapper.MappingConfiguration;
+
+using Shouldly;
+
+using Xunit;
 
 ////[TestFixture]
 public class NullableTypes
@@ -16,11 +20,11 @@ public class NullableTypes
 
     // DynamicAssemblyManager.SaveAssembly();
     var a = mapper.Map(new B1());
-    Assert.Equal(10, a.Fld1);
-    Assert.NotNull(a.I);
-    Assert.Equal("A1::Int1::s", a.I.S);
-    Assert.Equal(3, a.Fld2);
-    Assert.Equal(4, a.Fld3);
+    a.Fld1.ShouldBe(10);
+    a.I.ShouldNotBeNull();
+    a.I.S.ShouldBe("A1::Int1::s");
+    a.Fld2.ShouldBe(3);
+    a.Fld3.ShouldBe(4);
   }
 
   [Fact]
@@ -28,26 +32,26 @@ public class NullableTypes
   {
     var bint = new B3.BInt { Fld1 = "b" };
     var b = new B3
-    {
-      Fld1 = bint,
-      Fld2 = bint,
-      Fld3 = bint,
-      Fld4 = bint,
-      Fld6 = bint,
-      Fld7 = bint
-    };
+              {
+                Fld1 = bint,
+                Fld2 = bint,
+                Fld3 = bint,
+                Fld4 = bint,
+                Fld6 = bint,
+                Fld7 = bint
+              };
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B3, A3>();
 
     // DynamicAssemblyManager.SaveAssembly();
     var a = mapper.Map(b);
-    Assert.Equal("b", a.Fld1.Value.Fld1);
-    Assert.Equal("b", a.Fld2.Value.Fld1);
-    Assert.Equal("b", a.Fld3.Value.Fld1);
-    Assert.Equal("b", a.Fld4.Value.Fld1);
-    Assert.Equal("b", a.Fld6.Value.Fld1);
-    Assert.Equal("b", a.Fld7.Fld1);
-    Assert.Equal("a", a.Fld2.Value.Fld3);
-    Assert.False(a.Fld5.HasValue);
+    a.Fld1.Value.Fld1.ShouldBe("b");
+    a.Fld2.Value.Fld1.ShouldBe("b");
+    a.Fld3.Value.Fld1.ShouldBe("b");
+    a.Fld4.Value.Fld1.ShouldBe("b");
+    a.Fld6.Value.Fld1.ShouldBe("b");
+    a.Fld7.Fld1.ShouldBe("b");
+    a.Fld2.Value.Fld3.ShouldBe("a");
+    a.Fld5.HasValue.ShouldBeFalse();
   }
 
   [Fact]
@@ -56,19 +60,19 @@ public class NullableTypes
     var bint = new B4.BInt { Fld1 = "b" };
     var b = new B4 { Fld1 = bint };
     var a = Context.ObjMan.GetMapper<B4, A4>().Map(b);
-    Assert.Equal("b", a.Fld1.Fld1);
+    a.Fld1.Fld1.ShouldBe("b");
   }
 
   [Fact]
   public void Test_Nullable()
   {
     var a = Context.ObjMan.GetMapper<B5, A5>().Map(new B5());
-    Assert.Equal(10, a.Fld1.Value);
-    Assert.Null(a.Fld2);
-    Assert.Equal(A5.En.Value2, a.Fld3.Value);
-    Assert.Equal(A5.En.Value3, a.Fld4);
-    Assert.Equal(13, a.Fld5.Value);
-    Assert.Equal(11, a.Fld6.Value);
+    a.Fld1.Value.ShouldBe(10);
+    a.Fld2.ShouldBeNull();
+    A5.En.Value2.ShouldBe(a.Fld3.Value);
+    A5.En.Value3.ShouldBe(a.Fld4);
+    a.Fld5.Value.ShouldBe(13);
+    a.Fld6.Value.ShouldBe(11);
   }
 
   [Fact]
@@ -76,7 +80,7 @@ public class NullableTypes
   {
     var a = ObjectMapperManager.DefaultInstance
       .GetMapper<B6, A6>(new DefaultMapConfig().DeepMap().ConvertUsing<object, object>(v => null)).Map(new B6());
-    Assert.Null(a);
+    a.ShouldBeNull();
   }
 
   [Fact]
@@ -85,14 +89,14 @@ public class NullableTypes
     var a = ObjectMapperManager.DefaultInstance
       .GetMapper<B7, A7>(new DefaultMapConfig().DeepMap().ConvertUsing<object, int>(v => 100)).Map(new B7());
 
-    Assert.Equal(100, a.I);
+    a.I.ShouldBe(100);
   }
 
   [Fact]
   public void Value_to_Nullable()
   {
     var a = Context.ObjMan.GetMapper<B2, A2>().Map(new B2());
-    Assert.Equal(10, a.Fld1);
+    a.Fld1.ShouldBe(10);
   }
 
   public class A1

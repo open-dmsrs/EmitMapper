@@ -1,6 +1,8 @@
-﻿using Xunit;
+﻿namespace EmitMapper.Tests;
 
-namespace EmitMapper.Tests;
+using Shouldly;
+
+using Xunit;
 
 ////[TestFixture]
 public class ValueTypes
@@ -11,7 +13,7 @@ public class ValueTypes
     var a = new A1();
     var b = new B1();
     a = Context.ObjMan.GetMapper<B1, A1>().Map(b, a);
-    Assert.Equal(10, a.Fld1);
+    a.Fld1.ShouldBe(10);
   }
 
   [Fact]
@@ -37,13 +39,13 @@ public class ValueTypes
     b.S5.C3.S.I = 3;
 
     var a = mapper.Map(b);
-    Assert.Equal(13, a.S.S.I);
-    Assert.Equal(15, a.S2.S.I);
-    Assert.Equal(10, a.S3.S.I);
-    Assert.Equal(11, a.S4.S.I);
-    Assert.Equal(1, a.S5.C1.S.I);
-    Assert.Equal(2, a.S5.C2.S.I);
-    Assert.Equal(3, a.S5.C3.S.I);
+    a.S.S.I.ShouldBe(13);
+    a.S2.S.I.ShouldBe(15);
+    a.S3.S.I.ShouldBe(10);
+    a.S4.S.I.ShouldBe(11);
+    a.S5.C1.S.I.ShouldBe(1);
+    a.S5.C2.S.I.ShouldBe(2);
+    a.S5.C3.S.I.ShouldBe(3);
   }
 
   [Fact]
@@ -55,7 +57,7 @@ public class ValueTypes
     var b = new B5();
     b.A.Fld1 = 10;
     var a = mapper.Map(b);
-    Assert.Equal(10, a.A.Fld1);
+    a.A.Fld1.ShouldBe(10);
   }
 
   [Fact]
@@ -67,9 +69,9 @@ public class ValueTypes
 
     // DynamicAssemblyManager.SaveAssembly();
     a = mapper.Map(b, a);
-    Assert.Equal(b.Fld1.Fld1.ToString(), a.Fld1.Fld1);
-    Assert.Equal(b.Fld2.Fld1.ToString(), a.Fld2.Fld1);
-    Assert.Equal(b.Fld3.Fld1.ToString(), a.Fld3.Fld1);
+    b.Fld1.Fld1.ToString().ShouldBe(a.Fld1.Fld1);
+    b.Fld2.Fld1.ToString().ShouldBe(a.Fld2.Fld1);
+    b.Fld3.Fld1.ToString().ShouldBe(a.Fld3.Fld1);
   }
 
   [Fact]
@@ -78,7 +80,7 @@ public class ValueTypes
     var a = new A3();
     var b = new B3 { Fld1 = 87 };
     a = Context.ObjMan.GetMapper<B3, A3>().Map(b, a);
-    Assert.Equal(87, a.Fld1);
+    a.Fld1.ShouldBe(87);
   }
 
   [Fact]
@@ -87,7 +89,7 @@ public class ValueTypes
     var a = new A2();
     var b = new B2 { Fld1 = 99 };
     a = Context.ObjMan.GetMapper<B2, A2>().Map(b, a);
-    Assert.Equal(99, a.Fld1);
+    a.Fld1.ShouldBe(99);
   }
 
   public struct A1

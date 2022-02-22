@@ -1,7 +1,10 @@
-﻿using EmitMapper.MappingConfiguration;
-using Xunit;
+﻿namespace EmitMapper.Tests;
 
-namespace EmitMapper.Tests;
+using EmitMapper.MappingConfiguration;
+
+using Shouldly;
+
+using Xunit;
 
 ////[TestFixture]
 public class CustomMapping
@@ -17,11 +20,11 @@ public class CustomMapping
     var a = Context.ObjMan.GetMapper<B2, A2>(
       new DefaultMapConfig().ConvertUsing<object, string>(v => "333").ConvertUsing<object, string>(v => "hello")
         .SetConfigName("ignore")).Map(new B2());
-    Assert.Null(a.Fld1);
-    Assert.Equal("hello", a.Fld2);
+    a.Fld1.ShouldBeNull();
+    a.Fld2.ShouldBe("hello");
 
     a = Context.ObjMan.GetMapper<B2, A2>().Map(new B2());
-    Assert.Equal("B2::fld2", a.Fld2);
+    a.Fld2.ShouldBe("B2::fld2");
   }
 
   [Fact]
@@ -29,8 +32,8 @@ public class CustomMapping
   {
     var a = Context.ObjMan.GetMapper<Bb, Aa>(new DefaultMapConfig().ConvertUsing<object, string>(v => "converted " + v))
       .Map(new Bb());
-    Assert.Equal("converted B2::fld1", a.Fld1);
-    Assert.Equal("converted B2::fld2", a.Fld2);
+    a.Fld1.ShouldBe("converted B2::fld1");
+    a.Fld2.ShouldBe("converted B2::fld2");
   }
 
   [Fact]
@@ -40,7 +43,7 @@ public class CustomMapping
         new DefaultMapConfig().ConvertUsing<IWithName, string>(v => v.Name).SetConfigName("withinterfaces"))
       .Map(new WithName { Name = "thisIsMyName" });
 
-    Assert.Equal("thisIsMyName", str);
+    str.ShouldBe("thisIsMyName");
   }
 
   [Fact]
@@ -49,23 +52,23 @@ public class CustomMapping
     var a = Context.ObjMan.GetMapper<B3, A3>(
       new DefaultMapConfig().PostProcess<A3.Int>(
           (i, state) =>
-          {
-            i.Str2 = "processed";
-            return i;
-          }).PostProcess<A3.SInt?>((i, state) => { return new A3.SInt { Str1 = i.Value.Str1, Str2 = "processed" }; })
+            {
+              i.Str2 = "processed";
+              return i;
+            }).PostProcess<A3.SInt?>((i, state) => { return new A3.SInt { Str1 = i.Value.Str1, Str2 = "processed" }; })
         .PostProcess<A3>(
           (i, state) =>
-          {
-            i.Status = "processed";
-            return i;
-          })).Map(new B3());
-    Assert.Equal("B3::Int::str1", a.Fld.Str1);
-    Assert.Equal("processed", a.Fld.Str2);
+            {
+              i.Status = "processed";
+              return i;
+            })).Map(new B3());
+    a.Fld.Str1.ShouldBe("B3::Int::str1");
+    a.Fld.Str2.ShouldBe("processed");
 
-    Assert.Equal("B3::SInt::str1", a.Fld2.Value.Str1);
-    Assert.Equal("processed", a.Fld2.Value.Str2);
+    a.Fld2.Value.Str1.ShouldBe("B3::SInt::str1");
+    a.Fld2.Value.Str2.ShouldBe("processed");
 
-    Assert.Equal("processed", a.Status);
+    a.Status.ShouldBe("processed");
   }
 
   public class A1

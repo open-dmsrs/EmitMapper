@@ -1,11 +1,15 @@
-﻿using System;
+﻿namespace EmitMapper.Tests;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
-using Xunit;
 
-namespace EmitMapper.Tests;
+using Shouldly;
+
+using Xunit;
 
 ////[TestFixture]
 public class IgnoreByAttributes
@@ -16,8 +20,8 @@ public class IgnoreByAttributes
     var mapper =
       ObjectMapperManager.DefaultInstance.GetMapper<IgnoreByAttributesSrc, IgnoreByAttributesDst>(new MyConfigurator());
     var dst = mapper.Map(new IgnoreByAttributesSrc());
-    Assert.Equal("IgnoreByAttributesDst::str1", dst.Str1);
-    Assert.Equal("IgnoreByAttributesSrc::str2", dst.Str2);
+    dst.Str1.ShouldBe("IgnoreByAttributesDst::str1");
+    dst.Str2.ShouldBe("IgnoreByAttributesSrc::str2");
   }
 
   public class IgnoreByAttributesDst
@@ -29,7 +33,8 @@ public class IgnoreByAttributes
 
   public class IgnoreByAttributesSrc
   {
-    [MyIgnore] public string Str1 = "IgnoreByAttributesSrc::str1";
+    [MyIgnore]
+    public string Str1 = "IgnoreByAttributesSrc::str1";
 
     public string Str2 = "IgnoreByAttributesSrc::str2";
   }

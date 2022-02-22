@@ -1,7 +1,10 @@
-﻿using EmitMapper.MappingConfiguration;
-using Xunit;
+﻿namespace EmitMapper.Tests;
 
-namespace EmitMapper.Tests;
+using EmitMapper.MappingConfiguration;
+
+using Shouldly;
+
+using Xunit;
 
 ////[TestFixture]
 public class TypeConversion
@@ -15,8 +18,8 @@ public class TypeConversion
 
     // DynamicAssemblyManager.SaveAssembly();
     mapper.Map(b, a);
-    Assert.Equal(15, a.Fld1);
-    Assert.Equal("11", a.Fld2);
+    a.Fld1.ShouldBe(15);
+    a.Fld2.ShouldBe("11");
   }
 
   [Fact]
@@ -27,7 +30,7 @@ public class TypeConversion
     Context.ObjMan.GetMapper<B2, A2>().Map(b, a);
 
     // DynamicAssemblyManager.SaveAssembly();
-    Assert.Equal("99", a.Fld3[0]);
+    a.Fld3[0].ShouldBe("99");
   }
 
   [Fact]
@@ -37,21 +40,21 @@ public class TypeConversion
     var b = new B3();
     b.A1.Fld1 = 15;
     Context.ObjMan.GetMapper<B3, A3>(new DefaultMapConfig().DeepMap()).Map(b, a);
-    Assert.Equal(15, a.A1.Fld1);
+    a.A1.Fld1.ShouldBe(15);
     b.A1.Fld1 = 666;
-    Assert.Equal(15, a.A1.Fld1);
+    a.A1.Fld1.ShouldBe(15);
 
     Context.ObjMan.GetMapper<B3, A3>(new DefaultMapConfig().ShallowMap()).Map(b, a);
     b.A1.Fld1 = 777;
-    Assert.Equal(777, a.A1.Fld1);
+    a.A1.Fld1.ShouldBe(777);
 
     b = new B3();
     Context.ObjMan.GetMapper<B3, A3>(new DefaultMapConfig().ShallowMap<A1>().DeepMap<A2>()).Map(b, a);
     b.A1.Fld1 = 333;
     b.A2.Fld3 = new string[1];
 
-    Assert.Equal(333, a.A1.Fld1);
-    Assert.Null(a.A2.Fld3);
+    a.A1.Fld1.ShouldBe(333);
+    a.A2.Fld3.ShouldBeNull();
   }
 
   [Fact]
@@ -60,7 +63,7 @@ public class TypeConversion
     var a = new A4();
     var b = new B4();
     Context.ObjMan.GetMapper<B4, A4>().Map(b, a);
-    Assert.Equal("string", a.Str);
+    a.Str.ShouldBe("string");
   }
 
   public class A1

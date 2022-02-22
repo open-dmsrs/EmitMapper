@@ -1,8 +1,12 @@
-﻿using System;
-using EmitMapper.MappingConfiguration;
-using Xunit;
+﻿namespace EmitMapper.Tests;
 
-namespace EmitMapper.Tests;
+using System;
+
+using EmitMapper.MappingConfiguration;
+
+using Shouldly;
+
+using Xunit;
 
 ////[TestFixture]
 public class GeneralTests
@@ -14,8 +18,8 @@ public class GeneralTests
       new DefaultMapConfig().ConstructBy(() => new ConstructByDestination.NestedClass(3))
         .ConstructBy(() => new ConstructByDestination(-1)));
     var d = mapper.Map(new ConstructBySource());
-    Assert.Equal("ConstructBy_Source::str", d.Field.Str);
-    Assert.Equal(3, d.Field.I);
+    d.Field.Str.ShouldBe("ConstructBy_Source::str");
+    d.Field.I.ShouldBe(3);
   }
 
   [Fact]
@@ -25,7 +29,7 @@ public class GeneralTests
       new DefaultMapConfig().ConvertUsing<string, Guid>(s => new Guid(s)));
     var guid = Guid.NewGuid();
     var d = mapper.Map(guid.ToString());
-    Assert.Equal(guid, d);
+    guid.ShouldBe(d);
   }
 
   [Fact]
@@ -33,7 +37,7 @@ public class GeneralTests
   {
     var a = ObjectMapperManager.DefaultInstance.GetMapper<B2, A2>(
       new DefaultMapConfig().ConvertUsing<string, string>(s => "converted " + s)).Map(new B2());
-    Assert.Equal("converted str", a.Str);
+    a.Str.ShouldBe("converted str");
   }
 
   [Fact]
@@ -44,9 +48,9 @@ public class GeneralTests
 
     var src = new Source();
     var dst = mapper.Map(src);
-    Assert.Equal(src.Field1, dst.MField1);
-    Assert.Equal(src.Field2, dst.MField2);
-    Assert.Equal(src.Field3, dst.MField3);
+    src.Field1.ShouldBe(dst.MField1);
+    src.Field2.ShouldBe(dst.MField2);
+    src.Field3.ShouldBe(dst.MField3);
   }
 
   [Fact]
@@ -56,29 +60,29 @@ public class GeneralTests
 
     // DynamicAssemblyManager.SaveAssembly();
     var a = mapper.Map(new B3());
-    Assert.NotNull(a);
-    Assert.Null(a.I1);
-    Assert.NotNull(a.I2);
-    Assert.NotNull(a.I3);
-    Assert.NotNull(a.I2.I1);
-    Assert.NotNull(a.I2.I2);
-    Assert.Null(a.I2.I3);
-    Assert.NotNull(a.I3.I1);
-    Assert.NotNull(a.I3.I2);
-    Assert.Null(a.I3.I3);
+    a.ShouldNotBeNull();
+    a.I1.ShouldBeNull();
+    a.I2.ShouldNotBeNull();
+    a.I3.ShouldNotBeNull();
+    a.I2.I1.ShouldNotBeNull();
+    a.I2.I2.ShouldNotBeNull();
+    a.I2.I3.ShouldBeNull();
+    a.I3.I1.ShouldNotBeNull();
+    a.I3.I2.ShouldNotBeNull();
+    a.I3.I3.ShouldBeNull();
 
-    Assert.Equal("1", a.I2.I1.Str1);
-    Assert.Equal("1", a.I2.I2.Str1);
-    Assert.Equal("1", a.I3.I1.Str1);
-    Assert.Equal("1", a.I3.I2.Str1);
-    Assert.Null(a.I2.I1.Str2);
-    Assert.Null(a.I2.I2.Str2);
-    Assert.Null(a.I3.I1.Str2);
-    Assert.Null(a.I3.I2.Str2);
-    Assert.Equal(10, a.I2.I1.I);
-    Assert.Equal(10, a.I2.I2.I);
-    Assert.Equal(10, a.I3.I1.I);
-    Assert.Equal(10, a.I3.I2.I);
+    a.I2.I1.Str1.ShouldBe("1");
+    a.I2.I2.Str1.ShouldBe("1");
+    a.I3.I1.Str1.ShouldBe("1");
+    a.I3.I2.Str1.ShouldBe("1");
+    a.I2.I1.Str2.ShouldBeNull();
+    a.I2.I2.Str2.ShouldBeNull();
+    a.I3.I1.Str2.ShouldBeNull();
+    a.I3.I2.Str2.ShouldBeNull();
+    a.I2.I1.I.ShouldBe(10);
+    a.I2.I2.I.ShouldBe(10);
+    a.I3.I1.I.ShouldBe(10);
+    a.I3.I2.I.ShouldBe(10);
   }
 
   [Fact]
@@ -86,8 +90,8 @@ public class GeneralTests
   {
     var a = ObjectMapperManager.DefaultInstance.GetMapper<B, A>(new DefaultMapConfig().IgnoreMembers<B, A>("Str1"))
       .Map(new B());
-    Assert.Equal("Destination::str1", a.Str1);
-    Assert.Equal(A.EnType.En2, a.En);
+    a.Str1.ShouldBe("Destination::str1");
+    A.EnType.En2.ShouldBe(a.En);
   }
 
   [Fact]
@@ -99,20 +103,20 @@ public class GeneralTests
 
     // DynamicAssemblyManager.SaveAssembly();
     mapper.Map(b, a);
-    Assert.Equal(A.EnType.En2, a.En);
-    Assert.Equal(a.Str1, b.Str1);
-    Assert.Equal(a.Str2, b.Str2);
-    Assert.Equal(a.Obj.Str, b.Obj.Str);
-    Assert.Equal(13, a.Obj.Intern);
-    Assert.Equal(a.Arr.Length, b.Arr.Length);
-    Assert.Equal(a.Arr[0], b.Arr[0]);
-    Assert.Equal(a.Arr[1], b.Arr[1]);
-    Assert.Equal(a.Arr[2], b.Arr[2]);
+    A.EnType.En2.ShouldBe(a.En);
+    a.Str1.ShouldBe(b.Str1);
+    a.Str2.ShouldBe(b.Str2);
+    a.Obj.Str.ShouldBe(b.Obj.Str);
+    a.Obj.Intern.ShouldBe(13);
+    a.Arr.Length.ShouldBe(b.Arr.Length);
+    a.Arr[0].ShouldBe(b.Arr[0]);
+    a.Arr[1].ShouldBe(b.Arr[1]);
+    a.Arr[2].ShouldBe(b.Arr[2]);
 
-    Assert.Equal(a.ObjArr.Length, b.ObjArr.Length);
-    Assert.Equal(a.ObjArr[0].Str, b.ObjArr[0].Str);
-    Assert.Equal(a.ObjArr[1].Str, b.ObjArr[1].Str);
-    Assert.Null(a.Str3);
+    a.ObjArr.Length.ShouldBe(b.ObjArr.Length);
+    b.ObjArr[0].Str.ShouldBe(a.ObjArr[0].Str);
+    a.ObjArr[1].Str.ShouldBe(b.ObjArr[1].Str);
+    a.Str3.ShouldBeNull();
   }
 
   [Fact]
@@ -128,7 +132,7 @@ public class GeneralTests
 
     // DynamicAssemblyManager.SaveAssembly();
     mapper.Map(b, a);
-    Assert.Null(a.Obj);
+    a.Obj.ShouldBeNull();
   }
 
   [Fact]
@@ -140,7 +144,7 @@ public class GeneralTests
 
     var mapper = Context.ObjMan.GetMapper<B, A>();
     mapper.Map(b, a);
-    Assert.Equal(15, a.Obj.Intern);
+    a.Obj.Intern.ShouldBe(15);
   }
 
   [Fact]
@@ -150,8 +154,8 @@ public class GeneralTests
 
     // DynamicAssemblyManager.SaveAssembly();
     var s = mapper.Map(new Simple2());
-    Assert.Equal(20, s.I);
-    Assert.Equal(A.EnType.En2, s.Fld1);
+    s.I.ShouldBe(20);
+    A.EnType.En2.ShouldBe(s.Fld1);
   }
 
   [Fact]
@@ -161,7 +165,7 @@ public class GeneralTests
 
     // DynamicAssemblyManager.SaveAssembly();
     var s = mapper.Map(new Class2 { Fld = 13 });
-    Assert.Equal(13, s.Fld);
+    s.Fld.ShouldBe(13);
   }
 
   [Fact]
@@ -171,7 +175,7 @@ public class GeneralTests
 
     // DynamicAssemblyManager.SaveAssembly();
     var aen = mapper.Map(B.EnType.En3);
-    Assert.Equal(A.EnType.En3, aen);
+    A.EnType.En3.ShouldBe(aen);
   }
 
   [Fact]
@@ -181,35 +185,39 @@ public class GeneralTests
 
     // DynamicAssemblyManager.SaveAssembly();
     var s = mapper.Map(new Struct2 { Fld = 13 });
-    Assert.Equal(13, s.Fld);
+    s.Fld.ShouldBe(13);
   }
 
   [Fact]
   public void TestRecursiveClass()
   {
     var tree = new TreeNode
-    {
-      Data = "node 1",
-      Next = new TreeNode
-      {
-        Data = "node 2",
-        Next = new TreeNode
-        {
-          Data = "node 3",
-          SubNodes = new[] { new TreeNode { Data = "sub sub data 1" }, new TreeNode { Data = "sub sub data 2" } }
-        }
-      },
-      SubNodes = new[] { new TreeNode { Data = "sub data 1" } }
-    };
+                 {
+                   Data = "node 1",
+                   Next = new TreeNode
+                            {
+                              Data = "node 2",
+                              Next = new TreeNode
+                                       {
+                                         Data = "node 3",
+                                         SubNodes = new[]
+                                                      {
+                                                        new TreeNode { Data = "sub sub data 1" },
+                                                        new TreeNode { Data = "sub sub data 2" }
+                                                      }
+                                       }
+                            },
+                   SubNodes = new[] { new TreeNode { Data = "sub data 1" } }
+                 };
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<TreeNode, TreeNode>(new DefaultMapConfig().DeepMap());
     var tree2 = mapper.Map(tree);
-    Assert.Equal("node 1", tree2.Data);
-    Assert.Equal("node 2", tree2.Next.Data);
-    Assert.Equal("node 3", tree2.Next.Next.Data);
-    Assert.Equal("sub data 1", tree2.SubNodes[0].Data);
-    Assert.Equal("sub sub data 1", tree2.Next.Next.SubNodes[0].Data);
-    Assert.Equal("sub sub data 2", tree2.Next.Next.SubNodes[1].Data);
-    Assert.Null(tree2.Next.Next.Next);
+    tree2.Data.ShouldBe("node 1");
+    tree2.Next.Data.ShouldBe("node 2");
+    tree2.Next.Next.Data.ShouldBe("node 3");
+    tree2.SubNodes[0].Data.ShouldBe("sub data 1");
+    tree2.Next.Next.SubNodes[0].Data.ShouldBe("sub sub data 1");
+    tree2.Next.Next.SubNodes[1].Data.ShouldBe("sub sub data 2");
+    tree2.Next.Next.Next.ShouldBeNull();
   }
 
   public class A

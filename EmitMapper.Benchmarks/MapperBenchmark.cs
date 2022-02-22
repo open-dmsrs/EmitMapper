@@ -250,15 +250,19 @@ Job=.NET 6.0  Runtime=.NET 6.0
 |     BenchNested_a_HardMapper |      0.8563 ns |   0.0173 ns |   0.0341 ns |      0.8489 ns |  1.00 | 0.0010 |      - |       3 B |
 |     BenchNested_b_EmitMapper |      0.8897 ns |   0.0431 ns |   0.1264 ns |      0.8451 ns |  1.00 | 0.0010 |      - |       3 B |
 |     BenchNested_c_AutoMapper |     16.5678 ns |   0.7823 ns |   2.2945 ns |     16.7384 ns |  1.00 | 0.0009 |      - |       3 B |
+
 | BenchNested1000_a_HardMapper |  3,988.9549 ns |  79.6474 ns |  97.8142 ns |  3,965.5109 ns |  1.00 | 0.4766 | 0.2344 |   3,024 B |
 | BenchNested1000_b_EmitMapper |  3,781.9851 ns |  74.5756 ns | 122.5298 ns |  3,776.3773 ns |  1.00 | 0.4766 | 0.2344 |   3,024 B |
 | BenchNested1000_c_AutoMapper | 16,978.1985 ns | 333.1485 ns | 396.5896 ns | 16,966.0594 ns |  1.00 | 0.4688 | 0.2188 |   3,033 B |
+
 |     SimpleTypes_a_HardMapper |      0.0310 ns |   0.0008 ns |   0.0023 ns |      0.0307 ns |  1.00 | 0.0000 |      - |         - |
 |     SimpleTypes_b_EmitMapper |      0.0512 ns |   0.0009 ns |   0.0010 ns |      0.0513 ns |  1.00 | 0.0000 |      - |         - |
 |     SimpleTypes_c_AutoMapper |      0.1718 ns |   0.0035 ns |   0.0076 ns |      0.1709 ns |  1.00 | 0.0000 |      - |         - |
+
 |  SimpleTypes100_a_HardMapper |      4.0774 ns |   0.0804 ns |   0.1714 ns |      4.0509 ns |  1.00 | 0.0041 |      - |      13 B |
 |  SimpleTypes100_b_EmitMapper |      8.4392 ns |   0.4806 ns |   1.4020 ns |      8.3280 ns |  1.00 | 0.0044 |      - |      14 B |
 |  SimpleTypes100_c_AutoMapper |      8.4149 ns |   0.5269 ns |   1.5285 ns |      8.0763 ns |  1.00 | 0.0045 |      - |      14 B |
+
 | SimpleTypes1000_a_HardMapper |     53.3382 ns |   1.0229 ns |   2.8684 ns |     52.6775 ns |  1.00 | 0.0320 | 0.0103 |     128 B |
 | SimpleTypes1000_b_EmitMapper |     81.6188 ns |   1.9400 ns |   5.5036 ns |     79.9001 ns |  1.00 | 0.0308 | 0.0101 |     128 B |
 | SimpleTypes1000_c_AutoMapper |     89.3916 ns |   4.3419 ns |  12.6655 ns |     86.0168 ns |  1.00 | 0.0369 | 0.0082 |     137 B |

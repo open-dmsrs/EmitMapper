@@ -1,6 +1,4 @@
-﻿using EmitMapper.Tests;
-
-namespace EmitMapper.Tests.TestData;
+﻿namespace EmitMapper.Tests.TestData;
 
 public class SimpleTypesSource : ITestObject
 {

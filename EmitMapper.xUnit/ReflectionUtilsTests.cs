@@ -1,8 +1,12 @@
-﻿using System.Linq;
-using EmitMapper.Utils;
-using Xunit;
+﻿namespace EmitMapper.Tests;
 
-namespace EmitMapper.Tests;
+using System.Linq;
+
+using EmitMapper.Utils;
+
+using Shouldly;
+
+using Xunit;
 
 //////[TestFixture]
 public class ReflectionUtilsTests
@@ -11,7 +15,7 @@ public class ReflectionUtilsTests
   public void Test_GetPublicFieldsAndProperties_ShouldIncludeMembersFromAllInterfaces()
   {
     var members = ReflectionHelper.GetPublicFieldsAndProperties(typeof(IDerived));
-    Assert.Equal(2, members.Count());
+    members.Count().ShouldBe(2);
   }
 
   public interface IBase

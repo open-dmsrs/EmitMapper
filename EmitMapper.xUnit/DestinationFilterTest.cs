@@ -1,7 +1,10 @@
-﻿using EmitMapper.MappingConfiguration;
-using Xunit;
+﻿namespace EmitMapper.Tests;
 
-namespace EmitMapper.Tests;
+using EmitMapper.MappingConfiguration;
+
+using Shouldly;
+
+using Xunit;
 
 public class DestinationFilterTest
 {
@@ -13,8 +16,8 @@ public class DestinationFilterTest
     var source = new Derived { BaseProperty = "base", DerivedProperty = "derived" };
 
     var destination = mapper.Map(source);
-    Assert.Equal("base", destination.BaseProperty);
-    Assert.Equal("derived", destination.DerivedProperty);
+    destination.BaseProperty.ShouldBe("base");
+    destination.DerivedProperty.ShouldBe("derived");
   }
 
   [Fact]
@@ -29,14 +32,14 @@ public class DestinationFilterTest
                                 || (value as DestinationTestFilterSrc).I1 != 666)));
     var dest = mapper.Map(new DestinationTestFilterSrc());
 
-    Assert.Equal(13, dest.I1);
-    Assert.Equal(-5, dest.I2);
-    Assert.Equal(0, dest.I3);
-    Assert.Equal(0, dest.L1);
-    Assert.Null(dest.Str);
+    dest.I1.ShouldBe(13);
+    dest.I2.ShouldBe(-5);
+    dest.I3.ShouldBe(0);
+    dest.L1.ShouldBe(0);
+    dest.Str.ShouldBeNull();
 
     dest = mapper.Map(new DestinationTestFilterSrc { I1 = 666 }, new DestinationTestFilterDest());
-    Assert.Equal(0, dest.I1);
+    dest.I1.ShouldBe(0);
   }
 
   [Fact]
@@ -51,14 +54,14 @@ public class DestinationFilterTest
                                 || (value as DestinationTestFilterSrc).I1 != 666)));
     var dest = mapper.Map(new DestinationTestFilterSrc());
 
-    Assert.Equal(13, dest.I1);
-    Assert.Equal(-5, dest.I2);
-    Assert.Equal(0, dest.I3);
-    Assert.Equal(0, dest.L1);
-    Assert.Null(dest.Str);
+    dest.I1.ShouldBe(13);
+    dest.I2.ShouldBe(-5);
+    dest.I3.ShouldBe(0);
+    dest.L1.ShouldBe(0);
+    dest.Str.ShouldBeNull();
 
     dest = mapper.Map(new DestinationTestFilterSrc { I1 = 666 }, new DestinationTestFilterDest());
-    Assert.Equal(0, dest.I1);
+    dest.I1.ShouldBe(0);
   }
 
   [Fact]
@@ -67,9 +70,9 @@ public class DestinationFilterTest
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<BaseSource, InherDestination>();
     var dest = mapper.Map(new DerivedSource { I1 = 1, I2 = 2, I3 = 3, I4 = 4 });
 
-    Assert.Equal(1, dest.I1);
-    Assert.Equal(2, dest.I2);
-    Assert.Equal(3, dest.I3);
+    dest.I1.ShouldBe(1);
+    dest.I2.ShouldBe(2);
+    dest.I3.ShouldBe(3);
   }
 
   public class BaseSource

@@ -1,6 +1,6 @@
-﻿using EmitMapper.Tests;
+﻿namespace EmitMapper.Common.TestData;
 
-namespace EmitMapper.Common.TestData;
+using EmitMapper.Tests;
 
 public class BenchNestedSource : ITestObject
 {

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿namespace EmitMapper.Tests;
 
-namespace EmitMapper.Tests;
+using System.Collections.Generic;
+using System.Linq;
 
 public static class TestUtils
 {

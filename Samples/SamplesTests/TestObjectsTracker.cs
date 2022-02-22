@@ -4,6 +4,8 @@ using Xunit;
 
 namespace SamplesTests;
 
+using Shouldly;
+
 public class TestObjectsTracker
 {
   [Fact]
@@ -14,7 +16,7 @@ public class TestObjectsTracker
     tracker.RegisterObject(a);
     a.F2 = 3;
     var changes = tracker.GetChanges(a);
-    Assert.Equal(nameof(A.F2), changes[0].Name);
+    changes[0].Name.ShouldBe(nameof(A.F2));
     tracker.RegisterObject(a);
     changes = tracker.GetChanges(a);
     Assert.True(changes.Length == 0);
@@ -27,7 +29,7 @@ public class TestObjectsTracker
 
     changes = tracker.GetChanges(a);
     Assert.True(TestUtils.AreEqual(new[] { "F1", "F2", "F3" }, changes.Select(c => c.Name).ToArray()));
-
+    
     changes = tracker.GetChanges(new A());
     Assert.Null(changes);
   }
@@ -40,11 +42,11 @@ public class TestObjectsTracker
     var current = new A { F1 = "F1New", F2 = 2, F3 = false };
     var changes = tracker.GetChanges(original, current);
 
-    Assert.Equal(2, changes.Count());
-    Assert.Equal("F3", changes[1].Name);
-    Assert.Equal(false, changes[1].CurrentValue);
-    Assert.Equal("F1", changes[0].Name);
-    Assert.Equal("F1New", changes[0].CurrentValue);
+    changes.Count().ShouldBe(2);
+    changes[1].Name.ShouldBe("F3");
+    changes[1].CurrentValue.ShouldBe(false);
+    changes[0].Name.ShouldBe("F1");
+    changes[0].CurrentValue.ShouldBe("F1New");
 
     changes = tracker.GetChanges(original, null);
     Assert.Null(changes);

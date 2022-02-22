@@ -1,27 +1,28 @@
-﻿using System.Collections;
+﻿namespace EmitMapper.Tests;
+
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Xunit;
 
-namespace EmitMapper.Tests;
+using Shouldly;
 
 internal static class CustomAssert
 {
   public static void AreEqual(ICollection expected, ICollection actual)
   {
-    Assert.Equal(expected.Count, actual.Count);
+    expected.Count.ShouldBe(actual.Count);
     var enumExpected = expected.GetEnumerator();
     var enumActual = actual.GetEnumerator();
     while (enumExpected.MoveNext() && enumActual.MoveNext())
-      Assert.Equal(enumExpected.Current, enumActual.Current);
+      enumExpected.Current.ShouldBe(enumActual.Current);
   }
 
   public static void AreEqualEnum<T>(IEnumerable<T> expected, IEnumerable<T> actual)
   {
-    Assert.Equal(expected.Count(), actual.Count());
+    actual.Count().ShouldBe(expected.Count());
     IEnumerator enumExpected = expected.GetEnumerator();
     IEnumerator enumActual = actual.GetEnumerator();
     while (enumExpected.MoveNext() && enumActual.MoveNext())
-      Assert.Equal(enumExpected.Current, enumActual.Current);
+      enumExpected.Current.ShouldBe(enumActual.Current);
   }
 }
