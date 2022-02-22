@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.Common;
+﻿namespace EmitMapper.Tests;
 
 public interface ITestObject
 {

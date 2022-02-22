@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.Common.TestData;
+﻿namespace EmitMapper.Tests.TestData;
 
 public class BenchNestedDestination : ITestObject
 {

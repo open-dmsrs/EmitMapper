@@ -1,4 +1,6 @@
-﻿namespace EmitMapper.Common.TestData;
+﻿using EmitMapper.Tests;
+
+namespace EmitMapper.Tests.TestData;
 
 public class SimpleTypesDestination : ITestObject
 {
