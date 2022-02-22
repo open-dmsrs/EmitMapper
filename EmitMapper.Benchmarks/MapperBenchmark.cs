@@ -13,6 +13,7 @@ namespace EmitMapper.Benchmarks;
 
 // [RPlotExporter]
 [MemoryDiagnoser]
+[MediumRunJob, SkewnessColumn, KurtosisColumn]
 public class MapperBenchmark
 {
   private IMapper _autoMapper;
@@ -54,91 +55,94 @@ public class MapperBenchmark
     _simple1000List = fixture.CreateMany<SimpleTypesSource>(1000).ToList();
     _benchSources1000List = fixture.CreateMany<BenchNestedSource>(1000).ToList();
   }
-
+  [BenchmarkCategory("Bench")]
   [Benchmark(OperationsPerInvoke = IterationCount)]
-  public BenchNestedDestination BenchNested_a_HardMapper()
+  public BenchNestedDestination Bench_a_HardMapper()
   {
     return HardMap(_benchSource);
   }
 
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public BenchNestedDestination BenchNested_b_EmitMapper()
+  [BenchmarkCategory("Bench", "1")]
+  [Benchmark(OperationsPerInvoke = IterationCount, Baseline = true)]
+  public BenchNestedDestination Bench_b_EmitMapper()
   {
     return _benchSourceEmitMapper.Map(_benchSource);
   }
-
+  [BenchmarkCategory("Bench", "1")]
   [Benchmark(OperationsPerInvoke = IterationCount)]
-  public BenchNestedDestination BenchNested_c_AutoMapper()
+  public BenchNestedDestination Bench_c_AutoMapper()
   {
     return _autoMapper.Map<BenchNestedSource, BenchNestedDestination>(_benchSource);
   }
-
+  [BenchmarkCategory("Bench", "100")]
   [Benchmark(OperationsPerInvoke = IterationCount)]
   public List<BenchNestedDestination> BenchNested1000_a_HardMapper()
   {
     return _benchSources1000List.Select(s => HardMap(s)).ToList();
   }
+  [BenchmarkCategory("Bench", "100")]
+  [Benchmark(OperationsPerInvoke = IterationCount, Baseline = true)]
 
-  [Benchmark(OperationsPerInvoke = IterationCount)]
   public List<BenchNestedDestination> BenchNested1000_b_EmitMapper()
   {
     return _benchSourceEmitMapper.MapEnum(_benchSources1000List);
   }
-
+  [BenchmarkCategory("Bench", "100")]
   [Benchmark(OperationsPerInvoke = IterationCount)]
   public List<BenchNestedDestination> BenchNested1000_c_AutoMapper()
   {
     return _autoMapper.Map<List<BenchNestedSource>, List<BenchNestedDestination>>(_benchSources1000List);
   }
-
+  [BenchmarkCategory("SimpleTypes", "1")]
   [Benchmark(OperationsPerInvoke = IterationCount)]
   public SimpleTypesDestination SimpleTypes_a_HardMapper()
   {
     return HardMap(_simpleSource);
   }
+  [BenchmarkCategory("SimpleTypes", "1")]
+  [Benchmark(OperationsPerInvoke = IterationCount, Baseline = true)]
 
-  [Benchmark(OperationsPerInvoke = IterationCount)]
   public SimpleTypesDestination SimpleTypes_b_EmitMapper()
   {
     return _simpleEmitMapper.Map(_simpleSource);
   }
-
+  [BenchmarkCategory("SimpleTypes", "1")]
   [Benchmark(OperationsPerInvoke = IterationCount)]
   public SimpleTypesDestination SimpleTypes_c_AutoMapper()
   {
     return _autoMapper.Map<SimpleTypesSource, SimpleTypesDestination>(_simpleSource);
   }
-
+  [BenchmarkCategory("SimpleTypes", "100")]
   [Benchmark(OperationsPerInvoke = IterationCount)]
   public List<SimpleTypesDestination> SimpleTypes100_a_HardMapper()
   {
     return _simple100List.Select(s => HardMap(s)).ToList();
   }
-
-  [Benchmark(OperationsPerInvoke = IterationCount)]
+  [BenchmarkCategory("SimpleTypes", "100")]
+  [Benchmark(OperationsPerInvoke = IterationCount, Baseline = true)]
   public List<SimpleTypesDestination> SimpleTypes100_b_EmitMapper()
   {
     return _simpleEmitMapper.MapEnum(_simple100List).ToList();
   }
-
+  [BenchmarkCategory("SimpleTypes", "100")]
   [Benchmark(OperationsPerInvoke = IterationCount)]
   public List<SimpleTypesDestination> SimpleTypes100_c_AutoMapper()
   {
     return _autoMapper.Map<List<SimpleTypesSource>, List<SimpleTypesDestination>>(_simple100List);
   }
-
+  [BenchmarkCategory("SimpleTypes", "1000")]
   [Benchmark(OperationsPerInvoke = IterationCount)]
   public List<SimpleTypesDestination> SimpleTypes1000_a_HardMapper()
   {
     return _simple1000List.Select(s => HardMap(s)).ToList();
   }
-
-  [Benchmark(OperationsPerInvoke = IterationCount)]
+  [BenchmarkCategory("SimpleTypes", "1000")]
+  [Benchmark(OperationsPerInvoke = IterationCount, Baseline = true)]
   public List<SimpleTypesDestination> SimpleTypes1000_b_EmitMapper()
   {
     return _simpleEmitMapper.MapEnum(_simple1000List);
   }
-
+  [BenchmarkCategory("SimpleTypes1000")]
   [Benchmark(OperationsPerInvoke = IterationCount)]
   public List<SimpleTypesDestination> SimpleTypes1000_c_AutoMapper()
   {
