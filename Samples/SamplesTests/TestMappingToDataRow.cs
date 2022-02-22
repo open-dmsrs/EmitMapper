@@ -11,6 +11,8 @@ using Xunit;
 
 namespace SamplesTests;
 
+using Shouldly;
+
 public class TestMappingToDataRow
 {
   [Fact]

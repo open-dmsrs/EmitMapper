@@ -5,6 +5,8 @@ using Xunit;
 
 namespace SamplesTests;
 
+using Shouldly;
+
 public class Flattering
 {
   [Fact]

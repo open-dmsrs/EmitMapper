@@ -10,6 +10,8 @@ using Xunit;
 
 namespace SamplesTests;
 
+using Shouldly;
+
 public class Customer
 {
   public string Address;
@@ -72,7 +74,7 @@ public class CustormTests
       customers = reader.ToObjects<Customer>("reader1").ToArray();
     }
 
-    Assert.True(customers.Length == 91);
+    customers.Length.ShouldBe(91);
   }
 
   // [Fact]
@@ -94,7 +96,7 @@ public class CustormTests
       "test",
       DbSettings.Mssql).Result;
     ts.Complete();
-    Assert.True(rs == 1);
+    rs.ShouldBe(1);
   }
 
   // [Fact]
@@ -112,7 +114,7 @@ public class CustormTests
       "select * from Customers limit 1 ",
       null,
       r => r.ToObject<Customer>());
-    Assert.NotNull(customer);
+    customer.ShouldNotBeNull();
 
     var tracker = new ObjectsChangeTracker();
     tracker.RegisterObject(customer);
@@ -125,6 +127,6 @@ public class CustormTests
       new[] { "CustomerID" },
       tracker,
       DbSettings.Mssql);
-    Assert.True(result.Result == 1);
+    result.Result.ShouldBe(1);
   }
 }

@@ -19,7 +19,7 @@ public class TestObjectsTracker
     changes[0].Name.ShouldBe(nameof(A.F2));
     tracker.RegisterObject(a);
     changes = tracker.GetChanges(a);
-    Assert.True(changes.Length == 0);
+    changes.Length.ShouldBe(0);
 
     a.F1 = "new";
     a.F2 = 13;
@@ -28,8 +28,10 @@ public class TestObjectsTracker
       tracker.GetChanges(a);
 
     changes = tracker.GetChanges(a);
-    Assert.True(TestUtils.AreEqual(new[] { "F1", "F2", "F3" }, changes.Select(c => c.Name).ToArray()));
     
+
+    changes.Select(c => c.Name).ShouldBe(new[] { "F1", "F2", "F3" });
+
     changes = tracker.GetChanges(new A());
     Assert.Null(changes);
   }
