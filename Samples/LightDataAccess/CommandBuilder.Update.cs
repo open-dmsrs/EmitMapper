@@ -56,6 +56,7 @@ public static partial class CommandBuilder
     if (changeTracker != null)
     {
       var changedFields = changeTracker.GetChanges(obj);
+
       if (changedFields != null)
       {
         if (includeFields == null)
@@ -66,6 +67,7 @@ public static partial class CommandBuilder
     }
 
     if (includeFields != null) includeFields = includeFields.Concat(idFieldNames);
+
     IMappingConfigurator config = new AddDbCommandsMappingConfig(
       dbSettings,
       includeFields,
@@ -84,10 +86,12 @@ public static partial class CommandBuilder
                    f => dbSettings.GetEscapedName(f.ToUpper()) + "=" + dbSettings.GetParamName(f.ToUpper())).ToCsv(",")
                  + " WHERE " + idFieldNames
                    .Select(fn => dbSettings.GetEscapedName(fn) + "=" + dbSettings.GetParamName(fn)).ToCsv(" AND ");
+
     cmd.CommandText = cmdStr;
     cmd.CommandType = CommandType.Text;
 
     mapper.Map(obj, cmd, null);
+
     return true;
   }
 

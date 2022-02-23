@@ -1,8 +1,7 @@
-﻿namespace EmitMapper.Tests;
-
-using Shouldly;
-
+﻿using Shouldly;
 using Xunit;
+
+namespace EmitMapper.Tests;
 
 ////[TestFixture]
 public class ValueTypes
@@ -92,35 +91,6 @@ public class ValueTypes
     a.Fld1.ShouldBe(99);
   }
 
-  public struct A1
-  {
-    public int Fld1;
-  }
-
-  public struct A2
-  {
-    public int Fld1;
-  }
-
-  public struct A4
-  {
-    public Int Fld2;
-
-    public Int Fld1 { get; set; }
-
-    public Int Fld3 { get; set; }
-
-    public struct Int
-    {
-      public string Fld1;
-    }
-  }
-
-  public struct B3
-  {
-    public int Fld1;
-  }
-
   public class A3
   {
     public int Fld1;
@@ -134,13 +104,9 @@ public class ValueTypes
   public class A6To
   {
     public S2Struct S2;
-
     public C2 S4;
-
     public C3Class S5;
-
     public S2Struct S { get; set; }
-
     public C1 S3 { get; set; }
 
     public struct S1
@@ -166,9 +132,7 @@ public class ValueTypes
     public class C3Class
     {
       public C2 C1;
-
       public C2 C2;
-
       public C2 C3;
     }
   }
@@ -195,7 +159,6 @@ public class ValueTypes
     }
 
     public Int Fld1 { get; set; }
-
     public Int Fld2 { get; set; }
 
     public struct Int
@@ -212,13 +175,9 @@ public class ValueTypes
   public class B6From
   {
     public S2Struct S = new();
-
     public S2Struct S3;
-
     public C3Class S5;
-
     public S2Struct S2 { get; set; }
-
     public C1 S4 { get; set; }
 
     public struct S1
@@ -239,10 +198,35 @@ public class ValueTypes
     public class C3Class
     {
       public C1 C1;
-
       public C1 C2;
-
       public C1 C3;
     }
+  }
+
+  public struct A1
+  {
+    public int Fld1;
+  }
+
+  public struct A2
+  {
+    public int Fld1;
+  }
+
+  public struct A4
+  {
+    public Int Fld2;
+    public Int Fld1 { get; set; }
+    public Int Fld3 { get; set; }
+
+    public struct Int
+    {
+      public string Fld1;
+    }
+  }
+
+  public struct B3
+  {
+    public int Fld1;
   }
 }

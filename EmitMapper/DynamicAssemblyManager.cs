@@ -79,6 +79,7 @@ public class DynamicAssemblyManager
   {
     if (typeName.Length >= 1042)
       typeName = "type_" + typeName.Substring(0, 900) + Guid.NewGuid().ToString().Replace("-", string.Empty);
+
     return typeName;
   }
 }

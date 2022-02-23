@@ -1,10 +1,8 @@
-﻿namespace EmitMapper.Tests;
-
-using EmitMapper.MappingConfiguration;
-
+﻿using EmitMapper.MappingConfiguration;
 using Shouldly;
-
 using Xunit;
+
+namespace EmitMapper.Tests;
 
 public class DestinationFilterTest
 {
@@ -30,6 +28,7 @@ public class DestinationFilterTest
           (value, state) => value is not long
                             && (value is not DestinationTestFilterSrc
                                 || (value as DestinationTestFilterSrc).I1 != 666)));
+
     var dest = mapper.Map(new DestinationTestFilterSrc());
 
     dest.I1.ShouldBe(13);
@@ -52,6 +51,7 @@ public class DestinationFilterTest
           (value, state) => value is not long
                             && (value is not DestinationTestFilterSrc
                                 || (value as DestinationTestFilterSrc).I1 != 666)));
+
     var dest = mapper.Map(new DestinationTestFilterSrc());
 
     dest.I1.ShouldBe(13);
@@ -78,25 +78,14 @@ public class DestinationFilterTest
   public class BaseSource
   {
     public int I1;
-
     public int I2;
-
     public int I3;
   }
 
   public class Derived : IDerived
   {
-    #region Implementation of IBase
-
     public string BaseProperty { get; set; }
-
-    #endregion
-
-    #region Implementation of IDerived
-
     public string DerivedProperty { get; set; }
-
-    #endregion
   }
 
   public class DerivedSource : BaseSource
@@ -107,42 +96,31 @@ public class DestinationFilterTest
   public class DestinationTestFilterDest
   {
     public int I1;
-
     public int I2 = -5;
-
     public int I3 = 0;
-
     public long L1;
-
     public string Str;
   }
 
   public class DestinationTestFilterSrc
   {
     public int I1 = 13;
-
     public int I2 = 14;
-
     public int I3 = 5;
-
     public long L1 = 5;
-
     public string Str = "hello";
   }
 
   public class InherDestination
   {
     public int I1;
-
     public int I2;
-
     public int I3;
   }
 
   public class Target
   {
     public string BaseProperty { get; set; }
-
     public string DerivedProperty { get; set; }
   }
 

@@ -49,8 +49,11 @@ public class TypeDetails
     foreach (var prefix in prefixes)
     {
       if (!memberName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)) continue;
+
       var withoutPrefix = memberName.Substring(prefix.Length);
+
       yield return withoutPrefix;
+
       foreach (var s in PostFixes(postfixes, withoutPrefix)) yield return s;
     }
 
@@ -60,6 +63,7 @@ public class TypeDetails
   public MemberInfo GetMember(string name)
   {
     _nameToMember ??= PossibleNames();
+
     return _nameToMember.GetOrDefault(name);
   }
 
@@ -78,6 +82,7 @@ public class TypeDetails
     foreach (var postfix in postfixes)
     {
       if (!name.EndsWith(postfix, StringComparison.OrdinalIgnoreCase)) continue;
+
       yield return name.Remove(name.Length - postfix.Length);
     }
   }
@@ -95,8 +100,10 @@ public class TypeDetails
   private IEnumerable<MemberInfo> AddMethods(IEnumerable<MemberInfo> accessors)
   {
     var publicNoArgMethods = GetPublicNoArgMethods();
+
     var publicNoArgExtensionMethods =
       GetPublicNoArgExtensionMethods(Config.SourceExtensionMethods.Where(Config.ShouldMapMethod));
+
     return accessors.Concat(publicNoArgMethods).Concat(publicNoArgExtensionMethods);
   }
 
@@ -106,7 +113,9 @@ public class TypeDetails
     IEnumerable<MemberInfo> members = GetProperties(PropertyReadable)
       .GroupBy(x => x.Name) // group properties of the same name together
       .Select(x => x.First());
+
     if (Config.FieldMappingEnabled) members = members.Concat(GetFields(FieldReadable));
+
     return members.ToArray();
   }
 
@@ -118,7 +127,9 @@ public class TypeDetails
       .Select(
         x => x.FirstOrDefault(y => y.CanWrite && y.CanRead)
              ?? x.First()); // favor the first property that can both read & write - otherwise pick the first one
+
     if (Config.FieldMappingEnabled) members = members.Concat(GetFields(FieldWritable));
+
     return members.ToArray();
   }
 
@@ -153,8 +164,10 @@ public class TypeDetails
   {
     var explicitExtensionMethods =
       sourceExtensionMethodSearch.Where(method => method.GetParameters()[0].ParameterType.IsAssignableFrom(Type));
+
     var genericInterfaces = Type.GetInterfacesCache().Where(t => t.IsGenericType);
     if (Type.IsInterface && Type.IsGenericType) genericInterfaces = genericInterfaces.Union(new[] { Type });
+
     return explicitExtensionMethods.Union(
       from genericInterface in genericInterfaces
       let genericInterfaceArguments = genericInterface.GenericTypeArguments
@@ -191,10 +204,13 @@ public class TypeDetails
     var nameToMember = new Dictionary<string, MemberInfo>(ReadAccessors.Length, StringComparer.OrdinalIgnoreCase);
     IEnumerable<MemberInfo> accessors = ReadAccessors;
     if (Config.MethodMappingEnabled) accessors = AddMethods(accessors);
+
     foreach (var member in accessors)
     {
       if (!nameToMember.ContainsKey(member.Name)) nameToMember.Add(member.Name, member);
+
       if (Config.Postfixes.Count == 0 && Config.Prefixes.Count == 0) continue;
+
       CheckPrePostfixes(nameToMember, member);
     }
 

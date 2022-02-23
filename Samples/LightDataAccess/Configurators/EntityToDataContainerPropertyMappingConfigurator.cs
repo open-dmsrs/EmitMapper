@@ -49,8 +49,10 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
 
               var sourceType =
                 ReflectionHelper.GetMemberReturnType(sourceMember);
+
               var fieldsDescription =
                 ReflectionHelper.GetDataMemberDefinition(sourceMember);
+
               ConvertSourcePropertyToFields(
                 value,
                 sourceType,

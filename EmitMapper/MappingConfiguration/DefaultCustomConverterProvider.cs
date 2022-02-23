@@ -17,8 +17,10 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
   {
     if (type.IsArray)
       return new[] { type.GetElementType() };
+
     if (type.IsGenericType)
       return type.GetGenericArguments();
+
     return type.GetInterfacesCache().Where(i => i.IsGenericType).Select(i => i.GetGenericArguments())
       .Where(a => a.Length == 1).Select(a => a[0]).ToArray();
   }

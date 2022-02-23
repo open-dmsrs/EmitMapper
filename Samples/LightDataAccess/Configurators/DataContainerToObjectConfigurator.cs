@@ -30,6 +30,7 @@ public class DataContainerToObjectConfigurator : MapConfigBaseImpl
           var fieldName = fieldsDescription.Key;
           var destinationMember = fieldsDescription.Value.Item1;
           var fieldType = fieldsDescription.Value.Item2;
+
           return new DestWriteOperation
           {
             Destination = new MemberDescriptor(destinationMember),
@@ -37,17 +38,21 @@ public class DataContainerToObjectConfigurator : MapConfigBaseImpl
             {
               if (item is not DataContainer container)
                 return ValueToWrite<object>.Skip();
+
               if (container.Fields == null
                   || !container.Fields.TryGetValue(
                     fieldName,
                     out var value))
                 return ValueToWrite<object>.Skip();
+
               var destinationType =
                 ReflectionHelper.GetMemberReturnType(destinationMember);
+
               var destinationMemberValue = ReflectionHelper.ConvertValue(
                 value,
                 fieldType,
                 destinationType);
+
               return ValueToWrite<object>.ReturnValue(
                 destinationMemberValue);
             })

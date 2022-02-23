@@ -1,10 +1,8 @@
-﻿namespace EmitMapper.Tests;
-
-using EmitMapper.MappingConfiguration;
-
+﻿using EmitMapper.MappingConfiguration;
 using Shouldly;
-
 using Xunit;
+
+namespace EmitMapper.Tests;
 
 ////[TestFixture]
 public class TypeConversion
@@ -69,7 +67,6 @@ public class TypeConversion
   public class A1
   {
     public int Fld1;
-
     public string Fld2;
   }
 
@@ -81,7 +78,6 @@ public class TypeConversion
   public class A3
   {
     public A1 A1 = new();
-
     public A2 A2 = new();
   }
 
@@ -98,7 +94,6 @@ public class TypeConversion
   public class B1
   {
     public decimal Fld1 = 15;
-
     public decimal Fld2 = 11;
   }
 
@@ -110,7 +105,6 @@ public class TypeConversion
   public class B3
   {
     public A1 A1 = new();
-
     public A2 A2 = new();
   }
 

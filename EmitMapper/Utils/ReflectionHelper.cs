@@ -39,6 +39,7 @@ public static class ReflectionHelper
   public static MemberInfo FindProperty(LambdaExpression lambdaExpression)
   {
     var expressionToCheck = lambdaExpression.Body;
+
     while (true)
       switch (expressionToCheck)
       {
@@ -49,6 +50,7 @@ public static class ReflectionHelper
           return member;
         case UnaryExpression { Operand: var operand }:
           expressionToCheck = operand;
+
           break;
         default:
           throw new ArgumentException(
@@ -63,9 +65,11 @@ public static class ReflectionHelper
     var firstMembers = GetPublicFieldsAndProperties(first);
     var secondMembers = GetPublicFieldsAndProperties(second);
     var result = new List<MatchedMember>();
+
     foreach (var f in firstMembers)
     {
       var s = secondMembers.FirstOrDefault(sm => matcher(f.Name, sm.Name));
+
       if (s != null)
         result.Add(new MatchedMember(f, s));
     }
@@ -110,11 +114,13 @@ public static class ReflectionHelper
     var memberNames = fullMemberName.Split('.');
     var members = new MemberInfo[memberNames.Length];
     var previousType = type;
+
     for (var index = 0; index < memberNames.Length; index++)
     {
       var currentType = GetCurrentType(previousType);
       var memberName = memberNames[index];
       var property = currentType.GetInheritedProperty(memberName);
+
       if (property != null)
       {
         previousType = property.PropertyType;
@@ -186,6 +192,7 @@ public static class ReflectionHelper
   public static MethodInfo GetMethodCache(this Type t, string name)
   {
     var k = $"{t.FullName}::{name}";
+
     return MethodsCahce.GetOrAdd(k, _ => t.GetMethod(name));
   }
 
@@ -249,12 +256,14 @@ public static class ReflectionHelper
     if (propertyOrField is PropertyInfo property)
     {
       property.SetValue(target, value, null);
+
       return;
     }
 
     if (propertyOrField is FieldInfo field)
     {
       field.SetValue(target, value);
+
       return;
     }
 

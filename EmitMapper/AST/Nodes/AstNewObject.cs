@@ -32,6 +32,7 @@ internal class AstNewObject : IAstRef
     {
       IAstRefOrValue underlyingValue;
       var underlyingType = ObjectType.GetUnderlyingTypeCache();
+
       if (ConstructorParams == null || ConstructorParams.Length == 0)
       {
         var temp = context.ILGenerator.DeclareLocal(underlyingType);
@@ -55,14 +56,17 @@ internal class AstNewObject : IAstRef
     else
     {
       IEnumerable<Type> types = Type.EmptyTypes;
+
       if (ConstructorParams != null && ConstructorParams.Length > 0)
       {
         types = ConstructorParams.Select(c => c.ItemType);
+
         foreach (var p in ConstructorParams)
           p.Compile(context);
       }
 
       var ci = ObjectType.GetConstructor(types.ToArray());
+
       if (ci != null)
       {
         context.EmitNewObject(ci);

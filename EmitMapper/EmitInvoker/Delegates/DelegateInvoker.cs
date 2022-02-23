@@ -28,17 +28,20 @@ public static class DelegateInvoker
       {
         if (del.Method.ReturnType == Metadata.Void)
           return BuildActionCallerType(key, del);
+
         return BuildFuncCallerType(key, del);
       });
 
     var result = (DelegateInvokerBase)ObjectFactory.CreateInstance(type);
     result.Del = del;
+
     return result;
   }
 
   private static Type BuildActionCallerType(string typeName, Delegate del)
   {
     var par = del.Method.GetParameters();
+
     var actionCallerType = par.Length switch
     {
       0 => Metadata<DelegateInvokerAction0>.Type,
@@ -65,6 +68,7 @@ public static class DelegateInvoker
   private static Type BuildFuncCallerType(string typeName, Delegate del)
   {
     var par = del.Method.GetParameters();
+
     var funcCallerType = par.Length switch
     {
       0 => Metadata<DelegateInvokerFunc0>.Type,

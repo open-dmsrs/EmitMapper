@@ -45,6 +45,7 @@ public class StaticConvertersManager
     foreach (var m in converterClass.GetMethods(BindingFlags.Static | BindingFlags.Public))
     {
       var parameters = m.GetParameters();
+
       if (parameters.Length == 1 && m.ReturnType != Metadata.Void)
         _typesMethods.TryAdd(new TypesPair(parameters[0].ParameterType, m.ReturnType), m);
     }
@@ -63,17 +64,20 @@ public class StaticConvertersManager
     foreach (var func in ((IEnumerable<Func<Type, Type, MethodInfo>>)_typesMethodsFunc).Reverse())
     {
       var result = func(from, to);
+
       if (result != null)
         return result;
     }
 
     _typesMethods.TryGetValue(new TypesPair(from, to), out var res);
+
     return res;
   }
 
   public Func<object, object> GetStaticConverterFunc(Type from, Type to)
   {
     var mi = GetStaticConverter(from, to);
+
     if (mi == null)
       return null;
 

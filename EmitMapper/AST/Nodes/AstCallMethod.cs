@@ -18,6 +18,7 @@ internal class AstCallMethod : IAstRefOrValue
   {
     if (methodInfo == null)
       throw new InvalidOperationException("methodInfo is null");
+
     MethodInfo = methodInfo;
     InvocationObject = invocationObject;
     Arguments = arguments;

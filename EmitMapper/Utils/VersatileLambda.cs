@@ -13,6 +13,7 @@ public class VersatileLambda<T>
   public VersatileLambda(Expression<T> expression)
   {
     if (expression == null) throw new ArgumentNullException(nameof(expression));
+
     _expression = expression;
     _funcLazy = new Lazy<T>(expression.Compile);
   }

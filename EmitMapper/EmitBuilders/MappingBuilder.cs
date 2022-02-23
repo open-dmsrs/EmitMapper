@@ -46,6 +46,7 @@ internal class MappingBuilder
   {
     if (ReflectionHelper.IsNullable(_from))
       _from = _from.GetUnderlyingTypeCache();
+
     if (ReflectionHelper.IsNullable(_to))
       _to = _to.GetUnderlyingTypeCache();
 
@@ -75,6 +76,7 @@ internal class MappingBuilder
 
     var mappingOperations = _mappingConfigurator.GetMappingOperations(_from, _to);
     var staticConverter = _mappingConfigurator.GetStaticConvertersManager();
+
     mapperAst.Nodes.Add(
       new MappingOperationsProcessor
       {
@@ -90,6 +92,7 @@ internal class MappingBuilder
         RootOperation = _mappingConfigurator.GetRootMappingOperation(_from, _to),
         StaticConvertersManager = staticConverter ?? StaticConvertersManager.DefaultInstance
       }.ProcessOperations());
+
     mapperAst.Nodes.Add(
       new AstReturn { ReturnType = Metadata<object>.Type, ReturnValue = AstBuildHelper.ReadLocalRV(locTo) });
 

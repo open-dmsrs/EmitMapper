@@ -27,6 +27,7 @@ internal class AstExprIsNull : IAstValue
     {
       AstBuildHelper.ReadPropertyRV(new AstValueToAddr((IAstValue)_value), _value.ItemType.GetProperty("HasValue"))
         .Compile(context);
+
       context.Emit(OpCodes.Ldc_I4_0);
       context.Emit(OpCodes.Ceq);
     }

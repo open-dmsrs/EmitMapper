@@ -7,7 +7,7 @@ namespace EmitMapper.Benchmarks;
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 [KurtosisColumn]
 [MediumRunJob]
-[MemoryDiagnoser()]
+[MemoryDiagnoser]
 [SkewnessColumn]
 public class HardCodeMapper
 {
@@ -31,6 +31,7 @@ public class HardCodeMapper
     result.I = inner.I;
     result.Str1 = inner.Str1;
     result.Str2 = inner.Str2;
+
     return result;
   }
 
@@ -61,6 +62,7 @@ public class HardCodeMapper
     result.S5 = s.S5;
     result.S6 = s.S6;
     result.S7 = s.S7;
+
     return result;
   }
 
@@ -81,11 +83,14 @@ public class HardCodeMapper
     result.N2 = (int)s.N2;
     result.N3 = s.N3;
     result.N4 = s.N4;
+
     if (s.N5.HasValue)
       result.N5 = decimal.ToInt32(s.N5.Value);
+
     result.N6 = (int)s.N6;
     result.N7 = s.N7;
     result.N8 = s.N8;
+
     return result;
   }
 }

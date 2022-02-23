@@ -41,11 +41,13 @@ public static class ObjectFactory
   private static Expression CallConstructor(Type type)
   {
     var defaultCtor = type.GetConstructor(TypeExtensions.InstanceFlags, null, Type.EmptyTypes, null);
+
     if (defaultCtor != null) return New(defaultCtor);
 
     // find a ctor with only optional args
     var ctorWithOptionalArgs =
       type.GetDeclaredConstructors().FirstOrDefault(c => c.GetParameters().All(p => p.IsOptional));
+
     if (ctorWithOptionalArgs == null)
       return InvalidType(type, $"{type} needs to have a constructor with 0 args or only optional args.");
 
@@ -73,6 +75,7 @@ public static class ObjectFactory
   private static Expression CreateReadOnlyDictionary(Type[] typeArguments)
   {
     var ctor = Metadata.ReadOnlyDictionary2.MakeGenericType(typeArguments).GetConstructors()[0];
+
     return New(ctor, New(Metadata.Dictionary2.MakeGenericType(typeArguments)));
   }
 

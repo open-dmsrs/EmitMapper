@@ -36,6 +36,7 @@ public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
             {
               if (item is not DataContainer value)
                 return ValueToWrite<object>.Skip();
+
               var destinationType =
                 ReflectionHelper.GetMemberReturnType(
                   destinationMember);
@@ -43,6 +44,7 @@ public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
               var fieldDescription =
                 ReflectionHelper.GetDataMemberDefinition(
                   destinationMember);
+
               var destinationMemberValue =
                 ConvertFieldToDestinationProperty(
                   value,
@@ -74,9 +76,11 @@ public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
     if (container == null || container.Fields == null || string.IsNullOrEmpty(fieldDescription.Item1)) return null;
 
     string sourceValue;
+
     if (!container.Fields.TryGetValue(fieldDescription.Item1, out sourceValue) || sourceValue == null) return null;
 
     var sourceType = fieldDescription.Item2 ?? sourceValue.GetType();
+
     return ReflectionHelper.ConvertValue(sourceValue, sourceType, destinationType);
   }
 }

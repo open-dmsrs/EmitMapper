@@ -53,6 +53,7 @@ internal class MapperPrimitiveImpl : CustomMapperImpl
   {
     if (_converter == null)
       return from;
+
     return _converter.CallFunc(from);
   }
 

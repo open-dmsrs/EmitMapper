@@ -1,10 +1,9 @@
-﻿namespace EmitMapper.Tests;
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
 using Shouldly;
+
+namespace EmitMapper.Tests;
 
 internal static class CustomAssert
 {
@@ -13,6 +12,7 @@ internal static class CustomAssert
     expected.Count.ShouldBe(actual.Count);
     var enumExpected = expected.GetEnumerator();
     var enumActual = actual.GetEnumerator();
+
     while (enumExpected.MoveNext() && enumActual.MoveNext())
       enumExpected.Current.ShouldBe(enumActual.Current);
   }
@@ -22,6 +22,7 @@ internal static class CustomAssert
     actual.Count().ShouldBe(expected.Count());
     IEnumerator enumExpected = expected.GetEnumerator();
     IEnumerator enumActual = actual.GetEnumerator();
+
     while (enumExpected.MoveNext() && enumActual.MoveNext())
       enumExpected.Current.ShouldBe(enumActual.Current);
   }

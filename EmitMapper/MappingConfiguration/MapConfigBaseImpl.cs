@@ -53,6 +53,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   public IMappingConfigurator ConstructBy<T>(TargetConstructor<T> constructor)
   {
     _customConstructors.Add(new[] { Metadata<T>.Type }, constructor);
+
     return this;
   }
 
@@ -67,6 +68,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   public IMappingConfigurator ConvertGeneric(Type from, Type to, ICustomConverterProvider converterProvider)
   {
     _customConvertersGeneric.Add(new[] { from, to }, converterProvider);
+
     return this;
   }
 
@@ -82,18 +84,21 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     _customConverters.Add(
       new[] { Metadata<TFrom>.Type, Metadata<TTo>.Type },
       (ValueConverter<TFrom, TTo>)((v, s) => converter(v)));
+
     return this;
   }
 
   public IMappingConfigurator FilterDestination<T>(ValuesFilter<T> valuesFilter)
   {
     _destinationFilters.Add(new[] { Metadata<T>.Type }, valuesFilter);
+
     return this;
   }
 
   public IMappingConfigurator FilterSource<T>(ValuesFilter<T> valuesFilter)
   {
     _sourceFilters.Add(new[] { Metadata<T>.Type }, valuesFilter);
+
     return this;
   }
 
@@ -134,10 +139,12 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   public IMappingConfigurator IgnoreMembers(Type typeFrom, Type typeTo, string[] ignoreNames)
   {
     var ig = _ignoreMembers.GetValue(new[] { typeFrom, typeTo });
+
     if (ig == null)
       _ignoreMembers.Add(new[] { typeFrom, typeTo }, ignoreNames.ToList());
     else
       ig.AddRange(ignoreNames);
+
     return this;
   }
 
@@ -163,6 +170,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   public IMappingConfigurator NullSubstitution<TFrom, TTo>(Func<object, TTo> nullSubstitutor)
   {
     _nullSubstitutors.Add(new[] { Metadata<TFrom>.Type, Metadata<TTo>.Type }, nullSubstitutor);
+
     return this;
   }
 
@@ -175,6 +183,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   public IMappingConfigurator PostProcess<T>(ValuesPostProcessor<T> postProcessor)
   {
     _postProcessors.Add(new[] { Metadata<T>.Type }, postProcessor);
+
     return this;
   }
 
@@ -186,6 +195,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   public IMappingConfigurator SetConfigName(string configurationName)
   {
     _configurationName = configurationName;
+
     return this;
   }
 
@@ -215,10 +225,13 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
           readwrite.NullSubstitutor =
             _nullSubstitutors.GetValue(new[] { readwrite.Source.MemberType, readwrite.Destination.MemberType });
+
           readwrite.TargetConstructor = _customConstructors.GetValue(readwrite.Destination.MemberType);
+
           readwrite.Converter =
             _customConverters.GetValue(new[] { readwrite.Source.MemberType, readwrite.Destination.MemberType })
             ?? GetGenericConverter(readwrite.Source.MemberType, readwrite.Destination.MemberType);
+
           readwrite.DestinationFilter = _destinationFilters.GetValue(readwrite.Destination.MemberType);
           readwrite.SourceFilter = _sourceFilters.GetValue(readwrite.Source.MemberType);
         }
@@ -229,6 +242,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
         if (op is IComplexOperation complexOperation)
         {
           var orw = complexOperation as IReadWriteOperation;
+
           complexOperation.Operations = FilterOperations(
             orw == null ? from : orw.Source.MemberType,
             orw == null ? to : orw.Destination.MemberType,
@@ -247,6 +261,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   private Delegate GetGenericConverter(Type from, Type to)
   {
     var converter = _customConvertersGeneric.GetValue(new[] { from, to });
+
     if (converter == null)
       return null;
 
@@ -266,6 +281,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
     if (converterObj is not ICustomConverter customConverter)
       return Delegate.CreateDelegate(Metadata.Func3.MakeGenericType(from, Metadata<object>.Type, to), converterObj, mi);
+
     customConverter.Initialize(from, to, this);
 
     return Delegate.CreateDelegate(Metadata.Func3.MakeGenericType(from, Metadata<object>.Type, to), converterObj, mi);
@@ -274,8 +290,10 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   private bool TestIgnore(Type from, Type to, MemberDescriptor fromDescr, MemberDescriptor toDescr)
   {
     var ignore = _ignoreMembers.GetValue(new[] { from, to });
+
     if (ignore != null && (ignore.Contains(fromDescr.MemberInfo.Name) || ignore.Contains(toDescr.MemberInfo.Name)))
       return true;
+
     return false;
   }
 }

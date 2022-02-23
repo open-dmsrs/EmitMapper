@@ -1,12 +1,9 @@
-﻿namespace EmitMapper.Tests;
-
-using System;
-
+﻿using System;
 using EmitMapper.MappingConfiguration;
-
 using Shouldly;
-
 using Xunit;
+
+namespace EmitMapper.Tests;
 
 ////[TestFixture]
 public class NullableTypes
@@ -31,15 +28,17 @@ public class NullableTypes
   public void NullableStruct_to_Struct()
   {
     var bint = new B3.BInt { Fld1 = "b" };
+
     var b = new B3
-              {
-                Fld1 = bint,
-                Fld2 = bint,
-                Fld3 = bint,
-                Fld4 = bint,
-                Fld6 = bint,
-                Fld7 = bint
-              };
+    {
+      Fld1 = bint,
+      Fld2 = bint,
+      Fld3 = bint,
+      Fld4 = bint,
+      Fld6 = bint,
+      Fld7 = bint
+    };
+
     var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B3, A3>();
 
     // DynamicAssemblyManager.SaveAssembly();
@@ -80,6 +79,7 @@ public class NullableTypes
   {
     var a = ObjectMapperManager.DefaultInstance
       .GetMapper<B6, A6>(new DefaultMapConfig().DeepMap().ConvertUsing<object, object>(v => null)).Map(new B6());
+
     a.ShouldBeNull();
   }
 
@@ -102,11 +102,8 @@ public class NullableTypes
   public class A1
   {
     public int Fld1;
-
     public int Fld2;
-
     public int? Fld3;
-
     public Int1 I;
 
     public class Int1
@@ -132,13 +129,9 @@ public class NullableTypes
   public class A3
   {
     public AInt? Fld1;
-
     public AInt? Fld4;
-
     public AInt? Fld5;
-
     public AInt? Fld6;
-
     public AInt Fld7;
 
     public A3()
@@ -149,15 +142,12 @@ public class NullableTypes
     }
 
     public AInt? Fld2 { get; set; }
-
     public AInt? Fld3 { get; set; }
 
     public struct AInt
     {
       public string Fld1;
-
       public string Fld2;
-
       public string Fld3;
     }
   }
@@ -175,23 +165,16 @@ public class NullableTypes
   public class A5
   {
     public int? Fld1 = 0;
-
     public int? Fld2 = 10;
-
     public En? Fld3 = En.Value1;
-
     public En Fld4 = En.Value1;
-
     public int? Fld5 = 0;
-
     public int? Fld6 = null;
 
     public enum En
     {
       Value1,
-
       Value2,
-
       Value3
     }
   }
@@ -199,7 +182,6 @@ public class NullableTypes
   public class A6
   {
     public DateTime? Dt { get; set; }
-
     public int? I { get; set; }
   }
 
@@ -211,11 +193,8 @@ public class NullableTypes
   public class B1
   {
     public int? Fld1 = 10;
-
     public int? Fld2;
-
     public int? Fld3;
-
     public Int1 I;
 
     public class Int1
@@ -232,23 +211,16 @@ public class NullableTypes
   public class B3
   {
     public BInt? Fld1;
-
     public BInt? Fld3;
-
     public BInt? Fld5;
-
     public BInt Fld6;
-
     public BInt? Fld7;
-
     public BInt? Fld2 { get; set; }
-
     public BInt? Fld4 { get; set; }
 
     public struct BInt
     {
       public string Fld1;
-
       public string Fld2;
     }
   }
@@ -266,23 +238,16 @@ public class NullableTypes
   public class B5
   {
     public int Fld1 = 10;
-
     public string Fld2 = null;
-
     public En Fld3 = En.Value2;
-
     public En? Fld4 = En.Value3;
-
     public int? Fld5 = 13;
-
     public string Fld6 = "11";
 
     public enum En
     {
       Value1,
-
       Value2,
-
       Value3
     }
   }

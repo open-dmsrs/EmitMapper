@@ -1,12 +1,9 @@
-﻿namespace EmitMapper.Tests;
-
-using System.Linq;
-
+﻿using System.Linq;
 using EmitMapper.Utils;
-
 using Shouldly;
-
 using Xunit;
+
+namespace EmitMapper.Tests;
 
 //////[TestFixture]
 public class ReflectionUtilsTests

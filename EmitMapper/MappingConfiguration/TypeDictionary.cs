@@ -13,6 +13,7 @@ internal class TypeDictionary<T>
   public void Add(Type[] types, T value)
   {
     var newElem = new ListElement(types, value);
+
     if (_elements.Contains(newElem))
       _elements.Remove(newElem);
 
@@ -22,12 +23,14 @@ internal class TypeDictionary<T>
   public T GetValue(Type[] types)
   {
     var elem = FindTypes(types);
+
     return elem?.Value;
   }
 
   public T GetValue(Type type)
   {
     var elem = FindTypes(type);
+
     return elem?.Value;
   }
 
@@ -45,6 +48,7 @@ internal class TypeDictionary<T>
   {
     if (generalType == type)
       return true;
+
     if (generalType.IsGenericTypeDefinition)
     {
       if (generalType.IsInterface)
@@ -63,6 +67,7 @@ internal class TypeDictionary<T>
     foreach (var element in _elements)
     {
       var isAssignable = true;
+
       for (int i = 0, j = 0; i < element.Types.Length; ++i)
       {
         if (i < types.Length)
@@ -70,7 +75,9 @@ internal class TypeDictionary<T>
 
         if (IsGeneralType(element.Types[i], types[j]))
           continue;
+
         isAssignable = false;
+
         break;
       }
 
@@ -86,11 +93,14 @@ internal class TypeDictionary<T>
     foreach (var element in _elements)
     {
       var isAssignable = true;
+
       foreach (var t in element.Types)
       {
         if (IsGeneralType(t, type))
           continue;
+
         isAssignable = false;
+
         break;
       }
 

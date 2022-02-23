@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace SamplesTests;
+﻿namespace SamplesTests;
 
 public static class TestUtils
 {

@@ -342,6 +342,7 @@ public class NullableConverter
   {
     if (par.HasValue)
       return Convert.ToChar(par.Value);
+
     return char.MinValue;
   }
 

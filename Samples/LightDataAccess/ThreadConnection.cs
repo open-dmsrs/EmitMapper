@@ -52,6 +52,7 @@ public class ThreadConnection : IDisposable
     get
     {
       if (_connection.State == ConnectionState.Closed) _connection.Open();
+
       return _connection;
     }
   }

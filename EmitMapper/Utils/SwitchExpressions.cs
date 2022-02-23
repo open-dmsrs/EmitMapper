@@ -31,6 +31,7 @@ public static class SwitchExpressions
   {
     var exceptionToThrow = exception ?? new InvalidOperationException("switch expression did not match");
     if (exceptionToThrow.StackTrace != null) ExceptionDispatchInfo.Capture(exceptionToThrow).Throw();
+
     throw exceptionToThrow;
   }
 
@@ -69,6 +70,7 @@ public static class SwitchExpressions
       get
       {
         if (!completed) throw new InvalidOperationException("the switch has not completed");
+
         return value;
       }
     }
@@ -78,6 +80,7 @@ public static class SwitchExpressions
       CompletedSwitchExpression<TResult> second)
     {
       if (first.completed) throw new InvalidOperationException("use ||, not | to combine switch cases");
+
       return second;
     }
 
@@ -195,6 +198,7 @@ public static class SwitchExpressions
           };
         case State.TypeCase:
           TResult typeCaseResult;
+
           return ((TypeCaseSwitchExpression<TResult>)second.objectState).TryGetResult(
             first.switchValue,
             out typeCaseResult)
@@ -282,10 +286,12 @@ public static class SwitchExpressions
       if (switchValue is TType)
       {
         value = resultFactory((TType)(object)switchValue);
+
         return true;
       }
 
       value = default;
+
       return false;
     }
   }

@@ -24,17 +24,20 @@ public static class MethodInvoker
       {
         if (mi.ReturnType == Metadata.Void)
           return BuildActionCallerType(typeName, mi);
+
         return BuildFuncCallerType(typeName, mi);
       });
 
     var result = (MethodInvokerBase)ObjectFactory.CreateInstance(type);
     result.TargetObject = targetObject;
+
     return result;
   }
 
   private static Type BuildActionCallerType(string typeName, MethodInfo mi)
   {
     var par = mi.GetParameters();
+
     var actionCallerType = par.Length switch
     {
       0 => Metadata<MethodInvokerAction0>.Type,
@@ -61,6 +64,7 @@ public static class MethodInvoker
   private static Type BuildFuncCallerType(string typeName, MethodInfo mi)
   {
     var par = mi.GetParameters();
+
     var funcCallerType = par.Length switch
     {
       0 => Metadata<MethodInvokerFunc0>.Type,

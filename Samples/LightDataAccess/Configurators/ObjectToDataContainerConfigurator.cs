@@ -38,6 +38,7 @@ public class ObjectToDataContainerConfigurator : MapConfigBaseImpl
           var fieldName = fieldsDescription.Key;
           var sourceMember = fieldsDescription.Value.Item1;
           var fieldType = fieldsDescription.Value.Item2;
+
           return new SrcReadOperation
           {
             Source = new MemberDescriptor(sourceMember),

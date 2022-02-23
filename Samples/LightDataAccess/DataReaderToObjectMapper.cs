@@ -78,6 +78,7 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
   {
     var result = MapUsingState(reader, reader);
     changeTracker?.RegisterObject(result);
+
     return result;
   }
 
@@ -164,6 +165,7 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
     {
       if (_mappingKey != null)
         return "dbreader_" + _mappingKey;
+
       return "dbreader_";
     }
 
@@ -297,13 +299,17 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
       }
 
       var converter = StaticConvertersManager.DefaultInstance.GetStaticConverterFunc(typeof(object), memberType);
+
       if (converter == null) throw new EmitMapperException("Could not convert an object to " + memberType);
+
       var fieldNum = -1;
       var fieldName = m.Name;
+
       return (ValueGetter<object>)((value, state) =>
       {
         var reader = (IDataReader)state;
         object result = null;
+
         if (_mappingKey != null)
         {
           if (fieldNum == -1) fieldNum = reader.GetOrdinal(fieldName);
@@ -315,6 +321,7 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
         }
 
         if (result is DBNull) return ValueToWrite<object>.ReturnValue(null);
+
         return ValueToWrite<object>.ReturnValue(converter(result));
       });
     }
@@ -367,6 +374,7 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
       private T GetValue(IDataReader reader)
       {
         if (FieldNum == -1) FieldNum = reader.GetOrdinal(FieldName);
+
         return reader.IsDBNull(FieldNum) ? default : ValueExtractor(FieldNum, reader);
       }
     }

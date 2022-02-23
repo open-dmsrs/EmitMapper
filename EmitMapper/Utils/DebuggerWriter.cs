@@ -58,20 +58,24 @@ public class DebuggerWriter : TextWriter
   public override void Write(char value)
   {
     if (!_isOpen) throw new ObjectDisposedException(null);
+
     Debugger.Log(Level, Category, value.ToString());
   }
 
   public override void Write(string value)
   {
     if (!_isOpen) throw new ObjectDisposedException(null);
+
     if (value != null) Debugger.Log(Level, Category, value);
   }
 
   public override void Write(char[] buffer, int index, int count)
   {
     if (!_isOpen) throw new ObjectDisposedException(null);
+
     if (index < 0 || count < 0 || buffer.Length - index < count)
       base.Write(buffer, index, count); // delegate throw exception to base class
+
     Debugger.Log(Level, Category, new string(buffer, index, count));
   }
 

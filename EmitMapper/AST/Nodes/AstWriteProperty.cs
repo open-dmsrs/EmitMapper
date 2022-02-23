@@ -22,8 +22,10 @@ internal class AstWriteProperty : IAstNode
     _value = value;
     _propertyInfo = propertyInfo;
     _setMethod = propertyInfo.GetSetMethod();
+
     if (_setMethod == null)
       throw new Exception("Property " + propertyInfo.Name + " doesn't have set accessor");
+
     if (_setMethod.GetParameters().Length != 1)
       throw new EmitMapperException("Property " + propertyInfo.Name + " has invalid arguments");
   }

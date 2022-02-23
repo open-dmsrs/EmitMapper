@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using LightDataAccess;
+using Shouldly;
 using Xunit;
 
 namespace SamplesTests;
-
-using Shouldly;
 
 public class TestObjectsTracker
 {
@@ -24,11 +23,11 @@ public class TestObjectsTracker
     a.F1 = "new";
     a.F2 = 13;
     a.F3 = false;
+
     for (var i = 0; i < 10; ++i)
       tracker.GetChanges(a);
 
     changes = tracker.GetChanges(a);
-    
 
     changes.Select(c => c.Name).ShouldBe(new[] { "F1", "F2", "F3" });
 

@@ -10,6 +10,7 @@ public class EMConvert
   {
     if (value == null)
       return null;
+
     return ChangeType(value, value.GetType(), conversionType);
   }
 
@@ -25,6 +26,7 @@ public class EMConvert
     {
       if (typeTo == Metadata<string>.Type)
         return value.ToString();
+
       return ChangeType(
         Convert.ChangeType(value, Enum.GetUnderlyingType(typeFrom)),
         Enum.GetUnderlyingType(typeFrom),
@@ -34,6 +36,7 @@ public class EMConvert
     if (typeTo == Metadata<Guid>.Type)
     {
       var r = new Guid(value.ToString()!);
+
       return r == Guid.Empty ? new Guid() : r;
     }
 
@@ -46,8 +49,10 @@ public class EMConvert
     if (isToNullable)
     {
       var ut = typeTo.GetUnderlyingTypeCache();
+
       if (ut.IsEnum)
         return ConvertToEnum(value, typeFrom, ut);
+
       return ChangeType(value, typeFrom, ut);
     }
 
@@ -82,6 +87,7 @@ public class EMConvert
   {
     if (obj == null)
       return null;
+
     return obj.ToString();
   }
 
@@ -89,6 +95,7 @@ public class EMConvert
   {
     if (string.IsNullOrEmpty(str))
       return Guid.Empty;
+
     return new Guid(str);
   }
 
@@ -97,6 +104,7 @@ public class EMConvert
     if (obj is string)
     {
       var str = obj.ToString();
+
       return (TEnum)Enum.Parse(Metadata<TEnum>.Type, str);
     }
 
@@ -116,6 +124,7 @@ public class EMConvert
   {
     if (type.IsEnum)
       return true;
+
     if (ReflectionHelper.IsNullable(type))
       if (type.GetUnderlyingTypeCache().IsEnum)
         return true;

@@ -44,13 +44,6 @@
         </HasMember>
       </And>
     </TypePattern.Match>
-    <Entry DisplayName="All other members" Priority="150">
-      <Entry.Match>
-        <Or>
-          <Kind Is="Method" />
-        </Or>
-      </Entry.Match>
-    </Entry>
     <Entry DisplayName="Fields">
       <Entry.Match>
         <Or>
@@ -58,6 +51,9 @@
           <Kind Is="Field" />
         </Or>
       </Entry.Match>
+      <Entry.SortBy>
+        <Name />
+      </Entry.SortBy>
     </Entry>
     <Entry DisplayName="Setup/Teardown Methods">
       <Entry.Match>
@@ -73,15 +69,25 @@
         <Kind Order="Constructor" />
       </Entry.SortBy>
     </Entry>
-    <Entry DisplayName="Test Methods" Priority="100">
+    <Entry DisplayName="Test Methods">
       <Entry.Match>
         <And>
           <Kind Is="Method" />
           <Or>
-            <HasAttribute Name="Theory" />
-            <HasAttribute Name="Fact" />
+            <HasAttribute Name="Xunit.TheoryAttribute" Inherited="True" />
+            <HasAttribute Name="Xunit.FactAttribute" Inherited="True" />
           </Or>
         </And>
+      </Entry.Match>
+      <Entry.SortBy>
+        <Name />
+      </Entry.SortBy>
+    </Entry>
+    <Entry DisplayName="All other members">
+      <Entry.Match>
+        <Or>
+          <Kind Is="Method" />
+        </Or>
       </Entry.Match>
       <Entry.SortBy>
         <Name />

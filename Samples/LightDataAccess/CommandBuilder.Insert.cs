@@ -70,10 +70,12 @@ public static partial class CommandBuilder
 
     var cmdStr = "INSERT INTO " + tableName + "(" + fields.Select(dbSettings.GetEscapedName).ToCsv(",") + ") VALUES ("
                  + fields.Select(dbSettings.GetParamName).ToCsv(",") + ")";
+
     cmd.CommandText = cmdStr;
     cmd.CommandType = CommandType.Text;
 
     mapper.Map(obj, cmd, null);
+
     return cmd;
   }
 }

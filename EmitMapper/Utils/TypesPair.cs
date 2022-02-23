@@ -40,15 +40,19 @@ public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<Type
   {
     var sourceArguments = closedTypes.SourceType.GenericTypeArguments;
     var destinationArguments = closedTypes.DestinationType.GenericTypeArguments;
+
     if (sourceArguments.Length == 0)
       sourceArguments = destinationArguments;
     else if (destinationArguments.Length == 0) destinationArguments = sourceArguments;
+
     var closedSourceType = SourceType.IsGenericTypeDefinition
       ? SourceType.MakeGenericType(sourceArguments)
       : SourceType;
+
     var closedDestinationType = DestinationType.IsGenericTypeDefinition
       ? DestinationType.MakeGenericType(destinationArguments)
       : DestinationType;
+
     return new TypesPair(closedSourceType, closedDestinationType);
   }
 

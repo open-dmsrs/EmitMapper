@@ -71,6 +71,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
     if (_inner.TryRemove(key, out var v))
     {
       value = v.Value;
+
       return true;
     }
 

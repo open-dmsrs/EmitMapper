@@ -21,6 +21,7 @@ public class FormCollectionMapConfig : MapConfigBaseImpl
   public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
   {
     var members = ReflectionHelper.GetPublicFieldsAndProperties(to);
+
     return members.Select(
       m => (IMappingOperation)new DestWriteOperation
       {
@@ -34,6 +35,7 @@ public class FormCollectionMapConfig : MapConfigBaseImpl
               Convert(
                 new ValueProviderResult(res),
                 ReflectionHelper.GetMemberReturnType(m)));
+
           return ValueToWrite<object>.Skip();
         })
       }).ToArray();

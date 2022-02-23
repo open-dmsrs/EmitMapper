@@ -1,11 +1,10 @@
 ﻿using System;
 using EMConfigurations;
 using EmitMapper;
+using Shouldly;
 using Xunit;
 
 namespace SamplesTests;
-
-using Shouldly;
 
 public class Flattering
 {

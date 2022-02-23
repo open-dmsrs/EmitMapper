@@ -62,12 +62,14 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
         case BlockExpression blockExpression:
           AddListToHash(blockExpression.Variables);
           AddListToHash(blockExpression.Expressions);
+
           break;
 
         case ConditionalExpression conditionalExpression:
           hash.Add(conditionalExpression.Test, this);
           hash.Add(conditionalExpression.IfTrue, this);
           hash.Add(conditionalExpression.IfFalse, this);
+
           break;
 
         case ConstantExpression constantExpression:
@@ -84,59 +86,70 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
           hash.Add(gotoExpression.Value, this);
           hash.Add(gotoExpression.Kind);
           hash.Add(gotoExpression.Target);
+
           break;
 
         case IndexExpression indexExpression:
           hash.Add(indexExpression.Object, this);
           AddListToHash(indexExpression.Arguments);
           hash.Add(indexExpression.Indexer);
+
           break;
 
         case InvocationExpression invocationExpression:
           hash.Add(invocationExpression.Expression, this);
           AddListToHash(invocationExpression.Arguments);
+
           break;
 
         case LabelExpression labelExpression:
           AddExpressionToHashIfNotNull(labelExpression.DefaultValue);
           hash.Add(labelExpression.Target);
+
           break;
 
         case LambdaExpression lambdaExpression:
           hash.Add(lambdaExpression.Body, this);
           AddListToHash(lambdaExpression.Parameters);
           hash.Add(lambdaExpression.ReturnType);
+
           break;
 
         case ListInitExpression listInitExpression:
           hash.Add(listInitExpression.NewExpression, this);
           AddInitializersToHash(listInitExpression.Initializers);
+
           break;
 
         case LoopExpression loopExpression:
           hash.Add(loopExpression.Body, this);
           AddToHashIfNotNull(loopExpression.BreakLabel);
           AddToHashIfNotNull(loopExpression.ContinueLabel);
+
           break;
 
         case MemberExpression memberExpression:
           hash.Add(memberExpression.Expression, this);
           hash.Add(memberExpression.Member);
+
           break;
 
         case MemberInitExpression memberInitExpression:
           hash.Add(memberInitExpression.NewExpression, this);
           AddMemberBindingsToHash(memberInitExpression.Bindings);
+
           break;
 
         case MethodCallExpression methodCallExpression:
           hash.Add(methodCallExpression.Object, this);
           AddListToHash(methodCallExpression.Arguments);
           hash.Add(methodCallExpression.Method);
+
           break;
 
         case NewArrayExpression newArrayExpression:
           AddListToHash(newArrayExpression.Expressions);
+
           break;
 
         case NewExpression newExpression:
@@ -151,16 +164,19 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 
         case ParameterExpression parameterExpression:
           AddToHashIfNotNull(parameterExpression.Name);
+
           break;
 
         case RuntimeVariablesExpression runtimeVariablesExpression:
           AddListToHash(runtimeVariablesExpression.Variables);
+
           break;
 
         case SwitchExpression switchExpression:
           hash.Add(switchExpression.SwitchValue, this);
           AddExpressionToHashIfNotNull(switchExpression.DefaultBody);
           AddToHashIfNotNull(switchExpression.Comparison);
+
           for (var i = 0; i < switchExpression.Cases.Count; i++)
           {
             var @case = switchExpression.Cases[i];
@@ -174,6 +190,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
           hash.Add(tryExpression.Body, this);
           AddExpressionToHashIfNotNull(tryExpression.Fault);
           AddExpressionToHashIfNotNull(tryExpression.Finally);
+
           if (tryExpression.Handlers != null)
             for (var i = 0; i < tryExpression.Handlers.Count; i++)
             {
@@ -189,17 +206,20 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
         case TypeBinaryExpression typeBinaryExpression:
           hash.Add(typeBinaryExpression.Expression, this);
           hash.Add(typeBinaryExpression.TypeOperand);
+
           break;
 
         case UnaryExpression unaryExpression:
           hash.Add(unaryExpression.Operand, this);
           AddToHashIfNotNull(unaryExpression.Method);
+
           break;
 
         default:
           if (obj.NodeType == ExpressionType.Extension)
           {
             hash.Add(obj);
+
             break;
           }
 
@@ -246,14 +266,17 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
           {
             case MemberAssignment memberAssignment:
               hash.Add(memberAssignment.Expression, this);
+
               break;
 
             case MemberListBinding memberListBinding:
               AddInitializersToHash(memberListBinding.Initializers);
+
               break;
 
             case MemberMemberBinding memberMemberBinding:
               AddMemberBindingsToHash(memberMemberBinding.Bindings);
+
               break;
           }
         }

@@ -42,8 +42,10 @@ public class MapperBenchmark
   {
     var fixture = new Fixture();
     _benchSourceEmitMapper = ObjectMapperManager.DefaultInstance.GetMapper<BenchNestedSource, BenchNestedDestination>();
+
     _simpleEmitMapper =
       ObjectMapperManager.DefaultInstance.GetMapper<SimpleTypesSource, SimpleTypesDestination>(new DefaultMapConfig());
+
     var config = new MapperConfiguration(
       cfg =>
       {
@@ -52,6 +54,7 @@ public class MapperBenchmark
         cfg.CreateMap<BenchNestedSource.Nested1, BenchNestedDestination.Inner1>();
         cfg.CreateMap<SimpleTypesSource, SimpleTypesDestination>();
       });
+
     _autoMapper = config.CreateMapper();
 
     _benchSource = fixture.Create<BenchNestedSource>();

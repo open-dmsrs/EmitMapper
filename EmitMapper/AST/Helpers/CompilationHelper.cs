@@ -27,10 +27,12 @@ internal static class CompilationHelper
     List<IAstStackItem> arguments)
   {
     arguments ??= new List<IAstStackItem>();
+
     if (invocationObject != null)
       invocationObject.Compile(context);
 
     var args = methodInfo.GetParameters();
+
     if (args.Length != arguments.Count)
       throw new Exception("Invalid method parameters count");
 

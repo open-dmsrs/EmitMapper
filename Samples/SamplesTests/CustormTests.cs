@@ -6,11 +6,9 @@ using System.Linq;
 using System.Transactions;
 using EmitMapper;
 using LightDataAccess;
-using Xunit;
+using Shouldly;
 
 namespace SamplesTests;
-
-using Shouldly;
 
 public class Customer
 {
@@ -57,6 +55,7 @@ public class CustormTests
     var result = _factory.CreateConnection();
     result.ConnectionString = _connectionConfig.ConnectionString;
     result.Open();
+
     return result;
   }
 
@@ -64,6 +63,7 @@ public class CustormTests
   public void GetCustomers()
   {
     Customer[] customers;
+
     using (var connection = CreateConnection())
     using (var cmd = _factory.CreateCommand())
     {
@@ -82,6 +82,7 @@ public class CustormTests
   {
     using var ts = new TransactionScope();
     using var connection = CreateConnection();
+
     var rs = DbTools.InsertObject(
       connection,
       new
@@ -95,6 +96,7 @@ public class CustormTests
       },
       "test",
       DbSettings.Mssql).Result;
+
     ts.Complete();
     rs.ShouldBe(1);
   }
@@ -109,11 +111,13 @@ public class CustormTests
     // todo: there is a bug , In the callstack of DBTools and DataReaderToObjectMapper ocur two times Reader.Read(); so..
     using var ts = new TransactionScope();
     using var connection = CreateConnection();
+
     var customer = DbTools.ExecuteReader(
       connection,
       "select * from Customers limit 1 ",
       null,
       r => r.ToObject<Customer>());
+
     customer.ShouldNotBeNull();
 
     var tracker = new ObjectsChangeTracker();
@@ -127,6 +131,7 @@ public class CustormTests
       new[] { "CustomerID" },
       tracker,
       DbSettings.Mssql);
+
     result.Result.ShouldBe(1);
   }
 }

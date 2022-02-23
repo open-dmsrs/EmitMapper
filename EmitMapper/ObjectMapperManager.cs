@@ -84,6 +84,7 @@ public class ObjectMapperManager
 
       var mapperTypeName = mapperTypeKey.GetMapperTypeName();
       ObjectsMapperBaseImpl createdMapper;
+
       if (MapperPrimitiveImpl.IsSupportedType(to))
       {
         createdMapper = new MapperPrimitiveImpl(this, from, to, mappingConfigurator);
@@ -109,6 +110,7 @@ public class ObjectMapperManager
       }
 
       result.Mapper = createdMapper;
+
       return result;
     }
   }
@@ -127,6 +129,7 @@ public class ObjectMapperManager
 
     var result = ObjectFactory.CreateInstance<ObjectsMapperBaseImpl>(typeBuilder.CreateType());
     result.Initialize(this, from, to, mappingConfigurator, mappingBuilder.StoredObjects.ToArray());
+
     return result;
   }
 }
@@ -173,7 +176,9 @@ public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<Mapp
   {
     if (obj == null)
       return false;
+
     var rhs = (MapperKey)obj;
+
     return _hash == rhs._hash && _mapperTypeName == rhs._mapperTypeName;
   }
 

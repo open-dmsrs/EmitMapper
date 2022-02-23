@@ -20,6 +20,7 @@ public class CustomMapConfig : MapConfigBaseImpl
   {
     if (GetMappingOperationFunc == null)
       return Array.Empty<IMappingOperation>();
+
     return GetMappingOperationFunc(from, to);
   }
 

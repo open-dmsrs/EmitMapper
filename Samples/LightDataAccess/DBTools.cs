@@ -29,6 +29,7 @@ public static class DbTools
     par.ParameterName = paramName;
     par.Value = paramValue;
     cmd.Parameters.Add(par);
+
     return cmd;
   }
 
@@ -41,6 +42,7 @@ public static class DbTools
   public static DbCommand CreateCommand(DbConnection conn, string commandText)
   {
     var result = CreateCommand(conn, commandText, null);
+
     return result;
   }
 
@@ -57,6 +59,7 @@ public static class DbTools
     var result = conn.CreateCommand();
     result.CommandText = commandText;
     result.CommandType = CommandType.Text;
+
     if (cmdParams != null)
       foreach (var param in cmdParams)
       {
@@ -66,6 +69,7 @@ public static class DbTools
           bool b => b.ToShort(),
           _ => param.Value
         };
+
         result.AddParam(param.Key, value);
       }
 
@@ -84,6 +88,7 @@ public static class DbTools
     var result = conn.CreateCommand();
     result.CommandText = spName;
     result.CommandType = CommandType.StoredProcedure;
+
     return result;
   }
 
@@ -97,6 +102,7 @@ public static class DbTools
   public static int ExecuteNonQuery(DbConnection conn, string commandText, CmdParams cmdParams)
   {
     using var cmd = CreateCommand(conn, commandText, cmdParams);
+
     return cmd.ExecuteNonQuery();
   }
 
@@ -110,6 +116,7 @@ public static class DbTools
   public static IDataReader ExecuteReader(DbConnection conn, string commandText, CmdParams cmdParams)
   {
     using var cmd = CreateCommand(conn, commandText, cmdParams);
+
     return cmd.ExecuteReader();
   }
 
@@ -131,8 +138,10 @@ public static class DbTools
   {
     using var cmd = CreateCommand(conn, commandText, cmdParams);
     using var reader = cmd.ExecuteReader();
+
     if (reader.Read())
       return func(reader);
+
     return null;
   }
 
@@ -153,6 +162,7 @@ public static class DbTools
   {
     using var cmd = CreateCommand(conn, commandText, cmdParams);
     using var reader = cmd.ExecuteReader();
+
     while (reader.Read()) yield return func(reader);
   }
 
@@ -174,8 +184,10 @@ public static class DbTools
   {
     using var cmd = CreateCommand(conn, commandText, cmdParams);
     using var reader = cmd.ExecuteReader();
+
     if (reader.Read())
       return func(reader);
+
     return default;
   }
 
@@ -189,6 +201,7 @@ public static class DbTools
   public static object ExecuteScalar(DbConnection conn, string commandText, CmdParams cmdParams)
   {
     using var cmd = CreateCommand(conn, commandText, cmdParams);
+
     return cmd.ExecuteScalar();
   }
 
@@ -203,13 +216,16 @@ public static class DbTools
   public static T ExecuteScalar<T>(DbConnection conn, string commandText, CmdParams cmdParams)
   {
     var result = ExecuteScalar(conn, commandText, cmdParams);
+
     if (typeof(T) == typeof(Guid))
     {
       if (result == null) return (T)(object)Guid.Empty;
+
       return (T)(object)new Guid(result.ToString());
     }
 
     if (result is DBNull || result == null) return default;
+
     return (T)Convert.ChangeType(result, typeof(T));
   }
 
@@ -232,6 +248,7 @@ public static class DbTools
   {
     using var cmd = conn.CreateCommand();
     cmd.BuildInsertCommand(obj, tableName, dbSettings, includeFields, excludeFields);
+
     return cmd.ExecuteNonQueryAsync();
   }
 
@@ -246,6 +263,7 @@ public static class DbTools
   {
     using var cmd = conn.CreateCommand();
     cmd.BuildInsertCommand(obj, tableName, dbSettings);
+
     return cmd.ExecuteNonQueryAsync();
   }
 
@@ -286,6 +304,7 @@ public static class DbTools
   {
     using var cmd = CreateCommand(conn, commandText, cmdParams);
     using var reader = cmd.ExecuteReader();
+
     while (reader.Read()) yield return reader.ToObject<T>(null, excludeFields, changeTracker);
   }
 
@@ -301,6 +320,7 @@ public static class DbTools
     if (collection == null) return string.Empty;
 
     var result = new StringBuilder();
+
     foreach (var value in collection)
     {
       result.Append(value);
@@ -308,6 +328,7 @@ public static class DbTools
     }
 
     if (result.Length > 0) result.Length -= delim.Length;
+
     return result.ToString();
   }
 
@@ -363,6 +384,7 @@ public static class DbTools
   {
     var result = new DataReaderToObjectMapper<T>(readerName, null, excludeFields).ReadSingle(reader, changeTracker);
     if (changeTracker != null) changeTracker.RegisterObject(result);
+
     return result;
   }
 
@@ -419,6 +441,7 @@ public static class DbTools
     if (string.IsNullOrEmpty(readerName))
     {
       var mappingKeyBuilder = new StringBuilder();
+
       for (var i = 0; i < reader.FieldCount; ++i)
       {
         mappingKeyBuilder.Append(reader.GetName(i));
@@ -475,6 +498,7 @@ public static class DbTools
     DbSettings dbSettings)
   {
     using var cmd = conn.CreateCommand();
+
     if (cmd.BuildUpdateCommand(obj, tableName, idFieldNames, includeFields, excludeFields, changeTracker, dbSettings))
       return cmd.ExecuteNonQueryAsync();
 

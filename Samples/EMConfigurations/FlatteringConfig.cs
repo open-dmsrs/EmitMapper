@@ -48,6 +48,7 @@ public class FlatteringConfig : DefaultMapConfig
   public DefaultMapConfig MatchNestedMembers(Func<string, string, bool> nestedMembersMatcher)
   {
     NestedMembersMatcher = nestedMembersMatcher;
+
     return this;
   }
 
@@ -59,6 +60,7 @@ public class FlatteringConfig : DefaultMapConfig
   private static IEnumerable<MemberInfo> GetAllMembers(Type t)
   {
     var bindingFlags = BindingFlags.Instance | BindingFlags.Public;
+
     return t.GetMembers(bindingFlags);
   }
 
@@ -112,8 +114,10 @@ public class FlatteringConfig : DefaultMapConfig
   {
     var sourceMatches =
       sourceMembers.Where(s => MatchMembers(destName, s.Name) || NestedMembersMatcher(destName, s.Name));
+
     var len = 0;
     MemberInfo sourceMemberInfo = null;
+
     foreach (var mi in sourceMatches)
       if (mi.Name.Length > len)
       {
@@ -122,12 +126,15 @@ public class FlatteringConfig : DefaultMapConfig
       }
 
     if (sourceMemberInfo == null) return null;
+
     var result = new List<MemberInfo> { sourceMemberInfo };
+
     if (!MatchMembers(destName, sourceMemberInfo.Name))
     {
       var matchedChain = GetMatchedChain(
         destName.Substring(sourceMemberInfo.Name.Length),
         GetSourceSubMembers(sourceMemberInfo));
+
       if (matchedChain != null && matchedChain.Any())
         result.AddRange(matchedChain);
       else

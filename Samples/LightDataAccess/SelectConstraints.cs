@@ -60,6 +60,7 @@ public class FilterConstraints
   public void Add(string constraint, CmdParams @params)
   {
     Constraints.Add(constraint);
+
     if (@params != null)
       foreach (var p in @params)
         Params.Add(p.Key, p.Value);

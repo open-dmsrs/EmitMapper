@@ -107,6 +107,7 @@ public abstract class ObjectsMapperBaseImpl
   {
     if (from == null)
       return null;
+
     return Map(from, ConstructTarget(), null);
   }
 
@@ -131,32 +132,39 @@ public abstract class ObjectsMapperBaseImpl
     TypeTo = typeTo;
     MappingConfigurator = mappingConfigurator;
     StoredObjects = storedObjects;
+
     if (MappingConfigurator != null)
     {
       RootOperation = MappingConfigurator.GetRootMappingOperation(typeFrom, typeTo)
                       ?? new RootMappingOperation(typeFrom, typeTo);
 
       var constructor = RootOperation.TargetConstructor;
+
       if (constructor != null)
         TargetConstructor = (DelegateInvokerFunc0)DelegateInvoker.GetDelegateInvoker(constructor);
 
       var valuesPostProcessor = RootOperation.ValuesPostProcessor;
+
       if (valuesPostProcessor != null)
         ValuesPostProcessor = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(valuesPostProcessor);
 
       var converter = RootOperation.Converter;
+
       if (converter != null)
         Converter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(converter);
 
       var nullSubstitutor = RootOperation.NullSubstitutor;
+
       if (nullSubstitutor != null)
         NullSubstitutor = (DelegateInvokerFunc0)DelegateInvoker.GetDelegateInvoker(nullSubstitutor);
 
       var sourceFilter = RootOperation.SourceFilter;
+
       if (sourceFilter != null)
         SourceFilter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(sourceFilter);
 
       var destinationFilter = RootOperation.DestinationFilter;
+
       if (destinationFilter != null)
         DestinationFilter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(destinationFilter);
     }
@@ -166,6 +174,7 @@ public abstract class ObjectsMapperBaseImpl
   {
     if (TargetConstructor != null)
       return TargetConstructor.CallFunc();
+
     return CreateTargetInstance();
   }
 }

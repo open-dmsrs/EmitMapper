@@ -13,16 +13,11 @@ public static class ProxyGenerator
   private static readonly MethodInfo DelegateCombine = Metadata<Delegate>.Type.GetMethod(
     nameof(Delegate.Combine),
     new[] { Metadata<Delegate>.Type, Metadata<Delegate>.Type });
-
   private static readonly MethodInfo DelegateRemove = Metadata<Delegate>.Type.GetMethodCache(nameof(Delegate.Remove));
-
   private static readonly EventInfo PropertyChanged =
     Metadata<INotifyPropertyChanged>.Type.GetEvent(nameof(INotifyPropertyChanged.PropertyChanged));
-
   private static readonly ConstructorInfo ProxyBaseCtor = Metadata<ProxyBase>.Type.GetConstructor(Type.EmptyTypes);
-
   private static readonly ModuleBuilder ProxyModule = CreateProxyModule();
-
   private static readonly Type _Type = typeof(ProxyGenerator);
 
   private static readonly LazyConcurrentDictionary<TypeDescription, Type> ProxyTypes = new();
@@ -40,6 +35,7 @@ public static class ProxyGenerator
   private static ModuleBuilder CreateProxyModule()
   {
     var builder = AssemblyBuilder.DefineDynamicAssembly(_Type.Assembly.GetName(), AssemblyBuilderAccess.Run);
+
     return builder.DefineDynamicModule("EmitMapper.ProxyGenerator.Proxies.emit");
   }
 
@@ -51,6 +47,7 @@ public static class ProxyGenerator
     FieldBuilder propertyChangedField = null;
     if (Metadata<INotifyPropertyChanged>.Type.IsAssignableFrom(interfaceType)) GeneratePropertyChanged();
     GenerateFields();
+
     return typeBuilder.CreateType();
 
     TypeBuilder GenerateType()
@@ -60,6 +57,7 @@ public static class ProxyGenerator
       const int MaxTypeNameLength = 1023;
       typeName = typeName.Substring(0, Math.Min(MaxTypeNameLength, typeName.Length));
       Debug.WriteLine(typeName, "Emitting proxy type");
+
       return ProxyModule.DefineType(
         typeName,
         TypeAttributes.Class | TypeAttributes.Sealed | TypeAttributes.Public,
@@ -73,6 +71,7 @@ public static class ProxyGenerator
         PropertyChanged.Name,
         Metadata<PropertyChangedEventHandler>.Type,
         FieldAttributes.Private);
+
       EventAccessor(PropertyChanged.AddMethod, DelegateCombine);
       EventAccessor(PropertyChanged.RemoveMethod, DelegateRemove);
     }
@@ -85,6 +84,7 @@ public static class ProxyGenerator
         | MethodAttributes.Virtual,
         Metadata.Void,
         new[] { Metadata<PropertyChangedEventHandler>.Type });
+
       var addIl = eventAccessor.GetILGenerator();
       addIl.Emit(OpCodes.Ldarg_0);
       addIl.Emit(OpCodes.Dup);
@@ -100,6 +100,7 @@ public static class ProxyGenerator
     void GenerateFields()
     {
       var fieldBuilders = new Dictionary<string, PropertyEmitter>();
+
       foreach (var property in PropertiesToImplement())
         if (fieldBuilders.TryGetValue(property.Name, out var propertyEmitter))
         {
@@ -128,6 +129,7 @@ public static class ProxyGenerator
           propertiesToImplement.Insert(0, property);
         else
           propertiesToImplement.Add(property);
+
       return propertiesToImplement;
     }
 
@@ -137,6 +139,7 @@ public static class ProxyGenerator
         MethodAttributes.Public,
         CallingConventions.Standard,
         Type.EmptyTypes);
+
       var ctorIl = constructorBuilder.GetILGenerator();
       ctorIl.Emit(OpCodes.Ldarg_0);
       ctorIl.Emit(OpCodes.Call, ProxyBaseCtor);
@@ -164,26 +167,32 @@ public static class ProxyGenerator
       var propertyType = property.Type;
       _fieldBuilder = owner.DefineField($"<{name}>", propertyType, FieldAttributes.Private);
       _propertyBuilder = owner.DefineProperty(name, PropertyAttributes.None, propertyType, null);
+
       _getterBuilder = owner.DefineMethod(
         $"get_{name}",
         MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig | MethodAttributes.SpecialName,
         propertyType,
         Type.EmptyTypes);
+
       var getterIl = _getterBuilder.GetILGenerator();
       getterIl.Emit(OpCodes.Ldarg_0);
       getterIl.Emit(OpCodes.Ldfld, _fieldBuilder);
       getterIl.Emit(OpCodes.Ret);
       _propertyBuilder.SetGetMethod(_getterBuilder);
+
       if (!property.CanWrite) return;
+
       _setterBuilder = owner.DefineMethod(
         $"set_{name}",
         MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig | MethodAttributes.SpecialName,
         Metadata.Void,
         new[] { propertyType });
+
       var setterIl = _setterBuilder.GetILGenerator();
       setterIl.Emit(OpCodes.Ldarg_0);
       setterIl.Emit(OpCodes.Ldarg_1);
       setterIl.Emit(OpCodes.Stfld, _fieldBuilder);
+
       if (propertyChangedField != null)
       {
         setterIl.Emit(OpCodes.Ldarg_0);

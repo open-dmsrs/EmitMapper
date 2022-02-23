@@ -18,11 +18,9 @@ internal class NativeConverter
     Metadata<float>.Type, Metadata<double>.Type, Metadata<decimal>.Type, Metadata<DateTime>.Type,
     Metadata<string>.Type
   };
-
   private static readonly MethodInfo ObjectToStringMethod = Metadata<NativeConverter>.Type.GetMethod(
     nameof(ObjectToString),
     BindingFlags.NonPublic | BindingFlags.Static);
-
   private static readonly MethodInfo ChangeTypeMethod = Metadata<EMConvert>.Type.GetMethod(
     nameof(EMConvert.ChangeType),
     new[] { Metadata<object>.Type, Metadata<Type>.Type, Metadata<Type>.Type });
@@ -45,6 +43,7 @@ internal class NativeConverter
       if (m.ReturnType == destinationType)
       {
         var parameters = m.GetParameters();
+
         if (parameters.Length == 1 && parameters[0].ParameterType == sourceType)
           return AstBuildHelper.CallMethod(m, null, new List<IAstStackItem> { sourceValue });
       }
@@ -102,6 +101,7 @@ internal class NativeConverter
   {
     if (obj == null)
       return null;
+
     return obj.ToString();
   }
 }

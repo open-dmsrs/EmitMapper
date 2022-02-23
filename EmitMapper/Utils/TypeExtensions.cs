@@ -18,6 +18,7 @@ public static class TypeExtensions
   public static IEnumerable<Type> BaseClassesAndInterfaces(this Type type)
   {
     var currentType = type;
+
     while ((currentType = currentType.BaseType) != null) yield return currentType;
     foreach (var interfaceType in type.GetInterfacesCache()) yield return interfaceType;
   }
@@ -48,9 +49,11 @@ public static class TypeExtensions
   public static Type GetGenericInterface(this Type type, Type genericInterface)
   {
     if (type.IsGenericType(genericInterface)) return type;
+
     foreach (var interfaceType in type.GetInterfacesCache())
       if (interfaceType.IsGenericType(genericInterface))
         return interfaceType;
+
     return null;
   }
 
@@ -95,6 +98,7 @@ public static class TypeExtensions
     while (type != null)
     {
       yield return type;
+
       type = type.BaseType;
     }
   }
@@ -132,6 +136,7 @@ public static class TypeExtensions
                StaticFlags & ~BindingFlags.NonPublic))
       if (foundMethod.IsGenericMethodDefinition && foundMethod.GetParameters().Length == parametersCount)
         return foundMethod;
+
     throw new ArgumentOutOfRangeException(
       nameof(methodName),
       $"Cannot find suitable method {type}.{methodName}({parametersCount} parameters).");

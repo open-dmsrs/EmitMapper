@@ -17,6 +17,7 @@ internal static class AstBuildHelper
   {
     if (methodInfo.ReturnType.IsValueType)
       return new AstCallMethodValue(methodInfo, invocationObject, arguments);
+
     return new AstCallMethodRef(methodInfo, invocationObject, arguments);
   }
 
@@ -24,6 +25,7 @@ internal static class AstBuildHelper
   {
     if (targetType.IsValueType)
       return new AstCastclassValue(value, targetType);
+
     return new AstCastclassRef(value, targetType);
   }
 
@@ -31,6 +33,7 @@ internal static class AstBuildHelper
   {
     if (argumentType.IsValueType)
       return new AstReadArgumentAddr { ArgumentIndex = argumentIndex, ArgumentType = argumentType };
+
     return new AstReadArgumentRef { ArgumentIndex = argumentIndex, ArgumentType = argumentType };
   }
 
@@ -38,6 +41,7 @@ internal static class AstBuildHelper
   {
     if (argumentType.IsValueType)
       return new AstReadArgumentValue { ArgumentIndex = argumentIndex, ArgumentType = argumentType };
+
     return new AstReadArgumentRef { ArgumentIndex = argumentIndex, ArgumentType = argumentType };
   }
 
@@ -45,6 +49,7 @@ internal static class AstBuildHelper
   {
     if (array.ItemType.IsValueType)
       return new AstReadArrayItemAddr { Array = array, Index = index };
+
     return new AstReadArrayItemRef { Array = array, Index = index };
   }
 
@@ -52,6 +57,7 @@ internal static class AstBuildHelper
   {
     if (array.ItemType.IsValueType)
       return new AstReadArrayItemValue { Array = array, Index = index };
+
     return new AstReadArrayItemRef { Array = array, Index = index };
   }
 
@@ -59,6 +65,7 @@ internal static class AstBuildHelper
   {
     if (fieldInfo.FieldType.IsValueType)
       return new AstReadFieldAddr { FieldInfo = fieldInfo, SourceObject = sourceObject };
+
     return new AstReadFieldRef { FieldInfo = fieldInfo, SourceObject = sourceObject };
   }
 
@@ -66,6 +73,7 @@ internal static class AstBuildHelper
   {
     if (fieldInfo.FieldType.IsValueType)
       return new AstReadFieldValue { FieldInfo = fieldInfo, SourceObject = sourceObject };
+
     return new AstReadFieldRef { FieldInfo = fieldInfo, SourceObject = sourceObject };
   }
 
@@ -73,6 +81,7 @@ internal static class AstBuildHelper
   {
     if (loc.LocalType.IsValueType)
       return new AstReadLocalAddr(loc);
+
     return new AstReadLocalRef { LocalType = loc.LocalType, LocalIndex = loc.LocalIndex };
   }
 
@@ -80,6 +89,7 @@ internal static class AstBuildHelper
   {
     if (loc.LocalType.IsValueType)
       return new AstReadLocalValue { LocalType = loc.LocalType, LocalIndex = loc.LocalIndex };
+
     return new AstReadLocalRef { LocalType = loc.LocalType, LocalIndex = loc.LocalIndex };
   }
 
@@ -88,15 +98,19 @@ internal static class AstBuildHelper
     if (memberInfo.MemberType == MemberTypes.Method)
     {
       var methodInfo = memberInfo.DeclaringType.GetMethodCache(memberInfo.Name);
+
       if (methodInfo.ReturnType == null)
         throw new EmitMapperException("Invalid member:" + memberInfo.Name);
+
       if (methodInfo.GetParameters().Length > 0)
         throw new EmitMapperException("Method " + memberInfo.Name + " should not have parameters");
+
       return (IAstRef)CallMethod(methodInfo, sourceObject, null);
     }
 
     if (memberInfo.MemberType == MemberTypes.Field)
       return ReadFieldRA(sourceObject, (FieldInfo)memberInfo);
+
     return (IAstRef)ReadPropertyRV(sourceObject, (PropertyInfo)memberInfo);
   }
 
@@ -105,12 +119,16 @@ internal static class AstBuildHelper
     if (memberInfo.MemberType == MemberTypes.Method)
     {
       var methodInfo = memberInfo.DeclaringType.GetMethodCache(memberInfo.Name);
+
       if (methodInfo.ReturnType == null)
         throw new EmitMapperException("Invalid member:" + memberInfo.Name);
+
       if (methodInfo.GetParameters().Length > 0)
         throw new EmitMapperException("Method " + memberInfo.Name + " should not have parameters");
+
       if (methodInfo.ReturnType == null || methodInfo.ReturnType.IsValueType)
         throw new EmitMapperException("Method " + memberInfo.Name + " should return a reference");
+
       return (IAstRef)CallMethod(methodInfo, sourceObject, null);
     }
 
@@ -118,8 +136,10 @@ internal static class AstBuildHelper
       return ReadFieldRA(sourceObject, (FieldInfo)memberInfo);
 
     var pi = (PropertyInfo)memberInfo;
+
     if (pi.PropertyType.IsValueType)
       return ReadPropertyRA(sourceObject, (PropertyInfo)memberInfo);
+
     return (IAstRef)ReadPropertyRV(sourceObject, (PropertyInfo)memberInfo);
   }
 
@@ -128,15 +148,19 @@ internal static class AstBuildHelper
     if (memberInfo.MemberType == MemberTypes.Method)
     {
       var methodInfo = memberInfo.DeclaringType.GetMethodCache(memberInfo.Name);
+
       if (methodInfo.ReturnType == null)
         throw new EmitMapperException("Invalid member:" + memberInfo.Name);
+
       if (methodInfo.GetParameters().Length > 0)
         throw new EmitMapperException("Method " + memberInfo.Name + " should not have parameters");
+
       return CallMethod(methodInfo, sourceObject, null);
     }
 
     if (memberInfo.MemberType == MemberTypes.Field)
       return ReadFieldRV(sourceObject, (FieldInfo)memberInfo);
+
     return ReadPropertyRV(sourceObject, (PropertyInfo)memberInfo);
   }
 
@@ -145,8 +169,10 @@ internal static class AstBuildHelper
     var src = sourceObject;
     using var enumerator = membersChain.GetEnumerator();
     MemberInfo cur = null;
+
     if (enumerator.MoveNext())
       cur = enumerator.Current;
+
     while (enumerator.MoveNext())
     {
       src = ReadMemberRA(src, cur);
@@ -173,6 +199,7 @@ internal static class AstBuildHelper
   {
     if (propertyInfo.PropertyType.IsValueType)
       return new AstReadPropertyValue { SourceObject = sourceObject, PropertyInfo = propertyInfo };
+
     return new AstReadPropertyRef { SourceObject = sourceObject, PropertyInfo = propertyInfo };
   }
 
@@ -180,6 +207,7 @@ internal static class AstBuildHelper
   {
     if (thisType.IsValueType)
       return new AstReadThisAddr { ThisType = thisType };
+
     return new AstReadThisRef { ThisType = thisType };
   }
 
@@ -187,6 +215,7 @@ internal static class AstBuildHelper
   {
     if (memberInfo.MemberType == MemberTypes.Field)
       return new AstWriteField { FieldInfo = (FieldInfo)memberInfo, TargetObject = targetObject, Value = value };
+
     return new AstWriteProperty(targetObject, value, (PropertyInfo)memberInfo);
   }
 
@@ -198,8 +227,10 @@ internal static class AstBuildHelper
     var readTarget = targetObject;
     var enumerator = membersChain.GetEnumerator();
     MemberInfo cur = null;
+
     if (enumerator.MoveNext())
       cur = enumerator.Current;
+
     while (enumerator.MoveNext())
     {
       readTarget = ReadMemberRA(readTarget, cur);

@@ -49,6 +49,7 @@ public static class ConvertUtils
   public static Guid ToGuid(this string str)
   {
     if (str == null) return Guid.Empty;
+
     return new Guid(str);
   }
 
@@ -60,6 +61,7 @@ public static class ConvertUtils
   public static string ToGuidStr(this string str)
   {
     if (str == null) return null;
+
     return str.ToUpper();
   }
 
@@ -81,6 +83,7 @@ public static class ConvertUtils
   public static string ToGuidStr(this Guid? guid)
   {
     if (guid == null) return null;
+
     return guid.Value.ToString().ToUpper();
   }
 

@@ -18,7 +18,9 @@ public readonly struct TypeDescription : IEquatable<TypeDescription>
   public TypeDescription(Type type, IEnumerable<PropertyDescription> additionalProperties)
   {
     Type = type ?? throw new ArgumentNullException(nameof(type));
+
     if (additionalProperties == null) throw new ArgumentNullException(nameof(additionalProperties));
+
     AdditionalProperties = additionalProperties.OrderBy(p => p.Name).ToArray();
   }
 
@@ -47,6 +49,7 @@ public readonly struct TypeDescription : IEquatable<TypeDescription>
     var hashCode = new HashCode();
     hashCode.Add(Type);
     foreach (var property in AdditionalProperties) hashCode.Add(property);
+
     return hashCode.ToHashCode();
   }
 }

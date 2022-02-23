@@ -64,12 +64,15 @@ public class ObjectsChangeTracker
   public TrackingMember[] GetChanges(object obj)
   {
     if (!_trackingObjects.TryGetValue(obj, out var originalValues)) return null;
+
     var currentValues = GetObjectMembers(obj);
+
     return currentValues.Select(
       (x, idx) =>
       {
         var original = originalValues[idx];
         x.OriginalValue = original.CurrentValue;
+
         return x;
       }).Where(
       (current, idx) =>
@@ -85,11 +88,13 @@ public class ObjectsChangeTracker
 
     var originalValues = GetObjectMembers(originalObj);
     var currentValues = GetObjectMembers(currentObj);
+
     return currentValues.Select(
       (x, idx) =>
       {
         var original = originalValues[idx];
         x.OriginalValue = original.CurrentValue;
+
         return x;
       }).Where(
       (current, idx) =>

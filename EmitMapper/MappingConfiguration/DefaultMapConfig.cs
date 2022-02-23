@@ -55,6 +55,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   public DefaultMapConfig DeepMap(Type type)
   {
     _deepCopyMembers.Add(type.FullName);
+
     return this;
   }
 
@@ -66,6 +67,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   public DefaultMapConfig DeepMap()
   {
     _shallowCopy = false;
+
     return this;
   }
 
@@ -86,6 +88,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   {
     var res = base.GetRootMappingOperation(from, to);
     res.ShallowCopy = IsShallowCopy(from, to);
+
     return res;
   }
 
@@ -100,6 +103,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   public DefaultMapConfig MatchMembers(Func<string, string, bool> membersMatcher)
   {
     _membersMatcher = membersMatcher;
+
     return this;
   }
 
@@ -123,6 +127,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   public DefaultMapConfig ShallowMap(Type type)
   {
     _shallowCopyMembers.Add(type.FullName);
+
     return this;
   }
 
@@ -134,6 +139,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   public DefaultMapConfig ShallowMap()
   {
     _shallowCopy = true;
+
     return this;
   }
 
@@ -223,11 +229,13 @@ public class DefaultMapConfig : MapConfigBaseImpl
     fromPath ??= Array.Empty<MemberInfo>();
 
     var membersFromPath = fromPath.ToArray();
+
     var from = membersFromPath.Length == 0
       ? fromRoot
       : ReflectionHelper.GetMemberReturnType(membersFromPath[membersFromPath.Length - 1]);
 
     var memberToPath = toPath.ToArray();
+
     var to = memberToPath.Length == 0
       ? toRoot
       : ReflectionHelper.GetMemberReturnType(memberToPath[memberToPath.Length - 1]);
@@ -245,27 +253,32 @@ public class DefaultMapConfig : MapConfigBaseImpl
       if (toMi.MemberType == MemberTypes.Property)
       {
         var setMethod = ((PropertyInfo)toMi).GetSetMethod();
+
         if (setMethod == null || setMethod.GetParameters().Length != 1)
           continue;
       }
 
       var fromMi = fromMembers.FirstOrDefault(mi => MatchMembers(mi.Name, toMi.Name));
+
       if (fromMi == null)
         continue;
 
       if (fromMi.MemberType == MemberTypes.Property)
       {
         var getMethod = ((PropertyInfo)fromMi).GetGetMethod();
+
         if (getMethod == null)
           continue;
       }
 
       var op = CreateMappingOperation(processedTypes, fromRoot, toRoot, memberToPath, membersFromPath, fromMi, toMi);
+
       if (op != null)
         result.Add(op);
     }
 
     processedTypes.Remove(tp);
+
     return result;
   }
 
@@ -273,8 +286,10 @@ public class DefaultMapConfig : MapConfigBaseImpl
   {
     if (TypeInList(_shallowCopyMembers, to) || TypeInList(_shallowCopyMembers, from))
       return true;
+
     if (TypeInList(_deepCopyMembers, to) || TypeInList(_deepCopyMembers, from))
       return false;
+
     return _shallowCopy;
   }
 
@@ -286,6 +301,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   private bool MappingItemNameInList(IEnumerable<string> list, ReadWriteSimple mo)
   {
     var enumerable = list.ToList();
+
     return enumerable.Any(l => MatchMembers(l, mo.Destination.MemberInfo.Name))
            || enumerable.Any(l => MatchMembers(l, mo.Source.MemberInfo.Name));
   }
@@ -293,6 +309,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   private bool MappingItemTypeInList(IEnumerable<string> list, ReadWriteSimple mo)
   {
     var enumerable = list.ToList();
+
     return TypeInList(enumerable, mo.Destination.MemberType) || TypeInList(enumerable, mo.Source.MemberType);
   }
 

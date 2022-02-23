@@ -1,15 +1,12 @@
-﻿namespace EmitMapper.Tests;
-
-using System;
+﻿using System;
 using System.Reflection;
-
 using EmitMapper.EmitInvoker.Delegates;
 using EmitMapper.EmitInvoker.Methods;
 using EmitMapper.Utils;
-
 using Shouldly;
-
 using Xunit;
+
+namespace EmitMapper.Tests;
 
 public class EmitInvokerTest
 {
@@ -50,6 +47,7 @@ public class EmitInvokerTest
     var caller2 = (MethodInvokerFunc1)MethodInvoker.GetMethodInvoker(
       this,
       GetType().GetMethod("InvokeTest2", BindingFlags.Static | BindingFlags.Public));
+
     caller2.CallFunc(5).ShouldBe(5);
   }
 

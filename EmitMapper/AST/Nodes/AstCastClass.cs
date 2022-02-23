@@ -27,12 +27,14 @@ internal class AstCastclass : IAstRefOrValue
       {
         Value.Compile(context);
         context.Emit(OpCodes.Castclass, TargetType);
+
         return;
       }
 
       if (TargetType.IsValueType && !Value.ItemType.IsValueType)
       {
         new AstUnbox { RefObj = (IAstRef)Value, UnboxedType = TargetType }.Compile(context);
+
         return;
       }
 

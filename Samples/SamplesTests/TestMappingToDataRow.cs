@@ -7,11 +7,10 @@ using EmitMapper.MappingConfiguration;
 using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
+using Shouldly;
 using Xunit;
 
 namespace SamplesTests;
-
-using Shouldly;
 
 public class TestMappingToDataRow
 {
@@ -46,6 +45,7 @@ public class TestMappingToDataRow
     public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
     {
       var objectMembers = ReflectionHelper.GetPublicFieldsAndProperties(from);
+
       return FilterOperations(
         from,
         to,

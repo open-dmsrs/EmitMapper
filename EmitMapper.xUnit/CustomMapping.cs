@@ -1,25 +1,19 @@
-﻿namespace EmitMapper.Tests;
-
-using EmitMapper.MappingConfiguration;
-
+﻿using EmitMapper.MappingConfiguration;
 using Shouldly;
-
 using Xunit;
+
+namespace EmitMapper.Tests;
 
 ////[TestFixture]
 public class CustomMapping
 {
-  public interface IWithName
-  {
-    string Name { get; set; }
-  }
-
   [Fact]
   public void Test_CustomConverter()
   {
     var a = Context.ObjMan.GetMapper<B2, A2>(
       new DefaultMapConfig().ConvertUsing<object, string>(v => "333").ConvertUsing<object, string>(v => "hello")
         .SetConfigName("ignore")).Map(new B2());
+
     a.Fld1.ShouldBeNull();
     a.Fld2.ShouldBe("hello");
 
@@ -32,6 +26,7 @@ public class CustomMapping
   {
     var a = Context.ObjMan.GetMapper<Bb, Aa>(new DefaultMapConfig().ConvertUsing<object, string>(v => "converted " + v))
       .Map(new Bb());
+
     a.Fld1.ShouldBe("converted B2::fld1");
     a.Fld2.ShouldBe("converted B2::fld2");
   }
@@ -52,16 +47,19 @@ public class CustomMapping
     var a = Context.ObjMan.GetMapper<B3, A3>(
       new DefaultMapConfig().PostProcess<A3.Int>(
           (i, state) =>
-            {
-              i.Str2 = "processed";
-              return i;
-            }).PostProcess<A3.SInt?>((i, state) => { return new A3.SInt { Str1 = i.Value.Str1, Str2 = "processed" }; })
+          {
+            i.Str2 = "processed";
+
+            return i;
+          }).PostProcess<A3.SInt?>((i, state) => { return new A3.SInt { Str1 = i.Value.Str1, Str2 = "processed" }; })
         .PostProcess<A3>(
           (i, state) =>
-            {
-              i.Status = "processed";
-              return i;
-            })).Map(new B3());
+          {
+            i.Status = "processed";
+
+            return i;
+          })).Map(new B3());
+
     a.Fld.Str1.ShouldBe("B3::Int::str1");
     a.Fld.Str2.ShouldBe("processed");
 
@@ -74,7 +72,6 @@ public class CustomMapping
   public class A1
   {
     public string Fld1 = string.Empty;
-
     public string Fld2 { get; private set; } = string.Empty;
 
     public void SetFld2(string value)
@@ -86,29 +83,24 @@ public class CustomMapping
   public class A2
   {
     public string Fld1;
-
     public string Fld2;
   }
 
   public class A3
   {
     public Int Fld;
-
     public SInt? Fld2;
-
     public string Status;
 
     public struct SInt
     {
       public string Str1;
-
       public string Str2;
     }
 
     public class Int
     {
       public string Str1;
-
       public string Str2;
     }
   }
@@ -116,21 +108,18 @@ public class CustomMapping
   public class Aa
   {
     public string Fld1;
-
     public string Fld2;
   }
 
   public class B2
   {
     public string Fld2 = "B2::fld2";
-
     public string Fld3 = "B2::fld3";
   }
 
   public class B3
   {
     public Int Fld = new();
-
     public SInt Fld2;
 
     public B3()
@@ -152,12 +141,16 @@ public class CustomMapping
   public class Bb
   {
     public string Fld1 = "B2::fld1";
-
     public string Fld2 = "B2::fld2";
   }
 
   public class WithName : IWithName
   {
     public string Name { get; set; }
+  }
+
+  public interface IWithName
+  {
+    string Name { get; set; }
   }
 }

@@ -149,6 +149,7 @@ public static class AssertCore
     if (condition) return;
 
     var message = getMessage.Invoke();
+
     message = string.IsNullOrEmpty(message)
       ? "An argument condition was false."
       : string.Concat("An argument condition was false.", message);
@@ -193,6 +194,7 @@ public static class AssertCore
     if (argument != null) return;
 
     var argumentName = getArgumentName.Invoke();
+
     var exception = string.IsNullOrEmpty(argumentName)
       ? new ArgumentNullException()
       : new ArgumentNullException(argumentName);
@@ -230,6 +232,7 @@ public static class AssertCore
     if (!string.IsNullOrEmpty(argument)) return;
 
     var paramName = getArgumentName.Invoke();
+
     if (argument == null)
     {
       if (!string.IsNullOrEmpty(paramName))
@@ -275,6 +278,7 @@ public static class AssertCore
     if (argument == null)
     {
       var argumentName = getArgumentName.Invoke();
+
       if (!string.IsNullOrEmpty(argumentName))
         throw new ArgumentNullException(argumentName, "Null collections are not allowed.");
 
@@ -478,6 +482,7 @@ public static class AssertCore
     if (value == null)
     {
       var message = getMessage.Invoke();
+
       if (!string.IsNullOrEmpty(message)) throw new InvalidOperationException(message);
 
       throw new InvalidOperationException("Null collections are not allowed.");
@@ -486,6 +491,7 @@ public static class AssertCore
     if (!value.Any())
     {
       var message = getMessage.Invoke();
+
       if (!string.IsNullOrEmpty(message)) throw new InvalidOperationException(message);
 
       throw new InvalidOperationException("Empty collections are not allowed.");
@@ -706,6 +712,7 @@ public static class AssertCore
   private static InvalidOperationException GetInvalidOperationException(Func<string> getMessage)
   {
     var message = getMessage.Invoke();
+
     return string.IsNullOrEmpty(message) ? new InvalidOperationException() : new InvalidOperationException(message);
   }
 }

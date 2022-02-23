@@ -36,8 +36,10 @@ public class ObjectsMapper<TFrom, TTo>
   public List<TTo> MapEnum(List<TFrom> sourceCollection)
   {
     var result = new List<TTo>(sourceCollection.Count);
+
     foreach (var src in sourceCollection)
       result.Add(Map(src));
+
     return result;
   }
 
