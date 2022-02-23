@@ -126,9 +126,9 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
     IMappingConfigurator config = new DbReaderMappingConfig(skipFields, mappingKey);
 
     if (mapperManager != null)
-      return mapperManager.GetMapperImpl(typeof(IDataReader), typeof(TEntity), config);
+      return mapperManager.GetMapper(typeof(IDataReader), typeof(TEntity), config);
 
-    return Mapper.Default.GetMapperImpl(typeof(IDataReader), typeof(TEntity), config);
+    return Mapper.Default.GetMapper(typeof(IDataReader), typeof(TEntity), config);
   }
 
   /// <summary>

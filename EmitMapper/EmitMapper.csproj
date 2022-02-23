@@ -14,7 +14,7 @@
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
-		<Version>2.0.3-prerelease.4</Version>
+		<Version>2.1.0</Version>
 		<Description>The most fast mapper tool - EmitMapper runs base on netcore</Description>
 		<PackageProjectUrl>https://github.com/niubilitynetcore/EmitMapper</PackageProjectUrl>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
@@ -27,7 +27,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-		<PackageReleaseNotes>Optimized the performance</PackageReleaseNotes>
+		<PackageReleaseNotes>Simply the OjbectMapperManager to Mapper and so on</PackageReleaseNotes>
 		<Copyright>Jimbo</Copyright>
 		<RepositoryType>git</RepositoryType>
 	

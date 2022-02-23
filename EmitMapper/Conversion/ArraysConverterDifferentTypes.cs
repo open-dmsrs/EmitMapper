@@ -39,7 +39,7 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
     }
     else
     {
-      _subMapper = Mapper.Default.GetMapperInt(
+      _subMapper = Mapper.Default.GetMapperDescription(
         Metadata<TFrom>.Type,
         Metadata<TTo>.Type,
         mappingConfig);

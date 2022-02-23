@@ -124,7 +124,7 @@ public class ObjectsChangeTracker
     var type = obj?.GetType();
     while (type != null && type.Assembly.IsDynamic) type = type.BaseType;
     var fields = new TrackingMembersList();
-    _mapManager.GetMapperImpl(type, null, new MappingConfiguration()).Map(obj, null, fields);
+    _mapManager.GetMapper(type, null, new MappingConfiguration()).Map(obj, null, fields);
 
     return fields.TrackingMembers;
   }

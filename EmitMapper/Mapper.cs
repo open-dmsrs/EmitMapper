@@ -38,7 +38,7 @@ public class Mapper
   public Mapper<TFrom, TTo> GetMapper<TFrom, TTo>()
   {
     return new Mapper<TFrom, TTo>(
-      GetMapperImpl(Metadata<TFrom>.Type, Metadata<TTo>.Type, DefaultMapConfig.Instance));
+      GetMapper(Metadata<TFrom>.Type, Metadata<TTo>.Type, DefaultMapConfig.Instance));
   }
 
   /// <summary>
@@ -50,7 +50,7 @@ public class Mapper
   /// <returns>Mapper</returns>
   public Mapper<TFrom, TTo> GetMapper<TFrom, TTo>(IMappingConfigurator mappingConfigurator)
   {
-    return new Mapper<TFrom, TTo>(GetMapperImpl(Metadata<TFrom>.Type, Metadata<TTo>.Type, mappingConfigurator));
+    return new Mapper<TFrom, TTo>(GetMapper(Metadata<TFrom>.Type, Metadata<TTo>.Type, mappingConfigurator));
   }
 
   /// <summary>
@@ -60,12 +60,12 @@ public class Mapper
   /// <param name="to">Type of destination object</param>
   /// <param name="mappingConfigurator">Object which configures mapping.</param>
   /// <returns>Mapper</returns>
-  public MapperBase GetMapperImpl(Type from, Type to, IMappingConfigurator mappingConfigurator)
+  public MapperBase GetMapper(Type from, Type to, IMappingConfigurator mappingConfigurator)
   {
-    return GetMapperInt(from, to, mappingConfigurator).Mapper;
+    return GetMapperDescription(from, to, mappingConfigurator).Mapper;
   }
 
-  internal MapperDescription GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
+  internal MapperDescription GetMapperDescription(Type from, Type to, IMappingConfigurator mappingConfigurator)
   {
     to ??= Metadata<object>.Type;
     from ??= Metadata<object>.Type;
@@ -89,14 +89,14 @@ public class Mapper
       {
         createdMapper = new MapperPrimitive(this, from, to, mappingConfigurator);
       }
-      else if (MapperForCollectionImpl.IsSupportedType(to))
+      else if (MapperForCollection.IsSupportedType(to))
       {
-        var mapperDescr = GetMapperInt(
-          MapperForCollectionImpl.GetSubMapperTypeFrom(from),
-          MapperForCollectionImpl.GetSubMapperTypeTo(to),
+        var mapperDescr = GetMapperDescription(
+          MapperForCollection.GetSubMapperTypeFrom(from),
+          MapperForCollection.GetSubMapperTypeTo(to),
           mappingConfigurator);
 
-        createdMapper = MapperForCollectionImpl.CreateInstance(
+        createdMapper = MapperForCollection.CreateInstance(
           mapperTypeName,
           this,
           from,

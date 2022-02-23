@@ -125,7 +125,7 @@ internal class MappingOperationsProcessor
 
   private IAstRefOrValue ConvertByMapper(ReadWriteSimple mapping)
   {
-    var mapper = ObjectsMapperManager.GetMapperInt(
+    var mapper = ObjectsMapperManager.GetMapperDescription(
       mapping.Source.MemberType,
       mapping.Destination.MemberType,
       MappingConfigurator);

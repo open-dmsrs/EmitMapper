@@ -153,7 +153,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
     if (NativeConverter.IsNativeConvertionPossible(typeFrom, typeTo))
       return false;
 
-    if (MapperForCollectionImpl.IsSupportedType(typeFrom) || MapperForCollectionImpl.IsSupportedType(typeTo))
+    if (MapperForCollection.IsSupportedType(typeFrom) || MapperForCollection.IsSupportedType(typeTo))
       return false;
 
     if (typeTo != typeFrom || !shallowCopy)
