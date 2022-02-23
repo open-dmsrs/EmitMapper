@@ -56,7 +56,6 @@ public class DeepType
 
   private void Equal(Address a, Address ad)
   {
-     
     a.Id.ShouldBe(ad.Id);
     a.City.ShouldBe(ad.City);
     a.Country.ShouldBe(ad.Country);

@@ -3,17 +3,20 @@ using System.Linq;
 using AutoFixture;
 using AutoMapper;
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Jobs;
+using BenchmarkDotNet.Configs;
 using EmitMapper.Benchmarks.TestObject;
 using EmitMapper.MappingConfiguration;
 
 namespace EmitMapper.Benchmarks;
 
-[SimpleJob(RuntimeMoniker.Net60, baseline: true)]
+// [SimpleJob(RuntimeMoniker.Net60, baseline: true)]
 
 // [RPlotExporter]
 [MemoryDiagnoser]
-[MediumRunJob, SkewnessColumn, KurtosisColumn]
+[MediumRunJob]
+[SkewnessColumn]
+[KurtosisColumn]
+[GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 public class MapperBenchmark
 {
   private IMapper _autoMapper;
@@ -31,6 +34,8 @@ public class MapperBenchmark
   private ObjectsMapper<SimpleTypesSource, SimpleTypesDestination> _simpleEmitMapper;
 
   private SimpleTypesSource _simpleSource;
+
+  private const int IterationCount = 1_000;
 
   [GlobalSetup]
   public void Setup()
@@ -55,99 +60,6 @@ public class MapperBenchmark
     _simple1000List = fixture.CreateMany<SimpleTypesSource>(1000).ToList();
     _benchSources1000List = fixture.CreateMany<BenchNestedSource>(1000).ToList();
   }
-  [BenchmarkCategory("Bench")]
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public BenchNestedDestination Bench_a_HardMapper()
-  {
-    return HardMap(_benchSource);
-  }
-
-  [BenchmarkCategory("Bench", "1")]
-  [Benchmark(OperationsPerInvoke = IterationCount, Baseline = true)]
-  public BenchNestedDestination Bench_b_EmitMapper()
-  {
-    return _benchSourceEmitMapper.Map(_benchSource);
-  }
-  [BenchmarkCategory("Bench", "1")]
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public BenchNestedDestination Bench_c_AutoMapper()
-  {
-    return _autoMapper.Map<BenchNestedSource, BenchNestedDestination>(_benchSource);
-  }
-  [BenchmarkCategory("Bench", "100")]
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public List<BenchNestedDestination> BenchNested1000_a_HardMapper()
-  {
-    return _benchSources1000List.Select(s => HardMap(s)).ToList();
-  }
-  [BenchmarkCategory("Bench", "100")]
-  [Benchmark(OperationsPerInvoke = IterationCount, Baseline = true)]
-
-  public List<BenchNestedDestination> BenchNested1000_b_EmitMapper()
-  {
-    return _benchSourceEmitMapper.MapEnum(_benchSources1000List);
-  }
-  [BenchmarkCategory("Bench", "100")]
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public List<BenchNestedDestination> BenchNested1000_c_AutoMapper()
-  {
-    return _autoMapper.Map<List<BenchNestedSource>, List<BenchNestedDestination>>(_benchSources1000List);
-  }
-  [BenchmarkCategory("SimpleTypes", "1")]
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public SimpleTypesDestination SimpleTypes_a_HardMapper()
-  {
-    return HardMap(_simpleSource);
-  }
-  [BenchmarkCategory("SimpleTypes", "1")]
-  [Benchmark(OperationsPerInvoke = IterationCount, Baseline = true)]
-
-  public SimpleTypesDestination SimpleTypes_b_EmitMapper()
-  {
-    return _simpleEmitMapper.Map(_simpleSource);
-  }
-  [BenchmarkCategory("SimpleTypes", "1")]
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public SimpleTypesDestination SimpleTypes_c_AutoMapper()
-  {
-    return _autoMapper.Map<SimpleTypesSource, SimpleTypesDestination>(_simpleSource);
-  }
-  [BenchmarkCategory("SimpleTypes", "100")]
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public List<SimpleTypesDestination> SimpleTypes100_a_HardMapper()
-  {
-    return _simple100List.Select(s => HardMap(s)).ToList();
-  }
-  [BenchmarkCategory("SimpleTypes", "100")]
-  [Benchmark(OperationsPerInvoke = IterationCount, Baseline = true)]
-  public List<SimpleTypesDestination> SimpleTypes100_b_EmitMapper()
-  {
-    return _simpleEmitMapper.MapEnum(_simple100List).ToList();
-  }
-  [BenchmarkCategory("SimpleTypes", "100")]
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public List<SimpleTypesDestination> SimpleTypes100_c_AutoMapper()
-  {
-    return _autoMapper.Map<List<SimpleTypesSource>, List<SimpleTypesDestination>>(_simple100List);
-  }
-  [BenchmarkCategory("SimpleTypes", "1000")]
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public List<SimpleTypesDestination> SimpleTypes1000_a_HardMapper()
-  {
-    return _simple1000List.Select(s => HardMap(s)).ToList();
-  }
-  [BenchmarkCategory("SimpleTypes", "1000")]
-  [Benchmark(OperationsPerInvoke = IterationCount, Baseline = true)]
-  public List<SimpleTypesDestination> SimpleTypes1000_b_EmitMapper()
-  {
-    return _simpleEmitMapper.MapEnum(_simple1000List);
-  }
-  [BenchmarkCategory("SimpleTypes1000")]
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public List<SimpleTypesDestination> SimpleTypes1000_c_AutoMapper()
-  {
-    return _autoMapper.Map<List<SimpleTypesSource>, List<SimpleTypesDestination>>(_simple1000List);
-  }
 
   public void Usage()
   {
@@ -156,121 +68,179 @@ public class MapperBenchmark
     var dests = simple.MapEnum(_benchSources1000List); // for list object
   }
 
-  private static BenchNestedDestination.Inner1 HardMap(BenchNestedSource.Nested1 inner)
+  [BenchmarkCategory("Bench", "1")]
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public BenchNestedDestination Bench_a_HardMapper()
   {
-    var result = new BenchNestedDestination.Inner1();
-    result.I1 = HardMap(inner.I1);
-    result.I2 = HardMap(inner.I2);
-    result.I3 = HardMap(inner.I3);
-    result.I4 = HardMap(inner.I4);
-    result.I5 = HardMap(inner.I5);
-    result.I6 = HardMap(inner.I6);
-    result.I7 = HardMap(inner.I7);
-
-    return result;
+    return HardCodeMapper.HardMap(_benchSource);
   }
 
-  private static BenchNestedDestination.Inner2 HardMap(BenchNestedSource.Nested2 inner)
+  [BenchmarkCategory("Bench", "1")]
+  [Benchmark(OperationsPerInvoke = IterationCount, Baseline = true)]
+  public BenchNestedDestination Bench_b_EmitMapper()
   {
-    var result = new BenchNestedDestination.Inner2();
-    result.I = inner.I;
-    result.Str1 = inner.Str1;
-    result.Str2 = inner.Str2;
-    return result;
+    return _benchSourceEmitMapper.Map(_benchSource);
   }
 
-  private static BenchNestedDestination HardMap(BenchNestedSource s)
+  [BenchmarkCategory("Bench", "1")]
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public BenchNestedDestination Bench_c_AutoMapper()
   {
-    BenchNestedDestination result = new();
-    result.I1 = HardMap(s.I1);
-
-    result.I2 = HardMap(s.I2);
-    result.I3 = HardMap(s.I3);
-    result.I4 = HardMap(s.I4);
-    result.I5 = HardMap(s.I5);
-    result.I6 = HardMap(s.I6);
-    result.I7 = HardMap(s.I7);
-    result.I8 = HardMap(s.I8);
-    result.N2 = s.N2;
-    result.N3 = s.N3;
-    result.N4 = s.N4;
-    result.N5 = s.N5;
-    result.N6 = s.N6;
-    result.N7 = s.N7;
-    result.N8 = s.N8;
-    result.N9 = s.N9;
-    result.S1 = s.S1;
-    result.S2 = s.S2;
-    result.S3 = s.S3;
-    result.S4 = s.S4;
-    result.S5 = s.S5;
-    result.S6 = s.S6;
-    result.S7 = s.S7;
-    return result;
+    return _autoMapper.Map<BenchNestedSource, BenchNestedDestination>(_benchSource);
   }
 
-  private static SimpleTypesDestination HardMap(SimpleTypesSource s)
+  [BenchmarkCategory("Bench", "1000")]
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public List<BenchNestedDestination> BenchNested1000_a_HardMapper()
   {
-    SimpleTypesDestination result = new();
-    result.Str1 = s.Str1;
-    result.Str2 = s.Str2;
-    result.Str3 = s.Str3;
-    result.Str4 = s.Str4;
-    result.Str5 = s.Str5;
-    result.Str6 = s.Str6;
-    result.Str7 = s.Str7;
-    result.Str8 = s.Str8;
-    result.Str9 = s.Str9;
-
-    result.N1 = s.N1;
-    result.N2 = (int)s.N2;
-    result.N3 = s.N3;
-    result.N4 = s.N4;
-    if (s.N5.HasValue)
-      result.N5 = decimal.ToInt32(s.N5.Value);
-    result.N6 = (int)s.N6;
-    result.N7 = s.N7;
-    result.N8 = s.N8;
-    return result;
+    return _benchSources1000List.Select(s => HardCodeMapper.HardMap(s)).ToList();
   }
 
-  private const int IterationCount = 1_000;
+  [BenchmarkCategory("Bench", "1000")]
+  [Benchmark(OperationsPerInvoke = IterationCount, Baseline = true)]
+  public List<BenchNestedDestination> BenchNested1000_b_EmitMapper()
+  {
+    return _benchSourceEmitMapper.MapEnum(_benchSources1000List);
+  }
+
+  [BenchmarkCategory("Bench", "1000")]
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public List<BenchNestedDestination> BenchNested1000_c_AutoMapper()
+  {
+    return _autoMapper.Map<List<BenchNestedSource>, List<BenchNestedDestination>>(_benchSources1000List);
+  }
+
+  [BenchmarkCategory("SimpleTypes", "1")]
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public SimpleTypesDestination SimpleTypes_a_HardMapper()
+  {
+    return HardCodeMapper.HardMap(_simpleSource);
+  }
+
+  [BenchmarkCategory("SimpleTypes", "1")]
+  [Benchmark(OperationsPerInvoke = IterationCount, Baseline = true)]
+  public SimpleTypesDestination SimpleTypes_b_EmitMapper()
+  {
+    return _simpleEmitMapper.Map(_simpleSource);
+  }
+
+  [BenchmarkCategory("SimpleTypes", "1")]
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public SimpleTypesDestination SimpleTypes_c_AutoMapper()
+  {
+    return _autoMapper.Map<SimpleTypesSource, SimpleTypesDestination>(_simpleSource);
+  }
+
+  [BenchmarkCategory("SimpleTypes", "100")]
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public List<SimpleTypesDestination> SimpleTypes100_a_HardMapper()
+  {
+    return _simple100List.Select(s => HardCodeMapper.HardMap(s)).ToList();
+  }
+
+  [BenchmarkCategory("SimpleTypes", "100")]
+  [Benchmark(OperationsPerInvoke = IterationCount, Baseline = true)]
+  public List<SimpleTypesDestination> SimpleTypes100_b_EmitMapper()
+  {
+    return _simpleEmitMapper.MapEnum(_simple100List).ToList();
+  }
+
+  [BenchmarkCategory("SimpleTypes", "100")]
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public List<SimpleTypesDestination> SimpleTypes100_c_AutoMapper()
+  {
+    return _autoMapper.Map<List<SimpleTypesSource>, List<SimpleTypesDestination>>(_simple100List);
+  }
+
+  [BenchmarkCategory("SimpleTypes", "1000")]
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public List<SimpleTypesDestination> SimpleTypes1000_a_HardMapper()
+  {
+    return _simple1000List.Select(s => HardCodeMapper.HardMap(s)).ToList();
+  }
+
+  [BenchmarkCategory("SimpleTypes", "1000")]
+  [Benchmark(OperationsPerInvoke = IterationCount, Baseline = true)]
+  public List<SimpleTypesDestination> SimpleTypes1000_b_EmitMapper()
+  {
+    return _simpleEmitMapper.MapEnum(_simple1000List);
+  }
+
+  [BenchmarkCategory("SimpleTypes", "1000")]
+  [Benchmark(OperationsPerInvoke = IterationCount)]
+  public List<SimpleTypesDestination> SimpleTypes1000_c_AutoMapper()
+  {
+    return _autoMapper.Map<List<SimpleTypesSource>, List<SimpleTypesDestination>>(_simple1000List);
+  }
 }
 
 /*******
- * 
- 
-
-BenchmarkDotNet=v0.13.1, OS=Windows 10.0.18363.2037 (1909/November2019Update/19H2)
-Intel Core i5-8350U CPU 1.70GHz (Kaby Lake R), 1 CPU, 8 logical and 4 physical cores
-.NET SDK=6.0.101
-  [Host]   : .NET 6.0.1 (6.0.121.56705), X64 RyuJIT
-  .NET 6.0 : .NET 6.0.1 (6.0.121.56705), X64 RyuJIT
-
-Job=.NET 6.0  Runtime=.NET 6.0
-
-|                       Method |           Mean |       Error |      StdDev |         Median | Ratio |  Gen 0 |  Gen 1 | Allocated |
-|----------------------------- |---------------:|------------:|------------:|---------------:|------:|-------:|-------:|----------:|
-|     BenchNested_a_HardMapper |      0.8563 ns |   0.0173 ns |   0.0341 ns |      0.8489 ns |  1.00 | 0.0010 |      - |       3 B |
-|     BenchNested_b_EmitMapper |      0.8897 ns |   0.0431 ns |   0.1264 ns |      0.8451 ns |  1.00 | 0.0010 |      - |       3 B |
-|     BenchNested_c_AutoMapper |     16.5678 ns |   0.7823 ns |   2.2945 ns |     16.7384 ns |  1.00 | 0.0009 |      - |       3 B |
-
-| BenchNested1000_a_HardMapper |  3,988.9549 ns |  79.6474 ns |  97.8142 ns |  3,965.5109 ns |  1.00 | 0.4766 | 0.2344 |   3,024 B |
-| BenchNested1000_b_EmitMapper |  3,781.9851 ns |  74.5756 ns | 122.5298 ns |  3,776.3773 ns |  1.00 | 0.4766 | 0.2344 |   3,024 B |
-| BenchNested1000_c_AutoMapper | 16,978.1985 ns | 333.1485 ns | 396.5896 ns | 16,966.0594 ns |  1.00 | 0.4688 | 0.2188 |   3,033 B |
-
-|     SimpleTypes_a_HardMapper |      0.0310 ns |   0.0008 ns |   0.0023 ns |      0.0307 ns |  1.00 | 0.0000 |      - |         - |
-|     SimpleTypes_b_EmitMapper |      0.0512 ns |   0.0009 ns |   0.0010 ns |      0.0513 ns |  1.00 | 0.0000 |      - |         - |
-|     SimpleTypes_c_AutoMapper |      0.1718 ns |   0.0035 ns |   0.0076 ns |      0.1709 ns |  1.00 | 0.0000 |      - |         - |
-
-|  SimpleTypes100_a_HardMapper |      4.0774 ns |   0.0804 ns |   0.1714 ns |      4.0509 ns |  1.00 | 0.0041 |      - |      13 B |
-|  SimpleTypes100_b_EmitMapper |      8.4392 ns |   0.4806 ns |   1.4020 ns |      8.3280 ns |  1.00 | 0.0044 |      - |      14 B |
-|  SimpleTypes100_c_AutoMapper |      8.4149 ns |   0.5269 ns |   1.5285 ns |      8.0763 ns |  1.00 | 0.0045 |      - |      14 B |
-
-| SimpleTypes1000_a_HardMapper |     53.3382 ns |   1.0229 ns |   2.8684 ns |     52.6775 ns |  1.00 | 0.0320 | 0.0103 |     128 B |
-| SimpleTypes1000_b_EmitMapper |     81.6188 ns |   1.9400 ns |   5.5036 ns |     79.9001 ns |  1.00 | 0.0308 | 0.0101 |     128 B |
-| SimpleTypes1000_c_AutoMapper |     89.3916 ns |   4.3419 ns |  12.6655 ns |     86.0168 ns |  1.00 | 0.0369 | 0.0082 |     137 B |
-
+// * Summary *
+   
+   BenchmarkDotNet=v0.13.1, OS=Windows 10.0.18363.2094 (1909/November2019Update/19H2)
+   Intel Core i5-8350U CPU 1.70GHz (Kaby Lake R), 1 CPU, 8 logical and 4 physical cores
+   .NET SDK=6.0.101
+   [Host]    : .NET 6.0.1 (6.0.121.56705), X64 RyuJIT
+   MediumRun : .NET 6.0.1 (6.0.121.56705), X64 RyuJIT
+   
+   Job=MediumRun  IterationCount=15  LaunchCount=2
+   WarmupCount=10
+   
+   |                       Method |           Mean |         Error |        StdDev | Skewness | Kurtosis | Ratio | RatioSD |  Gen 0 |  Gen 1 | Allocated |
+   |----------------------------- |---------------:|--------------:|--------------:|---------:|---------:|------:|--------:|-------:|-------:|----------:|
+   |           Bench_a_HardMapper |      1.3408 ns |     0.0925 ns |     0.1296 ns |   0.8668 |    3.122 |  1.27 |    0.14 | 0.0010 |      - |       3 B |
+   |           Bench_b_EmitMapper |      1.0550 ns |     0.0365 ns |     0.0535 ns |   0.5665 |    2.435 |  1.00 |    0.00 | 0.0010 |      - |       3 B |
+   |           Bench_c_AutoMapper |     13.6110 ns |     0.4939 ns |     0.7084 ns |   0.7289 |    2.824 | 12.90 |    0.87 | 0.0010 |      - |       3 B |
+   |                              |                |               |               |          |          |       |         |        |        |           |
+   | BenchNested1000_a_HardMapper |  4,229.8534 ns |   177.1657 ns |   254.0857 ns |   1.4542 |    4.396 |  1.04 |    0.07 | 0.4766 | 0.2344 |   3,024 B |
+   | BenchNested1000_b_EmitMapper |  4,087.9781 ns |   150.8346 ns |   221.0914 ns |   0.8734 |    2.682 |  1.00 |    0.00 | 0.4766 | 0.2344 |   3,024 B |
+   | BenchNested1000_c_AutoMapper | 18,247.5845 ns | 2,009.6275 ns | 2,882.1477 ns |   1.4203 |    4.165 |  4.49 |    0.73 | 0.4688 | 0.2188 |   3,033 B |
+   |                              |                |               |               |          |          |       |         |        |        |           |
+   |     SimpleTypes_a_HardMapper |      0.0548 ns |     0.0111 ns |     0.0156 ns |   1.5642 |    4.095 |  0.79 |    0.22 | 0.0000 |      - |         - |
+   |     SimpleTypes_b_EmitMapper |      0.0697 ns |     0.0022 ns |     0.0033 ns |   0.3263 |    1.876 |  1.00 |    0.00 | 0.0000 |      - |         - |
+   |     SimpleTypes_c_AutoMapper |      0.2089 ns |     0.0172 ns |     0.0253 ns |   0.8055 |    3.191 |  3.00 |    0.42 | 0.0000 |      - |         - |
+   |                              |                |               |               |          |          |       |         |        |        |           |
+   |  SimpleTypes100_a_HardMapper |      5.6638 ns |     0.2080 ns |     0.2848 ns |   1.5036 |    6.342 |  0.67 |    0.04 | 0.0041 |      - |      13 B |
+   |  SimpleTypes100_b_EmitMapper |      8.4165 ns |     0.2589 ns |     0.3714 ns |   1.1151 |    5.142 |  1.00 |    0.00 | 0.0044 |      - |      14 B |
+   |  SimpleTypes100_c_AutoMapper |      8.4421 ns |     0.1799 ns |     0.2638 ns |   0.6400 |    2.709 |  1.01 |    0.06 | 0.0045 |      - |      14 B |
+   |                              |                |               |               |          |          |       |         |        |        |           |
+   | SimpleTypes1000_a_HardMapper |     67.4600 ns |     2.5764 ns |     3.6117 ns |   1.0069 |    4.423 |  0.70 |    0.06 | 0.0313 | 0.0103 |     128 B |
+   | SimpleTypes1000_b_EmitMapper |     96.0613 ns |     4.2110 ns |     6.1724 ns |   0.9862 |    3.125 |  1.00 |    0.00 | 0.0309 | 0.0101 |     128 B |
+   | SimpleTypes1000_c_AutoMapper |     99.7673 ns |     7.0173 ns |    10.5032 ns |   1.7057 |    5.107 |  1.04 |    0.12 | 0.0370 | 0.0083 |     137 B |
+   
+   // * Warnings *
+   MultimodalDistribution
+   MapperBenchmark.SimpleTypes_c_AutoMapper: MediumRun -> It seems that the distribution is bimodal (mValue = 3.83)
+   
+   // * Hints *
+   Outliers
+   MapperBenchmark.Bench_a_HardMapper: MediumRun           -> Something went wrong with outliers: Size(WorkloadActual) = 30, Size(WorkloadActual/Outliers) = 1, Size(Result) = 27), OutlierMode = RemoveUpper
+   MapperBenchmark.Bench_b_EmitMapper: MediumRun           -> Something went wrong with outliers: Size(WorkloadActual) = 30, Size(WorkloadActual/Outliers) = 2, Size(Result) = 29), OutlierMode = RemoveUpper
+   MapperBenchmark.Bench_c_AutoMapper: MediumRun           -> 2 outliers were removed (16.25 ns, 18.02 ns)
+   MapperBenchmark.BenchNested1000_a_HardMapper: MediumRun -> Something went wrong with outliers: Size(WorkloadActual) = 30, Size(WorkloadActual/Outliers) = 4, Size(Result) = 28), OutlierMode = RemoveUpper
+   MapperBenchmark.BenchNested1000_b_EmitMapper: MediumRun -> 1 outlier  was  removed (5.00 us)
+   MapperBenchmark.BenchNested1000_c_AutoMapper: MediumRun -> Something went wrong with outliers: Size(WorkloadActual) = 30, Size(WorkloadActual/Outliers) = 1, Size(Result) = 28), OutlierMode = RemoveUpper
+   MapperBenchmark.SimpleTypes_b_EmitMapper: MediumRun     -> Something went wrong with outliers: Size(WorkloadActual) = 30, Size(WorkloadActual/Outliers) = 0, Size(Result) = 29), OutlierMode = RemoveUpper
+   MapperBenchmark.SimpleTypes_c_AutoMapper: MediumRun     -> 1 outlier  was  removed (0.32 ns)
+   MapperBenchmark.SimpleTypes100_a_HardMapper: MediumRun  -> 4 outliers were removed (6.67 ns..8.48 ns)
+   MapperBenchmark.SimpleTypes100_b_EmitMapper: MediumRun  -> Something went wrong with outliers: Size(WorkloadActual) = 30, Size(WorkloadActual/Outliers) = 3, Size(Result) = 28), OutlierMode = RemoveUpper
+   MapperBenchmark.SimpleTypes100_c_AutoMapper: MediumRun  -> 1 outlier  was  removed (9.30 ns)
+   MapperBenchmark.SimpleTypes1000_a_HardMapper: MediumRun -> Something went wrong with outliers: Size(WorkloadActual) = 30, Size(WorkloadActual/Outliers) = 2, Size(Result) = 27), OutlierMode = RemoveUpper
+   MapperBenchmark.SimpleTypes1000_b_EmitMapper: MediumRun -> 1 outlier  was  removed (111.62 ns)
+   MapperBenchmark.SimpleTypes1000_c_AutoMapper: MediumRun -> Something went wrong with outliers: Size(WorkloadActual) = 30, Size(WorkloadActual/Outliers) = 3, Size(Result) = 30), OutlierMode = RemoveUpper
+   
+   // * Legends *
+   Mean      : Arithmetic mean of all measurements
+   Error     : Half of 99.9% confidence interval
+   StdDev    : Standard deviation of all measurements
+   Skewness  : Measure of the asymmetry (third standardized moment)
+   Kurtosis  : Measure of the tailedness ( fourth standardized moment)
+   Ratio     : Mean of the ratio distribution ([Current]/[Baseline])
+   RatioSD   : Standard deviation of the ratio distribution ([Current]/[Baseline])
+   Gen 0     : GC Generation 0 collects per 1000 operations
+   Gen 1     : GC Generation 1 collects per 1000 operations
+   Allocated : Allocated memory per single operation (managed only, inclusive, 1KB = 1024B)
+   1 ns      : 1 Nanosecond (0.000000001 sec)
 
 
  * 

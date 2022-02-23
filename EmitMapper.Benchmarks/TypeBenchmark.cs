@@ -15,6 +15,8 @@ public class TypeBenchmark
 {
   private Employee e;
 
+  private const int IterationCount = 1_000;
+
   [GlobalSetup]
   public void Setup()
   {
@@ -38,8 +40,6 @@ public class TypeBenchmark
   {
     return typeof(Employee);
   }
-
-  private const int IterationCount = 1_000;
 }
 
 /*/ * Summary *
