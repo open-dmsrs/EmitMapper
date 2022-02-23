@@ -5,7 +5,7 @@ namespace LightDataAccess;
 /// <summary>
 ///   The class to map objects.
 /// </summary>
-public static class Mapper
+public static class LightMapper
 {
   /// <summary>
   ///   The mapper core instance.
@@ -13,9 +13,9 @@ public static class Mapper
   private static readonly MapperCore _MapperInstance;
 
   /// <summary>
-  ///   Initializes static members of the <see cref="Mapper" /> class.
+  ///   Initializes static members of the <see cref="LightMapper" /> class.
   /// </summary>
-  static Mapper()
+  static LightMapper()
   {
     _MapperInstance = new MapperCore();
   }

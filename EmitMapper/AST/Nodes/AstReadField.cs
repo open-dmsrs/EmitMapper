@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using System.Reflection.Emit;
-using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
@@ -18,33 +17,5 @@ internal class AstReadField : IAstStackItem
   {
     SourceObject.Compile(context);
     context.Emit(OpCodes.Ldfld, FieldInfo);
-  }
-}
-
-internal class AstReadFieldRef : AstReadField, IAstRef
-{
-  public override void Compile(CompilationContext context)
-  {
-    CompilationHelper.CheckIsRef(ItemType);
-    base.Compile(context);
-  }
-}
-
-internal class AstReadFieldValue : AstReadField, IAstValue
-{
-  public override void Compile(CompilationContext context)
-  {
-    CompilationHelper.CheckIsValue(ItemType);
-    base.Compile(context);
-  }
-}
-
-internal class AstReadFieldAddr : AstReadField, IAstAddr
-{
-  public override void Compile(CompilationContext context)
-  {
-    CompilationHelper.CheckIsValue(ItemType);
-    SourceObject.Compile(context);
-    context.Emit(OpCodes.Ldflda, FieldInfo);
   }
 }

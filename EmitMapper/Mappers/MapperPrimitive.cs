@@ -10,14 +10,14 @@ namespace EmitMapper.Mappers;
 /// <summary>
 ///   Mapper for primitive objects
 /// </summary>
-internal class MapperPrimitiveImpl : CustomMapperImpl
+internal class MapperPrimitive : CustomMapper
 {
   private static readonly LazyConcurrentDictionary<Type, bool> IsSupported = new();
 
   private readonly MethodInvokerFunc1 _converter;
 
-  public MapperPrimitiveImpl(
-    ObjectMapperManager objectMapperManager,
+  public MapperPrimitive(
+    Mapper objectMapperManager,
     Type typeFrom,
     Type typeTo,
     IMappingConfigurator mappingConfigurator)

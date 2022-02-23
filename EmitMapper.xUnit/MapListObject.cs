@@ -58,7 +58,7 @@ public class MapListObject
         typeof(ToClass).GetMember(nameof(ToClass.Message2))[0].AsEnumerable())
     };
 
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<List<FromClass>, List<ToClass>>(
+    var mapper = Mapper.Default.GetMapper<List<FromClass>, List<ToClass>>(
       new CustomMapConfig { GetMappingOperationFunc = (from, to) => rw1.AsEnumerable(rw2) });
 
     var tolist = mapper.Map(listFrom);
@@ -85,8 +85,8 @@ public class MapListObject
     // list.FirstOrDefault().N5 = 3.3232423424234M;
     _testOutputHelper.WriteLine(list.Count.ToString());
 
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
-    mapper = ObjectMapperManager.DefaultInstance.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
+    var mapper = Mapper.Default.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
+    mapper = Mapper.Default.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
     var tolist = mapper.MapEnum(list);
 
     // tolist.ShouldBe(list);
@@ -163,7 +163,7 @@ public class MapListObject
       Destination = new MemberDescriptor(new[] { typeof(ToClass).GetMember(nameof(ToClass.Message2))[0] })
     };
 
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<ArrayList, ArrayList>(
+    var mapper = Mapper.Default.GetMapper<ArrayList, ArrayList>(
       new CustomMapConfig { GetMappingOperationFunc = (from, to) => rw1.AsEnumerable(rw2) });
 
     var tolist = mapper.Map(listFrom);

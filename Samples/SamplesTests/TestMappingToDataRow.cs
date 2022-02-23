@@ -18,7 +18,7 @@ public class TestMappingToDataRow
   public void MappingToDataRow_test()
   {
     // this is the mapper 
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<TestDto, DataRow>(new Map2DataRowConfig());
+    var mapper = Mapper.Default.GetMapper<TestDto, DataRow>(new Map2DataRowConfig());
 
     // initialization of test DTO object
     var testDataObject = new TestDto { Field1 = "field1", Field2 = 10, Field3 = true };

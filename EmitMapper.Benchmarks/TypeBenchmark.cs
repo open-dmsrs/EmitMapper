@@ -5,10 +5,6 @@ using EmitMapper.Utils;
 
 namespace EmitMapper.Benchmarks;
 
-public class Employee
-{
-}
-
 [SimpleJob(RuntimeMoniker.Net60, baseline: true)]
 [MemoryDiagnoser]
 public class TypeBenchmark

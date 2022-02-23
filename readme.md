@@ -13,7 +13,7 @@ Powerful customizable tool for mapping entities to each other. Entities can be p
 
 
 ```c#
-	var simple = ObjectMapperManager.DefaultInstance.GetMapper<BenchNestedSource, BenchNestedDestination>();
+	var simple = Mapper.Default.GetMapper<BenchNestedSource, BenchNestedDestination>();
     BenchNestedDestination dest = simple.Map(_benchSource); //for single object;
     List<BenchNestedDestination> dests = simple.MapEnum(_benchSources1000List);// for list object
 ```

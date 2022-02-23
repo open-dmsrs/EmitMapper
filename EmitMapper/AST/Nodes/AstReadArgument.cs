@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection.Emit;
-using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
@@ -38,32 +37,5 @@ internal class AstReadArgument : IAstStackItem
 
         break;
     }
-  }
-}
-
-internal class AstReadArgumentRef : AstReadArgument, IAstRef
-{
-  public override void Compile(CompilationContext context)
-  {
-    CompilationHelper.CheckIsRef(ItemType);
-    base.Compile(context);
-  }
-}
-
-internal class AstReadArgumentValue : AstReadArgument, IAstValue
-{
-  public override void Compile(CompilationContext context)
-  {
-    CompilationHelper.CheckIsValue(ItemType);
-    base.Compile(context);
-  }
-}
-
-internal class AstReadArgumentAddr : AstReadArgument, IAstAddr
-{
-  public override void Compile(CompilationContext context)
-  {
-    CompilationHelper.CheckIsValue(ItemType);
-    context.Emit(OpCodes.Ldarga, ArgumentIndex);
   }
 }

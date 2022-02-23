@@ -1,5 +1,4 @@
 ﻿using System;
-using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
@@ -14,23 +13,5 @@ internal class AstReadThis : IAstRefOrAddr
   {
     var arg = new AstReadArgument { ArgumentIndex = 0, ArgumentType = ThisType };
     arg.Compile(context);
-  }
-}
-
-internal class AstReadThisRef : AstReadThis, IAstRef
-{
-  public override void Compile(CompilationContext context)
-  {
-    CompilationHelper.CheckIsRef(ItemType);
-    base.Compile(context);
-  }
-}
-
-internal class AstReadThisAddr : AstReadThis, IAstRef
-{
-  public override void Compile(CompilationContext context)
-  {
-    CompilationHelper.CheckIsRef(ItemType);
-    base.Compile(context);
   }
 }

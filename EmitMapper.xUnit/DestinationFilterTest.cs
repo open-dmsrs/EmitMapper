@@ -9,7 +9,7 @@ public class DestinationFilterTest
   [Fact]
   public void Test_Derived()
   {
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<IDerived, Target>();
+    var mapper = Mapper.Default.GetMapper<IDerived, Target>();
 
     var source = new Derived { BaseProperty = "base", DerivedProperty = "derived" };
 
@@ -21,7 +21,7 @@ public class DestinationFilterTest
   [Fact]
   public void TestdestinationFilter()
   {
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<DestinationTestFilterSrc, DestinationTestFilterDest>(
+    var mapper = Mapper.Default.GetMapper<DestinationTestFilterSrc, DestinationTestFilterDest>(
       new DefaultMapConfig().FilterDestination<string>((value, state) => false)
         .FilterDestination<int>((value, state) => value >= 0).FilterSource<int>((value, state) => value >= 10)
         .FilterSource<object>(
@@ -44,7 +44,7 @@ public class DestinationFilterTest
   [Fact]
   public void TestdestinationFilter1()
   {
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<DestinationTestFilterSrc, DestinationTestFilterDest>(
+    var mapper = Mapper.Default.GetMapper<DestinationTestFilterSrc, DestinationTestFilterDest>(
       new DefaultMapConfig().FilterDestination<string>((value, state) => false)
         .FilterDestination<int>((value, state) => value >= 0).FilterSource<int>((value, state) => value >= 10)
         .FilterSource<object>(
@@ -67,7 +67,7 @@ public class DestinationFilterTest
   [Fact]
   public void TestInheritence()
   {
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<BaseSource, InherDestination>();
+    var mapper = Mapper.Default.GetMapper<BaseSource, InherDestination>();
     var dest = mapper.Map(new DerivedSource { I1 = 1, I2 = 2, I3 = 3, I4 = 4 });
 
     dest.I1.ShouldBe(1);

@@ -18,7 +18,7 @@ internal class MappingBuilder
 
   private readonly IMappingConfigurator _mappingConfigurator;
 
-  private readonly ObjectMapperManager _objectsMapperManager;
+  private readonly Mapper _objectsMapperManager;
 
   private readonly TypeBuilder _typeBuilder;
 
@@ -27,7 +27,7 @@ internal class MappingBuilder
   private Type _to;
 
   public MappingBuilder(
-    ObjectMapperManager objectsMapperManager,
+    Mapper objectsMapperManager,
     Type from,
     Type to,
     TypeBuilder typeBuilder,
@@ -51,7 +51,7 @@ internal class MappingBuilder
       _to = _to.GetUnderlyingTypeCache();
 
     var methodBuilder = _typeBuilder.DefineMethod(
-      nameof(ObjectsMapperBaseImpl.MapImpl),
+      nameof(MapperBase.MapImpl),
       MethodAttributes.Public | MethodAttributes.Virtual,
       Metadata<object>.Type,
       new[] { Metadata<object>.Type, Metadata<object>.Type, Metadata<object>.Type });

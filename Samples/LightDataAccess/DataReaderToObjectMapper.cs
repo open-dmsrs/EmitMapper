@@ -19,7 +19,7 @@ namespace LightDataAccess;
 ///   simplize it as a just mapper, don't include the reader.Read() calling.
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
-public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEntity>
+public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 {
   /// <summary>
   ///   Initializes a new instance of the <see cref="DataReaderToObjectMapper{TEntity}" /> class.
@@ -27,7 +27,7 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
   /// <param name="mappingKey">The mapping key.</param>
   /// <param name="mapperManager">The mapper manager.</param>
   /// <param name="skipFields">The skip fields.</param>
-  public DataReaderToObjectMapper(string mappingKey, ObjectMapperManager mapperManager, IEnumerable<string> skipFields)
+  public DataReaderToObjectMapper(string mappingKey, Mapper mapperManager, IEnumerable<string> skipFields)
     : base(GetMapperImpl(mappingKey, mapperManager, skipFields))
   {
   }
@@ -36,7 +36,7 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
   ///   Initializes a new instance of the <see cref="DataReaderToObjectMapper{TEntity}" /> class.
   /// </summary>
   /// <param name="mapperManager">The mapper manager.</param>
-  public DataReaderToObjectMapper(ObjectMapperManager mapperManager)
+  public DataReaderToObjectMapper(Mapper mapperManager)
     : this(null, mapperManager, null)
   {
   }
@@ -118,9 +118,9 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
   /// <param name="mapperManager">The mapper manager.</param>
   /// <param name="skipFields">The skip fields.</param>
   /// <returns>ObjectsMapperBaseImpl.</returns>
-  private static ObjectsMapperBaseImpl GetMapperImpl(
+  private static MapperBase GetMapperImpl(
     string mappingKey,
-    ObjectMapperManager mapperManager,
+    Mapper mapperManager,
     IEnumerable<string> skipFields)
   {
     IMappingConfigurator config = new DbReaderMappingConfig(skipFields, mappingKey);
@@ -128,7 +128,7 @@ public class DataReaderToObjectMapper<TEntity> : ObjectsMapper<IDataReader, TEnt
     if (mapperManager != null)
       return mapperManager.GetMapperImpl(typeof(IDataReader), typeof(TEntity), config);
 
-    return ObjectMapperManager.DefaultInstance.GetMapperImpl(typeof(IDataReader), typeof(TEntity), config);
+    return Mapper.Default.GetMapperImpl(typeof(IDataReader), typeof(TEntity), config);
   }
 
   /// <summary>

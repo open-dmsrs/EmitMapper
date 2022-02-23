@@ -3,10 +3,10 @@ using EmitMapper.MappingConfiguration;
 
 namespace EmitMapper.Mappers;
 
-public abstract class CustomMapperImpl : ObjectsMapperBaseImpl
+public abstract class CustomMapper : MapperBase
 {
-  protected CustomMapperImpl(
-    ObjectMapperManager objectMapperManager,
+  protected CustomMapper(
+    Mapper objectMapperManager,
     Type typeFrom,
     Type typeTo,
     IMappingConfigurator mappingConfigurator,

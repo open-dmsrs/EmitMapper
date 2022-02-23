@@ -11,7 +11,7 @@ public class NullableTypes
   [Fact]
   public void Nullable_to_Value()
   {
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B1, A1>(
+    var mapper = Mapper.Default.GetMapper<B1, A1>(
       new DefaultMapConfig().NullSubstitution<B1.Int1, A1.Int1>(state => new A1.Int1(0))
         .NullSubstitution<int?, int>(state => 3).NullSubstitution<int?, int?>(state => 4));
 
@@ -39,7 +39,7 @@ public class NullableTypes
       Fld7 = bint
     };
 
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B3, A3>();
+    var mapper = Mapper.Default.GetMapper<B3, A3>();
 
     // DynamicAssemblyManager.SaveAssembly();
     var a = mapper.Map(b);
@@ -77,7 +77,7 @@ public class NullableTypes
   [Fact]
   public void Test_Object_Nullable()
   {
-    var a = ObjectMapperManager.DefaultInstance
+    var a = Mapper.Default
       .GetMapper<B6, A6>(new DefaultMapConfig().DeepMap().ConvertUsing<object, object>(v => null)).Map(new B6());
 
     a.ShouldBeNull();
@@ -86,7 +86,7 @@ public class NullableTypes
   [Fact]
   public void Test_Object_Nullable7()
   {
-    var a = ObjectMapperManager.DefaultInstance
+    var a = Mapper.Default
       .GetMapper<B7, A7>(new DefaultMapConfig().DeepMap().ConvertUsing<object, int>(v => 100)).Map(new B7());
 
     a.I.ShouldBe(100);

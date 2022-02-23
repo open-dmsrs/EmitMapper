@@ -16,10 +16,6 @@ public class DeepType : IDisposable
     _testOutputHelper = testOutputHelper;
   }
 
-  public DeepType()
-  {
-  }
-
   public void Dispose()
   {
   }
@@ -49,7 +45,7 @@ public class DeepType : IDisposable
       }
     };
 
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<Customer, CustomerDTO>();
+    var mapper = Mapper.Default.GetMapper<Customer, CustomerDTO>();
 
     var result = mapper.Map(customer);
 

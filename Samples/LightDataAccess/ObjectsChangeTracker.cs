@@ -32,7 +32,7 @@ public class ObjectsChangeTracker
   /// <summary>
   ///   The _map manager
   /// </summary>
-  private readonly ObjectMapperManager _mapManager;
+  private readonly Mapper _mapManager;
 
   /// <summary>
   ///   The _tracking objects
@@ -44,14 +44,14 @@ public class ObjectsChangeTracker
   /// </summary>
   public ObjectsChangeTracker()
   {
-    _mapManager = ObjectMapperManager.DefaultInstance;
+    _mapManager = Mapper.Default;
   }
 
   /// <summary>
   ///   Initializes a new instance of the <see cref="ObjectsChangeTracker" /> class.
   /// </summary>
   /// <param name="mapManager">The map manager.</param>
-  public ObjectsChangeTracker(ObjectMapperManager mapManager)
+  public ObjectsChangeTracker(Mapper mapManager)
   {
     _mapManager = mapManager;
   }

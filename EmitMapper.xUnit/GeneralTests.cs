@@ -11,7 +11,7 @@ public class GeneralTests
   [Fact]
   public void ConstructByTest()
   {
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<ConstructBySource, ConstructByDestination>(
+    var mapper = Mapper.Default.GetMapper<ConstructBySource, ConstructByDestination>(
       new DefaultMapConfig().ConstructBy(() => new ConstructByDestination.NestedClass(3))
         .ConstructBy(() => new ConstructByDestination(-1)));
 
@@ -23,7 +23,7 @@ public class GeneralTests
   [Fact]
   public void ConstructByTest2()
   {
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<string, Guid>(
+    var mapper = Mapper.Default.GetMapper<string, Guid>(
       new DefaultMapConfig().ConvertUsing<string, Guid>(s => new Guid(s)));
 
     var guid = Guid.NewGuid();
@@ -34,7 +34,7 @@ public class GeneralTests
   [Fact]
   public void GeneralTests_ConvertUsing()
   {
-    var a = ObjectMapperManager.DefaultInstance.GetMapper<B2, A2>(
+    var a = Mapper.Default.GetMapper<B2, A2>(
       new DefaultMapConfig().ConvertUsing<string, string>(s => "converted " + s)).Map(new B2());
 
     a.Str.ShouldBe("converted str");
@@ -43,7 +43,7 @@ public class GeneralTests
   [Fact]
   public void GeneralTests_Example2()
   {
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<Source, Destination>(
+    var mapper = Mapper.Default.GetMapper<Source, Destination>(
       new DefaultMapConfig().MatchMembers((m1, m2) => "M" + m1 == m2));
 
     var src = new Source();
@@ -56,7 +56,7 @@ public class GeneralTests
   [Fact]
   public void GeneralTests_Exception()
   {
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B3, A3>();
+    var mapper = Mapper.Default.GetMapper<B3, A3>();
 
     // DynamicAssemblyManager.SaveAssembly();
     var a = mapper.Map(new B3());
@@ -88,7 +88,7 @@ public class GeneralTests
   [Fact]
   public void GeneralTests_Ignore()
   {
-    var a = ObjectMapperManager.DefaultInstance.GetMapper<B, A>(new DefaultMapConfig().IgnoreMembers<B, A>("Str1"))
+    var a = Mapper.Default.GetMapper<B, A>(new DefaultMapConfig().IgnoreMembers<B, A>("Str1"))
       .Map(new B());
 
     a.Str1.ShouldBe("Destination::str1");
@@ -100,7 +100,7 @@ public class GeneralTests
   {
     var a = new A();
     var b = new B();
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B, A>(new DefaultMapConfig().DeepMap());
+    var mapper = Mapper.Default.GetMapper<B, A>(new DefaultMapConfig().DeepMap());
 
     // DynamicAssemblyManager.SaveAssembly();
     mapper.Map(b, a);
@@ -151,7 +151,7 @@ public class GeneralTests
   [Fact]
   public void SimpleTest()
   {
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<Simple2, Simple1>();
+    var mapper = Mapper.Default.GetMapper<Simple2, Simple1>();
 
     // DynamicAssemblyManager.SaveAssembly();
     var s = mapper.Map(new Simple2());
@@ -207,7 +207,7 @@ public class GeneralTests
       SubNodes = new[] { new TreeNode { Data = "sub data 1" } }
     };
 
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<TreeNode, TreeNode>(new DefaultMapConfig().DeepMap());
+    var mapper = Mapper.Default.GetMapper<TreeNode, TreeNode>(new DefaultMapConfig().DeepMap());
     var tree2 = mapper.Map(tree);
     tree2.Data.ShouldBe("node 1");
     tree2.Next.Data.ShouldBe("node 2");

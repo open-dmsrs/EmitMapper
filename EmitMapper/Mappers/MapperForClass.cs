@@ -3,6 +3,6 @@
 /// <summary>
 ///   Mapper for classes
 /// </summary>
-public abstract class MapperForClassImpl : ObjectsMapperBaseImpl
+public abstract class MapperForClass : MapperBase
 {
 }

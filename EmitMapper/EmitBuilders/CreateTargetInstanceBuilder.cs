@@ -19,7 +19,7 @@ internal static class CreateTargetInstanceBuilder
       type = type.GetUnderlyingTypeCache();
 
     var methodBuilder = typeBuilder.DefineMethod(
-      nameof(ObjectsMapperBaseImpl.CreateTargetInstance),
+      nameof(MapperBase.CreateTargetInstance),
       MethodAttributes.Public | MethodAttributes.Virtual,
       Metadata<object>.Type,
       null);

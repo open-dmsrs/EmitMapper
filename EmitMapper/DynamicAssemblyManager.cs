@@ -62,7 +62,7 @@ public class DynamicAssemblyManager
       return _ModuleBuilder.DefineType(
         CorrectTypeName(typeName + Guid.NewGuid().ToString().Replace("-", string.Empty)),
         TypeAttributes.Public,
-        Metadata<MapperForClassImpl>.Type,
+        Metadata<MapperForClass>.Type,
         null);
     }
   }

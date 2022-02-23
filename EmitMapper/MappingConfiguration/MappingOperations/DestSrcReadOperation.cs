@@ -2,8 +2,6 @@
 
 namespace EmitMapper.MappingConfiguration.MappingOperations;
 
-public delegate void ValueProcessor(object srcValue, object dstValue, object state);
-
 public class DestSrcReadOperation : IDestReadOperation, ISrcReadOperation
 {
   public MemberDescriptor Destination { get; set; }

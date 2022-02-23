@@ -52,7 +52,7 @@ public class DestSrcReadOperationTest
         new[] { typeof(ToClass).GetMember(nameof(ToClass.Message))[0] })
     };
 
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<FromClass, ToClass>(
+    var mapper = Mapper.Default.GetMapper<FromClass, ToClass>(
       new CustomMapConfig { GetMappingOperationFunc = (from, to) => new IMappingOperation[] { message, message2 } });
 
     var b = new FromClass();

@@ -23,7 +23,7 @@ public class MapperBenchmark
 
   private BenchNestedSource _benchSource;
 
-  private ObjectsMapper<BenchNestedSource, BenchNestedDestination> _benchSourceEmitMapper;
+  private Mapper<BenchNestedSource, BenchNestedDestination> _benchSourceEmitMapper;
 
   private List<BenchNestedSource> _benchSources1000List;
 
@@ -31,7 +31,7 @@ public class MapperBenchmark
 
   private List<SimpleTypesSource> _simple100List;
 
-  private ObjectsMapper<SimpleTypesSource, SimpleTypesDestination> _simpleEmitMapper;
+  private Mapper<SimpleTypesSource, SimpleTypesDestination> _simpleEmitMapper;
 
   private SimpleTypesSource _simpleSource;
 
@@ -41,10 +41,10 @@ public class MapperBenchmark
   public void Setup()
   {
     var fixture = new Fixture();
-    _benchSourceEmitMapper = ObjectMapperManager.DefaultInstance.GetMapper<BenchNestedSource, BenchNestedDestination>();
+    _benchSourceEmitMapper = Mapper.Default.GetMapper<BenchNestedSource, BenchNestedDestination>();
 
     _simpleEmitMapper =
-      ObjectMapperManager.DefaultInstance.GetMapper<SimpleTypesSource, SimpleTypesDestination>(new DefaultMapConfig());
+      Mapper.Default.GetMapper<SimpleTypesSource, SimpleTypesDestination>(new DefaultMapConfig());
 
     var config = new MapperConfiguration(
       cfg =>
@@ -66,7 +66,7 @@ public class MapperBenchmark
 
   public void Usage()
   {
-    var simple = ObjectMapperManager.DefaultInstance.GetMapper<BenchNestedSource, BenchNestedDestination>();
+    var simple = Mapper.Default.GetMapper<BenchNestedSource, BenchNestedDestination>();
     var dest = simple.Map(_benchSource); // for single object;
     var dests = simple.MapEnum(_benchSources1000List); // for list object
   }

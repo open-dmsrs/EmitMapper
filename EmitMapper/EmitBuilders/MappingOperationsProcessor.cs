@@ -17,8 +17,8 @@ namespace EmitMapper.EmitBuilders;
 
 internal class MappingOperationsProcessor
 {
-  private static readonly MethodInfo MapMethod = Metadata<ObjectsMapperBaseImpl>.Type.GetMethod(
-    nameof(ObjectsMapperBaseImpl.Map),
+  private static readonly MethodInfo MapMethod = Metadata<MapperBase>.Type.GetMethod(
+    nameof(MapperBase.Map),
     new[] { Metadata<object>.Type, Metadata<object>.Type, Metadata<object>.Type });
 
   private static PropertyInfo HasValue = Metadata.Nullable1.GetProperty("HasValue");
@@ -35,7 +35,7 @@ internal class MappingOperationsProcessor
 
   public IMappingConfigurator MappingConfigurator;
 
-  public ObjectMapperManager ObjectsMapperManager;
+  public Mapper ObjectsMapperManager;
 
   public IEnumerable<IMappingOperation> Operations = new List<IMappingOperation>();
 
@@ -104,9 +104,9 @@ internal class MappingOperationsProcessor
   {
     var result = (IAstRef)AstBuildHelper.ReadArrayItemRV(
       (IAstRef)AstBuildHelper.ReadFieldRA(
-        new AstReadThis { ThisType = Metadata<ObjectsMapperBaseImpl>.Type },
-        Metadata<ObjectsMapperBaseImpl>.Type.GetField(
-          nameof(ObjectsMapperBaseImpl.StoredObjects),
+        new AstReadThis { ThisType = Metadata<MapperBase>.Type },
+        Metadata<MapperBase>.Type.GetField(
+          nameof(MapperBase.StoredObjects),
           BindingFlags.Instance | BindingFlags.Public)),
       objectIndex);
 

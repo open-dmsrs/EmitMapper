@@ -15,7 +15,7 @@ namespace EmitMapper.Mappers;
 ///   Mapper for collections. It can copy Array, List&lt;&gt;, ArrayList collections.
 ///   Collection type in source object and destination object can differ.
 /// </summary>
-public class MapperForCollectionImpl : CustomMapperImpl
+public class MapperForCollectionImpl : CustomMapper
 {
   private static readonly MethodInfo CopyToListMethod = Metadata<MapperForCollectionImpl>.Type.GetMethod(
     nameof(CopyToList),
@@ -46,7 +46,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
   /// <returns></returns>
   public static MapperForCollectionImpl CreateInstance(
     string mapperName,
-    ObjectMapperManager objectMapperManager,
+    Mapper objectMapperManager,
     Type typeFrom,
     Type typeTo,
     MapperDescription subMapper,
@@ -288,7 +288,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
       }
       else
       {
-        var mapper = ObjectMapperManager.GetMapperImpl(obj.GetType(), obj.GetType(), MappingConfigurator);
+        var mapper = Mapper.GetMapperImpl(obj.GetType(), obj.GetType(), MappingConfigurator);
         result.Add(mapper.Map(obj));
       }
 
@@ -306,7 +306,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
       return result;
     }
 
-    var mapper = ObjectMapperManager.GetMapperImpl(from.GetType(), from.GetType(), MappingConfigurator);
+    var mapper = Mapper.GetMapperImpl(from.GetType(), from.GetType(), MappingConfigurator);
     result.Add(mapper.Map(from));
 
     return result;
@@ -327,7 +327,7 @@ public class MapperForCollectionImpl : CustomMapperImpl
       }
       else
       {
-        var mapper = ObjectMapperManager.GetMapperImpl(obj.GetType(), obj.GetType(), MappingConfigurator);
+        var mapper = Mapper.GetMapperImpl(obj.GetType(), obj.GetType(), MappingConfigurator);
         iList.Add(mapper.Map(obj));
       }
 

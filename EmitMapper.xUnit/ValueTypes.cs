@@ -18,7 +18,7 @@ public class ValueTypes
   [Fact]
   public void Test_NestedStructs()
   {
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B6From, A6To>();
+    var mapper = Mapper.Default.GetMapper<B6From, A6To>();
 
     // DynamicAssemblyManager.SaveAssembly();
     var b = new B6From();
@@ -50,7 +50,7 @@ public class ValueTypes
   [Fact]
   public void Test_StructFields()
   {
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<B5, A5>();
+    var mapper = Mapper.Default.GetMapper<B5, A5>();
 
     // DynamicAssemblyManager.SaveAssembly();
     var b = new B5();

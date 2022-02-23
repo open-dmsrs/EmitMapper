@@ -64,7 +64,7 @@ public static partial class CommandBuilder
       excludeFields,
       "insertop_inc_" + includeFields.ToCsv("_") + "_exc_" + excludeFields.ToCsv("_"));
 
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapperImpl(obj.GetType(), typeof(DbCommand), config);
+    var mapper = Mapper.Default.GetMapperImpl(obj.GetType(), typeof(DbCommand), config);
 
     var fields = mapper.StoredObjects.OfType<SrcReadOperation>().Select(m => m.Source.MemberInfo.Name);
 

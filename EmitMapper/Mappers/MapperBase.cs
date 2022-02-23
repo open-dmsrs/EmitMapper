@@ -9,14 +9,14 @@ namespace EmitMapper.Mappers;
 /// <summary>
 ///   Base class for Mappers
 /// </summary>
-public abstract class ObjectsMapperBaseImpl
+public abstract class MapperBase
 {
   public object[] StoredObjects;
 
   /// <summary>
   ///   Mapper manager
   /// </summary>
-  internal ObjectMapperManager ObjectMapperManager;
+  internal Mapper Mapper;
 
   /// <summary>
   ///   True, if reference properties and members of same type should
@@ -121,13 +121,13 @@ public abstract class ObjectsMapperBaseImpl
   public abstract object MapImpl(object from, object to, object state);
 
   internal void Initialize(
-    ObjectMapperManager objectMapperManager,
+    Mapper objectMapperManager,
     Type typeFrom,
     Type typeTo,
     IMappingConfigurator mappingConfigurator,
     object[] storedObjects)
   {
-    ObjectMapperManager = objectMapperManager;
+    Mapper = objectMapperManager;
     TypeFrom = typeFrom;
     TypeTo = typeTo;
     MappingConfigurator = mappingConfigurator;

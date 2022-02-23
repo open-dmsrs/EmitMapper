@@ -23,21 +23,3 @@ internal class AstReadProperty : IAstRefOrValue
     AstBuildHelper.CallMethod(mi, SourceObject, null).Compile(context);
   }
 }
-
-internal class AstReadPropertyRef : AstReadProperty, IAstRef
-{
-  public override void Compile(CompilationContext context)
-  {
-    CompilationHelper.CheckIsRef(ItemType);
-    base.Compile(context);
-  }
-}
-
-internal class AstReadPropertyValue : AstReadProperty, IAstValue
-{
-  public override void Compile(CompilationContext context)
-  {
-    CompilationHelper.CheckIsValue(ItemType);
-    base.Compile(context);
-  }
-}

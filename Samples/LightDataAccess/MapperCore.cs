@@ -136,9 +136,9 @@ public class MapperCore
   /// <typeparam name="TTo">The type of to.</typeparam>
   /// <returns>The configurator instance.</returns>
   /// NOTE: Resolving from IoC can be added here.
-  protected virtual ObjectsMapper<TFrom, TTo> GetMapper<TFrom, TTo>()
+  protected virtual Mapper<TFrom, TTo> GetMapper<TFrom, TTo>()
   {
-    var mapper = _Mappers.FirstOrDefault(m => m is ObjectsMapper<TFrom, TTo>) as ObjectsMapper<TFrom, TTo>;
+    var mapper = _Mappers.FirstOrDefault(m => m is Mapper<TFrom, TTo>) as Mapper<TFrom, TTo>;
 
     if (mapper == null)
     {
@@ -147,7 +147,7 @@ public class MapperCore
 
       var config = configuration == null ? _DefaultConfigurator : configuration.Item3;
 
-      mapper = ObjectMapperManager.DefaultInstance.GetMapper<TFrom, TTo>(config);
+      mapper = Mapper.Default.GetMapper<TFrom, TTo>(config);
 
       _Mappers.Add(mapper);
     }

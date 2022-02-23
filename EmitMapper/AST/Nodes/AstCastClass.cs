@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection.Emit;
-using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
@@ -42,33 +41,5 @@ internal class AstCastclass : IAstRefOrValue
     }
 
     Value.Compile(context);
-  }
-}
-
-internal class AstCastclassRef : AstCastclass, IAstRef
-{
-  public AstCastclassRef(IAstRefOrValue value, Type targetType)
-    : base(value, targetType)
-  {
-  }
-
-  public override void Compile(CompilationContext context)
-  {
-    CompilationHelper.CheckIsRef(ItemType);
-    base.Compile(context);
-  }
-}
-
-internal class AstCastclassValue : AstCastclass, IAstValue
-{
-  public AstCastclassValue(IAstRefOrValue value, Type targetType)
-    : base(value, targetType)
-  {
-  }
-
-  public override void Compile(CompilationContext context)
-  {
-    CompilationHelper.CheckIsValue(ItemType);
-    base.Compile(context);
   }
 }

@@ -22,7 +22,7 @@ public class Flattering
       SubWithExtraName = new ModelSubObject { ProperName = "Some other name" }
     };
 
-    var mapper = ObjectMapperManager.DefaultInstance.GetMapper<ModelObject, ModelDto>(
+    var mapper = Mapper.Default.GetMapper<ModelObject, ModelDto>(
       new FlatteringConfig().IgnoreMembers<ModelObject, ModelDto>("SubSubSubNoExistInSourceProperty"));
 
     var b = mapper.Map(source);
