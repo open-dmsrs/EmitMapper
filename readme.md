@@ -1,7 +1,7 @@
 # EmitMapper
 ## Project Description
 [![publish to nuget](https://github.com/niubilitynetcore/EmitMapper/actions/workflows/dotnet.yml/badge.svg)](https://github.com/niubilitynetcore/EmitMapper/actions/workflows/dotnet.yml)
- [![NuGet](http://img.shields.io/nuget/v/Niubility.EmitMapper.svg)](https://www.nuget.org/packages/Niubility.EmtpMapper/)
+ [![NuGet](http://img.shields.io/nuget/v/Niubility.EmitMapper.svg)](https://www.nuget.org/packages/Niubility.EmitMapper/)
 
 ## What is EmitMapper
 
