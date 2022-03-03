@@ -170,10 +170,13 @@ public class MapListObject
   ///   Test_s the emit mapper_ map_ array list_ nested fields.
   /// </summary>
   /// <param name="list">The list.</param>
+  [Theory]
   [AutoData]
-  private void Test_EmitMapper_Map_ArrayList_NestedFields(List<FromClass> list)
+  public void Test_EmitMapper_Map_ArrayList_NestedFields(List<FromClass> list)
   {
     ArrayList listFrom = new(list.ToArray());
+
+
 
     _testOutputHelper.WriteLine(listFrom.Count.ToString());
 
