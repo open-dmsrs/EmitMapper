@@ -77,6 +77,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   /// </summary>
   /// <typeparam name="TFrom">Source type</typeparam>
   /// <typeparam name="To">Destination type</typeparam>
+  /// <typeparam name="TTo"></typeparam>
   /// <param name="converter">Function which converts an instance of the source type to an instance of the destination type</param>
   /// <returns></returns>
   public IMappingConfigurator ConvertUsing<TFrom, TTo>(Func<TFrom, TTo> converter)

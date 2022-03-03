@@ -42,6 +42,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "layout", "layout", "{B5E8AE
 		solution\filelayouts\old.xml = solution\filelayouts\old.xml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{79C82A2F-E643-4151-B275-A6C90DCB7832}"
+	ProjectSection(SolutionItems) = preProject
+		.github\ISSUE_TEMPLATE\Bug Report.yaml = .github\ISSUE_TEMPLATE\Bug Report.yaml
+		.github\ISSUE_TEMPLATE\Bugs.yaml = .github\ISSUE_TEMPLATE\Bugs.yaml
+		.github\ISSUE_TEMPLATE\config.yml = .github\ISSUE_TEMPLATE\config.yml
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+		.github\ISSUE_TEMPLATE\ISSUE_TEMPLATE.md = .github\ISSUE_TEMPLATE\ISSUE_TEMPLATE.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
