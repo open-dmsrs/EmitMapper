@@ -121,7 +121,6 @@ public abstract class MapperBase
   public abstract object MapImpl(object from, object to, object state);
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="objectMapperManager">The object mapper manager.</param>
   /// <param name="typeFrom">The type from.</param>
@@ -179,7 +178,7 @@ public abstract class MapperBase
   }
 
   /// <summary>
-  /// Constructs the target.
+  ///   Constructs the target.
   /// </summary>
   /// <returns>An object.</returns>
   protected object ConstructTarget()

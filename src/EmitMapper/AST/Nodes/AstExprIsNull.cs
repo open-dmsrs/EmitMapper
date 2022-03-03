@@ -5,16 +5,16 @@ using EmitMapper.AST.Interfaces;
 using EmitMapper.Utils;
 
 namespace EmitMapper.AST.Nodes;
-/// <summary>
-/// The ast expr is null.
-/// </summary>
 
+/// <summary>
+///   The ast expr is null.
+/// </summary>
 internal class AstExprIsNull : IAstValue
 {
   private readonly IAstRefOrValue _value;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="AstExprIsNull"/> class.
+  ///   Initializes a new instance of the <see cref="AstExprIsNull" /> class.
   /// </summary>
   /// <param name="value">The value.</param>
   public AstExprIsNull(IAstRefOrValue value)
@@ -23,12 +23,11 @@ internal class AstExprIsNull : IAstValue
   }
 
   /// <summary>
-  /// Gets the item type.
+  ///   Gets the item type.
   /// </summary>
   public Type ItemType => Metadata<int>.Type;
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="context">The context.</param>
   public void Compile(CompilationContext context)

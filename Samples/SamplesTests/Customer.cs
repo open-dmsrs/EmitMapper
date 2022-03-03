@@ -1,8 +1,8 @@
 ﻿namespace SamplesTests;
-/// <summary>
-/// The customer.
-/// </summary>
 
+/// <summary>
+///   The customer.
+/// </summary>
 public class Customer
 {
   public string Address;

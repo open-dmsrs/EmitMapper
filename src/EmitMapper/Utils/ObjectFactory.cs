@@ -6,16 +6,16 @@ namespace EmitMapper.Utils;
 
 using static Expression;
 using static ExpressionHelper;
-/// <summary>
-/// The object factory.
-/// </summary>
 
+/// <summary>
+///   The object factory.
+/// </summary>
 public static class ObjectFactory
 {
   private static readonly LazyConcurrentDictionary<Type, Func<object>> CtorCache = new();
 
   /// <summary>
-  /// Creates the instance.
+  ///   Creates the instance.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="type">The type.</param>
@@ -26,7 +26,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  /// Creates the instance.
+  ///   Creates the instance.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>An object.</returns>
@@ -36,7 +36,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  /// Creates the interface proxy.
+  ///   Creates the interface proxy.
   /// </summary>
   /// <param name="interfaceType">The interface type.</param>
   /// <returns>An object.</returns>
@@ -46,7 +46,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  /// Generates the constructor expression.
+  ///   Generates the constructor expression.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>An Expression.</returns>
@@ -63,7 +63,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  /// Calls the constructor.
+  ///   Calls the constructor.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>An Expression.</returns>
@@ -88,7 +88,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  /// Creates the collection.
+  ///   Creates the collection.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="collectionType">The collection type.</param>
@@ -100,7 +100,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  /// Creates the interface expression.
+  ///   Creates the interface expression.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>An Expression.</returns>
@@ -114,7 +114,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  /// Creates the read only dictionary.
+  ///   Creates the read only dictionary.
   /// </summary>
   /// <param name="typeArguments">The type arguments.</param>
   /// <returns>An Expression.</returns>
@@ -126,7 +126,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  /// Generates the constructor.
+  ///   Generates the constructor.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns><![CDATA[Func<object>]]></returns>
@@ -136,7 +136,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  /// Gets the i enumerable arguments.
+  ///   Gets the i enumerable arguments.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>An array of Types</returns>
@@ -146,7 +146,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  /// Invalids the type.
+  ///   Invalids the type.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="message">The message.</param>

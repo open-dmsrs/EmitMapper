@@ -3,10 +3,10 @@ using System.Reflection.Emit;
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
-/// <summary>
-/// The ast exception handling block.
-/// </summary>
 
+/// <summary>
+///   The ast exception handling block.
+/// </summary>
 internal class AstExceptionHandlingBlock : IAstNode
 {
   private readonly Type _exceptionType;
@@ -18,7 +18,7 @@ internal class AstExceptionHandlingBlock : IAstNode
   private readonly IAstNode _protectedBlock;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="AstExceptionHandlingBlock"/> class.
+  ///   Initializes a new instance of the <see cref="AstExceptionHandlingBlock" /> class.
   /// </summary>
   /// <param name="protectedBlock">The protected block.</param>
   /// <param name="handlerBlock">The handler block.</param>
@@ -37,7 +37,6 @@ internal class AstExceptionHandlingBlock : IAstNode
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="context">The context.</param>
   public void Compile(CompilationContext context)

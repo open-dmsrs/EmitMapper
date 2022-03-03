@@ -1,8 +1,8 @@
 ﻿namespace EmitMapper.Tests.TestData;
-/// <summary>
-/// The simple types destination.
-/// </summary>
 
+/// <summary>
+///   The simple types destination.
+/// </summary>
 public class SimpleTypesDestination : ITestObject
 {
   public int N1;

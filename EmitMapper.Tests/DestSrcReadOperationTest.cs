@@ -5,16 +5,16 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace EmitMapper.Tests;
-/// <summary>
-/// The dest src read operation test.
-/// </summary>
 
+/// <summary>
+///   The dest src read operation test.
+/// </summary>
 public class DestSrcReadOperationTest
 {
   private readonly ITestOutputHelper _testOutputHelper;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="DestSrcReadOperationTest"/> class.
+  ///   Initializes a new instance of the <see cref="DestSrcReadOperationTest" /> class.
   /// </summary>
   /// <param name="testOutputHelper">The test output helper.</param>
   public DestSrcReadOperationTest(ITestOutputHelper testOutputHelper)
@@ -23,7 +23,7 @@ public class DestSrcReadOperationTest
   }
 
   /// <summary>
-  /// Tests the dest src read operation.
+  ///   Tests the dest src read operation.
   /// </summary>
   [Fact]
   public void TestDestSrcReadOperation()
@@ -73,21 +73,21 @@ public class DestSrcReadOperationTest
   }
 
   /// <summary>
-  /// The from class.
+  ///   The from class.
   /// </summary>
   public class FromClass
   {
     public InnerClass Inner = new();
 
     /// <summary>
-    /// The inner class.
+    ///   The inner class.
     /// </summary>
     public class InnerClass
     {
       public string Message = "hello";
 
       /// <summary>
-      /// Gets the message2.
+      ///   Gets the message2.
       /// </summary>
       /// <returns>A string.</returns>
       public string GetMessage2()
@@ -98,7 +98,7 @@ public class DestSrcReadOperationTest
   }
 
   /// <summary>
-  /// The to class.
+  ///   The to class.
   /// </summary>
   public class ToClass
   {

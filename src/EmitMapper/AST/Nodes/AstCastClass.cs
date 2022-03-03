@@ -3,10 +3,10 @@ using System.Reflection.Emit;
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
-/// <summary>
-/// The ast castclass.
-/// </summary>
 
+/// <summary>
+///   The ast castclass.
+/// </summary>
 internal class AstCastclass : IAstRefOrValue
 {
   protected Type TargetType;
@@ -14,7 +14,7 @@ internal class AstCastclass : IAstRefOrValue
   protected IAstRefOrValue Value;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="AstCastclass"/> class.
+  ///   Initializes a new instance of the <see cref="AstCastclass" /> class.
   /// </summary>
   /// <param name="value">The value.</param>
   /// <param name="targetType">The target type.</param>
@@ -25,12 +25,11 @@ internal class AstCastclass : IAstRefOrValue
   }
 
   /// <summary>
-  /// Gets the item type.
+  ///   Gets the item type.
   /// </summary>
   public Type ItemType => TargetType;
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="context">The context.</param>
   /// <exception cref="EmitMapperException"></exception>

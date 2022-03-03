@@ -50,22 +50,21 @@ public class DebuggerWriter : TextWriter
   }
 
   /// <summary>
-  /// Gets the category.
+  ///   Gets the category.
   /// </summary>
   public string Category { get; }
 
   /// <summary>
-  /// Gets the encoding.
+  ///   Gets the encoding.
   /// </summary>
   public override Encoding Encoding => _encoding ??= new UnicodeEncoding(false, false);
 
   /// <summary>
-  /// Gets the level.
+  ///   Gets the level.
   /// </summary>
   public int Level { get; }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="value">The value.</param>
   /// <exception cref="ObjectDisposedException"></exception>
@@ -77,7 +76,6 @@ public class DebuggerWriter : TextWriter
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="value">The value.</param>
   /// <exception cref="ObjectDisposedException"></exception>
@@ -89,7 +87,6 @@ public class DebuggerWriter : TextWriter
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="buffer">The buffer.</param>
   /// <param name="index">The index.</param>
@@ -106,7 +103,6 @@ public class DebuggerWriter : TextWriter
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="disposing">If true, disposing.</param>
   protected override void Dispose(bool disposing)

@@ -9,10 +9,10 @@ using EmitMapper.AST.Nodes;
 using EmitMapper.Utils;
 
 namespace EmitMapper.EmitInvoker.Delegates;
-/// <summary>
-/// The delegate invoker.
-/// </summary>
 
+/// <summary>
+///   The delegate invoker.
+/// </summary>
 public static class DelegateInvoker
 {
   private static readonly LazyConcurrentDictionary<string, Type> Cache = new();
@@ -22,7 +22,7 @@ public static class DelegateInvoker
     BindingFlags.Public | BindingFlags.Instance);
 
   /// <summary>
-  /// Gets the delegate invoker.
+  ///   Gets the delegate invoker.
   /// </summary>
   /// <param name="del">The del.</param>
   /// <returns>A DelegateInvokerBase.</returns>
@@ -47,7 +47,7 @@ public static class DelegateInvoker
   }
 
   /// <summary>
-  /// Builds the action caller type.
+  ///   Builds the action caller type.
   /// </summary>
   /// <param name="typeName">The type name.</param>
   /// <param name="del">The del.</param>
@@ -81,7 +81,7 @@ public static class DelegateInvoker
   }
 
   /// <summary>
-  /// Builds the func caller type.
+  ///   Builds the func caller type.
   /// </summary>
   /// <param name="typeName">The type name.</param>
   /// <param name="del">The del.</param>
@@ -115,7 +115,7 @@ public static class DelegateInvoker
   }
 
   /// <summary>
-  /// Creates the call delegate.
+  ///   Creates the call delegate.
   /// </summary>
   /// <param name="del">The del.</param>
   /// <param name="parameters">The parameters.</param>

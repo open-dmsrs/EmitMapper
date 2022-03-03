@@ -4,13 +4,12 @@ using Xunit;
 namespace EmitMapper.Tests;
 
 /// <summary>
-/// The enum tests.
+///   The enum tests.
 /// </summary>
-
 public class EnumTests
 {
   /// <summary>
-  /// Enums the tests1.
+  ///   Enums the tests1.
   /// </summary>
   [Fact]
   public void EnumTests1()
@@ -31,7 +30,7 @@ public class EnumTests
   }
 
   /// <summary>
-  /// The a.
+  ///   The a.
   /// </summary>
   public class A
   {
@@ -43,17 +42,17 @@ public class EnumTests
     public En3? En8;
     public En3? En9 = En3.C;
     /// <summary>
-    /// Gets or Sets the en1.
+    ///   Gets or Sets the en1.
     /// </summary>
     public En1 En1 { get; set; }
     /// <summary>
-    /// Gets or Sets the en3.
+    ///   Gets or Sets the en3.
     /// </summary>
     public En3 En3 { get; set; }
   }
 
   /// <summary>
-  /// The b.
+  ///   The b.
   /// </summary>
   public class B
   {
@@ -67,7 +66,7 @@ public class EnumTests
     public En2? En9 = null;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="B"/> class.
+    ///   Initializes a new instance of the <see cref="B" /> class.
     /// </summary>
     public B()
     {
@@ -75,13 +74,13 @@ public class EnumTests
     }
 
     /// <summary>
-    /// Gets or Sets the en2.
+    ///   Gets or Sets the en2.
     /// </summary>
     public En1 En2 { get; set; }
   }
 
   /// <summary>
-  /// The en1.
+  ///   The en1.
   /// </summary>
   public enum En1 : byte
   {
@@ -91,7 +90,7 @@ public class EnumTests
   }
 
   /// <summary>
-  /// The en2.
+  ///   The en2.
   /// </summary>
   public enum En2 : long
   {
@@ -101,7 +100,7 @@ public class EnumTests
   }
 
   /// <summary>
-  /// The en3.
+  ///   The en3.
   /// </summary>
   public enum En3
   {

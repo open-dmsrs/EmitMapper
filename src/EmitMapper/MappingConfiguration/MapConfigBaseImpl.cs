@@ -31,7 +31,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   private string _configurationName;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="MapConfigBaseImpl"/> class.
+  ///   Initializes a new instance of the <see cref="MapConfigBaseImpl" /> class.
   /// </summary>
   public MapConfigBaseImpl()
   {
@@ -39,7 +39,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   }
 
   /// <summary>
-  /// Builds the configuration name.
+  ///   Builds the configuration name.
   /// </summary>
   public virtual void BuildConfigurationName()
   {
@@ -95,7 +95,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   }
 
   /// <summary>
-  /// Filters the destination.
+  ///   Filters the destination.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="valuesFilter">The values filter.</param>
@@ -108,7 +108,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   }
 
   /// <summary>
-  /// Filters the source.
+  ///   Filters the source.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="valuesFilter">The values filter.</param>
@@ -121,7 +121,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   }
 
   /// <summary>
-  /// Gets the configuration name.
+  ///   Gets the configuration name.
   /// </summary>
   /// <returns>A string.</returns>
   public virtual string GetConfigurationName()
@@ -130,7 +130,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   }
 
   /// <summary>
-  /// Gets the mapping operations.
+  ///   Gets the mapping operations.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -138,7 +138,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   public abstract IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to);
 
   /// <summary>
-  /// Gets the root mapping operation.
+  ///   Gets the root mapping operation.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -159,7 +159,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   }
 
   /// <summary>
-  /// Gets the static converters manager.
+  ///   Gets the static converters manager.
   /// </summary>
   /// <returns>A StaticConvertersManager.</returns>
   public virtual StaticConvertersManager GetStaticConvertersManager()
@@ -238,7 +238,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   }
 
   /// <summary>
-  /// Tos the str.
+  ///   Tos the str.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="t">The t.</param>
@@ -250,7 +250,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   }
 
   /// <summary>
-  /// Tos the str enum.
+  ///   Tos the str enum.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="t">The t.</param>
@@ -261,7 +261,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   }
 
   /// <summary>
-  /// Filters the operations.
+  ///   Filters the operations.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -311,7 +311,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   }
 
   /// <summary>
-  /// Registers the default collection converters.
+  ///   Registers the default collection converters.
   /// </summary>
   protected void RegisterDefaultCollectionConverters()
   {
@@ -319,7 +319,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   }
 
   /// <summary>
-  /// Gets the generic converter.
+  ///   Gets the generic converter.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -354,7 +354,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
   }
 
   /// <summary>
-  /// Test ignore.
+  ///   Test ignore.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>

@@ -6,13 +6,12 @@ using Xunit;
 namespace EmitMapper.Tests;
 
 /// <summary>
-/// The general tests.
+///   The general tests.
 /// </summary>
-
 public class GeneralTests
 {
   /// <summary>
-  /// Constructs the by test.
+  ///   Constructs the by test.
   /// </summary>
   [Fact]
   public void ConstructByTest()
@@ -27,7 +26,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// Constructs the by test2.
+  ///   Constructs the by test2.
   /// </summary>
   [Fact]
   public void ConstructByTest2()
@@ -41,7 +40,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// Generals the tests_ convert using.
+  ///   Generals the tests_ convert using.
   /// </summary>
   [Fact]
   public void GeneralTests_ConvertUsing()
@@ -53,7 +52,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// Generals the tests_ example2.
+  ///   Generals the tests_ example2.
   /// </summary>
   [Fact]
   public void GeneralTests_Example2()
@@ -69,7 +68,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// Generals the tests_ exception.
+  ///   Generals the tests_ exception.
   /// </summary>
   [Fact]
   public void GeneralTests_Exception()
@@ -104,7 +103,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// Generals the tests_ ignore.
+  ///   Generals the tests_ ignore.
   /// </summary>
   [Fact]
   public void GeneralTests_Ignore()
@@ -117,7 +116,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// Generals the tests_ test1.
+  ///   Generals the tests_ test1.
   /// </summary>
   [Fact]
   public void GeneralTests_Test1()
@@ -145,7 +144,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// Generals the tests_ test2.
+  ///   Generals the tests_ test2.
   /// </summary>
   [Fact]
   public void GeneralTests_Test2()
@@ -164,7 +163,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// Generals the tests_ test3.
+  ///   Generals the tests_ test3.
   /// </summary>
   [Fact]
   public void GeneralTests_Test3()
@@ -179,7 +178,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// Simples the test.
+  ///   Simples the test.
   /// </summary>
   [Fact]
   public void SimpleTest()
@@ -193,7 +192,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// Simples the test class.
+  ///   Simples the test class.
   /// </summary>
   [Fact]
   public void SimpleTestClass()
@@ -206,7 +205,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// Simples the test enum.
+  ///   Simples the test enum.
   /// </summary>
   [Fact]
   public void SimpleTestEnum()
@@ -219,7 +218,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// Simples the test struct.
+  ///   Simples the test struct.
   /// </summary>
   [Fact]
   public void SimpleTestStruct()
@@ -232,7 +231,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// Tests the recursive class.
+  ///   Tests the recursive class.
   /// </summary>
   [Fact]
   public void TestRecursiveClass()
@@ -264,7 +263,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// The a.
+  ///   The a.
   /// </summary>
   public class A
   {
@@ -275,7 +274,7 @@ public class GeneralTests
     public string Str3 = "Destination::str3";
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="A"/> class.
+    ///   Initializes a new instance of the <see cref="A" /> class.
     /// </summary>
     public A()
     {
@@ -283,7 +282,7 @@ public class GeneralTests
     }
 
     /// <summary>
-    /// The en type.
+    ///   The en type.
     /// </summary>
     public enum EnType
     {
@@ -293,16 +292,16 @@ public class GeneralTests
     }
 
     /// <summary>
-    /// Gets or Sets the arr.
+    ///   Gets or Sets the arr.
     /// </summary>
     public int[] Arr { get; set; }
     /// <summary>
-    /// Gets or Sets the str1.
+    ///   Gets or Sets the str1.
     /// </summary>
     public string Str1 { get; set; } = "Destination::str1";
 
     /// <summary>
-    /// The a int.
+    ///   The a int.
     /// </summary>
     public class AInt
     {
@@ -310,7 +309,7 @@ public class GeneralTests
       internal int Intern = 13;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="AInt"/> class.
+      ///   Initializes a new instance of the <see cref="AInt" /> class.
       /// </summary>
       public AInt()
       {
@@ -320,7 +319,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// The a1.
+  ///   The a1.
   /// </summary>
   internal class A1
   {
@@ -329,7 +328,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// The a2.
+  ///   The a2.
   /// </summary>
   public class A2
   {
@@ -337,7 +336,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// The a3.
+  ///   The a3.
   /// </summary>
   public class A3
   {
@@ -346,7 +345,7 @@ public class GeneralTests
     public Int2 I3;
 
     /// <summary>
-    /// The int1.
+    ///   The int1.
     /// </summary>
     public class Int1
     {
@@ -356,7 +355,7 @@ public class GeneralTests
     }
 
     /// <summary>
-    /// The int2.
+    ///   The int2.
     /// </summary>
     public class Int2
     {
@@ -367,7 +366,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// The b.
+  ///   The b.
   /// </summary>
   public class B
   {
@@ -378,7 +377,7 @@ public class GeneralTests
     public object Str3 = null;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="B"/> class.
+    ///   Initializes a new instance of the <see cref="B" /> class.
     /// </summary>
     public B()
     {
@@ -390,7 +389,7 @@ public class GeneralTests
     }
 
     /// <summary>
-    /// The en type.
+    ///   The en type.
     /// </summary>
     public enum EnType
     {
@@ -400,16 +399,16 @@ public class GeneralTests
     }
 
     /// <summary>
-    /// Gets the arr.
+    ///   Gets the arr.
     /// </summary>
     public int[] Arr => new[] { 1, 5, 9 };
     /// <summary>
-    /// Gets the str2.
+    ///   Gets the str2.
     /// </summary>
     public string Str2 => "Source::str2";
 
     /// <summary>
-    /// The b int.
+    ///   The b int.
     /// </summary>
     public class BInt
     {
@@ -428,7 +427,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// The b1.
+  ///   The b1.
   /// </summary>
   internal class B1
   {
@@ -437,7 +436,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// The b2.
+  ///   The b2.
   /// </summary>
   public class B2
   {
@@ -445,7 +444,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// The b3.
+  ///   The b3.
   /// </summary>
   public class B3
   {
@@ -454,7 +453,7 @@ public class GeneralTests
     public Int2 I3 = new();
 
     /// <summary>
-    /// The int1.
+    ///   The int1.
     /// </summary>
     public class Int1
     {
@@ -464,7 +463,7 @@ public class GeneralTests
     }
 
     /// <summary>
-    /// The int2.
+    ///   The int2.
     /// </summary>
     public class Int2
     {
@@ -475,14 +474,14 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// The construct by destination.
+  ///   The construct by destination.
   /// </summary>
   public class ConstructByDestination
   {
     public NestedClass Field;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ConstructByDestination"/> class.
+    ///   Initializes a new instance of the <see cref="ConstructByDestination" /> class.
     /// </summary>
     /// <param name="i">The i.</param>
     public ConstructByDestination(int i)
@@ -490,7 +489,7 @@ public class GeneralTests
     }
 
     /// <summary>
-    /// The nested class.
+    ///   The nested class.
     /// </summary>
     public class NestedClass
     {
@@ -498,7 +497,7 @@ public class GeneralTests
       public string Str;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="NestedClass"/> class.
+      ///   Initializes a new instance of the <see cref="NestedClass" /> class.
       /// </summary>
       /// <param name="i">The i.</param>
       public NestedClass(int i)
@@ -510,14 +509,14 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// The construct by source.
+  ///   The construct by source.
   /// </summary>
   public class ConstructBySource
   {
     public NestedClass Field = new();
 
     /// <summary>
-    /// The nested class.
+    ///   The nested class.
     /// </summary>
     public class NestedClass
     {
@@ -526,7 +525,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// The destination.
+  ///   The destination.
   /// </summary>
   public class Destination
   {
@@ -536,7 +535,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// The simple1.
+  ///   The simple1.
   /// </summary>
   public class Simple1
   {
@@ -545,7 +544,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// The simple2.
+  ///   The simple2.
   /// </summary>
   public class Simple2
   {
@@ -554,7 +553,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// The source.
+  ///   The source.
   /// </summary>
   public class Source
   {
@@ -564,7 +563,7 @@ public class GeneralTests
   }
 
   /// <summary>
-  /// The tree node.
+  ///   The tree node.
   /// </summary>
   public class TreeNode
   {

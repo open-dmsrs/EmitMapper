@@ -10,14 +10,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace EmitMapper.Mvc.Net;
-/// <summary>
-/// The form collection map config.
-/// </summary>
 
+/// <summary>
+///   The form collection map config.
+/// </summary>
 public class FormCollectionMapConfig : MapConfigBaseImpl
 {
   /// <summary>
-  /// Gets the configuration name.
+  ///   Gets the configuration name.
   /// </summary>
   /// <returns>A string.</returns>
   public override string GetConfigurationName()
@@ -26,7 +26,7 @@ public class FormCollectionMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Gets the mapping operations.
+  ///   Gets the mapping operations.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -55,7 +55,7 @@ public class FormCollectionMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Gets the root mapping operation.
+  ///   Gets the root mapping operation.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -66,7 +66,7 @@ public class FormCollectionMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Gets the static converters manager.
+  ///   Gets the static converters manager.
   /// </summary>
   /// <returns>A StaticConvertersManager.</returns>
   public override StaticConvertersManager GetStaticConvertersManager()
@@ -75,7 +75,6 @@ public class FormCollectionMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="valueProviderResult">The value provider result.</param>
   /// <param name="type">The type.</param>

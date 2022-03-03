@@ -2,14 +2,14 @@
 using EmitMapper.MappingConfiguration;
 
 namespace EmitMapper.Mappers;
-/// <summary>
-/// The custom mapper.
-/// </summary>
 
+/// <summary>
+///   The custom mapper.
+/// </summary>
 public abstract class CustomMapper : MapperBase
 {
   /// <summary>
-  /// Initializes a new instance of the <see cref="CustomMapper"/> class.
+  ///   Initializes a new instance of the <see cref="CustomMapper" /> class.
   /// </summary>
   /// <param name="objectMapperManager">The object mapper manager.</param>
   /// <param name="typeFrom">The type from.</param>

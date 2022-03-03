@@ -11,10 +11,10 @@ using EmitMapper.MappingConfiguration;
 using EmitMapper.Utils;
 
 namespace EmitMapper.EmitBuilders;
-/// <summary>
-/// The mapping builder.
-/// </summary>
 
+/// <summary>
+///   The mapping builder.
+/// </summary>
 internal class MappingBuilder
 {
   public readonly List<object> StoredObjects;
@@ -30,7 +30,7 @@ internal class MappingBuilder
   private Type _to;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="MappingBuilder"/> class.
+  ///   Initializes a new instance of the <see cref="MappingBuilder" /> class.
   /// </summary>
   /// <param name="objectsMapperManager">The objects mapper manager.</param>
   /// <param name="from">The from.</param>
@@ -54,7 +54,7 @@ internal class MappingBuilder
   }
 
   /// <summary>
-  /// Builds the copy impl method.
+  ///   Builds the copy impl method.
   /// </summary>
   public void BuildCopyImplMethod()
   {

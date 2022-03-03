@@ -2,15 +2,15 @@
 using System.Linq;
 
 namespace EmitMapper.Conversion;
+
 /// <summary>
-/// The arrays converter one types.
+///   The arrays converter one types.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-
 internal class ArraysConverterOneTypes<T>
 {
   /// <summary>
-  /// Converts the an array of TS.
+  ///   Converts the an array of TS.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="state">The state.</param>

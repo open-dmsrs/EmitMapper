@@ -2,23 +2,23 @@
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
 namespace EmitMapper;
-/// <summary>
-/// The emit mapper exception.
-/// </summary>
 
+/// <summary>
+///   The emit mapper exception.
+/// </summary>
 public class EmitMapperException : ApplicationException
 {
   public IMappingOperation MappingOperation;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="EmitMapperException"/> class.
+  ///   Initializes a new instance of the <see cref="EmitMapperException" /> class.
   /// </summary>
   public EmitMapperException()
   {
   }
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="EmitMapperException"/> class.
+  ///   Initializes a new instance of the <see cref="EmitMapperException" /> class.
   /// </summary>
   /// <param name="message">The message.</param>
   public EmitMapperException(string message)
@@ -27,7 +27,7 @@ public class EmitMapperException : ApplicationException
   }
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="EmitMapperException"/> class.
+  ///   Initializes a new instance of the <see cref="EmitMapperException" /> class.
   /// </summary>
   /// <param name="message">The message.</param>
   /// <param name="innerException">The inner exception.</param>
@@ -37,7 +37,7 @@ public class EmitMapperException : ApplicationException
   }
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="EmitMapperException"/> class.
+  ///   Initializes a new instance of the <see cref="EmitMapperException" /> class.
   /// </summary>
   /// <param name="message">The message.</param>
   /// <param name="innerException">The inner exception.</param>
@@ -49,7 +49,7 @@ public class EmitMapperException : ApplicationException
   }
 
   /// <summary>
-  /// Builds the message.
+  ///   Builds the message.
   /// </summary>
   /// <param name="message">The message.</param>
   /// <param name="mappingOperation">The mapping operation.</param>

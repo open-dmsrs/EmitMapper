@@ -2,14 +2,13 @@
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
-/// <summary>
-/// The ast read field value.
-/// </summary>
 
+/// <summary>
+///   The ast read field value.
+/// </summary>
 internal class AstReadFieldValue : AstReadField, IAstValue
 {
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="context">The context.</param>
   public override void Compile(CompilationContext context)

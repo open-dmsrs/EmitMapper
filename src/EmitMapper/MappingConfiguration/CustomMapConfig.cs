@@ -4,24 +4,24 @@ using EmitMapper.Conversion;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
 namespace EmitMapper.MappingConfiguration;
-/// <summary>
-/// The custom map config.
-/// </summary>
 
+/// <summary>
+///   The custom map config.
+/// </summary>
 public class CustomMapConfig : MapConfigBaseImpl
 {
   /// <summary>
-  /// Gets or Sets the configuration name.
+  ///   Gets or Sets the configuration name.
   /// </summary>
   public string ConfigurationName { get; set; }
 
   /// <summary>
-  /// Gets or Sets the get mapping operation func.
+  ///   Gets or Sets the get mapping operation func.
   /// </summary>
   public Func<Type, Type, IEnumerable<IMappingOperation>> GetMappingOperationFunc { get; set; }
 
   /// <summary>
-  /// Gets the configuration name.
+  ///   Gets the configuration name.
   /// </summary>
   /// <returns>A string.</returns>
   public override string GetConfigurationName()
@@ -30,7 +30,7 @@ public class CustomMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Gets the mapping operations.
+  ///   Gets the mapping operations.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -44,7 +44,7 @@ public class CustomMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Gets the root mapping operation.
+  ///   Gets the root mapping operation.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>

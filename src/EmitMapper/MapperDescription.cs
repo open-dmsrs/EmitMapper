@@ -1,10 +1,10 @@
 ﻿using EmitMapper.Mappers;
 
 namespace EmitMapper;
-/// <summary>
-/// The mapper description.
-/// </summary>
 
+/// <summary>
+///   The mapper description.
+/// </summary>
 public class MapperDescription
 {
   public int Id;
@@ -14,7 +14,7 @@ public class MapperDescription
   public MapperBase Mapper;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="MapperDescription"/> class.
+  ///   Initializes a new instance of the <see cref="MapperDescription" /> class.
   /// </summary>
   /// <param name="mapper">The mapper.</param>
   /// <param name="key">The key.</param>

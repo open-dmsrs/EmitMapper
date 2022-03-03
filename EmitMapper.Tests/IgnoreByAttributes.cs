@@ -9,13 +9,11 @@ using Xunit;
 namespace EmitMapper.Tests;
 
 /// <summary>
-/// The ignore by attributes.
+///   The ignore by attributes.
 /// </summary>
-
 public class IgnoreByAttributes
 {
   /// <summary>
-  /// 
   /// </summary>
   [Fact]
   public void Test()
@@ -29,7 +27,7 @@ public class IgnoreByAttributes
   }
 
   /// <summary>
-  /// The ignore by attributes dst.
+  ///   The ignore by attributes dst.
   /// </summary>
   public class IgnoreByAttributesDst
   {
@@ -38,7 +36,7 @@ public class IgnoreByAttributes
   }
 
   /// <summary>
-  /// The ignore by attributes src.
+  ///   The ignore by attributes src.
   /// </summary>
   public class IgnoreByAttributesSrc
   {
@@ -47,12 +45,12 @@ public class IgnoreByAttributes
   }
 
   /// <summary>
-  /// The my configurator.
+  ///   The my configurator.
   /// </summary>
   public class MyConfigurator : DefaultMapConfig
   {
     /// <summary>
-    /// Gets the mapping operations.
+    ///   Gets the mapping operations.
     /// </summary>
     /// <param name="from">The from.</param>
     /// <param name="to">The to.</param>
@@ -65,7 +63,7 @@ public class IgnoreByAttributes
     }
 
     /// <summary>
-    /// Gets the ignore fields.
+    ///   Gets the ignore fields.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns><![CDATA[IEnumerable<string>]]></returns>
@@ -79,7 +77,7 @@ public class IgnoreByAttributes
   }
 
   /// <summary>
-  /// The my ignore attribute.
+  ///   The my ignore attribute.
   /// </summary>
   [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
   public class MyIgnoreAttribute : Attribute

@@ -3,10 +3,10 @@ using System.Reflection.Emit;
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
-/// <summary>
-/// The ast if ternar.
-/// </summary>
 
+/// <summary>
+///   The ast if ternar.
+/// </summary>
 internal class AstIfTernar : IAstRefOrValue
 {
   public IAstRefOrValue Condition;
@@ -16,7 +16,7 @@ internal class AstIfTernar : IAstRefOrValue
   public IAstRefOrValue TrueBranch;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="AstIfTernar"/> class.
+  ///   Initializes a new instance of the <see cref="AstIfTernar" /> class.
   /// </summary>
   /// <param name="condition">The condition.</param>
   /// <param name="trueBranch">The true branch.</param>
@@ -32,12 +32,11 @@ internal class AstIfTernar : IAstRefOrValue
   }
 
   /// <summary>
-  /// Gets the item type.
+  ///   Gets the item type.
   /// </summary>
   public Type ItemType => TrueBranch.ItemType;
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="context">The context.</param>
   public void Compile(CompilationContext context)

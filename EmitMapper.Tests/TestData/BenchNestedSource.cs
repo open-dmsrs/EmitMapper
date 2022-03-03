@@ -1,10 +1,10 @@
 ﻿using EmitMapper.Tests;
 
 namespace EmitMapper.Common.TestData;
-/// <summary>
-/// The bench nested source.
-/// </summary>
 
+/// <summary>
+///   The bench nested source.
+/// </summary>
 public class BenchNestedSource : ITestObject
 {
   public Nested1 I1;
@@ -32,7 +32,7 @@ public class BenchNestedSource : ITestObject
   public string S7;
 
   /// <summary>
-  /// The nested1.
+  ///   The nested1.
   /// </summary>
   public class Nested1
   {
@@ -46,7 +46,7 @@ public class BenchNestedSource : ITestObject
   }
 
   /// <summary>
-  /// The nested2.
+  ///   The nested2.
   /// </summary>
   public class Nested2
   {

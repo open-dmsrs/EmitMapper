@@ -5,16 +5,16 @@ using System.Reflection;
 using EmitMapper.Utils;
 
 namespace EmitMapper;
-/// <summary>
-/// The type extensions.
-/// </summary>
 
+/// <summary>
+///   The type extensions.
+/// </summary>
 public static class TypeExtensions
 {
   private static readonly LazyConcurrentDictionary<Type, string> cachedMethod = new(Environment.ProcessorCount, 1024);
 
   /// <summary>
-  /// As the enumerable.
+  ///   As the enumerable.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="any">The any.</param>
@@ -25,7 +25,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// As the enumerable.
+  ///   As the enumerable.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="p0">The p0.</param>
@@ -38,7 +38,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// As the enumerable.
+  ///   As the enumerable.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="p0">The p0.</param>
@@ -53,7 +53,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// As the enumerable.
+  ///   As the enumerable.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="p0">The p0.</param>
@@ -70,7 +70,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Concats the list of ts.
+  ///   Concats the list of ts.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="any">The any.</param>
@@ -82,7 +82,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Concats the list of ts.
+  ///   Concats the list of ts.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="any">The any.</param>
@@ -95,7 +95,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Concats the list of ts.
+  ///   Concats the list of ts.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="any">The any.</param>
@@ -109,7 +109,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Concats the list of ts.
+  ///   Concats the list of ts.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="any">The any.</param>
@@ -124,7 +124,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the cached constructor.
+  ///   Gets the cached constructor.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="types">The types.</param>
@@ -135,7 +135,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the cached constructor.
+  ///   Gets the cached constructor.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="a">The a.</param>
@@ -147,7 +147,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the cached constructor.
+  ///   Gets the cached constructor.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="b">The b.</param>
@@ -163,7 +163,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the cached field.
+  ///   Gets the cached field.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="name">The name.</param>
@@ -174,7 +174,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the cached field.
+  ///   Gets the cached field.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="name">The name.</param>
@@ -186,7 +186,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the cached fields.
+  ///   Gets the cached fields.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>An array of FieldInfos</returns>
@@ -196,7 +196,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the cached generic arguments.
+  ///   Gets the cached generic arguments.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>An array of Types</returns>
@@ -206,7 +206,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the cached members.
+  ///   Gets the cached members.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>An array of MemberInfos</returns>
@@ -216,7 +216,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the cached members.
+  ///   Gets the cached members.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="bfs">The bfs.</param>
@@ -227,7 +227,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the cached method.
+  ///   Gets the cached method.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="methodName">The method name.</param>
@@ -238,7 +238,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the cached method.
+  ///   Gets the cached method.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="methodName">The method name.</param>
@@ -250,7 +250,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the cached method.
+  ///   Gets the cached method.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="methodName">The method name.</param>
@@ -262,7 +262,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the cached methods.
+  ///   Gets the cached methods.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="flags">The flags.</param>
@@ -273,7 +273,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the cached properties.
+  ///   Gets the cached properties.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>An array of PropertyInfos</returns>
@@ -283,7 +283,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the cached property.
+  ///   Gets the cached property.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="propertyName">The property name.</param>
@@ -294,7 +294,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the cahced interfaces.
+  ///   Gets the cahced interfaces.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>An array of Types</returns>
@@ -304,7 +304,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the member.
+  ///   Gets the member.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="name">The name.</param>

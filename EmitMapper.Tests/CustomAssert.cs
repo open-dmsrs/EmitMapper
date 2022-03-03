@@ -4,14 +4,14 @@ using System.Linq;
 using Shouldly;
 
 namespace EmitMapper.Tests;
-/// <summary>
-/// The custom assert.
-/// </summary>
 
+/// <summary>
+///   The custom assert.
+/// </summary>
 internal static class CustomAssert
 {
   /// <summary>
-  /// Are the equal.
+  ///   Are the equal.
   /// </summary>
   /// <param name="expected">The expected.</param>
   /// <param name="actual">The actual.</param>
@@ -26,7 +26,7 @@ internal static class CustomAssert
   }
 
   /// <summary>
-  /// Are the equal enum.
+  ///   Are the equal enum.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="expected">The expected.</param>

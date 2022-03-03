@@ -2,14 +2,14 @@
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
-/// <summary>
-/// The ast new nullable.
-/// </summary>
 
+/// <summary>
+///   The ast new nullable.
+/// </summary>
 internal class AstNewNullable : IAstValue
 {
   /// <summary>
-  /// Initializes a new instance of the <see cref="AstNewNullable"/> class.
+  ///   Initializes a new instance of the <see cref="AstNewNullable" /> class.
   /// </summary>
   /// <param name="nullableType">The nullable type.</param>
   public AstNewNullable(Type nullableType)
@@ -18,12 +18,11 @@ internal class AstNewNullable : IAstValue
   }
 
   /// <summary>
-  /// Gets the item type.
+  ///   Gets the item type.
   /// </summary>
   public Type ItemType { get; }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="context">The context.</param>
   /// <exception cref="NotImplementedException"></exception>

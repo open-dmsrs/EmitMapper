@@ -9,16 +9,16 @@ using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
 
 namespace EMConfigurations;
-/// <summary>
-/// The flattering config.
-/// </summary>
 
+/// <summary>
+///   The flattering config.
+/// </summary>
 public class FlatteringConfig : DefaultMapConfig
 {
   protected Func<string, string, bool> NestedMembersMatcher;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="FlatteringConfig"/> class.
+  ///   Initializes a new instance of the <see cref="FlatteringConfig" /> class.
   /// </summary>
   public FlatteringConfig()
   {

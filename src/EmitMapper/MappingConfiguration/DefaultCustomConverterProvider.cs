@@ -3,16 +3,16 @@ using System.Linq;
 using EmitMapper.Utils;
 
 namespace EmitMapper.MappingConfiguration;
-/// <summary>
-/// The default custom converter provider.
-/// </summary>
 
+/// <summary>
+///   The default custom converter provider.
+/// </summary>
 public class DefaultCustomConverterProvider : ICustomConverterProvider
 {
   private readonly Type _converterType;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="DefaultCustomConverterProvider"/> class.
+  ///   Initializes a new instance of the <see cref="DefaultCustomConverterProvider" /> class.
   /// </summary>
   /// <param name="converterType">The converter type.</param>
   public DefaultCustomConverterProvider(Type converterType)
@@ -21,7 +21,7 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
   }
 
   /// <summary>
-  /// Gets the generic arguments.
+  ///   Gets the generic arguments.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>An array of Types</returns>
@@ -38,7 +38,7 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
   }
 
   /// <summary>
-  /// Gets the custom converter descr.
+  ///   Gets the custom converter descr.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>

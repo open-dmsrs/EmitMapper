@@ -7,14 +7,14 @@ using Shouldly;
 using Xunit;
 
 namespace EmitMapper.Tests;
-/// <summary>
-/// The emit invoker test.
-/// </summary>
 
+/// <summary>
+///   The emit invoker test.
+/// </summary>
 public class EmitInvokerTest
 {
   /// <summary>
-  /// Emits the invoker test_ test call1.
+  ///   Emits the invoker test_ test call1.
   /// </summary>
   [Fact]
   public void EmitInvokerTest_TestCall1()
@@ -33,7 +33,7 @@ public class EmitInvokerTest
   }
 
   /// <summary>
-  /// Emits the invoker test_ test call2.
+  ///   Emits the invoker test_ test call2.
   /// </summary>
   [Fact]
   public void EmitInvokerTest_TestCall2()
@@ -48,7 +48,7 @@ public class EmitInvokerTest
   }
 
   /// <summary>
-  /// Emits the invoker test_ test call3.
+  ///   Emits the invoker test_ test call3.
   /// </summary>
   [Fact]
   public void EmitInvokerTest_TestCall3()
@@ -64,7 +64,7 @@ public class EmitInvokerTest
   }
 
   /// <summary>
-  /// Invokes the test1.
+  ///   Invokes the test1.
   /// </summary>
   /// <returns>An int.</returns>
   public int InvokeTest1()
@@ -73,7 +73,7 @@ public class EmitInvokerTest
   }
 
   /// <summary>
-  /// Invokes the test2.
+  ///   Invokes the test2.
   /// </summary>
   /// <param name="par">The par.</param>
   /// <returns>An int.</returns>

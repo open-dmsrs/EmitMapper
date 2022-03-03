@@ -1,12 +1,12 @@
 ﻿namespace EmitMapper.EmitInvoker.Methods;
-/// <summary>
-/// The method invoker func3.
-/// </summary>
 
+/// <summary>
+///   The method invoker func3.
+/// </summary>
 public abstract class MethodInvokerFunc3 : MethodInvokerBase
 {
   /// <summary>
-  /// Calls the func.
+  ///   Calls the func.
   /// </summary>
   /// <param name="param1">The param1.</param>
   /// <param name="param2">The param2.</param>

@@ -5,16 +5,16 @@ using System.Reflection;
 using EmitMapper.Utils;
 
 namespace EmitMapper.MappingConfiguration;
-/// <summary>
-/// The member descriptor.
-/// </summary>
 
+/// <summary>
+///   The member descriptor.
+/// </summary>
 public class MemberDescriptor
 {
   private IEnumerable<MemberInfo> _membersChain;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="MemberDescriptor"/> class.
+  ///   Initializes a new instance of the <see cref="MemberDescriptor" /> class.
   /// </summary>
   /// <param name="singleMember">The single member.</param>
   public MemberDescriptor(MemberInfo singleMember)
@@ -23,7 +23,7 @@ public class MemberDescriptor
   }
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="MemberDescriptor"/> class.
+  ///   Initializes a new instance of the <see cref="MemberDescriptor" /> class.
   /// </summary>
   /// <param name="membersChain">The members chain.</param>
   public MemberDescriptor(IEnumerable<MemberInfo> membersChain)
@@ -32,12 +32,12 @@ public class MemberDescriptor
   }
 
   /// <summary>
-  /// Gets the member info.
+  ///   Gets the member info.
   /// </summary>
   public MemberInfo MemberInfo { get; private set; }
 
   /// <summary>
-  /// Gets or Sets the members chain.
+  ///   Gets or Sets the members chain.
   /// </summary>
   public IEnumerable<MemberInfo> MembersChain
   {
@@ -51,12 +51,12 @@ public class MemberDescriptor
   }
 
   /// <summary>
-  /// Gets the member type.
+  ///   Gets the member type.
   /// </summary>
   public Type MemberType { get; private set; }
 
   /// <summary>
-  /// Tos the string.
+  ///   Tos the string.
   /// </summary>
   /// <returns>A string.</returns>
   public override string ToString()

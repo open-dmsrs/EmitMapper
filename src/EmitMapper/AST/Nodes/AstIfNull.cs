@@ -14,7 +14,7 @@ internal class AstIfNull : IAstRefOrValue
   private readonly IAstRef _value;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="AstIfNull"/> class.
+  ///   Initializes a new instance of the <see cref="AstIfNull" /> class.
   /// </summary>
   /// <param name="value">The value.</param>
   /// <param name="ifNullValue">The if null value.</param>
@@ -28,12 +28,11 @@ internal class AstIfNull : IAstRefOrValue
   }
 
   /// <summary>
-  /// Gets the item type.
+  ///   Gets the item type.
   /// </summary>
   public Type ItemType => _value.ItemType;
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="context">The context.</param>
   public void Compile(CompilationContext context)

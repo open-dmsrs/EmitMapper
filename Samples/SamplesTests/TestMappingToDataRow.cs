@@ -11,14 +11,14 @@ using Shouldly;
 using Xunit;
 
 namespace SamplesTests;
-/// <summary>
-/// The test mapping to data row.
-/// </summary>
 
+/// <summary>
+///   The test mapping to data row.
+/// </summary>
 public class TestMappingToDataRow
 {
   /// <summary>
-  /// Mappings the to data row_test.
+  ///   Mappings the to data row_test.
   /// </summary>
   [Fact]
   public void MappingToDataRow_test()
@@ -47,12 +47,12 @@ public class TestMappingToDataRow
   }
 
   /// <summary>
-  /// The map2 data row config.
+  ///   The map2 data row config.
   /// </summary>
   public class Map2DataRowConfig : MapConfigBaseImpl
   {
     /// <summary>
-    /// Gets the mapping operations.
+    ///   Gets the mapping operations.
     /// </summary>
     /// <param name="from">The from.</param>
     /// <param name="to">The to.</param>
@@ -77,7 +77,7 @@ public class TestMappingToDataRow
 
   // Test data object
   /// <summary>
-  /// The test dto.
+  ///   The test dto.
   /// </summary>
   public class TestDto
   {

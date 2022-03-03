@@ -14,10 +14,10 @@ using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
 
 namespace EmitMapper.EmitBuilders;
-/// <summary>
-/// The mapping operations processor.
-/// </summary>
 
+/// <summary>
+///   The mapping operations processor.
+/// </summary>
 internal class MappingOperationsProcessor
 {
   private static readonly MethodInfo MapMethod = Metadata<MapperBase>.Type.GetMethod(
@@ -49,14 +49,14 @@ internal class MappingOperationsProcessor
   public List<object> StoredObjects = new();
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="MappingOperationsProcessor"/> class.
+  ///   Initializes a new instance of the <see cref="MappingOperationsProcessor" /> class.
   /// </summary>
   public MappingOperationsProcessor()
   {
   }
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="MappingOperationsProcessor"/> class.
+  ///   Initializes a new instance of the <see cref="MappingOperationsProcessor" /> class.
   /// </summary>
   /// <param name="prototype">The prototype.</param>
   public MappingOperationsProcessor(MappingOperationsProcessor prototype)
@@ -75,7 +75,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Processes the operations.
+  ///   Processes the operations.
   /// </summary>
   /// <returns>An IAstNode.</returns>
   public IAstNode ProcessOperations()
@@ -115,7 +115,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Gets the stored object.
+  ///   Gets the stored object.
   /// </summary>
   /// <param name="objectIndex">The object index.</param>
   /// <param name="castType">The cast type.</param>
@@ -136,7 +136,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Adds the object to store.
+  ///   Adds the object to store.
   /// </summary>
   /// <param name="obj">The obj.</param>
   /// <returns>An int.</returns>
@@ -149,7 +149,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Converts the by mapper.
+  ///   Converts the by mapper.
   /// </summary>
   /// <param name="mapping">The mapping.</param>
   /// <returns>An IAstRefOrValue.</returns>
@@ -180,7 +180,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Converts the mapping value.
+  ///   Converts the mapping value.
   /// </summary>
   /// <param name="rwMapOp">The rw map op.</param>
   /// <param name="operationId">The operation id.</param>
@@ -224,7 +224,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Creates the exception handling block.
+  ///   Creates the exception handling block.
   /// </summary>
   /// <param name="mappingItemId">The mapping item id.</param>
   /// <param name="writeValue">The write value.</param>
@@ -253,7 +253,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Gets the null value.
+  ///   Gets the null value.
   /// </summary>
   /// <param name="nullSubstitutor">The null substitutor.</param>
   /// <returns>An IAstRefOrValue.</returns>
@@ -274,7 +274,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Process_s the destination filter.
+  ///   Process_s the destination filter.
   /// </summary>
   /// <param name="op">The op.</param>
   /// <param name="operationId">The operation id.</param>
@@ -292,7 +292,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Process_s the read write complex.
+  ///   Process_s the read write complex.
   /// </summary>
   /// <param name="op">The op.</param>
   /// <param name="operationId">The operation id.</param>
@@ -311,7 +311,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Process_s the read write complex_ by converter.
+  ///   Process_s the read write complex_ by converter.
   /// </summary>
   /// <param name="op">The op.</param>
   /// <param name="operationId">The operation id.</param>
@@ -340,7 +340,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Process_s the read write complex_ copying.
+  ///   Process_s the read write complex_ copying.
   /// </summary>
   /// <param name="op">The op.</param>
   /// <returns>An IAstNode.</returns>
@@ -493,7 +493,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Process_s the source filter.
+  ///   Process_s the source filter.
   /// </summary>
   /// <param name="op">The op.</param>
   /// <param name="operationId">The operation id.</param>
@@ -511,7 +511,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Process_s the values filter.
+  ///   Process_s the values filter.
   /// </summary>
   /// <param name="op">The op.</param>
   /// <param name="operationId">The operation id.</param>
@@ -553,7 +553,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Processes the dest src read operation.
+  ///   Processes the dest src read operation.
   /// </summary>
   /// <param name="operation">The operation.</param>
   /// <param name="operationId">The operation id.</param>
@@ -575,7 +575,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Processes the dest write operation.
+  ///   Processes the dest write operation.
   /// </summary>
   /// <param name="destWriteOperation">The dest write operation.</param>
   /// <param name="operationId">The operation id.</param>
@@ -628,7 +628,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Processes the read write simple.
+  ///   Processes the read write simple.
   /// </summary>
   /// <param name="readWriteSimple">The read write simple.</param>
   /// <param name="operationId">The operation id.</param>
@@ -666,7 +666,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Processes the src read operation.
+  ///   Processes the src read operation.
   /// </summary>
   /// <param name="srcReadOperation">The src read operation.</param>
   /// <param name="operationId">The operation id.</param>
@@ -681,7 +681,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Reads the src mapping value.
+  ///   Reads the src mapping value.
   /// </summary>
   /// <param name="mapping">The mapping.</param>
   /// <param name="operationId">The operation id.</param>
@@ -712,7 +712,7 @@ internal class MappingOperationsProcessor
   }
 
   /// <summary>
-  /// Writes the mapping value.
+  ///   Writes the mapping value.
   /// </summary>
   /// <param name="mappingOperation">The mapping operation.</param>
   /// <param name="mappingItemId">The mapping item id.</param>

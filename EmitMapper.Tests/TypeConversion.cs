@@ -5,13 +5,11 @@ using Xunit;
 namespace EmitMapper.Tests;
 
 /// <summary>
-/// The type conversion.
+///   The type conversion.
 /// </summary>
-
 public class TypeConversion
 {
   /// <summary>
-  /// 
   /// </summary>
   [Fact]
   public void Test1()
@@ -27,7 +25,6 @@ public class TypeConversion
   }
 
   /// <summary>
-  /// 
   /// </summary>
   [Fact]
   public void Test2()
@@ -41,7 +38,7 @@ public class TypeConversion
   }
 
   /// <summary>
-  /// Test3_s the shallow copy.
+  ///   Test3_s the shallow copy.
   /// </summary>
   [Fact]
   public void Test3_ShallowCopy()
@@ -68,7 +65,6 @@ public class TypeConversion
   }
 
   /// <summary>
-  /// 
   /// </summary>
   [Fact]
   public void Test4()
@@ -80,7 +76,7 @@ public class TypeConversion
   }
 
   /// <summary>
-  /// The a1.
+  ///   The a1.
   /// </summary>
   public class A1
   {
@@ -89,7 +85,7 @@ public class TypeConversion
   }
 
   /// <summary>
-  /// The a2.
+  ///   The a2.
   /// </summary>
   public class A2
   {
@@ -97,7 +93,7 @@ public class TypeConversion
   }
 
   /// <summary>
-  /// The a3.
+  ///   The a3.
   /// </summary>
   public class A3
   {
@@ -106,18 +102,18 @@ public class TypeConversion
   }
 
   /// <summary>
-  /// The a4.
+  ///   The a4.
   /// </summary>
   public class A4
   {
     /// <summary>
-    /// Gets or Sets the str.
+    ///   Gets or Sets the str.
     /// </summary>
     public string Str { get; set; }
   }
 
   /// <summary>
-  /// The a5.
+  ///   The a5.
   /// </summary>
   public class A5
   {
@@ -125,7 +121,7 @@ public class TypeConversion
   }
 
   /// <summary>
-  /// The b1.
+  ///   The b1.
   /// </summary>
   public class B1
   {
@@ -134,7 +130,7 @@ public class TypeConversion
   }
 
   /// <summary>
-  /// The b2.
+  ///   The b2.
   /// </summary>
   public class B2
   {
@@ -142,7 +138,7 @@ public class TypeConversion
   }
 
   /// <summary>
-  /// The b3.
+  ///   The b3.
   /// </summary>
   public class B3
   {
@@ -151,22 +147,22 @@ public class TypeConversion
   }
 
   /// <summary>
-  /// The b4.
+  ///   The b4.
   /// </summary>
   public class B4
   {
     /// <summary>
-    /// Gets the str.
+    ///   Gets the str.
     /// </summary>
     public BInt Str { get; } = new();
 
     /// <summary>
-    /// The b int.
+    ///   The b int.
     /// </summary>
     public class BInt
     {
       /// <summary>
-      /// Tos the string.
+      ///   Tos the string.
       /// </summary>
       /// <returns>A string.</returns>
       public override string ToString()
@@ -177,7 +173,7 @@ public class TypeConversion
   }
 
   /// <summary>
-  /// The b5.
+  ///   The b5.
   /// </summary>
   public class B5
   {

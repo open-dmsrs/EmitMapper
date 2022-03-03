@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 
 namespace EmitMapper.Utils;
-/// <summary>
-/// The primitive helper.
-/// </summary>
 
+/// <summary>
+///   The primitive helper.
+/// </summary>
 public static class PrimitiveHelper
 {
   /// <summary>
-  /// Checks the is derived from.
+  ///   Checks the is derived from.
   /// </summary>
   /// <param name="types">The types.</param>
   /// <param name="baseTypes">The base types.</param>
@@ -27,7 +27,7 @@ public static class PrimitiveHelper
   //}
 
   /// <summary>
-  /// Gets the or default.
+  ///   Gets the or default.
   /// </summary>
   /// <typeparam name="TKey"></typeparam>
   /// <typeparam name="TValue"></typeparam>
@@ -42,7 +42,7 @@ public static class PrimitiveHelper
   }
 
   /// <summary>
-  /// Are the enum to enum.
+  ///   Are the enum to enum.
   /// </summary>
   /// <param name="context">The context.</param>
   /// <returns>A bool.</returns>
@@ -52,7 +52,7 @@ public static class PrimitiveHelper
   }
 
   /// <summary>
-  /// Are the enum to underlying type.
+  ///   Are the enum to underlying type.
   /// </summary>
   /// <param name="context">The context.</param>
   /// <returns>A bool.</returns>
@@ -63,7 +63,7 @@ public static class PrimitiveHelper
   }
 
   /// <summary>
-  /// Are the underlying type to enum.
+  ///   Are the underlying type to enum.
   /// </summary>
   /// <param name="context">The context.</param>
   /// <returns>A bool.</returns>
@@ -74,7 +74,7 @@ public static class PrimitiveHelper
   }
 
   /// <summary>
-  /// Nulls the check.
+  ///   Nulls the check.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="source">The source.</param>

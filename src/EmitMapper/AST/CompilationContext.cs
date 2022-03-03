@@ -5,10 +5,10 @@ using System.Reflection.Emit;
 using EmitMapper.Utils;
 
 namespace EmitMapper.AST;
-/// <summary>
-/// The compilation context.
-/// </summary>
 
+/// <summary>
+///   The compilation context.
+/// </summary>
 internal class CompilationContext
 {
   public readonly ILGenerator ILGenerator;
@@ -18,7 +18,7 @@ internal class CompilationContext
   private int _stackCount;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="CompilationContext"/> class.
+  ///   Initializes a new instance of the <see cref="CompilationContext" /> class.
   /// </summary>
   public CompilationContext()
   {
@@ -28,7 +28,7 @@ internal class CompilationContext
   }
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="CompilationContext"/> class.
+  ///   Initializes a new instance of the <see cref="CompilationContext" /> class.
   /// </summary>
   /// <param name="ilGenerator">The il generator.</param>
   public CompilationContext(ILGenerator ilGenerator)
@@ -38,7 +38,6 @@ internal class CompilationContext
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="opCode">The op code.</param>
   public void Emit(OpCode opCode)
@@ -48,7 +47,6 @@ internal class CompilationContext
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="opCode">The op code.</param>
   /// <param name="str">The str.</param>
@@ -59,7 +57,6 @@ internal class CompilationContext
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="opCode">The op code.</param>
   /// <param name="param">The param.</param>
@@ -70,7 +67,6 @@ internal class CompilationContext
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="opCode">The op code.</param>
   /// <param name="fi">The fi.</param>
@@ -81,7 +77,6 @@ internal class CompilationContext
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="opCode">The op code.</param>
   /// <param name="ci">The ci.</param>
@@ -92,7 +87,6 @@ internal class CompilationContext
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="opCode">The op code.</param>
   /// <param name="lb">The lb.</param>
@@ -103,7 +97,6 @@ internal class CompilationContext
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="opCode">The op code.</param>
   /// <param name="lb">The lb.</param>
@@ -114,7 +107,6 @@ internal class CompilationContext
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="opCode">The op code.</param>
   /// <param name="type">The type.</param>
@@ -125,7 +117,7 @@ internal class CompilationContext
   }
 
   /// <summary>
-  /// Emits the call.
+  ///   Emits the call.
   /// </summary>
   /// <param name="opCode">The op code.</param>
   /// <param name="mi">The mi.</param>
@@ -140,7 +132,7 @@ internal class CompilationContext
   }
 
   /// <summary>
-  /// Emits the new object.
+  ///   Emits the new object.
   /// </summary>
   /// <param name="ci">The ci.</param>
   public void EmitNewObject(ConstructorInfo ci)
@@ -151,7 +143,7 @@ internal class CompilationContext
   }
 
   /// <summary>
-  /// Throws the exception.
+  ///   Throws the exception.
   /// </summary>
   /// <param name="exType">The ex type.</param>
   public void ThrowException(Type exType)
@@ -160,7 +152,7 @@ internal class CompilationContext
   }
 
   /// <summary>
-  /// Gets the stack change.
+  ///   Gets the stack change.
   /// </summary>
   /// <param name="beh">The beh.</param>
   /// <returns>An int.</returns>
@@ -210,7 +202,7 @@ internal class CompilationContext
   }
 
   /// <summary>
-  /// Processes the command.
+  ///   Processes the command.
   /// </summary>
   /// <param name="opCode">The op code.</param>
   /// <param name="addStack">The add stack.</param>
@@ -224,7 +216,7 @@ internal class CompilationContext
   }
 
   /// <summary>
-  /// Writes the output command.
+  ///   Writes the output command.
   /// </summary>
   /// <param name="command">The command.</param>
   private void WriteOutputCommand(string command)

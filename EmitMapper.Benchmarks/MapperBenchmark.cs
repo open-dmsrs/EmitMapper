@@ -9,11 +9,8 @@ using EmitMapper.MappingConfiguration;
 
 namespace EmitMapper.Benchmarks;
 
-
-
-
 /// <summary>
-/// The mapper benchmark.
+///   The mapper benchmark.
 /// </summary>
 // [SimpleJob(RuntimeMoniker.Net60, baseline: true)]
 // [RPlotExporter]
@@ -41,12 +38,11 @@ public class MapperBenchmark
   private SimpleTypesSource _simpleSource;
 
   /// <summary>
-  /// The iteration count.
+  ///   The iteration count.
   /// </summary>
   private const int IterationCount = 1_000;
 
   /// <summary>
-  /// 
   /// </summary>
   [GlobalSetup]
   public void Setup()
@@ -76,7 +72,6 @@ public class MapperBenchmark
   }
 
   /// <summary>
-  /// 
   /// </summary>
   public void Usage()
   {
@@ -86,7 +81,7 @@ public class MapperBenchmark
   }
 
   /// <summary>
-  /// Bench_a_s the hard mapper.
+  ///   Bench_a_s the hard mapper.
   /// </summary>
   /// <returns>A BenchNestedDestination.</returns>
   [BenchmarkCategory("Bench", "1")]
@@ -97,7 +92,7 @@ public class MapperBenchmark
   }
 
   /// <summary>
-  /// Bench_b_s the emit mapper.
+  ///   Bench_b_s the emit mapper.
   /// </summary>
   /// <returns>A BenchNestedDestination.</returns>
   [BenchmarkCategory("Bench", "1")]
@@ -108,7 +103,7 @@ public class MapperBenchmark
   }
 
   /// <summary>
-  /// Bench_c_s the auto mapper.
+  ///   Bench_c_s the auto mapper.
   /// </summary>
   /// <returns>A BenchNestedDestination.</returns>
   [BenchmarkCategory("Bench", "1")]
@@ -119,7 +114,7 @@ public class MapperBenchmark
   }
 
   /// <summary>
-  /// Benches the nested1000_a_ hard mapper.
+  ///   Benches the nested1000_a_ hard mapper.
   /// </summary>
   /// <returns><![CDATA[List<BenchNestedDestination>]]></returns>
   [BenchmarkCategory("Bench", "1000")]
@@ -130,7 +125,7 @@ public class MapperBenchmark
   }
 
   /// <summary>
-  /// Benches the nested1000_b_ emit mapper.
+  ///   Benches the nested1000_b_ emit mapper.
   /// </summary>
   /// <returns><![CDATA[List<BenchNestedDestination>]]></returns>
   [BenchmarkCategory("Bench", "1000")]
@@ -141,7 +136,7 @@ public class MapperBenchmark
   }
 
   /// <summary>
-  /// Benches the nested1000_c_ auto mapper.
+  ///   Benches the nested1000_c_ auto mapper.
   /// </summary>
   /// <returns><![CDATA[List<BenchNestedDestination>]]></returns>
   [BenchmarkCategory("Bench", "1000")]
@@ -152,7 +147,7 @@ public class MapperBenchmark
   }
 
   /// <summary>
-  /// Simples the types_a_ hard mapper.
+  ///   Simples the types_a_ hard mapper.
   /// </summary>
   /// <returns>A SimpleTypesDestination.</returns>
   [BenchmarkCategory("SimpleTypes", "1")]
@@ -163,7 +158,7 @@ public class MapperBenchmark
   }
 
   /// <summary>
-  /// Simples the types_b_ emit mapper.
+  ///   Simples the types_b_ emit mapper.
   /// </summary>
   /// <returns>A SimpleTypesDestination.</returns>
   [BenchmarkCategory("SimpleTypes", "1")]
@@ -174,7 +169,7 @@ public class MapperBenchmark
   }
 
   /// <summary>
-  /// Simples the types_c_ auto mapper.
+  ///   Simples the types_c_ auto mapper.
   /// </summary>
   /// <returns>A SimpleTypesDestination.</returns>
   [BenchmarkCategory("SimpleTypes", "1")]
@@ -185,7 +180,7 @@ public class MapperBenchmark
   }
 
   /// <summary>
-  /// Simples the types100_a_ hard mapper.
+  ///   Simples the types100_a_ hard mapper.
   /// </summary>
   /// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
   [BenchmarkCategory("SimpleTypes", "100")]
@@ -196,7 +191,7 @@ public class MapperBenchmark
   }
 
   /// <summary>
-  /// Simples the types100_b_ emit mapper.
+  ///   Simples the types100_b_ emit mapper.
   /// </summary>
   /// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
   [BenchmarkCategory("SimpleTypes", "100")]
@@ -207,7 +202,7 @@ public class MapperBenchmark
   }
 
   /// <summary>
-  /// Simples the types100_c_ auto mapper.
+  ///   Simples the types100_c_ auto mapper.
   /// </summary>
   /// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
   [BenchmarkCategory("SimpleTypes", "100")]
@@ -218,7 +213,7 @@ public class MapperBenchmark
   }
 
   /// <summary>
-  /// Simples the types1000_a_ hard mapper.
+  ///   Simples the types1000_a_ hard mapper.
   /// </summary>
   /// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
   [BenchmarkCategory("SimpleTypes", "1000")]
@@ -229,7 +224,7 @@ public class MapperBenchmark
   }
 
   /// <summary>
-  /// Simples the types1000_b_ emit mapper.
+  ///   Simples the types1000_b_ emit mapper.
   /// </summary>
   /// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
   [BenchmarkCategory("SimpleTypes", "1000")]
@@ -240,7 +235,7 @@ public class MapperBenchmark
   }
 
   /// <summary>
-  /// Simples the types1000_c_ auto mapper.
+  ///   Simples the types1000_c_ auto mapper.
   /// </summary>
   /// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
   [BenchmarkCategory("SimpleTypes", "1000")]

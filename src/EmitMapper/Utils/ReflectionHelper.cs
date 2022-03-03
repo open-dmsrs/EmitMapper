@@ -7,10 +7,10 @@ using System.Reflection;
 using static System.Linq.Expressions.Expression;
 
 namespace EmitMapper.Utils;
-/// <summary>
-/// The reflection helper.
-/// </summary>
 
+/// <summary>
+///   The reflection helper.
+/// </summary>
 public static class ReflectionHelper
 {
   private const BindingFlags BindingFlagsInstancePublic = BindingFlags.Instance | BindingFlags.Public;
@@ -30,7 +30,7 @@ public static class ReflectionHelper
   private static readonly LazyConcurrentDictionary<Type, Type> UnderlyingTypes = new();
 
   /// <summary>
-  /// Can be set.
+  ///   Can be set.
   /// </summary>
   /// <param name="member">The member.</param>
   /// <returns>A bool.</returns>
@@ -40,7 +40,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Converts the value.
+  ///   Converts the value.
   /// </summary>
   /// <param name="value">The value.</param>
   /// <param name="fieldType">The field type.</param>
@@ -53,7 +53,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Finds the property.
+  ///   Finds the property.
   /// </summary>
   /// <param name="lambdaExpression">The lambda expression.</param>
   /// <exception cref="ArgumentException"></exception>
@@ -82,7 +82,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Gets the common members.
+  ///   Gets the common members.
   /// </summary>
   /// <param name="first">The first.</param>
   /// <param name="second">The second.</param>
@@ -107,7 +107,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Gets the data member definition.
+  ///   Gets the data member definition.
   /// </summary>
   /// <param name="destinationMember">The destination member.</param>
   /// <exception cref="NotImplementedException"></exception>
@@ -118,7 +118,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Gets the default value.
+  ///   Gets the default value.
   /// </summary>
   /// <param name="parameter">The parameter.</param>
   /// <returns>An Expression.</returns>
@@ -130,7 +130,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Gets the element type.
+  ///   Gets the element type.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>A Type.</returns>
@@ -140,7 +140,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Gets the enumerable element type.
+  ///   Gets the enumerable element type.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>A Type.</returns>
@@ -150,7 +150,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Gets the generic type definition cache.
+  ///   Gets the generic type definition cache.
   /// </summary>
   /// <param name="t">The t.</param>
   /// <returns>A Type.</returns>
@@ -160,7 +160,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Gets the interfaces cache.
+  ///   Gets the interfaces cache.
   /// </summary>
   /// <param name="t">The t.</param>
   /// <returns>An array of Types</returns>
@@ -170,7 +170,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Gets the member path.
+  ///   Gets the member path.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="fullMemberName">The full member name.</param>
@@ -214,7 +214,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Gets the member return type.
+  ///   Gets the member return type.
   /// </summary>
   /// <param name="member">The member.</param>
   /// <exception cref="ArgumentNullException"></exception>
@@ -235,7 +235,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Gets the member type.
+  ///   Gets the member type.
   /// </summary>
   /// <param name="member">The member.</param>
   /// <exception cref="ArgumentNullException"></exception>
@@ -254,7 +254,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Gets the member value.
+  ///   Gets the member value.
   /// </summary>
   /// <param name="propertyOrField">The property or field.</param>
   /// <param name="target">The target.</param>
@@ -305,7 +305,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Gets the type data container description.
+  ///   Gets the type data container description.
   /// </summary>
   /// <param name="to">The to.</param>
   /// <exception cref="NotImplementedException"></exception>
@@ -316,7 +316,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Gets the underlying type cache.
+  ///   Gets the underlying type cache.
   /// </summary>
   /// <param name="t">The t.</param>
   /// <returns>A Type.</returns>
@@ -326,7 +326,6 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <typeparam name="TAttribute"></typeparam>
   /// <param name="member">The member.</param>
@@ -338,7 +337,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Have the default constructor.
+  ///   Have the default constructor.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>A bool.</returns>
@@ -348,7 +347,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Is nullable.
+  ///   Is nullable.
   /// </summary>
   /// <param name="t">The t.</param>
   /// <returns>A bool.</returns>
@@ -360,7 +359,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Is public.
+  ///   Is public.
   /// </summary>
   /// <param name="propertyInfo">The property info.</param>
   /// <returns>A bool.</returns>
@@ -370,7 +369,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Sets the member value.
+  ///   Sets the member value.
   /// </summary>
   /// <param name="propertyOrField">The property or field.</param>
   /// <param name="target">The target.</param>
@@ -395,7 +394,7 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// Expecteds the <see cref="ArgumentOutOfRangeException"/>.
+  ///   Expecteds the <see cref="ArgumentOutOfRangeException" />.
   /// </summary>
   /// <param name="propertyOrField">The property or field.</param>
   /// <returns>An ArgumentOutOfRangeException.</returns>
@@ -427,12 +426,12 @@ public static class ReflectionHelper
   }
 
   /// <summary>
-  /// The matched member.
+  ///   The matched member.
   /// </summary>
   public class MatchedMember
   {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MatchedMember"/> class.
+    ///   Initializes a new instance of the <see cref="MatchedMember" /> class.
     /// </summary>
     /// <param name="first">The first.</param>
     /// <param name="second">The second.</param>
@@ -443,12 +442,12 @@ public static class ReflectionHelper
     }
 
     /// <summary>
-    /// Gets or Sets the first.
+    ///   Gets or Sets the first.
     /// </summary>
     public MemberInfo First { get; set; }
 
     /// <summary>
-    /// Gets or Sets the second.
+    ///   Gets or Sets the second.
     /// </summary>
     public MemberInfo Second { get; set; }
   }

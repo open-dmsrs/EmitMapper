@@ -83,7 +83,7 @@ public class ObjectsChangeTracker
   }
 
   /// <summary>
-  /// Gets the changes.
+  ///   Gets the changes.
   /// </summary>
   /// <param name="originalObj">The original obj.</param>
   /// <param name="currentObj">The current obj.</param>

@@ -2,14 +2,14 @@
 using System.Linq;
 
 namespace EmitMapper.Tests;
-/// <summary>
-/// The test utils.
-/// </summary>
 
+/// <summary>
+///   The test utils.
+/// </summary>
 public static class TestUtils
 {
   /// <summary>
-  /// Are equal.
+  ///   Are equal.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="arr1">The arr1.</param>

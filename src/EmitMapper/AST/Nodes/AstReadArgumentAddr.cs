@@ -3,14 +3,13 @@ using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
-/// <summary>
-/// The ast read argument addr.
-/// </summary>
 
+/// <summary>
+///   The ast read argument addr.
+/// </summary>
 internal class AstReadArgumentAddr : AstReadArgument, IAstAddr
 {
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="context">The context.</param>
   public override void Compile(CompilationContext context)

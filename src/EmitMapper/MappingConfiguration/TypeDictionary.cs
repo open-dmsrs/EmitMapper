@@ -4,18 +4,17 @@ using System.Linq;
 using EmitMapper.Utils;
 
 namespace EmitMapper.MappingConfiguration;
+
 /// <summary>
-/// The type dictionary.
+///   The type dictionary.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-
 internal class TypeDictionary<T>
   where T : class
 {
   private readonly List<ListElement> _elements = new();
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="types">The types.</param>
   /// <param name="value">The value.</param>
@@ -30,7 +29,7 @@ internal class TypeDictionary<T>
   }
 
   /// <summary>
-  /// Gets the value.
+  ///   Gets the value.
   /// </summary>
   /// <param name="types">The types.</param>
   /// <returns>A T.</returns>
@@ -42,7 +41,7 @@ internal class TypeDictionary<T>
   }
 
   /// <summary>
-  /// Gets the value.
+  ///   Gets the value.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>A T.</returns>
@@ -54,7 +53,7 @@ internal class TypeDictionary<T>
   }
 
   /// <summary>
-  /// Are the types in list.
+  ///   Are the types in list.
   /// </summary>
   /// <param name="types">The types.</param>
   /// <returns>A bool.</returns>
@@ -64,7 +63,7 @@ internal class TypeDictionary<T>
   }
 
   /// <summary>
-  /// Tos the string.
+  ///   Tos the string.
   /// </summary>
   /// <returns>A string.</returns>
   public override string ToString()
@@ -73,7 +72,7 @@ internal class TypeDictionary<T>
   }
 
   /// <summary>
-  /// Are the general type.
+  ///   Are the general type.
   /// </summary>
   /// <param name="generalType">The general type.</param>
   /// <param name="type">The type.</param>
@@ -97,7 +96,7 @@ internal class TypeDictionary<T>
   }
 
   /// <summary>
-  /// Finds the types.
+  ///   Finds the types.
   /// </summary>
   /// <param name="types">The types.</param>
   /// <returns>A ListElement? .</returns>
@@ -128,7 +127,7 @@ internal class TypeDictionary<T>
   }
 
   /// <summary>
-  /// Finds the types.
+  ///   Finds the types.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>A ListElement? .</returns>

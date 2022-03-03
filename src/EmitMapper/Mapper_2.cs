@@ -2,18 +2,18 @@
 using EmitMapper.Mappers;
 
 namespace EmitMapper;
+
 /// <summary>
-/// The mapper.
+///   The mapper.
 /// </summary>
 /// <typeparam name="TFrom"></typeparam>
 /// <typeparam name="TTo"></typeparam>
-
 public class Mapper<TFrom, TTo>
 {
   private readonly MapperBase _mapperImpl;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="Mapper"/> class.
+  ///   Initializes a new instance of the <see cref="Mapper" /> class.
   /// </summary>
   /// <param name="mapperImpl">The mapper impl.</param>
   public Mapper(MapperBase mapperImpl)
@@ -22,10 +22,11 @@ public class Mapper<TFrom, TTo>
   }
 
   /// <summary>
-  /// Maps the <see>
-  ///   <cref>TTo</cref>
-  /// </see>
-  /// .
+  ///   Maps the
+  ///   <see>
+  ///     <cref>TTo</cref>
+  ///   </see>
+  ///   .
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -37,10 +38,11 @@ public class Mapper<TFrom, TTo>
   }
 
   /// <summary>
-  /// Maps the <see>
-  ///   <cref>TTo</cref>
-  /// </see>
-  /// .
+  ///   Maps the
+  ///   <see>
+  ///     <cref>TTo</cref>
+  ///   </see>
+  ///   .
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -51,9 +53,11 @@ public class Mapper<TFrom, TTo>
   }
 
   /// <summary>
-  /// Maps the <see>
-  ///   <cref>TTo</cref>
-  /// </see>.
+  ///   Maps the
+  ///   <see>
+  ///     <cref>TTo</cref>
+  ///   </see>
+  ///   .
   /// </summary>
   /// <param name="from">The from.</param>
   /// <returns>A TTo.</returns>
@@ -63,7 +67,7 @@ public class Mapper<TFrom, TTo>
   }
 
   /// <summary>
-  /// Maps the enum.
+  ///   Maps the enum.
   /// </summary>
   /// <param name="sourceCollection">The source collection.</param>
   /// <returns><![CDATA[IEnumerable<TTo>]]></returns>
@@ -74,7 +78,7 @@ public class Mapper<TFrom, TTo>
   }
 
   /// <summary>
-  /// Maps the enum.
+  ///   Maps the enum.
   /// </summary>
   /// <param name="sourceCollection">The source collection.</param>
   /// <returns><![CDATA[List<TTo>]]></returns>
@@ -89,7 +93,7 @@ public class Mapper<TFrom, TTo>
   }
 
   /// <summary>
-  /// Maps the using state.
+  ///   Maps the using state.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="state">The state.</param>

@@ -2,8 +2,8 @@
 	<PropertyGroup>
 		<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
 		<Deterministic>true</Deterministic>
-	 
-		
+
+
 		<!--<VersionPrefix>2.1.2</VersionPrefix>
 		<VersionSuffix>beta.1</VersionSuffix>-->
 		<Version>2.1.1-beta.1</Version>
@@ -39,6 +39,6 @@
 
 	<PropertyGroup>
 		<!--<FileVersion>$(Version)</FileVersion>
-		<AssemblyVersion>$(Version)</AssemblyVersion>--> 
+		<AssemblyVersion>$(Version)</AssemblyVersion>-->
 	</PropertyGroup>
 </Project>

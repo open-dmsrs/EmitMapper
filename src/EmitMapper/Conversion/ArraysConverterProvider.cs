@@ -2,10 +2,10 @@
 using EmitMapper.MappingConfiguration;
 
 namespace EmitMapper.Conversion;
-/// <summary>
-/// The arrays converter provider.
-/// </summary>
 
+/// <summary>
+///   The arrays converter provider.
+/// </summary>
 internal class ArraysConverterProvider : ICustomConverterProvider
 {
   // optimized the performance for converting arrays value
@@ -14,7 +14,7 @@ internal class ArraysConverterProvider : ICustomConverterProvider
   private static readonly Type _Implementation = typeof(ArraysConverterDifferentTypes<,>);
 
   /// <summary>
-  /// Gets the custom converter descr.
+  ///   Gets the custom converter descr.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>

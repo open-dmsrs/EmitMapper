@@ -4,10 +4,10 @@ using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
-/// <summary>
-/// The ast read property.
-/// </summary>
 
+/// <summary>
+///   The ast read property.
+/// </summary>
 internal class AstReadProperty : IAstRefOrValue
 {
   public PropertyInfo PropertyInfo;
@@ -15,12 +15,11 @@ internal class AstReadProperty : IAstRefOrValue
   public IAstRefOrAddr SourceObject;
 
   /// <summary>
-  /// Gets the item type.
+  ///   Gets the item type.
   /// </summary>
   public Type ItemType => PropertyInfo.PropertyType;
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="context">The context.</param>
   /// <exception cref="Exception"></exception>

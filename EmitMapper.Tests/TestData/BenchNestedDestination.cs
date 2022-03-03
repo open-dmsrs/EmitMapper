@@ -1,40 +1,40 @@
 ﻿namespace EmitMapper.Tests.TestData;
-/// <summary>
-/// The bench nested destination.
-/// </summary>
 
+/// <summary>
+///   The bench nested destination.
+/// </summary>
 public class BenchNestedDestination : ITestObject
 {
   /// <summary>
-  /// Gets or Sets the i1.
+  ///   Gets or Sets the i1.
   /// </summary>
   public Inner1 I1 { get; set; }
   /// <summary>
-  /// Gets or Sets the i2.
+  ///   Gets or Sets the i2.
   /// </summary>
   public Inner1 I2 { get; set; }
   /// <summary>
-  /// Gets or Sets the i3.
+  ///   Gets or Sets the i3.
   /// </summary>
   public Inner1 I3 { get; set; }
   /// <summary>
-  /// Gets or Sets the i4.
+  ///   Gets or Sets the i4.
   /// </summary>
   public Inner1 I4 { get; set; }
   /// <summary>
-  /// Gets or Sets the i5.
+  ///   Gets or Sets the i5.
   /// </summary>
   public Inner1 I5 { get; set; }
   /// <summary>
-  /// Gets or Sets the i6.
+  ///   Gets or Sets the i6.
   /// </summary>
   public Inner1 I6 { get; set; }
   /// <summary>
-  /// Gets or Sets the i7.
+  ///   Gets or Sets the i7.
   /// </summary>
   public Inner1 I7 { get; set; }
   /// <summary>
-  /// Gets or Sets the i8.
+  ///   Gets or Sets the i8.
   /// </summary>
   public Inner1 I8 { get; set; }
   public long N2;
@@ -54,7 +54,7 @@ public class BenchNestedDestination : ITestObject
   public string S7;
 
   /// <summary>
-  /// The inner1.
+  ///   The inner1.
   /// </summary>
   public class Inner1
   {
@@ -68,7 +68,7 @@ public class BenchNestedDestination : ITestObject
   }
 
   /// <summary>
-  /// The inner2.
+  ///   The inner2.
   /// </summary>
   public class Inner2
   {

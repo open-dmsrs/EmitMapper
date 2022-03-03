@@ -7,7 +7,7 @@ public struct ValueToWrite<T>
   public T Value;
 
   /// <summary>
-  /// The actions.
+  ///   The actions.
   /// </summary>
   public enum Actions
   {

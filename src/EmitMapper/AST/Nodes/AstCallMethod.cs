@@ -5,10 +5,10 @@ using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
-/// <summary>
-/// The ast call method.
-/// </summary>
 
+/// <summary>
+///   The ast call method.
+/// </summary>
 internal class AstCallMethod : IAstRefOrValue
 {
   public List<IAstStackItem> Arguments;
@@ -18,7 +18,7 @@ internal class AstCallMethod : IAstRefOrValue
   public MethodInfo MethodInfo;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="AstCallMethod"/> class.
+  ///   Initializes a new instance of the <see cref="AstCallMethod" /> class.
   /// </summary>
   /// <param name="methodInfo">The method info.</param>
   /// <param name="invocationObject">The invocation object.</param>
@@ -34,12 +34,11 @@ internal class AstCallMethod : IAstRefOrValue
   }
 
   /// <summary>
-  /// Gets the item type.
+  ///   Gets the item type.
   /// </summary>
   public Type ItemType => MethodInfo.ReturnType;
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="context">The context.</param>
   public virtual void Compile(CompilationContext context)

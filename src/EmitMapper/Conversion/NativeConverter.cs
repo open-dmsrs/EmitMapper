@@ -8,10 +8,10 @@ using EmitMapper.AST.Nodes;
 using EmitMapper.Utils;
 
 namespace EmitMapper.Conversion;
-/// <summary>
-/// The native converter.
-/// </summary>
 
+/// <summary>
+///   The native converter.
+/// </summary>
 internal class NativeConverter
 {
   private static readonly Type[] _ConvertTypes =
@@ -35,7 +35,7 @@ internal class NativeConverter
     new(new TypesPair());
 
   /// <summary>
-  /// Converts the <see cref="IAstRefOrValue"/>.
+  ///   Converts the <see cref="IAstRefOrValue" />.
   /// </summary>
   /// <param name="destinationType">The destination type.</param>
   /// <param name="sourceType">The source type.</param>
@@ -68,7 +68,7 @@ internal class NativeConverter
   }
 
   /// <summary>
-  /// Are the native convertion possible.
+  ///   Are the native convertion possible.
   /// </summary>
   /// <param name="f">The f.</param>
   /// <param name="t">The t.</param>
@@ -114,7 +114,7 @@ internal class NativeConverter
   }
 
   /// <summary>
-  /// Objects the to string.
+  ///   Objects the to string.
   /// </summary>
   /// <param name="obj">The obj.</param>
   /// <returns>A string.</returns>

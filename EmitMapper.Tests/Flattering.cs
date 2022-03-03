@@ -6,13 +6,12 @@ using Xunit;
 namespace EmitMapper.Tests;
 
 /// <summary>
-/// The flattering.
+///   The flattering.
 /// </summary>
-
 public class Flattering
 {
   /// <summary>
-  /// Tests the flattering1.
+  ///   Tests the flattering1.
   /// </summary>
   [Fact]
   public void TestFlattering1()
@@ -51,7 +50,7 @@ public class Flattering
   }
 
   /// <summary>
-  /// The destination.
+  ///   The destination.
   /// </summary>
   public class Destination
   {
@@ -60,21 +59,21 @@ public class Flattering
   }
 
   /// <summary>
-  /// The source.
+  ///   The source.
   /// </summary>
   public class Source
   {
     public InnerSourceClass InnerSource = new();
 
     /// <summary>
-    /// The inner source class.
+    ///   The inner source class.
     /// </summary>
     public class InnerSourceClass
     {
       public string Message = "message's value";
 
       /// <summary>
-      /// Gets the message2.
+      ///   Gets the message2.
       /// </summary>
       /// <returns>A string.</returns>
       public string GetMessage2()

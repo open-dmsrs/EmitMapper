@@ -3,10 +3,10 @@ using BenchmarkDotNet.Configs;
 using EmitMapper.Benchmarks.TestObject;
 
 namespace EmitMapper.Benchmarks;
-/// <summary>
-/// The hard code mapper.
-/// </summary>
 
+/// <summary>
+///   The hard code mapper.
+/// </summary>
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 [KurtosisColumn]
 [MediumRunJob]
@@ -15,7 +15,7 @@ namespace EmitMapper.Benchmarks;
 public class HardCodeMapper
 {
   /// <summary>
-  /// Hards the map.
+  ///   Hards the map.
   /// </summary>
   /// <param name="inner">The inner.</param>
   /// <returns>A BenchNestedDestination.Inner1.</returns>
@@ -34,7 +34,7 @@ public class HardCodeMapper
   }
 
   /// <summary>
-  /// Hards the map.
+  ///   Hards the map.
   /// </summary>
   /// <param name="inner">The inner.</param>
   /// <returns>A BenchNestedDestination.Inner2.</returns>
@@ -49,7 +49,7 @@ public class HardCodeMapper
   }
 
   /// <summary>
-  /// Hards the map.
+  ///   Hards the map.
   /// </summary>
   /// <param name="s">The s.</param>
   /// <returns>A BenchNestedDestination.</returns>
@@ -85,7 +85,7 @@ public class HardCodeMapper
   }
 
   /// <summary>
-  /// Hards the map.
+  ///   Hards the map.
   /// </summary>
   /// <param name="s">The s.</param>
   /// <returns>A SimpleTypesDestination.</returns>

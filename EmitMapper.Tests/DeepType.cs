@@ -6,16 +6,16 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace EmitMapper.Tests;
-/// <summary>
-/// The deep type.
-/// </summary>
 
+/// <summary>
+///   The deep type.
+/// </summary>
 public class DeepType : IDisposable
 {
   private readonly ITestOutputHelper _testOutputHelper;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="DeepType"/> class.
+  ///   Initializes a new instance of the <see cref="DeepType" /> class.
   /// </summary>
   /// <param name="testOutputHelper">The test output helper.</param>
   public DeepType(ITestOutputHelper testOutputHelper)
@@ -24,14 +24,13 @@ public class DeepType : IDisposable
   }
 
   /// <summary>
-  /// 
   /// </summary>
   public void Dispose()
   {
   }
 
   /// <summary>
-  /// Test_s the deep type copy.
+  ///   Test_s the deep type copy.
   /// </summary>
   [Fact]
   public void Test_DeepTypeCopy()
@@ -74,7 +73,6 @@ public class DeepType : IDisposable
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="a">The a.</param>
   /// <param name="ad">The ad.</param>
@@ -86,11 +84,9 @@ public class DeepType : IDisposable
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="a">The a.</param>
   /// <param name="ad">The ad.</param>
-
   private static void IsSame(Address a, Address ad)
   {
     a.Id.ShouldBe(ad.Id);

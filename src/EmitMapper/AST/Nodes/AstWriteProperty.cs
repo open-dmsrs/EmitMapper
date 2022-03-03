@@ -5,10 +5,10 @@ using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
-/// <summary>
-/// The ast write property.
-/// </summary>
 
+/// <summary>
+///   The ast write property.
+/// </summary>
 internal class AstWriteProperty : IAstNode
 {
   private readonly PropertyInfo _propertyInfo;
@@ -20,7 +20,7 @@ internal class AstWriteProperty : IAstNode
   private readonly IAstRefOrValue _value;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="AstWriteProperty"/> class.
+  ///   Initializes a new instance of the <see cref="AstWriteProperty" /> class.
   /// </summary>
   /// <param name="targetObject">The target object.</param>
   /// <param name="value">The value.</param>
@@ -40,7 +40,6 @@ internal class AstWriteProperty : IAstNode
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="context">The context.</param>
   public void Compile(CompilationContext context)

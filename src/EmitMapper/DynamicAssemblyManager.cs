@@ -20,7 +20,7 @@ public class DynamicAssemblyManager
   private static readonly ModuleBuilder _ModuleBuilder;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="DynamicAssemblyManager"/> class.
+  ///   Initializes a new instance of the <see cref="DynamicAssemblyManager" /> class.
   /// </summary>
   static DynamicAssemblyManager()
   {
@@ -59,7 +59,7 @@ public class DynamicAssemblyManager
   }
 
   /// <summary>
-  /// Defines the mapper type.
+  ///   Defines the mapper type.
   /// </summary>
   /// <param name="typeName">The type name.</param>
   /// <returns>A TypeBuilder.</returns>
@@ -76,7 +76,7 @@ public class DynamicAssemblyManager
   }
 
   /// <summary>
-  /// Defines the type.
+  ///   Defines the type.
   /// </summary>
   /// <param name="typeName">The type name.</param>
   /// <param name="parent">The parent.</param>
@@ -90,7 +90,7 @@ public class DynamicAssemblyManager
   }
 
   /// <summary>
-  /// Corrects the type name.
+  ///   Corrects the type name.
   /// </summary>
   /// <param name="typeName">The type name.</param>
   /// <returns>A string.</returns>

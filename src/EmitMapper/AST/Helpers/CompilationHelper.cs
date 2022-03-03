@@ -5,14 +5,14 @@ using System.Reflection.Emit;
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Helpers;
-/// <summary>
-/// The compilation helper.
-/// </summary>
 
+/// <summary>
+///   The compilation helper.
+/// </summary>
 internal static class CompilationHelper
 {
   /// <summary>
-  /// Checks the is ref.
+  ///   Checks the is ref.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <exception cref="ILCompilationException"></exception>
@@ -23,7 +23,7 @@ internal static class CompilationHelper
   }
 
   /// <summary>
-  /// Checks the is value.
+  ///   Checks the is value.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <exception cref="ILCompilationException"></exception>
@@ -34,7 +34,7 @@ internal static class CompilationHelper
   }
 
   /// <summary>
-  /// Emits the call.
+  ///   Emits the call.
   /// </summary>
   /// <param name="context">The context.</param>
   /// <param name="invocationObject">The invocation object.</param>
@@ -67,7 +67,7 @@ internal static class CompilationHelper
   }
 
   /// <summary>
-  /// Prepares the value on stack.
+  ///   Prepares the value on stack.
   /// </summary>
   /// <param name="context">The context.</param>
   /// <param name="desiredType">The desired type.</param>

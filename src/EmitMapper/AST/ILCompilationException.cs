@@ -1,14 +1,14 @@
 ﻿using System;
 
 namespace EmitMapper.AST;
-/// <summary>
-/// The i l compilation exception.
-/// </summary>
 
+/// <summary>
+///   The i l compilation exception.
+/// </summary>
 internal class ILCompilationException : Exception
 {
   /// <summary>
-  /// Initializes a new instance of the <see cref="ILCompilationException"/> class.
+  ///   Initializes a new instance of the <see cref="ILCompilationException" /> class.
   /// </summary>
   /// <param name="message">The message.</param>
   public ILCompilationException(string message)
@@ -17,7 +17,7 @@ internal class ILCompilationException : Exception
   }
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="ILCompilationException"/> class.
+  ///   Initializes a new instance of the <see cref="ILCompilationException" /> class.
   /// </summary>
   /// <param name="message">The message.</param>
   /// <param name="p">The p.</param>
@@ -27,14 +27,14 @@ internal class ILCompilationException : Exception
   }
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="ILCompilationException"/> class.
+  ///   Initializes a new instance of the <see cref="ILCompilationException" /> class.
   /// </summary>
   public ILCompilationException()
   {
   }
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="ILCompilationException"/> class.
+  ///   Initializes a new instance of the <see cref="ILCompilationException" /> class.
   /// </summary>
   /// <param name="message">The message.</param>
   /// <param name="innerException">The inner exception.</param>

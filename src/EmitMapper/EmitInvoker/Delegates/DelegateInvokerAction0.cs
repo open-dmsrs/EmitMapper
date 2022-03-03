@@ -4,7 +4,7 @@
 public abstract class DelegateInvokerAction0 : DelegateInvokerBase
 {
   /// <summary>
-  /// Calls the action.
+  ///   Calls the action.
   /// </summary>
   public abstract void CallAction();
 }

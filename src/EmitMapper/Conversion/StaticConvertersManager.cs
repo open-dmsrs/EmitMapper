@@ -6,10 +6,10 @@ using EmitMapper.EmitInvoker.Methods;
 using EmitMapper.Utils;
 
 namespace EmitMapper.Conversion;
-/// <summary>
-/// The static converters manager.
-/// </summary>
 
+/// <summary>
+///   The static converters manager.
+/// </summary>
 public class StaticConvertersManager
 {
   private static readonly LazyConcurrentDictionary<MethodInfo, Func<object, object>> _ConvertersFunc = new();
@@ -23,7 +23,7 @@ public class StaticConvertersManager
   private readonly List<Func<Type, Type, MethodInfo>> _typesMethodsFunc = new();
 
   /// <summary>
-  /// Gets the default instance.
+  ///   Gets the default instance.
   /// </summary>
   public static StaticConvertersManager DefaultInstance
   {
@@ -47,7 +47,7 @@ public class StaticConvertersManager
   }
 
   /// <summary>
-  /// Adds the converter class.
+  ///   Adds the converter class.
   /// </summary>
   /// <param name="converterClass">The converter class.</param>
   public void AddConverterClass(Type converterClass)
@@ -62,7 +62,7 @@ public class StaticConvertersManager
   }
 
   /// <summary>
-  /// Adds the converter func.
+  ///   Adds the converter func.
   /// </summary>
   /// <param name="converterFunc">The converter func.</param>
   public void AddConverterFunc(Func<Type, Type, MethodInfo> converterFunc)
@@ -71,7 +71,7 @@ public class StaticConvertersManager
   }
 
   /// <summary>
-  /// Gets the static converter.
+  ///   Gets the static converter.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -95,7 +95,7 @@ public class StaticConvertersManager
   }
 
   /// <summary>
-  /// Gets the static converter func.
+  ///   Gets the static converter func.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>

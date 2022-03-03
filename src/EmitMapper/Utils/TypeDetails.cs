@@ -23,7 +23,7 @@ public class TypeDetails
   private MemberInfo[] _writeAccessors;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="TypeDetails"/> class.
+  ///   Initializes a new instance of the <see cref="TypeDetails" /> class.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="config">The config.</param>
@@ -34,32 +34,32 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Gets the config.
+  ///   Gets the config.
   /// </summary>
   public ProfileMap Config { get; }
 
   /// <summary>
-  /// Gets the constructors.
+  ///   Gets the constructors.
   /// </summary>
   public ConstructorParameters[] Constructors => _constructors ??= GetConstructors();
 
   /// <summary>
-  /// Gets the read accessors.
+  ///   Gets the read accessors.
   /// </summary>
   public MemberInfo[] ReadAccessors => _readAccessors ??= BuildReadAccessors();
 
   /// <summary>
-  /// Gets the type.
+  ///   Gets the type.
   /// </summary>
   public Type Type { get; }
 
   /// <summary>
-  /// Gets the write accessors.
+  ///   Gets the write accessors.
   /// </summary>
   public MemberInfo[] WriteAccessors => _writeAccessors ??= BuildWriteAccessors();
 
   /// <summary>
-  /// Gets the constructors.
+  ///   Gets the constructors.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="profileMap">The profile map.</param>
@@ -71,7 +71,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Possibles the names.
+  ///   Possibles the names.
   /// </summary>
   /// <param name="memberName">The member name.</param>
   /// <param name="prefixes">The prefixes.</param>
@@ -94,7 +94,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Gets the member.
+  ///   Gets the member.
   /// </summary>
   /// <param name="name">The name.</param>
   /// <returns>A MemberInfo.</returns>
@@ -106,7 +106,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Field readable.
+  ///   Field readable.
   /// </summary>
   /// <param name="fieldInfo">The field info.</param>
   /// <returns>A bool.</returns>
@@ -116,7 +116,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Field writable.
+  ///   Field writable.
   /// </summary>
   /// <param name="fieldInfo">The field info.</param>
   /// <returns>A bool.</returns>
@@ -126,7 +126,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Posts the fixes.
+  ///   Posts the fixes.
   /// </summary>
   /// <param name="postfixes">The postfixes.</param>
   /// <param name="name">The name.</param>
@@ -142,7 +142,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Property readable.
+  ///   Property readable.
   /// </summary>
   /// <param name="propertyInfo">The property info.</param>
   /// <returns>A bool.</returns>
@@ -152,7 +152,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Property writable.
+  ///   Property writable.
   /// </summary>
   /// <param name="propertyInfo">The property info.</param>
   /// <returns>A bool.</returns>
@@ -162,7 +162,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Adds the methods.
+  ///   Adds the methods.
   /// </summary>
   /// <param name="accessors">The accessors.</param>
   /// <returns><![CDATA[IEnumerable<MemberInfo>]]></returns>
@@ -177,7 +177,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Builds the read accessors.
+  ///   Builds the read accessors.
   /// </summary>
   /// <returns>An array of MemberInfos</returns>
   private MemberInfo[] BuildReadAccessors()
@@ -193,7 +193,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Builds the write accessors.
+  ///   Builds the write accessors.
   /// </summary>
   /// <returns>An array of MemberInfos</returns>
   private MemberInfo[] BuildWriteAccessors()
@@ -211,7 +211,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Checks the pre postfixes.
+  ///   Checks the pre postfixes.
   /// </summary>
   /// <param name="nameToMember">The name to member.</param>
   /// <param name="member">The member.</param>
@@ -223,7 +223,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Gets the constructors.
+  ///   Gets the constructors.
   /// </summary>
   /// <returns>An array of ConstructorParameters</returns>
   private ConstructorParameters[] GetConstructors()
@@ -233,7 +233,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Gets the fields.
+  ///   Gets the fields.
   /// </summary>
   /// <param name="fieldAvailableFor">The field available for.</param>
   /// <returns><![CDATA[IEnumerable<MemberInfo>]]></returns>
@@ -245,7 +245,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Gets the properties.
+  ///   Gets the properties.
   /// </summary>
   /// <param name="propertyAvailableFor">The property available for.</param>
   /// <returns><![CDATA[IEnumerable<PropertyInfo>]]></returns>
@@ -257,7 +257,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Gets the public no arg extension methods.
+  ///   Gets the public no arg extension methods.
   /// </summary>
   /// <param name="sourceExtensionMethodSearch">The source extension method search.</param>
   /// <returns><![CDATA[IEnumerable<MethodInfo>]]></returns>
@@ -287,7 +287,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Gets the public no arg methods.
+  ///   Gets the public no arg methods.
   /// </summary>
   /// <returns><![CDATA[IEnumerable<MethodInfo>]]></returns>
   private IEnumerable<MethodInfo> GetPublicNoArgMethods()
@@ -298,7 +298,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Gets the type inheritance.
+  ///   Gets the type inheritance.
   /// </summary>
   /// <returns><![CDATA[IEnumerable<Type>]]></returns>
   private IEnumerable<Type> GetTypeInheritance()
@@ -309,7 +309,7 @@ public class TypeDetails
   }
 
   /// <summary>
-  /// Possibles the names.
+  ///   Possibles the names.
   /// </summary>
   /// <returns><![CDATA[Dictionary<string, MemberInfo>]]></returns>
   private Dictionary<string, MemberInfo> PossibleNames()

@@ -5,10 +5,10 @@ using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
-/// <summary>
-/// The ast write local.
-/// </summary>
 
+/// <summary>
+///   The ast write local.
+/// </summary>
 internal class AstWriteLocal : IAstNode
 {
   public int LocalIndex;
@@ -18,14 +18,14 @@ internal class AstWriteLocal : IAstNode
   public IAstRefOrValue Value;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="AstWriteLocal"/> class.
+  ///   Initializes a new instance of the <see cref="AstWriteLocal" /> class.
   /// </summary>
   public AstWriteLocal()
   {
   }
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="AstWriteLocal"/> class.
+  ///   Initializes a new instance of the <see cref="AstWriteLocal" /> class.
   /// </summary>
   /// <param name="loc">The loc.</param>
   /// <param name="value">The value.</param>
@@ -37,7 +37,6 @@ internal class AstWriteLocal : IAstNode
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="context">The context.</param>
   public void Compile(CompilationContext context)

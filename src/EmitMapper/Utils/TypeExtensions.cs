@@ -6,10 +6,10 @@ using System.Linq;
 using System.Reflection;
 
 namespace EmitMapper.Utils;
-/// <summary>
-/// The type extensions.
-/// </summary>
 
+/// <summary>
+///   The type extensions.
+/// </summary>
 public static class TypeExtensions
 {
   public const BindingFlags InstanceFlags =
@@ -19,7 +19,7 @@ public static class TypeExtensions
     BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
 
   /// <summary>
-  /// Bases the classes and interfaces.
+  ///   Bases the classes and interfaces.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns><![CDATA[IEnumerable<Type>]]></returns>
@@ -32,7 +32,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Checks the is derived from.
+  ///   Checks the is derived from.
   /// </summary>
   /// <param name="derivedType">The derived type.</param>
   /// <param name="baseType">The base type.</param>
@@ -45,7 +45,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Generics the parameters count.
+  ///   Generics the parameters count.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>An int.</returns>
@@ -55,7 +55,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the declared constructors.
+  ///   Gets the declared constructors.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns><![CDATA[IEnumerable<ConstructorInfo>]]></returns>
@@ -65,7 +65,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the field or property.
+  ///   Gets the field or property.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="name">The name.</param>
@@ -78,7 +78,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the generic interface.
+  ///   Gets the generic interface.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="genericInterface">The generic interface.</param>
@@ -95,7 +95,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the i collection type.
+  ///   Gets the i collection type.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>A Type.</returns>
@@ -105,7 +105,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the i enumerable type.
+  ///   Gets the i enumerable type.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>A Type.</returns>
@@ -115,7 +115,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the inherited field.
+  ///   Gets the inherited field.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="name">The name.</param>
@@ -127,7 +127,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the inherited method.
+  ///   Gets the inherited method.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="name">The name.</param>
@@ -143,7 +143,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the inherited property.
+  ///   Gets the inherited property.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="name">The name.</param>
@@ -155,7 +155,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the static method.
+  ///   Gets the static method.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="name">The name.</param>
@@ -166,7 +166,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Gets the type inheritance.
+  ///   Gets the type inheritance.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns><![CDATA[IEnumerable<Type>]]></returns>
@@ -181,7 +181,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Is collection.
+  ///   Is collection.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>A bool.</returns>
@@ -191,7 +191,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Is dynamic.
+  ///   Is dynamic.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>A bool.</returns>
@@ -201,7 +201,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Are the generic type.
+  ///   Are the generic type.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="genericType">The generic type.</param>
@@ -212,7 +212,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Are the list type.
+  ///   Are the list type.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>A bool.</returns>
@@ -222,7 +222,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Are the nullable type.
+  ///   Are the nullable type.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>A bool.</returns>
@@ -232,7 +232,7 @@ public static class TypeExtensions
   }
 
   /// <summary>
-  /// Statics the generic method.
+  ///   Statics the generic method.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="methodName">The method name.</param>

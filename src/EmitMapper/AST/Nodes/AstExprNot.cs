@@ -4,16 +4,16 @@ using EmitMapper.AST.Interfaces;
 using EmitMapper.Utils;
 
 namespace EmitMapper.AST.Nodes;
-/// <summary>
-/// The ast expr not.
-/// </summary>
 
+/// <summary>
+///   The ast expr not.
+/// </summary>
 internal class AstExprNot : IAstValue
 {
   private readonly IAstRefOrValue _value;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="AstExprNot"/> class.
+  ///   Initializes a new instance of the <see cref="AstExprNot" /> class.
   /// </summary>
   /// <param name="value">The value.</param>
   public AstExprNot(IAstRefOrValue value)
@@ -22,12 +22,11 @@ internal class AstExprNot : IAstValue
   }
 
   /// <summary>
-  /// Gets the item type.
+  ///   Gets the item type.
   /// </summary>
   public Type ItemType => Metadata<int>.Type;
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="context">The context.</param>
   public void Compile(CompilationContext context)

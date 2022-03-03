@@ -9,10 +9,10 @@ using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
 
 namespace EmitMapper.MappingConfiguration;
-/// <summary>
-/// The default map config.
-/// </summary>
 
+/// <summary>
+///   The default map config.
+/// </summary>
 public class DefaultMapConfig : MapConfigBaseImpl
 {
   private readonly List<string> _deepCopyMembers = new();
@@ -26,7 +26,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   private bool _shallowCopy;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="DefaultMapConfig"/> class.
+  ///   Initializes a new instance of the <see cref="DefaultMapConfig" /> class.
   /// </summary>
   static DefaultMapConfig()
   {
@@ -34,7 +34,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="DefaultMapConfig"/> class.
+  ///   Initializes a new instance of the <see cref="DefaultMapConfig" /> class.
   /// </summary>
   public DefaultMapConfig()
   {
@@ -43,7 +43,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Gets the instance.
+  ///   Gets the instance.
   /// </summary>
   public static DefaultMapConfig Instance { get; }
 
@@ -84,7 +84,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Gets the configuration name.
+  ///   Gets the configuration name.
   /// </summary>
   /// <returns>A string.</returns>
   public override string GetConfigurationName()
@@ -96,7 +96,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Gets the mapping operations.
+  ///   Gets the mapping operations.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -107,7 +107,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Gets the root mapping operation.
+  ///   Gets the root mapping operation.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -172,7 +172,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Match members.
+  ///   Match members.
   /// </summary>
   /// <param name="m1">The m1.</param>
   /// <param name="m2">The m2.</param>
@@ -183,7 +183,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Are the native deep copy.
+  ///   Are the native deep copy.
   /// </summary>
   /// <param name="typeFrom">The type from.</param>
   /// <param name="typeTo">The type to.</param>
@@ -206,7 +206,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Creates the mapping operation.
+  ///   Creates the mapping operation.
   /// </summary>
   /// <param name="processedTypes">The processed types.</param>
   /// <param name="fromRoot">The from root.</param>
@@ -273,7 +273,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Gets the mapping items.
+  ///   Gets the mapping items.
   /// </summary>
   /// <param name="processedTypes">The processed types.</param>
   /// <param name="fromRoot">The from root.</param>
@@ -346,7 +346,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Are the shallow copy.
+  ///   Are the shallow copy.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -363,7 +363,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Are the shallow copy.
+  ///   Are the shallow copy.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -374,7 +374,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Mappings the item name in list.
+  ///   Mappings the item name in list.
   /// </summary>
   /// <param name="list">The list.</param>
   /// <param name="mo">The mo.</param>
@@ -388,7 +388,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Mappings the item type in list.
+  ///   Mappings the item type in list.
   /// </summary>
   /// <param name="list">The list.</param>
   /// <param name="mo">The mo.</param>
@@ -401,7 +401,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Types the in list.
+  ///   Types the in list.
   /// </summary>
   /// <param name="list">The list.</param>
   /// <param name="t">The t.</param>

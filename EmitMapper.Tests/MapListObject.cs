@@ -15,16 +15,16 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace EmitMapper.Tests;
-/// <summary>
-/// The map list object.
-/// </summary>
 
+/// <summary>
+///   The map list object.
+/// </summary>
 public class MapListObject
 {
   private readonly ITestOutputHelper _testOutputHelper;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="MapListObject"/> class.
+  ///   Initializes a new instance of the <see cref="MapListObject" /> class.
   /// </summary>
   /// <param name="testOutputHelper">The test output helper.</param>
   public MapListObject(ITestOutputHelper testOutputHelper)
@@ -33,7 +33,7 @@ public class MapListObject
   }
 
   /// <summary>
-  /// Converts the char to int32.
+  ///   Converts the char to int32.
   /// </summary>
   [Fact]
   public void ConvertCharToInt32()
@@ -45,7 +45,7 @@ public class MapListObject
   }
 
   /// <summary>
-  /// Test_s the emit mapper_ map_ list object.
+  ///   Test_s the emit mapper_ map_ list object.
   /// </summary>
   /// <param name="listFrom">The list from.</param>
   [Theory]
@@ -88,7 +88,7 @@ public class MapListObject
   }
 
   /// <summary>
-  /// Test_s the emit mapper_ map enum.
+  ///   Test_s the emit mapper_ map enum.
   /// </summary>
   [Fact]
   public void Test_EmitMapper_MapEnum()
@@ -111,7 +111,26 @@ public class MapListObject
   }
 
   /// <summary>
-  /// 
+  ///   Gets the member value.
+  /// </summary>
+  /// <param name="member">The member.</param>
+  /// <param name="target">The target.</param>
+  /// <exception cref="ArgumentNullException"></exception>
+  /// <exception cref="ArgumentOutOfRangeException"></exception>
+  /// <returns><![CDATA[KeyValuePair<string, object>]]></returns>
+  public static KeyValuePair<string, object> GetMemberValue(MemberInfo member, object target)
+  {
+    return member switch
+    {
+      PropertyInfo property => KeyValuePair.Create(property.Name, property.GetValue(target)),
+      MethodInfo method => KeyValuePair.Create(method.Name, method.Invoke(target, null)),
+      FieldInfo field => KeyValuePair.Create(field.Name, field.GetValue(target)),
+      null => throw new ArgumentNullException(nameof(member)),
+      _ => throw new ArgumentOutOfRangeException(nameof(member))
+    };
+  }
+
+  /// <summary>
   /// </summary>
   /// <param name="sources">The sources.</param>
   /// <param name="destinations">The destinations.</param>
@@ -123,7 +142,6 @@ public class MapListObject
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="source">The source.</param>
   /// <param name="destination">The destination.</param>
@@ -149,28 +167,7 @@ public class MapListObject
   }
 
   /// <summary>
-  /// Gets the member value.
-  /// </summary>
-  /// <param name="member">The member.</param>
-  /// <param name="target">The target.</param>
-  /// <exception cref="ArgumentNullException"></exception>
-  /// <exception cref="ArgumentOutOfRangeException"></exception>
-  /// <returns><![CDATA[KeyValuePair<string, object>]]></returns>
-  public static KeyValuePair<string, object> GetMemberValue(MemberInfo member, object target)
-  {
-    return member switch
-    {
-      PropertyInfo property => KeyValuePair.Create(property.Name, property.GetValue(target)),
-      MethodInfo method => KeyValuePair.Create(method.Name, method.Invoke(target, null)),
-      FieldInfo field => KeyValuePair.Create(field.Name, field.GetValue(target)),
-      null => throw new ArgumentNullException(nameof(member)),
-      _ => throw new ArgumentOutOfRangeException(nameof(member))
-    };
-  }
-
-
-  /// <summary>
-  /// Test_s the emit mapper_ map_ array list_ nested fields.
+  ///   Test_s the emit mapper_ map_ array list_ nested fields.
   /// </summary>
   /// <param name="list">The list.</param>
   [AutoData]
@@ -219,21 +216,21 @@ public class MapListObject
   }
 
   /// <summary>
-  /// The from class.
+  ///   The from class.
   /// </summary>
   public class FromClass
   {
     public InnerClass Inner = new();
 
     /// <summary>
-    /// The inner class.
+    ///   The inner class.
     /// </summary>
     public class InnerClass
     {
       public string Message = "hello";
 
       /// <summary>
-      /// Gets the message2.
+      ///   Gets the message2.
       /// </summary>
       /// <returns>A string.</returns>
       public string GetMessage2()
@@ -244,7 +241,7 @@ public class MapListObject
   }
 
   /// <summary>
-  /// The random double precision floating point sequence generator.
+  ///   The random double precision floating point sequence generator.
   /// </summary>
   internal class RandomDoublePrecisionFloatingPointSequenceGenerator : ISpecimenBuilder
   {
@@ -252,7 +249,7 @@ public class MapListObject
     private readonly object syncRoot;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RandomDoublePrecisionFloatingPointSequenceGenerator"/> class.
+    ///   Initializes a new instance of the <see cref="RandomDoublePrecisionFloatingPointSequenceGenerator" /> class.
     /// </summary>
     internal RandomDoublePrecisionFloatingPointSequenceGenerator()
     {
@@ -261,7 +258,6 @@ public class MapListObject
     }
 
     /// <summary>
-    /// 
     /// </summary>
     /// <param name="request">The request.</param>
     /// <param name="context">The context.</param>
@@ -277,7 +273,7 @@ public class MapListObject
     }
 
     /// <summary>
-    /// Creates the random.
+    ///   Creates the random.
     /// </summary>
     /// <param name="request">The request.</param>
     /// <returns>An object.</returns>
@@ -300,7 +296,7 @@ public class MapListObject
     }
 
     /// <summary>
-    /// Gets the next random.
+    ///   Gets the next random.
     /// </summary>
     /// <returns>A double.</returns>
     private double GetNextRandom()
@@ -313,7 +309,7 @@ public class MapListObject
   }
 
   /// <summary>
-  /// The to class.
+  ///   The to class.
   /// </summary>
   public class ToClass
   {

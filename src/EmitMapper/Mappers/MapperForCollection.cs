@@ -30,7 +30,7 @@ public class MapperForCollection : CustomMapper
   private MapperDescription _subMapper;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="MapperForCollection"/> class.
+  ///   Initializes a new instance of the <see cref="MapperForCollection" /> class.
   /// </summary>
   protected MapperForCollection()
     : base(null, null, null, null, null)
@@ -84,7 +84,7 @@ public class MapperForCollection : CustomMapper
   }
 
   /// <summary>
-  /// Creates the target instance.
+  ///   Creates the target instance.
   /// </summary>
   /// <returns>An object.</returns>
   public override object CreateTargetInstance()
@@ -147,7 +147,7 @@ public class MapperForCollection : CustomMapper
   }
 
   /// <summary>
-  /// Gets the sub mapper type from.
+  ///   Gets the sub mapper type from.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <returns>A Type.</returns>
@@ -162,7 +162,7 @@ public class MapperForCollection : CustomMapper
   }
 
   /// <summary>
-  /// Gets the sub mapper type to.
+  ///   Gets the sub mapper type to.
   /// </summary>
   /// <param name="to">The to.</param>
   /// <returns>A Type.</returns>
@@ -186,7 +186,7 @@ public class MapperForCollection : CustomMapper
   }
 
   /// <summary>
-  /// Copies the to list.
+  ///   Copies the to list.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="from">The from.</param>
@@ -207,7 +207,7 @@ public class MapperForCollection : CustomMapper
   }
 
   /// <summary>
-  /// Copies the to list invoke.
+  ///   Copies the to list invoke.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <returns>An object.</returns>
@@ -217,7 +217,7 @@ public class MapperForCollection : CustomMapper
   }
 
   /// <summary>
-  /// Copies the to list scalar.
+  ///   Copies the to list scalar.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="from">The from.</param>
@@ -230,7 +230,7 @@ public class MapperForCollection : CustomMapper
   }
 
   /// <summary>
-  /// Copies the to list scalar invoke.
+  ///   Copies the to list scalar invoke.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <returns>An object.</returns>
@@ -240,7 +240,7 @@ public class MapperForCollection : CustomMapper
   }
 
   /// <summary>
-  /// Extracts the element type.
+  ///   Extracts the element type.
   /// </summary>
   /// <param name="collection">The collection.</param>
   /// <returns>A Type.</returns>
@@ -259,7 +259,7 @@ public class MapperForCollection : CustomMapper
   }
 
   /// <summary>
-  /// Invokes the copy impl.
+  ///   Invokes the copy impl.
   /// </summary>
   /// <param name="copiedObjectType">The copied object type.</param>
   /// <param name="copyMethod">The copy method.</param>
@@ -279,7 +279,7 @@ public class MapperForCollection : CustomMapper
   }
 
   /// <summary>
-  /// Copies the scalar to array.
+  ///   Copies the scalar to array.
   /// </summary>
   /// <param name="scalar">The scalar.</param>
   /// <returns>An Array.</returns>
@@ -292,7 +292,7 @@ public class MapperForCollection : CustomMapper
   }
 
   /// <summary>
-  /// Copies the to array.
+  ///   Copies the to array.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <returns>An Array.</returns>
@@ -320,7 +320,7 @@ public class MapperForCollection : CustomMapper
   }
 
   /// <summary>
-  /// Copies the to array list.
+  ///   Copies the to array list.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <returns>An ArrayList.</returns>
@@ -361,7 +361,7 @@ public class MapperForCollection : CustomMapper
   }
 
   /// <summary>
-  /// Copies the to array list scalar.
+  ///   Copies the to array list scalar.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <returns>An ArrayList.</returns>
@@ -383,7 +383,7 @@ public class MapperForCollection : CustomMapper
   }
 
   /// <summary>
-  /// Copies the to i list.
+  ///   Copies the to i list.
   /// </summary>
   /// <param name="iList">The i list.</param>
   /// <param name="from">The from.</param>

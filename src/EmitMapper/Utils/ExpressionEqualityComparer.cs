@@ -335,7 +335,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compare constant.
+    ///   Compare constant.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -346,7 +346,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compare binary.
+    ///   Compare binary.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -358,7 +358,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compare binding.
+    ///   Compare binding.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -395,7 +395,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compare block.
+    ///   Compare block.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -406,7 +406,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compares the catch block.
+    ///   Compares the catch block.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -418,7 +418,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compares the catch block list.
+    ///   Compares the catch block list.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -438,7 +438,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compare conditional.
+    ///   Compare conditional.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -449,7 +449,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compares the element init.
+    ///   Compares the element init.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -460,7 +460,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compares the element init list.
+    ///   Compares the element init list.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -480,7 +480,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compares the expression list.
+    ///   Compares the expression list.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -500,7 +500,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compare goto.
+    ///   Compare goto.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -511,7 +511,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compare index.
+    ///   Compare index.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -523,7 +523,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compare invocation.
+    ///   Compare invocation.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -534,7 +534,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compare label.
+    ///   Compare label.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -545,7 +545,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compare lambda.
+    ///   Compare lambda.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -581,7 +581,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compares the list init.
+    ///   Compares the list init.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -592,7 +592,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compare loop.
+    ///   Compare loop.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -603,7 +603,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compare member.
+    ///   Compare member.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -614,7 +614,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compares the member binding list.
+    ///   Compares the member binding list.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -634,7 +634,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compares the member init.
+    ///   Compares the member init.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -645,7 +645,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compares the member list.
+    ///   Compares the member list.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -665,7 +665,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compares the method call.
+    ///   Compares the method call.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -677,7 +677,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compare new.
+    ///   Compare new.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -689,7 +689,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compares the new array.
+    ///   Compares the new array.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -700,7 +700,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compare parameter.
+    ///   Compare parameter.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -713,7 +713,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compares the runtime variables.
+    ///   Compares the runtime variables.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -724,7 +724,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compare switch.
+    ///   Compare switch.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -737,7 +737,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compares the switch case.
+    ///   Compares the switch case.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -748,7 +748,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compares the switch case list.
+    ///   Compares the switch case list.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -768,7 +768,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compare try.
+    ///   Compare try.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -780,7 +780,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compares the type binary.
+    ///   Compares the type binary.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>
@@ -791,7 +791,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
     }
 
     /// <summary>
-    /// Compare unary.
+    ///   Compare unary.
     /// </summary>
     /// <param name="a">The a.</param>
     /// <param name="b">The b.</param>

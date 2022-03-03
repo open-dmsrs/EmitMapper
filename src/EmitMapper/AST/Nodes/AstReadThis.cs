@@ -2,21 +2,20 @@
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
-/// <summary>
-/// The ast read this.
-/// </summary>
 
+/// <summary>
+///   The ast read this.
+/// </summary>
 internal class AstReadThis : IAstRefOrAddr
 {
   public Type ThisType;
 
   /// <summary>
-  /// Gets the item type.
+  ///   Gets the item type.
   /// </summary>
   public Type ItemType => ThisType;
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="context">The context.</param>
   public virtual void Compile(CompilationContext context)

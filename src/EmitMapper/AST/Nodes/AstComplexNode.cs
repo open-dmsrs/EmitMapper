@@ -2,16 +2,15 @@
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
-/// <summary>
-/// The ast complex node.
-/// </summary>
 
+/// <summary>
+///   The ast complex node.
+/// </summary>
 internal class AstComplexNode : IAstNode
 {
   public List<IAstNode> Nodes = new();
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="context">The context.</param>
   public void Compile(CompilationContext context)

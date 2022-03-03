@@ -9,16 +9,16 @@ using EmitMapper.AST.Nodes;
 using EmitMapper.Utils;
 
 namespace EmitMapper.EmitInvoker.Methods;
-/// <summary>
-/// The method invoker.
-/// </summary>
 
+/// <summary>
+///   The method invoker.
+/// </summary>
 public static class MethodInvoker
 {
   private static readonly LazyConcurrentDictionary<string, Type> Cache = new();
 
   /// <summary>
-  /// Gets the method invoker.
+  ///   Gets the method invoker.
   /// </summary>
   /// <param name="targetObject">The target object.</param>
   /// <param name="mi">The mi.</param>
@@ -44,7 +44,7 @@ public static class MethodInvoker
   }
 
   /// <summary>
-  /// Builds the action caller type.
+  ///   Builds the action caller type.
   /// </summary>
   /// <param name="typeName">The type name.</param>
   /// <param name="mi">The mi.</param>
@@ -78,7 +78,7 @@ public static class MethodInvoker
   }
 
   /// <summary>
-  /// Builds the func caller type.
+  ///   Builds the func caller type.
   /// </summary>
   /// <param name="typeName">The type name.</param>
   /// <param name="mi">The mi.</param>
@@ -112,7 +112,7 @@ public static class MethodInvoker
   }
 
   /// <summary>
-  /// Creates the call method.
+  ///   Creates the call method.
   /// </summary>
   /// <param name="mi">The mi.</param>
   /// <param name="parameters">The parameters.</param>

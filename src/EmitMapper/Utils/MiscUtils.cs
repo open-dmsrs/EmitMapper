@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 
 namespace EmitMapper.Utils;
-/// <summary>
-/// The misc utils.
-/// </summary>
 
+/// <summary>
+///   The misc utils.
+/// </summary>
 internal static class MiscUtils
 {
   /// <summary>
-  /// Tos the csv.
+  ///   Tos the csv.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="collection">The collection.</param>

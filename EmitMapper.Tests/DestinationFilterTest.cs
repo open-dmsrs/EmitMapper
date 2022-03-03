@@ -3,14 +3,14 @@ using Shouldly;
 using Xunit;
 
 namespace EmitMapper.Tests;
-/// <summary>
-/// The destination filter test.
-/// </summary>
 
+/// <summary>
+///   The destination filter test.
+/// </summary>
 public class DestinationFilterTest
 {
   /// <summary>
-  /// Test_s the derived.
+  ///   Test_s the derived.
   /// </summary>
   [Fact]
   public void Test_Derived()
@@ -25,7 +25,7 @@ public class DestinationFilterTest
   }
 
   /// <summary>
-  /// Testdestinations the filter.
+  ///   Testdestinations the filter.
   /// </summary>
   [Fact]
   public void TestdestinationFilter()
@@ -51,7 +51,7 @@ public class DestinationFilterTest
   }
 
   /// <summary>
-  /// Testdestinations the filter1.
+  ///   Testdestinations the filter1.
   /// </summary>
   [Fact]
   public void TestdestinationFilter1()
@@ -77,7 +77,7 @@ public class DestinationFilterTest
   }
 
   /// <summary>
-  /// Tests the inheritence.
+  ///   Tests the inheritence.
   /// </summary>
   [Fact]
   public void TestInheritence()
@@ -91,7 +91,7 @@ public class DestinationFilterTest
   }
 
   /// <summary>
-  /// The base source.
+  ///   The base source.
   /// </summary>
   public class BaseSource
   {
@@ -101,22 +101,22 @@ public class DestinationFilterTest
   }
 
   /// <summary>
-  /// The derived.
+  ///   The derived.
   /// </summary>
   public class Derived : IDerived
   {
     /// <summary>
-    /// Gets or Sets the base property.
+    ///   Gets or Sets the base property.
     /// </summary>
     public string BaseProperty { get; set; }
     /// <summary>
-    /// Gets or Sets the derived property.
+    ///   Gets or Sets the derived property.
     /// </summary>
     public string DerivedProperty { get; set; }
   }
 
   /// <summary>
-  /// The derived source.
+  ///   The derived source.
   /// </summary>
   public class DerivedSource : BaseSource
   {
@@ -124,7 +124,7 @@ public class DestinationFilterTest
   }
 
   /// <summary>
-  /// The destination test filter dest.
+  ///   The destination test filter dest.
   /// </summary>
   public class DestinationTestFilterDest
   {
@@ -136,7 +136,7 @@ public class DestinationFilterTest
   }
 
   /// <summary>
-  /// The destination test filter src.
+  ///   The destination test filter src.
   /// </summary>
   public class DestinationTestFilterSrc
   {
@@ -148,7 +148,7 @@ public class DestinationFilterTest
   }
 
   /// <summary>
-  /// The inher destination.
+  ///   The inher destination.
   /// </summary>
   public class InherDestination
   {
@@ -158,38 +158,38 @@ public class DestinationFilterTest
   }
 
   /// <summary>
-  /// The target.
+  ///   The target.
   /// </summary>
   public class Target
   {
     /// <summary>
-    /// Gets or Sets the base property.
+    ///   Gets or Sets the base property.
     /// </summary>
     public string BaseProperty { get; set; }
     /// <summary>
-    /// Gets or Sets the derived property.
+    ///   Gets or Sets the derived property.
     /// </summary>
     public string DerivedProperty { get; set; }
   }
 
   /// <summary>
-  /// The base interface.
+  ///   The base interface.
   /// </summary>
   public interface IBase
   {
     /// <summary>
-    /// Gets or Sets the base property.
+    ///   Gets or Sets the base property.
     /// </summary>
     string BaseProperty { get; set; }
   }
 
   /// <summary>
-  /// The derived interface.
+  ///   The derived interface.
   /// </summary>
   public interface IDerived : IBase
   {
     /// <summary>
-    /// Gets or Sets the derived property.
+    ///   Gets or Sets the derived property.
     /// </summary>
     string DerivedProperty { get; set; }
   }

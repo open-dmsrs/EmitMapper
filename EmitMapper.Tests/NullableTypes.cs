@@ -6,13 +6,12 @@ using Xunit;
 namespace EmitMapper.Tests;
 
 /// <summary>
-/// The nullable types.
+///   The nullable types.
 /// </summary>
-
 public class NullableTypes
 {
   /// <summary>
-  /// Nullable_to_s the value.
+  ///   Nullable_to_s the value.
   /// </summary>
   [Fact]
   public void Nullable_to_Value()
@@ -31,7 +30,7 @@ public class NullableTypes
   }
 
   /// <summary>
-  /// Nullables the struct_to_ struct.
+  ///   Nullables the struct_to_ struct.
   /// </summary>
   [Fact]
   public void NullableStruct_to_Struct()
@@ -63,7 +62,7 @@ public class NullableTypes
   }
 
   /// <summary>
-  /// Struct_to_s the nullable struct.
+  ///   Struct_to_s the nullable struct.
   /// </summary>
   [Fact]
   public void Struct_to_NullableStruct()
@@ -75,7 +74,7 @@ public class NullableTypes
   }
 
   /// <summary>
-  /// Test_s the nullable.
+  ///   Test_s the nullable.
   /// </summary>
   [Fact]
   public void Test_Nullable()
@@ -90,7 +89,7 @@ public class NullableTypes
   }
 
   /// <summary>
-  /// Test_s the object_ nullable.
+  ///   Test_s the object_ nullable.
   /// </summary>
   [Fact]
   public void Test_Object_Nullable()
@@ -102,7 +101,7 @@ public class NullableTypes
   }
 
   /// <summary>
-  /// Test_s the object_ nullable7.
+  ///   Test_s the object_ nullable7.
   /// </summary>
   [Fact]
   public void Test_Object_Nullable7()
@@ -114,7 +113,7 @@ public class NullableTypes
   }
 
   /// <summary>
-  /// Value_to_s the nullable.
+  ///   Value_to_s the nullable.
   /// </summary>
   [Fact]
   public void Value_to_Nullable()
@@ -124,7 +123,7 @@ public class NullableTypes
   }
 
   /// <summary>
-  /// The a1.
+  ///   The a1.
   /// </summary>
   public class A1
   {
@@ -134,21 +133,21 @@ public class NullableTypes
     public Int1 I;
 
     /// <summary>
-    /// The int1.
+    ///   The int1.
     /// </summary>
     public class Int1
     {
       public string S;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="Int1"/> class.
+      ///   Initializes a new instance of the <see cref="Int1" /> class.
       /// </summary>
       public Int1()
       {
       }
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="Int1"/> class.
+      ///   Initializes a new instance of the <see cref="Int1" /> class.
       /// </summary>
       /// <param name="i">The i.</param>
       public Int1(int i)
@@ -159,7 +158,7 @@ public class NullableTypes
   }
 
   /// <summary>
-  /// The a2.
+  ///   The a2.
   /// </summary>
   public class A2
   {
@@ -167,7 +166,7 @@ public class NullableTypes
   }
 
   /// <summary>
-  /// The a3.
+  ///   The a3.
   /// </summary>
   public class A3
   {
@@ -178,7 +177,7 @@ public class NullableTypes
     public AInt Fld7;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="A3"/> class.
+    ///   Initializes a new instance of the <see cref="A3" /> class.
     /// </summary>
     public A3()
     {
@@ -188,11 +187,11 @@ public class NullableTypes
     }
 
     /// <summary>
-    /// Gets or Sets the fld2.
+    ///   Gets or Sets the fld2.
     /// </summary>
     public AInt? Fld2 { get; set; }
     /// <summary>
-    /// Gets or Sets the fld3.
+    ///   Gets or Sets the fld3.
     /// </summary>
     public AInt? Fld3 { get; set; }
 
@@ -205,7 +204,7 @@ public class NullableTypes
   }
 
   /// <summary>
-  /// The a4.
+  ///   The a4.
   /// </summary>
   public class A4
   {
@@ -218,7 +217,7 @@ public class NullableTypes
   }
 
   /// <summary>
-  /// The a5.
+  ///   The a5.
   /// </summary>
   public class A5
   {
@@ -230,7 +229,7 @@ public class NullableTypes
     public int? Fld6 = null;
 
     /// <summary>
-    /// The en.
+    ///   The en.
     /// </summary>
     public enum En
     {
@@ -241,33 +240,33 @@ public class NullableTypes
   }
 
   /// <summary>
-  /// The a6.
+  ///   The a6.
   /// </summary>
   public class A6
   {
     /// <summary>
-    /// Gets or Sets the dt.
+    ///   Gets or Sets the dt.
     /// </summary>
     public DateTime? Dt { get; set; }
     /// <summary>
-    /// Gets or Sets the i.
+    ///   Gets or Sets the i.
     /// </summary>
     public int? I { get; set; }
   }
 
   /// <summary>
-  /// The a7.
+  ///   The a7.
   /// </summary>
   public class A7
   {
     /// <summary>
-    /// Gets or Sets the i.
+    ///   Gets or Sets the i.
     /// </summary>
     public int? I { get; set; }
   }
 
   /// <summary>
-  /// The b1.
+  ///   The b1.
   /// </summary>
   public class B1
   {
@@ -277,7 +276,7 @@ public class NullableTypes
     public Int1 I;
 
     /// <summary>
-    /// The int1.
+    ///   The int1.
     /// </summary>
     public class Int1
     {
@@ -286,7 +285,7 @@ public class NullableTypes
   }
 
   /// <summary>
-  /// The b2.
+  ///   The b2.
   /// </summary>
   public class B2
   {
@@ -294,7 +293,7 @@ public class NullableTypes
   }
 
   /// <summary>
-  /// The b3.
+  ///   The b3.
   /// </summary>
   public class B3
   {
@@ -304,11 +303,11 @@ public class NullableTypes
     public BInt Fld6;
     public BInt? Fld7;
     /// <summary>
-    /// Gets or Sets the fld2.
+    ///   Gets or Sets the fld2.
     /// </summary>
     public BInt? Fld2 { get; set; }
     /// <summary>
-    /// Gets or Sets the fld4.
+    ///   Gets or Sets the fld4.
     /// </summary>
     public BInt? Fld4 { get; set; }
 
@@ -320,7 +319,7 @@ public class NullableTypes
   }
 
   /// <summary>
-  /// The b4.
+  ///   The b4.
   /// </summary>
   public class B4
   {
@@ -333,7 +332,7 @@ public class NullableTypes
   }
 
   /// <summary>
-  /// The b5.
+  ///   The b5.
   /// </summary>
   public class B5
   {
@@ -345,7 +344,7 @@ public class NullableTypes
     public string Fld6 = "11";
 
     /// <summary>
-    /// The en.
+    ///   The en.
     /// </summary>
     public enum En
     {
@@ -356,14 +355,14 @@ public class NullableTypes
   }
 
   /// <summary>
-  /// The b6.
+  ///   The b6.
   /// </summary>
   public class B6
   {
   }
 
   /// <summary>
-  /// The b7.
+  ///   The b7.
   /// </summary>
   public class B7
   {

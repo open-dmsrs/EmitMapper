@@ -5,14 +5,14 @@ using Shouldly;
 using Xunit;
 
 namespace SamplesTests;
-/// <summary>
-/// The flattering.
-/// </summary>
 
+/// <summary>
+///   The flattering.
+/// </summary>
 public class Flattering
 {
   /// <summary>
-  /// Tests the flattering.
+  ///   Tests the flattering.
   /// </summary>
   [Fact]
   public void TestFlattering()
@@ -42,34 +42,34 @@ public class Flattering
   }
 
   /// <summary>
-  /// The model dto.
+  ///   The model dto.
   /// </summary>
   public class ModelDto
   {
     public string TestMethod1;
 
     /// <summary>
-    /// Gets or Sets the base date.
+    ///   Gets or Sets the base date.
     /// </summary>
     public DateTime BaseDate { get; set; }
 
     /// <summary>
-    /// Gets or Sets the sub2 proper name.
+    ///   Gets or Sets the sub2 proper name.
     /// </summary>
     public string Sub2ProperName { get; set; }
 
     /// <summary>
-    /// Gets or Sets the sub proper name.
+    ///   Gets or Sets the sub proper name.
     /// </summary>
     public string SubProperName { get; set; }
 
     /// <summary>
-    /// Gets or Sets the sub sub sub i am a cool property.
+    ///   Gets or Sets the sub sub sub i am a cool property.
     /// </summary>
     public string SubSubSubIAmACoolProperty { get; set; }
 
     /// <summary>
-    /// Gets or Sets the sub with extra name proper name.
+    ///   Gets or Sets the sub with extra name proper name.
     /// </summary>
     public string SubWithExtraNameProperName { get; set; }
 
@@ -84,39 +84,39 @@ public class Flattering
   }
 
   /// <summary>
-  /// The model object.
+  ///   The model object.
   /// </summary>
   public class ModelObject
   {
     /// <summary>
-    /// Gets or Sets the base date.
+    ///   Gets or Sets the base date.
     /// </summary>
     public DateTime BaseDate { get; set; }
 
     /// <summary>
-    /// Gets or Sets the sub.
+    ///   Gets or Sets the sub.
     /// </summary>
     public ModelSubObject Sub { get; set; }
 
     /// <summary>
-    /// Gets or Sets the sub2.
+    ///   Gets or Sets the sub2.
     /// </summary>
     public ModelSubObject Sub2 { get; set; }
 
     /// <summary>
-    /// Gets or Sets the sub with extra name.
+    ///   Gets or Sets the sub with extra name.
     /// </summary>
     public ModelSubObject SubWithExtraName { get; set; }
 
     /// <summary>
-    /// Tests the method.
+    ///   Tests the method.
     /// </summary>
     public void TestMethod()
     {
     }
 
     /// <summary>
-    /// Tests the method1.
+    ///   Tests the method1.
     /// </summary>
     /// <returns>A string.</returns>
     public string TestMethod1()
@@ -126,29 +126,29 @@ public class Flattering
   }
 
   /// <summary>
-  /// The model sub object.
+  ///   The model sub object.
   /// </summary>
   public class ModelSubObject
   {
     /// <summary>
-    /// Gets or Sets the proper name.
+    ///   Gets or Sets the proper name.
     /// </summary>
     public string ProperName { get; set; }
 
     /// <summary>
-    /// Gets or Sets the sub sub.
+    ///   Gets or Sets the sub sub.
     /// </summary>
     public ModelSubSubObject SubSub { get; set; }
 
     /// <summary>
-    /// Tests the method.
+    ///   Tests the method.
     /// </summary>
     public void TestMethod()
     {
     }
 
     /// <summary>
-    /// Tests the method1.
+    ///   Tests the method1.
     /// </summary>
     /// <returns>A string.</returns>
     public string TestMethod1()
@@ -158,12 +158,12 @@ public class Flattering
   }
 
   /// <summary>
-  /// The model sub sub object.
+  ///   The model sub sub object.
   /// </summary>
   public class ModelSubSubObject
   {
     /// <summary>
-    /// Gets or Sets the i am a cool property.
+    ///   Gets or Sets the i am a cool property.
     /// </summary>
     public string IAmACoolProperty { get; set; }
   }

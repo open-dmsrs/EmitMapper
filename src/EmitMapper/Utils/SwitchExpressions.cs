@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
 
 namespace EmitMapper.Utils;
-/// <summary>
-/// The switch expressions.
-/// </summary>
 
+/// <summary>
+///   The switch expressions.
+/// </summary>
 public static class SwitchExpressions
 {
   /// <summary>
-  /// Cases the SwitchExpression.
+  ///   Cases the SwitchExpression.
   /// </summary>
   /// <typeparam name="TSwitch"></typeparam>
   /// <typeparam name="TResult"></typeparam>
@@ -28,7 +28,7 @@ public static class SwitchExpressions
   }
 
   /// <summary>
-  /// Cases the TypeCaseSwitchExpression.
+  ///   Cases the TypeCaseSwitchExpression.
   /// </summary>
   /// <typeparam name="TType"></typeparam>
   /// <typeparam name="TResult"></typeparam>
@@ -43,7 +43,7 @@ public static class SwitchExpressions
   }
 
   /// <summary>
-  /// Defaults the CompletedSwitchExpression.
+  ///   Defaults the CompletedSwitchExpression.
   /// </summary>
   /// <typeparam name="TResult"></typeparam>
   /// <param name="result">The result.</param>
@@ -54,7 +54,7 @@ public static class SwitchExpressions
   }
 
   /// <summary>
-  /// Defaults the throw.
+  ///   Defaults the throw.
   /// </summary>
   /// <param name="exception">The exception.</param>
   /// <returns>A DefaultThrowExpression.</returns>
@@ -67,7 +67,7 @@ public static class SwitchExpressions
   }
 
   /// <summary>
-  /// Switches the SwitchExpression.
+  ///   Switches the SwitchExpression.
   /// </summary>
   /// <typeparam name="TSwitch"></typeparam>
   /// <param name="on">The on.</param>
@@ -81,7 +81,7 @@ public static class SwitchExpressions
   public struct BooleanSwitchExpression<TResult>
   {
     /// <summary>
-    /// Initializes a new instance of the <see cref="BooleanSwitchExpression&lt;TResult&gt;"/> class.
+    ///   Initializes a new instance of the <see cref="BooleanSwitchExpression&lt;TResult&gt;" /> class.
     /// </summary>
     /// <param name="condition">If true, condition.</param>
     /// <param name="valueFactory">The value factory.</param>
@@ -92,12 +92,12 @@ public static class SwitchExpressions
     }
 
     /// <summary>
-    /// Gets a value indicating whether condition.
+    ///   Gets a value indicating whether condition.
     /// </summary>
     internal bool Condition { get; }
 
     /// <summary>
-    /// Gets the value factory.
+    ///   Gets the value factory.
     /// </summary>
     internal Func<TResult> ValueFactory { get; }
   }
@@ -109,7 +109,7 @@ public static class SwitchExpressions
     private readonly TResult value;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CompletedSwitchExpression&lt;TResult&gt;"/> class.
+    ///   Initializes a new instance of the <see cref="CompletedSwitchExpression&lt;TResult&gt;" /> class.
     /// </summary>
     /// <param name="value">The value.</param>
     internal CompletedSwitchExpression(TResult value)
@@ -160,7 +160,7 @@ public static class SwitchExpressions
   public readonly struct SwitchExpression<TSwitch>
   {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SwitchExpression&lt;TSwitch&gt;"/> class.
+    ///   Initializes a new instance of the <see cref="SwitchExpression&lt;TSwitch&gt;" /> class.
     /// </summary>
     /// <param name="on">The on.</param>
     /// <param name="comparer">The comparer.</param>
@@ -171,12 +171,12 @@ public static class SwitchExpressions
     }
 
     /// <summary>
-    /// Gets the comparer.
+    ///   Gets the comparer.
     /// </summary>
     internal IEqualityComparer<TSwitch> Comparer { get; }
 
     /// <summary>
-    /// Gets the on.
+    ///   Gets the on.
     /// </summary>
     internal TSwitch On { get; }
 
@@ -202,7 +202,7 @@ public static class SwitchExpressions
     private TResult value;
 
     /// <summary>
-    /// The state.
+    ///   The state.
     /// </summary>
     private enum State : byte
     {
@@ -313,7 +313,7 @@ public static class SwitchExpressions
     }
 
     /// <summary>
-    /// Creates the case.
+    ///   Creates the case.
     /// </summary>
     /// <param name="matches">The matches.</param>
     /// <param name="valueFactory">The value factory.</param>
@@ -327,7 +327,7 @@ public static class SwitchExpressions
     }
 
     /// <summary>
-    /// Creates the case.
+    ///   Creates the case.
     /// </summary>
     /// <param name="switch">The switch.</param>
     /// <returns><![CDATA[SwitchExpression<TSwitch, TResult>]]></returns>
@@ -337,7 +337,7 @@ public static class SwitchExpressions
     }
 
     /// <summary>
-    /// Creates the case.
+    ///   Creates the case.
     /// </summary>
     /// <param name="switch">The switch.</param>
     /// <returns><![CDATA[SwitchExpression<TSwitch, TResult>]]></returns>
@@ -351,13 +351,13 @@ public static class SwitchExpressions
   }
 
   /// <summary>
-  /// The type case switch expression.
+  ///   The type case switch expression.
   /// </summary>
   /// <typeparam name="TResult"></typeparam>
   public abstract class TypeCaseSwitchExpression<TResult>
   {
     /// <summary>
-    /// Tries the get result.
+    ///   Tries the get result.
     /// </summary>
     /// <typeparam name="TSwitch"></typeparam>
     /// <param name="switchValue">The switch value.</param>
@@ -367,7 +367,7 @@ public static class SwitchExpressions
   }
 
   /// <summary>
-  /// The type case switch expression.
+  ///   The type case switch expression.
   /// </summary>
   /// <typeparam name="TType"></typeparam>
   /// <typeparam name="TResult"></typeparam>
@@ -376,7 +376,7 @@ public static class SwitchExpressions
     private readonly Func<TType, TResult> resultFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TypeCaseSwitchExpression&lt;TType, TResult&gt;"/> class.
+    ///   Initializes a new instance of the <see cref="TypeCaseSwitchExpression&lt;TType, TResult&gt;" /> class.
     /// </summary>
     /// <param name="resultFactory">The result factory.</param>
     public TypeCaseSwitchExpression(Func<TType, TResult> resultFactory)
@@ -385,7 +385,7 @@ public static class SwitchExpressions
     }
 
     /// <summary>
-    /// Tries the get result.
+    ///   Tries the get result.
     /// </summary>
     /// <typeparam name="TSwitch"></typeparam>
     /// <param name="switchValue">The switch value.</param>

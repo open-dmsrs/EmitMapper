@@ -1,8 +1,8 @@
 ﻿namespace SamplesTests;
-/// <summary>
-/// The test utils.
-/// </summary>
 
+/// <summary>
+///   The test utils.
+/// </summary>
 public static class TestUtils
 {
   //public static bool AreEqual<T>(IEnumerable<T> arr1, IEnumerable<T> arr2)

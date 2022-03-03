@@ -23,7 +23,7 @@ public class Mapper
   private readonly int _currentInstanceId;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="Mapper"/> class.
+  ///   Initializes a new instance of the <see cref="Mapper" /> class.
   /// </summary>
   public Mapper()
   {
@@ -31,7 +31,7 @@ public class Mapper
   }
 
   /// <summary>
-  /// Gets the default.
+  ///   Gets the default.
   /// </summary>
   public static Mapper Default => LazyDefaultInstance.Value;
 
@@ -72,7 +72,7 @@ public class Mapper
   }
 
   /// <summary>
-  /// Gets the mapper description.
+  ///   Gets the mapper description.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -129,7 +129,7 @@ public class Mapper
   }
 
   /// <summary>
-  /// Builds the objects mapper.
+  ///   Builds the objects mapper.
   /// </summary>
   /// <param name="mapperTypeName">The mapper type name.</param>
   /// <param name="from">The from.</param>

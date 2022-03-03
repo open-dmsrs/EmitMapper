@@ -16,7 +16,7 @@ namespace SamplesTests;
 public class CustormTests
 {
   /// <summary>
-  /// Initializes a new instance of the <see cref="CustormTests"/> class.
+  ///   Initializes a new instance of the <see cref="CustormTests" /> class.
   /// </summary>
   public CustormTests()
   {
@@ -29,7 +29,7 @@ public class CustormTests
   private readonly DbProviderFactory _factory;
 
   /// <summary>
-  /// Creates the connection.
+  ///   Creates the connection.
   /// </summary>
   /// <returns>A DbConnection.</returns>
   private DbConnection CreateConnection()
@@ -43,7 +43,7 @@ public class CustormTests
 
   // [Fact]
   /// <summary>
-  /// Gets the customers.
+  ///   Gets the customers.
   /// </summary>
   public void GetCustomers()
   {
@@ -64,7 +64,7 @@ public class CustormTests
 
   // [Fact]
   /// <summary>
-  /// Inserts the test.
+  ///   Inserts the test.
   /// </summary>
   public void InsertTest()
   {
@@ -91,7 +91,7 @@ public class CustormTests
 
   // [Fact]
   /// <summary>
-  /// Updates the customer.
+  ///   Updates the customer.
   /// </summary>
   public void UpdateCustomer()
   {

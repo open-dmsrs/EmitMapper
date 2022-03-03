@@ -3,14 +3,14 @@ using System.Reflection;
 using EmitMapper.Utils;
 
 namespace EmitMapper.Conversion;
-/// <summary>
-/// The e m convert.
-/// </summary>
 
+/// <summary>
+///   The e m convert.
+/// </summary>
 public class EMConvert
 {
   /// <summary>
-  /// Changes the type.
+  ///   Changes the type.
   /// </summary>
   /// <param name="value">The value.</param>
   /// <param name="conversionType">The conversion type.</param>
@@ -24,7 +24,7 @@ public class EMConvert
   }
 
   /// <summary>
-  /// Changes the type.
+  ///   Changes the type.
   /// </summary>
   /// <param name="value">The value.</param>
   /// <param name="typeFrom">The type from.</param>
@@ -76,7 +76,7 @@ public class EMConvert
   }
 
   /// <summary>
-  /// Changes the type generic.
+  ///   Changes the type generic.
   /// </summary>
   /// <typeparam name="TFrom"></typeparam>
   /// <typeparam name="TTo"></typeparam>
@@ -88,7 +88,7 @@ public class EMConvert
   }
 
   /// <summary>
-  /// Gets the conversion method.
+  ///   Gets the conversion method.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -113,7 +113,7 @@ public class EMConvert
   }
 
   /// <summary>
-  /// Objects the to string.
+  ///   Objects the to string.
   /// </summary>
   /// <param name="obj">The obj.</param>
   /// <returns>A string.</returns>
@@ -126,7 +126,7 @@ public class EMConvert
   }
 
   /// <summary>
-  /// Strings the to guid.
+  ///   Strings the to guid.
   /// </summary>
   /// <param name="str">The str.</param>
   /// <returns>A Guid.</returns>
@@ -139,7 +139,7 @@ public class EMConvert
   }
 
   /// <summary>
-  /// Tos the enum.
+  ///   Tos the enum.
   /// </summary>
   /// <typeparam name="TEnum"></typeparam>
   /// <typeparam name="TUnder"></typeparam>
@@ -158,7 +158,7 @@ public class EMConvert
   }
 
   /// <summary>
-  /// Converts the to enum.
+  ///   Converts the to enum.
   /// </summary>
   /// <param name="value">The value.</param>
   /// <param name="typeFrom">The type from.</param>
@@ -174,7 +174,7 @@ public class EMConvert
   }
 
   /// <summary>
-  /// Are the complex convert.
+  ///   Are the complex convert.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>A bool.</returns>

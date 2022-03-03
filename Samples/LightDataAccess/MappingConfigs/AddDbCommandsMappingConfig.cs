@@ -9,10 +9,10 @@ using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
 
 namespace LightDataAccess.MappingConfigs;
-/// <summary>
-/// The add db commands mapping config.
-/// </summary>
 
+/// <summary>
+///   The add db commands mapping config.
+/// </summary>
 internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
 {
   private readonly string _configName;
@@ -24,7 +24,7 @@ internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
   private readonly IEnumerable<string> _includeFields;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="AddDbCommandsMappingConfig"/> class.
+  ///   Initializes a new instance of the <see cref="AddDbCommandsMappingConfig" /> class.
   /// </summary>
   /// <param name="dbSettings">The db settings.</param>
   /// <param name="includeFields">The include fields.</param>
@@ -47,7 +47,7 @@ internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Gets the configuration name.
+  ///   Gets the configuration name.
   /// </summary>
   /// <returns>A string.</returns>
   public override string GetConfigurationName()
@@ -56,7 +56,7 @@ internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
   }
 
   /// <summary>
-  /// Gets the mapping operations.
+  ///   Gets the mapping operations.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>

@@ -2,11 +2,11 @@
 using System.Linq.Expressions;
 
 namespace EmitMapper.Utils;
+
 /// <summary>
-/// The versatile lambda.
+///   The versatile lambda.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-
 public class VersatileLambda<T>
   where T : class
 {
@@ -15,7 +15,7 @@ public class VersatileLambda<T>
   private readonly Lazy<T> _funcLazy;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="VersatileLambda&lt;T&gt;"/> class.
+  ///   Initializes a new instance of the <see cref="VersatileLambda&lt;T&gt;" /> class.
   /// </summary>
   /// <param name="expression">The expression.</param>
   public VersatileLambda(Expression<T> expression)
@@ -37,7 +37,7 @@ public class VersatileLambda<T>
   }
 
   /// <summary>
-  /// As the expression.
+  ///   As the expression.
   /// </summary>
   /// <returns><![CDATA[Expression<T>]]></returns>
   public Expression<T> AsExpression()
@@ -46,7 +46,7 @@ public class VersatileLambda<T>
   }
 
   /// <summary>
-  /// As the lambda.
+  ///   As the lambda.
   /// </summary>
   /// <returns>A T.</returns>
   public T AsLambda()

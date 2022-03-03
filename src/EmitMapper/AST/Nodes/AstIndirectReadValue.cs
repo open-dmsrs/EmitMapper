@@ -5,14 +5,13 @@ using EmitMapper.AST.Interfaces;
 using EmitMapper.Utils;
 
 namespace EmitMapper.AST.Nodes;
-/// <summary>
-/// The ast indirect read value.
-/// </summary>
 
+/// <summary>
+///   The ast indirect read value.
+/// </summary>
 internal class AstIndirectReadValue : AstIndirectRead, IAstValue
 {
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="context">The context.</param>
   /// <exception cref="Exception"></exception>

@@ -5,10 +5,10 @@ using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
 namespace EmitMapper.MappingConfiguration;
-/// <summary>
-/// The mapping configurator interface.
-/// </summary>
 
+/// <summary>
+///   The mapping configurator interface.
+/// </summary>
 public interface IMappingConfigurator
 {
   /// <summary>
@@ -32,7 +32,7 @@ public interface IMappingConfigurator
   IMappingConfigurator ConvertGeneric(Type from, Type to, ICustomConverterProvider converterProvider);
 
   /// <summary>
-  /// Converts the using.
+  ///   Converts the using.
   /// </summary>
   /// <typeparam name="TFrom"></typeparam>
   /// <typeparam name="TTo"></typeparam>
@@ -41,7 +41,7 @@ public interface IMappingConfigurator
   IMappingConfigurator ConvertUsing<TFrom, TTo>(Func<TFrom, TTo> converter);
 
   /// <summary>
-  /// Filters the destination.
+  ///   Filters the destination.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="valuesFilter">The values filter.</param>
@@ -49,7 +49,7 @@ public interface IMappingConfigurator
   IMappingConfigurator FilterDestination<T>(ValuesFilter<T> valuesFilter);
 
   /// <summary>
-  /// Filters the source.
+  ///   Filters the source.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="valuesFilter">The values filter.</param>
@@ -75,7 +75,7 @@ public interface IMappingConfigurator
   IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to);
 
   /// <summary>
-  /// Gets the root mapping operation.
+  ///   Gets the root mapping operation.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -83,7 +83,7 @@ public interface IMappingConfigurator
   IRootMappingOperation GetRootMappingOperation(Type from, Type to);
 
   /// <summary>
-  /// Gets the static converters manager.
+  ///   Gets the static converters manager.
   /// </summary>
   /// <returns>A StaticConvertersManager.</returns>
   StaticConvertersManager GetStaticConvertersManager();

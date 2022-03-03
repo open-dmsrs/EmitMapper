@@ -7,14 +7,14 @@ using EmitMapper.AST.Nodes;
 using EmitMapper.Utils;
 
 namespace EmitMapper.AST.Helpers;
-/// <summary>
-/// The ast build helper.
-/// </summary>
 
+/// <summary>
+///   The ast build helper.
+/// </summary>
 internal static class AstBuildHelper
 {
   /// <summary>
-  /// Calls the method.
+  ///   Calls the method.
   /// </summary>
   /// <param name="methodInfo">The method info.</param>
   /// <param name="invocationObject">The invocation object.</param>
@@ -32,7 +32,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Casts the class.
+  ///   Casts the class.
   /// </summary>
   /// <param name="value">The value.</param>
   /// <param name="targetType">The target type.</param>
@@ -46,7 +46,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Reads the argument r a.
+  ///   Reads the argument r a.
   /// </summary>
   /// <param name="argumentIndex">The argument index.</param>
   /// <param name="argumentType">The argument type.</param>
@@ -60,7 +60,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Reads the argument r v.
+  ///   Reads the argument r v.
   /// </summary>
   /// <param name="argumentIndex">The argument index.</param>
   /// <param name="argumentType">The argument type.</param>
@@ -74,7 +74,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Reads the array item r a.
+  ///   Reads the array item r a.
   /// </summary>
   /// <param name="array">The array.</param>
   /// <param name="index">The index.</param>
@@ -88,7 +88,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Reads the array item r v.
+  ///   Reads the array item r v.
   /// </summary>
   /// <param name="array">The array.</param>
   /// <param name="index">The index.</param>
@@ -102,7 +102,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Reads the field r a.
+  ///   Reads the field r a.
   /// </summary>
   /// <param name="sourceObject">The source object.</param>
   /// <param name="fieldInfo">The field info.</param>
@@ -116,7 +116,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Reads the field r v.
+  ///   Reads the field r v.
   /// </summary>
   /// <param name="sourceObject">The source object.</param>
   /// <param name="fieldInfo">The field info.</param>
@@ -130,7 +130,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Reads the local r a.
+  ///   Reads the local r a.
   /// </summary>
   /// <param name="loc">The loc.</param>
   /// <returns>An IAstRefOrAddr.</returns>
@@ -143,7 +143,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Reads the local r v.
+  ///   Reads the local r v.
   /// </summary>
   /// <param name="loc">The loc.</param>
   /// <returns>An IAstRefOrValue.</returns>
@@ -156,7 +156,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Reads the member.
+  ///   Reads the member.
   /// </summary>
   /// <param name="sourceObject">The source object.</param>
   /// <param name="memberInfo">The member info.</param>
@@ -184,7 +184,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Reads the member r a.
+  ///   Reads the member r a.
   /// </summary>
   /// <param name="sourceObject">The source object.</param>
   /// <param name="memberInfo">The member info.</param>
@@ -220,7 +220,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Reads the member r v.
+  ///   Reads the member r v.
   /// </summary>
   /// <param name="sourceObject">The source object.</param>
   /// <param name="memberInfo">The member info.</param>
@@ -248,7 +248,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Reads the members chain.
+  ///   Reads the members chain.
   /// </summary>
   /// <param name="sourceObject">The source object.</param>
   /// <param name="membersChain">The members chain.</param>
@@ -272,7 +272,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Reads the members chain.
+  ///   Reads the members chain.
   /// </summary>
   /// <param name="sourceObject">The source object.</param>
   /// <param name="membersChainOfOne">The members chain of one.</param>
@@ -283,7 +283,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Reads the property r a.
+  ///   Reads the property r a.
   /// </summary>
   /// <param name="sourceObject">The source object.</param>
   /// <param name="propertyInfo">The property info.</param>
@@ -297,7 +297,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Reads the property r v.
+  ///   Reads the property r v.
   /// </summary>
   /// <param name="sourceObject">The source object.</param>
   /// <param name="propertyInfo">The property info.</param>
@@ -311,7 +311,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Reads the this.
+  ///   Reads the this.
   /// </summary>
   /// <param name="thisType">The this type.</param>
   /// <returns>An IAstRefOrAddr.</returns>
@@ -324,7 +324,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Writes the member.
+  ///   Writes the member.
   /// </summary>
   /// <param name="memberInfo">The member info.</param>
   /// <param name="targetObject">The target object.</param>
@@ -339,7 +339,7 @@ internal static class AstBuildHelper
   }
 
   /// <summary>
-  /// Writes the members chain.
+  ///   Writes the members chain.
   /// </summary>
   /// <param name="membersChain">The members chain.</param>
   /// <param name="targetObject">The target object.</param>

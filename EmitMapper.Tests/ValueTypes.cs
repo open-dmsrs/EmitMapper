@@ -4,13 +4,12 @@ using Xunit;
 namespace EmitMapper.Tests;
 
 /// <summary>
-/// The value types.
+///   The value types.
 /// </summary>
-
 public class ValueTypes
 {
   /// <summary>
-  /// Test_s the class to struct.
+  ///   Test_s the class to struct.
   /// </summary>
   [Fact]
   public void Test_ClassToStruct()
@@ -22,7 +21,7 @@ public class ValueTypes
   }
 
   /// <summary>
-  /// Test_s the nested structs.
+  ///   Test_s the nested structs.
   /// </summary>
   [Fact]
   public void Test_NestedStructs()
@@ -57,7 +56,7 @@ public class ValueTypes
   }
 
   /// <summary>
-  /// Test_s the struct fields.
+  ///   Test_s the struct fields.
   /// </summary>
   [Fact]
   public void Test_StructFields()
@@ -72,7 +71,7 @@ public class ValueTypes
   }
 
   /// <summary>
-  /// Test_s the struct properties.
+  ///   Test_s the struct properties.
   /// </summary>
   [Fact]
   public void Test_StructProperties()
@@ -89,7 +88,7 @@ public class ValueTypes
   }
 
   /// <summary>
-  /// Test_s the struct to class.
+  ///   Test_s the struct to class.
   /// </summary>
   [Fact]
   public void Test_StructToClass()
@@ -101,7 +100,7 @@ public class ValueTypes
   }
 
   /// <summary>
-  /// Test_s the struct to struct.
+  ///   Test_s the struct to struct.
   /// </summary>
   [Fact]
   public void Test_StructToStruct()
@@ -113,7 +112,7 @@ public class ValueTypes
   }
 
   /// <summary>
-  /// The a3.
+  ///   The a3.
   /// </summary>
   public class A3
   {
@@ -121,7 +120,7 @@ public class ValueTypes
   }
 
   /// <summary>
-  /// The a5.
+  ///   The a5.
   /// </summary>
   public class A5
   {
@@ -129,7 +128,7 @@ public class ValueTypes
   }
 
   /// <summary>
-  /// The a6 to.
+  ///   The a6 to.
   /// </summary>
   public class A6To
   {
@@ -137,11 +136,11 @@ public class ValueTypes
     public C2 S4;
     public C3Class S5;
     /// <summary>
-    /// Gets or Sets the s.
+    ///   Gets or Sets the s.
     /// </summary>
     public S2Struct S { get; set; }
     /// <summary>
-    /// Gets or Sets the s3.
+    ///   Gets or Sets the s3.
     /// </summary>
     public C1 S3 { get; set; }
 
@@ -156,18 +155,18 @@ public class ValueTypes
     }
 
     /// <summary>
-    /// The c1.
+    ///   The c1.
     /// </summary>
     public class C1
     {
       /// <summary>
-      /// Gets or Sets the s.
+      ///   Gets or Sets the s.
       /// </summary>
       public S1 S { get; set; }
     }
 
     /// <summary>
-    /// The c2.
+    ///   The c2.
     /// </summary>
     public class C2
     {
@@ -175,7 +174,7 @@ public class ValueTypes
     }
 
     /// <summary>
-    /// The c3 class.
+    ///   The c3 class.
     /// </summary>
     public class C3Class
     {
@@ -186,7 +185,7 @@ public class ValueTypes
   }
 
   /// <summary>
-  /// The b1.
+  ///   The b1.
   /// </summary>
   public class B1
   {
@@ -194,7 +193,7 @@ public class ValueTypes
   }
 
   /// <summary>
-  /// The b2.
+  ///   The b2.
   /// </summary>
   public class B2
   {
@@ -202,14 +201,14 @@ public class ValueTypes
   }
 
   /// <summary>
-  /// The b4.
+  ///   The b4.
   /// </summary>
   public class B4
   {
     public Int Fld3;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="B4"/> class.
+    ///   Initializes a new instance of the <see cref="B4" /> class.
     /// </summary>
     public B4()
     {
@@ -219,11 +218,11 @@ public class ValueTypes
     }
 
     /// <summary>
-    /// Gets or Sets the fld1.
+    ///   Gets or Sets the fld1.
     /// </summary>
     public Int Fld1 { get; set; }
     /// <summary>
-    /// Gets or Sets the fld2.
+    ///   Gets or Sets the fld2.
     /// </summary>
     public Int Fld2 { get; set; }
 
@@ -234,7 +233,7 @@ public class ValueTypes
   }
 
   /// <summary>
-  /// The b5.
+  ///   The b5.
   /// </summary>
   public class B5
   {
@@ -242,7 +241,7 @@ public class ValueTypes
   }
 
   /// <summary>
-  /// The b6 from.
+  ///   The b6 from.
   /// </summary>
   public class B6From
   {
@@ -250,11 +249,11 @@ public class ValueTypes
     public S2Struct S3;
     public C3Class S5;
     /// <summary>
-    /// Gets or Sets the s2.
+    ///   Gets or Sets the s2.
     /// </summary>
     public S2Struct S2 { get; set; }
     /// <summary>
-    /// Gets or Sets the s4.
+    ///   Gets or Sets the s4.
     /// </summary>
     public C1 S4 { get; set; }
 
@@ -269,7 +268,7 @@ public class ValueTypes
     }
 
     /// <summary>
-    /// The c1.
+    ///   The c1.
     /// </summary>
     public class C1
     {
@@ -277,7 +276,7 @@ public class ValueTypes
     }
 
     /// <summary>
-    /// The c3 class.
+    ///   The c3 class.
     /// </summary>
     public class C3Class
     {

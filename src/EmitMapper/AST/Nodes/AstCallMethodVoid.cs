@@ -5,10 +5,10 @@ using EmitMapper.AST.Interfaces;
 using EmitMapper.Utils;
 
 namespace EmitMapper.AST.Nodes;
-/// <summary>
-/// The ast call method void.
-/// </summary>
 
+/// <summary>
+///   The ast call method void.
+/// </summary>
 internal class AstCallMethodVoid : IAstNode
 {
   protected List<IAstStackItem> Arguments;
@@ -18,7 +18,7 @@ internal class AstCallMethodVoid : IAstNode
   protected MethodInfo MethodInfo;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="AstCallMethodVoid"/> class.
+  ///   Initializes a new instance of the <see cref="AstCallMethodVoid" /> class.
   /// </summary>
   /// <param name="methodInfo">The method info.</param>
   /// <param name="invocationObject">The invocation object.</param>
@@ -31,7 +31,6 @@ internal class AstCallMethodVoid : IAstNode
   }
 
   /// <summary>
-  /// 
   /// </summary>
   /// <param name="context">The context.</param>
   public void Compile(CompilationContext context)

@@ -3,18 +3,18 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace EmitMapper.Utils;
+
 /// <summary>
-/// The lazy concurrent dictionary.
+///   The lazy concurrent dictionary.
 /// </summary>
 /// <typeparam name="TKey"></typeparam>
 /// <typeparam name="TValue"></typeparam>
-
 public class LazyConcurrentDictionary<TKey, TValue>
 {
   private readonly ConcurrentDictionary<TKey, Lazy<TValue>> _inner;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="LazyConcurrentDictionary&lt;TKey, TValue&gt;"/> class.
+  ///   Initializes a new instance of the <see cref="LazyConcurrentDictionary&lt;TKey, TValue&gt;" /> class.
   /// </summary>
   public LazyConcurrentDictionary()
     : this(Environment.ProcessorCount, 1024, null)
@@ -22,7 +22,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
   }
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="LazyConcurrentDictionary&lt;TKey, TValue&gt;"/> class.
+  ///   Initializes a new instance of the <see cref="LazyConcurrentDictionary&lt;TKey, TValue&gt;" /> class.
   /// </summary>
   /// <param name="equatable">The equatable.</param>
   public LazyConcurrentDictionary(IEqualityComparer<TKey> equatable)
@@ -31,7 +31,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
   }
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="LazyConcurrentDictionary&lt;TKey, TValue&gt;"/> class.
+  ///   Initializes a new instance of the <see cref="LazyConcurrentDictionary&lt;TKey, TValue&gt;" /> class.
   /// </summary>
   /// <param name="concurrencyLevel">The concurrency level.</param>
   /// <param name="capacity">The capacity.</param>
@@ -41,7 +41,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
   }
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="LazyConcurrentDictionary&lt;TKey, TValue&gt;"/> class.
+  ///   Initializes a new instance of the <see cref="LazyConcurrentDictionary&lt;TKey, TValue&gt;" /> class.
   /// </summary>
   /// <param name="concurrencyLevel">The concurrency level.</param>
   /// <param name="capacity">The capacity.</param>
@@ -52,7 +52,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
   }
 
   /// <summary>
-  /// Adds the or update.
+  ///   Adds the or update.
   /// </summary>
   /// <param name="key">The key.</param>
   /// <param name="addValueFactory">The add value factory.</param>
@@ -67,7 +67,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
   }
 
   /// <summary>
-  /// Gets the or add.
+  ///   Gets the or add.
   /// </summary>
   /// <param name="key">The key.</param>
   /// <param name="valueFactory">The value factory.</param>
@@ -80,7 +80,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
   // overload may not make sense to use when you want to avoid
   // the construction of the value when it isn't needed
   /// <summary>
-  /// Try add.
+  ///   Try add.
   /// </summary>
   /// <param name="key">The key.</param>
   /// <param name="value">The value.</param>
@@ -91,7 +91,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
   }
 
   /// <summary>
-  /// Try add.
+  ///   Try add.
   /// </summary>
   /// <param name="key">The key.</param>
   /// <param name="valueFactory">The value factory.</param>
@@ -102,7 +102,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
   }
 
   /// <summary>
-  /// Tries the get value.
+  ///   Tries the get value.
   /// </summary>
   /// <param name="key">The key.</param>
   /// <param name="value">The value.</param>
@@ -119,7 +119,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
   }
 
   /// <summary>
-  /// Try remove.
+  ///   Try remove.
   /// </summary>
   /// <param name="key">The key.</param>
   /// <param name="value">The value.</param>
@@ -139,7 +139,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
   }
 
   /// <summary>
-  /// Try update.
+  ///   Try update.
   /// </summary>
   /// <param name="key">The key.</param>
   /// <param name="updateValueFactory">The update value factory.</param>
