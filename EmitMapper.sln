@@ -15,24 +15,32 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitMapper.Mvc.Net", "Sampl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mvc", "Mvc", "{75F3A083-3C58-4C55-B251-AF6C3FCC2FCB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B0D33525-2360-43C0-9866-BE507A0B069D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitMapper.Benchmarks", "EmitMapper.Benchmarks\EmitMapper.Benchmarks.csproj", "{3D6D0342-5C90-4EA9-87A7-A9F5B039E5C1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitMapper", "src\EmitMapper\EmitMapper.csproj", "{75D888BB-8A3B-4450-BA26-AEF0AFDAFBB6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitMapper.Tests", "EmitMapper.Tests\EmitMapper.Tests.csproj", "{E18825AB-8FFD-4E07-9920-55E0757004C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D6577FA6-B5E9-4094-A4FB-7EB03B1A0261}"
 	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		.gitattributes = .gitattributes
-		.gitignore = .gitignore
-		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
-		EmitMapper.sln.DotSettings = EmitMapper.sln.DotSettings
-		icon.png = icon.png
-		readme.md = readme.md
-		sync all.sh = sync all.sh
-		syncing.sh = syncing.sh
+		solution\EmitMapper.snk = solution\EmitMapper.snk
+		solution\public.props = solution\public.props
+		solution\publicKey.txt = solution\publicKey.txt
+		solution\sn_gen.bat = solution\sn_gen.bat
+		solution\version.props = solution\version.props
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitMapper", "EmitMapper\EmitMapper.csproj", "{9E456898-83B2-44F9-BA09-D69CCC81D6C7}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitMapper.Tests", "EmitMapper.xUnit\EmitMapper.Tests.csproj", "{0049C5A0-1EC9-435E-A126-3FDB162C9DA4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitMapper.Benchmarks", "EmitMapper.Benchmarks\EmitMapper.Benchmarks.csproj", "{3D6D0342-5C90-4EA9-87A7-A9F5B039E5C1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "layout", "layout", "{B5E8AE2F-A600-4F41-B912-14B191DD0B6C}"
+	ProjectSection(SolutionItems) = preProject
+		solution\filelayouts\default.xaml = solution\filelayouts\default.xaml
+		solution\filelayouts\layout3.xml = solution\filelayouts\layout3.xml
+		solution\filelayouts\layout4.xaml = solution\filelayouts\layout4.xaml
+		solution\filelayouts\layouts0.xaml = solution\filelayouts\layouts0.xaml
+		solution\filelayouts\layouts0.xmal = solution\filelayouts\layouts0.xmal
+		solution\filelayouts\layouts1.xaml = solution\filelayouts\layouts1.xaml
+		solution\filelayouts\layouts1.xmal = solution\filelayouts\layouts1.xmal
+		solution\filelayouts\old.xml = solution\filelayouts\old.xml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,18 +64,18 @@ Global
 		{75C6A518-5A9B-48A4-B267-ECE474041977}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75C6A518-5A9B-48A4-B267-ECE474041977}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75C6A518-5A9B-48A4-B267-ECE474041977}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9E456898-83B2-44F9-BA09-D69CCC81D6C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9E456898-83B2-44F9-BA09-D69CCC81D6C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9E456898-83B2-44F9-BA09-D69CCC81D6C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9E456898-83B2-44F9-BA09-D69CCC81D6C7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0049C5A0-1EC9-435E-A126-3FDB162C9DA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0049C5A0-1EC9-435E-A126-3FDB162C9DA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0049C5A0-1EC9-435E-A126-3FDB162C9DA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0049C5A0-1EC9-435E-A126-3FDB162C9DA4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3D6D0342-5C90-4EA9-87A7-A9F5B039E5C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3D6D0342-5C90-4EA9-87A7-A9F5B039E5C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D6D0342-5C90-4EA9-87A7-A9F5B039E5C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D6D0342-5C90-4EA9-87A7-A9F5B039E5C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75D888BB-8A3B-4450-BA26-AEF0AFDAFBB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75D888BB-8A3B-4450-BA26-AEF0AFDAFBB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75D888BB-8A3B-4450-BA26-AEF0AFDAFBB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75D888BB-8A3B-4450-BA26-AEF0AFDAFBB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E18825AB-8FFD-4E07-9920-55E0757004C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E18825AB-8FFD-4E07-9920-55E0757004C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E18825AB-8FFD-4E07-9920-55E0757004C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E18825AB-8FFD-4E07-9920-55E0757004C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +86,7 @@ Global
 		{F9221CD0-0B56-4CA1-857B-7B19DC509D59} = {1821C660-299A-4BEE-8828-32911AE7F42F}
 		{75C6A518-5A9B-48A4-B267-ECE474041977} = {75F3A083-3C58-4C55-B251-AF6C3FCC2FCB}
 		{75F3A083-3C58-4C55-B251-AF6C3FCC2FCB} = {1821C660-299A-4BEE-8828-32911AE7F42F}
+		{B5E8AE2F-A600-4F41-B912-14B191DD0B6C} = {D6577FA6-B5E9-4094-A4FB-7EB03B1A0261}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6D2B312C-E842-47F4-BB27-3FAB3EB3D5F0}

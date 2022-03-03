@@ -1,0 +1,117 @@
+<Project>
+	<PropertyGroup>
+		<Authors>Jimbo</Authors>
+		<Company>TSharp</Company>
+		<Copyright>Copyright (c) 2006-2022 TSharp. All rights reserved.</Copyright>
+
+		<Description>The most fast mapper tool - EmitMapper runs base on netcore</Description>
+	 
+
+		<RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
+
+		<NeutralLanguage>zh-CHS</NeutralLanguage>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)EmitMapper.snk</AssemblyOriginatorKeyFile>
+
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		
+		<NoWarn>1701;1702;1591;8002</NoWarn>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+		<AutoGenerateBindingRedirects>False</AutoGenerateBindingRedirects>
+		<Nullable>disable</Nullable>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+
+		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
+		<DefineConstants>$(DefineConstants);$(MSBuildProjectName)</DefineConstants>
+		<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+
+		<Optimize>true</Optimize>
+		<LangVersion>10</LangVersion>
+	</PropertyGroup>
+	<PropertyGroup>
+		<PackageId>Niubility.$(AssemblyName)</PackageId>
+		<PackageTags>EmitMapper;Mapper;POCO;Object Mapping</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/niubilitynetcore/EmitMapper</PackageProjectUrl>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageReleaseNotes>https://github.com/niubilitynetcore/EmitMapper/releases</PackageReleaseNotes>
+		<IncludeSymbols>true</IncludeSymbols>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/niubilitynetcore/EmitMapper</RepositoryUrl>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+	</ItemGroup>
+
+	<Choose>
+		<When Condition="Exists('$(MSBuildProjectDirectory)/readme.md')">
+			<PropertyGroup>
+				<PackageReadmeFile>readme.md</PackageReadmeFile>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(MSBuildProjectDirectory)/readme.md">
+					<Pack>True</Pack>
+					<PackagePath>\</PackagePath>
+					<Visible>true</Visible>
+				</None>
+			</ItemGroup>
+		</When>
+		<When Condition="Exists('$(SolutionDir)/readme.md')">
+			<PropertyGroup>
+				<PackageReadmeFile>readme.md</PackageReadmeFile>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(SolutionDir)/readme.md">
+					<Pack>True</Pack>
+					<PackagePath>\</PackagePath>
+					<Visible>true</Visible>
+				</None>
+			</ItemGroup>
+		</When>
+	</Choose>
+	<Choose>
+		<When Condition="Exists('$(MSBuildProjectDirectory)/icon.png')">
+			<PropertyGroup>
+				<PackageIcon>icon.png</PackageIcon>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(MSBuildProjectDirectory)/icon.png">
+					<Pack>True</Pack>
+					<PackagePath>\</PackagePath>
+					<Visible>true</Visible>
+				</None>
+			</ItemGroup>
+		</When>
+		<When Condition="Exists('$(SolutionDir)/solution/icon.png')">
+			<PropertyGroup>
+				<PackageIcon>icon.png</PackageIcon>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(SolutionDir)/solution/icon.png">
+					<Pack>True</Pack>
+					<PackagePath>\</PackagePath>
+					<Visible>true</Visible>
+				</None>
+			</ItemGroup>
+		</When>
+		<When Condition="Exists('$(SolutionDir)/icon.png')">
+			<PropertyGroup>
+				<PackageIcon>icon.png</PackageIcon>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(SolutionDir)/icon.png">
+					<Pack>True</Pack>
+					<PackagePath>\</PackagePath>
+					<Visible>true</Visible>
+				</None>
+			</ItemGroup>
+		</When>
+	</Choose>
+
+
+</Project>

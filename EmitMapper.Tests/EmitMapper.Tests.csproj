@@ -1,18 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+	<Import Project="../solution/version.props" />
+	<Import Project="../solution/public.props" />
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DefineConstants>TRACE;DEBUG;NETCOREAPP1_1; UnitTest ; NETCOREAPP1_1;NETCOREAPP1_1</DefineConstants>
-		<LangVersion>10</LangVersion>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<LangVersion>10</LangVersion>
-	</PropertyGroup>
+ 
 
 	<ItemGroup>
 		<PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
@@ -33,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\EmitMapper\EmitMapper.csproj" />
+	  <ProjectReference Include="..\src\EmitMapper\EmitMapper.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

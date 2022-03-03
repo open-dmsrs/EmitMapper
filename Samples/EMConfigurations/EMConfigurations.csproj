@@ -1,10 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+	<Import Project="../../solution/version.props" />
+	<Import Project="../../solution/public.props" />
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;netstandard2.1;net48</TargetFrameworks>
-		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
-		<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-		<LangVersion>10</LangVersion>
+		<TargetFrameworks>net6.0;netstandard2.1;net48</TargetFrameworks> 
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -17,7 +15,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\EmitMapper\EmitMapper.csproj" />
 		<ProjectReference Include="..\LightDataAccess\LightDataAccess.csproj" />
 	</ItemGroup>
  

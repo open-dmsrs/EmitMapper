@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../../solution/version.props" />
+	<Import Project="../../solution/public.props" />
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;netstandard2.1;net48;netcoreapp3.1</TargetFrameworks>
+		<OutputType>Library</OutputType>
+		<Description>The most fast mapper tool - EmitMapper runs base on netcore</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+		<Optimize>False</Optimize>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+		<Optimize>False</Optimize>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net48|AnyCPU'">
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+		<Optimize>False</Optimize>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net48|AnyCPU'">
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+		<Optimize>False</Optimize>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+	</PropertyGroup>
+
+
+
+
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
+		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net48" Version="1.0.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
+	</ItemGroup>
+
+</Project>

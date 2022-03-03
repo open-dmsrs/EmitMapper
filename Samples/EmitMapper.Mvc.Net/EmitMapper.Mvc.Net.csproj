@@ -1,19 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+	<Import Project="../../solution/version.props" />
+	<Import Project="../../solution/public.props" />
 	<PropertyGroup>
-		<TargetFrameworks>netcoreapp3.1</TargetFrameworks>
-		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
-		<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-		<LangVersion>10</LangVersion>
+		<TargetFrameworks>netcoreapp3.1</TargetFrameworks> 
 	</PropertyGroup>
 
 	<ItemGroup>
 	  <FrameworkReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
 	</ItemGroup>
 
- 
 	<ItemGroup>
-		<ProjectReference Include="..\..\EmitMapper\EmitMapper.csproj" />
+	  <ProjectReference Include="..\..\src\EmitMapper\EmitMapper.csproj" />
 	</ItemGroup>
 
   

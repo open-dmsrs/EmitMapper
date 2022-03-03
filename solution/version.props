@@ -1,0 +1,21 @@
+<Project>
+	<PropertyGroup>
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+		<Deterministic>False</Deterministic>
+		<VersionMain>2.0</VersionMain>
+		<VersionPrefix>3</VersionPrefix>
+		<VersionSuffix>preview</VersionSuffix>
+		<VersionSuffixVersion>5</VersionSuffixVersion>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(VersionSuffix)'==''">
+		<Version>$(VersionMain).$(VersionPrefix)</Version>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(VersionSuffix)'!=''">
+		<Version>$(VersionMain).$(VersionPrefix)-$(VersionSuffix).$(VersionSuffixVersion)</Version>
+	</PropertyGroup>
+	<PropertyGroup>
+		<FileVersion>$(version)</FileVersion>
+		<PackageVersion>$(version)</PackageVersion>
+		<AssemblyVersion>$(version)</AssemblyVersion>
+	</PropertyGroup>
+</Project>

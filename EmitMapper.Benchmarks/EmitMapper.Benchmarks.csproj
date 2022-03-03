@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+	<Import Project="../solution/version.props" />
+	<Import Project="../solution/public.props" />
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net6.0</TargetFramework>
 
 		<TargetFrameworks>net6.0</TargetFrameworks>
-		<Optimize>true</Optimize>
-		<LangVersion>10</LangVersion>
+
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -16,7 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\EmitMapper\EmitMapper.csproj" />
+	  <ProjectReference Include="..\src\EmitMapper\EmitMapper.csproj" />
 	</ItemGroup>
 
 </Project>
