@@ -27,7 +27,7 @@
 
 	<PropertyGroup>
 		<!--<FileVersion>$(version)</FileVersion>
-		<AssemblyVersion>$(version)</AssemblyVersion>
-		<PackageVersion>$(version)</PackageVersion>-->
+		<AssemblyVersion>$(version)</AssemblyVersion>-->
+		<PackageVersion>$(VersionPrefix).$(VersionSuffix)</PackageVersion>
 	</PropertyGroup>
 </Project>
