@@ -2,9 +2,19 @@
 using System.Linq;
 
 namespace EmitMapper.Tests;
+/// <summary>
+/// The test utils.
+/// </summary>
 
 public static class TestUtils
 {
+  /// <summary>
+  /// Are equal.
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
+  /// <param name="arr1">The arr1.</param>
+  /// <param name="arr2">The arr2.</param>
+  /// <returns>A bool.</returns>
   public static bool AreEqual<T>(IEnumerable<T> arr1, IEnumerable<T> arr2)
     where T : IEqualityComparer<T>
   {

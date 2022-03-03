@@ -91,6 +91,11 @@ public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<Type
     return SourceType + " -> " + DestinationType;
   }
 
+  /// <summary>
+  /// Gets the type definition if generic.
+  /// </summary>
+  /// <param name="type">The type.</param>
+  /// <returns>A Type.</returns>
   private static Type GetTypeDefinitionIfGeneric(Type type)
   {
     return type.IsGenericType ? type.GetGenericTypeDefinitionCache() : type;

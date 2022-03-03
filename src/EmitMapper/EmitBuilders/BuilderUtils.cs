@@ -6,6 +6,9 @@ using EmitMapper.AST.Nodes;
 using EmitMapper.Utils;
 
 namespace EmitMapper.EmitBuilders;
+/// <summary>
+/// The builder utils.
+/// </summary>
 
 internal static class BuilderUtils
 {

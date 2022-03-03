@@ -15,16 +15,26 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace EmitMapper.Tests;
+/// <summary>
+/// The map list object.
+/// </summary>
 
 public class MapListObject
 {
   private readonly ITestOutputHelper _testOutputHelper;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="MapListObject"/> class.
+  /// </summary>
+  /// <param name="testOutputHelper">The test output helper.</param>
   public MapListObject(ITestOutputHelper testOutputHelper)
   {
     _testOutputHelper = testOutputHelper;
   }
 
+  /// <summary>
+  /// Converts the char to int32.
+  /// </summary>
   [Fact]
   public void ConvertCharToInt32()
   {
@@ -34,6 +44,10 @@ public class MapListObject
     _testOutputHelper.WriteLine(n + string.Empty);
   }
 
+  /// <summary>
+  /// Test_s the emit mapper_ map_ list object.
+  /// </summary>
+  /// <param name="listFrom">The list from.</param>
   [Theory]
   [AutoData]
   public void Test_EmitMapper_Map_ListObject(List<FromClass> listFrom)
@@ -73,6 +87,9 @@ public class MapListObject
     }
   }
 
+  /// <summary>
+  /// Test_s the emit mapper_ map enum.
+  /// </summary>
   [Fact]
   public void Test_EmitMapper_MapEnum()
   {
@@ -90,17 +107,27 @@ public class MapListObject
     var tolist = mapper.MapEnum(list);
 
     // tolist.ShouldBe(list);
-    Equal(list, tolist);
+    IsSame(list, tolist);
   }
 
-  public static void Equal(IEnumerable<SimpleTypesSource> sources, IEnumerable<SimpleTypesDestination> destinations)
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="sources">The sources.</param>
+  /// <param name="destinations">The destinations.</param>
+  private static void IsSame(IEnumerable<SimpleTypesSource> sources, IEnumerable<SimpleTypesDestination> destinations)
   {
     using var f = sources.GetEnumerator();
     using var t = destinations.GetEnumerator();
-    while (f.MoveNext() && t.MoveNext()) Equal(f.Current, t.Current);
+    while (f.MoveNext() && t.MoveNext()) IsSame(f.Current, t.Current);
   }
 
-  public static void Equal(SimpleTypesSource source, SimpleTypesDestination destination)
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="source">The source.</param>
+  /// <param name="destination">The destination.</param>
+  private static void IsSame(SimpleTypesSource source, SimpleTypesDestination destination)
   {
     var fv = ReflectionHelper.GetPublicFieldsAndProperties(typeof(SimpleTypesSource))
       .Select(m => GetMemberValue(m, source)).Select(m => new { Name = m.Key, FValue = m.Value });
@@ -121,6 +148,14 @@ public class MapListObject
           $"Member '{temp.Name} is not equal. Source value£º{temp.FValue}, Destination:{temp.TValue}");
   }
 
+  /// <summary>
+  /// Gets the member value.
+  /// </summary>
+  /// <param name="member">The member.</param>
+  /// <param name="target">The target.</param>
+  /// <exception cref="ArgumentNullException"></exception>
+  /// <exception cref="ArgumentOutOfRangeException"></exception>
+  /// <returns><![CDATA[KeyValuePair<string, object>]]></returns>
   public static KeyValuePair<string, object> GetMemberValue(MemberInfo member, object target)
   {
     return member switch
@@ -133,7 +168,11 @@ public class MapListObject
     };
   }
 
-  // [Theory]
+
+  /// <summary>
+  /// Test_s the emit mapper_ map_ array list_ nested fields.
+  /// </summary>
+  /// <param name="list">The list.</param>
   [AutoData]
   private void Test_EmitMapper_Map_ArrayList_NestedFields(List<FromClass> list)
   {
@@ -179,14 +218,24 @@ public class MapListObject
     // }
   }
 
+  /// <summary>
+  /// The from class.
+  /// </summary>
   public class FromClass
   {
     public InnerClass Inner = new();
 
+    /// <summary>
+    /// The inner class.
+    /// </summary>
     public class InnerClass
     {
       public string Message = "hello";
 
+      /// <summary>
+      /// Gets the message2.
+      /// </summary>
+      /// <returns>A string.</returns>
       public string GetMessage2()
       {
         return "medved";
@@ -194,17 +243,29 @@ public class MapListObject
     }
   }
 
+  /// <summary>
+  /// The random double precision floating point sequence generator.
+  /// </summary>
   internal class RandomDoublePrecisionFloatingPointSequenceGenerator : ISpecimenBuilder
   {
     private readonly Random random;
     private readonly object syncRoot;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RandomDoublePrecisionFloatingPointSequenceGenerator"/> class.
+    /// </summary>
     internal RandomDoublePrecisionFloatingPointSequenceGenerator()
     {
       syncRoot = new object();
       random = new Random();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <param name="context">The context.</param>
+    /// <returns>An object.</returns>
     public object Create(object request, ISpecimenContext context)
     {
       var type = request as Type;
@@ -215,6 +276,11 @@ public class MapListObject
       return CreateRandom(type);
     }
 
+    /// <summary>
+    /// Creates the random.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <returns>An object.</returns>
     private object CreateRandom(Type request)
     {
       switch (Type.GetTypeCode(request))
@@ -233,6 +299,10 @@ public class MapListObject
       }
     }
 
+    /// <summary>
+    /// Gets the next random.
+    /// </summary>
+    /// <returns>A double.</returns>
     private double GetNextRandom()
     {
       lock (syncRoot)
@@ -242,6 +312,9 @@ public class MapListObject
     }
   }
 
+  /// <summary>
+  /// The to class.
+  /// </summary>
   public class ToClass
   {
     public string Message;

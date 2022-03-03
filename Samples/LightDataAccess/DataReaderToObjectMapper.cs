@@ -178,7 +178,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
     /// </summary>
     /// <param name="from">Source type</param>
     /// <param name="to">Destination type</param>
-    /// <returns>IEnumerable<IMappingOperation>[].</returns>
+    /// <returns>IEnumerable&lt;IMappingOperation&gt;.</returns>
     public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
     {
       return ReflectionHelper.GetPublicFieldsAndProperties(to)

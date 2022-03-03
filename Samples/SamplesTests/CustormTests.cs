@@ -15,6 +15,9 @@ namespace SamplesTests;
 /// </summary>
 public class CustormTests
 {
+  /// <summary>
+  /// Initializes a new instance of the <see cref="CustormTests"/> class.
+  /// </summary>
   public CustormTests()
   {
     _connectionConfig = ConfigurationManager.ConnectionStrings["NorthWindSqlite"];
@@ -25,6 +28,10 @@ public class CustormTests
 
   private readonly DbProviderFactory _factory;
 
+  /// <summary>
+  /// Creates the connection.
+  /// </summary>
+  /// <returns>A DbConnection.</returns>
   private DbConnection CreateConnection()
   {
     var result = _factory.CreateConnection();
@@ -35,6 +42,9 @@ public class CustormTests
   }
 
   // [Fact]
+  /// <summary>
+  /// Gets the customers.
+  /// </summary>
   public void GetCustomers()
   {
     Customer[] customers;
@@ -53,6 +63,9 @@ public class CustormTests
   }
 
   // [Fact]
+  /// <summary>
+  /// Inserts the test.
+  /// </summary>
   public void InsertTest()
   {
     using var ts = new TransactionScope();
@@ -77,6 +90,9 @@ public class CustormTests
   }
 
   // [Fact]
+  /// <summary>
+  /// Updates the customer.
+  /// </summary>
   public void UpdateCustomer()
   {
     var objMan = new Mapper();

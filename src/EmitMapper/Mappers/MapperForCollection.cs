@@ -29,6 +29,9 @@ public class MapperForCollection : CustomMapper
 
   private MapperDescription _subMapper;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="MapperForCollection"/> class.
+  /// </summary>
   protected MapperForCollection()
     : base(null, null, null, null, null)
   {
@@ -80,6 +83,10 @@ public class MapperForCollection : CustomMapper
     return result;
   }
 
+  /// <summary>
+  /// Creates the target instance.
+  /// </summary>
+  /// <returns>An object.</returns>
   public override object CreateTargetInstance()
   {
     return null;
@@ -139,6 +146,11 @@ public class MapperForCollection : CustomMapper
     return null;
   }
 
+  /// <summary>
+  /// Gets the sub mapper type from.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <returns>A Type.</returns>
   internal static Type GetSubMapperTypeFrom(Type from)
   {
     var result = ExtractElementType(from);
@@ -149,6 +161,11 @@ public class MapperForCollection : CustomMapper
     return result;
   }
 
+  /// <summary>
+  /// Gets the sub mapper type to.
+  /// </summary>
+  /// <param name="to">The to.</param>
+  /// <returns>A Type.</returns>
   internal static Type GetSubMapperTypeTo(Type to)
   {
     return ExtractElementType(to);
@@ -168,6 +185,12 @@ public class MapperForCollection : CustomMapper
                            || Metadata.IList1.IsAssignableFrom(type));
   }
 
+  /// <summary>
+  /// Copies the to list.
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
+  /// <param name="from">The from.</param>
+  /// <returns><![CDATA[List<T>]]></returns>
   protected List<T> CopyToList<T>(IEnumerable from)
   {
     List<T> result;
@@ -183,11 +206,22 @@ public class MapperForCollection : CustomMapper
     return result;
   }
 
+  /// <summary>
+  /// Copies the to list invoke.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <returns>An object.</returns>
   protected virtual object CopyToListInvoke(IEnumerable from)
   {
     return null;
   }
 
+  /// <summary>
+  /// Copies the to list scalar.
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
+  /// <param name="from">The from.</param>
+  /// <returns><![CDATA[List<T>]]></returns>
   protected List<T> CopyToListScalar<T>(object from)
   {
     var result = new List<T>(1) { (T)_subMapper.Mapper.Map(from) };
@@ -195,11 +229,21 @@ public class MapperForCollection : CustomMapper
     return result;
   }
 
+  /// <summary>
+  /// Copies the to list scalar invoke.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <returns>An object.</returns>
   protected virtual object CopyToListScalarInvoke(object from)
   {
     return null;
   }
 
+  /// <summary>
+  /// Extracts the element type.
+  /// </summary>
+  /// <param name="collection">The collection.</param>
+  /// <returns>A Type.</returns>
   private static Type ExtractElementType(Type collection)
   {
     if (collection.IsArray)
@@ -214,6 +258,12 @@ public class MapperForCollection : CustomMapper
     return null;
   }
 
+  /// <summary>
+  /// Invokes the copy impl.
+  /// </summary>
+  /// <param name="copiedObjectType">The copied object type.</param>
+  /// <param name="copyMethod">The copy method.</param>
+  /// <returns>An IAstNode.</returns>
   private static IAstNode InvokeCopyImpl(Type copiedObjectType, MethodInfo copyMethod)
   {
     var mi = copyMethod?.MakeGenericMethod(ExtractElementType(copiedObjectType));
@@ -228,6 +278,11 @@ public class MapperForCollection : CustomMapper
     };
   }
 
+  /// <summary>
+  /// Copies the scalar to array.
+  /// </summary>
+  /// <param name="scalar">The scalar.</param>
+  /// <returns>An Array.</returns>
   private Array CopyScalarToArray(object scalar)
   {
     var result = Array.CreateInstance(TypeTo.GetElementType(), 1);
@@ -236,6 +291,11 @@ public class MapperForCollection : CustomMapper
     return result;
   }
 
+  /// <summary>
+  /// Copies the to array.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <returns>An Array.</returns>
   private Array CopyToArray(IEnumerable from)
   {
     if (from is ICollection collection)
@@ -259,6 +319,11 @@ public class MapperForCollection : CustomMapper
     }
   }
 
+  /// <summary>
+  /// Copies the to array list.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <returns>An ArrayList.</returns>
   private ArrayList CopyToArrayList(IEnumerable from)
   {
     if (ShallowCopy)
@@ -295,6 +360,11 @@ public class MapperForCollection : CustomMapper
     return result;
   }
 
+  /// <summary>
+  /// Copies the to array list scalar.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <returns>An ArrayList.</returns>
   private ArrayList CopyToArrayListScalar(object from)
   {
     var result = new ArrayList(1);
@@ -312,6 +382,12 @@ public class MapperForCollection : CustomMapper
     return result;
   }
 
+  /// <summary>
+  /// Copies the to i list.
+  /// </summary>
+  /// <param name="iList">The i list.</param>
+  /// <param name="from">The from.</param>
+  /// <returns>An object.</returns>
   private object CopyToIList(IList iList, object from)
   {
     iList ??= ObjectFactory.CreateInstance<IList>(TypeTo);

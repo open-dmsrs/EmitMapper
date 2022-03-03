@@ -2,6 +2,9 @@
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
+/// <summary>
+/// The ast if.
+/// </summary>
 
 internal class AstIf : IAstNode
 {
@@ -11,6 +14,10 @@ internal class AstIf : IAstNode
 
   public AstComplexNode TrueBranch;
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="context">The context.</param>
   public void Compile(CompilationContext context)
   {
     var elseLabel = context.ILGenerator.DefineLabel();

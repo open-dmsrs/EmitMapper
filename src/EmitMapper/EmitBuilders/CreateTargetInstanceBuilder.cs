@@ -9,9 +9,17 @@ using EmitMapper.Mappers;
 using EmitMapper.Utils;
 
 namespace EmitMapper.EmitBuilders;
+/// <summary>
+/// The create target instance builder.
+/// </summary>
 
 internal static class CreateTargetInstanceBuilder
 {
+  /// <summary>
+  /// Builds the create target instance method.
+  /// </summary>
+  /// <param name="type">The type.</param>
+  /// <param name="typeBuilder">The type builder.</param>
   public static void BuildCreateTargetInstanceMethod(Type type, TypeBuilder typeBuilder)
   {
     // var expr = (Expression<Func<object>>)ObjectFactory.GenerateConstructorExpression(type).ToObject();

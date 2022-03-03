@@ -5,6 +5,9 @@ using EmitMapper.AST.Helpers;
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
+/// <summary>
+/// The ast write property.
+/// </summary>
 
 internal class AstWriteProperty : IAstNode
 {
@@ -16,6 +19,12 @@ internal class AstWriteProperty : IAstNode
 
   private readonly IAstRefOrValue _value;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="AstWriteProperty"/> class.
+  /// </summary>
+  /// <param name="targetObject">The target object.</param>
+  /// <param name="value">The value.</param>
+  /// <param name="propertyInfo">The property info.</param>
   public AstWriteProperty(IAstRefOrAddr targetObject, IAstRefOrValue value, PropertyInfo propertyInfo)
   {
     _targetObject = targetObject;
@@ -30,6 +39,10 @@ internal class AstWriteProperty : IAstNode
       throw new EmitMapperException("Property " + propertyInfo.Name + " has invalid arguments");
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="context">The context.</param>
   public void Compile(CompilationContext context)
   {
     AstBuildHelper.CallMethod(_setMethod, _targetObject, new List<IAstStackItem> { _value }).Compile(context);

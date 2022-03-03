@@ -30,11 +30,17 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 
   private string _configurationName;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="MapConfigBaseImpl"/> class.
+  /// </summary>
   public MapConfigBaseImpl()
   {
     RegisterDefaultCollectionConverters();
   }
 
+  /// <summary>
+  /// Builds the configuration name.
+  /// </summary>
   public virtual void BuildConfigurationName()
   {
     _configurationName = new[]
@@ -88,6 +94,12 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     return this;
   }
 
+  /// <summary>
+  /// Filters the destination.
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
+  /// <param name="valuesFilter">The values filter.</param>
+  /// <returns>An IMappingConfigurator.</returns>
   public IMappingConfigurator FilterDestination<T>(ValuesFilter<T> valuesFilter)
   {
     _destinationFilters.Add(new[] { Metadata<T>.Type }, valuesFilter);
@@ -95,6 +107,12 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     return this;
   }
 
+  /// <summary>
+  /// Filters the source.
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
+  /// <param name="valuesFilter">The values filter.</param>
+  /// <returns>An IMappingConfigurator.</returns>
   public IMappingConfigurator FilterSource<T>(ValuesFilter<T> valuesFilter)
   {
     _sourceFilters.Add(new[] { Metadata<T>.Type }, valuesFilter);
@@ -102,13 +120,29 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     return this;
   }
 
+  /// <summary>
+  /// Gets the configuration name.
+  /// </summary>
+  /// <returns>A string.</returns>
   public virtual string GetConfigurationName()
   {
     return _configurationName;
   }
 
+  /// <summary>
+  /// Gets the mapping operations.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <returns><![CDATA[IEnumerable<IMappingOperation>]]></returns>
   public abstract IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to);
 
+  /// <summary>
+  /// Gets the root mapping operation.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <returns>An IRootMappingOperation.</returns>
   public virtual IRootMappingOperation GetRootMappingOperation(Type from, Type to)
   {
     var converter = _customConverters.GetValue(new[] { from, to }) ?? GetGenericConverter(from, to);
@@ -124,6 +158,10 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     };
   }
 
+  /// <summary>
+  /// Gets the static converters manager.
+  /// </summary>
+  /// <returns>A StaticConvertersManager.</returns>
   public virtual StaticConvertersManager GetStaticConvertersManager()
   {
     return null;
@@ -199,17 +237,36 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     return this;
   }
 
+  /// <summary>
+  /// Tos the str.
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
+  /// <param name="t">The t.</param>
+  /// <returns>A string.</returns>
   protected static string ToStr<T>(T t)
     where T : class
   {
     return t == null ? string.Empty : t.ToString();
   }
 
+  /// <summary>
+  /// Tos the str enum.
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
+  /// <param name="t">The t.</param>
+  /// <returns>A string.</returns>
   protected static string ToStrEnum<T>(IEnumerable<T> t)
   {
     return t == null ? string.Empty : t.ToCsv("|");
   }
 
+  /// <summary>
+  /// Filters the operations.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <param name="operations">The operations.</param>
+  /// <returns><![CDATA[IEnumerable<IMappingOperation>]]></returns>
   protected IEnumerable<IMappingOperation> FilterOperations(
     Type from,
     Type to,
@@ -253,11 +310,20 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
       }).Where(x => x != null);
   }
 
+  /// <summary>
+  /// Registers the default collection converters.
+  /// </summary>
   protected void RegisterDefaultCollectionConverters()
   {
     ConvertGeneric(Metadata.ICollection1, Metadata<Array>.Type, new ArraysConverterProvider());
   }
 
+  /// <summary>
+  /// Gets the generic converter.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <returns>A Delegate.</returns>
   private Delegate GetGenericConverter(Type from, Type to)
   {
     var converter = _customConvertersGeneric.GetValue(new[] { from, to });
@@ -287,6 +353,14 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
     return Delegate.CreateDelegate(Metadata.Func3.MakeGenericType(from, Metadata<object>.Type, to), converterObj, mi);
   }
 
+  /// <summary>
+  /// Test ignore.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <param name="fromDescr">The from descr.</param>
+  /// <param name="toDescr">The to descr.</param>
+  /// <returns>A bool.</returns>
   private bool TestIgnore(Type from, Type to, MemberDescriptor fromDescr, MemberDescriptor toDescr)
   {
     var ignore = _ignoreMembers.GetValue(new[] { from, to });

@@ -9,11 +9,20 @@ using EmitMapper.AST.Nodes;
 using EmitMapper.Utils;
 
 namespace EmitMapper.EmitInvoker.Methods;
+/// <summary>
+/// The method invoker.
+/// </summary>
 
 public static class MethodInvoker
 {
   private static readonly LazyConcurrentDictionary<string, Type> Cache = new();
 
+  /// <summary>
+  /// Gets the method invoker.
+  /// </summary>
+  /// <param name="targetObject">The target object.</param>
+  /// <param name="mi">The mi.</param>
+  /// <returns>A MethodInvokerBase.</returns>
   public static MethodInvokerBase GetMethodInvoker(object targetObject, MethodInfo mi)
   {
     var typeName = "EmitMapper.MethodCaller_" + mi;
@@ -34,6 +43,13 @@ public static class MethodInvoker
     return result;
   }
 
+  /// <summary>
+  /// Builds the action caller type.
+  /// </summary>
+  /// <param name="typeName">The type name.</param>
+  /// <param name="mi">The mi.</param>
+  /// <exception cref="EmitMapperException"></exception>
+  /// <returns>A Type.</returns>
   private static Type BuildActionCallerType(string typeName, MethodInfo mi)
   {
     var par = mi.GetParameters();
@@ -61,6 +77,13 @@ public static class MethodInvoker
     return tb.CreateType();
   }
 
+  /// <summary>
+  /// Builds the func caller type.
+  /// </summary>
+  /// <param name="typeName">The type name.</param>
+  /// <param name="mi">The mi.</param>
+  /// <exception cref="EmitMapperException"></exception>
+  /// <returns>A Type.</returns>
   private static Type BuildFuncCallerType(string typeName, MethodInfo mi)
   {
     var par = mi.GetParameters();
@@ -88,6 +111,12 @@ public static class MethodInvoker
     return tb.CreateType();
   }
 
+  /// <summary>
+  /// Creates the call method.
+  /// </summary>
+  /// <param name="mi">The mi.</param>
+  /// <param name="parameters">The parameters.</param>
+  /// <returns>An IAstRefOrValue.</returns>
   private static IAstRefOrValue CreateCallMethod(MethodInfo mi, IEnumerable<ParameterInfo> parameters)
   {
     return AstBuildHelper.CallMethod(

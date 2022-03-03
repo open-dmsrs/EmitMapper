@@ -7,6 +7,9 @@ using EmitMapper.AST.Interfaces;
 using EmitMapper.Utils;
 
 namespace EmitMapper.AST.Nodes;
+/// <summary>
+/// The ast new object.
+/// </summary>
 
 internal class AstNewObject : IAstRef
 {
@@ -14,18 +17,34 @@ internal class AstNewObject : IAstRef
 
   public Type ObjectType;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="AstNewObject"/> class.
+  /// </summary>
   public AstNewObject()
   {
   }
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="AstNewObject"/> class.
+  /// </summary>
+  /// <param name="objectType">The object type.</param>
+  /// <param name="constructorParams">The constructor params.</param>
   public AstNewObject(Type objectType, IAstStackItem[] constructorParams)
   {
     ObjectType = objectType;
     ConstructorParams = constructorParams;
   }
 
+  /// <summary>
+  /// Gets the item type.
+  /// </summary>
   public Type ItemType => ObjectType;
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="context">The context.</param>
+  /// <exception cref="Exception"></exception>
   public void Compile(CompilationContext context)
   {
     if (ReflectionHelper.IsNullable(ObjectType))

@@ -10,14 +10,27 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace EmitMapper.Mvc.Net;
+/// <summary>
+/// The form collection map config.
+/// </summary>
 
 public class FormCollectionMapConfig : MapConfigBaseImpl
 {
+  /// <summary>
+  /// Gets the configuration name.
+  /// </summary>
+  /// <returns>A string.</returns>
   public override string GetConfigurationName()
   {
     return null;
   }
 
+  /// <summary>
+  /// Gets the mapping operations.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <returns><![CDATA[IEnumerable<IMappingOperation>]]></returns>
   public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
   {
     var members = ReflectionHelper.GetPublicFieldsAndProperties(to);
@@ -41,16 +54,33 @@ public class FormCollectionMapConfig : MapConfigBaseImpl
       }).ToArray();
   }
 
+  /// <summary>
+  /// Gets the root mapping operation.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <returns>An IRootMappingOperation.</returns>
   public override IRootMappingOperation GetRootMappingOperation(Type from, Type to)
   {
     return null;
   }
 
+  /// <summary>
+  /// Gets the static converters manager.
+  /// </summary>
+  /// <returns>A StaticConvertersManager.</returns>
   public override StaticConvertersManager GetStaticConvertersManager()
   {
     return null;
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="valueProviderResult">The value provider result.</param>
+  /// <param name="type">The type.</param>
+  /// <exception cref="NotImplementedException"></exception>
+  /// <returns>An object.</returns>
   private object Convert(ValueProviderResult valueProviderResult, Type type)
   {
     throw new NotImplementedException();

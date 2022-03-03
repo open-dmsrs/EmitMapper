@@ -1,4 +1,7 @@
 ﻿namespace SamplesTests;
+/// <summary>
+/// The customer.
+/// </summary>
 
 public class Customer
 {

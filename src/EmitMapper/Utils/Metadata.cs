@@ -73,18 +73,34 @@ public static class Metadata
 
   public static readonly Type Void = typeof(void);
 
+  /// <summary>
+  /// Underlines the type.
+  /// </summary>
+  /// <param name="t">The t.</param>
+  /// <returns>A Type.</returns>
   public static Type UnderlineType(Type t)
   {
     return null;
   }
 }
+/// <summary>
+/// The metadata.
+/// </summary>
+/// <typeparam name="T"></typeparam>
 
 public class Metadata<T>
 {
   public static readonly Type Type = typeof(T);
 
+  /// <summary>
+  /// Gets the type name.
+  /// </summary>
   public static string TypeName => Type.Name;
 
+  /// <summary>
+  /// Gets the interfaces cache.
+  /// </summary>
+  /// <returns>An array of Types</returns>
   public static Type[] GetInterfacesCache()
   {
     return Type.GetInterfacesCache();

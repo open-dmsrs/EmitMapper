@@ -6,6 +6,9 @@ using EmitMapper.EmitInvoker.Methods;
 using EmitMapper.Utils;
 
 namespace EmitMapper.Conversion;
+/// <summary>
+/// The static converters manager.
+/// </summary>
 
 public class StaticConvertersManager
 {
@@ -19,6 +22,9 @@ public class StaticConvertersManager
 
   private readonly List<Func<Type, Type, MethodInfo>> _typesMethodsFunc = new();
 
+  /// <summary>
+  /// Gets the default instance.
+  /// </summary>
   public static StaticConvertersManager DefaultInstance
   {
     get
@@ -40,6 +46,10 @@ public class StaticConvertersManager
     }
   }
 
+  /// <summary>
+  /// Adds the converter class.
+  /// </summary>
+  /// <param name="converterClass">The converter class.</param>
   public void AddConverterClass(Type converterClass)
   {
     foreach (var m in converterClass.GetMethods(BindingFlags.Static | BindingFlags.Public))
@@ -51,11 +61,21 @@ public class StaticConvertersManager
     }
   }
 
+  /// <summary>
+  /// Adds the converter func.
+  /// </summary>
+  /// <param name="converterFunc">The converter func.</param>
   public void AddConverterFunc(Func<Type, Type, MethodInfo> converterFunc)
   {
     _typesMethodsFunc.Add(converterFunc);
   }
 
+  /// <summary>
+  /// Gets the static converter.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <returns>A MethodInfo.</returns>
   public MethodInfo GetStaticConverter(Type from, Type to)
   {
     if (from == null || to == null)
@@ -74,6 +94,12 @@ public class StaticConvertersManager
     return res;
   }
 
+  /// <summary>
+  /// Gets the static converter func.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <returns><![CDATA[Func<object, object>]]></returns>
   public Func<object, object> GetStaticConverterFunc(Type from, Type to)
   {
     var mi = GetStaticConverter(from, to);

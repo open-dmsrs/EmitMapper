@@ -1,4 +1,7 @@
 ﻿namespace EmitMapper.Benchmarks.TestObject;
+/// <summary>
+/// The simple types source.
+/// </summary>
 
 public class SimpleTypesSource : ITestObject
 {

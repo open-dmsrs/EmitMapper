@@ -4,9 +4,15 @@ using Xunit;
 
 namespace EmitMapper.Tests;
 
-////[TestFixture]
+/// <summary>
+/// The type conversion.
+/// </summary>
+
 public class TypeConversion
 {
+  /// <summary>
+  /// 
+  /// </summary>
   [Fact]
   public void Test1()
   {
@@ -20,6 +26,9 @@ public class TypeConversion
     a.Fld2.ShouldBe("11");
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   [Fact]
   public void Test2()
   {
@@ -31,6 +40,9 @@ public class TypeConversion
     a.Fld3[0].ShouldBe("99");
   }
 
+  /// <summary>
+  /// Test3_s the shallow copy.
+  /// </summary>
   [Fact]
   public void Test3_ShallowCopy()
   {
@@ -55,6 +67,9 @@ public class TypeConversion
     a.A2.Fld3.ShouldBeNull();
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   [Fact]
   public void Test4()
   {
@@ -64,56 +79,96 @@ public class TypeConversion
     a.Str.ShouldBe("string");
   }
 
+  /// <summary>
+  /// The a1.
+  /// </summary>
   public class A1
   {
     public int Fld1;
     public string Fld2;
   }
 
+  /// <summary>
+  /// The a2.
+  /// </summary>
   public class A2
   {
     public string[] Fld3;
   }
 
+  /// <summary>
+  /// The a3.
+  /// </summary>
   public class A3
   {
     public A1 A1 = new();
     public A2 A2 = new();
   }
 
+  /// <summary>
+  /// The a4.
+  /// </summary>
   public class A4
   {
+    /// <summary>
+    /// Gets or Sets the str.
+    /// </summary>
     public string Str { get; set; }
   }
 
+  /// <summary>
+  /// The a5.
+  /// </summary>
   public class A5
   {
     public string Fld2;
   }
 
+  /// <summary>
+  /// The b1.
+  /// </summary>
   public class B1
   {
     public decimal Fld1 = 15;
     public decimal Fld2 = 11;
   }
 
+  /// <summary>
+  /// The b2.
+  /// </summary>
   public class B2
   {
     public int Fld3 = 99;
   }
 
+  /// <summary>
+  /// The b3.
+  /// </summary>
   public class B3
   {
     public A1 A1 = new();
     public A2 A2 = new();
   }
 
+  /// <summary>
+  /// The b4.
+  /// </summary>
   public class B4
   {
+    /// <summary>
+    /// Gets the str.
+    /// </summary>
     public BInt Str { get; } = new();
 
+    /// <summary>
+    /// The b int.
+    /// </summary>
     public class BInt
     {
+      /// <summary>
+      /// Tos the string.
+      /// </summary>
+      /// <returns>A string.</returns>
       public override string ToString()
       {
         return "string";
@@ -121,6 +176,9 @@ public class TypeConversion
     }
   }
 
+  /// <summary>
+  /// The b5.
+  /// </summary>
   public class B5
   {
     public decimal Fld2 = 11;

@@ -7,9 +7,19 @@ using EmitMapper.AST.Nodes;
 using EmitMapper.Utils;
 
 namespace EmitMapper.AST.Helpers;
+/// <summary>
+/// The ast build helper.
+/// </summary>
 
 internal static class AstBuildHelper
 {
+  /// <summary>
+  /// Calls the method.
+  /// </summary>
+  /// <param name="methodInfo">The method info.</param>
+  /// <param name="invocationObject">The invocation object.</param>
+  /// <param name="arguments">The arguments.</param>
+  /// <returns>An IAstRefOrValue.</returns>
   public static IAstRefOrValue CallMethod(
     MethodInfo methodInfo,
     IAstRefOrAddr invocationObject,
@@ -21,6 +31,12 @@ internal static class AstBuildHelper
     return new AstCallMethodRef(methodInfo, invocationObject, arguments);
   }
 
+  /// <summary>
+  /// Casts the class.
+  /// </summary>
+  /// <param name="value">The value.</param>
+  /// <param name="targetType">The target type.</param>
+  /// <returns>An IAstRefOrValue.</returns>
   public static IAstRefOrValue CastClass(IAstRefOrValue value, Type targetType)
   {
     if (targetType.IsValueType)
@@ -29,6 +45,12 @@ internal static class AstBuildHelper
     return new AstCastclassRef(value, targetType);
   }
 
+  /// <summary>
+  /// Reads the argument r a.
+  /// </summary>
+  /// <param name="argumentIndex">The argument index.</param>
+  /// <param name="argumentType">The argument type.</param>
+  /// <returns>An IAstRefOrAddr.</returns>
   public static IAstRefOrAddr ReadArgumentRA(int argumentIndex, Type argumentType)
   {
     if (argumentType.IsValueType)
@@ -37,6 +59,12 @@ internal static class AstBuildHelper
     return new AstReadArgumentRef { ArgumentIndex = argumentIndex, ArgumentType = argumentType };
   }
 
+  /// <summary>
+  /// Reads the argument r v.
+  /// </summary>
+  /// <param name="argumentIndex">The argument index.</param>
+  /// <param name="argumentType">The argument type.</param>
+  /// <returns>An IAstRefOrValue.</returns>
   public static IAstRefOrValue ReadArgumentRV(int argumentIndex, Type argumentType)
   {
     if (argumentType.IsValueType)
@@ -45,6 +73,12 @@ internal static class AstBuildHelper
     return new AstReadArgumentRef { ArgumentIndex = argumentIndex, ArgumentType = argumentType };
   }
 
+  /// <summary>
+  /// Reads the array item r a.
+  /// </summary>
+  /// <param name="array">The array.</param>
+  /// <param name="index">The index.</param>
+  /// <returns>An IAstRefOrAddr.</returns>
   public static IAstRefOrAddr ReadArrayItemRA(IAstRef array, int index)
   {
     if (array.ItemType.IsValueType)
@@ -53,6 +87,12 @@ internal static class AstBuildHelper
     return new AstReadArrayItemRef { Array = array, Index = index };
   }
 
+  /// <summary>
+  /// Reads the array item r v.
+  /// </summary>
+  /// <param name="array">The array.</param>
+  /// <param name="index">The index.</param>
+  /// <returns>An IAstRefOrValue.</returns>
   public static IAstRefOrValue ReadArrayItemRV(IAstRef array, int index)
   {
     if (array.ItemType.IsValueType)
@@ -61,6 +101,12 @@ internal static class AstBuildHelper
     return new AstReadArrayItemRef { Array = array, Index = index };
   }
 
+  /// <summary>
+  /// Reads the field r a.
+  /// </summary>
+  /// <param name="sourceObject">The source object.</param>
+  /// <param name="fieldInfo">The field info.</param>
+  /// <returns>An IAstRefOrAddr.</returns>
   public static IAstRefOrAddr ReadFieldRA(IAstRefOrAddr sourceObject, FieldInfo fieldInfo)
   {
     if (fieldInfo.FieldType.IsValueType)
@@ -69,6 +115,12 @@ internal static class AstBuildHelper
     return new AstReadFieldRef { FieldInfo = fieldInfo, SourceObject = sourceObject };
   }
 
+  /// <summary>
+  /// Reads the field r v.
+  /// </summary>
+  /// <param name="sourceObject">The source object.</param>
+  /// <param name="fieldInfo">The field info.</param>
+  /// <returns>An IAstRefOrValue.</returns>
   public static IAstRefOrValue ReadFieldRV(IAstRefOrAddr sourceObject, FieldInfo fieldInfo)
   {
     if (fieldInfo.FieldType.IsValueType)
@@ -77,6 +129,11 @@ internal static class AstBuildHelper
     return new AstReadFieldRef { FieldInfo = fieldInfo, SourceObject = sourceObject };
   }
 
+  /// <summary>
+  /// Reads the local r a.
+  /// </summary>
+  /// <param name="loc">The loc.</param>
+  /// <returns>An IAstRefOrAddr.</returns>
   public static IAstRefOrAddr ReadLocalRA(LocalBuilder loc)
   {
     if (loc.LocalType.IsValueType)
@@ -85,6 +142,11 @@ internal static class AstBuildHelper
     return new AstReadLocalRef { LocalType = loc.LocalType, LocalIndex = loc.LocalIndex };
   }
 
+  /// <summary>
+  /// Reads the local r v.
+  /// </summary>
+  /// <param name="loc">The loc.</param>
+  /// <returns>An IAstRefOrValue.</returns>
   public static IAstRefOrValue ReadLocalRV(LocalBuilder loc)
   {
     if (loc.LocalType.IsValueType)
@@ -93,6 +155,13 @@ internal static class AstBuildHelper
     return new AstReadLocalRef { LocalType = loc.LocalType, LocalIndex = loc.LocalIndex };
   }
 
+  /// <summary>
+  /// Reads the member.
+  /// </summary>
+  /// <param name="sourceObject">The source object.</param>
+  /// <param name="memberInfo">The member info.</param>
+  /// <exception cref="EmitMapperException"></exception>
+  /// <returns>An IAstStackItem.</returns>
   public static IAstStackItem ReadMember(IAstRefOrAddr sourceObject, MemberInfo memberInfo)
   {
     if (memberInfo.MemberType == MemberTypes.Method)
@@ -114,6 +183,13 @@ internal static class AstBuildHelper
     return (IAstRef)ReadPropertyRV(sourceObject, (PropertyInfo)memberInfo);
   }
 
+  /// <summary>
+  /// Reads the member r a.
+  /// </summary>
+  /// <param name="sourceObject">The source object.</param>
+  /// <param name="memberInfo">The member info.</param>
+  /// <exception cref="EmitMapperException"></exception>
+  /// <returns>An IAstRefOrAddr.</returns>
   public static IAstRefOrAddr ReadMemberRA(IAstRefOrAddr sourceObject, MemberInfo memberInfo)
   {
     if (memberInfo.MemberType == MemberTypes.Method)
@@ -143,6 +219,13 @@ internal static class AstBuildHelper
     return (IAstRef)ReadPropertyRV(sourceObject, (PropertyInfo)memberInfo);
   }
 
+  /// <summary>
+  /// Reads the member r v.
+  /// </summary>
+  /// <param name="sourceObject">The source object.</param>
+  /// <param name="memberInfo">The member info.</param>
+  /// <exception cref="EmitMapperException"></exception>
+  /// <returns>An IAstRefOrValue.</returns>
   public static IAstRefOrValue ReadMemberRV(IAstRefOrAddr sourceObject, MemberInfo memberInfo)
   {
     if (memberInfo.MemberType == MemberTypes.Method)
@@ -164,6 +247,12 @@ internal static class AstBuildHelper
     return ReadPropertyRV(sourceObject, (PropertyInfo)memberInfo);
   }
 
+  /// <summary>
+  /// Reads the members chain.
+  /// </summary>
+  /// <param name="sourceObject">The source object.</param>
+  /// <param name="membersChain">The members chain.</param>
+  /// <returns>An IAstRefOrValue.</returns>
   public static IAstRefOrValue ReadMembersChain(IAstRefOrAddr sourceObject, IEnumerable<MemberInfo> membersChain)
   {
     var src = sourceObject;
@@ -182,11 +271,23 @@ internal static class AstBuildHelper
     return ReadMemberRV(src, cur);
   }
 
+  /// <summary>
+  /// Reads the members chain.
+  /// </summary>
+  /// <param name="sourceObject">The source object.</param>
+  /// <param name="membersChainOfOne">The members chain of one.</param>
+  /// <returns>An IAstRefOrValue.</returns>
   public static IAstRefOrValue ReadMembersChain(IAstRefOrAddr sourceObject, MemberInfo membersChainOfOne)
   {
     return ReadMemberRV(sourceObject, membersChainOfOne);
   }
 
+  /// <summary>
+  /// Reads the property r a.
+  /// </summary>
+  /// <param name="sourceObject">The source object.</param>
+  /// <param name="propertyInfo">The property info.</param>
+  /// <returns>An IAstRefOrAddr.</returns>
   public static IAstRefOrAddr ReadPropertyRA(IAstRefOrAddr sourceObject, PropertyInfo propertyInfo)
   {
     if (propertyInfo.PropertyType.IsValueType)
@@ -195,6 +296,12 @@ internal static class AstBuildHelper
     return new AstReadPropertyRef { SourceObject = sourceObject, PropertyInfo = propertyInfo };
   }
 
+  /// <summary>
+  /// Reads the property r v.
+  /// </summary>
+  /// <param name="sourceObject">The source object.</param>
+  /// <param name="propertyInfo">The property info.</param>
+  /// <returns>An IAstRefOrValue.</returns>
   public static IAstRefOrValue ReadPropertyRV(IAstRefOrAddr sourceObject, PropertyInfo propertyInfo)
   {
     if (propertyInfo.PropertyType.IsValueType)
@@ -203,6 +310,11 @@ internal static class AstBuildHelper
     return new AstReadPropertyRef { SourceObject = sourceObject, PropertyInfo = propertyInfo };
   }
 
+  /// <summary>
+  /// Reads the this.
+  /// </summary>
+  /// <param name="thisType">The this type.</param>
+  /// <returns>An IAstRefOrAddr.</returns>
   public static IAstRefOrAddr ReadThis(Type thisType)
   {
     if (thisType.IsValueType)
@@ -211,6 +323,13 @@ internal static class AstBuildHelper
     return new AstReadThisRef { ThisType = thisType };
   }
 
+  /// <summary>
+  /// Writes the member.
+  /// </summary>
+  /// <param name="memberInfo">The member info.</param>
+  /// <param name="targetObject">The target object.</param>
+  /// <param name="value">The value.</param>
+  /// <returns>An IAstNode.</returns>
   public static IAstNode WriteMember(MemberInfo memberInfo, IAstRefOrAddr targetObject, IAstRefOrValue value)
   {
     if (memberInfo.MemberType == MemberTypes.Field)
@@ -219,6 +338,13 @@ internal static class AstBuildHelper
     return new AstWriteProperty(targetObject, value, (PropertyInfo)memberInfo);
   }
 
+  /// <summary>
+  /// Writes the members chain.
+  /// </summary>
+  /// <param name="membersChain">The members chain.</param>
+  /// <param name="targetObject">The target object.</param>
+  /// <param name="value">The value.</param>
+  /// <returns>An IAstNode.</returns>
   public static IAstNode WriteMembersChain(
     IEnumerable<MemberInfo> membersChain,
     IAstRefOrAddr targetObject,

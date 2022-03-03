@@ -49,12 +49,26 @@ public class DebuggerWriter : TextWriter
     _isOpen = true;
   }
 
+  /// <summary>
+  /// Gets the category.
+  /// </summary>
   public string Category { get; }
 
+  /// <summary>
+  /// Gets the encoding.
+  /// </summary>
   public override Encoding Encoding => _encoding ??= new UnicodeEncoding(false, false);
 
+  /// <summary>
+  /// Gets the level.
+  /// </summary>
   public int Level { get; }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="value">The value.</param>
+  /// <exception cref="ObjectDisposedException"></exception>
   public override void Write(char value)
   {
     if (!_isOpen) throw new ObjectDisposedException(null);
@@ -62,6 +76,11 @@ public class DebuggerWriter : TextWriter
     Debugger.Log(Level, Category, value.ToString());
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="value">The value.</param>
+  /// <exception cref="ObjectDisposedException"></exception>
   public override void Write(string value)
   {
     if (!_isOpen) throw new ObjectDisposedException(null);
@@ -69,6 +88,13 @@ public class DebuggerWriter : TextWriter
     if (value != null) Debugger.Log(Level, Category, value);
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="buffer">The buffer.</param>
+  /// <param name="index">The index.</param>
+  /// <param name="count">The count.</param>
+  /// <exception cref="ObjectDisposedException"></exception>
   public override void Write(char[] buffer, int index, int count)
   {
     if (!_isOpen) throw new ObjectDisposedException(null);
@@ -79,6 +105,10 @@ public class DebuggerWriter : TextWriter
     Debugger.Log(Level, Category, new string(buffer, index, count));
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="disposing">If true, disposing.</param>
   protected override void Dispose(bool disposing)
   {
     _isOpen = false;

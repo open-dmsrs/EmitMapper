@@ -9,6 +9,9 @@ using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
 
 namespace EmitMapper.MappingConfiguration;
+/// <summary>
+/// The default map config.
+/// </summary>
 
 public class DefaultMapConfig : MapConfigBaseImpl
 {
@@ -22,17 +25,26 @@ public class DefaultMapConfig : MapConfigBaseImpl
 
   private bool _shallowCopy;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="DefaultMapConfig"/> class.
+  /// </summary>
   static DefaultMapConfig()
   {
     Instance = new DefaultMapConfig();
   }
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="DefaultMapConfig"/> class.
+  /// </summary>
   public DefaultMapConfig()
   {
     _shallowCopy = true;
     _membersMatcher = (m1, m2) => m1 == m2;
   }
 
+  /// <summary>
+  /// Gets the instance.
+  /// </summary>
   public static DefaultMapConfig Instance { get; }
 
   /// <summary>
@@ -71,6 +83,10 @@ public class DefaultMapConfig : MapConfigBaseImpl
     return this;
   }
 
+  /// <summary>
+  /// Gets the configuration name.
+  /// </summary>
+  /// <returns>A string.</returns>
   public override string GetConfigurationName()
   {
     return _configName ??= base.GetConfigurationName() + new[]
@@ -79,11 +95,23 @@ public class DefaultMapConfig : MapConfigBaseImpl
     }.ToCsv(";");
   }
 
+  /// <summary>
+  /// Gets the mapping operations.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <returns><![CDATA[IEnumerable<IMappingOperation>]]></returns>
   public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
   {
     return FilterOperations(from, to, GetMappingItems(new HashSet<TypesPair>(), from, to, null, null));
   }
 
+  /// <summary>
+  /// Gets the root mapping operation.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <returns>An IRootMappingOperation.</returns>
   public override IRootMappingOperation GetRootMappingOperation(Type from, Type to)
   {
     var res = base.GetRootMappingOperation(from, to);
@@ -143,11 +171,26 @@ public class DefaultMapConfig : MapConfigBaseImpl
     return this;
   }
 
+  /// <summary>
+  /// Match members.
+  /// </summary>
+  /// <param name="m1">The m1.</param>
+  /// <param name="m2">The m2.</param>
+  /// <returns>A bool.</returns>
   protected virtual bool MatchMembers(string m1, string m2)
   {
     return _membersMatcher(m1, m2);
   }
 
+  /// <summary>
+  /// Are the native deep copy.
+  /// </summary>
+  /// <param name="typeFrom">The type from.</param>
+  /// <param name="typeTo">The type to.</param>
+  /// <param name="fromMi">The from mi.</param>
+  /// <param name="toMi">The to mi.</param>
+  /// <param name="shallowCopy">If true, shallow copy.</param>
+  /// <returns>A bool.</returns>
   private static bool IsNativeDeepCopy(Type typeFrom, Type typeTo, MemberInfo fromMi, MemberInfo toMi, bool shallowCopy)
   {
     if (NativeConverter.IsNativeConvertionPossible(typeFrom, typeTo))
@@ -162,6 +205,17 @@ public class DefaultMapConfig : MapConfigBaseImpl
     return false;
   }
 
+  /// <summary>
+  /// Creates the mapping operation.
+  /// </summary>
+  /// <param name="processedTypes">The processed types.</param>
+  /// <param name="fromRoot">The from root.</param>
+  /// <param name="toRoot">The to root.</param>
+  /// <param name="toPath">The to path.</param>
+  /// <param name="fromPath">The from path.</param>
+  /// <param name="fromMi">The from mi.</param>
+  /// <param name="toMi">The to mi.</param>
+  /// <returns>An IMappingOperation.</returns>
   private IMappingOperation CreateMappingOperation(
     HashSet<TypesPair> processedTypes,
     Type fromRoot,
@@ -218,6 +272,15 @@ public class DefaultMapConfig : MapConfigBaseImpl
     };
   }
 
+  /// <summary>
+  /// Gets the mapping items.
+  /// </summary>
+  /// <param name="processedTypes">The processed types.</param>
+  /// <param name="fromRoot">The from root.</param>
+  /// <param name="toRoot">The to root.</param>
+  /// <param name="toPath">The to path.</param>
+  /// <param name="fromPath">The from path.</param>
+  /// <returns><![CDATA[List<IMappingOperation>]]></returns>
   private List<IMappingOperation> GetMappingItems(
     HashSet<TypesPair> processedTypes,
     Type fromRoot,
@@ -282,6 +345,12 @@ public class DefaultMapConfig : MapConfigBaseImpl
     return result;
   }
 
+  /// <summary>
+  /// Are the shallow copy.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <returns>A bool.</returns>
   private bool IsShallowCopy(Type from, Type to)
   {
     if (TypeInList(_shallowCopyMembers, to) || TypeInList(_shallowCopyMembers, from))
@@ -293,11 +362,23 @@ public class DefaultMapConfig : MapConfigBaseImpl
     return _shallowCopy;
   }
 
+  /// <summary>
+  /// Are the shallow copy.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <returns>A bool.</returns>
   private bool IsShallowCopy(MemberDescriptor from, MemberDescriptor to)
   {
     return IsShallowCopy(from.MemberType, to.MemberType);
   }
 
+  /// <summary>
+  /// Mappings the item name in list.
+  /// </summary>
+  /// <param name="list">The list.</param>
+  /// <param name="mo">The mo.</param>
+  /// <returns>A bool.</returns>
   private bool MappingItemNameInList(IEnumerable<string> list, ReadWriteSimple mo)
   {
     var enumerable = list.ToList();
@@ -306,6 +387,12 @@ public class DefaultMapConfig : MapConfigBaseImpl
            || enumerable.Any(l => MatchMembers(l, mo.Source.MemberInfo.Name));
   }
 
+  /// <summary>
+  /// Mappings the item type in list.
+  /// </summary>
+  /// <param name="list">The list.</param>
+  /// <param name="mo">The mo.</param>
+  /// <returns>A bool.</returns>
   private bool MappingItemTypeInList(IEnumerable<string> list, ReadWriteSimple mo)
   {
     var enumerable = list.ToList();
@@ -313,6 +400,12 @@ public class DefaultMapConfig : MapConfigBaseImpl
     return TypeInList(enumerable, mo.Destination.MemberType) || TypeInList(enumerable, mo.Source.MemberType);
   }
 
+  /// <summary>
+  /// Types the in list.
+  /// </summary>
+  /// <param name="list">The list.</param>
+  /// <param name="t">The t.</param>
+  /// <returns>A bool.</returns>
   private bool TypeInList(IEnumerable<string> list, Type t)
   {
     return list.Any(l => MatchMembers(l, t.FullName));

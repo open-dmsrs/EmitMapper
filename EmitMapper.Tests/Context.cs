@@ -1,4 +1,7 @@
 ﻿namespace EmitMapper.Tests;
+/// <summary>
+/// The context.
+/// </summary>
 
 internal static class Context
 {

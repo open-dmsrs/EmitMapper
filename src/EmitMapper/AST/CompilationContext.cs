@@ -5,6 +5,9 @@ using System.Reflection.Emit;
 using EmitMapper.Utils;
 
 namespace EmitMapper.AST;
+/// <summary>
+/// The compilation context.
+/// </summary>
 
 internal class CompilationContext
 {
@@ -14,6 +17,9 @@ internal class CompilationContext
 
   private int _stackCount;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="CompilationContext"/> class.
+  /// </summary>
   public CompilationContext()
   {
     // OutputCommands = TextWriter.Null;
@@ -21,60 +27,108 @@ internal class CompilationContext
     OutputCommands = new DebuggerWriter(1, "IL CODE");
   }
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="CompilationContext"/> class.
+  /// </summary>
+  /// <param name="ilGenerator">The il generator.</param>
   public CompilationContext(ILGenerator ilGenerator)
     : this()
   {
     ILGenerator = ilGenerator;
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="opCode">The op code.</param>
   public void Emit(OpCode opCode)
   {
     ProcessCommand(opCode, 0, string.Empty);
     ILGenerator.Emit(opCode);
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="opCode">The op code.</param>
+  /// <param name="str">The str.</param>
   public void Emit(OpCode opCode, string str)
   {
     ProcessCommand(opCode, 0, str);
     ILGenerator.Emit(opCode, str);
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="opCode">The op code.</param>
+  /// <param name="param">The param.</param>
   public void Emit(OpCode opCode, int param)
   {
     ProcessCommand(opCode, 0, param.ToString());
     ILGenerator.Emit(opCode, param);
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="opCode">The op code.</param>
+  /// <param name="fi">The fi.</param>
   public void Emit(OpCode opCode, FieldInfo fi)
   {
     ProcessCommand(opCode, 0, fi.ToString());
     ILGenerator.Emit(opCode, fi);
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="opCode">The op code.</param>
+  /// <param name="ci">The ci.</param>
   public void Emit(OpCode opCode, ConstructorInfo ci)
   {
     ProcessCommand(opCode, 0, ci.ToString());
     ILGenerator.Emit(opCode, ci);
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="opCode">The op code.</param>
+  /// <param name="lb">The lb.</param>
   public void Emit(OpCode opCode, LocalBuilder lb)
   {
     ProcessCommand(opCode, 0, lb.ToString());
     ILGenerator.Emit(opCode, lb);
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="opCode">The op code.</param>
+  /// <param name="lb">The lb.</param>
   public void Emit(OpCode opCode, Label lb)
   {
     ProcessCommand(opCode, 0, lb.ToString());
     ILGenerator.Emit(opCode, lb);
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="opCode">The op code.</param>
+  /// <param name="type">The type.</param>
   public void Emit(OpCode opCode, Type type)
   {
     ProcessCommand(opCode, 0, type.ToString());
     ILGenerator.Emit(opCode, type);
   }
 
+  /// <summary>
+  /// Emits the call.
+  /// </summary>
+  /// <param name="opCode">The op code.</param>
+  /// <param name="mi">The mi.</param>
   public void EmitCall(OpCode opCode, MethodInfo mi)
   {
     ProcessCommand(
@@ -85,6 +139,10 @@ internal class CompilationContext
     ILGenerator.EmitCall(opCode, mi, null);
   }
 
+  /// <summary>
+  /// Emits the new object.
+  /// </summary>
+  /// <param name="ci">The ci.</param>
   public void EmitNewObject(ConstructorInfo ci)
   {
     ProcessCommand(OpCodes.Newobj, ci.GetParameters().Length * -1 + 1, ci.ToString());
@@ -92,11 +150,20 @@ internal class CompilationContext
     ILGenerator.Emit(OpCodes.Newobj, ci);
   }
 
+  /// <summary>
+  /// Throws the exception.
+  /// </summary>
+  /// <param name="exType">The ex type.</param>
   public void ThrowException(Type exType)
   {
     ILGenerator.ThrowException(exType);
   }
 
+  /// <summary>
+  /// Gets the stack change.
+  /// </summary>
+  /// <param name="beh">The beh.</param>
+  /// <returns>An int.</returns>
   private static int GetStackChange(StackBehaviour beh)
   {
     switch (beh)
@@ -142,6 +209,12 @@ internal class CompilationContext
     return 0;
   }
 
+  /// <summary>
+  /// Processes the command.
+  /// </summary>
+  /// <param name="opCode">The op code.</param>
+  /// <param name="addStack">The add stack.</param>
+  /// <param name="comment">The comment.</param>
   private void ProcessCommand(OpCode opCode, int addStack, string comment)
   {
     var stackChange = GetStackChange(opCode.StackBehaviourPop) + GetStackChange(opCode.StackBehaviourPush) + addStack;
@@ -150,6 +223,10 @@ internal class CompilationContext
     WriteOutputCommand(opCode + " " + comment);
   }
 
+  /// <summary>
+  /// Writes the output command.
+  /// </summary>
+  /// <param name="command">The command.</param>
   private void WriteOutputCommand(string command)
   {
     if (OutputCommands != null)

@@ -4,9 +4,15 @@ using Xunit;
 
 namespace EmitMapper.Tests;
 
-////[TestFixture]
+/// <summary>
+/// The custom mapping.
+/// </summary>
+
 public class CustomMapping
 {
+  /// <summary>
+  /// Test_s the custom converter.
+  /// </summary>
   [Fact]
   public void Test_CustomConverter()
   {
@@ -21,6 +27,9 @@ public class CustomMapping
     a.Fld2.ShouldBe("B2::fld2");
   }
 
+  /// <summary>
+  /// Test_s the custom converter2.
+  /// </summary>
   [Fact]
   public void Test_CustomConverter2()
   {
@@ -31,6 +40,9 @@ public class CustomMapping
     a.Fld2.ShouldBe("converted B2::fld2");
   }
 
+  /// <summary>
+  /// Test_s the custom converter with interfaces.
+  /// </summary>
   [Fact]
   public void Test_CustomConverterWithInterfaces()
   {
@@ -41,6 +53,9 @@ public class CustomMapping
     str.ShouldBe("thisIsMyName");
   }
 
+  /// <summary>
+  /// Test_s the post processing.
+  /// </summary>
   [Fact]
   public void Test_PostProcessing()
   {
@@ -69,23 +84,39 @@ public class CustomMapping
     a.Status.ShouldBe("processed");
   }
 
+  /// <summary>
+  /// The a1.
+  /// </summary>
   public class A1
   {
     public string Fld1 = string.Empty;
+    /// <summary>
+    /// Gets the fld2.
+    /// </summary>
     public string Fld2 { get; private set; } = string.Empty;
 
+    /// <summary>
+    /// Sets the fld2.
+    /// </summary>
+    /// <param name="value">The value.</param>
     public void SetFld2(string value)
     {
       Fld2 = value;
     }
   }
 
+  /// <summary>
+  /// The a2.
+  /// </summary>
   public class A2
   {
     public string Fld1;
     public string Fld2;
   }
 
+  /// <summary>
+  /// The a3.
+  /// </summary>
   public class A3
   {
     public Int Fld;
@@ -98,6 +129,9 @@ public class CustomMapping
       public string Str2;
     }
 
+    /// <summary>
+    /// The int.
+    /// </summary>
     public class Int
     {
       public string Str1;
@@ -105,23 +139,35 @@ public class CustomMapping
     }
   }
 
+  /// <summary>
+  /// The aa.
+  /// </summary>
   public class Aa
   {
     public string Fld1;
     public string Fld2;
   }
 
+  /// <summary>
+  /// The b2.
+  /// </summary>
   public class B2
   {
     public string Fld2 = "B2::fld2";
     public string Fld3 = "B2::fld3";
   }
 
+  /// <summary>
+  /// The b3.
+  /// </summary>
   public class B3
   {
     public Int Fld = new();
     public SInt Fld2;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="B3"/> class.
+    /// </summary>
     public B3()
     {
       Fld2.Str1 = "B3::SInt::str1";
@@ -132,25 +178,43 @@ public class CustomMapping
       public string Str1;
     }
 
+    /// <summary>
+    /// The int.
+    /// </summary>
     public class Int
     {
       public string Str1 = "B3::Int::str1";
     }
   }
 
+  /// <summary>
+  /// The bb.
+  /// </summary>
   public class Bb
   {
     public string Fld1 = "B2::fld1";
     public string Fld2 = "B2::fld2";
   }
 
+  /// <summary>
+  /// The with name.
+  /// </summary>
   public class WithName : IWithName
   {
+    /// <summary>
+    /// Gets or Sets the name.
+    /// </summary>
     public string Name { get; set; }
   }
 
+  /// <summary>
+  /// The with name interface.
+  /// </summary>
   public interface IWithName
   {
+    /// <summary>
+    /// Gets or Sets the name.
+    /// </summary>
     string Name { get; set; }
   }
 }

@@ -6,6 +6,9 @@ public struct ValueToWrite<T>
 
   public T Value;
 
+  /// <summary>
+  /// The actions.
+  /// </summary>
   public enum Actions
   {
     Write = 0,

@@ -82,6 +82,12 @@ public class ObjectsChangeTracker
       }).ToArray();
   }
 
+  /// <summary>
+  /// Gets the changes.
+  /// </summary>
+  /// <param name="originalObj">The original obj.</param>
+  /// <param name="currentObj">The current obj.</param>
+  /// <returns>An array of TrackingMembers</returns>
   public TrackingMember[] GetChanges(object originalObj, object currentObj)
   {
     if (originalObj == null || currentObj == null || originalObj.GetType() != currentObj.GetType()) return null;
@@ -180,7 +186,7 @@ public class ObjectsChangeTracker
     /// </summary>
     /// <param name="from">From.</param>
     /// <param name="to">To.</param>
-    /// <returns>IEnumerable<IMappingOperation>[].</returns>
+    /// <returns>IEnumerable&lt;IMappingOperation&gt;.</returns>
     public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
     {
       return ReflectionHelper.GetPublicFieldsAndProperties(from).Select(

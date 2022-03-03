@@ -4,9 +4,15 @@ using Shouldly;
 using Xunit;
 
 namespace SamplesTests;
+/// <summary>
+/// The test objects tracker.
+/// </summary>
 
 public class TestObjectsTracker
 {
+  /// <summary>
+  /// Test_s the objects change tracker_ get changes_ register object.
+  /// </summary>
   [Fact]
   public void Test_ObjectsChangeTracker_GetChanges_RegisterObject()
   {
@@ -35,6 +41,9 @@ public class TestObjectsTracker
     Assert.Null(changes);
   }
 
+  /// <summary>
+  /// Test_s the objects change tracker_ get changes_two_objects.
+  /// </summary>
   [Fact]
   public void Test_ObjectsChangeTracker_GetChanges_two_objects()
   {
@@ -56,6 +65,9 @@ public class TestObjectsTracker
     Assert.Null(changes);
   }
 
+  /// <summary>
+  /// The a.
+  /// </summary>
   public class A
   {
     public string F1 = "F1";

@@ -19,6 +19,9 @@ public class DynamicAssemblyManager
 
   private static readonly ModuleBuilder _ModuleBuilder;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="DynamicAssemblyManager"/> class.
+  /// </summary>
   static DynamicAssemblyManager()
   {
     // var curAssemblyName = Assembly.GetExecutingAssembly().GetName();
@@ -55,6 +58,11 @@ public class DynamicAssemblyManager
     }
   }
 
+  /// <summary>
+  /// Defines the mapper type.
+  /// </summary>
+  /// <param name="typeName">The type name.</param>
+  /// <returns>A TypeBuilder.</returns>
   internal static TypeBuilder DefineMapperType(string typeName)
   {
     lock (_LockObject)
@@ -67,6 +75,12 @@ public class DynamicAssemblyManager
     }
   }
 
+  /// <summary>
+  /// Defines the type.
+  /// </summary>
+  /// <param name="typeName">The type name.</param>
+  /// <param name="parent">The parent.</param>
+  /// <returns>A TypeBuilder.</returns>
   internal static TypeBuilder DefineType(string typeName, Type parent)
   {
     lock (_LockObject)
@@ -75,6 +89,11 @@ public class DynamicAssemblyManager
     }
   }
 
+  /// <summary>
+  /// Corrects the type name.
+  /// </summary>
+  /// <param name="typeName">The type name.</param>
+  /// <returns>A string.</returns>
   private static string CorrectTypeName(string typeName)
   {
     if (typeName.Length >= 1042)

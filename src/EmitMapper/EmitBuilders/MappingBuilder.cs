@@ -11,6 +11,9 @@ using EmitMapper.MappingConfiguration;
 using EmitMapper.Utils;
 
 namespace EmitMapper.EmitBuilders;
+/// <summary>
+/// The mapping builder.
+/// </summary>
 
 internal class MappingBuilder
 {
@@ -26,6 +29,14 @@ internal class MappingBuilder
 
   private Type _to;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="MappingBuilder"/> class.
+  /// </summary>
+  /// <param name="objectsMapperManager">The objects mapper manager.</param>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <param name="typeBuilder">The type builder.</param>
+  /// <param name="mappingConfigurator">The mapping configurator.</param>
   public MappingBuilder(
     Mapper objectsMapperManager,
     Type from,
@@ -42,6 +53,9 @@ internal class MappingBuilder
     _mappingConfigurator = mappingConfigurator;
   }
 
+  /// <summary>
+  /// Builds the copy impl method.
+  /// </summary>
   public void BuildCopyImplMethod()
   {
     if (ReflectionHelper.IsNullable(_from))

@@ -3,6 +3,9 @@ using System.Reflection.Emit;
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
+/// <summary>
+/// The ast castclass.
+/// </summary>
 
 internal class AstCastclass : IAstRefOrValue
 {
@@ -10,14 +13,27 @@ internal class AstCastclass : IAstRefOrValue
 
   protected IAstRefOrValue Value;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="AstCastclass"/> class.
+  /// </summary>
+  /// <param name="value">The value.</param>
+  /// <param name="targetType">The target type.</param>
   public AstCastclass(IAstRefOrValue value, Type targetType)
   {
     Value = value;
     TargetType = targetType;
   }
 
+  /// <summary>
+  /// Gets the item type.
+  /// </summary>
   public Type ItemType => TargetType;
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="context">The context.</param>
+  /// <exception cref="EmitMapperException"></exception>
   public virtual void Compile(CompilationContext context)
   {
     if (Value.ItemType != TargetType)

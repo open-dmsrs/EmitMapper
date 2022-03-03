@@ -6,20 +6,33 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace EmitMapper.Tests;
+/// <summary>
+/// The deep type.
+/// </summary>
 
 public class DeepType : IDisposable
 {
   private readonly ITestOutputHelper _testOutputHelper;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="DeepType"/> class.
+  /// </summary>
+  /// <param name="testOutputHelper">The test output helper.</param>
   public DeepType(ITestOutputHelper testOutputHelper)
   {
     _testOutputHelper = testOutputHelper;
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   public void Dispose()
   {
   }
 
+  /// <summary>
+  /// Test_s the deep type copy.
+  /// </summary>
   [Fact]
   public void Test_DeepTypeCopy()
   {
@@ -52,22 +65,33 @@ public class DeepType : IDisposable
     customer.Name.ShouldBe(result.Name);
     customer.Id.ShouldBe(result.Id);
     result.AddressCity.ShouldBeNull();
-    Equal(customer.Address, result.Address);
+    IsSame(customer.Address, result.Address);
 
-    for (int i = 0, n = result.Addresses.Length; i < n; i++) Equal(customer.Addresses[i], result.Addresses[i]);
+    for (int i = 0, n = result.Addresses.Length; i < n; i++) IsSame(customer.Addresses[i], result.Addresses[i]);
 
     for (int i = 0, n = result.WorkAddresses.Count; i < n; i++)
-      Equal(customer.WorkAddresses[i], result.WorkAddresses[i]);
+      IsSame(customer.WorkAddresses[i], result.WorkAddresses[i]);
   }
 
-  private void Equal(Address a, AddressDTO ad)
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="a">The a.</param>
+  /// <param name="ad">The ad.</param>
+  private static void IsSame(Address a, AddressDTO ad)
   {
     a.Id.ShouldBe(ad.Id);
     a.City.ShouldBe(ad.City);
     a.Country.ShouldBe(ad.Country);
   }
 
-  public void Equal(Address a, Address ad)
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="a">The a.</param>
+  /// <param name="ad">The ad.</param>
+
+  private static void IsSame(Address a, Address ad)
   {
     a.Id.ShouldBe(ad.Id);
     a.City.ShouldBe(ad.City);

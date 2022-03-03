@@ -5,6 +5,9 @@ using EmitMapper.MappingConfiguration.MappingOperations;
 using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
 namespace EmitMapper.MappingConfiguration;
+/// <summary>
+/// The mapping configurator interface.
+/// </summary>
 
 public interface IMappingConfigurator
 {
@@ -28,10 +31,29 @@ public interface IMappingConfigurator
   /// <returns></returns>
   IMappingConfigurator ConvertGeneric(Type from, Type to, ICustomConverterProvider converterProvider);
 
+  /// <summary>
+  /// Converts the using.
+  /// </summary>
+  /// <typeparam name="TFrom"></typeparam>
+  /// <typeparam name="TTo"></typeparam>
+  /// <param name="converter">The converter.</param>
+  /// <returns>An IMappingConfigurator.</returns>
   IMappingConfigurator ConvertUsing<TFrom, TTo>(Func<TFrom, TTo> converter);
 
+  /// <summary>
+  /// Filters the destination.
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
+  /// <param name="valuesFilter">The values filter.</param>
+  /// <returns>An IMappingConfigurator.</returns>
   IMappingConfigurator FilterDestination<T>(ValuesFilter<T> valuesFilter);
 
+  /// <summary>
+  /// Filters the source.
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
+  /// <param name="valuesFilter">The values filter.</param>
+  /// <returns>An IMappingConfigurator.</returns>
   IMappingConfigurator FilterSource<T>(ValuesFilter<T> valuesFilter);
 
   /// <summary>
@@ -52,8 +74,18 @@ public interface IMappingConfigurator
   /// <returns></returns>
   IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to);
 
+  /// <summary>
+  /// Gets the root mapping operation.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <returns>An IRootMappingOperation.</returns>
   IRootMappingOperation GetRootMappingOperation(Type from, Type to);
 
+  /// <summary>
+  /// Gets the static converters manager.
+  /// </summary>
+  /// <returns>A StaticConvertersManager.</returns>
   StaticConvertersManager GetStaticConvertersManager();
 
   /// <summary>

@@ -3,9 +3,15 @@ using Xunit;
 
 namespace EmitMapper.Tests;
 
-////[TestFixture]
+/// <summary>
+/// The value types.
+/// </summary>
+
 public class ValueTypes
 {
+  /// <summary>
+  /// Test_s the class to struct.
+  /// </summary>
   [Fact]
   public void Test_ClassToStruct()
   {
@@ -15,6 +21,9 @@ public class ValueTypes
     a.Fld1.ShouldBe(10);
   }
 
+  /// <summary>
+  /// Test_s the nested structs.
+  /// </summary>
   [Fact]
   public void Test_NestedStructs()
   {
@@ -47,6 +56,9 @@ public class ValueTypes
     a.S5.C3.S.I.ShouldBe(3);
   }
 
+  /// <summary>
+  /// Test_s the struct fields.
+  /// </summary>
   [Fact]
   public void Test_StructFields()
   {
@@ -59,6 +71,9 @@ public class ValueTypes
     a.A.Fld1.ShouldBe(10);
   }
 
+  /// <summary>
+  /// Test_s the struct properties.
+  /// </summary>
   [Fact]
   public void Test_StructProperties()
   {
@@ -73,6 +88,9 @@ public class ValueTypes
     b.Fld3.Fld1.ToString().ShouldBe(a.Fld3.Fld1);
   }
 
+  /// <summary>
+  /// Test_s the struct to class.
+  /// </summary>
   [Fact]
   public void Test_StructToClass()
   {
@@ -82,6 +100,9 @@ public class ValueTypes
     a.Fld1.ShouldBe(87);
   }
 
+  /// <summary>
+  /// Test_s the struct to struct.
+  /// </summary>
   [Fact]
   public void Test_StructToStruct()
   {
@@ -91,22 +112,37 @@ public class ValueTypes
     a.Fld1.ShouldBe(99);
   }
 
+  /// <summary>
+  /// The a3.
+  /// </summary>
   public class A3
   {
     public int Fld1;
   }
 
+  /// <summary>
+  /// The a5.
+  /// </summary>
   public class A5
   {
     public A1 A;
   }
 
+  /// <summary>
+  /// The a6 to.
+  /// </summary>
   public class A6To
   {
     public S2Struct S2;
     public C2 S4;
     public C3Class S5;
+    /// <summary>
+    /// Gets or Sets the s.
+    /// </summary>
     public S2Struct S { get; set; }
+    /// <summary>
+    /// Gets or Sets the s3.
+    /// </summary>
     public C1 S3 { get; set; }
 
     public struct S1
@@ -119,16 +155,28 @@ public class ValueTypes
       public S1 S { get; set; }
     }
 
+    /// <summary>
+    /// The c1.
+    /// </summary>
     public class C1
     {
+      /// <summary>
+      /// Gets or Sets the s.
+      /// </summary>
       public S1 S { get; set; }
     }
 
+    /// <summary>
+    /// The c2.
+    /// </summary>
     public class C2
     {
       public S1 S;
     }
 
+    /// <summary>
+    /// The c3 class.
+    /// </summary>
     public class C3Class
     {
       public C2 C1;
@@ -137,20 +185,32 @@ public class ValueTypes
     }
   }
 
+  /// <summary>
+  /// The b1.
+  /// </summary>
   public class B1
   {
     public int Fld1 = 10;
   }
 
+  /// <summary>
+  /// The b2.
+  /// </summary>
   public class B2
   {
     public int Fld1;
   }
 
+  /// <summary>
+  /// The b4.
+  /// </summary>
   public class B4
   {
     public Int Fld3;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="B4"/> class.
+    /// </summary>
     public B4()
     {
       Fld1 = new Int { Fld1 = 12.444M };
@@ -158,7 +218,13 @@ public class ValueTypes
       Fld3.Fld1 = 444;
     }
 
+    /// <summary>
+    /// Gets or Sets the fld1.
+    /// </summary>
     public Int Fld1 { get; set; }
+    /// <summary>
+    /// Gets or Sets the fld2.
+    /// </summary>
     public Int Fld2 { get; set; }
 
     public struct Int
@@ -167,17 +233,29 @@ public class ValueTypes
     }
   }
 
+  /// <summary>
+  /// The b5.
+  /// </summary>
   public class B5
   {
     public A1 A;
   }
 
+  /// <summary>
+  /// The b6 from.
+  /// </summary>
   public class B6From
   {
     public S2Struct S = new();
     public S2Struct S3;
     public C3Class S5;
+    /// <summary>
+    /// Gets or Sets the s2.
+    /// </summary>
     public S2Struct S2 { get; set; }
+    /// <summary>
+    /// Gets or Sets the s4.
+    /// </summary>
     public C1 S4 { get; set; }
 
     public struct S1
@@ -190,11 +268,17 @@ public class ValueTypes
       public S1 S;
     }
 
+    /// <summary>
+    /// The c1.
+    /// </summary>
     public class C1
     {
       public S1 S;
     }
 
+    /// <summary>
+    /// The c3 class.
+    /// </summary>
     public class C3Class
     {
       public C1 C1;

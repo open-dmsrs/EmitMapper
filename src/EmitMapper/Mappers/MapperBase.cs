@@ -120,6 +120,14 @@ public abstract class MapperBase
   /// <returns>Destination object</returns>
   public abstract object MapImpl(object from, object to, object state);
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="objectMapperManager">The object mapper manager.</param>
+  /// <param name="typeFrom">The type from.</param>
+  /// <param name="typeTo">The type to.</param>
+  /// <param name="mappingConfigurator">The mapping configurator.</param>
+  /// <param name="storedObjects">The stored objects.</param>
   internal void Initialize(
     Mapper objectMapperManager,
     Type typeFrom,
@@ -170,6 +178,10 @@ public abstract class MapperBase
     }
   }
 
+  /// <summary>
+  /// Constructs the target.
+  /// </summary>
+  /// <returns>An object.</returns>
   protected object ConstructTarget()
   {
     if (TargetConstructor != null)

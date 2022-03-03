@@ -16,6 +16,13 @@ internal class MapperPrimitive : CustomMapper
 
   private readonly MethodInvokerFunc1 _converter;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="MapperPrimitive"/> class.
+  /// </summary>
+  /// <param name="objectMapperManager">The object mapper manager.</param>
+  /// <param name="typeFrom">The type from.</param>
+  /// <param name="typeTo">The type to.</param>
+  /// <param name="mappingConfigurator">The mapping configurator.</param>
   public MapperPrimitive(
     Mapper objectMapperManager,
     Type typeFrom,
@@ -57,6 +64,11 @@ internal class MapperPrimitive : CustomMapper
     return _converter.CallFunc(from);
   }
 
+  /// <summary>
+  /// Are the supported type.
+  /// </summary>
+  /// <param name="t">The t.</param>
+  /// <returns>A bool.</returns>
   internal static bool IsSupportedType(Type t)
   {
     return IsSupported.GetOrAdd(

@@ -1,9 +1,16 @@
 ﻿using BenchmarkDotNet.Running;
 
 namespace EmitMapper.Benchmarks;
+/// <summary>
+/// The program.
+/// </summary>
 
 public static class Program
 {
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="args">The args.</param>
   public static void Main(string[] args)
   {
     /*******

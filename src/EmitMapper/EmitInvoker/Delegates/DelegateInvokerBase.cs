@@ -1,6 +1,9 @@
 ﻿using System;
 
 namespace EmitMapper.EmitInvoker.Delegates;
+/// <summary>
+/// The delegate invoker base.
+/// </summary>
 
 public class DelegateInvokerBase
 {

@@ -7,6 +7,9 @@ using System.Reflection;
 using System.Reflection.Emit;
 
 namespace EmitMapper.Utils;
+/// <summary>
+/// The proxy generator.
+/// </summary>
 
 public static class ProxyGenerator
 {
@@ -22,16 +25,31 @@ public static class ProxyGenerator
 
   private static readonly LazyConcurrentDictionary<TypeDescription, Type> ProxyTypes = new();
 
+  /// <summary>
+  /// Gets the proxy type.
+  /// </summary>
+  /// <param name="interfaceType">The interface type.</param>
+  /// <returns>A Type.</returns>
   public static Type GetProxyType(Type interfaceType)
   {
     return ProxyTypes.GetOrAdd(new TypeDescription(interfaceType), EmitProxy);
   }
 
+  /// <summary>
+  /// Gets the similar type.
+  /// </summary>
+  /// <param name="sourceType">The source type.</param>
+  /// <param name="additionalProperties">The additional properties.</param>
+  /// <returns>A Type.</returns>
   public static Type GetSimilarType(Type sourceType, IEnumerable<PropertyDescription> additionalProperties)
   {
     return ProxyTypes.GetOrAdd(new TypeDescription(sourceType, additionalProperties), EmitProxy);
   }
 
+  /// <summary>
+  /// Creates the proxy module.
+  /// </summary>
+  /// <returns>A ModuleBuilder.</returns>
   private static ModuleBuilder CreateProxyModule()
   {
     var builder = AssemblyBuilder.DefineDynamicAssembly(_Type.Assembly.GetName(), AssemblyBuilderAccess.Run);
@@ -39,6 +57,12 @@ public static class ProxyGenerator
     return builder.DefineDynamicModule("EmitMapper.ProxyGenerator.Proxies.emit");
   }
 
+  /// <summary>
+  /// Emits the proxy.
+  /// </summary>
+  /// <param name="typeDescription">The type description.</param>
+  /// <exception cref="ArgumentException"></exception>
+  /// <returns>A Type.</returns>
   private static Type EmitProxy(TypeDescription typeDescription)
   {
     var interfaceType = typeDescription.Type;
@@ -147,6 +171,9 @@ public static class ProxyGenerator
     }
   }
 
+  /// <summary>
+  /// The property emitter.
+  /// </summary>
   private class PropertyEmitter
   {
     private static readonly MethodInfo ProxyBaseNotifyPropertyChanged = Metadata<ProxyBase>.Type.GetMethod(
@@ -161,6 +188,12 @@ public static class ProxyGenerator
 
     private readonly MethodBuilder _setterBuilder;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PropertyEmitter"/> class.
+    /// </summary>
+    /// <param name="owner">The owner.</param>
+    /// <param name="property">The property.</param>
+    /// <param name="propertyChangedField">The property changed field.</param>
     public PropertyEmitter(TypeBuilder owner, PropertyDescription property, FieldInfo propertyChangedField)
     {
       var name = property.Name;
@@ -206,6 +239,9 @@ public static class ProxyGenerator
       _propertyBuilder.SetSetMethod(_setterBuilder);
     }
 
+    /// <summary>
+    /// Gets the property type.
+    /// </summary>
     public Type PropertyType => _propertyBuilder.PropertyType;
   }
 }

@@ -334,17 +334,36 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
       };
     }
 
+    /// <summary>
+    /// Compare constant.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private static bool CompareConstant(ConstantExpression a, ConstantExpression b)
     {
       return Equals(a.Value, b.Value);
     }
 
+    /// <summary>
+    /// Compare binary.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareBinary(BinaryExpression a, BinaryExpression b)
     {
       return Equals(a.Method, b.Method) && a.IsLifted == b.IsLifted && a.IsLiftedToNull == b.IsLiftedToNull
              && Compare(a.Left, b.Left) && Compare(a.Right, b.Right) && Compare(a.Conversion, b.Conversion);
     }
 
+    /// <summary>
+    /// Compare binding.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <exception cref="InvalidOperationException"></exception>
+    /// <returns>A bool.</returns>
     private bool CompareBinding(MemberBinding a, MemberBinding b)
     {
       if (a == b) return true;
@@ -375,17 +394,35 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
       }
     }
 
+    /// <summary>
+    /// Compare block.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareBlock(BlockExpression a, BlockExpression b)
     {
       return CompareExpressionList(a.Variables, b.Variables) && CompareExpressionList(a.Expressions, b.Expressions);
     }
 
+    /// <summary>
+    /// Compares the catch block.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareCatchBlock(CatchBlock a, CatchBlock b)
     {
       return ReferenceEquals(a.Test, b.Test) && Equals(a.Test, b.Test) && Compare(a.Body, b.Body)
              && Compare(a.Filter, b.Filter) && Compare(a.Variable, b.Variable);
     }
 
+    /// <summary>
+    /// Compares the catch block list.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareCatchBlockList(IReadOnlyList<CatchBlock> a, IReadOnlyList<CatchBlock> b)
     {
       if (ReferenceEquals(a, b)) return true;
@@ -400,16 +437,34 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
       return true;
     }
 
+    /// <summary>
+    /// Compare conditional.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareConditional(ConditionalExpression a, ConditionalExpression b)
     {
       return Compare(a.Test, b.Test) && Compare(a.IfTrue, b.IfTrue) && Compare(a.IfFalse, b.IfFalse);
     }
 
+    /// <summary>
+    /// Compares the element init.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareElementInit(ElementInit a, ElementInit b)
     {
       return Equals(a.AddMethod, b.AddMethod) && CompareExpressionList(a.Arguments, b.Arguments);
     }
 
+    /// <summary>
+    /// Compares the element init list.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareElementInitList(IReadOnlyList<ElementInit> a, IReadOnlyList<ElementInit> b)
     {
       if (ReferenceEquals(a, b)) return true;
@@ -424,6 +479,12 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
       return true;
     }
 
+    /// <summary>
+    /// Compares the expression list.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareExpressionList(IReadOnlyList<Expression> a, IReadOnlyList<Expression> b)
     {
       if (ReferenceEquals(a, b)) return true;
@@ -438,27 +499,57 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
       return true;
     }
 
+    /// <summary>
+    /// Compare goto.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareGoto(GotoExpression a, GotoExpression b)
     {
       return a.Kind == b.Kind && Equals(a.Target, b.Target) && Compare(a.Value, b.Value);
     }
 
+    /// <summary>
+    /// Compare index.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareIndex(IndexExpression a, IndexExpression b)
     {
       return Equals(a.Indexer, b.Indexer) && Compare(a.Object, b.Object)
                                           && CompareExpressionList(a.Arguments, b.Arguments);
     }
 
+    /// <summary>
+    /// Compare invocation.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareInvocation(InvocationExpression a, InvocationExpression b)
     {
       return Compare(a.Expression, b.Expression) && CompareExpressionList(a.Arguments, b.Arguments);
     }
 
+    /// <summary>
+    /// Compare label.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareLabel(LabelExpression a, LabelExpression b)
     {
       return Equals(a.Target, b.Target) && Compare(a.DefaultValue, b.DefaultValue);
     }
 
+    /// <summary>
+    /// Compare lambda.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareLambda(LambdaExpression a, LambdaExpression b)
     {
       var n = a.Parameters.Count;
@@ -489,21 +580,45 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
       }
     }
 
+    /// <summary>
+    /// Compares the list init.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareListInit(ListInitExpression a, ListInitExpression b)
     {
       return Compare(a.NewExpression, b.NewExpression) && CompareElementInitList(a.Initializers, b.Initializers);
     }
 
+    /// <summary>
+    /// Compare loop.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareLoop(LoopExpression a, LoopExpression b)
     {
       return Equals(a.BreakLabel, b.BreakLabel) && Equals(a.ContinueLabel, b.ContinueLabel) && Compare(a.Body, b.Body);
     }
 
+    /// <summary>
+    /// Compare member.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareMember(MemberExpression a, MemberExpression b)
     {
       return Equals(a.Member, b.Member) && Compare(a.Expression, b.Expression);
     }
 
+    /// <summary>
+    /// Compares the member binding list.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareMemberBindingList(IReadOnlyList<MemberBinding> a, IReadOnlyList<MemberBinding> b)
     {
       if (ReferenceEquals(a, b)) return true;
@@ -518,11 +633,23 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
       return true;
     }
 
+    /// <summary>
+    /// Compares the member init.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareMemberInit(MemberInitExpression a, MemberInitExpression b)
     {
       return Compare(a.NewExpression, b.NewExpression) && CompareMemberBindingList(a.Bindings, b.Bindings);
     }
 
+    /// <summary>
+    /// Compares the member list.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareMemberList(IReadOnlyList<MemberInfo> a, IReadOnlyList<MemberInfo> b)
     {
       if (ReferenceEquals(a, b)) return true;
@@ -537,23 +664,47 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
       return true;
     }
 
+    /// <summary>
+    /// Compares the method call.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareMethodCall(MethodCallExpression a, MethodCallExpression b)
     {
       return Equals(a.Method, b.Method) && Compare(a.Object, b.Object)
                                         && CompareExpressionList(a.Arguments, b.Arguments);
     }
 
+    /// <summary>
+    /// Compare new.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareNew(NewExpression a, NewExpression b)
     {
       return Equals(a.Constructor, b.Constructor) && CompareExpressionList(a.Arguments, b.Arguments)
                                                   && CompareMemberList(a.Members, b.Members);
     }
 
+    /// <summary>
+    /// Compares the new array.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareNewArray(NewArrayExpression a, NewArrayExpression b)
     {
       return CompareExpressionList(a.Expressions, b.Expressions);
     }
 
+    /// <summary>
+    /// Compare parameter.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareParameter(ParameterExpression a, ParameterExpression b)
     {
       return _parameterScope != null && _parameterScope.TryGetValue(a, out var mapped)
@@ -561,11 +712,23 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
         : a.Name == b.Name;
     }
 
+    /// <summary>
+    /// Compares the runtime variables.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareRuntimeVariables(RuntimeVariablesExpression a, RuntimeVariablesExpression b)
     {
       return CompareExpressionList(a.Variables, b.Variables);
     }
 
+    /// <summary>
+    /// Compare switch.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareSwitch(SwitchExpression a, SwitchExpression b)
     {
       return Equals(a.Comparison, b.Comparison) && Compare(a.SwitchValue, b.SwitchValue)
@@ -573,11 +736,23 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
                                                 && CompareSwitchCaseList(a.Cases, b.Cases);
     }
 
+    /// <summary>
+    /// Compares the switch case.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareSwitchCase(SwitchCase a, SwitchCase b)
     {
       return Compare(a.Body, b.Body) && CompareExpressionList(a.TestValues, b.TestValues);
     }
 
+    /// <summary>
+    /// Compares the switch case list.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareSwitchCaseList(IReadOnlyList<SwitchCase> a, IReadOnlyList<SwitchCase> b)
     {
       if (ReferenceEquals(a, b)) return true;
@@ -592,17 +767,35 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
       return true;
     }
 
+    /// <summary>
+    /// Compare try.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareTry(TryExpression a, TryExpression b)
     {
       return Compare(a.Body, b.Body) && Compare(a.Fault, b.Fault) && Compare(a.Finally, b.Finally)
              && CompareCatchBlockList(a.Handlers, b.Handlers);
     }
 
+    /// <summary>
+    /// Compares the type binary.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareTypeBinary(TypeBinaryExpression a, TypeBinaryExpression b)
     {
       return a.TypeOperand == b.TypeOperand && Compare(a.Expression, b.Expression);
     }
 
+    /// <summary>
+    /// Compare unary.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    /// <returns>A bool.</returns>
     private bool CompareUnary(UnaryExpression a, UnaryExpression b)
     {
       return Equals(a.Method, b.Method) && a.IsLifted == b.IsLifted && a.IsLiftedToNull == b.IsLiftedToNull

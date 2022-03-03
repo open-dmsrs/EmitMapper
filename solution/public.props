@@ -20,7 +20,7 @@
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 
 		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
-		<DefineConstants>$(DefineConstants);$(MSBuildProjectName)</DefineConstants>
+		<DefineConstants>$(DefineConstants);$(MSBuildProjectName.Replace(" ", "_").Replace(".", "_"))</DefineConstants>
 		<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 
 		<Optimize>true</Optimize>

@@ -22,11 +22,17 @@ public class Mapper
 
   private readonly int _currentInstanceId;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="Mapper"/> class.
+  /// </summary>
   public Mapper()
   {
     _currentInstanceId = Interlocked.Increment(ref _totalInstCount);
   }
 
+  /// <summary>
+  /// Gets the default.
+  /// </summary>
   public static Mapper Default => LazyDefaultInstance.Value;
 
   /// <summary>
@@ -65,6 +71,13 @@ public class Mapper
     return GetMapperDescription(from, to, mappingConfigurator).Mapper;
   }
 
+  /// <summary>
+  /// Gets the mapper description.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <param name="mappingConfigurator">The mapping configurator.</param>
+  /// <returns>A MapperDescription.</returns>
   internal MapperDescription GetMapperDescription(Type from, Type to, IMappingConfigurator mappingConfigurator)
   {
     to ??= Metadata<object>.Type;
@@ -115,6 +128,14 @@ public class Mapper
     }
   }
 
+  /// <summary>
+  /// Builds the objects mapper.
+  /// </summary>
+  /// <param name="mapperTypeName">The mapper type name.</param>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <param name="mappingConfigurator">The mapping configurator.</param>
+  /// <returns>A MapperBase.</returns>
   private MapperBase BuildObjectsMapper(
     string mapperTypeName,
     Type from,

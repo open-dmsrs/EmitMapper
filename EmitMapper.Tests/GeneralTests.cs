@@ -5,9 +5,15 @@ using Xunit;
 
 namespace EmitMapper.Tests;
 
-////[TestFixture]
+/// <summary>
+/// The general tests.
+/// </summary>
+
 public class GeneralTests
 {
+  /// <summary>
+  /// Constructs the by test.
+  /// </summary>
   [Fact]
   public void ConstructByTest()
   {
@@ -20,6 +26,9 @@ public class GeneralTests
     d.Field.I.ShouldBe(3);
   }
 
+  /// <summary>
+  /// Constructs the by test2.
+  /// </summary>
   [Fact]
   public void ConstructByTest2()
   {
@@ -31,6 +40,9 @@ public class GeneralTests
     guid.ShouldBe(d);
   }
 
+  /// <summary>
+  /// Generals the tests_ convert using.
+  /// </summary>
   [Fact]
   public void GeneralTests_ConvertUsing()
   {
@@ -40,6 +52,9 @@ public class GeneralTests
     a.Str.ShouldBe("converted str");
   }
 
+  /// <summary>
+  /// Generals the tests_ example2.
+  /// </summary>
   [Fact]
   public void GeneralTests_Example2()
   {
@@ -53,6 +68,9 @@ public class GeneralTests
     src.Field3.ShouldBe(dst.MField3);
   }
 
+  /// <summary>
+  /// Generals the tests_ exception.
+  /// </summary>
   [Fact]
   public void GeneralTests_Exception()
   {
@@ -85,6 +103,9 @@ public class GeneralTests
     a.I3.I2.I.ShouldBe(10);
   }
 
+  /// <summary>
+  /// Generals the tests_ ignore.
+  /// </summary>
   [Fact]
   public void GeneralTests_Ignore()
   {
@@ -95,6 +116,9 @@ public class GeneralTests
     A.EnType.En2.ShouldBe(a.En);
   }
 
+  /// <summary>
+  /// Generals the tests_ test1.
+  /// </summary>
   [Fact]
   public void GeneralTests_Test1()
   {
@@ -120,6 +144,9 @@ public class GeneralTests
     a.Str3.ShouldBeNull();
   }
 
+  /// <summary>
+  /// Generals the tests_ test2.
+  /// </summary>
   [Fact]
   public void GeneralTests_Test2()
   {
@@ -136,6 +163,9 @@ public class GeneralTests
     a.Obj.ShouldBeNull();
   }
 
+  /// <summary>
+  /// Generals the tests_ test3.
+  /// </summary>
   [Fact]
   public void GeneralTests_Test3()
   {
@@ -148,6 +178,9 @@ public class GeneralTests
     a.Obj.Intern.ShouldBe(15);
   }
 
+  /// <summary>
+  /// Simples the test.
+  /// </summary>
   [Fact]
   public void SimpleTest()
   {
@@ -159,6 +192,9 @@ public class GeneralTests
     A.EnType.En2.ShouldBe(s.Fld1);
   }
 
+  /// <summary>
+  /// Simples the test class.
+  /// </summary>
   [Fact]
   public void SimpleTestClass()
   {
@@ -169,6 +205,9 @@ public class GeneralTests
     s.Fld.ShouldBe(13);
   }
 
+  /// <summary>
+  /// Simples the test enum.
+  /// </summary>
   [Fact]
   public void SimpleTestEnum()
   {
@@ -179,6 +218,9 @@ public class GeneralTests
     A.EnType.En3.ShouldBe(aen);
   }
 
+  /// <summary>
+  /// Simples the test struct.
+  /// </summary>
   [Fact]
   public void SimpleTestStruct()
   {
@@ -189,6 +231,9 @@ public class GeneralTests
     s.Fld.ShouldBe(13);
   }
 
+  /// <summary>
+  /// Tests the recursive class.
+  /// </summary>
   [Fact]
   public void TestRecursiveClass()
   {
@@ -218,6 +263,9 @@ public class GeneralTests
     tree2.Next.Next.Next.ShouldBeNull();
   }
 
+  /// <summary>
+  /// The a.
+  /// </summary>
   public class A
   {
     public EnType En = EnType.En3;
@@ -226,11 +274,17 @@ public class GeneralTests
     public string Str2 = "Destination::str2";
     public string Str3 = "Destination::str3";
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="A"/> class.
+    /// </summary>
     public A()
     {
       Console.WriteLine("Destination::Destination()");
     }
 
+    /// <summary>
+    /// The en type.
+    /// </summary>
     public enum EnType
     {
       En1,
@@ -238,14 +292,26 @@ public class GeneralTests
       En3
     }
 
+    /// <summary>
+    /// Gets or Sets the arr.
+    /// </summary>
     public int[] Arr { get; set; }
+    /// <summary>
+    /// Gets or Sets the str1.
+    /// </summary>
     public string Str1 { get; set; } = "Destination::str1";
 
+    /// <summary>
+    /// The a int.
+    /// </summary>
     public class AInt
     {
       public string Str = "AInt";
       internal int Intern = 13;
 
+      /// <summary>
+      /// Initializes a new instance of the <see cref="AInt"/> class.
+      /// </summary>
       public AInt()
       {
         Intern = 13;
@@ -253,23 +319,35 @@ public class GeneralTests
     }
   }
 
+  /// <summary>
+  /// The a1.
+  /// </summary>
   internal class A1
   {
     public string F1 = "A1::f1";
     public string F2 = "A1::f2";
   }
 
+  /// <summary>
+  /// The a2.
+  /// </summary>
   public class A2
   {
     public string Str;
   }
 
+  /// <summary>
+  /// The a3.
+  /// </summary>
   public class A3
   {
     public Int2 I1;
     public Int2 I2;
     public Int2 I3;
 
+    /// <summary>
+    /// The int1.
+    /// </summary>
     public class Int1
     {
       public int I;
@@ -277,6 +355,9 @@ public class GeneralTests
       public string Str2;
     }
 
+    /// <summary>
+    /// The int2.
+    /// </summary>
     public class Int2
     {
       public Int1 I1;
@@ -285,6 +366,9 @@ public class GeneralTests
     }
   }
 
+  /// <summary>
+  /// The b.
+  /// </summary>
   public class B
   {
     public EnType En = EnType.En2;
@@ -293,6 +377,9 @@ public class GeneralTests
     public string Str1 = "Source::str1";
     public object Str3 = null;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="B"/> class.
+    /// </summary>
     public B()
     {
       Console.WriteLine("Source::Source()");
@@ -302,6 +389,9 @@ public class GeneralTests
       ObjArr[1] = new BInt { Str = "b objArr 2" };
     }
 
+    /// <summary>
+    /// The en type.
+    /// </summary>
     public enum EnType
     {
       En1,
@@ -309,9 +399,18 @@ public class GeneralTests
       En3
     }
 
+    /// <summary>
+    /// Gets the arr.
+    /// </summary>
     public int[] Arr => new[] { 1, 5, 9 };
+    /// <summary>
+    /// Gets the str2.
+    /// </summary>
     public string Str2 => "Source::str2";
 
+    /// <summary>
+    /// The b int.
+    /// </summary>
     public class BInt
     {
       public string Str = "BInt";
@@ -328,23 +427,35 @@ public class GeneralTests
     }
   }
 
+  /// <summary>
+  /// The b1.
+  /// </summary>
   internal class B1
   {
     public string F1 = "B1::f1";
     public string F2 = "B1::f2";
   }
 
+  /// <summary>
+  /// The b2.
+  /// </summary>
   public class B2
   {
     public string Str = "str";
   }
 
+  /// <summary>
+  /// The b3.
+  /// </summary>
   public class B3
   {
     public Int2 I1 = null;
     public Int2 I2 = new();
     public Int2 I3 = new();
 
+    /// <summary>
+    /// The int1.
+    /// </summary>
     public class Int1
     {
       public long I = 10;
@@ -352,6 +463,9 @@ public class GeneralTests
       public string Str2 = null;
     }
 
+    /// <summary>
+    /// The int2.
+    /// </summary>
     public class Int2
     {
       public Int1 I1 = new();
@@ -360,19 +474,33 @@ public class GeneralTests
     }
   }
 
+  /// <summary>
+  /// The construct by destination.
+  /// </summary>
   public class ConstructByDestination
   {
     public NestedClass Field;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ConstructByDestination"/> class.
+    /// </summary>
+    /// <param name="i">The i.</param>
     public ConstructByDestination(int i)
     {
     }
 
+    /// <summary>
+    /// The nested class.
+    /// </summary>
     public class NestedClass
     {
       public int I;
       public string Str;
 
+      /// <summary>
+      /// Initializes a new instance of the <see cref="NestedClass"/> class.
+      /// </summary>
+      /// <param name="i">The i.</param>
       public NestedClass(int i)
       {
         Str = "ConstructBy_Destination::str";
@@ -381,16 +509,25 @@ public class GeneralTests
     }
   }
 
+  /// <summary>
+  /// The construct by source.
+  /// </summary>
   public class ConstructBySource
   {
     public NestedClass Field = new();
 
+    /// <summary>
+    /// The nested class.
+    /// </summary>
     public class NestedClass
     {
       public string Str = "ConstructBy_Source::str";
     }
   }
 
+  /// <summary>
+  /// The destination.
+  /// </summary>
   public class Destination
   {
     public string MField1;
@@ -398,18 +535,27 @@ public class GeneralTests
     public string MField3;
   }
 
+  /// <summary>
+  /// The simple1.
+  /// </summary>
   public class Simple1
   {
     public A.EnType Fld1 = A.EnType.En1;
     public int I = 10;
   }
 
+  /// <summary>
+  /// The simple2.
+  /// </summary>
   public class Simple2
   {
     public B.EnType Fld1 = B.EnType.En2;
     public int I = 20;
   }
 
+  /// <summary>
+  /// The source.
+  /// </summary>
   public class Source
   {
     public string Field1 = "Source::field1";
@@ -417,6 +563,9 @@ public class GeneralTests
     public string Field3 = "Source::field3";
   }
 
+  /// <summary>
+  /// The tree node.
+  /// </summary>
   public class TreeNode
   {
     public string Data;

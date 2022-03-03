@@ -14,6 +14,9 @@ using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
 
 namespace EmitMapper.EmitBuilders;
+/// <summary>
+/// The mapping operations processor.
+/// </summary>
 
 internal class MappingOperationsProcessor
 {
@@ -45,10 +48,17 @@ internal class MappingOperationsProcessor
 
   public List<object> StoredObjects = new();
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="MappingOperationsProcessor"/> class.
+  /// </summary>
   public MappingOperationsProcessor()
   {
   }
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="MappingOperationsProcessor"/> class.
+  /// </summary>
+  /// <param name="prototype">The prototype.</param>
   public MappingOperationsProcessor(MappingOperationsProcessor prototype)
   {
     LocFrom = prototype.LocFrom;
@@ -64,6 +74,10 @@ internal class MappingOperationsProcessor
     StaticConvertersManager = prototype.StaticConvertersManager;
   }
 
+  /// <summary>
+  /// Processes the operations.
+  /// </summary>
+  /// <returns>An IAstNode.</returns>
   public IAstNode ProcessOperations()
   {
     var result = new AstComplexNode();
@@ -100,6 +114,12 @@ internal class MappingOperationsProcessor
     return result;
   }
 
+  /// <summary>
+  /// Gets the stored object.
+  /// </summary>
+  /// <param name="objectIndex">The object index.</param>
+  /// <param name="castType">The cast type.</param>
+  /// <returns>An IAstRef.</returns>
   private static IAstRef GetStoredObject(int objectIndex, Type castType)
   {
     var result = (IAstRef)AstBuildHelper.ReadArrayItemRV(
@@ -115,6 +135,11 @@ internal class MappingOperationsProcessor
     return result;
   }
 
+  /// <summary>
+  /// Adds the object to store.
+  /// </summary>
+  /// <param name="obj">The obj.</param>
+  /// <returns>An int.</returns>
   private int AddObjectToStore(object obj)
   {
     var objectId = StoredObjects.Count;
@@ -123,6 +148,11 @@ internal class MappingOperationsProcessor
     return objectId;
   }
 
+  /// <summary>
+  /// Converts the by mapper.
+  /// </summary>
+  /// <param name="mapping">The mapping.</param>
+  /// <returns>An IAstRefOrValue.</returns>
   private IAstRefOrValue ConvertByMapper(ReadWriteSimple mapping)
   {
     var mapper = ObjectsMapperManager.GetMapperDescription(
@@ -149,6 +179,13 @@ internal class MappingOperationsProcessor
     return convertedValue;
   }
 
+  /// <summary>
+  /// Converts the mapping value.
+  /// </summary>
+  /// <param name="rwMapOp">The rw map op.</param>
+  /// <param name="operationId">The operation id.</param>
+  /// <param name="sourceValue">The source value.</param>
+  /// <returns>An IAstRefOrValue.</returns>
   private IAstRefOrValue ConvertMappingValue(ReadWriteSimple rwMapOp, int operationId, IAstRefOrValue sourceValue)
   {
     IAstRefOrValue convertedValue;
@@ -186,6 +223,12 @@ internal class MappingOperationsProcessor
     return convertedValue;
   }
 
+  /// <summary>
+  /// Creates the exception handling block.
+  /// </summary>
+  /// <param name="mappingItemId">The mapping item id.</param>
+  /// <param name="writeValue">The write value.</param>
+  /// <returns>An IAstNode.</returns>
   private IAstNode CreateExceptionHandlingBlock(int mappingItemId, IAstNode writeValue)
   {
     var handler = new AstThrow
@@ -209,6 +252,11 @@ internal class MappingOperationsProcessor
     return tryCatch;
   }
 
+  /// <summary>
+  /// Gets the null value.
+  /// </summary>
+  /// <param name="nullSubstitutor">The null substitutor.</param>
+  /// <returns>An IAstRefOrValue.</returns>
   private IAstRefOrValue GetNullValue(Delegate nullSubstitutor)
   {
     if (nullSubstitutor != null)
@@ -225,6 +273,13 @@ internal class MappingOperationsProcessor
     return new AstConstantNull();
   }
 
+  /// <summary>
+  /// Process_s the destination filter.
+  /// </summary>
+  /// <param name="op">The op.</param>
+  /// <param name="operationId">The operation id.</param>
+  /// <param name="result">The result.</param>
+  /// <returns>An IAstNode.</returns>
   private IAstNode Process_DestinationFilter(IReadWriteOperation op, int operationId, IAstNode result)
   {
     return Process_ValuesFilter(
@@ -236,6 +291,12 @@ internal class MappingOperationsProcessor
       op.DestinationFilter);
   }
 
+  /// <summary>
+  /// Process_s the read write complex.
+  /// </summary>
+  /// <param name="op">The op.</param>
+  /// <param name="operationId">The operation id.</param>
+  /// <returns>An IAstNode.</returns>
   private IAstNode Process_ReadWriteComplex(ReadWriteComplex op, int operationId)
   {
     var result = op.Converter != null
@@ -249,6 +310,12 @@ internal class MappingOperationsProcessor
     return result;
   }
 
+  /// <summary>
+  /// Process_s the read write complex_ by converter.
+  /// </summary>
+  /// <param name="op">The op.</param>
+  /// <param name="operationId">The operation id.</param>
+  /// <returns>An IAstNode.</returns>
   private IAstNode Process_ReadWriteComplex_ByConverter(ReadWriteComplex op, int operationId)
   {
     var t = op.Converter.GetType();
@@ -272,6 +339,11 @@ internal class MappingOperationsProcessor
     return result;
   }
 
+  /// <summary>
+  /// Process_s the read write complex_ copying.
+  /// </summary>
+  /// <param name="op">The op.</param>
+  /// <returns>An IAstNode.</returns>
   private IAstNode Process_ReadWriteComplex_Copying(ReadWriteComplex op)
   {
     var result = new AstComplexNode();
@@ -420,6 +492,13 @@ internal class MappingOperationsProcessor
     return result;
   }
 
+  /// <summary>
+  /// Process_s the source filter.
+  /// </summary>
+  /// <param name="op">The op.</param>
+  /// <param name="operationId">The operation id.</param>
+  /// <param name="result">The result.</param>
+  /// <returns>An IAstNode.</returns>
   private IAstNode Process_SourceFilter(IReadWriteOperation op, int operationId, IAstNode result)
   {
     return Process_ValuesFilter(
@@ -431,6 +510,16 @@ internal class MappingOperationsProcessor
       op.SourceFilter);
   }
 
+  /// <summary>
+  /// Process_s the values filter.
+  /// </summary>
+  /// <param name="op">The op.</param>
+  /// <param name="operationId">The operation id.</param>
+  /// <param name="result">The result.</param>
+  /// <param name="value">The value.</param>
+  /// <param name="fieldName">The field name.</param>
+  /// <param name="filterDelegate">The filter delegate.</param>
+  /// <returns>An IAstNode.</returns>
   private IAstNode Process_ValuesFilter(
     IReadWriteOperation op,
     int operationId,
@@ -463,6 +552,12 @@ internal class MappingOperationsProcessor
     return result;
   }
 
+  /// <summary>
+  /// Processes the dest src read operation.
+  /// </summary>
+  /// <param name="operation">The operation.</param>
+  /// <param name="operationId">The operation id.</param>
+  /// <returns>An IAstNode.</returns>
   private IAstNode ProcessDestSrcReadOperation(DestSrcReadOperation operation, int operationId)
   {
     var src = AstBuildHelper.ReadMembersChain(AstBuildHelper.ReadLocalRA(LocFrom), operation.Source.MembersChain);
@@ -479,6 +574,12 @@ internal class MappingOperationsProcessor
       new List<IAstStackItem> { src, dst, AstBuildHelper.ReadLocalRV(LocState) });
   }
 
+  /// <summary>
+  /// Processes the dest write operation.
+  /// </summary>
+  /// <param name="destWriteOperation">The dest write operation.</param>
+  /// <param name="operationId">The operation id.</param>
+  /// <returns>An IAstNode.</returns>
   private IAstNode ProcessDestWriteOperation(DestWriteOperation destWriteOperation, int operationId)
   {
     var locValueToWrite = CompilationContext.ILGenerator.DeclareLocal(destWriteOperation.Getter.Method.ReturnType);
@@ -526,6 +627,12 @@ internal class MappingOperationsProcessor
     };
   }
 
+  /// <summary>
+  /// Processes the read write simple.
+  /// </summary>
+  /// <param name="readWriteSimple">The read write simple.</param>
+  /// <param name="operationId">The operation id.</param>
+  /// <returns>An IAstNode.</returns>
   private IAstNode ProcessReadWriteSimple(ReadWriteSimple readWriteSimple, int operationId)
   {
     var sourceValue = ReadSrcMappingValue(readWriteSimple, operationId);
@@ -558,6 +665,12 @@ internal class MappingOperationsProcessor
     return result;
   }
 
+  /// <summary>
+  /// Processes the src read operation.
+  /// </summary>
+  /// <param name="srcReadOperation">The src read operation.</param>
+  /// <param name="operationId">The operation id.</param>
+  /// <returns>An IAstNode.</returns>
   private IAstNode ProcessSrcReadOperation(SrcReadOperation srcReadOperation, int operationId)
   {
     var value = AstBuildHelper.ReadMembersChain(
@@ -567,6 +680,13 @@ internal class MappingOperationsProcessor
     return WriteMappingValue(srcReadOperation, operationId, value);
   }
 
+  /// <summary>
+  /// Reads the src mapping value.
+  /// </summary>
+  /// <param name="mapping">The mapping.</param>
+  /// <param name="operationId">The operation id.</param>
+  /// <exception cref="EmitMapperException"></exception>
+  /// <returns>An IAstRefOrValue.</returns>
   private IAstRefOrValue ReadSrcMappingValue(IMappingOperation mapping, int operationId)
   {
     if (mapping is ISrcReadOperation readOp)
@@ -591,6 +711,13 @@ internal class MappingOperationsProcessor
     throw new EmitMapperException("Invalid mapping operations");
   }
 
+  /// <summary>
+  /// Writes the mapping value.
+  /// </summary>
+  /// <param name="mappingOperation">The mapping operation.</param>
+  /// <param name="mappingItemId">The mapping item id.</param>
+  /// <param name="value">The value.</param>
+  /// <returns>An IAstNode.</returns>
   private IAstNode WriteMappingValue(IMappingOperation mappingOperation, int mappingItemId, IAstRefOrValue value)
   {
     IAstNode writeValue;

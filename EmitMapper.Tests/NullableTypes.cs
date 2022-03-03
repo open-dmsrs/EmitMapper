@@ -5,9 +5,15 @@ using Xunit;
 
 namespace EmitMapper.Tests;
 
-////[TestFixture]
+/// <summary>
+/// The nullable types.
+/// </summary>
+
 public class NullableTypes
 {
+  /// <summary>
+  /// Nullable_to_s the value.
+  /// </summary>
   [Fact]
   public void Nullable_to_Value()
   {
@@ -24,6 +30,9 @@ public class NullableTypes
     a.Fld3.ShouldBe(4);
   }
 
+  /// <summary>
+  /// Nullables the struct_to_ struct.
+  /// </summary>
   [Fact]
   public void NullableStruct_to_Struct()
   {
@@ -53,6 +62,9 @@ public class NullableTypes
     a.Fld5.HasValue.ShouldBeFalse();
   }
 
+  /// <summary>
+  /// Struct_to_s the nullable struct.
+  /// </summary>
   [Fact]
   public void Struct_to_NullableStruct()
   {
@@ -62,6 +74,9 @@ public class NullableTypes
     a.Fld1.Fld1.ShouldBe("b");
   }
 
+  /// <summary>
+  /// Test_s the nullable.
+  /// </summary>
   [Fact]
   public void Test_Nullable()
   {
@@ -74,6 +89,9 @@ public class NullableTypes
     a.Fld6.Value.ShouldBe(11);
   }
 
+  /// <summary>
+  /// Test_s the object_ nullable.
+  /// </summary>
   [Fact]
   public void Test_Object_Nullable()
   {
@@ -83,6 +101,9 @@ public class NullableTypes
     a.ShouldBeNull();
   }
 
+  /// <summary>
+  /// Test_s the object_ nullable7.
+  /// </summary>
   [Fact]
   public void Test_Object_Nullable7()
   {
@@ -92,6 +113,9 @@ public class NullableTypes
     a.I.ShouldBe(100);
   }
 
+  /// <summary>
+  /// Value_to_s the nullable.
+  /// </summary>
   [Fact]
   public void Value_to_Nullable()
   {
@@ -99,6 +123,9 @@ public class NullableTypes
     a.Fld1.ShouldBe(10);
   }
 
+  /// <summary>
+  /// The a1.
+  /// </summary>
   public class A1
   {
     public int Fld1;
@@ -106,14 +133,24 @@ public class NullableTypes
     public int? Fld3;
     public Int1 I;
 
+    /// <summary>
+    /// The int1.
+    /// </summary>
     public class Int1
     {
       public string S;
 
+      /// <summary>
+      /// Initializes a new instance of the <see cref="Int1"/> class.
+      /// </summary>
       public Int1()
       {
       }
 
+      /// <summary>
+      /// Initializes a new instance of the <see cref="Int1"/> class.
+      /// </summary>
+      /// <param name="i">The i.</param>
       public Int1(int i)
       {
         S = "A1::Int1::s";
@@ -121,11 +158,17 @@ public class NullableTypes
     }
   }
 
+  /// <summary>
+  /// The a2.
+  /// </summary>
   public class A2
   {
     public int? Fld1;
   }
 
+  /// <summary>
+  /// The a3.
+  /// </summary>
   public class A3
   {
     public AInt? Fld1;
@@ -134,6 +177,9 @@ public class NullableTypes
     public AInt? Fld6;
     public AInt Fld7;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="A3"/> class.
+    /// </summary>
     public A3()
     {
       var a = new AInt { Fld3 = "a" };
@@ -141,7 +187,13 @@ public class NullableTypes
       Fld5 = a;
     }
 
+    /// <summary>
+    /// Gets or Sets the fld2.
+    /// </summary>
     public AInt? Fld2 { get; set; }
+    /// <summary>
+    /// Gets or Sets the fld3.
+    /// </summary>
     public AInt? Fld3 { get; set; }
 
     public struct AInt
@@ -152,6 +204,9 @@ public class NullableTypes
     }
   }
 
+  /// <summary>
+  /// The a4.
+  /// </summary>
   public class A4
   {
     public AInt Fld1;
@@ -162,6 +217,9 @@ public class NullableTypes
     }
   }
 
+  /// <summary>
+  /// The a5.
+  /// </summary>
   public class A5
   {
     public int? Fld1 = 0;
@@ -171,6 +229,9 @@ public class NullableTypes
     public int? Fld5 = 0;
     public int? Fld6 = null;
 
+    /// <summary>
+    /// The en.
+    /// </summary>
     public enum En
     {
       Value1,
@@ -179,17 +240,35 @@ public class NullableTypes
     }
   }
 
+  /// <summary>
+  /// The a6.
+  /// </summary>
   public class A6
   {
+    /// <summary>
+    /// Gets or Sets the dt.
+    /// </summary>
     public DateTime? Dt { get; set; }
+    /// <summary>
+    /// Gets or Sets the i.
+    /// </summary>
     public int? I { get; set; }
   }
 
+  /// <summary>
+  /// The a7.
+  /// </summary>
   public class A7
   {
+    /// <summary>
+    /// Gets or Sets the i.
+    /// </summary>
     public int? I { get; set; }
   }
 
+  /// <summary>
+  /// The b1.
+  /// </summary>
   public class B1
   {
     public int? Fld1 = 10;
@@ -197,17 +276,26 @@ public class NullableTypes
     public int? Fld3;
     public Int1 I;
 
+    /// <summary>
+    /// The int1.
+    /// </summary>
     public class Int1
     {
       public string S = "B1::Int1::s";
     }
   }
 
+  /// <summary>
+  /// The b2.
+  /// </summary>
   public class B2
   {
     public int Fld1 = 10;
   }
 
+  /// <summary>
+  /// The b3.
+  /// </summary>
   public class B3
   {
     public BInt? Fld1;
@@ -215,7 +303,13 @@ public class NullableTypes
     public BInt? Fld5;
     public BInt Fld6;
     public BInt? Fld7;
+    /// <summary>
+    /// Gets or Sets the fld2.
+    /// </summary>
     public BInt? Fld2 { get; set; }
+    /// <summary>
+    /// Gets or Sets the fld4.
+    /// </summary>
     public BInt? Fld4 { get; set; }
 
     public struct BInt
@@ -225,6 +319,9 @@ public class NullableTypes
     }
   }
 
+  /// <summary>
+  /// The b4.
+  /// </summary>
   public class B4
   {
     public BInt? Fld1 = new BInt();
@@ -235,6 +332,9 @@ public class NullableTypes
     }
   }
 
+  /// <summary>
+  /// The b5.
+  /// </summary>
   public class B5
   {
     public int Fld1 = 10;
@@ -244,6 +344,9 @@ public class NullableTypes
     public int? Fld5 = 13;
     public string Fld6 = "11";
 
+    /// <summary>
+    /// The en.
+    /// </summary>
     public enum En
     {
       Value1,
@@ -252,10 +355,16 @@ public class NullableTypes
     }
   }
 
+  /// <summary>
+  /// The b6.
+  /// </summary>
   public class B6
   {
   }
 
+  /// <summary>
+  /// The b7.
+  /// </summary>
   public class B7
   {
     public decimal I = 100;

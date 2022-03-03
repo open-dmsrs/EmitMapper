@@ -8,6 +8,9 @@ using EmitMapper.AST.Nodes;
 using EmitMapper.Utils;
 
 namespace EmitMapper.Conversion;
+/// <summary>
+/// The native converter.
+/// </summary>
 
 internal class NativeConverter
 {
@@ -31,6 +34,13 @@ internal class NativeConverter
   private static readonly LazyConcurrentDictionary<TypesPair, bool> IsNativeConvertionPossibleCache =
     new(new TypesPair());
 
+  /// <summary>
+  /// Converts the <see cref="IAstRefOrValue"/>.
+  /// </summary>
+  /// <param name="destinationType">The destination type.</param>
+  /// <param name="sourceType">The source type.</param>
+  /// <param name="sourceValue">The source value.</param>
+  /// <returns>An IAstRefOrValue.</returns>
   public static IAstRefOrValue Convert(Type destinationType, Type sourceType, IAstRefOrValue sourceValue)
   {
     if (destinationType == sourceValue.ItemType)
@@ -57,6 +67,12 @@ internal class NativeConverter
       });
   }
 
+  /// <summary>
+  /// Are the native convertion possible.
+  /// </summary>
+  /// <param name="f">The f.</param>
+  /// <param name="t">The t.</param>
+  /// <returns>A bool.</returns>
   public static bool IsNativeConvertionPossible(Type f, Type t)
   {
     return IsNativeConvertionPossibleCache.GetOrAdd(
@@ -97,6 +113,11 @@ internal class NativeConverter
       });
   }
 
+  /// <summary>
+  /// Objects the to string.
+  /// </summary>
+  /// <param name="obj">The obj.</param>
+  /// <returns>A string.</returns>
   internal static string ObjectToString(object obj)
   {
     if (obj == null)

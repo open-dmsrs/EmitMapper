@@ -11,9 +11,15 @@ using Shouldly;
 using Xunit;
 
 namespace SamplesTests;
+/// <summary>
+/// The test mapping to data row.
+/// </summary>
 
 public class TestMappingToDataRow
 {
+  /// <summary>
+  /// Mappings the to data row_test.
+  /// </summary>
   [Fact]
   public void MappingToDataRow_test()
   {
@@ -40,8 +46,17 @@ public class TestMappingToDataRow
     dr["field3"].ShouldBe(true);
   }
 
+  /// <summary>
+  /// The map2 data row config.
+  /// </summary>
   public class Map2DataRowConfig : MapConfigBaseImpl
   {
+    /// <summary>
+    /// Gets the mapping operations.
+    /// </summary>
+    /// <param name="from">The from.</param>
+    /// <param name="to">The to.</param>
+    /// <returns><![CDATA[IEnumerable<IMappingOperation>]]></returns>
     public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
     {
       var objectMembers = ReflectionHelper.GetPublicFieldsAndProperties(from);
@@ -61,6 +76,9 @@ public class TestMappingToDataRow
   // Using: 
 
   // Test data object
+  /// <summary>
+  /// The test dto.
+  /// </summary>
   public class TestDto
   {
     public string Field1 = "field1";

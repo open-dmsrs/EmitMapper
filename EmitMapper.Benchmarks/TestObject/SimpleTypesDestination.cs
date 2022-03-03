@@ -1,4 +1,7 @@
 ﻿namespace EmitMapper.Benchmarks.TestObject;
+/// <summary>
+/// The simple types destination.
+/// </summary>
 
 public class SimpleTypesDestination : ITestObject
 {

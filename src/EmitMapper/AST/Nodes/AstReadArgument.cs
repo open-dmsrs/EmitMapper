@@ -3,6 +3,9 @@ using System.Reflection.Emit;
 using EmitMapper.AST.Interfaces;
 
 namespace EmitMapper.AST.Nodes;
+/// <summary>
+/// The ast read argument.
+/// </summary>
 
 internal class AstReadArgument : IAstStackItem
 {
@@ -10,8 +13,15 @@ internal class AstReadArgument : IAstStackItem
 
   public Type ArgumentType;
 
+  /// <summary>
+  /// Gets the item type.
+  /// </summary>
   public Type ItemType => ArgumentType;
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="context">The context.</param>
   public virtual void Compile(CompilationContext context)
   {
     switch (ArgumentIndex)

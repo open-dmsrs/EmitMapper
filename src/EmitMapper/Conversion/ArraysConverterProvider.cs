@@ -2,6 +2,9 @@
 using EmitMapper.MappingConfiguration;
 
 namespace EmitMapper.Conversion;
+/// <summary>
+/// The arrays converter provider.
+/// </summary>
 
 internal class ArraysConverterProvider : ICustomConverterProvider
 {
@@ -10,6 +13,13 @@ internal class ArraysConverterProvider : ICustomConverterProvider
 
   private static readonly Type _Implementation = typeof(ArraysConverterDifferentTypes<,>);
 
+  /// <summary>
+  /// Gets the custom converter descr.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <param name="mappingConfig">The mapping config.</param>
+  /// <returns>A CustomConverterDescriptor.</returns>
   public CustomConverterDescriptor GetCustomConverterDescr(Type from, Type to, MapConfigBaseImpl mappingConfig)
   {
     var tFromTypeArgs = DefaultCustomConverterProvider.GetGenericArguments(from);

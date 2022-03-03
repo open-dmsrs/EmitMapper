@@ -7,9 +7,15 @@ using Shouldly;
 using Xunit;
 
 namespace EmitMapper.Tests;
+/// <summary>
+/// The emit invoker test.
+/// </summary>
 
 public class EmitInvokerTest
 {
+  /// <summary>
+  /// Emits the invoker test_ test call1.
+  /// </summary>
   [Fact]
   public void EmitInvokerTest_TestCall1()
   {
@@ -26,6 +32,9 @@ public class EmitInvokerTest
     i.ShouldBe(7);
   }
 
+  /// <summary>
+  /// Emits the invoker test_ test call2.
+  /// </summary>
   [Fact]
   public void EmitInvokerTest_TestCall2()
   {
@@ -38,6 +47,9 @@ public class EmitInvokerTest
     Assert.Equal(5, caller2.CallFunc(2, 3));
   }
 
+  /// <summary>
+  /// Emits the invoker test_ test call3.
+  /// </summary>
   [Fact]
   public void EmitInvokerTest_TestCall3()
   {
@@ -51,11 +63,20 @@ public class EmitInvokerTest
     caller2.CallFunc(5).ShouldBe(5);
   }
 
+  /// <summary>
+  /// Invokes the test1.
+  /// </summary>
+  /// <returns>An int.</returns>
   public int InvokeTest1()
   {
     return 3;
   }
 
+  /// <summary>
+  /// Invokes the test2.
+  /// </summary>
+  /// <param name="par">The par.</param>
+  /// <returns>An int.</returns>
   public static int InvokeTest2(int par)
   {
     return par;

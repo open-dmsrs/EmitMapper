@@ -4,6 +4,9 @@ using BenchmarkDotNet.Jobs;
 using EmitMapper.Utils;
 
 namespace EmitMapper.Benchmarks;
+/// <summary>
+/// The type benchmark.
+/// </summary>
 
 [SimpleJob(RuntimeMoniker.Net60, baseline: true)]
 [MemoryDiagnoser]
@@ -11,26 +14,44 @@ public class TypeBenchmark
 {
   private Employee e;
 
+  /// <summary>
+  /// The iteration count.
+  /// </summary>
   private const int IterationCount = 1_000;
 
+  /// <summary>
+  /// 
+  /// </summary>
   [GlobalSetup]
   public void Setup()
   {
     e = new Employee();
   }
 
+  /// <summary>
+  /// Of_s the get type.
+  /// </summary>
+  /// <returns>A Type.</returns>
   [Benchmark(OperationsPerInvoke = IterationCount)]
   public Type Of_GetType()
   {
     return e.GetType();
   }
 
+  /// <summary>
+  /// Of_s the metadata.
+  /// </summary>
+  /// <returns>A Type.</returns>
   [Benchmark(OperationsPerInvoke = IterationCount)]
   public Type Of_Metadata()
   {
     return Metadata<Employee>.Type;
   }
 
+  /// <summary>
+  /// Of_typeoves the <see cref="Type"/>.
+  /// </summary>
+  /// <returns>A Type.</returns>
   [Benchmark(OperationsPerInvoke = IterationCount)]
   public Type Of_typeof()
   {

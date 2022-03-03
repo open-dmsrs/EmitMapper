@@ -3,6 +3,9 @@ using BenchmarkDotNet.Configs;
 using EmitMapper.Benchmarks.TestObject;
 
 namespace EmitMapper.Benchmarks;
+/// <summary>
+/// The hard code mapper.
+/// </summary>
 
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 [KurtosisColumn]
@@ -11,6 +14,11 @@ namespace EmitMapper.Benchmarks;
 [SkewnessColumn]
 public class HardCodeMapper
 {
+  /// <summary>
+  /// Hards the map.
+  /// </summary>
+  /// <param name="inner">The inner.</param>
+  /// <returns>A BenchNestedDestination.Inner1.</returns>
   public static BenchNestedDestination.Inner1 HardMap(BenchNestedSource.Nested1 inner)
   {
     var result = new BenchNestedDestination.Inner1();
@@ -25,6 +33,11 @@ public class HardCodeMapper
     return result;
   }
 
+  /// <summary>
+  /// Hards the map.
+  /// </summary>
+  /// <param name="inner">The inner.</param>
+  /// <returns>A BenchNestedDestination.Inner2.</returns>
   public static BenchNestedDestination.Inner2 HardMap(BenchNestedSource.Nested2 inner)
   {
     var result = new BenchNestedDestination.Inner2();
@@ -35,6 +48,11 @@ public class HardCodeMapper
     return result;
   }
 
+  /// <summary>
+  /// Hards the map.
+  /// </summary>
+  /// <param name="s">The s.</param>
+  /// <returns>A BenchNestedDestination.</returns>
   public static BenchNestedDestination HardMap(BenchNestedSource s)
   {
     BenchNestedDestination result = new();
@@ -66,6 +84,11 @@ public class HardCodeMapper
     return result;
   }
 
+  /// <summary>
+  /// Hards the map.
+  /// </summary>
+  /// <param name="s">The s.</param>
+  /// <returns>A SimpleTypesDestination.</returns>
   public static SimpleTypesDestination HardMap(SimpleTypesSource s)
   {
     SimpleTypesDestination result = new();

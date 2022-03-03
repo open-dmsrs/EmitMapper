@@ -1,4 +1,7 @@
 ﻿namespace EmitMapper.Tests.TestData;
+/// <summary>
+/// The simple types source.
+/// </summary>
 
 public class SimpleTypesSource : ITestObject
 {

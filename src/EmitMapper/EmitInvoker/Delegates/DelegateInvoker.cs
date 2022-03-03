@@ -9,6 +9,9 @@ using EmitMapper.AST.Nodes;
 using EmitMapper.Utils;
 
 namespace EmitMapper.EmitInvoker.Delegates;
+/// <summary>
+/// The delegate invoker.
+/// </summary>
 
 public static class DelegateInvoker
 {
@@ -18,6 +21,11 @@ public static class DelegateInvoker
     nameof(DelegateInvokerBase.Del),
     BindingFlags.Public | BindingFlags.Instance);
 
+  /// <summary>
+  /// Gets the delegate invoker.
+  /// </summary>
+  /// <param name="del">The del.</param>
+  /// <returns>A DelegateInvokerBase.</returns>
   public static DelegateInvokerBase GetDelegateInvoker(Delegate del)
   {
     var typeName = "EmitMapper.DelegateCaller_" + del;
@@ -38,6 +46,13 @@ public static class DelegateInvoker
     return result;
   }
 
+  /// <summary>
+  /// Builds the action caller type.
+  /// </summary>
+  /// <param name="typeName">The type name.</param>
+  /// <param name="del">The del.</param>
+  /// <exception cref="EmitMapperException"></exception>
+  /// <returns>A Type.</returns>
   private static Type BuildActionCallerType(string typeName, Delegate del)
   {
     var par = del.Method.GetParameters();
@@ -65,6 +80,13 @@ public static class DelegateInvoker
     return tb.CreateType();
   }
 
+  /// <summary>
+  /// Builds the func caller type.
+  /// </summary>
+  /// <param name="typeName">The type name.</param>
+  /// <param name="del">The del.</param>
+  /// <exception cref="EmitMapperException"></exception>
+  /// <returns>A Type.</returns>
   private static Type BuildFuncCallerType(string typeName, Delegate del)
   {
     var par = del.Method.GetParameters();
@@ -92,6 +114,12 @@ public static class DelegateInvoker
     return tb.CreateType();
   }
 
+  /// <summary>
+  /// Creates the call delegate.
+  /// </summary>
+  /// <param name="del">The del.</param>
+  /// <param name="parameters">The parameters.</param>
+  /// <returns>An IAstRefOrValue.</returns>
   private static IAstRefOrValue CreateCallDelegate(Delegate del, IEnumerable<ParameterInfo> parameters)
   {
     return AstBuildHelper.CallMethod(

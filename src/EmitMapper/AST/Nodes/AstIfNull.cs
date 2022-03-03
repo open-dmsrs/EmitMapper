@@ -13,6 +13,11 @@ internal class AstIfNull : IAstRefOrValue
 
   private readonly IAstRef _value;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="AstIfNull"/> class.
+  /// </summary>
+  /// <param name="value">The value.</param>
+  /// <param name="ifNullValue">The if null value.</param>
   public AstIfNull(IAstRef value, IAstRefOrValue ifNullValue)
   {
     _value = value;
@@ -22,8 +27,15 @@ internal class AstIfNull : IAstRefOrValue
       throw new EmitMapperException("Incorrect if null expression");
   }
 
+  /// <summary>
+  /// Gets the item type.
+  /// </summary>
   public Type ItemType => _value.ItemType;
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="context">The context.</param>
   public void Compile(CompilationContext context)
   {
     var ifNotNullLabel = context.ILGenerator.DefineLabel();

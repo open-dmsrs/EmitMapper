@@ -4,12 +4,21 @@ using System.Linq;
 using EmitMapper.Utils;
 
 namespace EmitMapper.MappingConfiguration;
+/// <summary>
+/// The type dictionary.
+/// </summary>
+/// <typeparam name="T"></typeparam>
 
 internal class TypeDictionary<T>
   where T : class
 {
   private readonly List<ListElement> _elements = new();
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="types">The types.</param>
+  /// <param name="value">The value.</param>
   public void Add(Type[] types, T value)
   {
     var newElem = new ListElement(types, value);
@@ -20,6 +29,11 @@ internal class TypeDictionary<T>
     _elements.Add(new ListElement(types, value));
   }
 
+  /// <summary>
+  /// Gets the value.
+  /// </summary>
+  /// <param name="types">The types.</param>
+  /// <returns>A T.</returns>
   public T GetValue(Type[] types)
   {
     var elem = FindTypes(types);
@@ -27,6 +41,11 @@ internal class TypeDictionary<T>
     return elem?.Value;
   }
 
+  /// <summary>
+  /// Gets the value.
+  /// </summary>
+  /// <param name="type">The type.</param>
+  /// <returns>A T.</returns>
   public T GetValue(Type type)
   {
     var elem = FindTypes(type);
@@ -34,16 +53,31 @@ internal class TypeDictionary<T>
     return elem?.Value;
   }
 
+  /// <summary>
+  /// Are the types in list.
+  /// </summary>
+  /// <param name="types">The types.</param>
+  /// <returns>A bool.</returns>
   public bool IsTypesInList(Type[] types)
   {
     return FindTypes(types).HasValue;
   }
 
+  /// <summary>
+  /// Tos the string.
+  /// </summary>
+  /// <returns>A string.</returns>
   public override string ToString()
   {
     return _elements.Select(e => e.Types.ToCsv("|") + (e.Value == null ? "|" : "|" + e.Value)).ToCsv("||");
   }
 
+  /// <summary>
+  /// Are the general type.
+  /// </summary>
+  /// <param name="generalType">The general type.</param>
+  /// <param name="type">The type.</param>
+  /// <returns>A bool.</returns>
   private static bool IsGeneralType(Type generalType, Type type)
   {
     if (generalType == type)
@@ -62,6 +96,11 @@ internal class TypeDictionary<T>
     return generalType.IsAssignableFrom(type);
   }
 
+  /// <summary>
+  /// Finds the types.
+  /// </summary>
+  /// <param name="types">The types.</param>
+  /// <returns>A ListElement? .</returns>
   private ListElement? FindTypes(Type[] types)
   {
     foreach (var element in _elements)
@@ -88,6 +127,11 @@ internal class TypeDictionary<T>
     return null;
   }
 
+  /// <summary>
+  /// Finds the types.
+  /// </summary>
+  /// <param name="type">The type.</param>
+  /// <returns>A ListElement? .</returns>
   private ListElement? FindTypes(Type type)
   {
     foreach (var element in _elements)

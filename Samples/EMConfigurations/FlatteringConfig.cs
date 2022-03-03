@@ -9,11 +9,17 @@ using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 using EmitMapper.Utils;
 
 namespace EMConfigurations;
+/// <summary>
+/// The flattering config.
+/// </summary>
 
 public class FlatteringConfig : DefaultMapConfig
 {
   protected Func<string, string, bool> NestedMembersMatcher;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="FlatteringConfig"/> class.
+  /// </summary>
   public FlatteringConfig()
   {
     NestedMembersMatcher = (m1, m2) => m1.StartsWith(m2);

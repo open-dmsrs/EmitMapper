@@ -5,9 +5,15 @@ using Xunit;
 
 namespace EmitMapper.Tests;
 
-////[TestFixture]
+/// <summary>
+/// The flattering.
+/// </summary>
+
 public class Flattering
 {
+  /// <summary>
+  /// Tests the flattering1.
+  /// </summary>
   [Fact]
   public void TestFlattering1()
   {
@@ -44,20 +50,33 @@ public class Flattering
     b.InnerSource.GetMessage2().ShouldBe(result.Message2);
   }
 
+  /// <summary>
+  /// The destination.
+  /// </summary>
   public class Destination
   {
     public string Message;
     public string Message2;
   }
 
+  /// <summary>
+  /// The source.
+  /// </summary>
   public class Source
   {
     public InnerSourceClass InnerSource = new();
 
+    /// <summary>
+    /// The inner source class.
+    /// </summary>
     public class InnerSourceClass
     {
       public string Message = "message's value";
 
+      /// <summary>
+      /// Gets the message2.
+      /// </summary>
+      /// <returns>A string.</returns>
       public string GetMessage2()
       {
         return "GetMessage2 's value";

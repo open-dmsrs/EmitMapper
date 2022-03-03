@@ -3,9 +3,18 @@ using System.Reflection;
 using EmitMapper.Utils;
 
 namespace EmitMapper.Conversion;
+/// <summary>
+/// The e m convert.
+/// </summary>
 
 public class EMConvert
 {
+  /// <summary>
+  /// Changes the type.
+  /// </summary>
+  /// <param name="value">The value.</param>
+  /// <param name="conversionType">The conversion type.</param>
+  /// <returns>An object.</returns>
   public static object ChangeType(object value, Type conversionType)
   {
     if (value == null)
@@ -14,6 +23,13 @@ public class EMConvert
     return ChangeType(value, value.GetType(), conversionType);
   }
 
+  /// <summary>
+  /// Changes the type.
+  /// </summary>
+  /// <param name="value">The value.</param>
+  /// <param name="typeFrom">The type from.</param>
+  /// <param name="typeTo">The type to.</param>
+  /// <returns>An object.</returns>
   public static object ChangeType(object value, Type typeFrom, Type typeTo)
   {
     if (value == null)
@@ -59,11 +75,24 @@ public class EMConvert
     return Convert.ChangeType(value, typeTo);
   }
 
+  /// <summary>
+  /// Changes the type generic.
+  /// </summary>
+  /// <typeparam name="TFrom"></typeparam>
+  /// <typeparam name="TTo"></typeparam>
+  /// <param name="value">The value.</param>
+  /// <returns>An object.</returns>
   public static object ChangeTypeGeneric<TFrom, TTo>(object value)
   {
     return ChangeType(value, Metadata<TFrom>.Type, Metadata<TTo>.Type);
   }
 
+  /// <summary>
+  /// Gets the conversion method.
+  /// </summary>
+  /// <param name="from">The from.</param>
+  /// <param name="to">The to.</param>
+  /// <returns>A MethodInfo.</returns>
   public static MethodInfo GetConversionMethod(Type from, Type to)
   {
     if (from == null || to == null)
@@ -83,6 +112,11 @@ public class EMConvert
     return null;
   }
 
+  /// <summary>
+  /// Objects the to string.
+  /// </summary>
+  /// <param name="obj">The obj.</param>
+  /// <returns>A string.</returns>
   public static string ObjectToString(object obj)
   {
     if (obj == null)
@@ -91,6 +125,11 @@ public class EMConvert
     return obj.ToString();
   }
 
+  /// <summary>
+  /// Strings the to guid.
+  /// </summary>
+  /// <param name="str">The str.</param>
+  /// <returns>A Guid.</returns>
   public static Guid StringToGuid(string str)
   {
     if (string.IsNullOrEmpty(str))
@@ -99,6 +138,13 @@ public class EMConvert
     return new Guid(str);
   }
 
+  /// <summary>
+  /// Tos the enum.
+  /// </summary>
+  /// <typeparam name="TEnum"></typeparam>
+  /// <typeparam name="TUnder"></typeparam>
+  /// <param name="obj">The obj.</param>
+  /// <returns>A <typeparamref name="TEnum"></typeparamref></returns>
   public static TEnum ToEnum<TEnum, TUnder>(object obj)
   {
     if (obj is string)
@@ -111,6 +157,13 @@ public class EMConvert
     return (TEnum)Convert.ChangeType(obj, Metadata<TUnder>.Type);
   }
 
+  /// <summary>
+  /// Converts the to enum.
+  /// </summary>
+  /// <param name="value">The value.</param>
+  /// <param name="typeFrom">The type from.</param>
+  /// <param name="typeTo">The type to.</param>
+  /// <returns>An object.</returns>
   private static object ConvertToEnum(object value, Type typeFrom, Type typeTo)
   {
     if (!typeFrom.IsEnum)
@@ -120,6 +173,11 @@ public class EMConvert
     return Enum.ToObject(typeTo, Convert.ChangeType(value, Enum.GetUnderlyingType(typeTo)));
   }
 
+  /// <summary>
+  /// Are the complex convert.
+  /// </summary>
+  /// <param name="type">The type.</param>
+  /// <returns>A bool.</returns>
   private static bool IsComplexConvert(Type type)
   {
     if (type.IsEnum)
