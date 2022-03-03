@@ -5,14 +5,10 @@
 		<Copyright>Copyright (c) 2006-2022 TSharp. All rights reserved.</Copyright>
 
 		<Description>The most fast mapper tool - EmitMapper runs base on netcore</Description>
-	 
-
 		<RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
-
 		<NeutralLanguage>zh-CHS</NeutralLanguage>
 		<SignAssembly>true</SignAssembly>
 		<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)EmitMapper.snk</AssemblyOriginatorKeyFile>
-
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
