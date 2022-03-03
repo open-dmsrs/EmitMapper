@@ -23,11 +23,22 @@
 		</When>
 
 	</Choose>-->
+	<Choose>
+		<When Condition="'$(VersionSuffix)'!=''">
+			<PropertyGroup>
+				<PackageVersion>$(VersionPrefix)-$(VersionSuffix)</PackageVersion>
+			</PropertyGroup>
+		</When>
+		<When Condition="'$(VersionSuffix)'==''">
+			<PropertyGroup>
+				<PackageVersion>$(VersionPrefix)</PackageVersion>
+			</PropertyGroup>
+		</When>
 
+	</Choose>
 
 	<PropertyGroup>
 		<!--<FileVersion>$(version)</FileVersion>
-		<AssemblyVersion>$(version)</AssemblyVersion>-->
-		<PackageVersion>$(VersionPrefix).$(VersionSuffix)</PackageVersion>
+		<AssemblyVersion>$(version)</AssemblyVersion>--> 
 	</PropertyGroup>
 </Project>
