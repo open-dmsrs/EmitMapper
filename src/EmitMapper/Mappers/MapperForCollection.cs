@@ -158,7 +158,6 @@ public class MapperForCollection : CustomMapper
   ///   Returns true if specified type is supported by this Mapper
   /// </summary>
   /// <param name="t"></param>
-  /// <param name="type"></param>
   /// <returns></returns>
   internal static bool IsSupportedType(Type t)
   {
