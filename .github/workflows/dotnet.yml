@@ -30,7 +30,7 @@ jobs:
       - name: publish emitmapper on version change
         id: publish_nuget_emitmapper
         #uses: rohith/publish-nuget@v2
-        uses: niubilitytools/publish-nuget@v3.1
+        uses: niubilitytools/publish-nuget@v3.1.0
         with:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: src/EmitMapper/EmitMapper.csproj
@@ -68,7 +68,7 @@ jobs:
       - name: publish LightDataAccess on version change
         id: publish_nuget_LightDataAccess
         #uses: rohith/publish-nuget@v2
-        uses: niubilitytools/publish-nuget@v3.1
+        uses: niubilitytools/publish-nuget@v3.1.0
         with:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: Samples/LightDataAccess/LightDataAccess.csproj
@@ -105,7 +105,7 @@ jobs:
       - name: publish EMConfigurations on version change
         id: publish_nuget_EMConfigurations
         #uses: rohith/publish-nuget@v2
-        uses: niubilitytools/publish-nuget@v3.1
+        uses: niubilitytools/publish-nuget@v3.1.0
         with:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: Sample/EMConfigurations/EMConfigurations.csproj
@@ -144,7 +144,7 @@ jobs:
       - name: publish EmitMapper.Mvc.Net on version change
         id: publish_nuget_EmitMapper_Mvc_Net
         #uses: rohith/publish-nuget@v2
-        uses: niubilitytools/publish-nuget@v3.1
+        uses: niubilitytools/publish-nuget@v3.1.0
         with:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: Sample/EmitMapper.Mvc.Net/EmitMapper.Mvc.Net.csproj
