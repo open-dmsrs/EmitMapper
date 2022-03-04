@@ -96,6 +96,7 @@ jobs:
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           INCLUDE_SYMBOLS: true
+      
       - name: publish EMConfigurations on version change
         id: publish_nuget_EMConfigurations
         #uses: rohith/publish-nuget@v2
@@ -130,8 +131,10 @@ jobs:
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           INCLUDE_SYMBOLS: true
+    
+          
       - name: publish EmitMapper.Mvc.Net on version change
-        id: publish_nuget_EmitMapper.Mvc.Net
+        id: publish_nuget_EmitMapper_Mvc_Net
         #uses: rohith/publish-nuget@v2
         uses: alirezanet/publish-nuget@v3.0.0
         with:
