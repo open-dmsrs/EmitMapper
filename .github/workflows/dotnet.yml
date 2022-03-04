@@ -27,7 +27,7 @@ jobs:
         run: dotnet test Samples/SamplesTests/SamplesTests.csproj --no-build --verbosity normal -p:ParallelizeTestCollections=false
 
       # Publish
-      - name: publish on version change
+      - name: publish emitmapper on version change
         id: publish_nuget_emitmapper
         #uses: rohith/publish-nuget@v2
         uses: alirezanet/publish-nuget@v3.0.0
@@ -61,3 +61,107 @@ jobs:
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           INCLUDE_SYMBOLS: true
+      
+      - name: publish LightDataAccess on version change
+        id: publish_nuget_LightDataAccess
+        #uses: rohith/publish-nuget@v2
+        uses: alirezanet/publish-nuget@v3.0.0
+        with:
+          # Filepath of the project to be packaged, relative to root of repository
+          PROJECT_FILE_PATH: Samples/LightDataAccess/LightDataAccess.csproj
+          
+          # NuGet package id, used for version detection & defaults to project name
+          PACKAGE_NAME: Niubility.LightDataAccess
+          
+          # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
+          VERSION_FILE_PATH: solution/version.props
+
+          # Regex pattern to extract version info in a capturing group
+          # VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
+          
+          # Useful with external providers like Nerdbank.GitVersioning, ignores VERSION_FILE_PATH & VERSION_REGEX
+          # VERSION_STATIC: 1.0.0
+
+          # Flag to toggle git tagging, enabled by default
+          TAG_COMMIT: false
+
+          # Format of the git tag, [*] gets replaced with actual version
+          # TAG_FORMAT: v*
+
+          # API key to authenticate with NuGet server
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+
+          # NuGet server uri hosting the packages, defaults to https://api.nuget.org
+          # NUGET_SOURCE: https://api.nuget.org
+
+          # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
+          INCLUDE_SYMBOLS: true
+      - name: publish EMConfigurations on version change
+        id: publish_nuget_EMConfigurations
+        #uses: rohith/publish-nuget@v2
+        uses: alirezanet/publish-nuget@v3.0.0
+        with:
+          # Filepath of the project to be packaged, relative to root of repository
+          PROJECT_FILE_PATH: Sample/EMConfigurations/EMConfigurations.csproj
+          
+          # NuGet package id, used for version detection & defaults to project name
+          PACKAGE_NAME: Niubility.EMConfigurations
+          
+          # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
+          VERSION_FILE_PATH: solution/version.props
+
+          # Regex pattern to extract version info in a capturing group
+          # VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
+          
+          # Useful with external providers like Nerdbank.GitVersioning, ignores VERSION_FILE_PATH & VERSION_REGEX
+          # VERSION_STATIC: 1.0.0
+
+          # Flag to toggle git tagging, enabled by default
+          TAG_COMMIT: false
+
+          # Format of the git tag, [*] gets replaced with actual version
+          # TAG_FORMAT: v*
+
+          # API key to authenticate with NuGet server
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+
+          # NuGet server uri hosting the packages, defaults to https://api.nuget.org
+          # NUGET_SOURCE: https://api.nuget.org
+
+          # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
+          INCLUDE_SYMBOLS: true
+      - name: publish EmitMapper.Mvc.Net on version change
+        id: publish_nuget_EmitMapper.Mvc.Net
+        #uses: rohith/publish-nuget@v2
+        uses: alirezanet/publish-nuget@v3.0.0
+        with:
+          # Filepath of the project to be packaged, relative to root of repository
+          PROJECT_FILE_PATH: Sample/EmitMapper.Mvc.Net/EmitMapper.Mvc.Net.csproj
+          
+          # NuGet package id, used for version detection & defaults to project name
+          PACKAGE_NAME: Niubility.EmitMapper.Mvc.Net
+          
+          # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
+          VERSION_FILE_PATH: solution/version.props
+
+          # Regex pattern to extract version info in a capturing group
+          # VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
+          
+          # Useful with external providers like Nerdbank.GitVersioning, ignores VERSION_FILE_PATH & VERSION_REGEX
+          # VERSION_STATIC: 1.0.0
+
+          # Flag to toggle git tagging, enabled by default
+          TAG_COMMIT: false
+
+          # Format of the git tag, [*] gets replaced with actual version
+          # TAG_FORMAT: v*
+
+          # API key to authenticate with NuGet server
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+
+          # NuGet server uri hosting the packages, defaults to https://api.nuget.org
+          # NUGET_SOURCE: https://api.nuget.org
+
+          # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
+          INCLUDE_SYMBOLS: true
+      
