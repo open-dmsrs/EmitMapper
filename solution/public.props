@@ -26,6 +26,9 @@
 		<LangVersion>10</LangVersion>
 	</PropertyGroup>
 	<PropertyGroup>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
 		<PackageId>Niubility.$(AssemblyName)</PackageId>
 		<PackageTags>EmitMapper;Mapper;POCO;Object Mapping</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -33,8 +36,6 @@
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<PackageReleaseNotes>https://github.com/niubilitynetcore/EmitMapper/releases</PackageReleaseNotes>
 		<IncludeSymbols>true</IncludeSymbols>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/niubilitynetcore/EmitMapper</RepositoryUrl>
 	</PropertyGroup>
