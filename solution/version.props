@@ -3,11 +3,24 @@
 		
 
 		<VersionPrefix>2.1.2</VersionPrefix>
-		<VersionSuffix>beta.1</VersionSuffix>
-		<!--<Version>2.1.1-beta.1</Version>-->
+		<VersionSuffix>beta.2</VersionSuffix>
 		<!--产品版本 如果不指定，将会由 VersionPrefix.VersionSuffix 强签名组成-->
 		<!--<InformationalVersion>This is a prerelease package</InformationalVersion>-->
 	</PropertyGroup>
+
+
+	<PropertyGroup>
+		<!--
+		As the SDK sets these attributes automatically as part of the build, you'll get build time errors. 
+		Simply delete the assembly attributes, and use the MSBuild properties instead.
+		-->
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+		<Deterministic>true</Deterministic>
+	
+		<PackageVersion>$(Version)</PackageVersion>
+	</PropertyGroup>
+
+
 	<!--<Choose>
 		<When Condition="'$(VersionSuffix)'!=''">
 			<PropertyGroup>
@@ -35,15 +48,6 @@
 
 	</Choose>-->
 
-	<PropertyGroup>
-		<!--
-		As the SDK sets these attributes automatically as part of the build, you'll get build time errors. 
-		Simply delete the assembly attributes, and use the MSBuild properties instead.
-		-->
-		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-		<Deterministic>true</Deterministic>
-		<!--<FileVersion>$(VersionPrefix)</FileVersion>
+	<!--<FileVersion>$(VersionPrefix)</FileVersion>
 		<AssemblyVersion>$(VersionPrefix)</AssemblyVersion>-->
-		<PackageVersion>$(Version)</PackageVersion>
-	</PropertyGroup>
 </Project>
