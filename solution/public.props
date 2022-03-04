@@ -3,7 +3,6 @@
 		<Authors>Jimbo</Authors>
 		<Company>TSharp</Company>
 		<Copyright>Copyright (c) 2006-2022 TSharp. All rights reserved.</Copyright>
-
 		<Description>The most fast mapper tool - EmitMapper runs base on netcore</Description>
 		<RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
 		<NeutralLanguage>zh-CHS</NeutralLanguage>
@@ -22,7 +21,7 @@
 		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
 		<DefineConstants>$(DefineConstants);$(MSBuildProjectName.Replace(" ", "_").Replace(".", "_"))</DefineConstants>
 		<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-
+		
 		<Optimize>true</Optimize>
 		<LangVersion>10</LangVersion>
 	</PropertyGroup>
@@ -45,24 +44,24 @@
 	</ItemGroup>
 
 	<Choose>
-		<When Condition="Exists('$(MSBuildProjectDirectory)/readme.md')">
+		<When Condition="Exists('$(MSBuildProjectDirectory)readme.md')">
 			<PropertyGroup>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(MSBuildProjectDirectory)/readme.md">
+				<None Include="$(MSBuildProjectDirectory)readme.md">
 					<Pack>True</Pack>
 					<PackagePath>\</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)/readme.md')">
+		<When Condition="Exists('$(SolutionDir)readme.md')">
 			<PropertyGroup>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)/readme.md">
+				<None Include="$(SolutionDir)readme.md">
 					<Pack>True</Pack>
 					<PackagePath>\</PackagePath>
 					<Visible>true</Visible>
@@ -71,36 +70,36 @@
 		</When>
 	</Choose>
 	<Choose>
-		<When Condition="Exists('$(MSBuildProjectDirectory)/icon.png')">
+		<When Condition="Exists('$(MSBuildProjectDirectory)icon.png')">
 			<PropertyGroup>
-				<PackageIcon>icon.png</PackageIcon>
+				<PackageIcon>icon.png</PackageIcon> 
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(MSBuildProjectDirectory)/icon.png">
+				<None Include="$(MSBuildProjectDirectory)icon.png">
 					<Pack>True</Pack>
 					<PackagePath>\</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)/solution/icon.png')">
+		<When Condition="Exists('$(SolutionDir)solution/icon.png')">
 			<PropertyGroup>
-				<PackageIcon>icon.png</PackageIcon>
+				<PackageIcon>icon.png</PackageIcon> 
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)/solution/icon.png">
+				<None Include="$(SolutionDir)solution/icon.png">
 					<Pack>True</Pack>
 					<PackagePath>\</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)/icon.png')">
+		<When Condition="Exists('$(SolutionDir)icon.png')">
 			<PropertyGroup>
-				<PackageIcon>icon.png</PackageIcon>
+				<PackageIcon>icon.png</PackageIcon> 
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)/icon.png">
+				<None Include="$(SolutionDir)icon.png">
 					<Pack>True</Pack>
 					<PackagePath>\</PackagePath>
 					<Visible>true</Visible>
@@ -109,5 +108,43 @@
 		</When>
 	</Choose>
 
+	<!--<Choose>
+		<When Condition="Exists('$(MSBuildProjectDirectory)icon.png')">
+			<PropertyGroup> 
+				<ApplicationIcon>$(MSBuildProjectDirectory)icon.png</ApplicationIcon>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(MSBuildProjectDirectory)icon.png">
+					<Pack>True</Pack>
+					<PackagePath>\</PackagePath>
+					<Visible>true</Visible>
+				</None>
+			</ItemGroup>
+		</When>
+		<When Condition="Exists('$(SolutionDir)solution/icon.png')">
+			<PropertyGroup> 
+				<ApplicationIcon>$(SolutionDir)solution/icon.png</ApplicationIcon>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(SolutionDir)solution/icon.png">
+					<Pack>True</Pack>
+					<PackagePath>\</PackagePath>
+					<Visible>true</Visible>
+				</None>
+			</ItemGroup>
+		</When>
+		<When Condition="Exists('$(SolutionDir)icon.png')">
+			<PropertyGroup> 
+				<ApplicationIcon>$(SolutionDir)icon.png</ApplicationIcon>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(SolutionDir)icon.png">
+					<Pack>True</Pack>
+					<PackagePath>\</PackagePath>
+					<Visible>true</Visible>
+				</None>
+			</ItemGroup>
+		</When>
+	</Choose>-->
 
 </Project>

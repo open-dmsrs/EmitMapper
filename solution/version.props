@@ -1,19 +1,17 @@
 <Project>
 	<PropertyGroup>
-		<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
-		<Deterministic>true</Deterministic>
+		
 
-
-		<!--<VersionPrefix>2.1.2</VersionPrefix>
-		<VersionSuffix>beta.1</VersionSuffix>-->
-		<Version>2.1.1-beta.1</Version>
+		<VersionPrefix>2.1.1</VersionPrefix>
+		<VersionSuffix></VersionSuffix>
+		<!--<Version>2.1.1-beta.1</Version>-->
 		<!--产品版本 如果不指定，将会由 VersionPrefix.VersionSuffix 强签名组成-->
 		<!--<InformationalVersion>This is a prerelease package</InformationalVersion>-->
 	</PropertyGroup>
 	<!--<Choose>
 		<When Condition="'$(VersionSuffix)'!=''">
 			<PropertyGroup>
-				<Version>$(VersionPrefix)-$(VersionSuffix)</Version>
+				<Version>$(VersionPrefix)-$(VersionSuffix).$(VersionSuffixVersion)</Version>
 			</PropertyGroup>
 		</When>
 		<When Condition="'$(VersionSuffix)'==''">
@@ -38,7 +36,14 @@
 	</Choose>-->
 
 	<PropertyGroup>
-		<!--<FileVersion>$(Version)</FileVersion>
-		<AssemblyVersion>$(Version)</AssemblyVersion>-->
+		<!--
+		As the SDK sets these attributes automatically as part of the build, you'll get build time errors. 
+		Simply delete the assembly attributes, and use the MSBuild properties instead.
+		-->
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+		<Deterministic>true</Deterministic>
+		<!--<FileVersion>$(VersionPrefix)</FileVersion>
+		<AssemblyVersion>$(VersionPrefix)</AssemblyVersion>-->
+		<PackageVersion>$(Version)</PackageVersion>
 	</PropertyGroup>
 </Project>
