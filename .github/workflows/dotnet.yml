@@ -26,6 +26,8 @@ jobs:
       - name: Sample Unit Tests
         run: dotnet test Samples/SamplesTests/SamplesTests.csproj --no-build --verbosity normal -p:ParallelizeTestCollections=false
 
+      # debug
+      - uses: hmarr/debug-action@v2
       # Publish
       - name: publish emitmapper on version change
         id: publish_nuget_emitmapper
