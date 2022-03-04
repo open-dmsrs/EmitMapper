@@ -30,7 +30,7 @@ jobs:
       - name: publish emitmapper on version change
         id: publish_nuget_emitmapper
         #uses: rohith/publish-nuget@v2
-        uses: alirezanet/publish-nuget@v3.0.0
+        uses: niubilitytools/publish-nuget@v3.1
         with:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: src/EmitMapper/EmitMapper.csproj
@@ -61,11 +61,14 @@ jobs:
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           INCLUDE_SYMBOLS: true
+
+          # Flag to set continue the next task when some error happened
+          ERROR_CONTINUE: true
       
       - name: publish LightDataAccess on version change
         id: publish_nuget_LightDataAccess
         #uses: rohith/publish-nuget@v2
-        uses: alirezanet/publish-nuget@v3.0.0
+        uses: niubilitytools/publish-nuget@v3.1
         with:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: Samples/LightDataAccess/LightDataAccess.csproj
@@ -96,11 +99,13 @@ jobs:
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           INCLUDE_SYMBOLS: true
+          # Flag to set continue the next task when some error happened
+          ERROR_CONTINUE: true
       
       - name: publish EMConfigurations on version change
         id: publish_nuget_EMConfigurations
         #uses: rohith/publish-nuget@v2
-        uses: alirezanet/publish-nuget@v3.0.0
+        uses: niubilitytools/publish-nuget@v3.1
         with:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: Sample/EMConfigurations/EMConfigurations.csproj
@@ -131,12 +136,15 @@ jobs:
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           INCLUDE_SYMBOLS: true
+
+          # Flag to set continue the next task when some error happened
+          ERROR_CONTINUE: true
     
           
       - name: publish EmitMapper.Mvc.Net on version change
         id: publish_nuget_EmitMapper_Mvc_Net
         #uses: rohith/publish-nuget@v2
-        uses: alirezanet/publish-nuget@v3.0.0
+        uses: niubilitytools/publish-nuget@v3.1
         with:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: Sample/EmitMapper.Mvc.Net/EmitMapper.Mvc.Net.csproj
@@ -167,4 +175,6 @@ jobs:
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           INCLUDE_SYMBOLS: true
+          # Flag to set continue the next task when some error happened
+          # ERROR_CONTINUE: false
       
