@@ -1,14 +1,9 @@
 <Project>
 	<PropertyGroup>
-		
-
-		<VersionPrefix>2.1.2</VersionPrefix>
-		<VersionSuffix>beta.2</VersionSuffix>
+		<Version>2.1.2-beta.3</Version>
 		<!--产品版本 如果不指定，将会由 VersionPrefix.VersionSuffix 强签名组成-->
 		<!--<InformationalVersion>This is a prerelease package</InformationalVersion>-->
 	</PropertyGroup>
-
-
 	<PropertyGroup>
 		<!--
 		As the SDK sets these attributes automatically as part of the build, you'll get build time errors. 
@@ -19,35 +14,4 @@
 	
 		<PackageVersion>$(Version)</PackageVersion>
 	</PropertyGroup>
-
-
-	<!--<Choose>
-		<When Condition="'$(VersionSuffix)'!=''">
-			<PropertyGroup>
-				<Version>$(VersionPrefix)-$(VersionSuffix).$(VersionSuffixVersion)</Version>
-			</PropertyGroup>
-		</When>
-		<When Condition="'$(VersionSuffix)'==''">
-			<PropertyGroup>
-				<Version>$(VersionPrefix)</Version>
-			</PropertyGroup>
-		</When>
-
-	</Choose>-->
-	<!--<Choose>
-		<When Condition="'$(VersionSuffix)'!=''">
-			<PropertyGroup>
-				<PackageVersion>$(VersionPrefix)-$(VersionSuffix)</PackageVersion>
-			</PropertyGroup>
-		</When>
-		<When Condition="'$(VersionSuffix)'==''">
-			<PropertyGroup>
-				<PackageVersion>$(VersionPrefix)</PackageVersion>
-			</PropertyGroup>
-		</When>
-
-	</Choose>-->
-
-	<!--<FileVersion>$(VersionPrefix)</FileVersion>
-		<AssemblyVersion>$(VersionPrefix)</AssemblyVersion>-->
 </Project>
