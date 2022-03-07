@@ -6,7 +6,6 @@
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;netstandard2.1;net48;netcoreapp3.1</TargetFrameworks>
 		<OutputType>Library</OutputType>
-		<Description>The most fast mapper tool - EmitMapper runs base on netcore</Description>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">

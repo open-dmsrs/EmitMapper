@@ -51,40 +51,40 @@
 	</ItemGroup>
 
 	<Choose>
-		<When Condition="Exists('$(MSBuildProjectDirectory)readme.md')">
+		<When Condition="Exists('$(MSBuildProjectDirectory)/readme.md')">
 			<PropertyGroup>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(MSBuildProjectDirectory)readme.md">
+				<None Include="$(MSBuildProjectDirectory)/readme.md">
 					<Pack>True</Pack>
-					<PackagePath>\</PackagePath>
+					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)readme.md')">
+		<When Condition="Exists('$(SolutionDir)/readme.md')">
 			<PropertyGroup>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)readme.md">
+				<None Include="$(SolutionDir)/readme.md">
 					<Pack>True</Pack>
-					<PackagePath>\</PackagePath>
+					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
 		</When>
 	</Choose>
 	<Choose>
-		<When Condition="Exists('$(MSBuildProjectDirectory)icon.png')">
+		<When Condition="Exists('$(MSBuildProjectDirectory)/icon.png')">
 			<PropertyGroup>
 				<PackageIcon>icon.png</PackageIcon> 
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(MSBuildProjectDirectory)icon.png">
+				<None Include="$(MSBuildProjectDirectory)/icon.png">
 					<Pack>True</Pack>
-					<PackagePath>\</PackagePath>
+					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
@@ -96,19 +96,19 @@
 			<ItemGroup>
 				<None Include="$(SolutionDir)solution/icon.png">
 					<Pack>True</Pack>
-					<PackagePath>\</PackagePath>
+					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)icon.png')">
+		<When Condition="Exists('$(SolutionDir)/icon.png')">
 			<PropertyGroup>
 				<PackageIcon>icon.png</PackageIcon> 
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)icon.png">
+				<None Include="$(SolutionDir)/icon.png">
 					<Pack>True</Pack>
-					<PackagePath>\</PackagePath>
+					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
