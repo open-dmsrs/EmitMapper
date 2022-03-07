@@ -44,7 +44,7 @@
 		<!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<Title>$(AssemblyName)</Title>
-		<Description>Description</Description>
+		<!--<Description>Description</Description>-->
 	
 	</PropertyGroup>
 
