@@ -67,8 +67,8 @@
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)readme.md">
-					<Pack>True</Pack>
+				<None Include='$(SolutionDir)readme.md'>
+					<Pack>true</Pack>
 					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
 				</None>
