@@ -43,9 +43,12 @@ body:
       description: Also tell us, what did you expect to happen?
       placeholder: 
         Tell us what you see!
-        // Current Behavior
 
-        // Expected Behavior
+
+        **// Current Behavior
+
+
+        **// Expected Behavior
       render: Markdown
     validations:
       required: true
