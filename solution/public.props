@@ -49,15 +49,15 @@
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
 
-	<!--<Choose>
-		<When Condition="Exists('$(MSBuildProjectDirectory)/readme.md')">
+	<Choose>
+		<When Condition="Exists('$(MSBuildProjectDirectory)readme.md')">
 			<PropertyGroup>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(MSBuildProjectDirectory)/readme.md">
+				<None Include="$(MSBuildProjectDirectory)readme.md">
 					<Pack>True</Pack>
-					<PackagePath>\</PackagePath>
+					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
@@ -69,12 +69,12 @@
 			<ItemGroup>
 				<None Include="$(SolutionDir)readme.md">
 					<Pack>True</Pack>
-					<PackagePath>\</PackagePath>
+					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
 		</When>
-	</Choose>-->
+	</Choose>
 	<Choose>
 		<When Condition="Exists('$(MSBuildProjectDirectory)icon.png')">
 			<PropertyGroup>
@@ -83,19 +83,19 @@
 			<ItemGroup>
 				<None Include="$(MSBuildProjectDirectory)icon.png">
 					<Pack>True</Pack>
-					<PackagePath>\</PackagePath>
+					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)solution/icon.png')">
+		<When Condition="Exists('$(SolutionDir)solution\icon.png')">
 			<PropertyGroup>
 				<PackageIcon>icon.png</PackageIcon> 
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include="$(SolutionDir)solutionicon.png">
 					<Pack>True</Pack>
-					<PackagePath>\</PackagePath>
+					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
@@ -107,7 +107,7 @@
 			<ItemGroup>
 				<None Include="$(SolutionDir)icon.png">
 					<Pack>True</Pack>
-					<PackagePath>\</PackagePath>
+					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
@@ -122,7 +122,7 @@
 			<ItemGroup>
 				<None Include="$(MSBuildProjectDirectory)icon.png">
 					<Pack>True</Pack>
-					<PackagePath>\</PackagePath>
+					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
@@ -134,7 +134,7 @@
 			<ItemGroup>
 				<None Include="$(SolutionDir)solution/icon.png">
 					<Pack>True</Pack>
-					<PackagePath>\</PackagePath>
+					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
@@ -146,7 +146,7 @@
 			<ItemGroup>
 				<None Include="$(SolutionDir)icon.png">
 					<Pack>True</Pack>
-					<PackagePath>\</PackagePath>
+					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>

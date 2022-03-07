@@ -1,6 +1,6 @@
 <Project>
 	<PropertyGroup>
-		<Version>2.1.4-preview.2</Version>
+		<Version>2.1.4-preview.3</Version>
 		<!--产品版本 如果不指定，将会由 VersionPrefix.VersionSuffix 强签名组成-->
 		<!--<InformationalVersion>This is a prerelease package</InformationalVersion>-->
 	</PropertyGroup>
