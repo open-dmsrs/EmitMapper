@@ -25,7 +25,7 @@
 		<LangVersion>10</LangVersion>
 	</PropertyGroup>
 	<PropertyGroup>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<IncludeSymbols>true</IncludeSymbols>
@@ -33,7 +33,7 @@
 		<PackageTags>EmitMapper;Mapper;POCO;Object Mapping</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/niubilitynetcore/EmitMapper</PackageProjectUrl>
-
+		<PackageReleaseNotes>https://github.com/niubilitynetcore/EmitMapper/releases</PackageReleaseNotes>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/niubilitynetcore/EmitMapper</RepositoryUrl>
 
@@ -43,6 +43,9 @@
 
 		<!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<Title>$(AssemblyName)</Title>
+		<Description>Description</Description>
+	
 	</PropertyGroup>
 
 	<ItemGroup>
