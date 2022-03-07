@@ -46,8 +46,6 @@ body:
         // Current Behavior
 
         // Expected Behavior
-       
-      value: ""
       render: Markdown
     validations:
       required: true
