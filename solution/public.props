@@ -33,7 +33,6 @@
 		<PackageTags>EmitMapper;Mapper;POCO;Object Mapping</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/niubilitynetcore/EmitMapper</PackageProjectUrl>
-		<PackageReleaseNotes>https://github.com/niubilitynetcore/EmitMapper/releases</PackageReleaseNotes>
 
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/niubilitynetcore/EmitMapper</RepositoryUrl>
@@ -50,7 +49,7 @@
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
 
-	<Choose>
+	<!--<Choose>
 		<When Condition="Exists('$(MSBuildProjectDirectory)/readme.md')">
 			<PropertyGroup>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
@@ -58,33 +57,33 @@
 			<ItemGroup>
 				<None Include="$(MSBuildProjectDirectory)/readme.md">
 					<Pack>True</Pack>
-					<PackagePath>/</PackagePath>
+					<PackagePath>\</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)/readme.md')">
+		<When Condition="Exists('$(SolutionDir)readme.md')">
 			<PropertyGroup>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)/readme.md">
+				<None Include="$(SolutionDir)readme.md">
 					<Pack>True</Pack>
-					<PackagePath>/</PackagePath>
+					<PackagePath>\</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
 		</When>
-	</Choose>
+	</Choose>-->
 	<Choose>
-		<When Condition="Exists('$(MSBuildProjectDirectory)/icon.png')">
+		<When Condition="Exists('$(MSBuildProjectDirectory)icon.png')">
 			<PropertyGroup>
 				<PackageIcon>icon.png</PackageIcon> 
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(MSBuildProjectDirectory)/icon.png">
+				<None Include="$(MSBuildProjectDirectory)icon.png">
 					<Pack>True</Pack>
-					<PackagePath>/</PackagePath>
+					<PackagePath>\</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
@@ -94,21 +93,21 @@
 				<PackageIcon>icon.png</PackageIcon> 
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)solution/icon.png">
+				<None Include="$(SolutionDir)solutionicon.png">
 					<Pack>True</Pack>
-					<PackagePath>/</PackagePath>
+					<PackagePath>\</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)/icon.png')">
+		<When Condition="Exists('$(SolutionDir)icon.png')">
 			<PropertyGroup>
 				<PackageIcon>icon.png</PackageIcon> 
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)/icon.png">
+				<None Include="$(SolutionDir)icon.png">
 					<Pack>True</Pack>
-					<PackagePath>/</PackagePath>
+					<PackagePath>\</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>

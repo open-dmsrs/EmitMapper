@@ -6,45 +6,16 @@
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;netstandard2.1;net48;netcoreapp3.1</TargetFrameworks>
 		<OutputType>Library</OutputType>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<PackageReleaseNotes />
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
-		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-		<Optimize>False</Optimize>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
-		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
-		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-		<Optimize>False</Optimize>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
-		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net48|AnyCPU'">
-		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-		<Optimize>False</Optimize>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net48|AnyCPU'">
-		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
-		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-		<Optimize>False</Optimize>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
-		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-	</PropertyGroup>
+	<ItemGroup>
+	  <None Include="..\..\readme.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 
 
