@@ -5,7 +5,8 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;netstandard2.1;net48;netcoreapp3.1</TargetFrameworks>
-		<OutputType>Library</OutputType> 
+		<OutputType>Library</OutputType>
+		<NeutralLanguage>en-US</NeutralLanguage> 
 	</PropertyGroup>
 
 	<ItemGroup>
