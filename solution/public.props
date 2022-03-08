@@ -20,11 +20,12 @@
 		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
 		<DefineConstants>$(DefineConstants);$(MSBuildProjectName.Replace(" ", "_").Replace(".", "_"))</DefineConstants>
 		<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-		
+
 		<Optimize>true</Optimize>
 		<LangVersion>10</LangVersion>
 
 		<NeutralLanguage>en-US</NeutralLanguage>
+		<DebugType>portable</DebugType>
 	</PropertyGroup>
 	<PropertyGroup>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -47,32 +48,51 @@
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<Title>$(AssemblyName)</Title>
 		<!--<Description>Description</Description>-->
-	
+
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
+	<PropertyGroup>
+		<SolutionReadme>$(SolutionDir)readme.md</SolutionReadme>
+		<ProjectReadme>$([System.IO.Path]::Combine(MSBuildProjectDirectory,"readme.md")</ProjectReadme>
+	</PropertyGroup>
+	<Target Name="TestMessage" AfterTargets="Build" >
 
+		<!-- Use $(Property Name) to reference a property -->
+		<Message Text="$(SolutionReadme)" Importance="high"/>
+		<Message Text="$(ProjectReadme)" Importance="high"/>
+
+		<!-- Use @(Item Name) to output a semi-colon
+         separated list of items on one line      -->
+		<!--<Message Text="@(None)" Importance="high"/>-->
+
+		<!-- Use %(Item Name.Metadata Property Name) to 
+         call the Message task once for each item.   -->
+		<!-- This will output each item on a separate line -->
+		<!--<Message Text="%(None.Identity)" Importance="high"/>-->
+
+	</Target>
 	<Choose>
-		<When Condition="Exists('$(MSBuildProjectDirectory)readme.md')">
+		<When Condition="Exists('$(ProjectReadme)')">
 			<PropertyGroup>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(MSBuildProjectDirectory)readme.md">
+				<None Include="$(ProjectReadme)">
 					<Pack>True</Pack>
 					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)readme.md')">
+		<When Condition="Exists('$(SolutionReadme)')">
 			<PropertyGroup>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include='$(SolutionDir)readme.md'>
+				<None Include='$(SolutionReadme)'>
 					<Pack>true</Pack>
 					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
@@ -83,7 +103,7 @@
 	<Choose>
 		<When Condition="Exists('$(MSBuildProjectDirectory)icon.png')">
 			<PropertyGroup>
-				<PackageIcon>icon.png</PackageIcon> 
+				<PackageIcon>icon.png</PackageIcon>
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include="$(MSBuildProjectDirectory)icon.png">
@@ -95,7 +115,7 @@
 		</When>
 		<When Condition="Exists('$(SolutionDir)solution/icon.png')">
 			<PropertyGroup>
-				<PackageIcon>icon.png</PackageIcon> 
+				<PackageIcon>icon.png</PackageIcon>
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include="$(SolutionDir)solution/icon.png">
@@ -107,7 +127,7 @@
 		</When>
 		<When Condition="Exists('$(SolutionDir)icon.png')">
 			<PropertyGroup>
-				<PackageIcon>icon.png</PackageIcon> 
+				<PackageIcon>icon.png</PackageIcon>
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include="$(SolutionDir)icon.png">
@@ -120,36 +140,36 @@
 	</Choose>
 
 	<!--<Choose>
-		<When Condition="Exists('$(MSBuildProjectDirectory)icon.png')">
+		<When Condition="Exists('$(MSBuildProjectDirectory)app.icon')">
 			<PropertyGroup> 
 				<ApplicationIcon>$(MSBuildProjectDirectory)icon.png</ApplicationIcon>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(MSBuildProjectDirectory)icon.png">
+				<None Include="$(MSBuildProjectDirectory)app.icon">
 					<Pack>True</Pack>
 					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)solution/icon.png')">
+		<When Condition="Exists('$(SolutionDir)solution/app.icon')">
 			<PropertyGroup> 
 				<ApplicationIcon>$(SolutionDir)solution/icon.png</ApplicationIcon>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)solution/icon.png">
+				<None Include="$(SolutionDir)solution/app.icon">
 					<Pack>True</Pack>
 					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
 				</None>
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)icon.png')">
+		<When Condition="Exists('$(SolutionDir)app.icon')">
 			<PropertyGroup> 
-				<ApplicationIcon>$(SolutionDir)icon.png</ApplicationIcon>
+				<ApplicationIcon>$(SolutionDir)app.icon</ApplicationIcon>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)icon.png">
+				<None Include="$(SolutionDir)app.icon">
 					<Pack>True</Pack>
 					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
