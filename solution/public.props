@@ -23,6 +23,8 @@
 		
 		<Optimize>true</Optimize>
 		<LangVersion>10</LangVersion>
+
+		<NeutralLanguage>en-US</NeutralLanguage>
 	</PropertyGroup>
 	<PropertyGroup>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -91,12 +93,12 @@
 				</None>
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)solution\icon.png')">
+		<When Condition="Exists('$(SolutionDir)solution/icon.png')">
 			<PropertyGroup>
 				<PackageIcon>icon.png</PackageIcon> 
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)solutionicon.png">
+				<None Include="$(SolutionDir)solution/icon.png">
 					<Pack>True</Pack>
 					<PackagePath>/</PackagePath>
 					<Visible>true</Visible>
