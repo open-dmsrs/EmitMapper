@@ -4,6 +4,9 @@
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;netstandard2.1;net48</TargetFrameworks>
 	</PropertyGroup>
+	<ItemGroup Condition="$(TargetFramework)=='net48'">
+	  <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
+	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\EmitMapper\EmitMapper.csproj" />

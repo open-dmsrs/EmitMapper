@@ -11,7 +11,7 @@
 		-->
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<Deterministic>true</Deterministic>
-	
+
 		<PackageVersion>$(Version)</PackageVersion>
 	</PropertyGroup>
 </Project>

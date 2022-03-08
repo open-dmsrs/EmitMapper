@@ -13,6 +13,10 @@ public class RelativePath
 {
   private readonly ITestOutputHelper outputHelper;
 
+  /// <summary>
+  /// Initializes a new instance of the <see cref="RelativePath"/> class.
+  /// </summary>
+  /// <param name="outputHelper">The output helper.</param>
   public RelativePath(ITestOutputHelper outputHelper)
   {
     Console.WriteLine(outputHelper.GetType().FullName);

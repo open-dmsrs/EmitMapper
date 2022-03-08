@@ -55,18 +55,20 @@
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
 	<PropertyGroup>
-		<SolutionReadme>$(SolutionDir)readme.md</SolutionReadme>
-		<ProjectReadme>$([System.IO.Path]::Combine(MSBuildProjectDirectory,"readme.md")</ProjectReadme>
+		<SolutionReadme>$([System.IO.Path]::Combine("$(SolutionDir)","readme.md"))</SolutionReadme>
+		<ProjectReadme>$([System.IO.Path]::Combine("$(MSBuildProjectDirectory)","readme.md"))</ProjectReadme>
+ 
+
 	</PropertyGroup>
-	<Target Name="TestMessage" AfterTargets="Build" >
+	<Target Name="TestMessage" AfterTargets="Build">
 
 		<!-- Use $(Property Name) to reference a property -->
-		<Message Text="$(SolutionReadme)" Importance="high"/>
-		<Message Text="$(ProjectReadme)" Importance="high"/>
+		<Message Text="$(RelativeReadme)" Importance="high" />
+		<Message Text="$(ProjectReadme)" Importance="high" />
 
 		<!-- Use @(Item Name) to output a semi-colon
          separated list of items on one line      -->
-		<!--<Message Text="@(None)" Importance="high"/>-->
+		<!--<Message Text="@(SolutionReadme)" Importance="high"/>-->
 
 		<!-- Use %(Item Name.Metadata Property Name) to 
          call the Message task once for each item.   -->
