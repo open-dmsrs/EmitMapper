@@ -38,10 +38,12 @@
 		<PackageTags>EmitMapper;Mapper;POCO;Object Mapping</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/niubilitynetcore/EmitMapper</PackageProjectUrl>
-		<PackageReleaseNotes>https://github.com/niubilitynetcore/EmitMapper/releases</PackageReleaseNotes>
+		
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/niubilitynetcore/EmitMapper</RepositoryUrl>
-
+		<PackageReleaseNotes>
+			$([System.IO.File]::ReadAllText("$(SolutionDir)/release-notes.txt"))
+		</PackageReleaseNotes>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
