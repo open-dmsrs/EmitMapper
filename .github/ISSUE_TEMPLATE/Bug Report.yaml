@@ -26,23 +26,6 @@ body:
       required: true
 
   - type: textarea
-    id: source-destination-types
-    attributes:
-      label:  Source/destination types and Mapping configuration
-      description: also tell us any code if that impact the configuration of mapping
-      placeholder: // Put your source/destination types and getting mapper code here
-      render: csharp
-    validations:
-      required: true 
-
-  - type: textarea
-    id: steps-to-reproduce
-    attributes:
-      label: Your calls to Mapper.Map , with source/destination objects constructed
-      description: Please copy and paste any relevant log output. 这将自动格式化为代码，因此无需背板。
-      render: csharp
-
-  - type: textarea
     id: what-happened
     attributes:
       label: What happened?
@@ -59,6 +42,24 @@ body:
     validations:
       required: true
 
+  - type: textarea
+    id: source-destination-types
+    attributes:
+      label:  Source/destination types and Mapping configuration
+      description: Please copy and paste all c# code related Source/destination types and Mapping configuration.
+                   also tell us any code if that impact the configuration of mapping
+                   粘贴mapping中的源/目标对象的类型和mapper配置。这将自动格式化为C#代码。
+      placeholder: // Put your source/destination types and getting mapper code here
+      render: csharp
+    validations:
+      required: true 
+
+  - type: textarea
+    id: calling-mapper-methods
+    attributes:
+      label: Your calls to Mapper.Map , with source/destination objects constructed
+      description: Please copy and paste any relevant c# code. 这将自动格式化为C#代码。
+      render: csharp
 
 
 
