@@ -41,9 +41,7 @@
 		
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/niubilitynetcore/EmitMapper</RepositoryUrl>
-		<PackageReleaseNotes>
-			$([System.IO.File]::ReadAllText("$(SolutionDir)/release-notes.txt"))
-		</PackageReleaseNotes>
+		<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SolutionDir)/release-notes.txt"))</PackageReleaseNotes>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
