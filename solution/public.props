@@ -1,8 +1,6 @@
 <Project>
 	<PropertyGroup>
-		<Authors>Jimbo</Authors>
-		<Company>TSharp</Company>
-		<Copyright>Copyright (c) 2006-2022 TSharp. All rights reserved.</Copyright>
+		
 		<RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
 		<NeutralLanguage>zh-CHS</NeutralLanguage>
 		<SignAssembly>true</SignAssembly>
@@ -28,10 +26,14 @@
 		<DebugType>portable</DebugType>
 	</PropertyGroup>
 	<PropertyGroup>
-		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+
+		<!--<GeneratePackageOnBuild>false</GeneratePackageOnBuild>-->
 		<!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<IncludeSymbols>true</IncludeSymbols>
+		<!--<SymbolPackageFormat>snupkg</SymbolPackageFormat>-->
+		<!--<IncludeSymbols>true</IncludeSymbols>-->
+		<Authors>Jimbo</Authors>
+		<Company>TSharp</Company>
+		<Copyright>Copyright (c) 2006-2022 TSharp. All rights reserved.</Copyright>
 		<PackageId>Niubility.$(AssemblyName)</PackageId>
 		<PackageTags>EmitMapper;Mapper;POCO;Object Mapping</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -48,6 +50,7 @@
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<Title>$(AssemblyName)</Title>
 		<!--<Description>Description</Description>-->
+		<PackageDescription></PackageDescription>
 
 	</PropertyGroup>
 
@@ -58,7 +61,7 @@
 		<SolutionReadme>$([System.IO.Path]::Combine("$(SolutionDir)","readme.md"))</SolutionReadme>
 		<ProjectReadme>$([System.IO.Path]::Combine("$(MSBuildProjectDirectory)","readme.md"))</ProjectReadme>
  
-
+		<TestA>$([System.Math]::Abs(333))</TestA>
 	</PropertyGroup>
 	<Target Name="TestMessage" AfterTargets="Build">
 
@@ -80,6 +83,7 @@
 		<When Condition="Exists('$(ProjectReadme)')">
 			<PropertyGroup>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
+				<readme>readme.md</readme>
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include="$(ProjectReadme)">
@@ -92,6 +96,7 @@
 		<When Condition="Exists('$(SolutionReadme)')">
 			<PropertyGroup>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
+				<readme>readme.md</readme>
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include='$(SolutionReadme)'>
@@ -106,6 +111,7 @@
 		<When Condition="Exists('$(MSBuildProjectDirectory)icon.png')">
 			<PropertyGroup>
 				<PackageIcon>icon.png</PackageIcon>
+				<icon>icon.png</icon>
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include="$(MSBuildProjectDirectory)icon.png">
@@ -118,6 +124,7 @@
 		<When Condition="Exists('$(SolutionDir)solution/icon.png')">
 			<PropertyGroup>
 				<PackageIcon>icon.png</PackageIcon>
+				<icon>icon.png</icon>
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include="$(SolutionDir)solution/icon.png">
@@ -130,6 +137,7 @@
 		<When Condition="Exists('$(SolutionDir)icon.png')">
 			<PropertyGroup>
 				<PackageIcon>icon.png</PackageIcon>
+				<icon>icon.png</icon>
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include="$(SolutionDir)icon.png">
