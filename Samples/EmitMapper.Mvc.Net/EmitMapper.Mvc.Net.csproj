@@ -2,11 +2,25 @@
 	<Import Project="../../solution/version.props" />
 	<Import Project="../../solution/public.props" />
 	<PropertyGroup>
-		<TargetFrameworks>netcoreapp3.1</TargetFrameworks> 
+		<TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SolutionDir)/release-notes.txt"))</PackageReleaseNotes> 
 	</PropertyGroup>
 
 	<ItemGroup>
 	  <FrameworkReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\icon.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\..\readme.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 	<ItemGroup>
