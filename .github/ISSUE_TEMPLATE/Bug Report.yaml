@@ -51,8 +51,6 @@ body:
                    粘贴mapping中的源/目标对象的类型和mapper配置。这将自动格式化为C#代码。
       placeholder: // Put your source/destination types and getting mapper code here
       render: csharp
-    validations:
-      required: true 
 
   - type: textarea
     id: calling-mapper-methods
