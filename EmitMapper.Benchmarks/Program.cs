@@ -24,20 +24,20 @@ public static class Program
     // {
     // r.EmitMapper_SimpleList1000();
     // }
-    BenchmarkRunner.Run<MapperBenchmark>(
+    //BenchmarkRunner.Run<MapperBenchmark>(
 
-      /****
-                                                         ManualConfig.Create(DefaultConfig.Instance)
-                                                             .WithOptions(ConfigOptions.DisableOptimizationsValidator)
-                        /****/
+    //  /****
+    //                                                     ManualConfig.Create(DefaultConfig.Instance)
+    //                                                         .WithOptions(ConfigOptions.DisableOptimizationsValidator)
+    //                    /****/
+    //);
+
+    BenchmarkRunner.Run<TypeBenchmark>(
+
+    /****
+    ManualConfig.Create(DefaultConfig.Instance)
+    .WithOptions(ConfigOptions.DisableOptimizationsValidator)
+    /****/
     );
-
-    // BenchmarkRunner.Run<TypeBenchmark>(
-
-    // /****
-    // ManualConfig.Create(DefaultConfig.Instance)
-    // .WithOptions(ConfigOptions.DisableOptimizationsValidator)
-    // /****/
-    // );
   }
 }
