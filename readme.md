@@ -1,11 +1,13 @@
 # EmitMapper
 ## Project Description
-[![publish to nuget](https://github.com/niubilitynetcore/EmitMapper/actions/workflows/dotnet.yml/badge.svg)](https://github.com/niubilitynetcore/EmitMapper/actions/workflows/dotnet.yml)
- [![NuGet](http://img.shields.io/nuget/v/Niubility.EmitMapper.svg)](https://www.nuget.org/packages/Niubility.EmitMapper/)
+[![publish to nuget](https://github.com/niubilitynetcore/EmitMapper/actions/workflows/dotnet.yml/badge.svg)
+](https://github.com/niubilitynetcore/EmitMapper/actions/workflows/dotnet.yml)
+ [![NuGet](https://img.shields.io/nuget/v/Niubility.EmitMapper.svg)
+ ](https://www.nuget.org/packages/Niubility.EmitMapper/)
 
 ## What is EmitMapper
 
-EmitMapper is tiny library for resolving 
+EmitMapper is a small library for parsing object-object clones, typically used to convert data objects into domain objects and vice versa.
 
 Powerful customizable tool for mapping entities to each other. Entities can be plain objects, DataReaders, SQL commands and anything you need. The tool uses run-time code generation via the Emit library. It is useful for dealing with DTO objects, data access layers an so on.
 
@@ -13,7 +15,7 @@ Powerful customizable tool for mapping entities to each other. Entities can be p
 
 
 ```c#
-	var simple = Mapper.Default.GetMapper<BenchNestedSource, BenchNestedDestination>();
+    var simple = Mapper.Default.GetMapper<BenchNestedSource, BenchNestedDestination>();
     BenchNestedDestination dest = simple.Map(_benchSource); //for single object;
     List<BenchNestedDestination> dests = simple.MapEnum(_benchSources1000List);// for list object
 ```

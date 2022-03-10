@@ -53,32 +53,32 @@
 		</When>
 	</Choose>
 
-	<!--<Choose>
-		<When Condition="Exists('$(MSBuildProjectDirectory)app.icon')">
+	<Choose>
+		<When Condition="Exists('$(MSBuildProjectDirectory)app.ico')">
 			<PropertyGroup> 
 				<ApplicationIcon>$(MSBuildProjectDirectory)icon.png</ApplicationIcon>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(MSBuildProjectDirectory)app.icon" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(MSBuildProjectDirectory)app.ico" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)solution/app.icon')">
+		<When Condition="Exists('$(SolutionDir)solution/app.ico')">
 			<PropertyGroup> 
 				<ApplicationIcon>$(SolutionDir)solution/icon.png</ApplicationIcon>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)solution/app.icon" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(SolutionDir)solution/app.ico" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)app.icon')">
+		<When Condition="Exists('$(SolutionDir)app.ico')">
 			<PropertyGroup> 
-				<ApplicationIcon>$(SolutionDir)app.icon</ApplicationIcon>
+				<ApplicationIcon>$(SolutionDir)app.ico</ApplicationIcon>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)app.icon" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(SolutionDir)app.ico" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
-	</Choose>-->
+	</Choose>
 
 
 
