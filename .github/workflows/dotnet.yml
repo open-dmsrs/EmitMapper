@@ -48,7 +48,7 @@ jobs:
           PACKAGE_NAME: Niubility.EmitMapper
           
           # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
-          VERSION_FILE_PATH: solution/version.props
+          VERSION_FILE_PATH: solution.props
 
           # Regex pattern to extract version info in a capturing group
           # VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
@@ -86,7 +86,7 @@ jobs:
           PACKAGE_NAME: Niubility.LightDataAccess
           
           # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
-          VERSION_FILE_PATH: solution/version.props
+          VERSION_FILE_PATH: solution.props
 
           # Regex pattern to extract version info in a capturing group
           # VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
@@ -123,7 +123,7 @@ jobs:
           PACKAGE_NAME: Niubility.EMConfigurations
           
           # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
-          VERSION_FILE_PATH: solution/version.props
+          VERSION_FILE_PATH: solution.props
 
           # Regex pattern to extract version info in a capturing group
           # VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
@@ -162,7 +162,7 @@ jobs:
           PACKAGE_NAME: Niubility.EmitMapper.Mvc.Net
           
           # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
-          VERSION_FILE_PATH: solution/version.props
+          VERSION_FILE_PATH: solution.props
 
           # Regex pattern to extract version info in a capturing group
           # VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
