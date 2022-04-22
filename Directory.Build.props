@@ -162,27 +162,47 @@
 	<!-- Label='Changelog.md'-->
 	<Choose>
 		<When Condition="Exists('$(ProjDir)/CHANGELOG.md')">
-			<PropertyGroup>
-				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(ProjDir)CHANGELOG.md"))</PackageReleaseNotes>
-			</PropertyGroup>
+		 
 			<ItemGroup>
 				<None Include="$(ProjDir)/CHANGELOG.md" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
 		<When Condition="Exists('$(SlnSolutionDir)/CHANGELOG.md')">
-			<PropertyGroup>
-				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SlnSolutionDir)/CHANGELOG.md"))</PackageReleaseNotes>
-			</PropertyGroup>
+			 
 			<ItemGroup>
 				<None Include="$(SlnSolutionDir)/CHANGELOG.md" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
 		<When Condition="Exists('$(SlnDir)/CHANGELOG.md')">
-			<PropertyGroup>
-				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SlnDir)/CHANGELOG.md"))</PackageReleaseNotes>
-			</PropertyGroup>
+			 
 			<ItemGroup>
 				<None Include="$(SlnDir)/CHANGELOG.md" Pack='True' PackagePath='/' Visible='True' />
+			</ItemGroup>
+		</When>
+	</Choose>
+	<Choose>
+		<When Condition="Exists('$(ProjDir)/ReleaseNotes.md')">
+			<PropertyGroup>
+				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(ProjDir)ReleaseNotes.md"))</PackageReleaseNotes>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(ProjDir)/ReleaseNotes.md" Pack='True' PackagePath='/' Visible='True' />
+			</ItemGroup>
+		</When>
+		<When Condition="Exists('$(SlnSolutionDir)/ReleaseNotes.md')">
+			<PropertyGroup>
+				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SlnSolutionDir)/ReleaseNotes.md"))</PackageReleaseNotes>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(SlnSolutionDir)/ReleaseNotes.md" Pack='True' PackagePath='/' Visible='True' />
+			</ItemGroup>
+		</When>
+		<When Condition="Exists('$(SlnDir)/ReleaseNotes.md')">
+			<PropertyGroup>
+				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SlnDir)/ReleaseNotes.md"))</PackageReleaseNotes>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(SlnDir)/ReleaseNotes.md" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
 	</Choose>
