@@ -1,92 +1,243 @@
 <Project>
-	<PropertyGroup>
+	<!-- Properties in this file is not needed to change in general, please provide your good idea if you change this file content	-->
+	<PropertyGroup Condition="'$(SolutionDir)'==''">
 		<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
-		<SolutionReadme>$([System.IO.Path]::Combine("$(SolutionDir)","readme.md"))</SolutionReadme>
-		<ProjectReadme>$([System.IO.Path]::Combine("$(MSBuildProjectDirectory)","readme.md"))</ProjectReadme>
- 
 	</PropertyGroup>
+	<PropertyGroup>
+		<ProjDir>$(MSBuildProjectDirectory)</ProjDir>
+		<SlnSolutionDir>$([System.IO.Path]::Combine('$(SolutionDir)','solution'))</SlnSolutionDir>
+		<SlnDir>$(SolutionDir.TrimEnd("\").TrimEnd("/"))</SlnDir>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<!--
+		As the SDK sets these attributes automatically as part of the build, you'll get build time errors. 
+		Simply delete the assembly attributes, and use the MSBuild properties instead.
+		-->
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+		<Deterministic>true</Deterministic>
+
+		<RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
+		<NeutralLanguage>zh-CHS</NeutralLanguage>
+
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+		<NoWarn>1701;1702;1591;8002</NoWarn>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+		<AutoGenerateBindingRedirects>False</AutoGenerateBindingRedirects>
+		<Nullable>disable</Nullable>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+
+		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
+		<DefineConstants>$(DefineConstants);$(MSBuildProjectName.Replace(" ", "_").Replace(".", "_"));FEATURE_UNLOAD;FEATURE_NATIVE_RESOLVER</DefineConstants>
+		<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+
+		<!--<Optimize Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">true</Optimize>-->
+		<LangVersion>10</LangVersion>
+
+		<DebugType>portable</DebugType>
+	</PropertyGroup>
+
+	<Import Project="solution.props" />
+
+	<PropertyGroup>
+		<PackageVersion>$(Version)</PackageVersion>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Title>$(AssemblyName)</Title>
+	</PropertyGroup>
+
+
+	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+		<!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+		<!-- 只有在 GitHub 的 Action 构建才能使用源代码链接 -->
+		<!-- 源代码链接需要使用 commit 号，而在 GitHub 的 Action 构建的 commit 才是对的 -->
+		<!-- 本地构建，也许没有记得 commit 就构建，此时的 nuget 包的源代码是不对的，上传上去会让调试诡异 -->
+		<!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+		<!-- 本地等不需要创建符号文件 -->
+		<!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+	<ItemGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+
+	<!--Label='Load readme.md file for nuget PackageReadmeFile'-->
 	<Choose>
-		<When Condition="Exists('$(ProjectReadme)')">
+		<When Condition="Exists('$(ProjDir)/readme.md')">
 			<PropertyGroup>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(ProjectReadme)" Pack='True' PackagePath='/' Visible='True'>
-				 
-				</None>
+				<None Include='$(ProjDir)/readme.md' Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionReadme)')">
+		<When Condition="Exists('$(SlnSolutionDir)/readme.md')">
 			<PropertyGroup>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include='$(SolutionReadme)' Pack='True' PackagePath='/' Visible='True' />
+				<None Include='$(SlnSolutionDir)/readme.md' Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
+		<When Condition="Exists('$(SlnDir)/readme.md')">
+			<PropertyGroup>
+				<PackageReadmeFile>readme.md</PackageReadmeFile>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(SlnDir)/readme.md" Pack='True' PackagePath='/' Visible='True' />
+			</ItemGroup>
+		</When>
+
 	</Choose>
+
+	<!--Label='Load icon file for nuget PackageIcon'-->
 	<Choose>
-		<When Condition="Exists('$(MSBuildProjectDirectory)icon.png')">
+		<When Condition="Exists('$(ProjDir)/icon.png')">
 			<PropertyGroup>
 				<PackageIcon>icon.png</PackageIcon>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(MSBuildProjectDirectory)icon.png" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(ProjDir)/icon.png" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)solution/icon.png')">
+		<When Condition="Exists('$(SlnSolutionDir)/icon.png')">
 			<PropertyGroup>
 				<PackageIcon>icon.png</PackageIcon>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)solution/icon.png" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(SlnSolutionDir)/icon.png" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)icon.png')">
+		<When Condition="Exists('$(SlnDir)/icon.png')">
 			<PropertyGroup>
 				<PackageIcon>icon.png</PackageIcon>
 				<icon>icon.png</icon>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)icon.png" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(SlnDir)/icon.png" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
 	</Choose>
 
+	<!--Load app.ico file for ApplicationIcon(.exe)-->
 	<Choose>
-		<When Condition="Exists('$(MSBuildProjectDirectory)app.ico')">
-			<PropertyGroup> 
-				<ApplicationIcon>$(MSBuildProjectDirectory)icon.png</ApplicationIcon>
+		<When Condition="Exists('$(ProjDir)/app.ico')">
+			<PropertyGroup>
+				<ApplicationIcon>$(ProjDir)/app.ico</ApplicationIcon>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(MSBuildProjectDirectory)app.ico" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(ProjDir)/app.ico" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)solution/app.ico')">
-			<PropertyGroup> 
-				<ApplicationIcon>$(SolutionDir)solution/icon.png</ApplicationIcon>
+		<When Condition="Exists('$(SlnSolutionDir)/app.ico')">
+			<PropertyGroup>
+				<ApplicationIcon>$(SlnSolutionDir)/app.ico</ApplicationIcon>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)solution/app.ico" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(SlnSolutionDir)/app.ico" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SolutionDir)app.ico')">
-			<PropertyGroup> 
-				<ApplicationIcon>$(SolutionDir)app.ico</ApplicationIcon>
+		<When Condition="Exists('$(SlnDir)/app.ico')">
+			<PropertyGroup>
+				<ApplicationIcon>$(SlnDir)/app.ico</ApplicationIcon>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SolutionDir)app.ico" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(SlnDir)/app.ico" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
 	</Choose>
 
+	<!-- Label='Changelog.md'-->
+	<Choose>
+		<When Condition="Exists('$(ProjDir)/CHANGELOG.md')">
+			<PropertyGroup>
+				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(ProjDir)CHANGELOG.md"))</PackageReleaseNotes>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(ProjDir)/CHANGELOG.md" Pack='True' PackagePath='/' Visible='True' />
+			</ItemGroup>
+		</When>
+		<When Condition="Exists('$(SlnSolutionDir)/CHANGELOG.md')">
+			<PropertyGroup>
+				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SlnSolutionDir)/CHANGELOG.md"))</PackageReleaseNotes>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(SlnSolutionDir)/CHANGELOG.md" Pack='True' PackagePath='/' Visible='True' />
+			</ItemGroup>
+		</When>
+		<When Condition="Exists('$(SlnDir)/CHANGELOG.md')">
+			<PropertyGroup>
+				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SlnDir)/CHANGELOG.md"))</PackageReleaseNotes>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(SlnDir)/CHANGELOG.md" Pack='True' PackagePath='/' Visible='True' />
+			</ItemGroup>
+		</When>
+	</Choose>
+	<!--Label='CertificateFileName'-->
+	<Choose>
+		<When Condition="Exists('$(ProjDir)/$(CertificateFileName)')">
+			<PropertyGroup>
+				<SignAssembly>true</SignAssembly>
+				<AssemblyOriginatorKeyFile>$(ProjDir)/$(CertificateFileName)</AssemblyOriginatorKeyFile>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(ProjDir)/$(CertificateFileName)" Pack='True' PackagePath='/' Visible='True' />
+			</ItemGroup>
+		</When>
+
+		<When Condition="Exists('$(SlnSolutionDir)/$(CertificateFileName)')">
+			<PropertyGroup>
+				<SignAssembly>true</SignAssembly>
+				<AssemblyOriginatorKeyFile>$(SlnSolutionDir)/$(CertificateFileName)</AssemblyOriginatorKeyFile>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(SlnSolutionDir)/$(CertificateFileName)" Pack='True' PackagePath='/' Visible='True' />
+			</ItemGroup>
+		</When>
+
+		<When Condition="Exists('$(SlnDir)/$(CertificateFileName)')">
+			<PropertyGroup>
+				<SignAssembly>true</SignAssembly>
+				<AssemblyOriginatorKeyFile>$(SlnDir)/$(CertificateFileName)</AssemblyOriginatorKeyFile>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(SlnDir)/$(CertificateFileName)" Pack='True' PackagePath='/' Visible='True' />
+			</ItemGroup>
+		</When>
+	</Choose>
 
 
 	<Target Name="TestMessage" AfterTargets="Build">
+		<!--<ReadLinesFromFile File="$(PackageReleaseNotes)">
+			<Output TaskParameter="Lines" PropertyName="Record" />
+		</ReadLinesFromFile>-->
+	</Target>
+	<Target Name="TestMessage" AfterTargets="Build">
 
+		<!--<Message Text="=========================" Importance="high" />-->
 		<!-- Use $(Property Name) to reference a property -->
 		<!--<Message Text="$(SolutionReadme)" Importance="high"  Condition="Exists('$(SolutionReadme)')"/>
 		<Message Text="$(ProjectReadme)" Importance="high"   Condition="Exists('$(ProjectReadme)')"/>-->
+
+		<!--<Message Text="$(ProjDir)" Importance="high" />
+		<Message Text="$(SlnSolutionDir)" Importance="high" />
+		<Message Text="$(SlnDir)" Importance="high" />-->
+
+
+		<!--<Message Text="$(ProjDir)/$(CertificateFileName)" Importance="high" />-->
 
 		<!-- Use @(Item Name) to output a semi-colon
          separated list of items on one line      -->
@@ -95,7 +246,10 @@
 		<!-- Use %(Item Name.Metadata Property Name) to 
          call the Message task once for each item.   -->
 		<!-- This will output each item on a separate line -->
-		<Message Text="%(None.Identity)" Importance="high"/>
+		<!--<Message Text="%(None.Identity)" Importance="high" />-->
 
+		<!--<Message Text="////////////////////////" Importance="high" />-->
 	</Target>
+
+
 </Project>

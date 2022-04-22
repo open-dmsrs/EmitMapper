@@ -27,11 +27,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
 		solution\EmitMapper.snk = solution\EmitMapper.snk
-		solution\public.props = solution\public.props
 		solution\publicKey.txt = solution\publicKey.txt
 		release-notes.txt = release-notes.txt
 		solution\sn_gen.bat = solution\sn_gen.bat
-		solution\version.props = solution\version.props
+		solution.props = solution.props
+		version.props = version.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "layout", "layout", "{B5E8AE2F-A600-4F41-B912-14B191DD0B6C}"
