@@ -1,4 +1,5 @@
-<Project><!-- *** - Warning - ***
+<Project>
+	<!-- *** - Warning - ***
 	All changes in this file will impact all project files of current solution(sln). 
 	Properties in this file can be changed in general if you using it.		
 	please provide your good idea if you are willing	-->
@@ -7,16 +8,13 @@
 
 		<!--产品版本 如果不指定，将会由 VersionPrefix.VersionSuffix 强签名组成-->
 		<!--<InformationalVersion>This is a prerelease package</InformationalVersion>-->
-	</PropertyGroup>
 
-	<PropertyGroup>
 		<CertificateFileName>EmitMapper.snk</CertificateFileName>
+		<ChangeLogFileName>changelog.md</ChangeLogFileName>
 		<GITHUB_ACTIONS>true</GITHUB_ACTIONS>
 	</PropertyGroup>
-	<PropertyGroup>
-
-
-		<!--<Description>Description</Description>-->
+	<PropertyGroup Condition="'$(TargetFramework)'=='net6.0'">
+		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -30,19 +28,53 @@
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/niubilitynetcore/EmitMapper</RepositoryUrl>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-		<PackageDescription></PackageDescription>
 
+	
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
-		<PackageOutputPath>$(SlnDir)/nupkgs</PackageOutputPath>
+		<PackageOutputPath>$(SlnDir)nupkgs</PackageOutputPath>
 	</PropertyGroup>
-	<Target Name="TestMessage" AfterTargets="Build">
+	<!-- Description and PackageDescription-->
+	<!--A long description for the assembly. If PackageDescription is not specified, then this property is also used as the description of the package.-->
+	<Choose>
+		<When Condition="Exists('$(ProjDir)Description.md')">
+			<PropertyGroup>
+				<Description>$([System.IO.File]::ReadAllText("$(ProjDir)Description.md"))</Description>
+				<!--<PackageDescription></PackageDescription>-->
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(ProjDir)Description.md" Pack='True' PackagePath='/' Visible='True' />
+			</ItemGroup>
+		</When>
+		<When Condition="Exists('$(ProjDir)readme.md')">
+			<PropertyGroup>
+				<Description>$([System.IO.File]::ReadAllText('$(ProjDir)readme.md'))</Description>
+				<!--<PackageDescription></PackageDescription>-->
+			</PropertyGroup>
 
+		</When>
+		<Otherwise>
+			<PropertyGroup>
+				<!--default description for all packages-->
+				<Description>The fastest mapping tool - EmitMapper runs on netcore and others</Description>
+				<!--<PackageDescription></PackageDescription>-->
+			</PropertyGroup>
+		</Otherwise>
+	</Choose>
+
+	<Target Name="TestMessage" Label="Directory.Build.props" AfterTargets="Build">
+
+		<Message Text="===================================Directory.Build.props=======================" Importance="high" />
 		<!-- Use $(Property Name) to reference a property -->
 		<!--<Message Text="$(SolutionReadme)" Importance="high"  Condition="Exists('$(SolutionReadme)')"/>
 		<Message Text="$(ProjectReadme)" Importance="high"   Condition="Exists('$(ProjectReadme)')"/>-->
 
-		<!--<Message Text="$(AssemblyName)" Importance="high" />-->
+		<!--<Message Text="$(ProjDir)" Importance="high" />
+		<Message Text="$(SlnSolutionDir)" Importance="high" />
+		<Message Text="$(SlnDir)" Importance="high" />
+		<Message Text="$(Description)" Importance="high" />-->
+
+		<!--<Message Text="$(ProjDir)$(CertificateFileName)" Importance="high" />-->
 
 		<!-- Use @(Item Name) to output a semi-colon
          separated list of items on one line      -->
@@ -53,6 +85,8 @@
 		<!-- This will output each item on a separate line -->
 		<!--<Message Text="%(None.Identity)" Importance="high" />-->
 
+		<Message Text="//Directory.Build.props//////////////////////" Importance="high" />
 	</Target>
+
 
 </Project>
