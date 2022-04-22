@@ -1,8 +1,9 @@
-<Project>
-	<!-- Properties in this file should be changed in general if you reuse this file.
+<Project><!-- *** - Warning - ***
+	All changes in this file will impact all project files of current solution(sln). 
+	Properties in this file can be changed in general if you using it.		
 	please provide your good idea if you are willing	-->
 	<PropertyGroup>
-		<Version>2.1.5-priview.1</Version>
+		<Version>2.1.5-priview.2</Version>
 
 		<!--产品版本 如果不指定，将会由 VersionPrefix.VersionSuffix 强签名组成-->
 		<!--<InformationalVersion>This is a prerelease package</InformationalVersion>-->
@@ -13,7 +14,7 @@
 		<GITHUB_ACTIONS>true</GITHUB_ACTIONS>
 	</PropertyGroup>
 	<PropertyGroup>
-	
+
 
 		<!--<Description>Description</Description>-->
 	</PropertyGroup>
@@ -30,8 +31,10 @@
 		<RepositoryUrl>https://github.com/niubilitynetcore/EmitMapper</RepositoryUrl>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<PackageDescription></PackageDescription>
-		
+
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+		<PackageOutputPath>$(SlnDir)/nupkgs</PackageOutputPath>
 	</PropertyGroup>
 	<Target Name="TestMessage" AfterTargets="Build">
 

@@ -42,11 +42,13 @@
 	<Import Project="solution.props" />
 
 	<PropertyGroup>
-		<PackageVersion>$(Version)</PackageVersion>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageVersion>$(Version)</PackageVersion> 
 		<Title>$(AssemblyName)</Title>
-	</PropertyGroup>
 
+	</PropertyGroup>
+	<ItemGroup Condition="Exists('$(SlnDir)/solution.props')">
+		<None Include='$(SlnDir)/solution.props' Pack='True' PackagePath='/' Visible='True' />
+	</ItemGroup>
 
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
@@ -180,6 +182,7 @@
 			</ItemGroup>
 		</When>
 	</Choose>
+
 	<Choose>
 		<When Condition="Exists('$(ProjDir)/ReleaseNotes.md')">
 			<PropertyGroup>
