@@ -212,6 +212,7 @@
 			<PropertyGroup>
 				<SignAssembly>true</SignAssembly>
 				<AssemblyOriginatorKeyFile>$(ProjDir)/$(CertificateFileName)</AssemblyOriginatorKeyFile>
+				<PackageCertificateKeyFile>$(ProjDir)/$(CertificateFileName)</PackageCertificateKeyFile>
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include="$(ProjDir)/$(CertificateFileName)" Pack='True' PackagePath='/' Visible='True' />
@@ -222,6 +223,7 @@
 			<PropertyGroup>
 				<SignAssembly>true</SignAssembly>
 				<AssemblyOriginatorKeyFile>$(SlnSolutionDir)/$(CertificateFileName)</AssemblyOriginatorKeyFile>
+				<PackageCertificateKeyFile>$(SlnSolutionDir)/$(CertificateFileName)</PackageCertificateKeyFile>
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include="$(SlnSolutionDir)/$(CertificateFileName)" Pack='True' PackagePath='/' Visible='True' />
@@ -232,6 +234,7 @@
 			<PropertyGroup>
 				<SignAssembly>true</SignAssembly>
 				<AssemblyOriginatorKeyFile>$(SlnDir)/$(CertificateFileName)</AssemblyOriginatorKeyFile>
+				<PackageCertificateKeyFile>$(SlnDir)/$(CertificateFileName)</PackageCertificateKeyFile>
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include="$(SlnDir)/$(CertificateFileName)" Pack='True' PackagePath='/' Visible='True' />
