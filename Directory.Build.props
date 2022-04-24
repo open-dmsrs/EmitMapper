@@ -50,6 +50,18 @@
 		<None Include='$(SlnDir)solution.props' Pack='True' PackagePath='/' Visible='True' />
 	</ItemGroup>
 
+	<ItemGroup>
+		<None Include="$(SlnDir)*.*" >
+			<Link>Solution Files/%(Filename)%(Extension)</Link>
+		</None>
+		<None Include="$(SlnSolutionDir)*.*" Condition="Exists('$(SlnSolutionDir)')" >
+			<Link>Solution Files/%(Filename)%(Extension)</Link>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+
+	</ItemGroup>
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
@@ -193,7 +205,7 @@
 				<PackageCertificateKeyFile>$(ProjDir)$(CertificateFileName)</PackageCertificateKeyFile>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(ProjDir)$(CertificateFileName)" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(ProjDir)$(CertificateFileName)" Pack='True' PackagePath='/' Visible='false' />
 			</ItemGroup>
 		</When>
 
@@ -204,7 +216,7 @@
 				<PackageCertificateKeyFile>$(SlnSolutionDir)$(CertificateFileName)</PackageCertificateKeyFile>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SlnSolutionDir)$(CertificateFileName)" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(SlnSolutionDir)$(CertificateFileName)" Pack='True' PackagePath='/' Visible='false' />
 			</ItemGroup>
 		</When>
 		<When Condition="'$(CertificateFileName)'!='' and Exists('$(SlnDir)$(CertificateFileName)')">
@@ -214,7 +226,7 @@
 				<PackageCertificateKeyFile>$(SlnDir)$(CertificateFileName)</PackageCertificateKeyFile>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SlnDir)$(CertificateFileName)" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(SlnDir)$(CertificateFileName)" Pack='True' PackagePath='/' Visible='false' />
 			</ItemGroup>
 		</When>
 	</Choose>
