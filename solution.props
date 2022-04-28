@@ -28,8 +28,6 @@
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/niubilitynetcore/EmitMapper</RepositoryUrl>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-
-	
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
 		<PackageOutputPath>$(SlnDir)nupkgs</PackageOutputPath>
