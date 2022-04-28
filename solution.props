@@ -64,7 +64,7 @@
 
 	<Target Name="TestMessage" Label="Directory.Build.props" AfterTargets="Build">
 
-		<Message Text="===================================Directory.Build.props=======================" Importance="high" />
+		<Message Text="==Start Test========================================================" Importance="high" />
 		<!-- Use $(Property Name) to reference a property -->
 		<!--<Message Text="$(SolutionReadme)" Importance="high"  Condition="Exists('$(SolutionReadme)')"/>
 		<Message Text="$(ProjectReadme)" Importance="high"   Condition="Exists('$(ProjectReadme)')"/>-->
@@ -85,7 +85,7 @@
 		<!-- This will output each item on a separate line -->
 		<!--<Message Text="%(None.Identity)" Importance="high" />-->
 
-		<Message Text="//Directory.Build.props//////////////////////" Importance="high" />
+		<Message Text="//End Test//////////////////////" Importance="high" />
 	</Target>
 
 
