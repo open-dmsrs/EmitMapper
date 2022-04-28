@@ -55,7 +55,7 @@
 			<Link>Solution Files/%(Filename)%(Extension)</Link>
 		</None>
 		<None Include="$(SlnSolutionDir)*.*" Condition="Exists('$(SlnSolutionDir)')" >
-			<Link>Solution Files/%(Filename)%(Extension)</Link>
+			<Link>Solution Files/Solution/%(Filename)%(Extension)</Link>
 		</None>
 	</ItemGroup>
 
