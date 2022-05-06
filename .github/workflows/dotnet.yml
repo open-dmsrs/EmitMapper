@@ -39,7 +39,7 @@ jobs:
         id: publish_nuget_emitmapper
         #uses: rohith/publish-nuget@v2
 
-        uses: niubilitytools/publish-nuget@v3.5.8
+        uses: niubilitytools/publish-nuget@v3.5.9
         with:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: src/EmitMapper/EmitMapper.csproj
@@ -65,8 +65,8 @@ jobs:
           # API key to authenticate with NuGet server
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
 
-          # NuGet server uri hosting the packages, defaults to https://api.nuget.org
-          # NUGET_SOURCE: https://api.nuget.org
+          #  NuGet server uri hosting the packages, https://nuget.pkg.github.com or https://api.nuget.org. defaults to https://api.nuget.org
+          NUGET_SOURCE: https://nuget.pkg.github.com
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           INCLUDE_SYMBOLS: true
@@ -77,7 +77,7 @@ jobs:
       - name: publish LightDataAccess on version change
         id: publish_nuget_LightDataAccess
         #uses: rohith/publish-nuget@v2
-        uses: niubilitytools/publish-nuget@v3.5.8
+        uses: niubilitytools/publish-nuget@v3.5.9
         with:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: Samples/LightDataAccess/LightDataAccess.csproj
@@ -103,8 +103,8 @@ jobs:
           # API key to authenticate with NuGet server
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
 
-          # NuGet server uri hosting the packages, defaults to https://api.nuget.org
-          # NUGET_SOURCE: https://api.nuget.org
+          #  NuGet server uri hosting the packages, https://nuget.pkg.github.com or https://api.nuget.org. defaults to https://api.nuget.org
+          NUGET_SOURCE: https://nuget.pkg.github.com
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           INCLUDE_SYMBOLS: true
@@ -114,7 +114,7 @@ jobs:
       - name: publish EMConfigurations on version change
         id: publish_nuget_EMConfigurations
         #uses: rohith/publish-nuget@v2
-        uses: niubilitytools/publish-nuget@v3.5.8
+        uses: niubilitytools/publish-nuget@v3.5.9
         with:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: Samples/EMConfigurations/EMConfigurations.csproj
@@ -140,8 +140,8 @@ jobs:
           # API key to authenticate with NuGet server
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
 
-          # NuGet server uri hosting the packages, defaults to https://api.nuget.org
-          # NUGET_SOURCE: https://api.nuget.org
+          #  NuGet server uri hosting the packages, https://nuget.pkg.github.com or https://api.nuget.org. defaults to https://api.nuget.org
+          NUGET_SOURCE: https://nuget.pkg.github.com
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           INCLUDE_SYMBOLS: true
@@ -153,7 +153,7 @@ jobs:
       - name: publish EmitMapper.Mvc.Net on version change
         id: publish_nuget_EmitMapper_Mvc_Net
         #uses: rohith/publish-nuget@v2
-        uses: niubilitytools/publish-nuget@v3.5.8
+        uses: niubilitytools/publish-nuget@v3.5.9
         with:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: Samples/EmitMapper.Mvc.Net/EmitMapper.Mvc.Net.csproj
@@ -179,8 +179,8 @@ jobs:
           # API key to authenticate with NuGet server
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
 
-          # NuGet server uri hosting the packages, defaults to https://api.nuget.org
-          # NUGET_SOURCE: https://api.nuget.org
+          #  NuGet server uri hosting the packages, https://nuget.pkg.github.com or https://api.nuget.org. defaults to https://api.nuget.org
+          NUGET_SOURCE: https://nuget.pkg.github.com
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           INCLUDE_SYMBOLS: true
