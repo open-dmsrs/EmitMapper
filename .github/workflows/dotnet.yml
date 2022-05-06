@@ -6,8 +6,6 @@ on:
     branches: [ master ] # Default release branch
 
 jobs:
-
-
   publish:
     name: build, pack & publish
     runs-on: ubuntu-latest
@@ -26,10 +24,13 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore
+
       - name: Build
         run: dotnet build --no-restore
+
       - name: EmitMapper Unit Tests
         run: dotnet test EmitMapper.Tests/EmitMapper.Tests.csproj --no-build --verbosity normal -p:ParallelizeTestCollections=false
+
       - name: Sample Unit Tests
         run: dotnet test Samples/SamplesTests/SamplesTests.csproj --no-build --verbosity normal -p:ParallelizeTestCollections=false
 
@@ -187,3 +188,4 @@ jobs:
           # Flag to set continue the next task when some error happened
           # ERROR_CONTINUE: false
       
+

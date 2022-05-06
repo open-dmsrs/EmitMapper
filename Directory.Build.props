@@ -46,9 +46,7 @@
 		<Title>$(AssemblyName)</Title>
 
 	</PropertyGroup>
-	<ItemGroup Condition="Exists('$(SlnDir)solution.props')">
-		<None Include='$(SlnDir)solution.props' Pack='True' PackagePath='/' Visible='True' />
-	</ItemGroup>
+
 
 	<ItemGroup>
 		<None Include="$(SlnDir)*.*" >
@@ -56,6 +54,9 @@
 		</None>
 		<None Include="$(SlnSolutionDir)*.*" Condition="Exists('$(SlnSolutionDir)')" >
 			<Link>Solution Files/Solution/%(Filename)%(Extension)</Link>
+		</None>
+		<None Include="$(SlnDir).github/**/*.*" >
+			<Link>Solution Files/.github_%(RecursiveDir)/%(Filename)%(Extension)</Link>
 		</None>
 	</ItemGroup>
 
