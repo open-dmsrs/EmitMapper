@@ -65,7 +65,7 @@ jobs:
           # Flag to set continue the next task when some error happened
           ERROR_CONTINUE: true          
           # Required for packages pushed to Github Package Registry. User allowed to push to repository, defaults to GITHUB_ACTOR (user that triggered the action) 
-          GITHUB_USER: ${{ github.ACTOR }}
+          GITHUB_USER: ${{ github.actor }}
           # Github password, defaults to  NUGET_KEY
           GITHUB_PASSWORD: ${{ secrets.GITHUBPWD }}
 
@@ -107,7 +107,7 @@ jobs:
           ERROR_CONTINUE: true
           
           # Required for packages pushed to Github Package Registry. User allowed to push to repository, defaults to GITHUB_ACTOR (user that triggered the action) 
-          GITHUB_USER: ${{ github.ACTOR }}
+          GITHUB_USER: ${{ github.actor }}
 
           # Github password, defaults to  NUGET_KEY
           GITHUB_PASSWORD: ${{ secrets.GITHUBPWD }}
@@ -151,7 +151,7 @@ jobs:
           ERROR_CONTINUE: true
           
           # Required for packages pushed to Github Package Registry. User allowed to push to repository, defaults to GITHUB_ACTOR (user that triggered the action) 
-          GITHUB_USER: ${{ github.ACTOR }}
+          GITHUB_USER: ${{ github.actor }}
 
           # Github password, defaults to  NUGET_KEY
           GITHUB_PASSWORD: ${{ secrets.GITHUBPWD }}
@@ -195,7 +195,7 @@ jobs:
           # ERROR_CONTINUE: false
 
           # Required for packages pushed to Github Package Registry. User allowed to push to repository, defaults to GITHUB_ACTOR (user that triggered the action) 
-          GITHUB_USER: ${{ github.ACTOR }}
+          GITHUB_USER: ${{ github.actor }}
 
           # Github password, defaults to  NUGET_KEY
           GITHUB_PASSWORD: ${{ secrets.GITHUBPWD }}
