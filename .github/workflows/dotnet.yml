@@ -66,7 +66,7 @@ jobs:
           # API key to authenticate with NuGet server
           NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
           #  NuGet server uri hosting the packages, https://nuget.pkg.github.com or https://api.nuget.org. defaults to https://api.nuget.org
-          NUGET_SOURCE: https://nuget.pkg.github.com
+          NUGET_SOURCE: https://api.nuget.org
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           INCLUDE_SYMBOLS: true
           # Flag to set continue the next task when some error happened
@@ -106,7 +106,7 @@ jobs:
           NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
 
           #  NuGet server uri hosting the packages, https://nuget.pkg.github.com or https://api.nuget.org. defaults to https://api.nuget.org
-          NUGET_SOURCE: https://nuget.pkg.github.com
+          NUGET_SOURCE: https://api.nuget.org
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           INCLUDE_SYMBOLS: true
@@ -149,7 +149,7 @@ jobs:
           NUGET_KEY: ${{ secrets.NUGET_API_KEY }} 
 
           #  NuGet server uri hosting the packages, https://nuget.pkg.github.com or https://api.nuget.org. defaults to https://api.nuget.org
-          NUGET_SOURCE: https://nuget.pkg.github.com
+          NUGET_SOURCE: https://api.nuget.org
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           INCLUDE_SYMBOLS: true
@@ -194,7 +194,7 @@ jobs:
           NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
 
           #  NuGet server uri hosting the packages, https://nuget.pkg.github.com or https://api.nuget.org. defaults to https://api.nuget.org
-          NUGET_SOURCE: https://nuget.pkg.github.com
+          NUGET_SOURCE: https://api.nuget.org
 
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           INCLUDE_SYMBOLS: true
