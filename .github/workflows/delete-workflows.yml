@@ -1,6 +1,10 @@
-name: Delete Old Workflows
+﻿name: delete Old Workflows
 
 on:
+  push:
+    branches:
+      [ master ]
+      
   workflow_dispatch:
    
 
