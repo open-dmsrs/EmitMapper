@@ -154,7 +154,7 @@ jobs:
           GITHUB_USER: cnjimbo
 
           # Github password, defaults to  NUGET_KEY
-          GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_PASSWORD: ${{ secrets.GITHUBPWD }}
     
           
       - name: publish EmitMapper.Mvc.Net on version change
