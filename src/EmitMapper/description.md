@@ -1,0 +1,1 @@
+﻿The fastest mapping tool - EmitMapper runs on netcore and others

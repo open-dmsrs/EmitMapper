@@ -8,7 +8,9 @@
 		<SlnSolutionDir>$([MSBuild]::NormalizeDirectory('$(SolutionDir)','solution'))</SlnSolutionDir>
 		<SlnDir>$([MSBuild]::NormalizeDirectory($(SolutionDir)))</SlnDir>
 	</PropertyGroup>
-
+	<PropertyGroup Condition="'$(TargetFramework)'=='net6.0'">
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 	<PropertyGroup>
 		<!--
 		As the SDK sets these attributes automatically as part of the build, you'll get build time errors. 
@@ -47,17 +49,26 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="$(SlnDir)*.*"  >
-			<Link>Solution Files/%(Filename)%(Extension)</Link>
+		<None Include="$(SlnDir)*.*">
+			<Link>2 Root Files/%(Filename)%(Extension)</Link>
 		</None>
-		<None Include="$(SlnSolutionDir)**/*.*" Condition="Exists('$(SlnSolutionDir)')" >
-			<Link>Solution Files/Solution/%(RecursiveDir)/%(Filename)%(Extension)</Link>
+		<None Include="$(SlnSolutionDir)**/*.*" Condition="Exists('$(SlnSolutionDir)')">
+			<Link>2 Root Files/Solution/%(RecursiveDir)/%(Filename)%(Extension)</Link>
 		</None>
-		<None Include="$(SlnDir).github/**/*.*" >
-			<Link>Solution Files/.github_%(RecursiveDir)/%(Filename)%(Extension)</Link>
+		<None Include="$(SlnDir).github/**/*.*">
+			<Link>2 Root Files/.github_%(RecursiveDir)/%(Filename)%(Extension)</Link>
 		</None>
 	</ItemGroup>
-
+	<ItemGroup Condition="Exists('$(SlnDir)Directory.Build.props')">
+		<None Include="$(SlnDir)Directory.Build.props">
+			<Link>1 Config Files/%(Filename)%(Extension)</Link>
+		</None>
+	</ItemGroup>
+	<ItemGroup Condition="Exists('$(SlnDir)solution.props')">
+		<None Include="$(SlnDir)solution.props">
+			<Link>1 Config Files/%(Filename)%(Extension)</Link>
+		</None>
+	</ItemGroup>
 	<ItemGroup>
 
 	</ItemGroup>
@@ -84,11 +95,13 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
+
 	<!-- PackageReadmeFile -->
 	<Choose>
 		<When Condition="Exists('$(ProjDir)readme.md')">
 			<PropertyGroup>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
+				<ReadmeFilePath>$(ProjDir)readme.md</ReadmeFilePath>
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include='$(ProjDir)readme.md' Pack='True' PackagePath='/' Visible='True' />
@@ -97,6 +110,7 @@
 		<When Condition="Exists('$(SlnSolutionDir)readme.md')">
 			<PropertyGroup>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
+				<ReadmeFilePath>$(SlnSolutionDir)readme.md</ReadmeFilePath>
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include='$(SlnSolutionDir)readme.md' Pack='True' PackagePath='/' Visible='True' />
@@ -104,27 +118,101 @@
 		</When>
 		<When Condition="Exists('$(SlnDir)readme.md')">
 			<PropertyGroup>
+				<ReadmeFilePath>$(SlnDir)readme.md</ReadmeFilePath>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include="$(SlnDir)readme.md" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
-
 	</Choose>
+
+	<!--PackageReleaseNotes $(ChangeLogFileName)-->
+	<Choose>
+		<When Condition="'$(ChangeLogFileName)'!='' and Exists('$(ProjDir)$(ChangeLogFileName)')">
+			<PropertyGroup>
+				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(ProjDir)$(ChangeLogFileName)"))</PackageReleaseNotes>
+				<ChangeLogFilePath>$(ProjDir)$(ChangeLogFileName)</ChangeLogFilePath>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(ProjDir)$(ChangeLogFileName)" Pack='True' PackagePath='/' Visible='True' />
+			</ItemGroup>
+		</When>
+		<When Condition="'$(ChangeLogFileName)'!='' and Exists('$(SlnSolutionDir)$(ChangeLogFileName)')">
+			<PropertyGroup>
+				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SlnSolutionDir)$(ChangeLogFileName)"))</PackageReleaseNotes>
+				<ChangeLogFilePath>$(SlnSolutionDir)$(ChangeLogFileName)</ChangeLogFilePath>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(SlnSolutionDir)$(ChangeLogFileName)" Pack='True' PackagePath='/' Visible='True' />
+			</ItemGroup>
+		</When>
+		<When Condition="'$(ChangeLogFileName)'!='' and Exists('$(SlnDir)$(ChangeLogFileName)')">
+			<PropertyGroup>
+				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SlnDir)$(ChangeLogFileName)"))</PackageReleaseNotes>
+				<ChangeLogFilePath>$(SlnDir)$(ChangeLogFileName)</ChangeLogFilePath>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(SlnDir)$(ChangeLogFileName)" Pack='True' PackagePath='/' Visible='True' />
+			</ItemGroup>
+		</When>
+	</Choose>
+
+	<!-- Description and PackageDescription-->
+	<!--A long description for the assembly. If PackageDescription is not specified, then this property is also used as the description of the package.-->
+	<Choose>
+		<When Condition="'$(ProjectDescriptionFileName)'!='' and Exists('$(ProjDir)$(ProjectDescriptionFileName)')">
+			<PropertyGroup>
+				<Description>$([System.IO.File]::ReadAllText("$(ProjDir)$(ProjectDescriptionFileName)"))</Description>
+				<DescriptionFilePath>$(ProjDir)$(ProjectDescriptionFileName)</DescriptionFilePath>
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(ProjDir)$(ProjectDescriptionFileName)" Pack='True' PackagePath='/' Visible='True' />
+			</ItemGroup>
+		</When>
+		<When Condition="'$(ProjectDescriptionFileName)'!='' and Exists('$(SlnDir)$(ProjectDescriptionFileName)')">
+			<PropertyGroup>
+				<Description>$([System.IO.File]::ReadAllText('$(SlnDir)$(ProjectDescriptionFileName)'))</Description>
+				<DescriptionFilePath>$(SlnDir)$(ProjectDescriptionFileName)</DescriptionFilePath>
+			</PropertyGroup>
+		</When>
+		<When Condition="'$(ReadmeFilePath)'!='' and Exists('$(ReadmeFilePath)')">
+			<PropertyGroup>
+				<Description>$([System.IO.File]::ReadAllText('$(ReadmeFilePath)'))</Description>
+				<DescriptionFilePath>$(ReadmeFilePath)</DescriptionFilePath>
+			</PropertyGroup>
+		</When>
+		<When Condition="'$(ChangeLogFilePath)'!='' and Exists('$(ChangeLogFilePath)')">
+			<PropertyGroup>
+				<Description>$([System.IO.File]::ReadAllText('$(ChangeLogFilePath)'))</Description>
+				<DescriptionFilePath>$(ChangeLogFilePath)</DescriptionFilePath>
+			</PropertyGroup>
+		</When>
+		<Otherwise>
+			<PropertyGroup>
+				<!--default description for all packages-->
+				<Description>No words necessary</Description>
+				<!--<PackageDescription></PackageDescription>-->
+			</PropertyGroup>
+		</Otherwise>
+	</Choose>
+
 	<!--PackageIcon-->
 	<Choose>
 		<When Condition="Exists('$(ProjDir)icon.png')">
 			<PropertyGroup>
 				<PackageIcon>icon.png</PackageIcon>
+				<PackageIconPath>$(ProjDir)icon.png</PackageIconPath>
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include="$(ProjDir)icon.png" Pack='True' PackagePath='/' Visible='True' />
+
 			</ItemGroup>
 		</When>
 		<When Condition="Exists('$(SlnSolutionDir)icon.png')">
 			<PropertyGroup>
 				<PackageIcon>icon.png</PackageIcon>
+				<PackageIconPath>$(SlnSolutionDir)icon.png</PackageIconPath>
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include="$(SlnSolutionDir)icon.png" Pack='True' PackagePath='/' Visible='True' />
@@ -133,6 +221,7 @@
 		<When Condition="Exists('$(SlnDir)icon.png')">
 			<PropertyGroup>
 				<PackageIcon>icon.png</PackageIcon>
+				<PackageIconPath>$(SlnDir)icon.png</PackageIconPath>
 				<icon>icon.png</icon>
 			</PropertyGroup>
 			<ItemGroup>
@@ -140,7 +229,8 @@
 			</ItemGroup>
 		</When>
 	</Choose>
-	<!--Load app.ico file for ApplicationIcon(.exe)-->
+
+	<!--ApplicationIcon - Load app.ico file for ApplicationIcon(.exe)-->
 	<Choose>
 		<When Condition="Exists('$(ProjDir)app.ico')">
 			<PropertyGroup>
@@ -167,35 +257,8 @@
 			</ItemGroup>
 		</When>
 	</Choose>
-
-	<!--PackageReleaseNotes-->
-	<Choose>
-		<When Condition="'$(ChangeLogFileName)'!='' and Exists('$(ProjDir)$(ChangeLogFileName)')">
-			<PropertyGroup>
-				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(ProjDir)$(ChangeLogFileName)"))</PackageReleaseNotes>
-			</PropertyGroup>
-			<ItemGroup>
-				<None Include="$(ProjDir)$(ChangeLogFileName)" Pack='True' PackagePath='/' Visible='True' />
-			</ItemGroup>
-		</When>
-		<When Condition="'$(ChangeLogFileName)'!='' and Exists('$(SlnSolutionDir)$(ChangeLogFileName)')">
-			<PropertyGroup>
-				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SlnSolutionDir)$(ChangeLogFileName)"))</PackageReleaseNotes>
-			</PropertyGroup>
-			<ItemGroup>
-				<None Include="$(SlnSolutionDir)$(ChangeLogFileName)" Pack='True' PackagePath='/' Visible='True' />
-			</ItemGroup>
-		</When>
-		<When Condition="'$(ChangeLogFileName)'!='' and Exists('$(SlnDir)$(ChangeLogFileName)')">
-			<PropertyGroup>
-				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SlnDir)$(ChangeLogFileName)"))</PackageReleaseNotes>
-			</PropertyGroup>
-			<ItemGroup>
-				<None Include="$(SlnDir)$(ChangeLogFileName)" Pack='True' PackagePath='/' Visible='True' />
-			</ItemGroup>
-		</When>
-	</Choose>
-	<!--Label='AssemblyOriginatorKeyFile and PackageCertificateKeyFile'-->
+	
+	<!-- AssemblyOriginatorKeyFile and PackageCertificateKeyFile -->
 	<Choose>
 		<When Condition="'$(CertificateFileName)'!='' and Exists('$(ProjDir)$(CertificateFileName)')">
 			<PropertyGroup>
@@ -203,20 +266,13 @@
 				<AssemblyOriginatorKeyFile>$(ProjDir)$(CertificateFileName)</AssemblyOriginatorKeyFile>
 				<PackageCertificateKeyFile>$(ProjDir)$(CertificateFileName)</PackageCertificateKeyFile>
 			</PropertyGroup>
-			<ItemGroup>
-				<None Include="$(ProjDir)$(CertificateFileName)" Pack='True' PackagePath='/' Visible='false' />
-			</ItemGroup>
 		</When>
-
 		<When Condition="'$(CertificateFileName)'!='' and Exists('$(SlnSolutionDir)$(CertificateFileName)')">
 			<PropertyGroup>
 				<SignAssembly>true</SignAssembly>
 				<AssemblyOriginatorKeyFile>$(SlnSolutionDir)$(CertificateFileName)</AssemblyOriginatorKeyFile>
 				<PackageCertificateKeyFile>$(SlnSolutionDir)$(CertificateFileName)</PackageCertificateKeyFile>
 			</PropertyGroup>
-			<ItemGroup>
-				<None Include="$(SlnSolutionDir)$(CertificateFileName)" Pack='True' PackagePath='/' Visible='false' />
-			</ItemGroup>
 		</When>
 		<When Condition="'$(CertificateFileName)'!='' and Exists('$(SlnDir)$(CertificateFileName)')">
 			<PropertyGroup>
@@ -224,12 +280,7 @@
 				<AssemblyOriginatorKeyFile>$(SlnDir)$(CertificateFileName)</AssemblyOriginatorKeyFile>
 				<PackageCertificateKeyFile>$(SlnDir)$(CertificateFileName)</PackageCertificateKeyFile>
 			</PropertyGroup>
-			<ItemGroup>
-				<None Include="$(SlnDir)$(CertificateFileName)" Pack='True' PackagePath='/' Visible='false' />
-			</ItemGroup>
 		</When>
 	</Choose>
-
-
 
 </Project>

@@ -23,18 +23,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitMapper", "src\EmitMappe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitMapper.Tests", "EmitMapper.Tests\EmitMapper.Tests.csproj", "{E18825AB-8FFD-4E07-9920-55E0757004C8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D6577FA6-B5E9-4094-A4FB-7EB03B1A0261}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		.gitattributes = .gitattributes
-		.gitignore = .gitignore
-		Directory.Build.props = Directory.Build.props
-		solution\EmitMapper.snk = solution\EmitMapper.snk
-		solution\publicKey.txt = solution\publicKey.txt
-		solution\sn_gen.bat = solution\sn_gen.bat
-		solution.props = solution.props
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{79C82A2F-E643-4151-B275-A6C90DCB7832}"
 	ProjectSection(SolutionItems) = preProject
 		.github\ISSUE_TEMPLATE\Bug Report.yaml = .github\ISSUE_TEMPLATE\Bug Report.yaml
