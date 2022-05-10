@@ -31,19 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 		solution\EmitMapper.snk = solution\EmitMapper.snk
 		solution\publicKey.txt = solution\publicKey.txt
+		solution\sn_gen.bat = solution\sn_gen.bat
 		solution.props = solution.props
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "layout", "layout", "{B5E8AE2F-A600-4F41-B912-14B191DD0B6C}"
-	ProjectSection(SolutionItems) = preProject
-		solution\filelayouts\default.xaml = solution\filelayouts\default.xaml
-		solution\filelayouts\layout3.xml = solution\filelayouts\layout3.xml
-		solution\filelayouts\layout4.xaml = solution\filelayouts\layout4.xaml
-		solution\filelayouts\layouts0.xaml = solution\filelayouts\layouts0.xaml
-		solution\filelayouts\layouts0.xmal = solution\filelayouts\layouts0.xmal
-		solution\filelayouts\layouts1.xaml = solution\filelayouts\layouts1.xaml
-		solution\filelayouts\layouts1.xmal = solution\filelayouts\layouts1.xmal
-		solution\filelayouts\old.xml = solution\filelayouts\old.xml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{79C82A2F-E643-4151-B275-A6C90DCB7832}"
@@ -99,7 +88,6 @@ Global
 		{75C6A518-5A9B-48A4-B267-ECE474041977} = {75F3A083-3C58-4C55-B251-AF6C3FCC2FCB}
 		{75F3A083-3C58-4C55-B251-AF6C3FCC2FCB} = {1821C660-299A-4BEE-8828-32911AE7F42F}
 		{75D888BB-8A3B-4450-BA26-AEF0AFDAFBB6} = {38F5B328-5A3D-4A4E-9DD0-4F4C0AEB58D4}
-		{B5E8AE2F-A600-4F41-B912-14B191DD0B6C} = {D6577FA6-B5E9-4094-A4FB-7EB03B1A0261}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6D2B312C-E842-47F4-BB27-3FAB3EB3D5F0}

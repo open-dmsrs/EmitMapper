@@ -44,16 +44,14 @@
 	<PropertyGroup>
 		<PackageVersion>$(Version)</PackageVersion>
 		<Title>$(AssemblyName)</Title>
-
 	</PropertyGroup>
 
-
 	<ItemGroup>
-		<None Include="$(SlnDir)*.*" >
+		<None Include="$(SlnDir)*.*"  >
 			<Link>Solution Files/%(Filename)%(Extension)</Link>
 		</None>
-		<None Include="$(SlnSolutionDir)*.*" Condition="Exists('$(SlnSolutionDir)')" >
-			<Link>Solution Files/Solution/%(Filename)%(Extension)</Link>
+		<None Include="$(SlnSolutionDir)**/*.*" Condition="Exists('$(SlnSolutionDir)')" >
+			<Link>Solution Files/Solution/%(RecursiveDir)/%(Filename)%(Extension)</Link>
 		</None>
 		<None Include="$(SlnDir).github/**/*.*" >
 			<Link>Solution Files/.github_%(RecursiveDir)/%(Filename)%(Extension)</Link>
