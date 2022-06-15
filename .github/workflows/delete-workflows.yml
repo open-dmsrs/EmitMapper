@@ -48,5 +48,5 @@ jobs:
         with:
           token: ${{ github.token }}
           retain_days: 0
-          keep_minimum_runs: 1
+          keep_minimum_runs: 0
           delete_workflow_pattern: delete Old Workflows
