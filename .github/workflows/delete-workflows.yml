@@ -49,4 +49,4 @@ jobs:
           token: ${{ github.token }}
           retain_days: 1
           keep_minimum_runs: 1
-          delete_workflow_pattern: delete-workflows.yml
+          delete_workflow_pattern: delete Old Workflows
