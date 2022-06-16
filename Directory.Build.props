@@ -50,28 +50,20 @@
 
 	<ItemGroup>
 		<None Include="$(SlnDir)*.*">
-			<Link>2 Root Files/%(Filename)%(Extension)</Link>
+			<Link> Global Files/.sln Folder/%(Filename)%(Extension)</Link>
 		</None>
 		<None Include="$(SlnSolutionDir)**/*.*" Condition="Exists('$(SlnSolutionDir)')">
-			<Link>2 Root Files/Solution/%(RecursiveDir)/%(Filename)%(Extension)</Link>
+			<Link> Global Files/.sln Folder/Solution/%(RecursiveDir)/%(Filename)%(Extension)</Link>
 		</None>
 		<None Include="$(SlnDir).github/**/*.*">
-			<Link>2 Root Files/.github_%(RecursiveDir)/%(Filename)%(Extension)</Link>
+			<Link> Global Files/.github_%(RecursiveDir)/%(Filename)%(Extension)</Link>
 		</None>
-	</ItemGroup>
-	<ItemGroup Condition="Exists('$(SlnDir)Directory.Build.props')">
-		<None Include="$(SlnDir)Directory.Build.props">
-			<Link>1 Config Files/%(Filename)%(Extension)</Link>
+		<None Exclude="$(SlnDir)**/*.g.props" Include="$(SlnDir)**/*.props" >
+			<Link> Global Files/%(RecursiveDir)/%(Filename)%(Extension)</Link>
 		</None>
+		 
 	</ItemGroup>
-	<ItemGroup Condition="Exists('$(SlnDir)solution.props')">
-		<None Include="$(SlnDir)solution.props">
-			<Link>1 Config Files/%(Filename)%(Extension)</Link>
-		</None>
-	</ItemGroup>
-	<ItemGroup>
-
-	</ItemGroup>
+	
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
