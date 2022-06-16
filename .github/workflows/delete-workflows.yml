@@ -39,8 +39,12 @@ jobs:
         uses: Mattraks/delete-workflow-runs@v2
         with:
           token: ${{ github.token }}
-          retain_days: 10
-          keep_minimum_runs: 10
+          repository: ${{ github.repository }}
+          retain_days: ${{ github.event.inputs.days || 10 }}
+          keep_minimum_runs: ${{ github.event.inputs.minimum_runs || 10 }}
+          delete_workflow_pattern: ${{ github.event.inputs.delete_workflow_pattern }}
+          delete_workflow_by_state_pattern: ${{ github.event.inputs.delete_workflow_by_state_pattern }}
+          dry_run: ${{ github.event.inputs.dry_run }}
 
       - name: Delete self
         id: delself
