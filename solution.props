@@ -33,7 +33,7 @@
 
   <Target Name="TestMessage" Label="Directory.Build.props" AfterTargets="Build">
 
-    <Message Text="==Packed with :========================================================" Importance="high" />
+    <Message Text="==Packed '$(MSBuildProjectName)' with :========================================================" Importance="high" />
 
     <!-- Use $(Property Name) to reference a property -->
 
