@@ -1,5 +1,6 @@
 <Project>
-	<!-- Properties in this file is not needed to change in general, please provide your good idea if you change this file content	-->
+	<!-- Properties in this file is not needed to change in general, 
+	please provide your good idea if you change this file content	-->
 	<PropertyGroup Condition="'$(SolutionDir)'==''">
 		<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
 	</PropertyGroup>
@@ -50,20 +51,20 @@
 
 	<ItemGroup>
 		<None Include="$(SlnDir)*.*">
-			<Link> Global Files/.sln Folder/%(Filename)%(Extension)</Link>
+			<Link> Global Files/Root(.sln)/%(Filename)%(Extension)</Link>
 		</None>
 		<None Include="$(SlnSolutionDir)**/*.*" Condition="Exists('$(SlnSolutionDir)')">
-			<Link> Global Files/.sln Folder/Solution/%(RecursiveDir)/%(Filename)%(Extension)</Link>
+			<Link> Global Files/Root(.sln)/Solution/%(RecursiveDir)/%(Filename)%(Extension)</Link>
 		</None>
 		<None Include="$(SlnDir).github/**/*.*">
-			<Link> Global Files/.github_%(RecursiveDir)/%(Filename)%(Extension)</Link>
+			<Link> Global Files/Root(.sln)/.github/%(RecursiveDir)/%(Filename)%(Extension)</Link>
 		</None>
 		<None Exclude="$(SlnDir)**/*.g.props" Include="$(SlnDir)**/*.props" >
 			<Link> Global Files/%(RecursiveDir)/%(Filename)%(Extension)</Link>
 		</None>
-		 
+
 	</ItemGroup>
-	
+
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
@@ -249,7 +250,7 @@
 			</ItemGroup>
 		</When>
 	</Choose>
-	
+
 	<!-- AssemblyOriginatorKeyFile and PackageCertificateKeyFile -->
 	<Choose>
 		<When Condition="'$(CertificateFileName)'!='' and Exists('$(ProjDir)$(CertificateFileName)')">
