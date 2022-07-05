@@ -12,6 +12,8 @@ namespace EmitMapper.Utils;
 /// </summary>
 public static class Metadata
 {
+  public static readonly Type Action = Metadata<Action>.Type;
+
   public static readonly Type Action1 = typeof(Action<>);
 
   public static readonly Type Action2 = typeof(Action<,>);
@@ -78,9 +80,15 @@ public static class Metadata
   /// </summary>
   /// <param name="t">The t.</param>
   /// <returns>A Type.</returns>
+  [Obsolete]
   public static Type UnderlineType(Type t)
   {
     return null;
+  }
+
+  public static Type GetCachedType<T>(this object anyone)
+  {
+    return Metadata<T>.Type;
   }
 }
 

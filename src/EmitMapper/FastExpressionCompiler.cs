@@ -67,6 +67,7 @@ namespace FastExpressionCompiler
   using System.Runtime.CompilerServices;
   using System.Diagnostics;
   using static System.Environment;
+  using EmitMapper.Utils;
 
   /// <summary>The options for the compiler</summary>
   [Flags]
@@ -138,7 +139,7 @@ namespace FastExpressionCompiler
     public static TDelegate CompileFast<TDelegate>(this LambdaExpression lambdaExpr,
         bool ifFastFailedReturnNull = false, CompilerFlags flags = CompilerFlags.Default) where TDelegate : class =>
         (TDelegate)(TryCompileBoundToFirstClosureParam(
-            typeof(TDelegate) == typeof(Delegate) ? lambdaExpr.Type : typeof(TDelegate), lambdaExpr.Body,
+            Metadata<TDelegate>.Type == Metadata<Delegate>.Type ? lambdaExpr.Type : Metadata<TDelegate>.Type, lambdaExpr.Body,
 #if LIGHT_EXPRESSION
                 lambdaExpr, GetClosureTypeToParamTypes(lambdaExpr),
 #else
@@ -168,7 +169,7 @@ namespace FastExpressionCompiler
       if ((closureInfo.Status & ClosureStatus.HasClosure) != 0)
         return false;
 
-      var parent = lambdaExpr.ReturnType == typeof(void) ? ParentFlags.IgnoreResult : ParentFlags.Empty;
+      var parent = lambdaExpr.ReturnType == Metadata.Void ? ParentFlags.IgnoreResult : ParentFlags.Empty;
       if (!EmittingVisitor.TryEmit(bodyExpr, paramExprs, il, ref closureInfo, flags, parent))
         return false;
 
@@ -216,7 +217,7 @@ namespace FastExpressionCompiler
 #else
                 lambdaExpr.Parameters,
 #endif
-                _closureAsASingleParamType, typeof(R), flags) ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
+                _closureAsASingleParamType, Metadata<R>.Type, flags) ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
 
     /// <summary>Compiles lambda expression to delegate. Use ifFastFailedReturnNull parameter to Not fallback to Expression.Compile, useful for testing.</summary>
     public static Func<T1, R> CompileFast<T1, R>(this Expression<Func<T1, R>> lambdaExpr,
@@ -227,7 +228,7 @@ namespace FastExpressionCompiler
 #else
                 lambdaExpr.Parameters,
 #endif
-            new[] { typeof(ArrayClosure), typeof(T1) }, typeof(R), flags) ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
+            new[] { Metadata<ArrayClosure>.Type, Metadata<T1>.Type }, Metadata<R>.Type, flags) ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
 
     /// <summary>Compiles lambda expression to TDelegate type. Use ifFastFailedReturnNull parameter to Not fallback to Expression.Compile, useful for testing.</summary>
     public static Func<T1, T2, R> CompileFast<T1, T2, R>(this Expression<Func<T1, T2, R>> lambdaExpr,
@@ -238,8 +239,8 @@ namespace FastExpressionCompiler
 #else
                 lambdaExpr.Parameters,
 #endif
-                new[] { typeof(ArrayClosure), typeof(T1), typeof(T2) },
-            typeof(R), flags) ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
+                new[] { Metadata<ArrayClosure>.Type, Metadata<T1>.Type, Metadata<T2>.Type },
+            Metadata<R>.Type, flags) ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
 
     /// <summary>Compiles lambda expression to delegate. Use ifFastFailedReturnNull parameter to Not fallback to Expression.Compile, useful for testing.</summary>
     public static Func<T1, T2, T3, R> CompileFast<T1, T2, T3, R>(
@@ -250,7 +251,7 @@ namespace FastExpressionCompiler
 #else
                 lambdaExpr.Parameters,
 #endif
-            new[] { typeof(ArrayClosure), typeof(T1), typeof(T2), typeof(T3) }, typeof(R), flags)
+            new[] { Metadata<ArrayClosure>.Type, Metadata<T1>.Type, Metadata<T2>.Type, Metadata<T3>.Type }, Metadata<R>.Type, flags)
         ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
 
     /// <summary>Compiles lambda expression to TDelegate type. Use ifFastFailedReturnNull parameter to Not fallback to Expression.Compile, useful for testing.</summary>
@@ -262,7 +263,7 @@ namespace FastExpressionCompiler
 #else
                 lambdaExpr.Parameters,
 #endif
-                new[] { typeof(ArrayClosure), typeof(T1), typeof(T2), typeof(T3), typeof(T4) }, typeof(R), flags)
+                new[] { Metadata<ArrayClosure>.Type, Metadata<T1>.Type, Metadata<T2>.Type, Metadata<T3>.Type, Metadata<T4>.Type }, Metadata<R>.Type, flags)
         ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
 
     /// <summary>Compiles lambda expression to delegate. Use ifFastFailedReturnNull parameter to Not fallback to Expression.Compile, useful for testing.</summary>
@@ -274,7 +275,7 @@ namespace FastExpressionCompiler
 #else
                 lambdaExpr.Parameters,
 #endif
-                new[] { typeof(ArrayClosure), typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5) }, typeof(R), flags)
+                new[] { Metadata<ArrayClosure>.Type, Metadata<T1>.Type, Metadata<T2>.Type, Metadata<T3>.Type, Metadata<T4>.Type, Metadata<T5>.Type }, Metadata<R>.Type, flags)
         ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
 
     /// <summary>Compiles lambda expression to delegate. Use ifFastFailedReturnNull parameter to Not fallback to Expression.Compile, useful for testing.</summary>
@@ -286,18 +287,18 @@ namespace FastExpressionCompiler
 #else
                 lambdaExpr.Parameters,
 #endif
-                new[] { typeof(ArrayClosure), typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6) }, typeof(R), flags)
+                new[] { Metadata<ArrayClosure>.Type, Metadata<T1>.Type, Metadata<T2>.Type, Metadata<T3>.Type, Metadata<T4>.Type, Metadata<T5>.Type, Metadata<T6>.Type }, Metadata<R>.Type, flags)
         ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
 
     /// <summary>Compiles lambda expression to delegate. Use ifFastFailedReturnNull parameter to Not fallback to Expression.Compile, useful for testing.</summary>
     public static Action CompileFast(this Expression<Action> lambdaExpr, bool ifFastFailedReturnNull = false, CompilerFlags flags = CompilerFlags.Default) =>
-        (Action)TryCompileBoundToFirstClosureParam(typeof(Action), lambdaExpr.Body,
+        (Action)TryCompileBoundToFirstClosureParam(Metadata.Action, lambdaExpr.Body,
 #if LIGHT_EXPRESSION
                 lambdaExpr,
 #else
                 lambdaExpr.Parameters,
 #endif
-            _closureAsASingleParamType, typeof(void), flags) ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
+            _closureAsASingleParamType, Metadata.Void, flags) ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
 
     /// <summary>Compiles lambda expression to delegate. Use ifFastFailedReturnNull parameter to Not fallback to Expression.Compile, useful for testing.</summary>
     public static Action<T1> CompileFast<T1>(this Expression<Action<T1>> lambdaExpr,
@@ -308,7 +309,7 @@ namespace FastExpressionCompiler
 #else
                 lambdaExpr.Parameters,
 #endif
-            new[] { typeof(ArrayClosure), typeof(T1) }, typeof(void), flags) ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
+            new[] { Metadata<ArrayClosure>.Type, Metadata<T1>.Type }, Metadata.Void, flags) ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
 
     /// <summary>Compiles lambda expression to delegate. Use ifFastFailedReturnNull parameter to Not fallback to Expression.Compile, useful for testing.</summary>
     public static Action<T1, T2> CompileFast<T1, T2>(this Expression<Action<T1, T2>> lambdaExpr,
@@ -319,7 +320,7 @@ namespace FastExpressionCompiler
 #else
                 lambdaExpr.Parameters,
 #endif
-            new[] { typeof(ArrayClosure), typeof(T1), typeof(T2) }, typeof(void), flags) ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
+            new[] { Metadata<ArrayClosure>.Type, Metadata<T1>.Type, Metadata<T2>.Type }, Metadata.Void, flags) ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
 
     /// <summary>Compiles lambda expression to delegate. Use ifFastFailedReturnNull parameter to Not fallback to Expression.Compile, useful for testing.</summary>
     public static Action<T1, T2, T3> CompileFast<T1, T2, T3>(this Expression<Action<T1, T2, T3>> lambdaExpr,
@@ -330,7 +331,7 @@ namespace FastExpressionCompiler
 #else
                 lambdaExpr.Parameters,
 #endif
-                new[] { typeof(ArrayClosure), typeof(T1), typeof(T2), typeof(T3) }, typeof(void), flags)
+                new[] { Metadata<ArrayClosure>.Type, Metadata<T1>.Type, Metadata<T2>.Type, Metadata<T3>.Type }, Metadata.Void, flags)
         ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
 
     /// <summary>Compiles lambda expression to delegate. Use ifFastFailedReturnNull parameter to Not fallback to Expression.Compile, useful for testing.</summary>
@@ -342,7 +343,7 @@ namespace FastExpressionCompiler
 #else
                 lambdaExpr.Parameters,
 #endif
-                new[] { typeof(ArrayClosure), typeof(T1), typeof(T2), typeof(T3), typeof(T4) }, typeof(void), flags)
+                new[] { Metadata<ArrayClosure>.Type, Metadata<T1>.Type, Metadata<T2>.Type, Metadata<T3>.Type, Metadata<T4>.Type }, Metadata.Void, flags)
         ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
 
     /// <summary>Compiles lambda expression to delegate. Use ifFastFailedReturnNull parameter to Not fallback to Expression.Compile, useful for testing.</summary>
@@ -354,7 +355,7 @@ namespace FastExpressionCompiler
 #else
                 lambdaExpr.Parameters,
 #endif
-                new[] { typeof(ArrayClosure), typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5) }, typeof(void), flags)
+                new[] { Metadata<ArrayClosure>.Type, Metadata<T1>.Type, Metadata<T2>.Type, Metadata<T3>.Type, Metadata<T4>.Type, Metadata<T5>.Type }, Metadata.Void, flags)
         ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
 
     /// <summary>Compiles lambda expression to delegate. Use ifFastFailedReturnNull parameter to Not fallback to Expression.Compile, useful for testing.</summary>
@@ -366,7 +367,7 @@ namespace FastExpressionCompiler
 #else
                 lambdaExpr.Parameters,
 #endif
-                new[] { typeof(ArrayClosure), typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6) }, typeof(void), flags)
+                new[] { Metadata<ArrayClosure>.Type, Metadata<T1>.Type, Metadata<T2>.Type, Metadata<T3>.Type, Metadata<T4>.Type, Metadata<T5>.Type, Metadata<T6>.Type }, Metadata.Void, flags)
         ?? (ifFastFailedReturnNull ? null : lambdaExpr.CompileSys());
 
     #endregion
@@ -374,7 +375,7 @@ namespace FastExpressionCompiler
     /// <summary>Tries to compile lambda expression to <typeparamref name="TDelegate"/></summary>
     public static TDelegate TryCompile<TDelegate>(this LambdaExpression lambdaExpr, CompilerFlags flags = CompilerFlags.Default)
         where TDelegate : class =>
-        (TDelegate)TryCompileBoundToFirstClosureParam(typeof(TDelegate) == typeof(Delegate) ? lambdaExpr.Type : typeof(TDelegate), lambdaExpr.Body,
+        (TDelegate)TryCompileBoundToFirstClosureParam(Metadata<TDelegate>.Type == Metadata<Delegate>.Type ? lambdaExpr.Type : Metadata<TDelegate>.Type, lambdaExpr.Body,
 #if LIGHT_EXPRESSION
             lambdaExpr, GetClosureTypeToParamTypes(lambdaExpr),
 #else
@@ -415,13 +416,13 @@ namespace FastExpressionCompiler
       var closurePlusParamTypes = GetClosureTypeToParamTypes(lambdaExpr.Parameters);
 #endif
       var method = new DynamicMethod(string.Empty, lambdaExpr.ReturnType, closurePlusParamTypes,
-          typeof(ExpressionCompiler), skipVisibility: true);
+       typeof(ExpressionCompiler), skipVisibility: true);
 
       var il = method.GetILGenerator();
 
       EmittingVisitor.EmitLoadConstantsAndNestedLambdasIntoVars(il, ref closureInfo);
 
-      var parent = lambdaExpr.ReturnType == typeof(void) ? ParentFlags.IgnoreResult : ParentFlags.Empty;
+      var parent = lambdaExpr.ReturnType == Metadata.Void ? ParentFlags.IgnoreResult : ParentFlags.Empty;
       if (!EmittingVisitor.TryEmit(lambdaExpr.Body,
 #if LIGHT_EXPRESSION
                 lambdaExpr,
@@ -433,7 +434,7 @@ namespace FastExpressionCompiler
 
       il.Emit(OpCodes.Ret);
 
-      var delegateType = typeof(TDelegate) != typeof(Delegate) ? typeof(TDelegate) : lambdaExpr.Type;
+      var delegateType = Metadata<TDelegate>.Type != Metadata<Delegate>.Type ? Metadata<TDelegate>.Type : lambdaExpr.Type;
       var @delegate = (TDelegate)(object)method.CreateDelegate(delegateType, new ArrayClosure(closureInfo.Constants.Items));
       ReturnClosureTypeToParamTypesToPool(closurePlusParamTypes);
       return @delegate;
@@ -449,7 +450,7 @@ namespace FastExpressionCompiler
 #else
       var closurePlusParamTypes = GetClosureTypeToParamTypes(lambdaExpr.Parameters);
 #endif
-      var method = new DynamicMethod(string.Empty, lambdaExpr.ReturnType, closurePlusParamTypes, typeof(ArrayClosure),
+      var method = new DynamicMethod(string.Empty, lambdaExpr.ReturnType, closurePlusParamTypes, Metadata<ArrayClosure>.Type,
           skipVisibility: true);
 
       var il = method.GetILGenerator();
@@ -459,12 +460,12 @@ namespace FastExpressionCompiler
 #else
                 lambdaExpr.Parameters,
 #endif
-                il, ref closureInfo, flags, lambdaExpr.ReturnType == typeof(void) ? ParentFlags.IgnoreResult : ParentFlags.Empty))
+                il, ref closureInfo, flags, lambdaExpr.ReturnType == Metadata.Void ? ParentFlags.IgnoreResult : ParentFlags.Empty))
         return null;
 
       il.Emit(OpCodes.Ret);
 
-      var delegateType = typeof(TDelegate) != typeof(Delegate) ? typeof(TDelegate) : lambdaExpr.Type;
+      var delegateType = Metadata<TDelegate>.Type != Metadata<Delegate>.Type ? Metadata<TDelegate>.Type : lambdaExpr.Type;
       var @delegate = (TDelegate)(object)method.CreateDelegate(delegateType, EmptyArrayClosure);
       ReturnClosureTypeToParamTypesToPool(closurePlusParamTypes);
       return @delegate;
@@ -501,14 +502,14 @@ namespace FastExpressionCompiler
       }
 
       var method = new DynamicMethod(string.Empty,
-          returnType, closurePlusParamTypes, typeof(ArrayClosure), true);
+          returnType, closurePlusParamTypes, Metadata<ArrayClosure>.Type, true);
 
       var il = method.GetILGenerator();
 
       if (closure.ConstantsAndNestedLambdas != null)
         EmittingVisitor.EmitLoadConstantsAndNestedLambdasIntoVars(il, ref closureInfo);
 
-      var parent = returnType == typeof(void) ? ParentFlags.IgnoreResult : ParentFlags.Empty;
+      var parent = returnType == Metadata.Void ? ParentFlags.IgnoreResult : ParentFlags.Empty;
       if (!EmittingVisitor.TryEmit(bodyExpr, paramExprs, il, ref closureInfo, flags, parent))
         return null;
 
@@ -519,7 +520,7 @@ namespace FastExpressionCompiler
       return @delegate;
     }
 
-    private static readonly Type[] _closureAsASingleParamType = { typeof(ArrayClosure) };
+    private static readonly Type[] _closureAsASingleParamType = { Metadata<ArrayClosure>.Type };
     private static readonly Type[][] _closureTypePlusParamTypesPool = new Type[8][];
 
 #if LIGHT_EXPRESSION
@@ -550,7 +551,7 @@ namespace FastExpressionCompiler
 
       // todo: @perf the code maybe simplified and then will be the candidate for the inlining
       var closureAndParamTypes = new Type[count + 1];
-      closureAndParamTypes[0] = typeof(ArrayClosure);
+      closureAndParamTypes[0] = Metadata<ArrayClosure>.Type;
       for (var i = 0; i < count; i++)
       {
         var parameterExpr = paramExprs.GetParameter(i);
@@ -898,12 +899,12 @@ namespace FastExpressionCompiler
     public static readonly ArrayClosure EmptyArrayClosure = new ArrayClosure(null);
 
     public static FieldInfo ArrayClosureArrayField =
-        typeof(ArrayClosure).GetField(nameof(ArrayClosure.ConstantsAndNestedLambdas));
+        Metadata<ArrayClosure>.Type.GetField(nameof(ArrayClosure.ConstantsAndNestedLambdas));
 
     public static FieldInfo ArrayClosureWithNonPassedParamsField =
-        typeof(ArrayClosureWithNonPassedParams).GetField(nameof(ArrayClosureWithNonPassedParams.NonPassedParams));
+        Metadata<ArrayClosureWithNonPassedParams>.Type.GetField(nameof(ArrayClosureWithNonPassedParams.NonPassedParams));
 
-    private static ConstructorInfo[] _nonPassedParamsArrayClosureCtors = typeof(ArrayClosureWithNonPassedParams).GetConstructors();
+    private static ConstructorInfo[] _nonPassedParamsArrayClosureCtors = Metadata<ArrayClosureWithNonPassedParams>.Type.GetConstructors();
 
     public static ConstructorInfo ArrayClosureWithNonPassedParamsConstructor = _nonPassedParamsArrayClosureCtors[0];
 
@@ -950,10 +951,10 @@ namespace FastExpressionCompiler
     public sealed class NestedLambdaWithConstantsAndNestedLambdas
     {
       public static FieldInfo NestedLambdaField =
-          typeof(NestedLambdaWithConstantsAndNestedLambdas).GetTypeInfo().GetDeclaredField(nameof(NestedLambda));
+          Metadata<NestedLambdaWithConstantsAndNestedLambdas>.Type.GetTypeInfo().GetDeclaredField(nameof(NestedLambda));
 
       public static FieldInfo ConstantsAndNestedLambdasField =
-          typeof(NestedLambdaWithConstantsAndNestedLambdas).GetTypeInfo().GetDeclaredField(nameof(ConstantsAndNestedLambdas));
+          Metadata<NestedLambdaWithConstantsAndNestedLambdas>.Type.GetTypeInfo().GetDeclaredField(nameof(ConstantsAndNestedLambdas));
 
       public readonly object NestedLambda;
       public readonly object ConstantsAndNestedLambdas;
@@ -1584,7 +1585,7 @@ namespace FastExpressionCompiler
       var closurePlusParamTypes = GetClosureTypeToParamTypes(nestedLambdaParamExprs);
 
       var method = new DynamicMethod(string.Empty,
-          nestedReturnType, closurePlusParamTypes, typeof(ArrayClosure), true);
+          nestedReturnType, closurePlusParamTypes, Metadata<ArrayClosure>.Type, true);
 
       var il = method.GetILGenerator();
 
@@ -1592,7 +1593,7 @@ namespace FastExpressionCompiler
           nestedClosureInfo.ContainsConstantsOrNestedLambdas())
         EmittingVisitor.EmitLoadConstantsAndNestedLambdasIntoVars(il, ref nestedClosureInfo);
 
-      var parent = nestedReturnType == typeof(void) ? ParentFlags.IgnoreResult : ParentFlags.Empty;
+      var parent = nestedReturnType == Metadata.Void ? ParentFlags.IgnoreResult : ParentFlags.Empty;
       if (!EmittingVisitor.TryEmit(nestedLambdaExpr.Body, nestedLambdaParamExprs, il, ref nestedClosureInfo, setup, parent))
         return false;
       il.Emit(OpCodes.Ret);
@@ -1960,7 +1961,7 @@ namespace FastExpressionCompiler
                   for (var i = 0; i < statementCount - 1; i++)
                   {
                     var stExpr = statementExprs[i];
-                    if (stExpr.NodeType == ExpressionType.Default && stExpr.Type == typeof(void))
+                    if (stExpr.NodeType == ExpressionType.Default && stExpr.Type == Metadata.Void)
                       continue;
 
                     // This is basically the return pattern (see #237), so we don't care for the rest of expressions
@@ -2040,7 +2041,7 @@ namespace FastExpressionCompiler
               }
 
             case ExpressionType.Default:
-              if (expr.Type != typeof(void) && (parent & ParentFlags.IgnoreResult) == 0)
+              if (expr.Type != Metadata.Void && (parent & ParentFlags.IgnoreResult) == 0)
                 EmitDefault(expr.Type, il);
               return true;
 
@@ -2383,27 +2384,27 @@ namespace FastExpressionCompiler
           il.Emit(OpCodes.Ldnull);
         }
         else if (
-            type == typeof(bool) ||
-            type == typeof(byte) ||
-            type == typeof(char) ||
-            type == typeof(sbyte) ||
-            type == typeof(int) ||
-            type == typeof(uint) ||
-            type == typeof(short) ||
-            type == typeof(ushort))
+            type == Metadata<bool>.Type ||
+            type == Metadata<byte>.Type ||
+            type == Metadata<char>.Type ||
+            type == Metadata<sbyte>.Type ||
+            type == Metadata<int>.Type ||
+            type == Metadata<uint>.Type ||
+            type == Metadata<short>.Type ||
+            type == Metadata<ushort>.Type)
         {
           il.Emit(OpCodes.Ldc_I4_0);
         }
         else if (
-            type == typeof(long) ||
-            type == typeof(ulong))
+            type == Metadata<long>.Type ||
+            type == Metadata<ulong>.Type)
         {
           il.Emit(OpCodes.Ldc_I4_0);
           il.Emit(OpCodes.Conv_I8);
         }
-        else if (type == typeof(float))
+        else if (type == Metadata<float>.Type)
           il.Emit(OpCodes.Ldc_R4, default(float));
-        else if (type == typeof(double))
+        else if (type == Metadata<double>.Type)
           il.Emit(OpCodes.Ldc_R8, default(double));
         else
           EmitLoadLocalVariable(il, InitValueTypeVariable(il, type));
@@ -2423,7 +2424,7 @@ namespace FastExpressionCompiler
           return false;
 
         var exprType = tryExpr.Type;
-        var returnsResult = exprType != typeof(void) && !parent.IgnoresResult();
+        var returnsResult = exprType != Metadata.Void && !parent.IgnoresResult();
         var resultVarIndex = -1;
 
         if (returnsResult)
@@ -2580,27 +2581,27 @@ namespace FastExpressionCompiler
 
       private static void EmitValueTypeDereference(ILGenerator il, Type type)
       {
-        if (type == typeof(Int32))
+        if (type == Metadata<Int32>.Type)
           il.Emit(OpCodes.Ldind_I4);
-        else if (type == typeof(Int64))
+        else if (type == Metadata<Int64>.Type)
           il.Emit(OpCodes.Ldind_I8);
-        else if (type == typeof(Int16))
+        else if (type == Metadata<Int16>.Type)
           il.Emit(OpCodes.Ldind_I2);
-        else if (type == typeof(SByte))
+        else if (type == Metadata<SByte>.Type)
           il.Emit(OpCodes.Ldind_I1);
-        else if (type == typeof(Single))
+        else if (type == Metadata<Single>.Type)
           il.Emit(OpCodes.Ldind_R4);
-        else if (type == typeof(Double))
+        else if (type == Metadata<Double>.Type)
           il.Emit(OpCodes.Ldind_R8);
-        else if (type == typeof(IntPtr))
+        else if (type == Metadata<IntPtr>.Type)
           il.Emit(OpCodes.Ldind_I);
-        else if (type == typeof(UIntPtr))
+        else if (type == Metadata<UIntPtr>.Type)
           il.Emit(OpCodes.Ldind_I);
-        else if (type == typeof(Byte))
+        else if (type == Metadata<Byte>.Type)
           il.Emit(OpCodes.Ldind_U1);
-        else if (type == typeof(UInt16))
+        else if (type == Metadata<UInt16>.Type)
           il.Emit(OpCodes.Ldind_U2);
-        else if (type == typeof(UInt32))
+        else if (type == Metadata<UInt32>.Type)
           il.Emit(OpCodes.Ldind_U4);
         else
           il.Emit(OpCodes.Ldobj, type);
@@ -2746,7 +2747,7 @@ namespace FastExpressionCompiler
           il.Emit(OpCodes.Pop);
         else
         {
-          if (expr.Type == typeof(bool))
+          if (expr.Type == Metadata<bool>.Type)
           {
             il.Emit(OpCodes.Ldc_I4_0);
             il.Emit(OpCodes.Ceq);
@@ -2813,9 +2814,9 @@ namespace FastExpressionCompiler
           return true;
         }
 
-        if (sourceType == targetType || targetType == typeof(object))
+        if (sourceType == targetType || targetType == Metadata<object>.Type)
         {
-          if (targetType == typeof(object) && sourceType.IsValueType)
+          if (targetType == Metadata<object>.Type && sourceType.IsValueType)
             il.Emit(OpCodes.Box, sourceType);
           return il.EmitPopIfIgnoreResult(parent);
         }
@@ -2894,7 +2895,7 @@ namespace FastExpressionCompiler
           }
         }
 
-        if (sourceType == typeof(object) && targetType.IsValueType)
+        if (sourceType == Metadata<object>.Type && targetType.IsValueType)
         {
           il.Emit(OpCodes.Unbox_Any, targetType);
         }
@@ -2967,25 +2968,25 @@ namespace FastExpressionCompiler
 
       private static bool TryEmitValueConvert(Type targetType, ILGenerator il, bool isChecked)
       {
-        if (targetType == typeof(int))
+        if (targetType == Metadata<int>.Type)
           il.Emit(isChecked ? OpCodes.Conv_Ovf_I4 : OpCodes.Conv_I4);
-        else if (targetType == typeof(float))
+        else if (targetType == Metadata<float>.Type)
           il.Emit(OpCodes.Conv_R4);
-        else if (targetType == typeof(uint))
+        else if (targetType == Metadata<uint>.Type)
           il.Emit(isChecked ? OpCodes.Conv_Ovf_U4 : OpCodes.Conv_U4);
-        else if (targetType == typeof(sbyte))
+        else if (targetType == Metadata<sbyte>.Type)
           il.Emit(isChecked ? OpCodes.Conv_Ovf_I1 : OpCodes.Conv_I1);
-        else if (targetType == typeof(byte))
+        else if (targetType == Metadata<byte>.Type)
           il.Emit(isChecked ? OpCodes.Conv_Ovf_U1 : OpCodes.Conv_U1);
-        else if (targetType == typeof(short))
+        else if (targetType == Metadata<short>.Type)
           il.Emit(isChecked ? OpCodes.Conv_Ovf_I2 : OpCodes.Conv_I2);
-        else if (targetType == typeof(ushort) || targetType == typeof(char))
+        else if (targetType == Metadata<ushort>.Type || targetType == Metadata<char>.Type)
           il.Emit(isChecked ? OpCodes.Conv_Ovf_U2 : OpCodes.Conv_U2);
-        else if (targetType == typeof(long))
+        else if (targetType == Metadata<long>.Type)
           il.Emit(isChecked ? OpCodes.Conv_Ovf_I8 : OpCodes.Conv_I8);
-        else if (targetType == typeof(ulong))
+        else if (targetType == Metadata<ulong>.Type)
           il.Emit(isChecked ? OpCodes.Conv_Ovf_U8 : OpCodes.Conv_U8); // should we consider if sourceType.IsUnsigned == false and using the OpCodes.Conv_I8 (seems like the System.Compile does it)
-        else if (targetType == typeof(double))
+        else if (targetType == Metadata<double>.Type)
           il.Emit(OpCodes.Conv_R8);
         else
           return false;
@@ -3053,7 +3054,7 @@ namespace FastExpressionCompiler
           il.Emit(OpCodes.Newobj, exprType.GetConstructors().GetFirst());
 
         // boxing the value type, otherwise we can get a strange result when 0 is treated as Null.
-        else if (exprType == typeof(object) && constValueType.IsValueType)
+        else if (exprType == Metadata<object>.Type && constValueType.IsValueType)
           il.Emit(OpCodes.Box, constantValue.GetType()); // using normal type for Enum instead of underlying type
 
         return true;
@@ -3066,72 +3067,72 @@ namespace FastExpressionCompiler
           constValueType = Enum.GetUnderlyingType(constValueType);
 
         // more "commonly" used constants are higher in comparison
-        if (constValueType == typeof(int))
+        if (constValueType == Metadata<int>.Type)
         {
           EmitLoadConstantInt(il, (int)constantValue);
         }
-        else if (constValueType == typeof(bool))
+        else if (constValueType == Metadata<bool>.Type)
         {
           il.Emit((bool)constantValue ? OpCodes.Ldc_I4_1 : OpCodes.Ldc_I4_0);
         }
-        else if (constValueType == typeof(char))
+        else if (constValueType == Metadata<char>.Type)
         {
           EmitLoadConstantInt(il, (char)constantValue);
         }
-        else if (constValueType == typeof(short))
+        else if (constValueType == Metadata<short>.Type)
         {
           EmitLoadConstantInt(il, (short)constantValue);
         }
-        else if (constValueType == typeof(byte))
+        else if (constValueType == Metadata<byte>.Type)
         {
           EmitLoadConstantInt(il, (byte)constantValue);
         }
-        else if (constValueType == typeof(ushort))
+        else if (constValueType == Metadata<ushort>.Type)
         {
           EmitLoadConstantInt(il, (ushort)constantValue);
         }
-        else if (constValueType == typeof(sbyte))
+        else if (constValueType == Metadata<sbyte>.Type)
         {
           EmitLoadConstantInt(il, (sbyte)constantValue);
         }
-        else if (constValueType == typeof(uint))
+        else if (constValueType == Metadata<uint>.Type)
         {
           unchecked
           {
             EmitLoadConstantInt(il, (int)(uint)constantValue);
           }
         }
-        else if (constValueType == typeof(long))
+        else if (constValueType == Metadata<long>.Type)
         {
           il.Emit(OpCodes.Ldc_I8, (long)constantValue);
         }
-        else if (constValueType == typeof(ulong))
+        else if (constValueType == Metadata<ulong>.Type)
         {
           unchecked
           {
             il.Emit(OpCodes.Ldc_I8, (long)(ulong)constantValue);
           }
         }
-        else if (constValueType == typeof(float))
+        else if (constValueType == Metadata<float>.Type)
         {
           il.Emit(OpCodes.Ldc_R4, (float)constantValue);
         }
-        else if (constValueType == typeof(double))
+        else if (constValueType == Metadata<double>.Type)
         {
           il.Emit(OpCodes.Ldc_R8, (double)constantValue);
         }
-        else if (constValueType == typeof(IntPtr))
+        else if (constValueType == Metadata<IntPtr>.Type)
         {
           il.Emit(OpCodes.Ldc_I8, ((IntPtr)constantValue).ToInt64());
         }
-        else if (constValueType == typeof(UIntPtr))
+        else if (constValueType == Metadata<UIntPtr>.Type)
         {
           unchecked
           {
             il.Emit(OpCodes.Ldc_I8, (long)((UIntPtr)constantValue).ToUInt64());
           }
         }
-        else if (constValueType == typeof(decimal))
+        else if (constValueType == Metadata<decimal>.Type)
         {
           EmitDecimalConstant((decimal)constantValue, il);
         }
@@ -3145,22 +3146,22 @@ namespace FastExpressionCompiler
 
       internal static bool TryEmitNumberOne(ILGenerator il, Type type)
       {
-        if (type == typeof(int) || type == typeof(char) || type == typeof(short) ||
-            type == typeof(byte) || type == typeof(ushort) || type == typeof(sbyte) ||
-            type == typeof(uint))
+        if (type == Metadata<int>.Type || type == Metadata<char>.Type || type == Metadata<short>.Type ||
+            type == Metadata<byte>.Type || type == Metadata<ushort>.Type || type == Metadata<sbyte>.Type ||
+            type == Metadata<uint>.Type)
         {
           il.Emit(OpCodes.Ldc_I4_1);
         }
-        else if (type == typeof(long) || type == typeof(ulong) ||
-                 type == typeof(IntPtr) || type == typeof(UIntPtr))
+        else if (type == Metadata<long>.Type || type == Metadata<ulong>.Type ||
+                 type == Metadata<IntPtr>.Type || type == Metadata<UIntPtr>.Type)
         {
           il.Emit(OpCodes.Ldc_I8, (long)1);
         }
-        else if (type == typeof(float))
+        else if (type == Metadata<float>.Type)
         {
           il.Emit(OpCodes.Ldc_R4, 1f);
         }
-        else if (type == typeof(double))
+        else if (type == Metadata<double>.Type)
         {
           il.Emit(OpCodes.Ldc_R8, 1d);
         }
@@ -3226,27 +3227,27 @@ namespace FastExpressionCompiler
           if (value >= int.MinValue && value <= int.MaxValue)
           {
             EmitLoadConstantInt(il, decimal.ToInt32(value));
-            il.Emit(OpCodes.Newobj, typeof(decimal).FindSingleParamConstructor(typeof(int)));
+            il.Emit(OpCodes.Newobj, Metadata<decimal>.Type.FindSingleParamConstructor(Metadata<int>.Type));
             return;
           }
 
           if (value >= long.MinValue && value <= long.MaxValue)
           {
             il.Emit(OpCodes.Ldc_I8, decimal.ToInt64(value));
-            il.Emit(OpCodes.Newobj, typeof(decimal).FindSingleParamConstructor(typeof(long)));
+            il.Emit(OpCodes.Newobj, Metadata<decimal>.Type.FindSingleParamConstructor(Metadata<long>.Type));
             return;
           }
         }
 
         if (value == decimal.MinValue)
         {
-          il.Emit(OpCodes.Ldsfld, typeof(decimal).GetField(nameof(decimal.MinValue)));
+          il.Emit(OpCodes.Ldsfld, Metadata<decimal>.Type.GetField(nameof(decimal.MinValue)));
           return;
         }
 
         if (value == decimal.MaxValue)
         {
-          il.Emit(OpCodes.Ldsfld, typeof(decimal).GetField(nameof(decimal.MaxValue)));
+          il.Emit(OpCodes.Ldsfld, Metadata<decimal>.Type.GetField(nameof(decimal.MaxValue)));
           return;
         }
 
@@ -3268,7 +3269,7 @@ namespace FastExpressionCompiler
 
       private static readonly Lazy<ConstructorInfo> _decimalCtor = new Lazy<ConstructorInfo>(() =>
       {
-        foreach (var ctor in typeof(decimal).GetTypeInfo().DeclaredConstructors)
+        foreach (var ctor in Metadata<decimal>.Type.GetTypeInfo().DeclaredConstructors)
           if (ctor.GetParameters().Length == 5)
             return ctor;
         return null;
@@ -3380,27 +3381,27 @@ namespace FastExpressionCompiler
           return true;
         }
 
-        if (type == typeof(Int32))
+        if (type == Metadata<Int32>.Type)
           il.Emit(OpCodes.Ldelem_I4);
-        else if (type == typeof(Int64))
+        else if (type == Metadata<Int64>.Type)
           il.Emit(OpCodes.Ldelem_I8);
-        else if (type == typeof(Int16))
+        else if (type == Metadata<Int16>.Type)
           il.Emit(OpCodes.Ldelem_I2);
-        else if (type == typeof(SByte))
+        else if (type == Metadata<SByte>.Type)
           il.Emit(OpCodes.Ldelem_I1);
-        else if (type == typeof(Single))
+        else if (type == Metadata<Single>.Type)
           il.Emit(OpCodes.Ldelem_R4);
-        else if (type == typeof(Double))
+        else if (type == Metadata<Double>.Type)
           il.Emit(OpCodes.Ldelem_R8);
-        else if (type == typeof(IntPtr))
+        else if (type == Metadata<IntPtr>.Type)
           il.Emit(OpCodes.Ldelem_I);
-        else if (type == typeof(UIntPtr))
+        else if (type == Metadata<UIntPtr>.Type)
           il.Emit(OpCodes.Ldelem_I);
-        else if (type == typeof(Byte))
+        else if (type == Metadata<Byte>.Type)
           il.Emit(OpCodes.Ldelem_U1);
-        else if (type == typeof(UInt16))
+        else if (type == Metadata<UInt16>.Type)
           il.Emit(OpCodes.Ldelem_U2);
-        else if (type == typeof(UInt32))
+        else if (type == Metadata<UInt32>.Type)
           il.Emit(OpCodes.Ldelem_U4);
         else
           il.Emit(OpCodes.Ldelem, type);
@@ -3951,21 +3952,21 @@ namespace FastExpressionCompiler
       // todo: @fix check that it is applied only for the ValueType
       private static void EmitStoreByRefValueType(ILGenerator il, Type type)
       {
-        if (type == typeof(int) || type == typeof(uint))
+        if (type == Metadata<int>.Type || type == Metadata<uint>.Type)
           il.Emit(OpCodes.Stind_I4);
-        else if (type == typeof(byte))
+        else if (type == Metadata<byte>.Type)
           il.Emit(OpCodes.Stind_I1);
-        else if (type == typeof(short) || type == typeof(ushort))
+        else if (type == Metadata<short>.Type || type == Metadata<ushort>.Type)
           il.Emit(OpCodes.Stind_I2);
-        else if (type == typeof(long) || type == typeof(ulong))
+        else if (type == Metadata<long>.Type || type == Metadata<ulong>.Type)
           il.Emit(OpCodes.Stind_I8);
-        else if (type == typeof(float))
+        else if (type == Metadata<float>.Type)
           il.Emit(OpCodes.Stind_R4);
-        else if (type == typeof(double))
+        else if (type == Metadata<double>.Type)
           il.Emit(OpCodes.Stind_R8);
-        else if (type == typeof(object))
+        else if (type == Metadata<object>.Type)
           il.Emit(OpCodes.Stind_Ref);
-        else if (type == typeof(IntPtr) || type == typeof(UIntPtr))
+        else if (type == Metadata<IntPtr>.Type || type == Metadata<UIntPtr>.Type)
           il.Emit(OpCodes.Stind_I);
         else
           il.Emit(OpCodes.Stobj, type);
@@ -3984,21 +3985,21 @@ namespace FastExpressionCompiler
             return true;
           }
 
-          if (elementType == typeof(Int32))
+          if (elementType == Metadata<Int32>.Type)
             il.Emit(OpCodes.Stelem_I4);
-          else if (elementType == typeof(Int64))
+          else if (elementType == Metadata<Int64>.Type)
             il.Emit(OpCodes.Stelem_I8);
-          else if (elementType == typeof(Int16))
+          else if (elementType == Metadata<Int16>.Type)
             il.Emit(OpCodes.Stelem_I2);
-          else if (elementType == typeof(SByte))
+          else if (elementType == Metadata<SByte>.Type)
             il.Emit(OpCodes.Stelem_I1);
-          else if (elementType == typeof(Single))
+          else if (elementType == Metadata<Single>.Type)
             il.Emit(OpCodes.Stelem_R4);
-          else if (elementType == typeof(Double))
+          else if (elementType == Metadata<Double>.Type)
             il.Emit(OpCodes.Stelem_R8);
-          else if (elementType == typeof(IntPtr))
+          else if (elementType == Metadata<IntPtr>.Type)
             il.Emit(OpCodes.Stelem_I);
-          else if (elementType == typeof(UIntPtr))
+          else if (elementType == Metadata<UIntPtr>.Type)
             il.Emit(OpCodes.Stelem_I);
           else
             il.Emit(OpCodes.Stelem, elementType);
@@ -4062,7 +4063,7 @@ namespace FastExpressionCompiler
           il.Emit(OpCodes.Callvirt, method);
         }
 
-        if (parent.IgnoresResult() && method.ReturnType != typeof(void))
+        if (parent.IgnoresResult() && method.ReturnType != Metadata.Void)
           il.Emit(OpCodes.Pop);
 
         closure.LastEmitIsAddress = false;
@@ -4198,7 +4199,7 @@ namespace FastExpressionCompiler
 
         // - create `NonPassedParameters` array
         EmitLoadConstantInt(il, nestedNonPassedParams.Length); // load the length of array
-        il.Emit(OpCodes.Newarr, typeof(object));
+        il.Emit(OpCodes.Newarr, Metadata<object>.Type);
 
         // - populate the `NonPassedParameters` array
         var outerNonPassedParams = closure.NonPassedParameters;
@@ -4270,7 +4271,7 @@ namespace FastExpressionCompiler
         var lambdaTypeArgs = nestedLambda.GetType().GetTypeInfo().GenericTypeArguments;
 
         var nestedLambdaExpr = nestedLambdaInfo.LambdaExpression;
-        var closureMethod = nestedLambdaExpr.ReturnType == typeof(void)
+        var closureMethod = nestedLambdaExpr.ReturnType == Metadata.Void
             ? CurryClosureActions.Methods[lambdaTypeArgs.Length - 1].MakeGenericMethod(lambdaTypeArgs)
             : CurryClosureFuncs.Methods[lambdaTypeArgs.Length - 2].MakeGenericMethod(lambdaTypeArgs);
 
@@ -4342,7 +4343,7 @@ namespace FastExpressionCompiler
           if (!TryEmit(Block(vars ?? pars.ToReadOnlyList(), exprs), paramExprs, il, ref closure, setup, parent))
             return false;
 
-          if ((parent & ParentFlags.IgnoreResult) == 0 && la.Body.Type != typeof(void))
+          if ((parent & ParentFlags.IgnoreResult) == 0 && la.Body.Type != Metadata.Void)
           {
             // find if the variable with the result is exist in the label infos
             var li = closure.GetLabelOrInvokeIndex(expr);
@@ -4378,7 +4379,7 @@ namespace FastExpressionCompiler
         }
 
         EmitMethodCall(il, delegateInvokeMethod);
-        if ((parent & ParentFlags.IgnoreResult) != 0 && delegateInvokeMethod.ReturnType != typeof(void))
+        if ((parent & ParentFlags.IgnoreResult) != 0 && delegateInvokeMethod.ReturnType != Metadata.Void)
           il.Emit(OpCodes.Pop);
 
         return true;
@@ -4409,7 +4410,7 @@ namespace FastExpressionCompiler
 
           foreach (var caseTestValue in cs.TestValues)
           {
-            if (!TryEmitComparison(expr.SwitchValue, caseTestValue, ExpressionType.Equal, typeof(bool), paramExprs, il, ref closure, setup, dontIgnoreTestResult))
+            if (!TryEmitComparison(expr.SwitchValue, caseTestValue, ExpressionType.Equal, Metadata<bool>.Type, paramExprs, il, ref closure, setup, dontIgnoreTestResult))
               return false;
             il.Emit(OpCodes.Brtrue, labels[caseIndex]);
           }
@@ -4450,7 +4451,7 @@ namespace FastExpressionCompiler
         var rightOpType = exprRight.Type;
         if (exprRight is ConstantExpression r && r.Value == null)
         {
-          if (exprRight.Type == typeof(object))
+          if (exprRight.Type == Metadata<object>.Type)
             rightOpType = leftOpType;
         }
 
@@ -4472,7 +4473,7 @@ namespace FastExpressionCompiler
         if (leftOpType != rightOpType)
         {
           if (leftOpType.IsClass && rightOpType.IsClass &&
-              (leftOpType == typeof(object) || rightOpType == typeof(object)))
+              (leftOpType == Metadata<object>.Type || rightOpType == Metadata<object>.Type))
           {
             if (expressionType == ExpressionType.Equal)
               il.Emit(OpCodes.Ceq);
@@ -4600,7 +4601,7 @@ namespace FastExpressionCompiler
           var isLiftedToNull = exprType == typeof(bool?);
           var leftHasValueVar = -1;
           if (isLiftedToNull)
-            EmitStoreAndLoadLocalVariable(il, leftHasValueVar = il.GetNextLocalVarIndex(typeof(bool)));
+            EmitStoreAndLoadLocalVariable(il, leftHasValueVar = il.GetNextLocalVarIndex(Metadata<bool>.Type));
 
           // ReSharper disable once AssignNullToNotNullAttribute
           EmitLoadLocalVariableAddress(il, rVarIndex);
@@ -4608,7 +4609,7 @@ namespace FastExpressionCompiler
 
           var rightHasValueVar = -1;
           if (isLiftedToNull)
-            EmitStoreAndLoadLocalVariable(il, rightHasValueVar = il.GetNextLocalVarIndex(typeof(bool)));
+            EmitStoreAndLoadLocalVariable(il, rightHasValueVar = il.GetNextLocalVarIndex(Metadata<bool>.Type));
 
           switch (expressionType)
           {
@@ -4753,13 +4754,13 @@ namespace FastExpressionCompiler
           if (!exprType.IsPrimitive)
           {
             MethodInfo method = null;
-            if (exprType == typeof(string))
+            if (exprType == Metadata<string>.Type)
             {
-              var paraType = typeof(string);
-              if (expr.Left.Type != expr.Right.Type || expr.Left.Type != typeof(string))
-                paraType = typeof(object);
+              var paraType = Metadata<string>.Type;
+              if (expr.Left.Type != expr.Right.Type || expr.Left.Type != Metadata<string>.Type)
+                paraType = Metadata<object>.Type;
 
-              var methods = typeof(string).GetMethods();
+              var methods = Metadata<string>.Type.GetMethods();
               for (var i = 0; i < methods.Length; i++)
               {
                 var m = methods[i];
@@ -4858,7 +4859,7 @@ namespace FastExpressionCompiler
             return true;
 
           case ExpressionType.Power:
-            EmitMethodCall(il, typeof(Math).FindMethod("Pow"));
+            EmitMethodCall(il, Metadata.Math.FindMethod("Pow"));
             return true;
         }
 
@@ -5008,7 +5009,7 @@ namespace FastExpressionCompiler
           return false;
 
         var ifFalseExpr = expr.IfFalse;
-        if (ifFalseExpr.NodeType == ExpressionType.Default && ifFalseExpr.Type == typeof(void))
+        if (ifFalseExpr.NodeType == ExpressionType.Default && ifFalseExpr.Type == Metadata.Void)
           il.MarkLabel(labelIfFalse);
         else
         {
@@ -5193,13 +5194,13 @@ namespace FastExpressionCompiler
       private static int EmitStoreAndLoadLocalVariableAddress(ILGenerator il, Type type)
       {
         // #if DEBUG
-        // var ilLengthField = typeof(ILGenerator).GetField("m_length", BindingFlags.Instance | BindingFlags.NonPublic);
-        // var ilStreamField = typeof(ILGenerator).GetField("m_ILStream", BindingFlags.Instance | BindingFlags.NonPublic);
+        // var ilLengthField = Metadata<ILGenerator>.Type.GetField("m_length", BindingFlags.Instance | BindingFlags.NonPublic);
+        // var ilStreamField = Metadata<ILGenerator>.Type.GetField("m_ILStream", BindingFlags.Instance | BindingFlags.NonPublic);
         // var ilLength = (int)ilLengthField.GetValue(il);
         // var ilStream = (byte[])ilStreamField.GetValue(il);
 
-        // var ilMaxMidStackField    = typeof(ILGenerator).GetField("m_maxMidStack", BindingFlags.Instance | BindingFlags.NonPublic);
-        // var ilMaxMidStackCurField = typeof(ILGenerator).GetField("m_maxMidStackCur", BindingFlags.Instance | BindingFlags.NonPublic);
+        // var ilMaxMidStackField    = Metadata<ILGenerator>.Type.GetField("m_maxMidStack", BindingFlags.Instance | BindingFlags.NonPublic);
+        // var ilMaxMidStackCurField = Metadata<ILGenerator>.Type.GetField("m_maxMidStackCur", BindingFlags.Instance | BindingFlags.NonPublic);
         // var ilMaxMidStack    = (int)ilMaxMidStackField.GetValue(il);
         // var ilMaxMidStackCur = (int)ilMaxMidStackCurField.GetValue(il);
         // #endif
@@ -5303,10 +5304,10 @@ namespace FastExpressionCompiler
   internal static class Tools
   {
     internal static bool IsUnsigned(this Type type) =>
-        type == typeof(byte) ||
-        type == typeof(ushort) ||
-        type == typeof(uint) ||
-        type == typeof(ulong);
+        type == Metadata<byte>.Type ||
+        type == Metadata<ushort>.Type ||
+        type == Metadata<uint>.Type ||
+        type == Metadata<ulong>.Type;
 
     internal static bool IsNullable(this Type type) =>
         type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
@@ -5335,7 +5336,7 @@ namespace FastExpressionCompiler
     }
 
     internal static MethodInfo DelegateTargetGetterMethod =
-        typeof(Delegate).GetProperty(nameof(Delegate.Target)).GetMethod;
+        Metadata<Delegate>.Type.GetProperty(nameof(Delegate.Target)).GetMethod;
 
     internal static MethodInfo FindDelegateInvokeMethod(this Type type) => type.GetMethod("Invoke");
 
@@ -5427,40 +5428,40 @@ namespace FastExpressionCompiler
     }
 
     public static Type GetFuncOrActionType(Type returnType) =>
-        returnType == typeof(void) ? typeof(Action) : typeof(Func<>).MakeGenericType(returnType);
+        returnType == Metadata.Void ? Metadata.Action : Metadata.Func1.MakeGenericType(returnType);
 
     public static Type GetFuncOrActionType(Type p, Type returnType) =>
-        returnType == typeof(void) ? typeof(Action<>).MakeGenericType(p) : typeof(Func<,>).MakeGenericType(p, returnType);
+        returnType == Metadata.Void ? Metadata.Action1.MakeGenericType(p) : Metadata.Func2.MakeGenericType(p, returnType);
 
     public static Type GetFuncOrActionType(Type p0, Type p1, Type returnType) =>
-        returnType == typeof(void) ? typeof(Action<,>).MakeGenericType(p0, p1) : typeof(Func<,,>).MakeGenericType(p0, p1, returnType);
+        returnType == Metadata.Void ? Metadata.Action2.MakeGenericType(p0, p1) : Metadata.Func3.MakeGenericType(p0, p1, returnType);
 
     public static Type GetFuncOrActionType(Type p0, Type p1, Type p2, Type returnType) =>
-        returnType == typeof(void) ? typeof(Action<,,>).MakeGenericType(p0, p1, p2) : typeof(Func<,,,>).MakeGenericType(p0, p1, p2, returnType);
+        returnType == Metadata.Void ? Metadata.Action3.MakeGenericType(p0, p1, p2) : Metadata.Func4.MakeGenericType(p0, p1, p2, returnType);
 
     public static Type GetFuncOrActionType(Type p0, Type p1, Type p2, Type p3, Type returnType) =>
-        returnType == typeof(void) ? typeof(Action<,,,>).MakeGenericType(p0, p1, p2, p3) : typeof(Func<,,,,>).MakeGenericType(p0, p1, p2, p3, returnType);
+        returnType == Metadata.Void ? Metadata.Action4.MakeGenericType(p0, p1, p2, p3) : Metadata.Func5.MakeGenericType(p0, p1, p2, p3, returnType);
 
     public static Type GetFuncOrActionType(Type p0, Type p1, Type p2, Type p3, Type p4, Type returnType) =>
-        returnType == typeof(void) ? typeof(Action<,,,,>).MakeGenericType(p0, p1, p2, p3, p4) : typeof(Func<,,,,,>).MakeGenericType(p0, p1, p2, p3, p4, returnType);
+        returnType == Metadata.Void ? Metadata.Action5.MakeGenericType(p0, p1, p2, p3, p4) : Metadata.Func6.MakeGenericType(p0, p1, p2, p3, p4, returnType);
 
     public static Type GetFuncOrActionType(Type p0, Type p1, Type p2, Type p3, Type p4, Type p5, Type returnType) =>
-        returnType == typeof(void) ? typeof(Action<,,,,,>).MakeGenericType(p0, p1, p2, p3, p4, p5) : typeof(Func<,,,,,,>).MakeGenericType(p0, p1, p2, p3, p4, p5, returnType);
+        returnType == Metadata.Void ? Metadata.Action6.MakeGenericType(p0, p1, p2, p3, p4, p5) : Metadata.Func7.MakeGenericType(p0, p1, p2, p3, p4, p5, returnType);
 
     public static Type GetFuncOrActionType(Type[] paramTypes, Type returnType)
     {
-      if (returnType == typeof(void))
+      if (returnType == Metadata.Void)
       {
         switch (paramTypes.Length)
         {
-          case 0: return typeof(Action);
-          case 1: return typeof(Action<>).MakeGenericType(paramTypes);
-          case 2: return typeof(Action<,>).MakeGenericType(paramTypes);
-          case 3: return typeof(Action<,,>).MakeGenericType(paramTypes);
-          case 4: return typeof(Action<,,,>).MakeGenericType(paramTypes);
-          case 5: return typeof(Action<,,,,>).MakeGenericType(paramTypes);
-          case 6: return typeof(Action<,,,,,>).MakeGenericType(paramTypes);
-          case 7: return typeof(Action<,,,,,,>).MakeGenericType(paramTypes);
+          case 0: return Metadata.Action;
+          case 1: return Metadata.Action1.MakeGenericType(paramTypes);
+          case 2: return Metadata.Action2.MakeGenericType(paramTypes);
+          case 3: return Metadata.Action3.MakeGenericType(paramTypes);
+          case 4: return Metadata.Action4.MakeGenericType(paramTypes);
+          case 5: return Metadata.Action5.MakeGenericType(paramTypes);
+          case 6: return Metadata.Action6.MakeGenericType(paramTypes);
+          case 7: return Metadata.Action7.MakeGenericType(paramTypes);
           default:
             throw new NotSupportedException(
                 $"Action with so many ({paramTypes.Length}) parameters is not supported!");
@@ -5469,14 +5470,14 @@ namespace FastExpressionCompiler
 
       switch (paramTypes.Length)
       {
-        case 0: return typeof(Func<>).MakeGenericType(returnType);
-        case 1: return typeof(Func<,>).MakeGenericType(paramTypes[0], returnType);
-        case 2: return typeof(Func<,,>).MakeGenericType(paramTypes[0], paramTypes[1], returnType);
-        case 3: return typeof(Func<,,,>).MakeGenericType(paramTypes[0], paramTypes[1], paramTypes[2], returnType);
-        case 4: return typeof(Func<,,,,>).MakeGenericType(paramTypes[0], paramTypes[1], paramTypes[2], paramTypes[3], returnType);
-        case 5: return typeof(Func<,,,,,>).MakeGenericType(paramTypes[0], paramTypes[1], paramTypes[2], paramTypes[3], paramTypes[4], returnType);
-        case 6: return typeof(Func<,,,,,,>).MakeGenericType(paramTypes[0], paramTypes[1], paramTypes[2], paramTypes[3], paramTypes[4], paramTypes[5], returnType);
-        case 7: return typeof(Func<,,,,,,,>).MakeGenericType(paramTypes[0], paramTypes[1], paramTypes[2], paramTypes[3], paramTypes[4], paramTypes[5], paramTypes[6], returnType);
+        case 0: return Metadata.Func1.MakeGenericType(returnType);
+        case 1: return Metadata.Func2.MakeGenericType(paramTypes[0], returnType);
+        case 2: return Metadata.Func3.MakeGenericType(paramTypes[0], paramTypes[1], returnType);
+        case 3: return Metadata.Func4.MakeGenericType(paramTypes[0], paramTypes[1], paramTypes[2], returnType);
+        case 4: return Metadata.Func5.MakeGenericType(paramTypes[0], paramTypes[1], paramTypes[2], paramTypes[3], returnType);
+        case 5: return Metadata.Func6.MakeGenericType(paramTypes[0], paramTypes[1], paramTypes[2], paramTypes[3], paramTypes[4], returnType);
+        case 6: return Metadata.Func7.MakeGenericType(paramTypes[0], paramTypes[1], paramTypes[2], paramTypes[3], paramTypes[4], paramTypes[5], returnType);
+        case 7: return Metadata.Func8.MakeGenericType(paramTypes[0], paramTypes[1], paramTypes[2], paramTypes[3], paramTypes[4], paramTypes[5], paramTypes[6], returnType);
         default:
           throw new NotSupportedException(
               $"Func with so many ({paramTypes.Length}) parameters is not supported!");
@@ -5535,7 +5536,7 @@ namespace FastExpressionCompiler
       _getNextLocalVarIndex = (i, t) => i.DeclareLocal(t).LocalIndex;
 
       // now let's try to acquire the more efficient less allocating method
-      var ilGenTypeInfo = typeof(ILGenerator).GetTypeInfo();
+      var ilGenTypeInfo = Metadata<ILGenerator>.Type.GetTypeInfo();
       var localSignatureField = ilGenTypeInfo.GetDeclaredField("m_localSignature");
       if (localSignatureField == null)
         return;
@@ -5546,10 +5547,10 @@ namespace FastExpressionCompiler
 
       // looking for the `SignatureHelper.AddArgument(Type argument, bool pinned)`
       MethodInfo addArgumentMethod = null;
-      foreach (var m in typeof(SignatureHelper).GetTypeInfo().GetDeclaredMethods("AddArgument"))
+      foreach (var m in Metadata<SignatureHelper>.Type.GetTypeInfo().GetDeclaredMethods("AddArgument"))
       {
         var ps = m.GetParameters();
-        if (ps.Length == 2 && ps[0].ParameterType == typeof(Type) && ps[1].ParameterType == typeof(bool))
+        if (ps.Length == 2 && ps[0].ParameterType == Metadata<Type>.Type && ps[1].ParameterType == Metadata<bool>.Type)
         {
           addArgumentMethod = m;
           break;
@@ -5563,7 +5564,7 @@ namespace FastExpressionCompiler
       var postIncMethod = typeof(ILGeneratorHacks).GetTypeInfo().GetDeclaredMethod(nameof(PostInc));
 
       var efficientMethod = new DynamicMethod(string.Empty,
-          typeof(int), new[] { typeof(ExpressionCompiler.ArrayClosure), typeof(ILGenerator), typeof(Type) },
+          Metadata<int>.Type, new[] { typeof(ExpressionCompiler.ArrayClosure), Metadata<ILGenerator>.Type, Metadata<Type>.Type },
           typeof(ExpressionCompiler.ArrayClosure), skipVisibility: true);
       var il = efficientMethod.GetILGenerator();
 
@@ -5599,7 +5600,7 @@ namespace FastExpressionCompiler
     // todo: @perf create EmitMethod without additional GetParameters call
     /*
     public virtual void EmitCall(OpCode opcode, MethodInfo methodInfo, 
-        int stackExchange = (methodInfo.ReturnType != typeof(void) ? 1 : 0) - methodInfo.GetParameterTypes().Length - (methodInfo.IsStatic ? 1 : 0))
+        int stackExchange = (methodInfo.ReturnType != Metadata.Void ? 1 : 0) - methodInfo.GetParameterTypes().Length - (methodInfo.IsStatic ? 1 : 0))
     { 
         var tk = GetMemberRefToken(methodInfo, null);
 
@@ -5608,7 +5609,7 @@ namespace FastExpressionCompiler
 
         // * move outside of the method
         // Push the return value if there is one.
-        // if (methodInfo.ReturnType != typeof(void))
+        // if (methodInfo.ReturnType != Metadata.Void)
         //     stackchange++;
 
         // * move outside of the method
@@ -5879,7 +5880,7 @@ namespace FastExpressionCompiler
             if (x.Value == null)
             {
               sb.Append("null");
-              if (x.Type != typeof(object))
+              if (x.Type != Metadata<object>.Type)
                 sb.Append(", ").AppendTypeof(x.Type, stripNamespace, printType);
             }
             else if (x.Value is Type t)
@@ -6108,7 +6109,7 @@ namespace FastExpressionCompiler
           }
         case ExpressionType.Default:
           {
-            return e.Type == typeof(void) ? sb.Append("Empty()")
+            return e.Type == Metadata.Void ? sb.Append("Empty()")
                 : sb.Append("Default(").AppendTypeof(e.Type, stripNamespace, printType).Append(')');
           }
         case ExpressionType.TypeIs:
@@ -6154,7 +6155,7 @@ namespace FastExpressionCompiler
           }
         default:
           {
-            var name = Enum.GetName(typeof(ExpressionType), e.NodeType);
+            var name = Enum.GetName(Metadata<ExpressionType>.Type, e.NodeType);
             if (e is UnaryExpression u)
             {
               sb.Append(name).Append('(');
@@ -6174,7 +6175,7 @@ namespace FastExpressionCompiler
 
             if (e is BinaryExpression b)
             {
-              sb.Append("MakeBinary(").Append(typeof(ExpressionType).Name).Append('.').Append(name).Append(',');
+              sb.Append("MakeBinary(").Append(Metadata<ExpressionType>.Type.Name).Append('.').Append(name).Append(',');
               sb.NewLineIdentExpr(b.Left, paramsExprs, uniqueExprs, lts, lineIdent, stripNamespace, printType, identSpaces, tryPrintConstant).Append(',');
               sb.NewLineIdentExpr(b.Right, paramsExprs, uniqueExprs, lts, lineIdent, stripNamespace, printType, identSpaces, tryPrintConstant);
               if (b.IsLiftedToNull || b.Method != null)
@@ -6400,7 +6401,7 @@ namespace FastExpressionCompiler
             var body = x.Body;
             var bNodeType = body.NodeType;
             var isBodyExpression = bNodeType != ExpressionType.Block && bNodeType != ExpressionType.Try && bNodeType != ExpressionType.Loop;
-            if (isBodyExpression && x.ReturnType != typeof(void))
+            if (isBodyExpression && x.ReturnType != Metadata.Void)
               sb.NewLineIdentCs(body, lineIdent, stripNamespace, printType, identSpaces, tryPrintConstant);
             else
             {
@@ -6433,7 +6434,7 @@ namespace FastExpressionCompiler
         case ExpressionType.Conditional:
           {
             var x = (ConditionalExpression)e;
-            if (e.Type == typeof(void)) // otherwise output as ternary expression
+            if (e.Type == Metadata.Void) // otherwise output as ternary expression
             {
               sb.NewLine(lineIdent, identSpaces);
               sb.Append("if (");
@@ -6447,7 +6448,7 @@ namespace FastExpressionCompiler
                 sb.NewLineIdentCs(x.IfTrue, lineIdent, stripNamespace, printType, identSpaces, tryPrintConstant).AddSemicolonIfFits();
 
               sb.NewLine(lineIdent, identSpaces).Append('}');
-              if (x.IfFalse.NodeType != ExpressionType.Default || x.IfFalse.Type != typeof(void))
+              if (x.IfFalse.NodeType != ExpressionType.Default || x.IfFalse.Type != Metadata.Void)
               {
                 sb.NewLine(lineIdent, identSpaces).Append("else");
                 sb.NewLine(lineIdent, identSpaces).Append('{');
@@ -6514,7 +6515,7 @@ namespace FastExpressionCompiler
         case ExpressionType.Try:
           {
             var x = (TryExpression)e;
-            var returnsValue = e.Type != typeof(void);
+            var returnsValue = e.Type != Metadata.Void;
             void PrintPart(Expression part)
             {
               if (part is BlockExpression pb)
@@ -6620,7 +6621,7 @@ namespace FastExpressionCompiler
           }
         case ExpressionType.Default:
           {
-            return e.Type == typeof(void) ? sb // `default(void)` does not make sense in the C#
+            return e.Type == Metadata.Void ? sb // `default(void)` does not make sense in the C#
                 : sb.Append("default(").Append(e.Type.ToCode(stripNamespace, printType)).Append(')');
           }
         case ExpressionType.TypeIs:
@@ -6653,7 +6654,7 @@ namespace FastExpressionCompiler
           }
         default:
           {
-            var name = Enum.GetName(typeof(ExpressionType), e.NodeType);
+            var name = Enum.GetName(Metadata<ExpressionType>.Type, e.NodeType);
             if (e is UnaryExpression u)
             {
               var op = u.Operand;
@@ -6664,7 +6665,7 @@ namespace FastExpressionCompiler
 
                 case ExpressionType.Not: // either the bool not or the binary not
                   return op.ToCSharpString(
-                      e.Type == typeof(bool) ? sb.Append("!(") : sb.Append("~("),
+                      e.Type == Metadata<bool>.Type ? sb.Append("!(") : sb.Append("~("),
                       lineIdent, stripNamespace, printType, identSpaces, tryPrintConstant).Append(')');
 
                 case ExpressionType.Convert:
@@ -6947,7 +6948,7 @@ namespace FastExpressionCompiler
       }
 
       var lastExpr = exprs[exprs.Count - 1];
-      if (lastExpr.NodeType == ExpressionType.Default && lastExpr.Type == typeof(void))
+      if (lastExpr.NodeType == ExpressionType.Default && lastExpr.Type == Metadata.Void)
         return sb;
 
       if (lastExpr is BlockExpression lastBlock)
@@ -6977,14 +6978,14 @@ namespace FastExpressionCompiler
           blockResultAssignment.Left.ToCSharpString(sb, lineIdent, stripNamespace, printType, identSpaces, tryPrintConstant).Append(", ");
         }
       }
-      else if (inTheLastBlock && b.Type != typeof(void))
+      else if (inTheLastBlock && b.Type != Metadata.Void)
         sb.Append("return ");
 
       if (lastExpr is ConditionalExpression ||
           lastExpr is TryExpression ||
           lastExpr is LoopExpression ||
           lastExpr is SwitchExpression ||
-          lastExpr is DefaultExpression d && d.Type == typeof(void))
+          lastExpr is DefaultExpression d && d.Type == Metadata.Void)
       {
         lastExpr.ToCSharpString(sb, lineIdent + identSpaces, stripNamespace, printType, identSpaces, tryPrintConstant);
       }
@@ -7041,7 +7042,7 @@ namespace FastExpressionCompiler
           ExpressionType.Divide => " / ",
           ExpressionType.DivideAssign => " /= ",
           _ => "???" // todo: @unclear wanna be good
-            };
+        };
 
   }
 
@@ -7083,8 +7084,8 @@ namespace FastExpressionCompiler
 
     internal static StringBuilder AppendEnum<TEnum>(this StringBuilder sb, TEnum value,
         bool stripNamespace = false, Func<Type, string, string> printType = null) =>
-        sb.Append(typeof(TEnum).ToCode(stripNamespace, printType)).Append('.')
-          .Append(Enum.GetName(typeof(TEnum), value));
+        sb.Append(Metadata<TEnum>.Type.ToCode(stripNamespace, printType)).Append('.')
+          .Append(Enum.GetName(Metadata<TEnum>.Type, value));
 
     private const string _nonPubStatMethods = "BindingFlags.NonPublic|BindingFlags.Static";
     private const string _nonPubInstMethods = "BindingFlags.NonPublic|BindingFlags.Instance";
@@ -7157,25 +7158,25 @@ namespace FastExpressionCompiler
 
       // the default handling of the built-in types
       string buildInTypeString = null;
-      if (type == typeof(void))
+      if (type == Metadata.Void)
         buildInTypeString = "void";
-      else if (type == typeof(object))
+      else if (type == Metadata<object>.Type)
         buildInTypeString = "object";
-      else if (type == typeof(bool))
+      else if (type == Metadata<bool>.Type)
         buildInTypeString = "bool";
-      else if (type == typeof(int))
+      else if (type == Metadata<int>.Type)
         buildInTypeString = "int";
-      else if (type == typeof(short))
+      else if (type == Metadata<short>.Type)
         buildInTypeString = "short";
-      else if (type == typeof(byte))
+      else if (type == Metadata<byte>.Type)
         buildInTypeString = "byte";
-      else if (type == typeof(double))
+      else if (type == Metadata<double>.Type)
         buildInTypeString = "double";
-      else if (type == typeof(float))
+      else if (type == Metadata<float>.Type)
         buildInTypeString = "float";
-      else if (type == typeof(char))
+      else if (type == Metadata<char>.Type)
         buildInTypeString = "char";
-      else if (type == typeof(string))
+      else if (type == Metadata<string>.Type)
         buildInTypeString = "string";
 
       if (buildInTypeString != null)
@@ -7438,7 +7439,7 @@ namespace FastExpressionCompiler
         where T : Expression
     {
       if (exprs.Count == 0)
-        return sb.Append(" new ").Append(typeof(T).ToCode(true)).Append("[0]");
+        return sb.Append(" new ").Append(Metadata<T>.Type.ToCode(true)).Append("[0]");
       for (var i = 0; i < exprs.Count; i++)
         (i > 0 ? sb.Append(", ") : sb).NewLineIdentExpr(exprs[i],
             paramsExprs, uniqueExprs, lts, lineIdent, stripNamespace, printType, identSpaces, tryPrintConstant);
