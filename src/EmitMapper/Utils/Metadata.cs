@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 namespace EmitMapper.Utils;
 
 /// <summary>
-///   ������
+///   
 ///   <para>2010/12/21</para>
 ///   <para>THINKPADT61</para>
 ///   <para>tangjingbo</para>
@@ -114,3 +114,7 @@ public class Metadata<T>
     return Type.GetInterfacesCache();
   }
 }
+
+
+public class FuncMetadata<T> : Metadata<Func<T>> { }
+public class FuncMetadata<TA, TR> : Metadata<Func<TA, TR>> { }

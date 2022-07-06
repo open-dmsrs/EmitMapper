@@ -99,7 +99,7 @@ public class CustormTests
 
     var guid = Guid.NewGuid();
 
-    // todo: there is a bug , In the callstack of DBTools and DataReaderToObjectMapper ocur two times Reader.Read(); so..
+    // todo: there is a bug , In the callstack of DBTools and DataReaderToObjectMapper occur two times Reader.Read(); so..
     using var ts = new TransactionScope();
     using var connection = CreateConnection();
 

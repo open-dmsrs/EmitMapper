@@ -211,7 +211,7 @@ namespace FastExpressionCompiler
     /// <summary>Compiles lambda expression to delegate. Use ifFastFailedReturnNull parameter to Not fallback to Expression.Compile, useful for testing.</summary>
     public static Func<R> CompileFast<R>(this Expression<Func<R>> lambdaExpr, bool ifFastFailedReturnNull = false,
         CompilerFlags flags = CompilerFlags.Default) =>
-        (Func<R>)TryCompileBoundToFirstClosureParam(typeof(Func<R>), lambdaExpr.Body,
+        (Func<R>)TryCompileBoundToFirstClosureParam(FuncMetadata<R>.Type, lambdaExpr.Body,
 #if LIGHT_EXPRESSION
                 lambdaExpr,
 #else
@@ -5527,6 +5527,7 @@ namespace FastExpressionCompiler
     */
 
     private static readonly Func<ILGenerator, Type, int> _getNextLocalVarIndex;
+    private static TypeInfo _getILGeneratorHacksTypeInfo = typeof(ILGeneratorHacks).GetTypeInfo();
 
     internal static int PostInc(ref int i) => i++;
 
@@ -5561,7 +5562,7 @@ namespace FastExpressionCompiler
         return;
 
       // our own helper - always available
-      var postIncMethod = typeof(ILGeneratorHacks).GetTypeInfo().GetDeclaredMethod(nameof(PostInc));
+      var postIncMethod = _getILGeneratorHacksTypeInfo.GetDeclaredMethod(nameof(PostInc));
 
       var efficientMethod = new DynamicMethod(string.Empty,
           Metadata<int>.Type, new[] { typeof(ExpressionCompiler.ArrayClosure), Metadata<ILGenerator>.Type, Metadata<Type>.Type },
