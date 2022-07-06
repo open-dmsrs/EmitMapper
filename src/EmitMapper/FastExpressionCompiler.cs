@@ -3179,7 +3179,7 @@ namespace FastExpressionCompiler
         // Load constants array field from Closure and store it into the variable
         il.Emit(OpCodes.Ldarg_0);
         il.Emit(OpCodes.Ldfld, ArrayClosureArrayField);
-        EmitStoreLocalVariable(il, il.GetNextLocalVarIndex(typeof(object[]))); // always does Stloc_0
+        EmitStoreLocalVariable(il, il.GetNextLocalVarIndex(Metadata<object[]>.Type)); // always does Stloc_0
 
         var constItems = closure.Constants.Items; // todo: @perf why do we getting when non constants is stored but just a nested lambda is present?
         var constCount = closure.Constants.Count;
