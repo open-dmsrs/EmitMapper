@@ -50,7 +50,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="$(SlnDir)*.*">
+		<None Include="$(SlnDir)*.*" Exclude="$(SlnDir)**/*.props">
 			<Link> Global Files/Root(.sln)/%(Filename)%(Extension)</Link>
 		</None>
 		<None Include="$(SlnSolutionDir)**/*.*" Condition="Exists('$(SlnSolutionDir)')">
@@ -59,7 +59,7 @@
 		<None Include="$(SlnDir).github/**/*.*">
 			<Link> Global Files/Root(.sln)/.github/%(RecursiveDir)/%(Filename)%(Extension)</Link>
 		</None>
-		<None Exclude="$(SlnDir)**/*.g.props" Include="$(SlnDir)**/*.props" >
+		<None Exclude="$(SlnDir)**/*.g.props" Include="$(SlnDir)**/*.props">
 			<Link> Global Files/%(RecursiveDir)/%(Filename)%(Extension)</Link>
 		</None>
 

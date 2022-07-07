@@ -3,58 +3,59 @@ using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 using EmitMapper.Utils;
 
-namespace EmitMapper.Benchmarks;
-
-/// <summary>
-///   The type benchmark.
-/// </summary>
-[SimpleJob(RuntimeMoniker.Net60, baseline: true)]
-[MemoryDiagnoser]
-public class TypeBenchmark
+namespace EmitMapper.Benchmarks.GetTypes
 {
-  private Employee e;
-
   /// <summary>
-  ///   The iteration count.
+  ///   The type benchmark.
   /// </summary>
-  private const int IterationCount = 1_000;
-
-  /// <summary>
-  /// </summary>
-  [GlobalSetup]
-  public void Setup()
+  [SimpleJob(RuntimeMoniker.Net60)]
+  //[MemoryDiagnoser]
+  public class TypeBenchmark
   {
-    e = new Employee();
-  }
+    private Employee e;
 
-  /// <summary>
-  ///   Of_s the get type.
-  /// </summary>
-  /// <returns>A Type.</returns>
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public Type Of_GetType()
-  {
-    return e.GetType();
-  }
+    /// <summary>
+    ///   The iteration count.
+    /// </summary>
+    private const int IterationCount = 100_000;
 
-  /// <summary>
-  ///   Of_s the metadata.
-  /// </summary>
-  /// <returns>A Type.</returns>
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public Type Of_Metadata()
-  {
-    return Metadata<Employee>.Type;
-  }
+    /// <summary>
+    /// </summary>
+    [GlobalSetup]
+    public void Setup()
+    {
+      e = new Employee();
+    }
 
-  /// <summary>
-  ///   Of_typeoves the <see cref="Type" />.
-  /// </summary>
-  /// <returns>A Type.</returns>
-  [Benchmark(OperationsPerInvoke = IterationCount)]
-  public Type Of_typeof()
-  {
-    return typeof(Employee);
+    /// <summary>
+    ///   Of_s the get type.
+    /// </summary>
+    /// <returns>A Type.</returns>
+    [Benchmark()]
+    public Type Of_GetType()
+    {
+      return e.GetType();
+    }
+
+    /// <summary>
+    ///   Of_s the metadata.
+    /// </summary>
+    /// <returns>A Type.</returns>
+    [Benchmark(Baseline = true)]
+    public Type Of_Metadata()
+    {
+      return Metadata<Employee>.Type;
+    }
+
+    /// <summary>
+    ///   Of_typeoves the <see cref="Type" />.
+    /// </summary>
+    /// <returns>A Type.</returns>
+    [Benchmark()]
+    public Type Of_typeof()
+    {
+      return typeof(Employee);
+    }
   }
 }
 

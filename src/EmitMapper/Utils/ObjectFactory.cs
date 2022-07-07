@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using FastExpressionCompiler;
 
 namespace EmitMapper.Utils;
 
@@ -132,7 +133,7 @@ public static class ObjectFactory
   /// <returns><![CDATA[Func<object>]]></returns>
   private static Func<object> GenerateConstructor(Type type)
   {
-    return Lambda<Func<object>>(GenerateConstructorExpression(type).ToObject()).Compile();
+    return Lambda<Func<object>>(GenerateConstructorExpression(type).ToObject()).CompileFast();
   }
 
   /// <summary>
