@@ -1,23 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using AutoFixture;
 using AutoMapper;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Configs;
 using EmitMapper.Benchmarks.Mappers.TestObject;
 using EmitMapper.MappingConfiguration;
+using EmitMapper.Utils;
 
 namespace EmitMapper.Benchmarks.Mappers
 {
   /// <summary>
   ///   The mapper benchmark.
   /// </summary>
-  // [SimpleJob(RuntimeMoniker.Net60, baseline: true)]
+  [SimpleJob(RuntimeMoniker.Net60, baseline: true)]
   // [RPlotExporter]
   [MemoryDiagnoser]
-  [MediumRunJob]
-  [SkewnessColumn]
-  [KurtosisColumn]
   [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
   public class MapperBenchmark
   {
@@ -69,6 +68,23 @@ namespace EmitMapper.Benchmarks.Mappers
       _simple100List = fixture.CreateMany<SimpleTypesSource>(100).ToList();
       _simple1000List = fixture.CreateMany<SimpleTypesSource>(1000).ToList();
       _benchSources1000List = fixture.CreateMany<BenchNestedSource>(1000).ToList();
+      this.BenchNested1000_a_HardMapper();
+      this.BenchNested1000_b_EmitMapper();
+      this.BenchNested1000_c_AutoMapper();
+      this.Bench_a_HardMapper();
+      this.Bench_b_EmitMapper();
+      this.Bench_c_AutoMapper();
+      this.SimpleTypes1000_a_HardMapper();
+      this.SimpleTypes1000_b_EmitMapper();
+      this.SimpleTypes1000_c_AutoMapper();
+      this.SimpleTypes100_a_HardMapper();
+      this.SimpleTypes100_b_EmitMapper();
+      this.SimpleTypes100_c_AutoMapper();
+      this.SimpleTypes_a_HardMapper();
+      this.SimpleTypes_b_EmitMapper();
+      this.SimpleTypes_c_AutoMapper();
+
+
     }
 
     /// <summary>
@@ -80,12 +96,14 @@ namespace EmitMapper.Benchmarks.Mappers
       var dests = simple.MapEnum(_benchSources1000List); // for list object
     }
 
+
+
     /// <summary>
     ///   Bench_a_s the hard mapper.
     /// </summary>
     /// <returns>A BenchNestedDestination.</returns>
     [BenchmarkCategory("Bench", "1")]
-    [Benchmark()]
+    [Benchmark]
     public BenchNestedDestination Bench_a_HardMapper()
     {
       return HardCodeMapper.HardMap(_benchSource);
@@ -107,7 +125,7 @@ namespace EmitMapper.Benchmarks.Mappers
     /// </summary>
     /// <returns>A BenchNestedDestination.</returns>
     [BenchmarkCategory("Bench", "1")]
-    [Benchmark()]
+    [Benchmark]
     public BenchNestedDestination Bench_c_AutoMapper()
     {
       return _autoMapper.Map<BenchNestedSource, BenchNestedDestination>(_benchSource);
@@ -118,7 +136,7 @@ namespace EmitMapper.Benchmarks.Mappers
     /// </summary>
     /// <returns><![CDATA[List<BenchNestedDestination>]]></returns>
     [BenchmarkCategory("Bench", "1000")]
-    [Benchmark()]
+    [Benchmark]
     public List<BenchNestedDestination> BenchNested1000_a_HardMapper()
     {
       return _benchSources1000List.Select(s => HardCodeMapper.HardMap(s)).ToList();
@@ -140,7 +158,7 @@ namespace EmitMapper.Benchmarks.Mappers
     /// </summary>
     /// <returns><![CDATA[List<BenchNestedDestination>]]></returns>
     [BenchmarkCategory("Bench", "1000")]
-    [Benchmark()]
+    [Benchmark]
     public List<BenchNestedDestination> BenchNested1000_c_AutoMapper()
     {
       return _autoMapper.Map<List<BenchNestedSource>, List<BenchNestedDestination>>(_benchSources1000List);
@@ -151,7 +169,7 @@ namespace EmitMapper.Benchmarks.Mappers
     /// </summary>
     /// <returns>A SimpleTypesDestination.</returns>
     [BenchmarkCategory("SimpleTypes", "1")]
-    [Benchmark()]
+    [Benchmark]
     public SimpleTypesDestination SimpleTypes_a_HardMapper()
     {
       return HardCodeMapper.HardMap(_simpleSource);
@@ -173,7 +191,7 @@ namespace EmitMapper.Benchmarks.Mappers
     /// </summary>
     /// <returns>A SimpleTypesDestination.</returns>
     [BenchmarkCategory("SimpleTypes", "1")]
-    [Benchmark()]
+    [Benchmark]
     public SimpleTypesDestination SimpleTypes_c_AutoMapper()
     {
       return _autoMapper.Map<SimpleTypesSource, SimpleTypesDestination>(_simpleSource);
@@ -184,7 +202,7 @@ namespace EmitMapper.Benchmarks.Mappers
     /// </summary>
     /// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
     [BenchmarkCategory("SimpleTypes", "100")]
-    [Benchmark()]
+    [Benchmark]
     public List<SimpleTypesDestination> SimpleTypes100_a_HardMapper()
     {
       return _simple100List.Select(s => HardCodeMapper.HardMap(s)).ToList();
@@ -206,7 +224,7 @@ namespace EmitMapper.Benchmarks.Mappers
     /// </summary>
     /// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
     [BenchmarkCategory("SimpleTypes", "100")]
-    [Benchmark()]
+    [Benchmark]
     public List<SimpleTypesDestination> SimpleTypes100_c_AutoMapper()
     {
       return _autoMapper.Map<List<SimpleTypesSource>, List<SimpleTypesDestination>>(_simple100List);
@@ -217,7 +235,7 @@ namespace EmitMapper.Benchmarks.Mappers
     /// </summary>
     /// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
     [BenchmarkCategory("SimpleTypes", "1000")]
-    [Benchmark()]
+    [Benchmark]
     public List<SimpleTypesDestination> SimpleTypes1000_a_HardMapper()
     {
       return _simple1000List.Select(s => HardCodeMapper.HardMap(s)).ToList();
@@ -239,7 +257,7 @@ namespace EmitMapper.Benchmarks.Mappers
     /// </summary>
     /// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
     [BenchmarkCategory("SimpleTypes", "1000")]
-    [Benchmark()]
+    [Benchmark]
     public List<SimpleTypesDestination> SimpleTypes1000_c_AutoMapper()
     {
       return _autoMapper.Map<List<SimpleTypesSource>, List<SimpleTypesDestination>>(_simple1000List);
@@ -281,40 +299,33 @@ namespace EmitMapper.Benchmarks.Mappers
    | SimpleTypes1000_b_EmitMapper |     96.0613 ns |     4.2110 ns |     6.1724 ns |   0.9862 |    3.125 |  1.00 |    0.00 | 0.0309 | 0.0101 |     128 B |
    | SimpleTypes1000_c_AutoMapper |     99.7673 ns |     7.0173 ns |    10.5032 ns |   1.7057 |    5.107 |  1.04 |    0.12 | 0.0370 | 0.0083 |     137 B |
    
-   // * Warnings *
-   MultimodalDistribution
-   MapperBenchmark.SimpleTypes_c_AutoMapper: MediumRun -> It seems that the distribution is bimodal (mValue = 3.83)
-   
-   // * Hints *
-   Outliers
-   MapperBenchmark.Bench_a_HardMapper: MediumRun           -> Something went wrong with outliers: Size(WorkloadActual) = 30, Size(WorkloadActual/Outliers) = 1, Size(Result) = 27), OutlierMode = RemoveUpper
-   MapperBenchmark.Bench_b_EmitMapper: MediumRun           -> Something went wrong with outliers: Size(WorkloadActual) = 30, Size(WorkloadActual/Outliers) = 2, Size(Result) = 29), OutlierMode = RemoveUpper
-   MapperBenchmark.Bench_c_AutoMapper: MediumRun           -> 2 outliers were removed (16.25 ns, 18.02 ns)
-   MapperBenchmark.BenchNested1000_a_HardMapper: MediumRun -> Something went wrong with outliers: Size(WorkloadActual) = 30, Size(WorkloadActual/Outliers) = 4, Size(Result) = 28), OutlierMode = RemoveUpper
-   MapperBenchmark.BenchNested1000_b_EmitMapper: MediumRun -> 1 outlier  was  removed (5.00 us)
-   MapperBenchmark.BenchNested1000_c_AutoMapper: MediumRun -> Something went wrong with outliers: Size(WorkloadActual) = 30, Size(WorkloadActual/Outliers) = 1, Size(Result) = 28), OutlierMode = RemoveUpper
-   MapperBenchmark.SimpleTypes_b_EmitMapper: MediumRun     -> Something went wrong with outliers: Size(WorkloadActual) = 30, Size(WorkloadActual/Outliers) = 0, Size(Result) = 29), OutlierMode = RemoveUpper
-   MapperBenchmark.SimpleTypes_c_AutoMapper: MediumRun     -> 1 outlier  was  removed (0.32 ns)
-   MapperBenchmark.SimpleTypes100_a_HardMapper: MediumRun  -> 4 outliers were removed (6.67 ns..8.48 ns)
-   MapperBenchmark.SimpleTypes100_b_EmitMapper: MediumRun  -> Something went wrong with outliers: Size(WorkloadActual) = 30, Size(WorkloadActual/Outliers) = 3, Size(Result) = 28), OutlierMode = RemoveUpper
-   MapperBenchmark.SimpleTypes100_c_AutoMapper: MediumRun  -> 1 outlier  was  removed (9.30 ns)
-   MapperBenchmark.SimpleTypes1000_a_HardMapper: MediumRun -> Something went wrong with outliers: Size(WorkloadActual) = 30, Size(WorkloadActual/Outliers) = 2, Size(Result) = 27), OutlierMode = RemoveUpper
-   MapperBenchmark.SimpleTypes1000_b_EmitMapper: MediumRun -> 1 outlier  was  removed (111.62 ns)
-   MapperBenchmark.SimpleTypes1000_c_AutoMapper: MediumRun -> Something went wrong with outliers: Size(WorkloadActual) = 30, Size(WorkloadActual/Outliers) = 3, Size(Result) = 30), OutlierMode = RemoveUpper
-   
-   // * Legends *
-   Mean      : Arithmetic mean of all measurements
-   Error     : Half of 99.9% confidence interval
-   StdDev    : Standard deviation of all measurements
-   Skewness  : Measure of the asymmetry (third standardized moment)
-   Kurtosis  : Measure of the tailedness ( fourth standardized moment)
-   Ratio     : Mean of the ratio distribution ([Current]/[Baseline])
-   RatioSD   : Standard deviation of the ratio distribution ([Current]/[Baseline])
-   Gen 0     : GC Generation 0 collects per 1000 operations
-   Gen 1     : GC Generation 1 collects per 1000 operations
-   Allocated : Allocated memory per single operation (managed only, inclusive, 1KB = 1024B)
-   1 ns      : 1 Nanosecond (0.000000001 sec)
+BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19044.1806 (21H2)
+Intel Core i7-3740QM CPU 2.70GHz (Ivy Bridge), 1 CPU, 8 logical and 4 physical cores
+.NET SDK=6.0.301
+  [Host]     : .NET 6.0.6 (6.0.622.26707), X64 RyuJIT  [AttachedDebugger]
+  DefaultJob : .NET 6.0.6 (6.0.622.26707), X64 RyuJIT
 
 
+|                       Method |             Mean |          Error |         StdDev | Ratio | RatioSD |    Gen 0 |    Gen 1 |   Allocated |
+|----------------------------- |-----------------:|---------------:|---------------:|------:|--------:|---------:|---------:|------------:|
+|           Bench_a_HardMapper |        818.52 ns |       4.338 ns |       4.057 ns |  1.07 |    0.01 |   0.9613 |        - |     3,016 B |
+|           Bench_b_EmitMapper |        764.31 ns |       3.967 ns |       3.711 ns |  1.00 |    0.00 |   0.9613 |        - |     3,016 B |
+|           Bench_c_AutoMapper |     12,889.21 ns |      51.436 ns |      45.597 ns | 16.87 |    0.09 |   0.9613 |        - |     3,016 B |
+|                              |                  |                |                |       |         |          |          |             |
+| BenchNested1000_a_HardMapper |  3,899,484.54 ns |  11,830.482 ns |  10,487.414 ns |  1.00 |    0.00 | 480.4688 | 238.2813 | 3,024,130 B |
+| BenchNested1000_b_EmitMapper |  3,904,219.01 ns |  11,406.954 ns |   9,525.323 ns |  1.00 |    0.00 | 480.4688 | 238.2813 | 3,024,058 B |
+| BenchNested1000_c_AutoMapper | 18,211,243.08 ns | 158,659.781 ns | 140,647.764 ns |  4.66 |    0.04 | 468.7500 | 218.7500 | 3,032,615 B |
+|                              |                  |                |                |       |         |          |          |             |
+|     SimpleTypes_a_HardMapper |         32.72 ns |       0.306 ns |       0.286 ns |  0.62 |    0.01 |   0.0382 |        - |       120 B |
+|     SimpleTypes_b_EmitMapper |         52.90 ns |       0.223 ns |       0.209 ns |  1.00 |    0.00 |   0.0382 |        - |       120 B |
+|     SimpleTypes_c_AutoMapper |        190.70 ns |       3.787 ns |       3.542 ns |  3.60 |    0.07 |   0.0381 |        - |       120 B |
+|                              |                  |                |                |       |         |          |          |             |
+|  SimpleTypes100_a_HardMapper |      4,533.49 ns |      89.790 ns |     206.307 ns |  0.66 |    0.02 |   4.1199 |        - |    12,928 B |
+|  SimpleTypes100_b_EmitMapper |      7,091.54 ns |     135.759 ns |     139.414 ns |  1.00 |    0.00 |   4.3640 |        - |    13,712 B |
+|  SimpleTypes100_c_AutoMapper |      6,662.15 ns |     129.392 ns |     132.876 ns |  0.94 |    0.03 |   4.5242 |        - |    14,192 B |
+|                              |                  |                |                |       |         |          |          |             |
+| SimpleTypes1000_a_HardMapper |     51,368.89 ns |   1,014.286 ns |     899.138 ns |  0.66 |    0.02 |  31.1890 |  10.1318 |   128,128 B |
+| SimpleTypes1000_b_EmitMapper |     78,323.05 ns |   1,522.685 ns |   1,563.685 ns |  1.00 |    0.00 |  30.7617 |  10.0098 |   128,056 B |
+| SimpleTypes1000_c_AutoMapper |     73,083.38 ns |   1,290.529 ns |   1,144.020 ns |  0.94 |    0.02 |  37.1094 |   6.9580 |   136,600 B |
  * 
  * ******/

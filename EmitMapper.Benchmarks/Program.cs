@@ -1,6 +1,7 @@
 ﻿using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Running;
 using EmitMapper.Benchmarks.GetTypes;
+using EmitMapper.Benchmarks.Mappers;
 
 namespace EmitMapper.Benchmarks
 {
@@ -20,21 +21,21 @@ namespace EmitMapper.Benchmarks
        * 在VS IDE中运行此测试，需要确保使用非调试模式，即 Start Without Debugging
        */
 
-      //BenchmarkRunner.Run<MapperBenchmark>(
+      BenchmarkRunner.Run<MapperBenchmark>(
 
-      //  /****
-      //                                                     ManualConfig.Create(DefaultConfig.Instance)
-      //                                                         .WithOptions(ConfigOptions.DisableOptimizationsValidator)
-      //                    /****/
-      //);
-
-      BenchmarkRunner.Run<TypeBenchmark>(
-
-        /****/
-        ManualConfig.Create(DefaultConfig.Instance)
-        .WithOptions(ConfigOptions.DisableOptimizationsValidator)
-        /****/
+      /****
+                                                         ManualConfig.Create(DefaultConfig.Instance)
+                                                             .WithOptions(ConfigOptions.DisableOptimizationsValidator)
+                        /****/
       );
+
+      //BenchmarkRunner.Run<TypeBenchmark>(
+
+      //  /****/
+      //  ManualConfig.Create(DefaultConfig.Instance)
+      //  .WithOptions(ConfigOptions.DisableOptimizationsValidator)
+      //  /****/
+      //);
     }
   }
 }

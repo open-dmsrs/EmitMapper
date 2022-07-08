@@ -2,10 +2,9 @@
 
 
 	<PropertyGroup>
-		<OutputType>Exe</OutputType>
-		<TargetFramework>net6.0</TargetFramework>
+		<OutputType>Exe</OutputType> 
 
-		<TargetFrameworks>net6.0</TargetFrameworks>
+		<TargetFrameworks>net60</TargetFrameworks>
 
 
 	</PropertyGroup>

@@ -1,5 +1,8 @@
 
- *** v2.1.7
+*** v2.1.8
+ - Optimized the Lambda Compile() to CompileFast()
+
+*** v2.1.7
  - Optimized the props include Directory.Build.props and solution.props
 
 *** v2.1.6
