@@ -156,7 +156,7 @@
 	<Choose>
 		<When Condition="'$(ProjectDescriptionFileName)'!='' and Exists('$(ProjDir)$(ProjectDescriptionFileName)')">
 			<PropertyGroup>
-				<Description>$([System.IO.File]::ReadAllText("$(ProjDir)$(ProjectDescriptionFileName)"))</Description>
+				<DescriptionContent>$([System.IO.File]::ReadAllText("$(ProjDir)$(ProjectDescriptionFileName)"))</DescriptionContent>
 				<DescriptionFilePath>$(ProjDir)$(ProjectDescriptionFileName)</DescriptionFilePath>
 			</PropertyGroup>
 			<ItemGroup>
@@ -165,31 +165,42 @@
 		</When>
 		<When Condition="'$(ProjectDescriptionFileName)'!='' and Exists('$(SlnDir)$(ProjectDescriptionFileName)')">
 			<PropertyGroup>
-				<Description>$([System.IO.File]::ReadAllText('$(SlnDir)$(ProjectDescriptionFileName)'))</Description>
+				<DescriptionContent>$([System.IO.File]::ReadAllText('$(SlnDir)$(ProjectDescriptionFileName)'))</DescriptionContent>
 				<DescriptionFilePath>$(SlnDir)$(ProjectDescriptionFileName)</DescriptionFilePath>
 			</PropertyGroup>
 		</When>
 		<When Condition="'$(ReadmeFilePath)'!='' and Exists('$(ReadmeFilePath)')">
 			<PropertyGroup>
-				<Description>$([System.IO.File]::ReadAllText('$(ReadmeFilePath)'))</Description>
+				<DescriptionContent>$([System.IO.File]::ReadAllText('$(ReadmeFilePath)'))</DescriptionContent>
 				<DescriptionFilePath>$(ReadmeFilePath)</DescriptionFilePath>
 			</PropertyGroup>
 		</When>
 		<When Condition="'$(ChangeLogFilePath)'!='' and Exists('$(ChangeLogFilePath)')">
 			<PropertyGroup>
-				<Description>$([System.IO.File]::ReadAllText('$(ChangeLogFilePath)'))</Description>
+				<DescriptionContent>$([System.IO.File]::ReadAllText('$(ChangeLogFilePath)'))</DescriptionContent>
 				<DescriptionFilePath>$(ChangeLogFilePath)</DescriptionFilePath>
 			</PropertyGroup>
 		</When>
 		<Otherwise>
 			<PropertyGroup>
-				<!--default description for all packages-->
-				<Description>No words necessary</Description>
+				<!--default description for all packages--> 
 				<!--<PackageDescription></PackageDescription>-->
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>
 
+	<Choose>
+		<When Condition="$(DescriptionContent.Length)>4000">
+			<PropertyGroup>
+				<DescriptionContent>$(DescriptionContent.SubString(0,4000))</DescriptionContent>
+			</PropertyGroup>
+		</When>
+	</Choose>
+	<PropertyGroup Condition="'$(DescriptionContent)' !=''">
+		<Description>$(DescriptionContent)</Description>
+		<!--default description for all packages-->
+		<!--<PackageDescription></PackageDescription>-->
+	</PropertyGroup>
 	<!--PackageIcon-->
 	<Choose>
 		<When Condition="Exists('$(ProjDir)icon.png')">
