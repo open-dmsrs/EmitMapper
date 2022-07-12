@@ -1,4 +1,4 @@
-```javascript
+```C#
 非正则
 typeof(void)  -->   Metadata.Void
 
