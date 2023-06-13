@@ -3,38 +3,34 @@
 	please provide your good idea if you change this file content	-->
 
 	<PropertyGroup>
-		<SlnDir>$([MSBuild]::NormalizeDirectory($(MSBuildThisFileDirectory)))</SlnDir>
+		<PropsDir>$([MSBuild]::NormalizeDirectory($(MSBuildThisFileDirectory)))</PropsDir>
 		<ProjDir>$([MSBuild]::NormalizeDirectory($(MSBuildProjectDirectory)))</ProjDir>
-		<SlnSolutionDir>$([MSBuild]::NormalizeDirectory('$(SlnDir)','solution'))</SlnSolutionDir>		 
+		<PropsSolutionDir>$([MSBuild]::NormalizeDirectory('$(PropsDir)','solution'))</PropsSolutionDir>
 	</PropertyGroup>
 
 	<PropertyGroup>
+
+		<TargetFrameworks>net7.0</TargetFrameworks>
 		<!--
 		As the SDK sets these attributes automatically as part of the build, you'll get build time errors. 
 		Simply delete the assembly attributes, and use the MSBuild properties instead.
 		-->
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<Deterministic>true</Deterministic>
-
 		<RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
 		<NeutralLanguage>zh-CHS</NeutralLanguage>
-
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-
+		<LangVersion>10</LangVersion>
 		<NoWarn>1701;1702;1591;8002</NoWarn>
 		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 		<AutoGenerateBindingRedirects>False</AutoGenerateBindingRedirects>
 		<Nullable>disable</Nullable>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-
 		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
 		<DefineConstants>$(DefineConstants);$(MSBuildProjectName.Replace(" ", "_").Replace(".", "_"));FEATURE_UNLOAD;FEATURE_NATIVE_RESOLVER</DefineConstants>
 		<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-
 		<Optimize Condition="'$(Configuration)'=='Release'">true</Optimize>
-	
-
 		<DebugType>portable</DebugType>
 	</PropertyGroup>
 
@@ -42,28 +38,38 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 
-	<Import Project="variables.props" />
-
+	<!-- *** - Warning - ***
+  All changes in this file will impact all project files of current solution(sln). 
+  Properties in this file can be changed in general if you using it.    
+  please provide your good idea if you are willing  -->
+	<Import Project="./Directory.Dmsrs.Version.props"/>
 	<PropertyGroup>
+		<CertificateFileName>EmitMapper.snk</CertificateFileName>
+		<ChangeLogFileName>changelog.md</ChangeLogFileName>
+		<ProjectDescriptionFileName>description.md</ProjectDescriptionFileName>
+		 
+	</PropertyGroup>
+	<PropertyGroup>
+		
 		<PackageVersion>$(Version)</PackageVersion>
-		<Title>$(AssemblyName)</Title>
+		<Title>$(AssemblyName)</Title>		
+		<Authors>Jimbo</Authors>
+		<Company>DMSRS</Company>
+		<Copyright>Copyright (c) 2006-2022 DMSRS. All rights reserved.</Copyright>
+		<PackageId>DMSRS.$(AssemblyName)</PackageId>
+		<PackageTags>EmitMapper;Mapper;POCO;Object Mapping</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/niubilitynetcore/EmitMapper</PackageProjectUrl>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/niubilitynetcore/EmitMapper</RepositoryUrl>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+
+		<!--<PackageOutputPath>$(PropsDir)nupkgs</PackageOutputPath>-->
 	</PropertyGroup>
 
-	<ItemGroup>
-		<None Exclude="$(SlnDir)**/*.g.props" Include="$(SlnDir)**/*.props">
-			<Link> Solution Items/%(RecursiveDir)/%(Filename)%(Extension)</Link>
-		</None>
-		<None Exclude="$(SlnDir)**/*.props" Include="$(SlnDir)*.*">
-			<Link> Solution Items/Root(.sln)/%(Filename)%(Extension)</Link>
-		</None>
-		<None Include="$(SlnDir).github/**/*.*">
-			<Link> Solution Items/Root(.sln)/.github/%(RecursiveDir)/%(Filename)%(Extension)</Link>
-		</None>
-		<None Include="$(SlnSolutionDir)**/*.*" Condition="Exists('$(SlnSolutionDir)')">
-			<Link> Solution Items/Root(.sln)/Solution/%(RecursiveDir)/%(Filename)%(Extension)</Link>
-		</None>
-	</ItemGroup>
-
+	<PropertyGroup Condition="'$(IsTestProject)' != 'true'">
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup> 
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
@@ -80,7 +86,21 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
-
+	
+	<ItemGroup>
+		<None Exclude="$(PropsDir)**/*.g.props" Include="$(PropsDir)**/*.props">
+			<Link> Solution Items/%(RecursiveDir)/%(Filename)%(Extension)</Link>
+		</None>
+		<None Exclude="$(PropsDir)**/*.props" Include="$(PropsDir)*.*">
+			<Link> Solution Items/Root(.props)/%(Filename)%(Extension)</Link>
+		</None>
+		<None Include="$(PropsDir).github/**/*.*">
+			<Link> Solution Items/Root(.props)/.github/%(RecursiveDir)/%(Filename)%(Extension)</Link>
+		</None>
+		<None Include="$(PropsSolutionDir)**/*.*" Condition="Exists('$(PropsSolutionDir)')">
+			<Link> Solution Items/Root(.props)/Solution/%(RecursiveDir)/%(Filename)%(Extension)</Link>
+		</None>
+	</ItemGroup>
 	<ItemGroup Condition="'$(GITHUB_ACTIONS)' == 'true' and '$(IsTestProject)' != 'true'">
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
 			<PrivateAssets>all</PrivateAssets>
@@ -99,22 +119,22 @@
 				<None Include='$(ProjDir)readme.md' Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SlnSolutionDir)readme.md')">
+		<When Condition="Exists('$(PropsSolutionDir)readme.md')">
 			<PropertyGroup>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
-				<ReadmeFilePath>$(SlnSolutionDir)readme.md</ReadmeFilePath>
+				<ReadmeFilePath>$(PropsSolutionDir)readme.md</ReadmeFilePath>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include='$(SlnSolutionDir)readme.md' Pack='True' PackagePath='/' Visible='True' />
+				<None Include='$(PropsSolutionDir)readme.md' Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SlnDir)readme.md')">
+		<When Condition="Exists('$(PropsDir)readme.md')">
 			<PropertyGroup>
-				<ReadmeFilePath>$(SlnDir)readme.md</ReadmeFilePath>
+				<ReadmeFilePath>$(PropsDir)readme.md</ReadmeFilePath>
 				<PackageReadmeFile>readme.md</PackageReadmeFile>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SlnDir)readme.md" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(PropsDir)readme.md" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
 	</Choose>
@@ -130,22 +150,22 @@
 				<None Include="$(ProjDir)$(ChangeLogFileName)" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
-		<When Condition="'$(ChangeLogFileName)'!='' and Exists('$(SlnSolutionDir)$(ChangeLogFileName)')">
+		<When Condition="'$(ChangeLogFileName)'!='' and Exists('$(PropsSolutionDir)$(ChangeLogFileName)')">
 			<PropertyGroup>
-				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SlnSolutionDir)$(ChangeLogFileName)"))</PackageReleaseNotes>
-				<ChangeLogFilePath>$(SlnSolutionDir)$(ChangeLogFileName)</ChangeLogFilePath>
+				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(PropsSolutionDir)$(ChangeLogFileName)"))</PackageReleaseNotes>
+				<ChangeLogFilePath>$(PropsSolutionDir)$(ChangeLogFileName)</ChangeLogFilePath>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SlnSolutionDir)$(ChangeLogFileName)" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(PropsSolutionDir)$(ChangeLogFileName)" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
-		<When Condition="'$(ChangeLogFileName)'!='' and Exists('$(SlnDir)$(ChangeLogFileName)')">
+		<When Condition="'$(ChangeLogFileName)'!='' and Exists('$(PropsDir)$(ChangeLogFileName)')">
 			<PropertyGroup>
-				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SlnDir)$(ChangeLogFileName)"))</PackageReleaseNotes>
-				<ChangeLogFilePath>$(SlnDir)$(ChangeLogFileName)</ChangeLogFilePath>
+				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(PropsDir)$(ChangeLogFileName)"))</PackageReleaseNotes>
+				<ChangeLogFilePath>$(PropsDir)$(ChangeLogFileName)</ChangeLogFilePath>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SlnDir)$(ChangeLogFileName)" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(PropsDir)$(ChangeLogFileName)" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
 	</Choose>
@@ -162,10 +182,10 @@
 				<None Include="$(ProjDir)$(ProjectDescriptionFileName)" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
-		<When Condition="'$(ProjectDescriptionFileName)'!='' and Exists('$(SlnDir)$(ProjectDescriptionFileName)')">
+		<When Condition="'$(ProjectDescriptionFileName)'!='' and Exists('$(PropsDir)$(ProjectDescriptionFileName)')">
 			<PropertyGroup>
-				<DescriptionContent>$([System.IO.File]::ReadAllText('$(SlnDir)$(ProjectDescriptionFileName)'))</DescriptionContent>
-				<DescriptionFilePath>$(SlnDir)$(ProjectDescriptionFileName)</DescriptionFilePath>
+				<DescriptionContent>$([System.IO.File]::ReadAllText('$(PropsDir)$(ProjectDescriptionFileName)'))</DescriptionContent>
+				<DescriptionFilePath>$(PropsDir)$(ProjectDescriptionFileName)</DescriptionFilePath>
 			</PropertyGroup>
 		</When>
 		<When Condition="'$(ReadmeFilePath)'!='' and Exists('$(ReadmeFilePath)')">
@@ -212,23 +232,23 @@
 
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SlnSolutionDir)icon.png')">
+		<When Condition="Exists('$(PropsSolutionDir)icon.png')">
 			<PropertyGroup>
 				<PackageIcon>icon.png</PackageIcon>
-				<PackageIconPath>$(SlnSolutionDir)icon.png</PackageIconPath>
+				<PackageIconPath>$(PropsSolutionDir)icon.png</PackageIconPath>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SlnSolutionDir)icon.png" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(PropsSolutionDir)icon.png" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SlnDir)icon.png')">
+		<When Condition="Exists('$(PropsDir)icon.png')">
 			<PropertyGroup>
 				<PackageIcon>icon.png</PackageIcon>
-				<PackageIconPath>$(SlnDir)icon.png</PackageIconPath>
+				<PackageIconPath>$(PropsDir)icon.png</PackageIconPath>
 				<icon>icon.png</icon>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SlnDir)icon.png" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(PropsDir)icon.png" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
 	</Choose>
@@ -243,26 +263,31 @@
 				<None Include="$(ProjDir)app.ico" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SlnSolutionDir)app.ico')">
+		<When Condition="Exists('$(PropsSolutionDir)app.ico')">
 			<PropertyGroup>
-				<ApplicationIcon>$(SlnSolutionDir)app.ico</ApplicationIcon>
+				<ApplicationIcon>$(PropsSolutionDir)app.ico</ApplicationIcon>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SlnSolutionDir)app.ico" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(PropsSolutionDir)app.ico" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
-		<When Condition="Exists('$(SlnDir)app.ico')">
+		<When Condition="Exists('$(PropsDir)app.ico')">
 			<PropertyGroup>
-				<ApplicationIcon>$(SlnDir)app.ico</ApplicationIcon>
+				<ApplicationIcon>$(PropsDir)app.ico</ApplicationIcon>
 			</PropertyGroup>
 			<ItemGroup>
-				<None Include="$(SlnDir)app.ico" Pack='True' PackagePath='/' Visible='True' />
+				<None Include="$(PropsDir)app.ico" Pack='True' PackagePath='/' Visible='True' />
 			</ItemGroup>
 		</When>
 	</Choose>
 
 	<!-- AssemblyOriginatorKeyFile and PackageCertificateKeyFile -->
 	<Choose>
+		<When Condition="'$(IsTestProject)'=='True'">
+			<PropertyGroup>
+				<SignAssembly>false</SignAssembly>
+			</PropertyGroup>
+		</When>
 		<When Condition="'$(CertificateFileName)'!='' and Exists('$(ProjDir)$(CertificateFileName)')">
 			<PropertyGroup>
 				<SignAssembly>true</SignAssembly>
@@ -270,18 +295,18 @@
 				<PackageCertificateKeyFile>$(ProjDir)$(CertificateFileName)</PackageCertificateKeyFile>
 			</PropertyGroup>
 		</When>
-		<When Condition="'$(CertificateFileName)'!='' and Exists('$(SlnSolutionDir)$(CertificateFileName)')">
+		<When Condition="'$(CertificateFileName)'!='' and Exists('$(PropsSolutionDir)$(CertificateFileName)')">
 			<PropertyGroup>
 				<SignAssembly>true</SignAssembly>
-				<AssemblyOriginatorKeyFile>$(SlnSolutionDir)$(CertificateFileName)</AssemblyOriginatorKeyFile>
-				<PackageCertificateKeyFile>$(SlnSolutionDir)$(CertificateFileName)</PackageCertificateKeyFile>
+				<AssemblyOriginatorKeyFile>$(PropsSolutionDir)$(CertificateFileName)</AssemblyOriginatorKeyFile>
+				<PackageCertificateKeyFile>$(PropsSolutionDir)$(CertificateFileName)</PackageCertificateKeyFile>
 			</PropertyGroup>
 		</When>
-		<When Condition="'$(CertificateFileName)'!='' and Exists('$(SlnDir)$(CertificateFileName)')">
+		<When Condition="'$(CertificateFileName)'!='' and Exists('$(PropsDir)$(CertificateFileName)')">
 			<PropertyGroup>
 				<SignAssembly>true</SignAssembly>
-				<AssemblyOriginatorKeyFile>$(SlnDir)$(CertificateFileName)</AssemblyOriginatorKeyFile>
-				<PackageCertificateKeyFile>$(SlnDir)$(CertificateFileName)</PackageCertificateKeyFile>
+				<AssemblyOriginatorKeyFile>$(PropsDir)$(CertificateFileName)</AssemblyOriginatorKeyFile>
+				<PackageCertificateKeyFile>$(PropsDir)$(CertificateFileName)</PackageCertificateKeyFile>
 			</PropertyGroup>
 		</When>
 	</Choose>

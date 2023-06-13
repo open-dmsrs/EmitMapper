@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using AutoFixture;
 using AutoMapper;
 using BenchmarkDotNet.Attributes;
@@ -8,14 +7,13 @@ using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Jobs;
 using EmitMapper.Benchmarks.Mappers.TestObject;
 using EmitMapper.MappingConfiguration;
-using EmitMapper.Utils;
 
 namespace EmitMapper.Benchmarks.Mappers
 {
   /// <summary>
   ///   The mapper benchmark.
   /// </summary>
-  [SimpleJob(RuntimeMoniker.Net60, baseline: true)]
+  [SimpleJob(RuntimeMoniker.Net70, baseline: true)]
   // [RPlotExporter]
   [MemoryDiagnoser]
   [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]

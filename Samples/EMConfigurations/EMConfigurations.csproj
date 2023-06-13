@@ -1,10 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	
-	
-	<PropertyGroup>
-		<TargetFrameworks>net6.0;netstandard2.1;net48</TargetFrameworks>
- 	</PropertyGroup>
-
+	 
 	<ItemGroup>
 	  <Compile Remove="CaseIgnoreMapping.cs" />
 	</ItemGroup>

@@ -3,18 +3,16 @@
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType> 
-
-		<TargetFrameworks>net60</TargetFrameworks>
-
+ 
 
 	</PropertyGroup>
 
 
 	<ItemGroup>
-		<PackageReference Include="AutoFixture" Version="4.17.0" />
-		<PackageReference Include="AutoMapper" Version="11.0.1" />
-		<PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
-		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3">
+		<PackageReference Include="AutoFixture" Version="4.18.0" />
+		<PackageReference Include="AutoMapper" Version="12.0.1" />
+		<PackageReference Include="BenchmarkDotNet" Version="0.13.5" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
