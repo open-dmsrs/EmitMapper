@@ -9,8 +9,11 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
+		<TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+		<WinformTargetFrameworks>net7.0-windows;net6.0-windows</WinformTargetFrameworks>
+	</PropertyGroup>
 
-		<TargetFrameworks>net7.0</TargetFrameworks>
+	<PropertyGroup>
 		<!--
 		As the SDK sets these attributes automatically as part of the build, you'll get build time errors. 
 		Simply delete the assembly attributes, and use the MSBuild properties instead.
@@ -34,8 +37,9 @@
 		<DebugType>portable</DebugType>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)'=='net6.0|net7.0|net8.0'">
-		<ImplicitUsings>enable</ImplicitUsings>
+	<PropertyGroup>
+		<ImplicitUsings  Condition="'$(TargetFramework)'=='net6.0|net7.0|net8.0'">enable</ImplicitUsings>
+		<GeneratePackageOnBuild Condition="'$(IsTestProject)' != 'true'">true</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<!-- *** - Warning - ***
@@ -44,16 +48,7 @@
   please provide your good idea if you are willing 
     -->
 	<Import Project="./Directory.Dmsrs.Version.props"/>
-	<PropertyGroup>
-		<CertificateFileName>EmitMapper.snk</CertificateFileName>
-		<ChangeLogFileName>changelog.md</ChangeLogFileName>
-		<ProjectDescriptionFileName>description.md</ProjectDescriptionFileName>
 
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(IsTestProject)' != 'true'">
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	</PropertyGroup>
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
@@ -75,7 +70,10 @@
 		<None Exclude="$(PropsDir)**/*.g.props" Include="$(PropsDir)**/*.props">
 			<Link> Solution Items/%(RecursiveDir)/%(Filename)%(Extension)</Link>
 		</None>
-		<None Exclude="$(PropsDir)**/*.props" Include="$(PropsDir)*.*">
+		<None Exclude="$(PropsDir)**/*.g.targets" Include="$(PropsDir)**/*.targets">
+			<Link> Solution Items/%(RecursiveDir)/%(Filename)%(Extension)</Link>
+		</None>
+		<None Exclude="$(PropsDir)**/*.props;$(PropsDir)**/*.targets" Include="$(PropsDir)*.*">
 			<Link> Solution Items/Root(.props)/%(Filename)%(Extension)</Link>
 		</None>
 		<None Include="$(PropsDir).github/**/*.*">
@@ -84,9 +82,7 @@
 		<None Include="$(PropsSolutionDir)**/*.*" Condition="Exists('$(PropsSolutionDir)')">
 			<Link> Solution Items/Root(.props)/Solution/%(RecursiveDir)/%(Filename)%(Extension)</Link>
 		</None>
-	</ItemGroup>
-	<ItemGroup Condition="'$(GITHUB_ACTIONS)' == 'true' and '$(IsTestProject)' != 'true'">
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1"  Condition="'$(GITHUB_ACTIONS)' == 'true' and '$(IsTestProject)' != 'true'">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
