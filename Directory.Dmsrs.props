@@ -41,35 +41,19 @@
 	<!-- *** - Warning - ***
   All changes in this file will impact all project files of current solution(sln). 
   Properties in this file can be changed in general if you using it.    
-  please provide your good idea if you are willing  -->
+  please provide your good idea if you are willing 
+    -->
 	<Import Project="./Directory.Dmsrs.Version.props"/>
 	<PropertyGroup>
 		<CertificateFileName>EmitMapper.snk</CertificateFileName>
 		<ChangeLogFileName>changelog.md</ChangeLogFileName>
 		<ProjectDescriptionFileName>description.md</ProjectDescriptionFileName>
-		 
-	</PropertyGroup>
-	<PropertyGroup>
-		
-		<PackageVersion>$(Version)</PackageVersion>
-		<Title>$(AssemblyName)</Title>		
-		<Authors>Jimbo</Authors>
-		<Company>DMSRS</Company>
-		<Copyright>Copyright (c) 2006-2022 DMSRS. All rights reserved.</Copyright>
-		<PackageId>DMSRS.$(AssemblyName)</PackageId>
-		<PackageTags>EmitMapper;Mapper;POCO;Object Mapping</PackageTags>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageProjectUrl>https://github.com/niubilitynetcore/EmitMapper</PackageProjectUrl>
-		<RepositoryType>git</RepositoryType>
-		<RepositoryUrl>https://github.com/niubilitynetcore/EmitMapper</RepositoryUrl>
-		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 
-		<!--<PackageOutputPath>$(PropsDir)nupkgs</PackageOutputPath>-->
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(IsTestProject)' != 'true'">
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	</PropertyGroup> 
+	</PropertyGroup>
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
@@ -86,7 +70,7 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
-	
+
 	<ItemGroup>
 		<None Exclude="$(PropsDir)**/*.g.props" Include="$(PropsDir)**/*.props">
 			<Link> Solution Items/%(RecursiveDir)/%(Filename)%(Extension)</Link>

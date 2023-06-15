@@ -46,4 +46,23 @@
 		<Message Text="       " Importance="high" />
 		<Message Text="       " Importance="high" />
 	</Target>
+
+
+	<PropertyGroup>
+
+		<PackageVersion>$(Version)</PackageVersion>
+		<Title>$(AssemblyName)</Title>
+		<Authors>Jimbo</Authors>
+		<Company>DMSRS</Company>
+		<Copyright>Copyright (c) 2006-2022 DMSRS. All rights reserved.</Copyright>
+		<PackageId>DMSRS.$(AssemblyName)</PackageId>
+		<PackageTags>EmitMapper;Mapper;POCO;Object Mapping</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/niubilitynetcore/EmitMapper</PackageProjectUrl>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/niubilitynetcore/EmitMapper</RepositoryUrl>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+
+		<!--<PackageOutputPath>$(PropsDir)nupkgs</PackageOutputPath>-->
+	</PropertyGroup>
 </Project>
