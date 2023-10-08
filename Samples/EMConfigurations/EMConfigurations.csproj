@@ -1,6 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	
-	 
+
+	<PropertyGroup>
+		<TargetFrameworks>$(TFMS_LIB)</TargetFrameworks>
+
+	</PropertyGroup>
 	<ItemGroup>
 	  <Compile Remove="CaseIgnoreMapping.cs" />
 	</ItemGroup>

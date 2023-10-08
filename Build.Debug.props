@@ -1,0 +1,67 @@
+<Project>
+
+	<Import  Project="$([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..))"
+			 Condition ="Exists($([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..)))" />
+
+
+	<Target Name="MyFFMCheck" BeforeTargets="Build"  Condition="true">
+		<Message Text="=======$(MSBuildProjectName) - $(Configuration) -$(TargetFrameworkIdentifier)-$(TargetFramework)-$(TargetFrameworkVersion) - $(MSBuildThisFileDirectory) =======" Importance="high" />
+
+		<Message Text="       UsingMicrosoftNETSdk :  $(UsingMicrosoftNETSdk)" Importance="high" />
+		<Message Text="	                IsPackable :  $(IsPackable)" Importance="high" />
+		<Message Text="      IsCrossTargetingBuild :  $(IsCrossTargetingBuild)" Importance="high" />
+		<Message Text="              IsTestProject :  $(IsTestProject)" Importance="high" />
+	</Target>
+
+	<Target Name="MyNotRUN"  BeforeTargets="Build"    Condition="false">
+		<Message Text="            TargetFramework :  $(TargetFramework)" Importance="high" />
+		<Message Text="  TargetFrameworkIdentifier :  $(TargetFrameworkIdentifier)" Importance="high" />
+		<Message Text="	    TargetFrameworkVersion :  $(TargetFrameworkVersion)" Importance="high" />
+
+	</Target>
+
+	<Target Name="MyPath"  BeforeTargets="Build"    Condition="false">
+
+		<Message Text="              ReadmeInTree:  $(ReadmeInTree)" Importance="high" />
+		<Message Text="             IconPngInTree:  $(IconPngInTree)" Importance="high" />
+		<Message Text="              AppIcoInTree:  $(AppIcoInTree)" Importance="high" />
+		<Message Text="           ChangeLogInTree:  $(ChangeLogInTree)" Importance="high" />
+		<Message Text="     CertificateFileInTree:  $(CertificateFileInTree)" Importance="high" />
+
+		<Message Text="        ChangeLogFinalPath:  $(ChangeLogFinalPath)" Importance="high" />
+		<Message Text="      DescriptionFinalPath:  $(DescriptionFinalPath)" Importance="high" />
+		<Message Text="      PackageIconFinalPath:  $(PackageIconFinalPath)" Importance="high" />
+		<Message Text="           ApplicationIcon:  $(ApplicationIcon)" Importance="high" />
+
+		<Message Text=" AssemblyOriginatorKeyFile:  $(AssemblyOriginatorKeyFile)" Importance="high" />
+		<Message Text=" PackageCertificateKeyFile:  $(PackageCertificateKeyFile)" Importance="high" />
+		<!--<Message Text="   IntermediateOutputPath:  $(IntermediateOutputPath)" Importance="high" />-->
+
+		<!--<Message Text="$(ProjDir)" Importance="high" />
+	<Message Text="$(AssertDir)" Importance="high" />
+	<Message Text="$(PropsDir)" Importance="high" />
+	<Message Text="$(Description)" Importance="high" />-->
+	</Target>
+
+	<Target Name="MyNameValues"  BeforeTargets="Build"    Condition="false">
+
+
+		<!-- Use $(Property Name) to reference a property -->
+		<Message Text="$(ProjDir)" Importance="high" />
+		<Message Text="$(AssertDir)" Importance="high" />
+		<Message Text="$(PropsDir)" Importance="high" />
+		<Message Text="$(Description)" Importance="high" />
+
+		<!-- Use @(Item Name) to output a semi-colon
+		 separated list of items on one line      -->
+		<Message Text="@(SolutionReadme)" Importance="high" />
+
+		<!-- Use %(Item Name.Metadata Property Name) to
+		 call the Message task once for each item.   -->
+		<!-- This will output each item on a separate line -->
+		<Message Text="%(None.Identity)" Importance="high" />
+
+
+	</Target>
+
+</Project>

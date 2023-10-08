@@ -1,4 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk"> 
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>$(TFMS_TEST)</TargetFrameworks>
+
+	</PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="AutoFixture.Xunit2" Version="4.18.0" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />

@@ -35,13 +35,12 @@ namespace EmitMapper.Benchmarks.Mappers
 
     private SimpleTypesSource _simpleSource;
 
-    /// <summary>
-    ///   The iteration count.
-    /// </summary>
-    //private const int IterationCount = 1_000;
+    ///// <summary>
+    /////   The iteration count.
+    ///// </summary>
+    ////private const int IterationCount = 1_000;
 
-    /// <summary>
-    /// </summary>
+ 
     [GlobalSetup]
     public void Setup()
     {

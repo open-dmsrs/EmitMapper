@@ -1,14 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	
-	 
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DefineConstants>TRACE;DEBUG;NETCOREAPP1_1; UnitTest ; NETCOREAPP1_1;NETCOREAPP1_1</DefineConstants>
-		<LangVersion>10</LangVersion>
-	</PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>$(TFMS_TEST)</TargetFrameworks>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<LangVersion>10</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

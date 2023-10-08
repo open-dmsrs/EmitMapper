@@ -2,8 +2,8 @@
 
 
 	<PropertyGroup>
-		<OutputType>Exe</OutputType> 
- 
+		<OutputType>Exe</OutputType>
+		<TargetFrameworks>$(TFMS_NORMAL)</TargetFrameworks>
 
 	</PropertyGroup>
 
