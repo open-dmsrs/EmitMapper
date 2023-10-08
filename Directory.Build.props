@@ -16,7 +16,7 @@
 	</PropertyGroup>
 	
 	<PropertyGroup Label="TFM">
-		<TFMS_LIB>net461;net6.0;net7.0;netstandard2.1</TFMS_LIB>
+		<TFMS_LIB>net6.0;net7.0;netstandard2.1</TFMS_LIB>
 		<TFMS_NORMAL>net6.0;net7.0</TFMS_NORMAL>
 		<TFMS_TEST>net6.0;net7.0</TFMS_TEST>
 		<TFMS_SINGLE>net7.0</TFMS_SINGLE>
