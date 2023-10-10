@@ -64,6 +64,9 @@ csharp_style_expression_bodied_indexers = true:silent
 csharp_style_expression_bodied_accessors = true:silent
 csharp_style_expression_bodied_lambdas = true:silent
 csharp_style_expression_bodied_local_functions = false:silent
+csharp_style_prefer_top_level_statements = true:silent
+csharp_style_prefer_primary_constructors = true:suggestion
+dotnet_diagnostic.IDE0063.severity = suggestion
 
 [*.{cs,vb}]
 #### Naming styles ####
