@@ -98,15 +98,11 @@ public static class Metadata
 /// <typeparam name="T"></typeparam>
 public class Metadata<T>
 {
-  /// <summary>
-  /// Initializes a new instance of the <see cref="Metadata"/> class.
-  /// </summary>
-  static Metadata()
+  protected Metadata()
   {
-    Type = typeof(T);
   }
 
-  public static readonly Type Type;
+  public static readonly Type Type = typeof(T);
 
   /// <summary>
   ///   Gets the type name.
