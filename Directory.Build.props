@@ -14,7 +14,7 @@
 		<ProjDir>$([MSBuild]::NormalizeDirectory($(MSBuildProjectDirectory)))</ProjDir>
 		<AssertDir>$([MSBuild]::NormalizeDirectory("$(PropsDir)","solution"))</AssertDir>
 	</PropertyGroup>
-	
+
 	<PropertyGroup Label="TFM">
 		<TFMS_LIB>net6.0;net7.0;netstandard2.1</TFMS_LIB>
 		<TFMS_NORMAL>net6.0;net7.0</TFMS_NORMAL>
@@ -60,18 +60,17 @@
 		<BuildOutput>$(PropsDir).build</BuildOutput>
 		<BaseIntermediateOutputPath>$([MSBuild]::NormalizeDirectory($(BuildOutput),"obj",$(MSBuildProjectName)))</BaseIntermediateOutputPath>
 		<BaseOutputPath>$([MSBuild]::NormalizeDirectory($(BuildOutput),"bin",$(MSBuildProjectName)))</BaseOutputPath>
-		<!--<AppendTargetFrameworkToOutputPath>output</AppendTargetFrameworkToOutputPath>-->
+
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 
 	<PropertyGroup Label="AssemblyAndPackage">
-		
+
 		<CertificateFileName>$(MSBuildProjectName).snk</CertificateFileName>
 		<ChangeLogFileName>changelog.md</ChangeLogFileName>
 		<ProjectDescriptionFileName>description.md</ProjectDescriptionFileName>
 
-
-		<AssemblyName>$(MSBuildProjectName)</AssemblyName>	 
+		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
 		<!--<Title>$(AssemblyName)</Title>-->
 		<Authors>Jimbo</Authors>
 		<Company>DMSRS</Company>
@@ -92,7 +91,7 @@
 		<GenerateDependencyFile>true</GenerateDependencyFile>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 
-		<GeneratePackageOnBuild Condition="'$(IsTestProject)' != 'true'">true</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild Condition="'$(IsTestProject)' != 'true'">false</GeneratePackageOnBuild>
 
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 		<GenerateFullPaths Condition="'$(TERM_PROGRAM)' == 'vscode'">true</GenerateFullPaths>

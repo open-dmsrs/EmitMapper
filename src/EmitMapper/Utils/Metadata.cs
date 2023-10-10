@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 namespace EmitMapper.Utils;
 
 /// <summary>
-///   
+///
 ///   <para>2010/12/21</para>
 ///   <para>THINKPADT61</para>
 ///   <para>tangjingbo</para>
@@ -105,6 +105,7 @@ public class Metadata<T>
   {
     Type = typeof(T);
   }
+
   public static readonly Type Type;
 
   /// <summary>
@@ -122,6 +123,44 @@ public class Metadata<T>
   }
 }
 
+public class ActionMetadata<T> : Metadata<Action<T>>
+{ }
 
-public class FuncMetadata<T> : Metadata<Func<T>> { }
-public class FuncMetadata<TA, TR> : Metadata<Func<TA, TR>> { }
+public class ActionMetadata<T1, T2> : Metadata<Action<T1, T2>>
+{ }
+
+public class ActionMetadata<T1, T2, T3> : Metadata<Action<T1, T2, T3>>
+{ }
+
+public class ActionMetadata<T1, T2, T3, T4> : Metadata<Action<T1, T2, T3, T4>>
+{ }
+
+public class ActionMetadata<T1, T2, T3, T4, T5> : Metadata<Action<T1, T2, T3, T4, T5>>
+{ }
+
+public class ActionMetadata<T1, T2, T3, T4, T5, T6> : Metadata<Action<T1, T2, T3, T4, T5, T6>>
+{ }
+
+public class ActionMetadata<T1, T2, T3, T4, T5, T6, T7> : Metadata<Action<T1, T2, T3, T4, T5, T6, T7>>
+{ }
+
+public class FuncMetadata<T> : Metadata<Func<T>>
+{ }
+
+public class FuncMetadata<T1, TR> : Metadata<Func<T1, TR>>
+{ }
+
+public class FuncMetadata<T1, T2, TR> : Metadata<Func<T1, T2, TR>>
+{ }
+
+public class FuncMetadata<T1, T2, T3, TR> : Metadata<Func<T1, T2, T3, TR>>
+{ }
+
+public class FuncMetadata<T1, T2, T3, T4, TR> : Metadata<Func<T1, T2, T3, T4, TR>>
+{ }
+
+public class FuncMetadata<T1, T2, T3, T4, T5, TR> : Metadata<Func<T1, T2, T3, T4, T5, TR>>
+{ }
+
+public class FuncMetadata<T1, T2, T3, T4, T5, T6, TR> : Metadata<Func<T1, T2, T3, T4, T5, T6, TR>>
+{ }
