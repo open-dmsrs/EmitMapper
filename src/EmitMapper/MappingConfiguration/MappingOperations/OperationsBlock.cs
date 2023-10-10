@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
-
-namespace EmitMapper.MappingConfiguration.MappingOperations;
+﻿namespace EmitMapper.MappingConfiguration.MappingOperations;
 
 /// <summary>
 ///   The operations block.

@@ -1,4 +1,3 @@
-using System;
 using System.Linq.Expressions;
 
 namespace EmitMapper.Utils;
@@ -6,12 +5,12 @@ namespace EmitMapper.Utils;
 using static Expression;
 
 /// <summary>
-///   The expression helper.
+/// The expression helper.
 /// </summary>
 public static class ExpressionHelper
 {
   /// <summary>
-  ///   Chains the Expression.
+  /// Chains the Expression.
   /// </summary>
   /// <typeparam name="TFrom"></typeparam>
   /// <typeparam name="TMiddle"></typeparam>
@@ -29,7 +28,7 @@ public static class ExpressionHelper
   }
 
   /// <summary>
-  ///   Tos the object.
+  /// Tos the object.
   /// </summary>
   /// <param name="expression">The expression.</param>
   /// <returns>An Expression.</returns>
@@ -39,7 +38,7 @@ public static class ExpressionHelper
   }
 
   /// <summary>
-  ///   Tos the type.
+  /// Tos the type.
   /// </summary>
   /// <param name="expression">The expression.</param>
   /// <param name="type">The type.</param>
@@ -49,9 +48,9 @@ public static class ExpressionHelper
     return expression.Type == type ? expression : Convert(expression, type);
   }
 
-  // this method thanks to Marc Gravell   
+  // this method thanks to Marc Gravell
   /// <summary>
-  ///   The swap visitor.
+  /// The swap visitor.
   /// </summary>
   private class SwapVisitor : ExpressionVisitor
   {
@@ -60,7 +59,7 @@ public static class ExpressionHelper
     private readonly Expression _to;
 
     /// <summary>
-    ///   Initializes a new instance of the <see cref="SwapVisitor" /> class.
+    /// Initializes a new instance of the <see cref="SwapVisitor"/> class.
     /// </summary>
     /// <param name="from">The from.</param>
     /// <param name="to">The to.</param>
@@ -71,7 +70,7 @@ public static class ExpressionHelper
     }
 
     /// <summary>
-    ///   Visits the <see cref="Expression" />.
+    /// Visits the <see cref="Expression"/>.
     /// </summary>
     /// <param name="node">The node.</param>
     /// <returns>An Expression.</returns>

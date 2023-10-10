@@ -1,6 +1,4 @@
-﻿using EmitMapper.Tests;
-
-namespace EmitMapper.Common.TestData;
+﻿namespace EmitMapper.Common.TestData;
 
 /// <summary>
 ///   The bench nested source.

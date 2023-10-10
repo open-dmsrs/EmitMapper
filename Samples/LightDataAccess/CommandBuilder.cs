@@ -1,34 +1,25 @@
-﻿// ***********************************************************************
-// Assembly         : TSharp.Core
-// Author           : tangjingbo
-// Created          : 08-21-2013
+﻿// *********************************************************************** Assembly : TSharp.Core
+// Author : tangjingbo Created : 08-21-2013
 //
-// Last Modified By : tangjingbo
-// Last Modified On : 08-21-2013
-// ***********************************************************************
+// Last Modified By : tangjingbo Last Modified On : 08-21-2013 ***********************************************************************
 // <copyright file="CommandBuilder.Insert.cs" company="T#">
 //     Copyright (c) T#. All rights reserved.
 // </copyright>
-// <summary></summary>
+// <summary>
+// </summary>
 // ***********************************************************************
 
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using EmitMapper;
-using EmitMapper.MappingConfiguration;
-using EmitMapper.MappingConfiguration.MappingOperations;
 using LightDataAccess.MappingConfigs;
 
 namespace LightDataAccess;
 
 /// <summary>
-///   Class CommandBuilder
+/// Class CommandBuilder
 /// </summary>
 public static partial class CommandBuilder
 {
   /// <summary>
-  ///   Builds the insert command.
+  /// Builds the insert command.
   /// </summary>
   /// <param name="cmd">The CMD.</param>
   /// <param name="obj">The obj.</param>
@@ -41,7 +32,7 @@ public static partial class CommandBuilder
   }
 
   /// <summary>
-  ///   Builds the insert command.
+  /// Builds the insert command.
   /// </summary>
   /// <param name="cmd">The CMD.</param>
   /// <param name="obj">The obj.</param>

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace EmitMapper.Tests;
+﻿namespace EmitMapper.Tests;
 
 /// <summary>
 ///   The test utils.

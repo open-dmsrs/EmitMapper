@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using EmitMapper.AST;
-using EmitMapper.AST.Helpers;
-using EmitMapper.AST.Interfaces;
-using EmitMapper.AST.Nodes;
-using EmitMapper.MappingConfiguration;
-using EmitMapper.Utils;
-
-namespace EmitMapper.Mappers;
+﻿namespace EmitMapper.Mappers;
 
 /// <summary>
 ///   Mapper for collections. It can copy Array, List&lt;&gt;, ArrayList collections.

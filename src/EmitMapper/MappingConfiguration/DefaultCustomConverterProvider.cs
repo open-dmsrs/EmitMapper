@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using EmitMapper.Utils;
-
-namespace EmitMapper.MappingConfiguration;
+﻿namespace EmitMapper.MappingConfiguration;
 
 /// <summary>
 ///   The default custom converter provider.

@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using System.Linq.Expressions;
 using FastExpressionCompiler;
 
@@ -9,14 +7,14 @@ using static Expression;
 using static ExpressionHelper;
 
 /// <summary>
-///   The object factory.
+/// The object factory.
 /// </summary>
 public static class ObjectFactory
 {
   private static readonly LazyConcurrentDictionary<Type, Func<object>> CtorCache = new();
 
   /// <summary>
-  ///   Creates the instance.
+  /// Creates the instance.
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="type">The type.</param>
@@ -27,7 +25,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  ///   Creates the instance.
+  /// Creates the instance.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>An object.</returns>
@@ -37,7 +35,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  ///   Creates the interface proxy.
+  /// Creates the interface proxy.
   /// </summary>
   /// <param name="interfaceType">The interface type.</param>
   /// <returns>An object.</returns>
@@ -47,7 +45,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  ///   Generates the constructor expression.
+  /// Generates the constructor expression.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>An Expression.</returns>
@@ -64,7 +62,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  ///   Calls the constructor.
+  /// Calls the constructor.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>An Expression.</returns>
@@ -89,7 +87,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  ///   Creates the collection.
+  /// Creates the collection.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="collectionType">The collection type.</param>
@@ -101,21 +99,36 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  ///   Creates the interface expression.
+  /// Creates the interface expression.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>An Expression.</returns>
   private static Expression CreateInterfaceExpression(Type type)
   {
-    return type.IsGenericType(Metadata.IDictionary2) ? CreateCollection(type, Metadata.Dictionary2) :
-      type.IsGenericType(Metadata.IReadOnlyDictionary2) ? CreateReadOnlyDictionary(type.GenericTypeArguments) :
-      type.IsGenericType(Metadata.ISet1) ? CreateCollection(type, Metadata.HashSet1) :
-      type.IsCollection() ? CreateCollection(type, Metadata.List1, GetIEnumerableArguments(type)) :
-      InvalidType(type, $"Cannot create an instance of interface type {type}.");
+    if (type.IsGenericType(Metadata.IDictionary2))
+    {
+      return CreateCollection(type, Metadata.Dictionary2);
+    }
+    else if (type.IsGenericType(Metadata.IReadOnlyDictionary2))
+    {
+      return CreateReadOnlyDictionary(type.GenericTypeArguments);
+    }
+    else if (type.IsGenericType(Metadata.ISet1))
+    {
+      return CreateCollection(type, Metadata.HashSet1);
+    }
+    else if (type.IsCollection())
+    {
+      return CreateCollection(type, Metadata.List1, GetIEnumerableArguments(type));
+    }
+    else
+    {
+      return InvalidType(type, $"Cannot create an instance of interface type {type}.");
+    }
   }
 
   /// <summary>
-  ///   Creates the read only dictionary.
+  /// Creates the read only dictionary.
   /// </summary>
   /// <param name="typeArguments">The type arguments.</param>
   /// <returns>An Expression.</returns>
@@ -127,7 +140,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  ///   Generates the constructor.
+  /// Generates the constructor.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns><![CDATA[Func<object>]]></returns>
@@ -137,7 +150,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  ///   Gets the i enumerable arguments.
+  /// Gets the i enumerable arguments.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <returns>An array of Types</returns>
@@ -147,7 +160,7 @@ public static class ObjectFactory
   }
 
   /// <summary>
-  ///   Invalids the type.
+  /// Invalids the type.
   /// </summary>
   /// <param name="type">The type.</param>
   /// <param name="message">The message.</param>

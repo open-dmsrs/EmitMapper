@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using EmitMapper;
-using EmitMapper.MappingConfiguration;
-using EmitMapper.MappingConfiguration.MappingOperations;
-using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
-using EmitMapper.Utils;
-
-namespace LightDataAccess.MappingConfigs;
+﻿namespace LightDataAccess.MappingConfigs;
 
 /// <summary>
 ///   The add db commands mapping config.

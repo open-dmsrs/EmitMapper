@@ -1,14 +1,4 @@
-﻿using System;
-using System.Configuration;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Transactions;
-using EmitMapper;
-using LightDataAccess;
-using Shouldly;
-
-namespace SamplesTests;
+﻿namespace SamplesTests;
 
 /// <summary>
 ///   Summary description for UnitTest1

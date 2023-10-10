@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+﻿namespace EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
 /// <summary>
 ///   The complex operation interface.

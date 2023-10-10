@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Reflection.Emit;
-using EmitMapper.AST.Interfaces;
-
-namespace EmitMapper.AST.Helpers;
+﻿namespace EmitMapper.AST.Helpers;
 
 /// <summary>
 ///   The compilation helper.

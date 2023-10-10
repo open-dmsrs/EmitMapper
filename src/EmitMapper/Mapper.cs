@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using EmitMapper.EmitBuilders;
-using EmitMapper.Mappers;
-using EmitMapper.MappingConfiguration;
-using EmitMapper.Utils;
-
-namespace EmitMapper;
+﻿namespace EmitMapper;
 
 /// <summary>
 ///   Class for maintaining and generating Mappers.

@@ -1,7 +1,4 @@
-﻿using System;
-using EmitMapper.MappingConfiguration;
-
-namespace EmitMapper.Conversion;
+﻿namespace EmitMapper.Conversion;
 
 /// <summary>
 ///   The arrays converter provider.

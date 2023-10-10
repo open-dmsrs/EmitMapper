@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using EmitMapper.Conversion;
-using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
-
-namespace EmitMapper.MappingConfiguration;
+﻿namespace EmitMapper.MappingConfiguration;
 
 /// <summary>
 ///   The custom map config.

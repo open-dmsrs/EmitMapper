@@ -1,12 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using AutoFixture;
-using AutoMapper;
-using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Configs;
-using BenchmarkDotNet.Jobs;
-using EmitMapper.Benchmarks.Mappers.TestObject;
-using EmitMapper.MappingConfiguration;
+﻿using BenchmarkDotNet.Jobs;
 
 namespace EmitMapper.Benchmarks.Mappers
 {

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections;
-using EmitMapper.Conversion;
-using EmitMapper.EmitInvoker.Methods;
-using EmitMapper.MappingConfiguration;
-using EmitMapper.Utils;
-
-namespace EmitMapper.Mappers;
+﻿namespace EmitMapper.Mappers;
 
 /// <summary>
 ///   Mapper for primitive objects

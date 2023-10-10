@@ -1,10 +1,4 @@
-﻿using Shouldly;
-using System;
-using System.IO;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace EmitMapper.Tests;
+﻿namespace EmitMapper.Tests;
 /// <summary>
 /// The relative path.
 /// </summary>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using EmitMapper.MappingConfiguration;
-
-namespace EmitMapper;
+﻿namespace EmitMapper;
 
 public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<MapperKey>
 {

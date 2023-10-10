@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace EmitMapper.Tests.TestData;
+﻿namespace EmitMapper.Tests.TestData;
 
 /// <summary>
 ///   The customer.

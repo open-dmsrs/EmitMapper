@@ -1,10 +1,4 @@
-﻿using EmitMapper.MappingConfiguration;
-using EmitMapper.MappingConfiguration.MappingOperations;
-using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace EmitMapper.Tests;
+﻿namespace EmitMapper.Tests;
 
 /// <summary>
 ///   The dest src read operation test.

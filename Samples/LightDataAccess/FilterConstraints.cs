@@ -12,9 +12,6 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System.Collections.Generic;
-using System.Linq;
-
 namespace LightDataAccess;
 
 /// <summary>

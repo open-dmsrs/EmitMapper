@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.ExceptionServices;
-
-namespace EmitMapper.Utils;
+﻿namespace EmitMapper.Utils;
 
 /// <summary>
 ///   The switch expressions.

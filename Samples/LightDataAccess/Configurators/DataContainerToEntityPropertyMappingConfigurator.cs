@@ -1,21 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using EmitMapper.MappingConfiguration;
-using EmitMapper.MappingConfiguration.MappingOperations;
-using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
-using EmitMapper.Utils;
 
 namespace LightDataAccess.Configurators;
 
 /// <summary>
-///   The data container to object configuration.
+/// The data container to object configuration.
 /// </summary>
 public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
 {
   /// <summary>
-  ///   Gets the mapping operations.
+  /// Gets the mapping operations.
   /// </summary>
   /// <param name="from">The type from.</param>
   /// <param name="to">To type to.</param>
@@ -60,14 +53,12 @@ public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
   }
 
   /// <summary>
-  ///   Converts the field to destination property.
+  /// Converts the field to destination property.
   /// </summary>
   /// <param name="container">The container.</param>
   /// <param name="destinationType">The destination type.</param>
   /// <param name="fieldDescription">The field description.</param>
-  /// <returns>
-  ///   The conversion result.
-  /// </returns>
+  /// <returns>The conversion result.</returns>
   private static object ConvertFieldToDestinationProperty(
     DataContainer container,
     Type destinationType,

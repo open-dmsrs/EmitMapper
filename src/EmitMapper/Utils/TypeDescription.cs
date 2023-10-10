@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace EmitMapper.Utils;
+﻿namespace EmitMapper.Utils;
 
 public readonly struct TypeDescription : IEquatable<TypeDescription>
 {

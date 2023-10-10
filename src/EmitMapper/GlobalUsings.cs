@@ -23,5 +23,3 @@ global using System.Globalization;
 global using System.Collections.ObjectModel;
 global using System.Runtime.ExceptionServices;
 global using System.ComponentModel;
-
-global using EmitMapper.Utils;

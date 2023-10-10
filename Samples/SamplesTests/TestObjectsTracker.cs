@@ -1,9 +1,4 @@
-﻿using System.Linq;
-using LightDataAccess;
-using Shouldly;
-using Xunit;
-
-namespace SamplesTests;
+﻿namespace SamplesTests;
 
 /// <summary>
 ///   The test objects tracker.

@@ -1,19 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Reflection.Emit;
-using EmitMapper.AST;
-using EmitMapper.AST.Helpers;
-using EmitMapper.AST.Interfaces;
-using EmitMapper.AST.Nodes;
-using EmitMapper.Conversion;
-using EmitMapper.Mappers;
-using EmitMapper.MappingConfiguration;
-using EmitMapper.MappingConfiguration.MappingOperations;
-using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
-using EmitMapper.Utils;
-
-namespace EmitMapper.EmitBuilders;
+﻿namespace EmitMapper.EmitBuilders;
 
 /// <summary>
 ///   The mapping operations processor.

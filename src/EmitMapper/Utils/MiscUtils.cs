@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace EmitMapper.Utils;
+﻿namespace EmitMapper.Utils;
 
 /// <summary>
 ///   The misc utils.

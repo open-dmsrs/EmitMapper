@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EmitMapper.MappingConfiguration;
+﻿namespace EmitMapper.MappingConfiguration;
 
 /// <summary>
 ///   The custom converter interface.

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace EmitMapper.MappingConfiguration;
+﻿namespace EmitMapper.MappingConfiguration;
 
 /// <summary>
 ///   Detailed description of a generic converter.

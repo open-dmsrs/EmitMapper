@@ -1,6 +1,4 @@
-﻿using EmitMapper.Mappers;
-
-namespace EmitMapper;
+﻿namespace EmitMapper;
 
 /// <summary>
 ///   The mapper description.

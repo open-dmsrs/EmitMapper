@@ -1,8 +1,4 @@
-﻿using System;
-using EMConfigurations;
-using EmitMapper;
-using Shouldly;
-using Xunit;
+﻿using EMConfigurations;
 
 namespace SamplesTests;
 

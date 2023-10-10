@@ -1,7 +1,4 @@
-﻿using BenchmarkDotNet.Configs;
-using BenchmarkDotNet.Running;
-using EmitMapper.Benchmarks.GetTypes;
-using EmitMapper.Benchmarks.Mappers;
+﻿using EmitMapper.Benchmarks.Mappers;
 
 namespace EmitMapper.Benchmarks
 {

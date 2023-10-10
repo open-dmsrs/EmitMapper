@@ -1,7 +1,4 @@
-﻿using System;
-using EmitMapper.MappingConfiguration;
-
-namespace EmitMapper.Mappers;
+﻿namespace EmitMapper.Mappers;
 
 /// <summary>
 ///   The custom mapper.

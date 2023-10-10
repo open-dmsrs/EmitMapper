@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace EmitMapper.Conversion;
+﻿namespace EmitMapper.Conversion;
 
 /// <summary>
 ///   The arrays converter one types.

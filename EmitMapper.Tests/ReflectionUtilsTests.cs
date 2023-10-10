@@ -1,9 +1,4 @@
-﻿using System.Linq;
-using EmitMapper.Utils;
-using Shouldly;
-using Xunit;
-
-namespace EmitMapper.Tests;
+﻿namespace EmitMapper.Tests;
 
 /// <summary>
 ///   The reflection utils tests.

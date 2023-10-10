@@ -1,6 +1,4 @@
-﻿using System;
-using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Jobs;
+﻿using BenchmarkDotNet.Jobs;
 using EmitMapper.Utils;
 
 namespace EmitMapper.Benchmarks.GetTypes

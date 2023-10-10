@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EmitMapper.AST.Interfaces;
+﻿namespace EmitMapper.AST.Interfaces;
 
 /// <summary>
 ///   The ast stack item interface.

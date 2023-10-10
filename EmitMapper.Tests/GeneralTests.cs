@@ -1,9 +1,4 @@
-﻿using System;
-using EmitMapper.MappingConfiguration;
-using Shouldly;
-using Xunit;
-
-namespace EmitMapper.Tests;
+﻿namespace EmitMapper.Tests;
 
 /// <summary>
 ///   The general tests.

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EmitMapper.AST;
+﻿namespace EmitMapper.AST;
 
 /// <summary>
 ///   The i l compilation exception.

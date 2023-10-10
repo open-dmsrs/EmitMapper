@@ -1,11 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Reflection.Emit;
-using EmitMapper.AST.Helpers;
-using EmitMapper.AST.Interfaces;
-using EmitMapper.AST.Nodes;
-using EmitMapper.Utils;
-
-namespace EmitMapper.EmitBuilders;
+﻿namespace EmitMapper.EmitBuilders;
 
 /// <summary>
 ///   The builder utils.

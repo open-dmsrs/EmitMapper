@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace EmitMapper.Utils;
+﻿namespace EmitMapper.Utils;
 
 /// <summary>
 ///   The primitive helper.

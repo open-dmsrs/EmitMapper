@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Reflection;
-
-namespace EmitMapper.Utils;
+﻿namespace EmitMapper.Utils;
 
 [DebuggerDisplay("{Name}-{Type.Name}")]
 public readonly struct PropertyDescription : IEquatable<PropertyDescription>

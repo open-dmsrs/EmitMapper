@@ -1,19 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using AutoFixture;
-using AutoFixture.Kernel;
-using AutoFixture.Xunit2;
-using EmitMapper.MappingConfiguration;
-using EmitMapper.MappingConfiguration.MappingOperations;
-using EmitMapper.Tests.TestData;
-using EmitMapper.Utils;
-using Shouldly;
-using Xunit;
-using Xunit.Abstractions;
-
 namespace EmitMapper.Tests;
 
 /// <summary>

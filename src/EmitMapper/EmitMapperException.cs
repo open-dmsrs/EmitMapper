@@ -1,7 +1,4 @@
-﻿using System;
-using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
-
-namespace EmitMapper;
+﻿namespace EmitMapper;
 
 /// <summary>
 ///   The emit mapper exception.

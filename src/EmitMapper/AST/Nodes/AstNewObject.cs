@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using EmitMapper.AST.Helpers;
-using EmitMapper.AST.Interfaces;
-using EmitMapper.Utils;
-
-namespace EmitMapper.AST.Nodes;
+﻿namespace EmitMapper.AST.Nodes;
 
 /// <summary>
 ///   The ast new object.

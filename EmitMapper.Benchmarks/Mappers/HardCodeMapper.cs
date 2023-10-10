@@ -1,8 +1,4 @@
-﻿using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Configs;
-using EmitMapper.Benchmarks.Mappers.TestObject;
-
-namespace EmitMapper.Benchmarks.Mappers
+﻿namespace EmitMapper.Benchmarks.Mappers
 {
   /// <summary>
   ///   The hard code mapper.

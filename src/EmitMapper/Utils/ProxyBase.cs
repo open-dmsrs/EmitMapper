@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace EmitMapper.Utils;
+﻿namespace EmitMapper.Utils;
 
 /// <summary>
 ///   The proxy base.

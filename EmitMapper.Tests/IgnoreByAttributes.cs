@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using EmitMapper.MappingConfiguration;
-using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
-using Shouldly;
-using Xunit;
-
-namespace EmitMapper.Tests;
+﻿namespace EmitMapper.Tests;
 
 /// <summary>
 ///   The ignore by attributes.

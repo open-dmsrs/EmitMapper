@@ -12,10 +12,6 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System;
-using System.Data;
-using System.Data.Common;
-
 namespace LightDataAccess;
 
 /// <summary>

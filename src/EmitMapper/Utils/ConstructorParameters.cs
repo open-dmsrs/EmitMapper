@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Reflection;
-
-namespace EmitMapper.Utils;
+﻿namespace EmitMapper.Utils;
 
 public readonly struct ConstructorParameters
 {

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using EmitMapper.Mappers;
-
-namespace EmitMapper;
+﻿namespace EmitMapper;
 
 /// <summary>
 ///   The mapper.

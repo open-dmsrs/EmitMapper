@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using EmitMapper;
-using EmitMapper.MappingConfiguration;
-using EmitMapper.MappingConfiguration.MappingOperations;
-using EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
-using EmitMapper.Utils;
-using Shouldly;
-using Xunit;
-
-namespace SamplesTests;
+﻿namespace SamplesTests;
 
 /// <summary>
 ///   The test mapping to data row.

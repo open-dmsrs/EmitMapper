@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace LightDataAccess.Configurators;
+﻿namespace LightDataAccess.Configurators;
 
 /// <summary>
 ///   The data container.

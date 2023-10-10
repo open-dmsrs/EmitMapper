@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using EmitMapper.Tests.TestData;
-using Shouldly;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace EmitMapper.Tests;
+﻿namespace EmitMapper.Tests;
 
 /// <summary>
 ///   The deep type.

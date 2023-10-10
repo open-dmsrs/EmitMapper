@@ -1,10 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using System.Reflection.Emit;
-using EmitMapper.Utils;
-
-namespace EmitMapper.AST;
+﻿namespace EmitMapper.AST;
 
 /// <summary>
 ///   The compilation context.

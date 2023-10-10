@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using EmitMapper.AST.Interfaces;
-
-namespace EmitMapper.AST.Nodes;
+﻿namespace EmitMapper.AST.Nodes;
 
 /// <summary>
 ///   The ast complex node.

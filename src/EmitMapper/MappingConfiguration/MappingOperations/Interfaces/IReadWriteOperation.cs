@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+﻿namespace EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
 /// <summary>
 ///   The read write operation interface.

@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using EmitMapper.AST;
-using EmitMapper.AST.Helpers;
-using EmitMapper.AST.Interfaces;
-using EmitMapper.AST.Nodes;
-using EmitMapper.Utils;
-
-namespace EmitMapper.EmitInvoker.Delegates;
+﻿namespace EmitMapper.EmitInvoker.Delegates;
 
 /// <summary>
 ///   The delegate invoker.
