@@ -1,4 +1,4 @@
-<!-- 
+<!--
 
    If you're new to EmitMapper, please ask a question on StackOverflow first and come back here if the people there consider it a bug.
    If you've just upgraded to 10.0, please read the upgrade guide first (https://docs.EmitMapper.org/en/latest/10.0-Upgrade-Guide.html).
@@ -16,15 +16,15 @@
 ### Mapping configuration
 
 ```csharp
-// Mapper.Initialize or just the CreateMap snippet 
+// Mapper.Initialize or just the CreateMap snippet
 ```
 
 ### Version: x.y.z
 
-<!-- 
-    Include the major/minor version (4.2.1, 5.2.0, 6.0.2 etc) 
+<!--
+    Include the major/minor version (4.2.1, 5.2.0, 6.0.2 etc)
     If you're using ProjectTo, also specify the EF Core or EF6 version.
---> 
+-->
 
 ### Expected behavior
 
@@ -39,4 +39,3 @@
 ```csharp
 // Your calls to Mapper.Map or ProjectTo here, with source/destination objects constructed
 ```
-

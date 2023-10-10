@@ -4,7 +4,7 @@ on:
   #push:
   #  branches:
   #    [ master ]
-      
+
   workflow_dispatch:
     inputs:
       days:
@@ -24,7 +24,6 @@ on:
       dry_run:
         description: 'Only log actions, do not perform any delete operations.'
         required: false
-   
 
   schedule:
     - cron: '0 0 * * *'

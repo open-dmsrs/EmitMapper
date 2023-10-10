@@ -3,7 +3,6 @@
 	<Import  Project="$([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..))"
 			 Condition ="Exists($([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..)))" />
 
-
 	<Target Name="MyFFMCheck" BeforeTargets="Build"  Condition="true">
 		<Message Text="=======$(MSBuildProjectName) - $(Configuration) -$(TargetFrameworkIdentifier)-$(TargetFramework)-$(TargetFrameworkVersion) - $(MSBuildThisFileDirectory) =======" Importance="high" />
 
@@ -17,7 +16,6 @@
 		<Message Text="            TargetFramework :  $(TargetFramework)" Importance="high" />
 		<Message Text="  TargetFrameworkIdentifier :  $(TargetFrameworkIdentifier)" Importance="high" />
 		<Message Text="	    TargetFrameworkVersion :  $(TargetFrameworkVersion)" Importance="high" />
-
 	</Target>
 
 	<Target Name="MyPath"  BeforeTargets="Build"    Condition="false">
@@ -45,7 +43,6 @@
 
 	<Target Name="MyNameValues"  BeforeTargets="Build"    Condition="false">
 
-
 		<!-- Use $(Property Name) to reference a property -->
 		<Message Text="$(ProjDir)" Importance="high" />
 		<Message Text="$(AssertDir)" Importance="high" />
@@ -60,8 +57,5 @@
 		 call the Message task once for each item.   -->
 		<!-- This will output each item on a separate line -->
 		<Message Text="%(None.Identity)" Importance="high" />
-
-
 	</Target>
-
 </Project>

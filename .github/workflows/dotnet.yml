@@ -8,10 +8,10 @@ on:
   workflow_dispatch:
     inputs:
         logLevel:
-            description: 'Log level'     
+            description: 'Log level'
             required: true
             default: 'warning'
-        
+
 jobs:
   publish:
     name: build, pack & publish
@@ -19,7 +19,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-    
       - name: Setup .NET Core SDK 6.0.*/7.0/net461
         uses: actions/setup-dotnet@v2.0.0
         with:
@@ -27,8 +26,7 @@ jobs:
                 6.0.*
                 7.0.*
                 2.1
-                3.1.*  
-
+                3.1.*
 
       - name: Restore dependencies
         run: dotnet restore
@@ -51,13 +49,13 @@ jobs:
         uses: niubilitytools/push-nuget@v1
         with:
           # Filepath of the project to be packaged, relative to root of repository
-          project_file_path: src/EmitMapper/EmitMapper.csproj          
+          project_file_path: src/EmitMapper/EmitMapper.csproj
           # NuGet package id, used for version detection & defaults to project name
-          package_name: Niubility.EmitMapper          
+          package_name: Niubility.EmitMapper
           # Filepath with version info, relative to root of repository & defaults to project_file_path
           version_file_path: Directory.Build.props
           # Regex pattern to extract version info in a capturing group
-          # version_regex: ^\s*<Version>(.*)<\/Version>\s*$          
+          # version_regex: ^\s*<Version>(.*)<\/Version>\s*$
           # Useful with external providers like Nerdbank.GitVersioning, ignores version_file_path & version_regex
           # version_static: 1.0.0
           # Flag to toggle git tagging, enabled by default
@@ -71,8 +69,7 @@ jobs:
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           include_symbols: true
           # Flag to set continue the next task when some error happened
-          error_continue: true          
-
+          error_continue: true
 
       - name: publish LightDataAccess on version change
         id: publish_nuget_LightDataAccess
@@ -81,16 +78,16 @@ jobs:
         with:
           # Filepath of the project to be packaged, relative to root of repository
           project_file_path: Samples/LightDataAccess/LightDataAccess.csproj
-          
+
           # NuGet package id, used for version detection & defaults to project name
           package_name: Niubility.LightDataAccess
-          
+
           # Filepath with version info, relative to root of repository & defaults to project_file_path
           version_file_path: Directory.Build.props
 
           # Regex pattern to extract version info in a capturing group
           # version_regex: ^\s*<Version>(.*)<\/Version>\s*$
-          
+
           # Useful with external providers like Nerdbank.GitVersioning, ignores version_file_path & version_regex
           # version_static: 1.0.0
 
@@ -110,7 +107,7 @@ jobs:
           include_symbols: true
           # Flag to set continue the next task when some error happened
           error_continue: true
-      
+
       - name: publish EMConfigurations on version change
         id: publish_nuget_EMConfigurations
         #uses: rohith/publish-nuget@v2
@@ -118,16 +115,16 @@ jobs:
         with:
           # Filepath of the project to be packaged, relative to root of repository
           project_file_path: Samples/EMConfigurations/EMConfigurations.csproj
-          
+
           # NuGet package id, used for version detection & defaults to project name
           package_name: Niubility.EMConfigurations
-          
+
           # Filepath with version info, relative to root of repository & defaults to project_file_path
           version_file_path: Directory.Build.props
 
           # Regex pattern to extract version info in a capturing group
           # version_regex: ^\s*<Version>(.*)<\/Version>\s*$
-          
+
           # Useful with external providers like Nerdbank.GitVersioning, ignores version_file_path & version_regex
           # version_static: 1.0.0
 
@@ -138,7 +135,7 @@ jobs:
           # tag_format: v*
 
           # API key to authenticate with NuGet server   ${{secrets.NUGET_API_KEY}}
-          nuget_key: ${{ secrets.NUGET_API_KEY }} 
+          nuget_key: ${{ secrets.NUGET_API_KEY }}
 
           #  NuGet server uri hosting the packages, https://nuget.pkg.github.com or https://api.nuget.org. defaults to https://api.nuget.org
           nuget_source: https://api.nuget.org
@@ -148,9 +145,7 @@ jobs:
 
           # Flag to set continue the next task when some error happened
           error_continue: true
-           
-    
-          
+
       - name: publish EmitMapper.Mvc.Net on version change
         id: publish_nuget_EmitMapper_Mvc_Net
         #uses: rohith/publish-nuget@v2
@@ -158,21 +153,21 @@ jobs:
         with:
           # Filepath of the project to be packaged, relative to root of repository
           project_file_path: Samples/EmitMapper.Mvc.Net/EmitMapper.Mvc.Net.csproj
-          
+
           # NuGet package id, used for version detection & defaults to project name
           package_name: Niubility.EmitMapper.Mvc.Net
-          
+
           # Filepath with version info, relative to root of repository & defaults to project_file_path
           version_file_path: Directory.Build.props
 
           # Regex pattern to extract version info in a capturing group
           # version_regex: ^\s*<Version>(.*)<\/Version>\s*$
-          
+
           # Useful with external providers like Nerdbank.GitVersioning, ignores version_file_path & version_regex
           # version_static: 1.0.0
 
           # Flag to toggle git tagging, enabled by default
-          tag_commit: false 
+          tag_commit: false
 
           # Format of the git tag, [*] gets replaced with actual version
           # tag_format: v*
@@ -187,5 +182,3 @@ jobs:
           include_symbols: true
           # Flag to set continue the next task when some error happened
           # error_continue: false
-
-

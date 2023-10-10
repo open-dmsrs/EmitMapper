@@ -21,7 +21,7 @@ body:
         - 2.3.*
         - 2.2.*
         - 2.1.*
-        - 2.0.*       
+        - 2.0.*
     validations:
       required: true
 
@@ -33,12 +33,10 @@ body:
       value:
         Tell us what you see!
 
-
         **// Current Behavior
 
-
         **// Expected Behavior
-      
+
     validations:
       required: true
 
@@ -58,9 +56,3 @@ body:
       label: Your calls to Mapper.Map , with source/destination objects constructed
       description: Please copy and paste any relevant c# code. 这将自动格式化为C#代码。
       render: csharp
-
-
-
-
-
-          

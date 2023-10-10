@@ -1,5 +1,5 @@
 <Project>
-	<!-- Properties in this file is not needed to change in general, 
+	<!-- Properties in this file is not needed to change in general,
 	please provide your good idea if you change this file content	-->
 
 	<PropertyGroup>
@@ -15,7 +15,7 @@
 
 	<PropertyGroup>
 		<!--
-		As the SDK sets these attributes automatically as part of the build, you'll get build time errors. 
+		As the SDK sets these attributes automatically as part of the build, you'll get build time errors.
 		Simply delete the assembly attributes, and use the MSBuild properties instead.
 		-->
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
@@ -43,11 +43,11 @@
 	</PropertyGroup>
 
 	<!-- *** - Warning - ***
-  All changes in this file will impact all project files of current solution(sln). 
-  Properties in this file can be changed in general if you using it.    
-  please provide your good idea if you are willing 
+  All changes in this file will impact all project files of current solution(sln).
+  Properties in this file can be changed in general if you using it.
+  please provide your good idea if you are willing
     -->
-	<Import Project="./Directory.Dmsrs.Version.props"/>
+	<Import Project="./Directory.Dmsrs.Version.props" />
 
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
@@ -209,7 +209,6 @@
 			</PropertyGroup>
 			<ItemGroup>
 				<None Include="$(ProjDir)icon.png" Pack='True' PackagePath='/' Visible='True' />
-
 			</ItemGroup>
 		</When>
 		<When Condition="Exists('$(PropsSolutionDir)icon.png')">
@@ -290,5 +289,4 @@
 			</PropertyGroup>
 		</When>
 	</Choose>
-
 </Project>
