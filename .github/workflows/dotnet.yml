@@ -53,7 +53,7 @@ jobs:
           # NuGet package id, used for version detection & defaults to project name
           package_name: Niubility.EmitMapper
           # Filepath with version info, relative to root of repository & defaults to project_file_path
-          version_file_path: Directory.Build.props
+          version_file_path: Directory.Config.props
           # Regex pattern to extract version info in a capturing group
           # version_regex: ^\s*<Version>(.*)<\/Version>\s*$
           # Useful with external providers like Nerdbank.GitVersioning, ignores version_file_path & version_regex
@@ -83,7 +83,7 @@ jobs:
           package_name: Niubility.LightDataAccess
 
           # Filepath with version info, relative to root of repository & defaults to project_file_path
-          version_file_path: Directory.Build.props
+          version_file_path: Directory.Config.props
 
           # Regex pattern to extract version info in a capturing group
           # version_regex: ^\s*<Version>(.*)<\/Version>\s*$
@@ -120,7 +120,7 @@ jobs:
           package_name: Niubility.EMConfigurations
 
           # Filepath with version info, relative to root of repository & defaults to project_file_path
-          version_file_path: Directory.Build.props
+          version_file_path: Directory.Config.props
 
           # Regex pattern to extract version info in a capturing group
           # version_regex: ^\s*<Version>(.*)<\/Version>\s*$
@@ -158,7 +158,7 @@ jobs:
           package_name: Niubility.EmitMapper.Mvc.Net
 
           # Filepath with version info, relative to root of repository & defaults to project_file_path
-          version_file_path: Directory.Build.props
+          version_file_path: Directory.Config.props
 
           # Regex pattern to extract version info in a capturing group
           # version_regex: ^\s*<Version>(.*)<\/Version>\s*$
