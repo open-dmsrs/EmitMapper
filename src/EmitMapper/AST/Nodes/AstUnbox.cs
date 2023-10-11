@@ -14,9 +14,7 @@ internal class AstUnbox : IAstValue
   /// </summary>
   public Type ItemType => UnboxedType;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     RefObj.Compile(context);

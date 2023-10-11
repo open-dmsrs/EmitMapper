@@ -1,12 +1,12 @@
 ﻿namespace EmitMapper.AST.Nodes;
 
 /// <summary>
-///   The ast castclass ref.
+/// The ast castclass ref.
 /// </summary>
 internal class AstCastclassRef : AstCastclass, IAstRef
 {
   /// <summary>
-  ///   Initializes a new instance of the <see cref="AstCastclassRef" /> class.
+  /// Initializes a new instance of the <see cref="AstCastclassRef"/> class.
   /// </summary>
   /// <param name="value">The value.</param>
   /// <param name="targetType">The target type.</param>
@@ -15,9 +15,7 @@ internal class AstCastclassRef : AstCastclass, IAstRef
   {
   }
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+  /// <inheritdoc/>
   public override void Compile(CompilationContext context)
   {
     CompilationHelper.CheckIsRef(ItemType);

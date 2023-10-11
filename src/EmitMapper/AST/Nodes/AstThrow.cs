@@ -7,9 +7,7 @@ internal class AstThrow : IAstNode
 {
   public IAstRef Exception;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     Exception.Compile(context);

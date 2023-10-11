@@ -14,9 +14,7 @@ internal class AstReadArrayItem : IAstStackItem
   /// </summary>
   public Type ItemType => Array.ItemType.GetElementType();
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public virtual void Compile(CompilationContext context)
   {
     Array.Compile(context);

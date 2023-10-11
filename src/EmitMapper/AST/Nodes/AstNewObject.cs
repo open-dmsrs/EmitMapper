@@ -1,7 +1,7 @@
 ﻿namespace EmitMapper.AST.Nodes;
 
 /// <summary>
-///   The ast new object.
+/// The ast new object.
 /// </summary>
 internal class AstNewObject : IAstRef
 {
@@ -10,14 +10,14 @@ internal class AstNewObject : IAstRef
   public Type ObjectType;
 
   /// <summary>
-  ///   Initializes a new instance of the <see cref="AstNewObject" /> class.
+  /// Initializes a new instance of the <see cref="AstNewObject"/> class.
   /// </summary>
   public AstNewObject()
   {
   }
 
   /// <summary>
-  ///   Initializes a new instance of the <see cref="AstNewObject" /> class.
+  /// Initializes a new instance of the <see cref="AstNewObject"/> class.
   /// </summary>
   /// <param name="objectType">The object type.</param>
   /// <param name="constructorParams">The constructor params.</param>
@@ -28,13 +28,11 @@ internal class AstNewObject : IAstRef
   }
 
   /// <summary>
-  ///   Gets the item type.
+  /// Gets the item type.
   /// </summary>
   public Type ItemType => ObjectType;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+  /// <inheritdoc/>
   /// <exception cref="Exception"></exception>
   public void Compile(CompilationContext context)
   {
@@ -89,7 +87,7 @@ internal class AstNewObject : IAstRef
       }
       else
       {
-        throw new Exception($"Constructor for types [{types.ToCsv(",")}] not found in {ObjectType.FullName}");
+        throw new NotImplementedException($"Constructor for types [{types.ToCsv(",")}] not found in {ObjectType.FullName}");
       }
     }
   }

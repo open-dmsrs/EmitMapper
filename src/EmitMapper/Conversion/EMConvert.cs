@@ -179,9 +179,8 @@ public class EMConvert
     if (type.IsEnum)
       return true;
 
-    if (ReflectionHelper.IsNullable(type))
-      if (type.GetUnderlyingTypeCache().IsEnum)
-        return true;
+    if (ReflectionHelper.IsNullable(type) && type.GetUnderlyingTypeCache().IsEnum)
+      return true;
 
     return false;
   }

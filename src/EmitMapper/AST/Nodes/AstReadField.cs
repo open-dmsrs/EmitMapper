@@ -14,9 +14,7 @@ internal class AstReadField : IAstStackItem
   /// </summary>
   public Type ItemType => FieldInfo.FieldType;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public virtual void Compile(CompilationContext context)
   {
     SourceObject.Compile(context);

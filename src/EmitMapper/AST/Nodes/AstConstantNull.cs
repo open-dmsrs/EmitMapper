@@ -10,9 +10,7 @@ internal class AstConstantNull : IAstRefOrValue
   /// </summary>
   public Type ItemType => Metadata<object>.Type;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     context.Emit(OpCodes.Ldnull);

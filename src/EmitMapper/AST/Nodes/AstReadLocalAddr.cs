@@ -15,9 +15,7 @@ internal class AstReadLocalAddr : AstReadLocal, IAstAddr
     LocalType = loc.LocalType.MakeByRefType();
   }
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public override void Compile(CompilationContext context)
   {
     // CompilationHelper.CheckIsValue(itemType);

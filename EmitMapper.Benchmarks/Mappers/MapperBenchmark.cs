@@ -3,7 +3,7 @@
 namespace EmitMapper.Benchmarks.Mappers
 {
   /// <summary>
-  ///   The mapper benchmark.
+  /// The mapper benchmark.
   /// </summary>
   [SimpleJob(RuntimeMoniker.Net70, baseline: true)]
   // [RPlotExporter]
@@ -32,7 +32,75 @@ namespace EmitMapper.Benchmarks.Mappers
     ///// </summary>
     ////private const int IterationCount = 1_000;
 
- 
+    /// <summary>
+    /// Bench_a_s the hard mapper.
+    /// </summary>
+    /// <returns>A BenchNestedDestination.</returns>
+    [BenchmarkCategory("Bench", "1")]
+    [Benchmark]
+    public BenchNestedDestination Bench_a_HardMapper()
+    {
+      return HardCodeMapper.HardMap(_benchSource);
+    }
+
+    /// <summary>
+    /// Bench_b_s the emit mapper.
+    /// </summary>
+    /// <returns>A BenchNestedDestination.</returns>
+    [BenchmarkCategory("Bench", "1")]
+    [Benchmark(Baseline = true)]
+    public BenchNestedDestination Bench_b_EmitMapper()
+    {
+      return _benchSourceEmitMapper.Map(_benchSource);
+    }
+
+    /// <summary>
+    /// Bench_c_s the auto mapper.
+    /// </summary>
+    /// <returns>A BenchNestedDestination.</returns>
+    [BenchmarkCategory("Bench", "1")]
+    [Benchmark]
+    public BenchNestedDestination Bench_c_AutoMapper()
+    {
+      return _autoMapper.Map<BenchNestedSource, BenchNestedDestination>(_benchSource);
+    }
+
+    /// <summary>
+    /// Benches the nested1000_a_ hard mapper.
+    /// </summary>
+    /// <returns><![CDATA[List<BenchNestedDestination>]]></returns>
+    [BenchmarkCategory("Bench", "1000")]
+    [Benchmark]
+    public List<BenchNestedDestination> BenchNested1000_a_HardMapper()
+    {
+      return _benchSources1000List.Select(s => HardCodeMapper.HardMap(s)).ToList();
+    }
+
+    /// <summary>
+    /// Benches the nested1000_b_ emit mapper.
+    /// </summary>
+    /// <returns><![CDATA[List<BenchNestedDestination>]]></returns>
+    [BenchmarkCategory("Bench", "1000")]
+    [Benchmark(Baseline = true)]
+    public List<BenchNestedDestination> BenchNested1000_b_EmitMapper()
+    {
+      return _benchSourceEmitMapper.MapEnum(_benchSources1000List);
+    }
+
+    /// <summary>
+    /// Benches the nested1000_c_ auto mapper.
+    /// </summary>
+    /// <returns><![CDATA[List<BenchNestedDestination>]]></returns>
+    [BenchmarkCategory("Bench", "1000")]
+    [Benchmark]
+    public List<BenchNestedDestination> BenchNested1000_c_AutoMapper()
+    {
+      return _autoMapper.Map<List<BenchNestedSource>, List<BenchNestedDestination>>(_benchSources1000List);
+    }
+
+    /// <summary>
+    /// Setups the.
+    /// </summary>
     [GlobalSetup]
     public void Setup()
     {
@@ -73,89 +141,10 @@ namespace EmitMapper.Benchmarks.Mappers
       this.SimpleTypes_a_HardMapper();
       this.SimpleTypes_b_EmitMapper();
       this.SimpleTypes_c_AutoMapper();
-
-
     }
 
     /// <summary>
-    /// </summary>
-    public void Usage()
-    {
-      var simple = Mapper.Default.GetMapper<BenchNestedSource, BenchNestedDestination>();
-      var dest = simple.Map(_benchSource); // for single object;
-      var dests = simple.MapEnum(_benchSources1000List); // for list object
-    }
-
-
-
-    /// <summary>
-    ///   Bench_a_s the hard mapper.
-    /// </summary>
-    /// <returns>A BenchNestedDestination.</returns>
-    [BenchmarkCategory("Bench", "1")]
-    [Benchmark]
-    public BenchNestedDestination Bench_a_HardMapper()
-    {
-      return HardCodeMapper.HardMap(_benchSource);
-    }
-
-    /// <summary>
-    ///   Bench_b_s the emit mapper.
-    /// </summary>
-    /// <returns>A BenchNestedDestination.</returns>
-    [BenchmarkCategory("Bench", "1")]
-    [Benchmark(Baseline = true)]
-    public BenchNestedDestination Bench_b_EmitMapper()
-    {
-      return _benchSourceEmitMapper.Map(_benchSource);
-    }
-
-    /// <summary>
-    ///   Bench_c_s the auto mapper.
-    /// </summary>
-    /// <returns>A BenchNestedDestination.</returns>
-    [BenchmarkCategory("Bench", "1")]
-    [Benchmark]
-    public BenchNestedDestination Bench_c_AutoMapper()
-    {
-      return _autoMapper.Map<BenchNestedSource, BenchNestedDestination>(_benchSource);
-    }
-
-    /// <summary>
-    ///   Benches the nested1000_a_ hard mapper.
-    /// </summary>
-    /// <returns><![CDATA[List<BenchNestedDestination>]]></returns>
-    [BenchmarkCategory("Bench", "1000")]
-    [Benchmark]
-    public List<BenchNestedDestination> BenchNested1000_a_HardMapper()
-    {
-      return _benchSources1000List.Select(s => HardCodeMapper.HardMap(s)).ToList();
-    }
-
-    /// <summary>
-    ///   Benches the nested1000_b_ emit mapper.
-    /// </summary>
-    /// <returns><![CDATA[List<BenchNestedDestination>]]></returns>
-    [BenchmarkCategory("Bench", "1000")]
-    [Benchmark(Baseline = true)]
-    public List<BenchNestedDestination> BenchNested1000_b_EmitMapper()
-    {
-      return _benchSourceEmitMapper.MapEnum(_benchSources1000List);
-    }
-
-    /// <summary>
-    ///   Benches the nested1000_c_ auto mapper.
-    /// </summary>
-    /// <returns><![CDATA[List<BenchNestedDestination>]]></returns>
-    [BenchmarkCategory("Bench", "1000")]
-    [Benchmark]
-    public List<BenchNestedDestination> BenchNested1000_c_AutoMapper()
-    {
-      return _autoMapper.Map<List<BenchNestedSource>, List<BenchNestedDestination>>(_benchSources1000List);
-    }
-
-    /// <summary>
-    ///   Simples the types_a_ hard mapper.
+    /// Simples the types_a_ hard mapper.
     /// </summary>
     /// <returns>A SimpleTypesDestination.</returns>
     [BenchmarkCategory("SimpleTypes", "1")]
@@ -166,7 +155,7 @@ namespace EmitMapper.Benchmarks.Mappers
     }
 
     /// <summary>
-    ///   Simples the types_b_ emit mapper.
+    /// Simples the types_b_ emit mapper.
     /// </summary>
     /// <returns>A SimpleTypesDestination.</returns>
     [BenchmarkCategory("SimpleTypes", "1")]
@@ -177,7 +166,7 @@ namespace EmitMapper.Benchmarks.Mappers
     }
 
     /// <summary>
-    ///   Simples the types_c_ auto mapper.
+    /// Simples the types_c_ auto mapper.
     /// </summary>
     /// <returns>A SimpleTypesDestination.</returns>
     [BenchmarkCategory("SimpleTypes", "1")]
@@ -188,7 +177,7 @@ namespace EmitMapper.Benchmarks.Mappers
     }
 
     /// <summary>
-    ///   Simples the types100_a_ hard mapper.
+    /// Simples the types100_a_ hard mapper.
     /// </summary>
     /// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
     [BenchmarkCategory("SimpleTypes", "100")]
@@ -199,7 +188,7 @@ namespace EmitMapper.Benchmarks.Mappers
     }
 
     /// <summary>
-    ///   Simples the types100_b_ emit mapper.
+    /// Simples the types100_b_ emit mapper.
     /// </summary>
     /// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
     [BenchmarkCategory("SimpleTypes", "100")]
@@ -210,7 +199,7 @@ namespace EmitMapper.Benchmarks.Mappers
     }
 
     /// <summary>
-    ///   Simples the types100_c_ auto mapper.
+    /// Simples the types100_c_ auto mapper.
     /// </summary>
     /// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
     [BenchmarkCategory("SimpleTypes", "100")]
@@ -221,7 +210,7 @@ namespace EmitMapper.Benchmarks.Mappers
     }
 
     /// <summary>
-    ///   Simples the types1000_a_ hard mapper.
+    /// Simples the types1000_a_ hard mapper.
     /// </summary>
     /// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
     [BenchmarkCategory("SimpleTypes", "1000")]
@@ -232,7 +221,7 @@ namespace EmitMapper.Benchmarks.Mappers
     }
 
     /// <summary>
-    ///   Simples the types1000_b_ emit mapper.
+    /// Simples the types1000_b_ emit mapper.
     /// </summary>
     /// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
     [BenchmarkCategory("SimpleTypes", "1000")]
@@ -243,7 +232,7 @@ namespace EmitMapper.Benchmarks.Mappers
     }
 
     /// <summary>
-    ///   Simples the types1000_c_ auto mapper.
+    /// Simples the types1000_c_ auto mapper.
     /// </summary>
     /// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
     [BenchmarkCategory("SimpleTypes", "1000")]
@@ -252,21 +241,31 @@ namespace EmitMapper.Benchmarks.Mappers
     {
       return _autoMapper.Map<List<SimpleTypesSource>, List<SimpleTypesDestination>>(_simple1000List);
     }
+
+    /// <summary>
+    /// Usages
+    /// </summary>
+    public void Usage()
+    {
+      var simple = Mapper.Default.GetMapper<BenchNestedSource, BenchNestedDestination>();
+      _ = simple.Map(_benchSource);
+      _ = simple.MapEnum(_benchSources1000List); // for list object
+    }
   }
 }
 
 /*******
 // * Summary *
-   
+
    BenchmarkDotNet=v0.13.1, OS=Windows 10.0.18363.2094 (1909/November2019Update/19H2)
    Intel Core i5-8350U CPU 1.70GHz (Kaby Lake R), 1 CPU, 8 logical and 4 physical cores
    .NET SDK=6.0.101
    [Host]    : .NET 6.0.1 (6.0.121.56705), X64 RyuJIT
    MediumRun : .NET 6.0.1 (6.0.121.56705), X64 RyuJIT
-   
+
    Job=MediumRun  IterationCount=15  LaunchCount=2
    WarmupCount=10
-   
+
    |                       Method |           Mean |         Error |        StdDev | Skewness | Kurtosis | Ratio | RatioSD |  Gen 0 |  Gen 1 | Allocated |
    |----------------------------- |---------------:|--------------:|--------------:|---------:|---------:|------:|--------:|-------:|-------:|----------:|
    |           Bench_a_HardMapper |      1.3408 ns |     0.0925 ns |     0.1296 ns |   0.8668 |    3.122 |  1.27 |    0.14 | 0.0010 |      - |       3 B |
@@ -288,13 +287,12 @@ namespace EmitMapper.Benchmarks.Mappers
    | SimpleTypes1000_a_HardMapper |     67.4600 ns |     2.5764 ns |     3.6117 ns |   1.0069 |    4.423 |  0.70 |    0.06 | 0.0313 | 0.0103 |     128 B |
    | SimpleTypes1000_b_EmitMapper |     96.0613 ns |     4.2110 ns |     6.1724 ns |   0.9862 |    3.125 |  1.00 |    0.00 | 0.0309 | 0.0101 |     128 B |
    | SimpleTypes1000_c_AutoMapper |     99.7673 ns |     7.0173 ns |    10.5032 ns |   1.7057 |    5.107 |  1.04 |    0.12 | 0.0370 | 0.0083 |     137 B |
-   
+
 BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19044.1806 (21H2)
 Intel Core i7-3740QM CPU 2.70GHz (Ivy Bridge), 1 CPU, 8 logical and 4 physical cores
 .NET SDK=6.0.301
   [Host]     : .NET 6.0.6 (6.0.622.26707), X64 RyuJIT  [AttachedDebugger]
   DefaultJob : .NET 6.0.6 (6.0.622.26707), X64 RyuJIT
-
 
 |                       Method |             Mean |          Error |         StdDev | Ratio | RatioSD |    Gen 0 |    Gen 1 |   Allocated |
 |----------------------------- |-----------------:|---------------:|---------------:|------:|--------:|---------:|---------:|------------:|
@@ -317,5 +315,5 @@ Intel Core i7-3740QM CPU 2.70GHz (Ivy Bridge), 1 CPU, 8 logical and 4 physical c
 | SimpleTypes1000_a_HardMapper |     51,368.89 ns |   1,014.286 ns |     899.138 ns |  0.66 |    0.02 |  31.1890 |  10.1318 |   128,128 B |
 | SimpleTypes1000_b_EmitMapper |     78,323.05 ns |   1,522.685 ns |   1,563.685 ns |  1.00 |    0.00 |  30.7617 |  10.0098 |   128,056 B |
 | SimpleTypes1000_c_AutoMapper |     73,083.38 ns |   1,290.529 ns |   1,144.020 ns |  0.94 |    0.02 |  37.1094 |   6.9580 |   136,600 B |
- * 
+ *
  * ******/

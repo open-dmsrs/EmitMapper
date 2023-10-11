@@ -1,7 +1,7 @@
 ﻿namespace EmitMapper.AST.Nodes;
 
 /// <summary>
-///   The ast call method void.
+/// The ast call method void.
 /// </summary>
 internal class AstCallMethodVoid : IAstNode
 {
@@ -12,7 +12,7 @@ internal class AstCallMethodVoid : IAstNode
   protected MethodInfo MethodInfo;
 
   /// <summary>
-  ///   Initializes a new instance of the <see cref="AstCallMethodVoid" /> class.
+  /// Initializes a new instance of the <see cref="AstCallMethodVoid"/> class.
   /// </summary>
   /// <param name="methodInfo">The method info.</param>
   /// <param name="invocationObject">The invocation object.</param>
@@ -24,9 +24,7 @@ internal class AstCallMethodVoid : IAstNode
     Arguments = arguments;
   }
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+  /// <inheritdoc/>
   public void Compile(CompilationContext context)
   {
     new AstCallMethod(MethodInfo, InvocationObject, Arguments).Compile(context);

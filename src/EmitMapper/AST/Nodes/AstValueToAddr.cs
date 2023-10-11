@@ -21,9 +21,7 @@ internal class AstValueToAddr : IAstAddr
   /// </summary>
   public Type ItemType => Value.ItemType;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     var loc = context.ILGenerator.DeclareLocal(ItemType);

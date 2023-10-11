@@ -14,9 +14,7 @@ internal class AstReadProperty : IAstRefOrValue
   /// </summary>
   public Type ItemType => PropertyInfo.PropertyType;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   /// <exception cref="Exception"></exception>
   public virtual void Compile(CompilationContext context)
   {

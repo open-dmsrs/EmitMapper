@@ -10,8 +10,6 @@ internal abstract class AstIndirectRead : IAstStackItem
   /// </summary>
   public Type ItemType { get; set; }
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public abstract void Compile(CompilationContext context);
 }

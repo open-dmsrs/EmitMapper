@@ -155,22 +155,41 @@ internal class TypeDictionary<T>
 
     public readonly T Value;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ListElement"/> class.
+    /// </summary>
+    /// <param name="types">The types.</param>
+    /// <param name="value">The value.</param>
     public ListElement(Type[] types, T value)
     {
       Types = types;
       Value = value;
     }
 
+    /// <summary>
+    /// Equals the.
+    /// </summary>
+    /// <param name="other">The other.</param>
+    /// <returns>A bool.</returns>
     public bool Equals(ListElement other)
     {
       return !Types.Where((t, i) => t != other.Types[i]).Any();
     }
 
+    /// <summary>
+    /// Equals the.
+    /// </summary>
+    /// <param name="obj">The obj.</param>
+    /// <returns>A bool.</returns>
     public override bool Equals(object obj)
     {
       return Equals(obj);
     }
 
+    /// <summary>
+    /// Gets the hash code.
+    /// </summary>
+    /// <returns>An int.</returns>
     public override int GetHashCode()
     {
       return HashCode.Combine(Types);

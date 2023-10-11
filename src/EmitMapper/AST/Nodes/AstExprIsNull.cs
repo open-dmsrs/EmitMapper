@@ -21,9 +21,7 @@ internal class AstExprIsNull : IAstValue
   /// </summary>
   public Type ItemType => Metadata<int>.Type;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     if (!(_value is IAstRef) && !ReflectionHelper.IsNullable(_value.ItemType))

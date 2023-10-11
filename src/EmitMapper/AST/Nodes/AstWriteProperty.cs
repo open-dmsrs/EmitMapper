@@ -33,9 +33,7 @@ internal class AstWriteProperty : IAstNode
       throw new EmitMapperException("Property " + propertyInfo.Name + " has invalid arguments");
   }
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     AstBuildHelper.CallMethod(_setMethod, _targetObject, new List<IAstStackItem> { _value }).Compile(context);

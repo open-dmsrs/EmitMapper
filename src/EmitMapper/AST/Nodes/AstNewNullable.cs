@@ -19,9 +19,7 @@ internal class AstNewNullable : IAstValue
   /// </summary>
   public Type ItemType { get; }
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   /// <exception cref="NotImplementedException"></exception>
   public void Compile(CompilationContext context)
   {

@@ -12,9 +12,7 @@ internal class AstReadThis : IAstRefOrAddr
   /// </summary>
   public Type ItemType => ThisType;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public virtual void Compile(CompilationContext context)
   {
     var arg = new AstReadArgument { ArgumentIndex = 0, ArgumentType = ThisType };

@@ -11,9 +11,7 @@ internal class AstIf : IAstNode
 
   public AstComplexNode TrueBranch;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     var elseLabel = context.ILGenerator.DefineLabel();

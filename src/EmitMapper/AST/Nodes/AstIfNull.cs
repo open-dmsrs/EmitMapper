@@ -28,9 +28,7 @@ internal class AstIfNull : IAstRefOrValue
   /// </summary>
   public Type ItemType => _value.ItemType;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     var ifNotNullLabel = context.ILGenerator.DefineLabel();

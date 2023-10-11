@@ -11,9 +11,7 @@ internal class AstWriteField : IAstNode
 
   public IAstRefOrValue Value;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     TargetObject.Compile(context);

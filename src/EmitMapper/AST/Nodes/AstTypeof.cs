@@ -12,9 +12,7 @@ internal class AstTypeof : IAstRef
   /// </summary>
   public Type ItemType => Metadata<Type>.Type;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     context.Emit(OpCodes.Ldtoken, Type);

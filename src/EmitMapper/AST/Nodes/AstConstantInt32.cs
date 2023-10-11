@@ -12,9 +12,7 @@ internal class AstConstantInt32 : IAstValue
   /// </summary>
   public Type ItemType => Metadata<int>.Type;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     context.Emit(OpCodes.Ldc_I4, Value);

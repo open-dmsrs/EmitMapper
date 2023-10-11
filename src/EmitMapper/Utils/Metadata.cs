@@ -1,10 +1,9 @@
 namespace EmitMapper.Utils;
 
 /// <summary>
-///
-///   <para>2010/12/21</para>
-///   <para>THINKPADT61</para>
-///   <para>tangjingbo</para>
+/// <para>2010/12/21</para>
+/// <para>THINKPADT61</para>
+/// <para>tangjingbo</para>
 /// </summary>
 public static class Metadata
 {
@@ -59,7 +58,7 @@ public static class Metadata
   public static readonly Type ISet1 = typeof(ISet<>);
 
   /// <summary>
-  ///   List&lt;&gt;
+  /// List&lt;&gt;
   /// </summary>
   public static readonly Type List1 = typeof(List<>);
 
@@ -72,7 +71,17 @@ public static class Metadata
   public static readonly Type Void = typeof(void);
 
   /// <summary>
-  ///   Underlines the type.
+  /// Gets the cached type.
+  /// </summary>
+  /// <param name="anyone">The anyone.</param>
+  /// <returns>A Type.</returns>
+  public static Type GetCachedType<T>(this object anyone)
+  {
+    return Metadata<T>.Type;
+  }
+
+  /// <summary>
+  /// Underlines the type.
   /// </summary>
   /// <param name="t">The t.</param>
   /// <returns>A Type.</returns>
@@ -81,32 +90,122 @@ public static class Metadata
   {
     return null;
   }
-
-  public static Type GetCachedType<T>(this object anyone)
-  {
-    return Metadata<T>.Type;
-  }
 }
 
 /// <summary>
-///   The metadata.
+/// The action metadata.
+/// </summary>
+
+public class ActionMetadata<T> : Metadata<Action<T>>
+{ }
+
+/// <summary>
+/// The action metadata.
+/// </summary>
+/// <typeparam name="T1"></typeparam>
+/// <typeparam name="T2"></typeparam>
+public class ActionMetadata<T1, T2> : Metadata<Action<T1, T2>>
+{ }
+
+/// <summary>
+/// The action metadata.
+/// </summary>
+
+public class ActionMetadata<T1, T2, T3> : Metadata<Action<T1, T2, T3>>
+{ }
+
+/// <summary>
+/// The action metadata.
+/// </summary>
+
+public class ActionMetadata<T1, T2, T3, T4> : Metadata<Action<T1, T2, T3, T4>>
+{ }
+
+/// <summary>
+/// The action metadata.
+/// </summary>
+
+public class ActionMetadata<T1, T2, T3, T4, T5> : Metadata<Action<T1, T2, T3, T4, T5>>
+{ }
+
+/// <summary>
+/// The action metadata.
+/// </summary>
+
+public class ActionMetadata<T1, T2, T3, T4, T5, T6> : Metadata<Action<T1, T2, T3, T4, T5, T6>>
+{ }
+
+/// <summary>
+/// The action metadata.
+/// </summary>
+
+public class ActionMetadata<T1, T2, T3, T4, T5, T6, T7> : Metadata<Action<T1, T2, T3, T4, T5, T6, T7>>
+{ }
+
+/// <summary>
+/// The func metadata.
+/// </summary>
+
+public class FuncMetadata<T> : Metadata<Func<T>>
+{ }
+
+/// <summary>
+/// The func metadata.
+/// </summary>
+
+public class FuncMetadata<T1, TR> : Metadata<Func<T1, TR>>
+{ }
+
+/// <summary>
+/// The func metadata.
+/// </summary>
+
+public class FuncMetadata<T1, T2, TR> : Metadata<Func<T1, T2, TR>>
+{ }
+
+/// <summary>
+/// The func metadata.
+/// </summary>
+
+public class FuncMetadata<T1, T2, T3, TR> : Metadata<Func<T1, T2, T3, TR>>
+{ }
+
+/// <summary>
+/// The func metadata.
+/// </summary>
+
+public class FuncMetadata<T1, T2, T3, T4, TR> : Metadata<Func<T1, T2, T3, T4, TR>>
+{ }
+
+/// <summary>
+/// The func metadata.
+/// </summary>
+
+public class FuncMetadata<T1, T2, T3, T4, T5, TR> : Metadata<Func<T1, T2, T3, T4, T5, TR>>
+{ }
+
+/// <summary>
+/// The metadata.
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public class Metadata<T>
 {
+  public static readonly Type Type = typeof(T);
+
+  /// <summary>
+  /// Initializes a new instance of the <see cref="Metadata"/> class.
+  /// </summary>
   protected Metadata()
   {
   }
 
-  public static readonly Type Type = typeof(T);
-
   /// <summary>
-  ///   Gets the type name.
+  /// Gets the type name.
   /// </summary>
   public static string TypeName => Type.Name;
 
   /// <summary>
-  ///   Gets the interfaces cache.
+  /// Gets the interfaces cache.
   /// </summary>
   /// <returns>An array of Types</returns>
   public static Type[] GetInterfacesCache()
@@ -115,44 +214,9 @@ public class Metadata<T>
   }
 }
 
-public class ActionMetadata<T> : Metadata<Action<T>>
-{ }
-
-public class ActionMetadata<T1, T2> : Metadata<Action<T1, T2>>
-{ }
-
-public class ActionMetadata<T1, T2, T3> : Metadata<Action<T1, T2, T3>>
-{ }
-
-public class ActionMetadata<T1, T2, T3, T4> : Metadata<Action<T1, T2, T3, T4>>
-{ }
-
-public class ActionMetadata<T1, T2, T3, T4, T5> : Metadata<Action<T1, T2, T3, T4, T5>>
-{ }
-
-public class ActionMetadata<T1, T2, T3, T4, T5, T6> : Metadata<Action<T1, T2, T3, T4, T5, T6>>
-{ }
-
-public class ActionMetadata<T1, T2, T3, T4, T5, T6, T7> : Metadata<Action<T1, T2, T3, T4, T5, T6, T7>>
-{ }
-
-public class FuncMetadata<T> : Metadata<Func<T>>
-{ }
-
-public class FuncMetadata<T1, TR> : Metadata<Func<T1, TR>>
-{ }
-
-public class FuncMetadata<T1, T2, TR> : Metadata<Func<T1, T2, TR>>
-{ }
-
-public class FuncMetadata<T1, T2, T3, TR> : Metadata<Func<T1, T2, T3, TR>>
-{ }
-
-public class FuncMetadata<T1, T2, T3, T4, TR> : Metadata<Func<T1, T2, T3, T4, TR>>
-{ }
-
-public class FuncMetadata<T1, T2, T3, T4, T5, TR> : Metadata<Func<T1, T2, T3, T4, T5, TR>>
-{ }
+/// <summary>
+/// The func metadata.
+/// </summary>
 
 public class FuncMetadata<T1, T2, T3, T4, T5, T6, TR> : Metadata<Func<T1, T2, T3, T4, T5, T6, TR>>
 { }

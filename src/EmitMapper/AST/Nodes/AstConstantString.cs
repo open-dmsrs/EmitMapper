@@ -12,9 +12,7 @@ internal class AstConstantString : IAstRef
   /// </summary>
   public Type ItemType => Metadata<string>.Type;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     context.Emit(OpCodes.Ldstr, Str);

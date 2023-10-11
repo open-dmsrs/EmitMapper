@@ -1,13 +1,11 @@
 ﻿namespace EmitMapper.AST.Nodes;
 
 /// <summary>
-///   The ast indirect read value.
+/// The ast indirect read value.
 /// </summary>
 internal class AstIndirectReadValue : AstIndirectRead, IAstValue
 {
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+  /// <inheritdoc/>
   /// <exception cref="Exception"></exception>
   public override void Compile(CompilationContext context)
   {
@@ -16,6 +14,6 @@ internal class AstIndirectReadValue : AstIndirectRead, IAstValue
     if (ItemType == Metadata<int>.Type)
       context.Emit(OpCodes.Ldind_I4);
     else
-      throw new Exception("Unsupported type");
+      throw new NotSupportedException("Unsupported type");
   }
 }

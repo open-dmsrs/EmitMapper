@@ -32,9 +32,7 @@ internal class AstIfTernar : IAstRefOrValue
   /// </summary>
   public Type ItemType => TrueBranch.ItemType;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     var elseLabel = context.ILGenerator.DefineLabel();

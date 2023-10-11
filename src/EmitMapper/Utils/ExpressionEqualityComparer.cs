@@ -284,6 +284,12 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
   {
     private Dictionary<ParameterExpression, ParameterExpression> _parameterScope;
 
+    /// <summary>
+    /// Compares the.
+    /// </summary>
+    /// <param name="left">The left.</param>
+    /// <param name="right">The right.</param>
+    /// <returns>A bool.</returns>
     public bool Compare(Expression left, Expression right)
     {
       if (left == right) return true;

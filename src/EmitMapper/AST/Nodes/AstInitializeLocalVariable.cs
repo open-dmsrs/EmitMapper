@@ -26,9 +26,7 @@ internal class AstInitializeLocalVariable : IAstNode
     LocalIndex = loc.LocalIndex;
   }
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     if (LocalType.IsValueType)

@@ -30,9 +30,7 @@ internal class AstWriteLocal : IAstNode
     Value = value;
   }
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     Value.Compile(context);

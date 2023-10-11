@@ -14,9 +14,7 @@ internal class AstReturn : IAstAddr
   /// </summary>
   public Type ItemType => ReturnType;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     ReturnValue.Compile(context);

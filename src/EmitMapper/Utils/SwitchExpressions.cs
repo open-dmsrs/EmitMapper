@@ -176,11 +176,22 @@ public static class SwitchExpressions
     /// </summary>
     internal TSwitch On { get; }
 
+    /// <summary>
+    /// Cases the.
+    /// </summary>
+    /// <param name="matches">The matches.</param>
+    /// <param name="valueFactory">The value factory.</param>
+    /// <returns>A SwitchExpression.</returns>
     public SwitchExpression<TSwitch, TResult> Case<TResult>(TSwitch matches, Func<TSwitch, TResult> valueFactory)
     {
       return SwitchExpression<TSwitch, TResult>.CreateCase(this) | SwitchExpressions.Case(matches, valueFactory);
     }
 
+    /// <summary>
+    /// Cases the.
+    /// </summary>
+    /// <param name="valueFactory">The value factory.</param>
+    /// <returns>A SwitchExpression.</returns>
     public SwitchExpression<TSwitch, TResult> Case<TType, TResult>(Func<TType, TResult> valueFactory)
     {
       return SwitchExpression<TSwitch, TResult>.CreateCase(this) | SwitchExpressions.Case(valueFactory);

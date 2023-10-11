@@ -1,17 +1,17 @@
 ﻿namespace EmitMapper.Benchmarks.Mappers
 {
   /// <summary>
-  ///   The hard code mapper.
+  /// The hard code mapper.
   /// </summary>
   [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
   [KurtosisColumn]
   [MediumRunJob]
   [MemoryDiagnoser]
   [SkewnessColumn]
-  public class HardCodeMapper
+  public static class HardCodeMapper
   {
     /// <summary>
-    ///   Hards the map.
+    /// Hards the map.
     /// </summary>
     /// <param name="inner">The inner.</param>
     /// <returns>A BenchNestedDestination.Inner1.</returns>
@@ -30,7 +30,7 @@
     }
 
     /// <summary>
-    ///   Hards the map.
+    /// Hards the map.
     /// </summary>
     /// <param name="inner">The inner.</param>
     /// <returns>A BenchNestedDestination.Inner2.</returns>
@@ -45,7 +45,7 @@
     }
 
     /// <summary>
-    ///   Hards the map.
+    /// Hards the map.
     /// </summary>
     /// <param name="s">The s.</param>
     /// <returns>A BenchNestedDestination.</returns>
@@ -81,7 +81,7 @@
     }
 
     /// <summary>
-    ///   Hards the map.
+    /// Hards the map.
     /// </summary>
     /// <param name="s">The s.</param>
     /// <returns>A SimpleTypesDestination.</returns>

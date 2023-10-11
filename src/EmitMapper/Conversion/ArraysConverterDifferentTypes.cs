@@ -1,7 +1,7 @@
 ﻿namespace EmitMapper.Conversion;
 
 /// <summary>
-///   The arrays converter different types.
+/// The arrays converter different types.
 /// </summary>
 /// <typeparam name="TFrom"></typeparam>
 /// <typeparam name="TTo"></typeparam>
@@ -12,7 +12,7 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
   private MapperDescription _subMapper;
 
   /// <summary>
-  ///   Converts the an array of TTos.
+  /// Converts the an array of TTos.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="state">The state.</param>
@@ -32,6 +32,7 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
   }
 
   /// <summary>
+  /// Initializes the.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <param name="to">The to.</param>
@@ -60,7 +61,7 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
   }
 
   /// <summary>
-  ///   Converters the by submapper.
+  /// Converters the by submapper.
   /// </summary>
   /// <param name="from">The from.</param>
   /// <returns>A TTo.</returns>

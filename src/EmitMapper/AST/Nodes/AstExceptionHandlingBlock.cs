@@ -32,9 +32,7 @@ internal class AstExceptionHandlingBlock : IAstNode
     _exceptionVariable = exceptionVariable;
   }
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     context.ILGenerator.BeginExceptionBlock();

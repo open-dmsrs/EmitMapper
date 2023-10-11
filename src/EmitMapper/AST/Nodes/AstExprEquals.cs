@@ -25,9 +25,7 @@ internal class AstExprEquals : IAstValue
   /// </summary>
   public Type ItemType => Metadata<int>.Type;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     _leftValue.Compile(context);

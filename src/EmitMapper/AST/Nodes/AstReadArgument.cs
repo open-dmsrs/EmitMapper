@@ -14,9 +14,7 @@ internal class AstReadArgument : IAstStackItem
   /// </summary>
   public Type ItemType => ArgumentType;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public virtual void Compile(CompilationContext context)
   {
     switch (ArgumentIndex)

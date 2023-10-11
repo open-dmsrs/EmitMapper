@@ -31,9 +31,7 @@ internal class AstReadLocal : IAstStackItem
   /// </summary>
   public Type ItemType => LocalType;
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public virtual void Compile(CompilationContext context)
   {
     context.Emit(OpCodes.Ldloc, LocalIndex);

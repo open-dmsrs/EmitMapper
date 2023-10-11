@@ -7,9 +7,7 @@ internal class AstComplexNode : IAstNode
 {
   public List<IAstNode> Nodes = new();
 
-  /// <summary>
-  /// </summary>
-  /// <param name="context">The context.</param>
+/// <inheritdoc />
   public void Compile(CompilationContext context)
   {
     foreach (var node in Nodes)
