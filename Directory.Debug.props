@@ -1,10 +1,23 @@
 <Project>
 
-	<Import  Project="$([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..))"
-			 Condition ="Exists($([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..)))" />
+	<Import Project="$([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..))"
+	        Condition="Exists($([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..)))" />
 
-	<Target Name="MyFFMCheck" BeforeTargets="Build"  Condition="true">
-		<Message Text="=======$(MSBuildProjectName) - $(Configuration) -$(TargetFrameworkIdentifier)-$(TargetFramework)-$(TargetFrameworkVersion) - $(MSBuildThisFileDirectory) =======" Importance="high" />
+	<Target Name="MyOptimize" BeforeTargets="Build" Condition="true">
+		<Message
+			Text="=======$(MSBuildProjectName) - $(Configuration) -$(TargetFrameworkIdentifier)-$(TargetFramework)-$(TargetFrameworkVersion) - $(MSBuildThisFileDirectory) ======="
+			Importance="high" />
+
+		<Message Text="       EnableDynamicLoading :  $(EnableDynamicLoading)" Importance="high" />
+		<Message Text="CopyLocalLockFileAssemblies :  $(CopyLocalLockFileAssemblies)" Importance="high" />
+		<Message Text="              Deterministic :  $(Deterministic)" Importance="high" />
+		<Message Text="              IsTestProject :  $(IsTestProject)" Importance="high" />
+	</Target>
+
+	<Target Name="MyFFMCheck" BeforeTargets="Build" Condition="false">
+		<Message
+			Text="=======$(MSBuildProjectName) - $(Configuration) -$(TargetFrameworkIdentifier)-$(TargetFramework)-$(TargetFrameworkVersion) - $(MSBuildThisFileDirectory) ======="
+			Importance="high" />
 
 		<Message Text="       UsingMicrosoftNETSdk :  $(UsingMicrosoftNETSdk)" Importance="high" />
 		<Message Text="	                IsPackable :  $(IsPackable)" Importance="high" />
@@ -12,13 +25,13 @@
 		<Message Text="              IsTestProject :  $(IsTestProject)" Importance="high" />
 	</Target>
 
-	<Target Name="MyNotRUN"  BeforeTargets="Build"    Condition="false">
+	<Target Name="MyNotRUN" BeforeTargets="Build" Condition="false">
 		<Message Text="            TargetFramework :  $(TargetFramework)" Importance="high" />
 		<Message Text="  TargetFrameworkIdentifier :  $(TargetFrameworkIdentifier)" Importance="high" />
 		<Message Text="	    TargetFrameworkVersion :  $(TargetFrameworkVersion)" Importance="high" />
 	</Target>
 
-	<Target Name="MyPath"  BeforeTargets="Build"    Condition="false">
+	<Target Name="MyPath" BeforeTargets="Build" Condition="false">
 
 		<Message Text="              ReadmeInTree:  $(ReadmeInTree)" Importance="high" />
 		<Message Text="             IconPngInTree:  $(IconPngInTree)" Importance="high" />
@@ -41,7 +54,7 @@
 	<Message Text="$(Description)" Importance="high" />-->
 	</Target>
 
-	<Target Name="MyNameValues"  BeforeTargets="Build"    Condition="false">
+	<Target Name="MyNameValues" BeforeTargets="Build" Condition="false">
 
 		<!-- Use $(Property Name) to reference a property -->
 		<Message Text="$(ProjDir)" Importance="high" />

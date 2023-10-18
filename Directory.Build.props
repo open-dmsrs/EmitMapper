@@ -2,15 +2,14 @@
 	<!-- Properties in this file is not needed to change in general,
 	please provide your good idea if you change this file content	-->
 
-	<!--<Import Project="Sdk.props" Sdk="Microsoft.DotNet.Arcade.Sdk" />-->
-	<Import  Project="$([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..))"
-			 Condition ="Exists($([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..)))" />
+	<!--<Import  Project="$([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..))"
+			 Condition ="Exists($([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..)))" />-->
 
-	<Import  Project="$([MSBuild]::GetPathOfFileAbove(Directory.Debug.props, $(MSBuildThisFileDirectory)))"
-			 Condition ="Exists($([MSBuild]::GetPathOfFileAbove(Directory.Debug.props, $(MSBuildThisFileDirectory))))" />
+	<Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Debug.props, $(MSBuildThisFileDirectory)))"
+	        Condition="Exists($([MSBuild]::GetPathOfFileAbove(Directory.Debug.props, $(MSBuildThisFileDirectory))))" />
 
-	<Import  Project="$([MSBuild]::GetPathOfFileAbove(Directory.Config.props, $(MSBuildThisFileDirectory)))"
-		 Condition ="Exists($([MSBuild]::GetPathOfFileAbove(Directory.Config.props, $(MSBuildThisFileDirectory))))" />
+	<Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Config.props, $(MSBuildThisFileDirectory)))"
+	        Condition="Exists($([MSBuild]::GetPathOfFileAbove(Directory.Config.props, $(MSBuildThisFileDirectory))))" />
 
 	<PropertyGroup Label="RootPath">
 		<PropsDir>$([MSBuild]::NormalizeDirectory($(MSBuildThisFileDirectory)))</PropsDir>
@@ -19,18 +18,15 @@
 	</PropertyGroup>
 
 	<PropertyGroup Label="Versions">
-
+		<LangVersion>latest</LangVersion>
 		<PackageVersion>$(Version)</PackageVersion>
 		<IncludePreReleaseLabelInPackageVersion Condition="'$(IS_STABLE_BUILD)' != 'true'">true</IncludePreReleaseLabelInPackageVersion>
 		<BuildNumber Condition=" '$(BuildNumber)' == '' ">$([MSBuild]::ValueOrDefault($(GITHUB_RUN_NUMBER), 0))</BuildNumber>
-		<VersionSuffix>$(Version).$(BuildNumber)</VersionSuffix>
+		<!--<VersionSuffix>$(Version).$(BuildNumber)</VersionSuffix>-->
 		<SourceRevisionId Condition="'$(SourceRevisionId)' == ''">$(GITHUB_SHA)</SourceRevisionId>
 		<InformationalVersion Condition="'$(SourceRevisionId)' != ''">$(PackageVersion)+$(SourceRevisionId)</InformationalVersion>
 		<AssemblyVersion>$(Version)</AssemblyVersion>
-		<LangVersion>latest</LangVersion>
-		<GenerateAssemblyVersionAttribute>true</GenerateAssemblyVersionAttribute>
-		<GenerateAssemblyFileVersionAttribute>true</GenerateAssemblyFileVersionAttribute>
-		<GenerateAssemblyInformationalVersionAttribute>true</GenerateAssemblyInformationalVersionAttribute>
+		<!--<FileVersion></FileVersion>-->
 	</PropertyGroup>
 
 	<PropertyGroup Label="Project">
@@ -67,6 +63,10 @@
 
 		<!--如果将 GenerateAssemblyInfo 设置为 false，xunit 无法执行，因为 xunit 需要使用程序集信息来查找测试。-->
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+
+		<GenerateAssemblyVersionAttribute>true</GenerateAssemblyVersionAttribute>
+		<GenerateAssemblyFileVersionAttribute>true</GenerateAssemblyFileVersionAttribute>
+		<GenerateAssemblyInformationalVersionAttribute>true</GenerateAssemblyInformationalVersionAttribute>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
@@ -122,9 +122,9 @@
 		<IconPngInTree>$([MSBuild]::NormalizePath($([MSBuild]::ValueOrDefault('$([MSBuild]::GetPathOfFileAbove(icon.png,$(ProjDir)))','$(AssertDir)icon.png'))))</IconPngInTree>
 		<AppIcoInTree>$([MSBuild]::NormalizePath($([MSBuild]::ValueOrDefault('$([MSBuild]::GetPathOfFileAbove(app.ico,$(ProjDir)))','$(AssertDir)app.ico'))))</AppIcoInTree>
 
-		<ChangeLogInTree>$([MSBuild]::NormalizePath($([MSBuild]::ValueOrDefault('$([MSBuild]::GetPathOfFileAbove($([System.IO.Path]::GetFileName('$(ChangeLogFileName)')),$(ProjDir)))','$(AssertDir)$([System.IO.Path]::GetFileName('$(ChangeLogFileName)'))'))))</ChangeLogInTree>
-		<DescriptionInTree>$([MSBuild]::NormalizePath($([MSBuild]::ValueOrDefault('$([MSBuild]::GetPathOfFileAbove($([System.IO.Path]::GetFileName('$(ProjectDescriptionFileName)')),$(ProjDir)))','$(AssertDir)$([System.IO.Path]::GetFileName('$(ProjectDescriptionFileName)'))'))))</DescriptionInTree>
-		<CertificateFileInTree>$([MSBuild]::NormalizePath($([MSBuild]::ValueOrDefault('$([MSBuild]::GetPathOfFileAbove($([System.IO.Path]::GetFileName('$(CertificateFileName)')),$(ProjDir)))','$(AssertDir)$([System.IO.Path]::GetFileName('$(CertificateFileName)'))'))))</CertificateFileInTree>
+		<ChangeLogInTree Condition="'$(ChangeLogFileName)'!=''">$([MSBuild]::NormalizePath($([MSBuild]::ValueOrDefault('$([MSBuild]::GetPathOfFileAbove($([System.IO.Path]::GetFileName('$(ChangeLogFileName)')),$(ProjDir)))','$(AssertDir)$([System.IO.Path]::GetFileName('$(ChangeLogFileName)'))'))))</ChangeLogInTree>
+		<DescriptionInTree  Condition="'$(ProjectDescriptionFileName)'!=''">$([MSBuild]::NormalizePath($([MSBuild]::ValueOrDefault('$([MSBuild]::GetPathOfFileAbove($([System.IO.Path]::GetFileName('$(ProjectDescriptionFileName)')),$(ProjDir)))','$(AssertDir)$([System.IO.Path]::GetFileName('$(ProjectDescriptionFileName)'))'))))</DescriptionInTree>
+		<CertificateFileInTree  Condition="'$(CertificateFileName)'!=''">$([MSBuild]::NormalizePath($([MSBuild]::ValueOrDefault('$([MSBuild]::GetPathOfFileAbove($([System.IO.Path]::GetFileName('$(CertificateFileName)')),$(ProjDir)))','$(AssertDir)$([System.IO.Path]::GetFileName('$(CertificateFileName)'))'))))</CertificateFileInTree>
 	</PropertyGroup>
 
 	<!-- PackageReadmeFile -->
@@ -166,7 +166,8 @@
 
 	<!--PackageReleaseNotes $(ChangeLogFileName)-->
 	<Choose>
-		<When Condition="'$(ChangeLogFileName)'!=''  And $([System.IO.Path]::IsPathRooted($(ChangeLogFileName))) and Exists('$(ChangeLogFileName)')">
+		<When
+			Condition="'$(ChangeLogFileName)'!=''  And $([System.IO.Path]::IsPathRooted($(ChangeLogFileName))) and Exists('$(ChangeLogFileName)')">
 			<PropertyGroup>
 				<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(ChangeLogFileName)"))</PackageReleaseNotes>
 				<ChangeLogFinalPath>$(ChangeLogFileName)</ChangeLogFinalPath>
@@ -189,7 +190,8 @@
 	<!-- Description and PackageDescription-->
 	<!--A long description for the assembly. If PackageDescription is not specified, then this property is also used as the description of the package.-->
 	<Choose>
-		<When Condition="'$(ProjectDescriptionFileName)'!='' And $([System.IO.Path]::IsPathRooted($(ProjectDescriptionFileName))) AND Exists('$(ProjectDescriptionFileName)')">
+		<When
+			Condition="'$(ProjectDescriptionFileName)'!='' And $([System.IO.Path]::IsPathRooted($(ProjectDescriptionFileName))) AND Exists('$(ProjectDescriptionFileName)')">
 			<PropertyGroup>
 				<DescriptionFinalContent>$([System.IO.File]::ReadAllText("$(ProjectDescriptionFileName)"))</DescriptionFinalContent>
 				<DescriptionFinalPath>$(ProjectDescriptionFileName)</DescriptionFinalPath>
@@ -247,7 +249,8 @@
 				<SignAssembly>false</SignAssembly>
 			</PropertyGroup>
 		</When>
-		<When Condition="'$(CertificateFileName)'!='' And $([System.IO.Path]::IsPathRooted($(CertificateFileName))) and Exists('$(CertificateFileName)')">
+		<When
+			Condition="'$(CertificateFileName)'!='' And $([System.IO.Path]::IsPathRooted($(CertificateFileName))) and Exists('$(CertificateFileName)')">
 			<PropertyGroup>
 				<SignAssembly>true</SignAssembly>
 				<AssemblyOriginatorKeyFile>$(CertificateFileName)</AssemblyOriginatorKeyFile>
@@ -262,6 +265,19 @@
 			</PropertyGroup>
 		</When>
 	</Choose>
+
+	<PropertyGroup Label="TFM" Condition="!Exists($([MSBuild]::GetPathOfFileAbove(Directory.Config.props, $(MSBuildThisFileDirectory))))">
+		<TFMS_LIB>net6.0;net7.0</TFMS_LIB>
+		<TFMS_NORMAL>net6.0;net7.0</TFMS_NORMAL>
+		<TFMS_TEST>net6.0;net7.0</TFMS_TEST>
+		<TFMS_SINGLE>net7.0</TFMS_SINGLE>
+		<TFMS_WINDOWS>net6.0-windows;net7.0-windows;</TFMS_WINDOWS>
+	</PropertyGroup>
+	<PropertyGroup Label="Versions" Condition="!Exists($([MSBuild]::GetPathOfFileAbove(Directory.Config.props, $(MSBuildThisFileDirectory))))">
+
+		<Version>0.0.1</Version>
+	</PropertyGroup>
+
 	<Import Project="$(MSBuildProjectDirectory)\releasenotes.props"
 	        Condition="Exists('$(MSBuildProjectDirectory)\releasenotes.props')" />
 
