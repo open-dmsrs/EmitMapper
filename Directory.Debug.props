@@ -3,7 +3,39 @@
 	<Import Project="$([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..))"
 	        Condition="Exists($([MSBuild]::GetPathOfFileAbove($(MSBuildThisFile), $(MSBuildThisFileDirectory)..)))" />
 
-	<Target Name="MyOptimize" BeforeTargets="Build" Condition="true">
+	<Target Name="NerdbankGitVersioning" BeforeTargets="Build" Condition="true">
+		<Message
+			Text="=======$(MSBuildProjectName) - $(Configuration) -$(TargetFrameworkIdentifier)-$(TargetFramework)-$(TargetFrameworkVersion) - $(MSBuildThisFileDirectory) ======="
+			Importance="high" />
+
+		<Message Text="AssemblyFileVersion :  $(AssemblyFileVersion)" Importance="high" />
+		<Message Text="AssemblyInformationalVersion :  $(AssemblyInformationalVersion)" Importance="high" />
+		<Message Text="AssemblyVersion :  $(AssemblyVersion)" Importance="high" />
+		<Message Text="BuildingRef :  $(BuildingRef)" Importance="high" />
+		<Message Text="BuildNumber :  $(BuildNumber)" Importance="high" />
+		<Message Text="BuildVersion :  $(BuildVersion)" Importance="high" />
+		<Message Text="BuildVersion3Components :  $(BuildVersion3Components)" Importance="high" />
+		<Message Text="BuildVersionNumberComponent :  $(BuildVersionNumberComponent)" Importance="high" />
+		<Message Text="BuildVersionSimple :  $(BuildVersionSimple)" Importance="high" />
+		<Message Text="ChocolateyPackageVersion :  $(ChocolateyPackageVersion)" Importance="high" />
+		<Message Text="AssemblyVersion :  $(AssemblyVersion)" Importance="high" />
+		<Message Text="CloudBuildNumber :  $(CloudBuildNumber)" Importance="high" />
+		<Message Text="FileVersion :  $(FileVersion)" Importance="high" />
+		<Message Text="GitCommitDateTicks :  $(GitCommitDateTicks)" Importance="high" />
+		<Message Text="GitCommitId :  $(GitCommitId)" Importance="high" />
+		<Message Text="GitCommitIdShort :  $(GitCommitIdShort)" Importance="high" />
+		<Message Text="GitVersionHeight :  $(GitVersionHeight)" Importance="high" />
+		<Message Text="MajorMinorVersion :  $(MajorMinorVersion)" Importance="high" />
+		<Message Text="NPMPackageVersion :  $(NPMPackageVersion)" Importance="high" />
+		<Message Text="NuGetPackageVersion :  $(NuGetPackageVersion)" Importance="high" />
+		<Message Text="PackageVersion :  $(PackageVersion)" Importance="high" />
+		<Message Text="PrereleaseVersion :  $(PrereleaseVersion)" Importance="high" />
+		<Message Text="PublicRelease :  $(PublicRelease)" Importance="high" />
+		<Message Text="SemVerBuildSuffix :  $(SemVerBuildSuffix)" Importance="high" />
+		<Message Text="Version :  $(Version)" Importance="high" />
+	</Target>
+
+	<Target Name="MyOptimize" BeforeTargets="Build" Condition="false">
 		<Message
 			Text="=======$(MSBuildProjectName) - $(Configuration) -$(TargetFrameworkIdentifier)-$(TargetFramework)-$(TargetFrameworkVersion) - $(MSBuildThisFileDirectory) ======="
 			Importance="high" />
