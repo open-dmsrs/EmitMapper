@@ -15,37 +15,37 @@
 namespace LightDataAccess;
 
 /// <summary>
-///   Class DbSettings
+///   Class DbSettings.
 /// </summary>
 public class DbSettings
 {
   /// <summary>
-  ///   The MSSQL
+  ///   The MSSQL.
   /// </summary>
   public static DbSettings Mssql;
 
   /// <summary>
-  ///   My SQL
+  ///   My SQL.
   /// </summary>
   public static DbSettings MySql;
 
   /// <summary>
-  ///   The SQLITE
+  ///   The SQLITE.
   /// </summary>
   public static DbSettings Sqlite;
 
   /// <summary>
-  ///   The first name escape symbol
+  ///   The first name escape symbol.
   /// </summary>
   public string FirstNameEscapeSymbol;
 
   /// <summary>
-  ///   The param prefix
+  ///   The param prefix.
   /// </summary>
   public string ParamPrefix;
 
   /// <summary>
-  ///   The second name escape symbol
+  ///   The second name escape symbol.
   /// </summary>
   public string SecondNameEscapeSymbol;
 

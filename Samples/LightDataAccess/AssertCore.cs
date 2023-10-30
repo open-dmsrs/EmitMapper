@@ -217,7 +217,7 @@ public static class AssertCore
   /// <param name="getArgumentName">Delegate for getting the argument name.</param>
   /// <exception cref="System.ArgumentNullException">
   ///   Null strings are not allowed.
-  ///   or
+  ///   or.
   /// </exception>
   /// <exception cref="System.ArgumentException">
   ///   Empty strings are not allowed.
@@ -263,7 +263,7 @@ public static class AssertCore
   /// <param name="getArgumentName">Name of the get argument.</param>
   /// <exception cref="System.ArgumentNullException">
   ///   Null collections are not allowed.
-  ///   or
+  ///   or.
   /// </exception>
   /// <exception cref="System.ArgumentException">
   ///   Empty collections are not allowed.
@@ -557,7 +557,7 @@ public static class AssertCore
   /// <summary>
   ///   Results the not null.
   /// </summary>
-  /// <typeparam name="T">The result type</typeparam>
+  /// <typeparam name="T">The result type.</typeparam>
   /// <param name="result">The result.</param>
   /// <param name="getMessage">The get message.</param>
   /// <returns>The result object.</returns>
@@ -571,7 +571,7 @@ public static class AssertCore
   /// <summary>
   ///   Results the not null.
   /// </summary>
-  /// <typeparam name="T">The result type</typeparam>
+  /// <typeparam name="T">The result type.</typeparam>
   /// <param name="result">The result.</param>
   /// <param name="message">The message.</param>
   /// <returns>The result object.</returns>

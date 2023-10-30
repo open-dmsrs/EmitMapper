@@ -15,7 +15,7 @@
 namespace LightDataAccess;
 
 /// <summary>
-///   Class CmdParams
+///   Class CmdParams.
 /// </summary>
 public class CmdParams : Dictionary<string, object>
 {

@@ -17,7 +17,7 @@ using LightDataAccess.MappingConfigs;
 namespace LightDataAccess;
 
 /// <summary>
-///   Class CommandBuilder
+///   Class CommandBuilder.
 /// </summary>
 public static partial class CommandBuilder
 {
@@ -32,7 +32,7 @@ public static partial class CommandBuilder
   /// <param name="excludeFields">The exclude fields.</param>
   /// <param name="changeTracker">The change tracker.</param>
   /// <param name="dbSettings">The db settings.</param>
-  /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+  /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
   public static bool BuildUpdateCommand(
     this DbCommand cmd,
     object obj,
@@ -96,7 +96,7 @@ public static partial class CommandBuilder
   /// <param name="tableName">Name of the table.</param>
   /// <param name="idFieldNames">The id field names.</param>
   /// <param name="dbSettings">The db settings.</param>
-  /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+  /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
   public static bool BuildUpdateOperator(
     this DbCommand cmd,
     object obj,

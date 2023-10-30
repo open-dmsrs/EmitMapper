@@ -17,17 +17,17 @@ using EmitMapper.Conversion;
 namespace LightDataAccess;
 
 /// <summary>
-///   Class ObjectsChangeTracker
+///   Class ObjectsChangeTracker.
 /// </summary>
 public class ObjectsChangeTracker
 {
   /// <summary>
-  ///   The _map manager
+  ///   The _map manager.
   /// </summary>
   private readonly Mapper _mapManager;
 
   /// <summary>
-  ///   The _tracking objects
+  ///   The _tracking objects.
   /// </summary>
   private readonly Dictionary<object, List<TrackingMember>> _trackingObjects = new();
 
@@ -79,7 +79,7 @@ public class ObjectsChangeTracker
   /// </summary>
   /// <param name="originalObj">The original obj.</param>
   /// <param name="currentObj">The current obj.</param>
-  /// <returns>An array of TrackingMembers</returns>
+  /// <returns>An array of TrackingMembers.</returns>
   public TrackingMember[] GetChanges(object originalObj, object currentObj)
   {
     if (originalObj == null || currentObj == null || originalObj.GetType() != currentObj.GetType()) return null;
@@ -128,39 +128,39 @@ public class ObjectsChangeTracker
   }
 
   /// <summary>
-  ///   Struct TrackingMember
+  ///   Struct TrackingMember.
   /// </summary>
   public struct TrackingMember
   {
     /// <summary>
-    ///   The current value
+    ///   The current value.
     /// </summary>
     public object CurrentValue;
 
     /// <summary>
-    ///   The name
+    ///   The name.
     /// </summary>
     public string Name;
 
     /// <summary>
-    ///   The original value
+    ///   The original value.
     /// </summary>
     public object OriginalValue;
   }
 
   /// <summary>
-  ///   Class TrackingMembersList
+  ///   Class TrackingMembersList.
   /// </summary>
   internal class TrackingMembersList
   {
     /// <summary>
-    ///   The tracking members
+    ///   The tracking members.
     /// </summary>
     public List<TrackingMember> TrackingMembers = new();
   }
 
   /// <summary>
-  ///   Class MappingConfiguration
+  ///   Class MappingConfiguration.
   /// </summary>
   private class MappingConfiguration : MapConfigBaseImpl
   {

@@ -14,7 +14,7 @@ using LightDataAccess.MappingConfigs;
 namespace LightDataAccess;
 
 /// <summary>
-/// Class CommandBuilder
+/// Class CommandBuilder.
 /// </summary>
 public static partial class CommandBuilder
 {

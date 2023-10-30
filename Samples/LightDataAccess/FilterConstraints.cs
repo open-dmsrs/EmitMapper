@@ -15,7 +15,7 @@
 namespace LightDataAccess;
 
 /// <summary>
-///   Class FilterConstraints
+///   Class FilterConstraints.
 /// </summary>
 public class FilterConstraints
 {

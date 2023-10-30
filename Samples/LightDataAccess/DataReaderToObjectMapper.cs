@@ -122,17 +122,17 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
   }
 
   /// <summary>
-  ///   Class DbReaderMappingConfig
+  ///   Class DbReaderMappingConfig.
   /// </summary>
   private class DbReaderMappingConfig : MapConfigBaseImpl
   {
     /// <summary>
-    ///   The _mapping key
+    ///   The _mapping key.
     /// </summary>
     private readonly string _mappingKey;
 
     /// <summary>
-    ///   The _skip fields
+    ///   The _skip fields.
     /// </summary>
     private readonly IEnumerable<string> _skipFields;
 
@@ -164,10 +164,10 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
     ///   this operation can be additionally defined the following custom operations:
     ///   - Custom getter which extracts values from source
     ///   - Custom values converter which converts extracted from source value
-    ///   - Custom setter which writes value to destination
+    ///   - Custom setter which writes value to destination.
     /// </summary>
-    /// <param name="from">Source type</param>
-    /// <param name="to">Destination type</param>
+    /// <param name="from">Source type.</param>
+    /// <param name="to">Destination type.</param>
     /// <returns>IEnumerable&lt;IMappingOperation&gt;.</returns>
     public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
     {
@@ -208,7 +208,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
     /// <param name="ind">The ind.</param>
     /// <param name="m">The m.</param>
     /// <returns>Delegate.</returns>
-    /// <exception cref="EmitMapper.EmitMapperException">Could not convert an object to  + memberType.ToString()</exception>
+    /// <exception cref="EmitMapper.EmitMapperException">Could not convert an object to  + memberType.ToString().</exception>
     private Delegate GetValuesGetter(int ind, MemberInfo m)
     {
       var memberType = ReflectionHelper.GetMemberReturnType(m);
@@ -317,23 +317,23 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
     }
 
     /// <summary>
-    ///   Class ReaderValuesExtrator
+    ///   Class ReaderValuesExtrator.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     private class ReaderValuesExtrator<T>
     {
       /// <summary>
-      ///   The field name
+      ///   The field name.
       /// </summary>
       public readonly string FieldName;
 
       /// <summary>
-      ///   The value extractor
+      ///   The value extractor.
       /// </summary>
       public readonly Func<int, IDataReader, T> ValueExtractor;
 
       /// <summary>
-      ///   The field num
+      ///   The field num.
       /// </summary>
       public int FieldNum;
 

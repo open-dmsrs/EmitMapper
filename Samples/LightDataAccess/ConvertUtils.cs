@@ -15,7 +15,7 @@
 namespace LightDataAccess;
 
 /// <summary>
-///   Class ConvertUtils
+///   Class ConvertUtils.
 /// </summary>
 public static class ConvertUtils
 {
@@ -23,7 +23,7 @@ public static class ConvertUtils
   ///   To the bool.
   /// </summary>
   /// <param name="s">The s.</param>
-  /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+  /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
   public static bool ToBool(this short s)
   {
     return s != 0;
@@ -33,7 +33,7 @@ public static class ConvertUtils
   ///   To the bool.
   /// </summary>
   /// <param name="s">The s.</param>
-  /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+  /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
   public static bool ToBool(this short? s)
   {
     return s != 0;
