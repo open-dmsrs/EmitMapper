@@ -91,10 +91,7 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Nerdbank.GitVersioning">
-			<PrivateAssets>all</PrivateAssets>
-			<Version>3.6.133</Version>
-		</PackageReference>
+		<PackageReference Include="Nerdbank.GitVersioning" PrivateAssets="all" Version="3.6.133" />
 		<PackageReference Include="CSharpIsNullAnalyzer" Version="0.1.495" />
 		<PackageReference Include="DotNetAnalyzers.DocumentationAnalyzers" Version="1.0.0-beta.59" />
 		<PackageReference Include="Nullable" Version="1.3.1" />
@@ -250,9 +247,17 @@
 		<TFMS_SINGLE>net7.0</TFMS_SINGLE>
 		<TFMS_WINDOWS>net7.0-windows</TFMS_WINDOWS>
 	</PropertyGroup>
-	<!--<PropertyGroup Label="Versions" Condition="!Exists($([MSBuild]::GetPathOfFileAbove(version.json, $(MSBuildThisFileDirectory))))">
-		<Version>0.0.1</Version>
-	</PropertyGroup>-->
+
+	<PropertyGroup Label="Versions">
+		<LangVersion>latest</LangVersion>
+		<!--使用Nerdbank.GitVersioning控制版本，不在设置版本号-->
+		<!--<VersionPrefix>0.1.0</VersionPrefix>
+        <VersionSuffix>beta</VersionSuffix>-->
+		<!--<Version>0.0.1</Version>-->
+		<!--产品版本 如果不指定，将会由 VersionPrefix.VersionSuffix 强签名组成-->
+		<!--<InformationalVersion>This is a prerelease package</InformationalVersion>-->
+	</PropertyGroup>
+
 	<Import Project="$(MSBuildProjectDirectory)\releasenotes.props" Condition="Exists('$(MSBuildProjectDirectory)\releasenotes.props')" />
 	<!--
 MSBuild 中，如果一个属性在项目文件中被重复定义了，那么哪一个会生效呢?
