@@ -34,11 +34,21 @@
 	</PropertyGroup>
 
 	<PropertyGroup Label="TFM">
-		<TFMS_LIB>net6.0;net7.0;netstandard2.1</TFMS_LIB>
-		<TFMS_NORMAL>net6.0;net7.0</TFMS_NORMAL>
-		<TFMS_TEST>net6.0;net7.0</TFMS_TEST>
-		<TFMS_SINGLE>net7.0</TFMS_SINGLE>
-		<TFMS_WINDOWS>net6.0-windows;net7.0-windows;</TFMS_WINDOWS>
-		<!--<TargetFramework Condition="'$(OutputType)'!='Library'">net7.0</TargetFramework>-->
+		<TFMS_LIB>net8.0</TFMS_LIB>
+		<TFMS_Web>net8.0</TFMS_Web>
+		<TFMS_NORMAL>net8.0</TFMS_NORMAL>
+		<TFMS_TEST>net8.0</TFMS_TEST>
+		<TFMS_SINGLE>net8.0</TFMS_SINGLE>
+		<TFMS_WINDOWS>net8.0-windows</TFMS_WINDOWS>
 	</PropertyGroup>
+	<PropertyGroup Label="TFM" Condition="'$(Configuration)'=='Release'">
+		<TFMS_LIB>$(TFMS_LIB);net6.0</TFMS_LIB>
+		<TFMS_Web>$(TFMS_Web);net6.0</TFMS_Web>
+		<TFMS_NORMAL>$(TFMS_NORMAL);net6.0</TFMS_NORMAL>
+		<TFMS_TEST>$(TFMS_TEST);net6.0</TFMS_TEST>
+		<TFMS_SINGLE>(TFMS_SINGLE);net6.0</TFMS_SINGLE>
+		<TFMS_WINDOWS>$(TFMS_WINDOWS);net6.0-windows</TFMS_WINDOWS>
+	</PropertyGroup>
+
+
 </Project>

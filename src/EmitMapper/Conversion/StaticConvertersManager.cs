@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.Conversion;
+namespace EmitMapper.Conversion;
 
 /// <summary>
 ///   The static converters manager.
@@ -100,6 +100,6 @@ public class StaticConvertersManager
     if (mi == null)
       return null;
 
-    return _ConvertersFunc.GetOrAdd(mi, m => ((MethodInvokerFunc1)MethodInvoker.GetMethodInvoker(null, m)).CallFunc);
+    return _ConvertersFunc.GetOrAdd(mi, m => ((MethodInvokerFunc1)EmitInvoker.Methods.MethodInvoker.GetMethodInvoker(null, m)).CallFunc);
   }
 }

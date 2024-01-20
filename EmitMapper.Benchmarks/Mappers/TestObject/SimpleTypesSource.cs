@@ -1,5 +1,5 @@
-﻿namespace EmitMapper.Benchmarks.Mappers.TestObject
-{
+﻿namespace EmitMapper.Benchmarks.Mappers.TestObject;
+
   /// <summary>
   ///   The simple types source.
   /// </summary>
@@ -39,4 +39,3 @@
 
     public string Str9 = "str9";
   }
-}

@@ -1,7 +1,7 @@
 ﻿using EmitMapper.Benchmarks.Mappers;
 
-namespace EmitMapper.Benchmarks
-{
+namespace EmitMapper.Benchmarks;
+
   /// <summary>
   ///   The program.
   /// </summary>
@@ -35,4 +35,3 @@ namespace EmitMapper.Benchmarks
       //);
     }
   }
-}

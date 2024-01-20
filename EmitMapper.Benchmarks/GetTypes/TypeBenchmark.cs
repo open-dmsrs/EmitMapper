@@ -1,8 +1,8 @@
 ﻿using BenchmarkDotNet.Jobs;
 using EmitMapper.Utils;
 
-namespace EmitMapper.Benchmarks.GetTypes
-{
+namespace EmitMapper.Benchmarks.GetTypes;
+
   /// <summary>
   ///   The type benchmark.
   /// </summary>
@@ -55,7 +55,6 @@ namespace EmitMapper.Benchmarks.GetTypes
       return typeof(Employee);
     }
   }
-}
 
 /*/ * Summary *
 

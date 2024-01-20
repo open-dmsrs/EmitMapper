@@ -1,5 +1,5 @@
-﻿namespace EmitMapper.Benchmarks.Mappers.TestObject
-{
+﻿namespace EmitMapper.Benchmarks.Mappers.TestObject;
+
   /// <summary>
   ///   The bench nested source.
   /// </summary>
@@ -83,4 +83,3 @@
       public string Str2;
     }
   }
-}

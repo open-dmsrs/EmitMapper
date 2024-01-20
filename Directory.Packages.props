@@ -1,5 +1,62 @@
 <Project>
+  <PropertyGroup>
+	<LoadingOrder>$(MSBuildThisFileDirectory)$(MSBuildThisFile);$(LoadingOrder)</LoadingOrder>
+	<ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+	<CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+	<CentralPackageVersionOverrideEnabled>false</CentralPackageVersionOverrideEnabled>
+  </PropertyGroup>
+  <PropertyGroup Label="Analyzers">
+	<NoWarn>NU1605;NU1504;NU5105;1701;1702;1591;8002;$(NoWarn)</NoWarn>
+	<NoWarn>SA1623;SA1028;SA1615;SA1027;SA1037;$(NoWarn)</NoWarn>
+	<!--
+		SA1615 - Element return value should be documented
+		SA1629 - A section of the Xml header documentation for a C# element does not end with a period (also known as a full stop).
+		-->
+	<NoWarn>SA1600;SA1629;CS1591;SA1615;(NoWarn)</NoWarn>
+	<NoWarn>CA1822;CA1852;CA1805;$(NoWarn)</NoWarn>
+	<!--<DisablePublicApiAnalyzer>true</DisablePublicApiAnalyzer>-->
+	<AnalysisLevel>latest-recommended</AnalysisLevel>
+	<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+	<EnableNETAnalyzers>True</EnableNETAnalyzers>
+	<RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+	<RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
+  </PropertyGroup>
+  <ItemGroup Label="Analyzers" Condition="true">
+	<!--<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" ExcludeAssets="compile" PrivateAssets="all" />-->
+	<!--<PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4" ExcludeAssets="compile" PrivateAssets="all" />-->
+	<PackageReference Include="Microsoft.CodeAnalysis.AnalyzerUtilities" Version="3.11.0-beta1.23525.2" ExcludeAssets="compile" PrivateAssets="all">
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+	<!--<PackageReference Include="UnoptimizedAssemblyDetector" Version="0.1.1" ExcludeAssets="compile" PrivateAssets="all" />-->
+	<PackageReference Include="CSharpIsNullAnalyzer" Version="0.1.495" ExcludeAssets="compile" PrivateAssets="all" />
+	<!--<PackageReference Include="DotNetAnalyzers.DocumentationAnalyzers.Unstable" Version="1.0.0.59" ExcludeAssets="compile" PrivateAssets="all" />-->
+	<PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" ExcludeAssets="compile" PrivateAssets="all">
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+	<PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.556" ExcludeAssets="compile" PrivateAssets="all" />
+	<PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="4.9.0" ExcludeAssets="compile" PrivateAssets="all">
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+	<PackageReference Include="Roslynator.Analyzers" Version="4.9.0" ExcludeAssets="compile" PrivateAssets="all">
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+	<PackageReference Include="Roslynator.Formatting.Analyzers" Version="4.9.0" ExcludeAssets="compile" PrivateAssets="all">
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+	<PackageReference Include="Microsoft.CST.DevSkim" ExcludeAssets="compile" Version="1.0.28" />
+	<PackageReference Include="AsyncFixer" ExcludeAssets="compile" Version="1.6.0" />
+	<PackageReference Include="IDisposableAnalyzers" Version="4.0.7" PrivateAssets="All" IncludeAssets="Runtime;Build;Native;contentFiles;Analyzers" />
+  </ItemGroup>
+  <ItemGroup>
+	<!--Condition="'$(GITHUB_ACTIONS)' == 'true' and '$(IsTestProject)' != 'true'"-->
+	<PackageReference ExcludeAssets="compile" PrivateAssets="all" Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+	<PackageReference ExcludeAssets="compile" PrivateAssets="all" Include="Nullable" Version="1.3.1" />
+	<PackageReference ExcludeAssets="compile" PrivateAssets="all" Include="Nerdbank.GitVersioning" Version="3.7.48-alpha" />
+	<!--<GlobalPackageReference Include="Nerdbank.GitVersioning" />-->
+  </ItemGroup>
+  <Target Name="PrepareReleaseNotes" BeforeTargets="GenerateNuspec" DependsOnTargets="GetBuildVersion" >
 	<PropertyGroup>
-		<ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+	  <PackageReleaseNotes Condition="'$(PackageProjectUrl)'!=''">$(PackageProjectUrl)/releases/tag/v$(Version)</PackageReleaseNotes>
 	</PropertyGroup>
+  </Target>
 </Project>

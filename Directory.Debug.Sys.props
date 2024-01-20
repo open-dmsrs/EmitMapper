@@ -1,0 +1,45 @@
+<Project>
+	<PropertyGroup>
+		<LoadingOrder>$(MSBuildThisFileDirectory)$(MSBuildThisFile);$(LoadingOrder)</LoadingOrder>
+	</PropertyGroup>
+	<Target Name="Sysxxxxx" BeforeTargets="Build" Condition="true">
+
+
+		<Message
+			Text="$(Configuration)	当前项目配置的名称，例如，“调试”。
+		$(DevEnvDir)	Visual Studio 的安装目录（定义为驱动器 + 路径）；包括尾随反斜杠“\”。
+		$(FrameworkDir)	在其中安装了 .NET Framework 的目录。
+		$(FrameworkSDKDir)	在其中安装了 .NET Framework 的目录。 .NET Framework 可能已作为 Visual Studio 的一部分安装或单独安装。
+		$(FrameworkVersion)	Visual Studio 使用的.NET framework 版本。 结合 $(FrameworkDir)，就是 Visual Studio 使用的 .NET Framework 版本的完整路径。
+		$(FxCopDir)	fxcop.cmd 文件的路径。 fxcop.cmd 文件并未在所有 Visual Studio 版本中安装。
+		$(IntDir)	为中间文件指定的目录路径。 如果这是一个相对路径，中间文件将转到已追加到项目目录的这一路径。 此路径应具有尾随斜杠。 它解析为“中间目录”属性的值。 请勿使用 $(OutDir) 来定义此属性。
+		$(OutDir)	输出文件目录的路径。 如果这是一个相对路径，输出文件将转到已追加到项目目录中的这一路径。 此路径应具有尾随斜杠。 它解析为“输出目录”属性的值。 请勿使用 $(IntDir) 来定义此属性。
+		$(Platform)	当前项目平台的名称（例如“Win32”）。
+		$(PlatformShortName)	当前体系结构的短名称，例如“x86”或“x64”。
+		$(ProjectDir)	项目的目录（定义为驱动器 + 路径）；包括尾随反斜杠 '\'。
+		$(ProjectExt)	项目的文件扩展名。 文件扩展名之前包括“.”。
+		$(ProjectFileName)	项目的文件名称（定义为基名称 + 文件扩展名）。
+		$(ProjectName)	项目的基名称。
+		$(ProjectPath)	项目的绝对路径名称（定义为驱动器 + 路径 + 基名称 + 文件扩展名）。
+		$(PublishDir)	发布目标的输出位置；包括尾随反斜杠“\”。 默认为 $(OutDir)app.publish\ 文件夹。
+		$(RemoteMachine)	设置为“调试”属性页上 Remote Machine 属性的值。 有关详细信息，请参阅更改 C/C++ 调试配置的项目设置。
+		$(RootNameSpace)	包含应用程序的命名空间（如果存在）。
+		$(SolutionDir)	解决方案的目录（定义为驱动器 + 路径）；包括尾随反斜杠 '\'。 仅当在 IDE 中生成解决方案时定义。
+		$(SolutionExt)	解决方案的文件扩展名。 文件扩展名之前包括“.”。 仅当在 IDE 中生成解决方案时定义。
+		$(SolutionFileName)	解决方案的文件名称（定义为基名称 + 文件扩展名）。 仅当在 IDE 中生成解决方案时定义。
+		$(SolutionName)	解决方案的基名称。 仅当在 IDE 中生成解决方案时定义。
+		$(SolutionPath)	解决方案的绝对路径名称（定义为驱动器 + 路径 + 基名称 + 文件扩展名）。 仅当在 IDE 中生成解决方案时定义。
+		$(TargetDir)	生成的主输出文件的目录（定义为驱动器 + 路径）；包括尾随反斜杠 '\'。
+		$(TargetExt)	生成的主输出文件的文件扩展名。 文件扩展名之前包括“.”。
+		$(TargetFileName)	生成的主输出文件的文件名称（定义为基名称 + 文件扩展名）。
+		$(TargetName)	生成的主输出文件的基名称。
+		$(TargetPath)	生成的主输出文件的绝对路径名称（定义为驱动器 + 路径 + 基名称 + 文件扩展名）。
+		$(VCInstallDir)	包含 Visual Studio 安装的 C++ 内容的目录。 此属性包含目标 Microsoft C++ (MSVC) 工具集的版本，它可能与主机 Visual Studio 不同。 例如，当使用 $(PlatformToolset) = v140 进行生成时，$(VCInstallDir) 包含 Visual Studio 2015 安装路径。
+		$(VSInstallDir)	在其中安装了 Visual Studio 的目录。 此属性包含目标 Visual Studio 工具集的版本，它可能与主机 Visual Studio 不同。 例如，当使用 $(PlatformToolset) = v110 进行生成时，$(VSInstallDir) 包含 Visual Studio 2012 安装路径。
+		$(WebDeployPath)	从 Web 部署根到项目输出位置的相对路径。
+		$(WebDeployRoot)	&lt;localhost&gt; 位置的绝对路径。 例如 c:\inetpub\wwwroot。"
+			Importance="high" />
+
+
+	</Target>
+</Project>

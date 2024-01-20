@@ -1,0 +1,17 @@
+#------------------------------------------------------------------------------
+# This file contains command-line options that MSBuild will process as part of
+# every build, unless the "/noautoresponse" switch is specified.
+#
+# MSBuild processes the options in this file first, before processing the
+# options on the command line. As a result, options on the command line can
+# override the options in this file. However, depending on the options being
+# set, the overriding can also result in conflicts.
+#
+# NOTE: The "/noautoresponse" switch cannot be specified in this file, nor in
+# any response file that is referenced by this file.
+# Directory.Build.rsp 是一个 MSBuild 响应文件，它可以用来指定 dotnet build 命令行编译时的一些参数12。它的作用是为了方便在源代码存储库中提供默认的编译选项，或者为托管的构建指定一些参数34。它的文件名必须是 Directory.Build.rsp，而且必须放在项目文件所在目录或者其父级目录中5。MSBuild 会自动搜索并应用这个文件中的参数1。
+#------------------------------------------------------------------------------
+#/nr:false
+#/m
+#/verbosity:minimal
+#/clp:Summary;ForceNoAlign

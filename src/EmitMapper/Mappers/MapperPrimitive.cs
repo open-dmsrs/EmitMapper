@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.Mappers;
+namespace EmitMapper.Mappers;
 
 /// <summary>
 ///   Mapper for primitive objects
@@ -30,7 +30,7 @@ internal class MapperPrimitive : CustomMapper
     var converterMethod = staticConv.GetStaticConverter(from, to);
 
     if (converterMethod != null)
-      _converter = (MethodInvokerFunc1)MethodInvoker.GetMethodInvoker(null, converterMethod);
+      _converter = (MethodInvokerFunc1)EmitInvoker.Methods.MethodInvoker.GetMethodInvoker(null, converterMethod);
   }
 
   /// <summary>

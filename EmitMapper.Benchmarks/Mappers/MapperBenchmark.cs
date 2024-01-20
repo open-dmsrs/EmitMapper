@@ -1,7 +1,7 @@
 ﻿using BenchmarkDotNet.Jobs;
 
-namespace EmitMapper.Benchmarks.Mappers
-{
+namespace EmitMapper.Benchmarks.Mappers;
+
   /// <summary>
   /// The mapper benchmark.
   /// </summary>
@@ -252,7 +252,6 @@ namespace EmitMapper.Benchmarks.Mappers
       _ = simple.MapEnum(_benchSources1000List); // for list object
     }
   }
-}
 
 /*******
 // * Summary *

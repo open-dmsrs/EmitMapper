@@ -1,5 +1,5 @@
-﻿namespace EmitMapper.Benchmarks.Mappers
-{
+﻿namespace EmitMapper.Benchmarks.Mappers;
+
   /// <summary>
   /// The hard code mapper.
   /// </summary>
@@ -115,4 +115,3 @@
       return result;
     }
   }
-}
