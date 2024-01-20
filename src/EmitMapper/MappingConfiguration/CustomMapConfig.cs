@@ -8,12 +8,12 @@ public class CustomMapConfig : MapConfigBaseImpl
 	/// <summary>
 	///   Gets or Sets the configuration name.
 	/// </summary>
-	public string ConfigurationName { get; set; }
+	public string? ConfigurationName { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the get mapping operation func.
 	/// </summary>
-	public Func<Type, Type, IEnumerable<IMappingOperation>> GetMappingOperationFunc { get; set; }
+	public Func<Type, Type, IEnumerable<IMappingOperation>>? GetMappingOperationFunc { get; set; }
 
 	/// <summary>
 	///   Gets the configuration name.

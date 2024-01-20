@@ -2,14 +2,6 @@
 
 	<PropertyGroup Label="Versions">
 		<LangVersion>latest</LangVersion>
-		<!--<VersionPrefix>0.1.0</VersionPrefix>
-		<VersionSuffix>beta</VersionSuffix>
-
-		<Version>2.1.9</Version>
-
-		产品版本 如果不指定，将会由 VersionPrefix.VersionSuffix 强签名组成
-
-		<InformationalVersion>This is a prerelease package</InformationalVersion>-->
 	</PropertyGroup>
 
 	<PropertyGroup Label="AssemblyAndPackage">
@@ -31,6 +23,7 @@
 		<RepositoryUrl>https://github.com/niubilitynetcore/EmitMapper</RepositoryUrl>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<!--<PackageOutputPath>$(PropsDir)nupkgs</PackageOutputPath>-->
+		<GeneratePackageOnBuild Condition="'$(IsTestProject)' != 'true'">true</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<PropertyGroup Label="TFM">

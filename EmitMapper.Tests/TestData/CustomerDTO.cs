@@ -8,19 +8,19 @@ public class CustomerDTO : ITestObject
 	/// <summary>
 	///   Gets or Sets the address.
 	/// </summary>
-	public Address Address { get; set; }
+	public Address? Address { get; set; }
 	/// <summary>
 	///   Gets or Sets the address city.
 	/// </summary>
-	public string AddressCity { get; set; }
+	public string? AddressCity { get; set; }
 	/// <summary>
 	///   Gets or Sets the addresses.
 	/// </summary>
-	public AddressDTO[] Addresses { get; set; }
+	public AddressDTO[]? Addresses { get; set; }
 	/// <summary>
 	///   Gets or Sets the home address.
 	/// </summary>
-	public AddressDTO HomeAddress { get; set; }
+	public AddressDTO? HomeAddress { get; set; }
 	/// <summary>
 	///   Gets or Sets the id.
 	/// </summary>
@@ -28,9 +28,9 @@ public class CustomerDTO : ITestObject
 	/// <summary>
 	///   Gets or Sets the name.
 	/// </summary>
-	public string Name { get; set; }
+	public string? Name { get; set; }
 	/// <summary>
 	///   Gets or Sets the work addresses.
 	/// </summary>
-	public List<AddressDTO> WorkAddresses { get; set; }
+	public List<AddressDTO>? WorkAddresses { get; set; }
 }

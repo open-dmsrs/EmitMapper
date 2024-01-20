@@ -8,11 +8,11 @@ public class Customer : ITestObject
 	/// <summary>
 	///   Gets or Sets the address.
 	/// </summary>
-	public Address Address { get; set; }
+	public Address? Address { get; set; }
 	/// <summary>
 	///   Gets or Sets the addresses.
 	/// </summary>
-	public Address[] Addresses { get; set; }
+	public Address[]? Addresses { get; set; }
 	/// <summary>
 	///   Gets or Sets the credit.
 	/// </summary>
@@ -20,7 +20,7 @@ public class Customer : ITestObject
 	/// <summary>
 	///   Gets or Sets the home address.
 	/// </summary>
-	public Address HomeAddress { get; set; }
+	public Address? HomeAddress { get; set; }
 	/// <summary>
 	///   Gets or Sets the id.
 	/// </summary>
@@ -28,9 +28,9 @@ public class Customer : ITestObject
 	/// <summary>
 	///   Gets or Sets the name.
 	/// </summary>
-	public string Name { get; set; }
+	public string? Name { get; set; }
 	/// <summary>
 	///   Gets or Sets the work addresses.
 	/// </summary>
-	public List<Address> WorkAddresses { get; set; }
+	public List<Address>? WorkAddresses { get; set; }
 }

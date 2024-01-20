@@ -5,9 +5,9 @@
 /// </summary>
 internal class AstUnbox : IAstValue
 {
-	public IAstRef RefObj;
+	public IAstRef? RefObj;
 
-	public Type UnboxedType;
+	public Type? UnboxedType;
 
 	/// <summary>
 	///   Gets the item type.

@@ -5,9 +5,9 @@
 /// </summary>
 internal class AstReadProperty : IAstRefOrValue
 {
-	public PropertyInfo PropertyInfo;
+	public PropertyInfo? PropertyInfo;
 
-	public IAstRefOrAddr SourceObject;
+	public IAstRefOrAddr? SourceObject;
 
 	/// <summary>
 	///   Gets the item type.

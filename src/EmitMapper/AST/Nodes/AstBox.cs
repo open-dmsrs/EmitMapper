@@ -5,7 +5,7 @@
 /// </summary>
 internal class AstBox : IAstRef
 {
-	public IAstRefOrValue Value;
+	public IAstRefOrValue? Value;
 
 	/// <summary>
 	/// Gets the item type.

@@ -5,11 +5,11 @@
 /// </summary>
 internal class AstWriteField : IAstNode
 {
-	public FieldInfo FieldInfo;
+	public FieldInfo? FieldInfo;
 
-	public IAstRefOrAddr TargetObject;
+	public IAstRefOrAddr? TargetObject;
 
-	public IAstRefOrValue Value;
+	public IAstRefOrValue? Value;
 
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)

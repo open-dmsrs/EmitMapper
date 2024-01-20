@@ -18,7 +18,7 @@ public class ThreadConnection : IDisposable
 	/// <summary>
 	/// The connection.
 	/// </summary>
-	[ThreadStatic] private static DbConnection connection;
+	[ThreadStatic] private static DbConnection? connection;
 
 	/// <summary>
 	/// The entries count.

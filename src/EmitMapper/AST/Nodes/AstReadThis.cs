@@ -5,7 +5,7 @@
 /// </summary>
 internal class AstReadThis : IAstRefOrAddr
 {
-	public Type ThisType;
+	public Type? ThisType;
 
 	/// <summary>
 	///   Gets the item type.

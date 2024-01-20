@@ -130,8 +130,8 @@ public class ValueTypes
 	public class A6To
 	{
 		public S2Struct S2;
-		public C2 S4;
-		public C3Class S5;
+		public C2? S4;
+		public C3Class? S5;
 		/// <summary>
 		///   Gets or Sets the s.
 		/// </summary>
@@ -139,7 +139,7 @@ public class ValueTypes
 		/// <summary>
 		///   Gets or Sets the s3.
 		/// </summary>
-		public C1 S3 { get; set; }
+		public C1? S3 { get; set; }
 
 		public struct S1
 		{
@@ -175,9 +175,9 @@ public class ValueTypes
 		/// </summary>
 		public class C3Class
 		{
-			public C2 C1;
-			public C2 C2;
-			public C2 C3;
+			public C2? C1;
+			public C2? C2;
+			public C2? C3;
 		}
 	}
 
@@ -244,7 +244,7 @@ public class ValueTypes
 	{
 		public S2Struct S = new();
 		public S2Struct S3;
-		public C3Class S5;
+		public C3Class? S5;
 		/// <summary>
 		///   Gets or Sets the s2.
 		/// </summary>
@@ -252,7 +252,7 @@ public class ValueTypes
 		/// <summary>
 		///   Gets or Sets the s4.
 		/// </summary>
-		public C1 S4 { get; set; }
+		public C1? S4 { get; set; }
 
 		public struct S1
 		{
@@ -277,9 +277,9 @@ public class ValueTypes
 		/// </summary>
 		public class C3Class
 		{
-			public C1 C1;
-			public C1 C2;
-			public C1 C3;
+			public C1? C1;
+			public C1? C2;
+			public C1? C3;
 		}
 	}
 

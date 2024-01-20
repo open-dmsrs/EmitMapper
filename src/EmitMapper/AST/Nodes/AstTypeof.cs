@@ -5,7 +5,7 @@
 /// </summary>
 internal class AstTypeof : IAstRef
 {
-	public Type Type;
+	public Type? Type;
 
 	/// <summary>
 	///   Gets the item type.

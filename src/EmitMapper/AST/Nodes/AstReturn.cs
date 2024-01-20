@@ -5,9 +5,9 @@
 /// </summary>
 internal class AstReturn : IAstAddr
 {
-	public Type ReturnType;
+	public Type? ReturnType;
 
-	public IAstRefOrValue ReturnValue;
+	public IAstRefOrValue? ReturnValue;
 
 	/// <summary>
 	///   Gets the item type.

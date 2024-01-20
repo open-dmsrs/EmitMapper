@@ -7,9 +7,9 @@
 /// <typeparam name="TTo"></typeparam>
 internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
 {
-	private Func<TFrom, TTo> converter;
+	private Func<TFrom, TTo>? converter;
 
-	private MapperDescription subMapper;
+	private MapperDescription? subMapper;
 
 	/// <summary>
 	/// Converts the an array of TTos.

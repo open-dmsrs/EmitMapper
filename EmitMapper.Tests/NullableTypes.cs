@@ -125,7 +125,7 @@ public class NullableTypes
 		public int Fld1;
 		public int Fld2;
 		public int? Fld3;
-		public Int1 I;
+		public Int1? I;
 
 		/// <summary>
 		///   The int1.
@@ -268,7 +268,7 @@ public class NullableTypes
 		public int? Fld1 = 10;
 		public int? Fld2;
 		public int? Fld3;
-		public Int1 I;
+		public Int1? I;
 
 		/// <summary>
 		///   The int1.

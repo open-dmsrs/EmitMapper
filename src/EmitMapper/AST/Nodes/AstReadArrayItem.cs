@@ -5,7 +5,7 @@
 /// </summary>
 internal class AstReadArrayItem : IAstStackItem
 {
-	public IAstRef Array;
+	public IAstRef? Array;
 
 	public int Index;
 

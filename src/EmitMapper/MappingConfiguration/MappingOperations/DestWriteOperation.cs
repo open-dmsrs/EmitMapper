@@ -8,12 +8,12 @@ public class DestWriteOperation : IDestWriteOperation
 	/// <summary>
 	///   Gets or Sets the destination.
 	/// </summary>
-	public MemberDescriptor Destination { get; set; }
+	public MemberDescriptor? Destination { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the getter.
 	/// </summary>
-	public Delegate Getter { get; set; }
+	public Delegate? Getter { get; set; }
 
 	/// <summary>
 	///   Tos the string.

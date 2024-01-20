@@ -5,25 +5,25 @@
 /// </summary>
 public class Customer
 {
-	public string Address;
+	public string? Address;
 
-	public string City;
+	public string? City;
 
-	public string CompanyName;
+	public string? CompanyName;
 
-	public string ContactName;
+	public string? ContactName;
 
-	public string ContactTitle;
+	public string? ContactTitle;
 
-	public string Country;
+	public string? Country;
 
-	public string CustomerId;
+	public string? CustomerId;
 
-	public string Fax;
+	public string? Fax;
 
-	public string Phone;
+	public string? Phone;
 
-	public string PostalCode;
+	public string? PostalCode;
 
-	public string Region;
+	public string? Region;
 }

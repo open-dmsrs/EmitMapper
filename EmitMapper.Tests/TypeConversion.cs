@@ -77,7 +77,7 @@ public class TypeConversion
 	public class A1
 	{
 		public int Fld1;
-		public string Fld2;
+		public string? Fld2;
 	}
 
 	/// <summary>
@@ -85,7 +85,7 @@ public class TypeConversion
 	/// </summary>
 	public class A2
 	{
-		public string[] Fld3;
+		public string[]? Fld3;
 	}
 
 	/// <summary>
@@ -105,7 +105,7 @@ public class TypeConversion
 		/// <summary>
 		///   Gets or Sets the str.
 		/// </summary>
-		public string Str { get; set; }
+		public string? Str { get; set; }
 	}
 
 	/// <summary>
@@ -113,7 +113,7 @@ public class TypeConversion
 	/// </summary>
 	public class A5
 	{
-		public string Fld2;
+		public string? Fld2;
 	}
 
 	/// <summary>

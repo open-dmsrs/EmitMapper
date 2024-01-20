@@ -1,23 +1,22 @@
+using System.Globalization;
+
 namespace EmitMapper.Tests;
 
 /// <summary>
-///   The map list object.
+///     The map list object.
 /// </summary>
 public class MapListObject
 {
 	private readonly ITestOutputHelper testOutputHelper;
 
 	/// <summary>
-	///   Initializes a new instance of the <see cref="MapListObject" /> class.
+	///     Initializes a new instance of the <see cref="MapListObject" /> class.
 	/// </summary>
 	/// <param name="testOutputHelper">The test output helper.</param>
-	public MapListObject(ITestOutputHelper testOutputHelper)
-	{
-		this.testOutputHelper = testOutputHelper;
-	}
+	public MapListObject(ITestOutputHelper testOutputHelper) => this.testOutputHelper = testOutputHelper;
 
 	/// <summary>
-	///   Converts the char to int32.
+	///     Converts the char to int32.
 	/// </summary>
 	[Fact]
 	public void ConvertCharToInt32()
@@ -29,7 +28,72 @@ public class MapListObject
 	}
 
 	/// <summary>
-	///   Test_s the emit mapper_ map_ list object.
+	///     Test_s the emit mapper_ map_ array list_ nested fields.
+	/// </summary>
+	/// <param name="list">The list.</param>
+	[Theory]
+	[AutoData]
+	public void TestEmitMapperMapArrayListNestedFields(List<FromClass> list)
+	{
+		ArrayList listFrom = new(list.ToArray());
+
+		testOutputHelper.WriteLine(listFrom.Count.ToString());
+
+		var rw1 = new ReadWriteSimple
+		{
+			Source = new MemberDescriptor(
+				new[] { typeof(FromClass).GetMember(nameof(FromClass.Inner))[0], typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[0] }),
+			Destination = new MemberDescriptor(new[] { typeof(ToClass).GetMember(nameof(ToClass.Message))[0] })
+		};
+
+		var rw2 = new ReadWriteSimple
+		{
+			Source = new MemberDescriptor(
+				new[] { typeof(FromClass).GetMember(nameof(FromClass.Inner))[0], typeof(FromClass.InnerClass).GetMember(nameof(FromClass.InnerClass.GetMessage2))[0] }),
+			Destination = new MemberDescriptor(new[] { typeof(ToClass).GetMember(nameof(ToClass.Message2))[0] })
+		};
+
+		var mapper = Mapper.Default.GetMapper<ArrayList, ArrayList>(
+			new CustomMapConfig { GetMappingOperationFunc = (from, to) => rw1.AsEnumerable(rw2) });
+
+		var tolist = mapper.Map(listFrom);
+		tolist.ShouldBe(listFrom);
+
+// var f = listFrom.GetEnumerator();
+// var t = tolist.GetEnumerator();
+// while (f.MoveNext() && t.MoveNext())
+// {
+// _testOutputHelper.WriteLine((t.Current as ToClass)?.Message);
+// Assert.Equal(((FromClass)f.Current)?.Inner.Message, (t.Current as ToClass)?.Message);
+// Assert.Equal(((FromClass)f.Current)?.Inner.GetMessage2(), (t.Current as ToClass)?.Message2);
+// }
+	}
+
+	/// <summary>
+	///     Test_s the emit mapper_ map enum.
+	/// </summary>
+	[Fact]
+	public void TestEmitMapperMapEnum()
+	{
+		Fixture fixture = new();
+
+		// fixture.Customizations.Add(
+		// new RandomDoublePrecisionFloatingPointSequenceGenerator());
+		var list = fixture.CreateMany<SimpleTypesSource>(3).ToList();
+
+		// list.FirstOrDefault().N5 = 3.3232423424234M;
+		testOutputHelper.WriteLine(list.Count.ToString(CultureInfo.InvariantCulture));
+
+		var mapper = Mapper.Default.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
+		mapper = Mapper.Default.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
+		var tolist = mapper.MapEnum(list);
+
+		// tolist.ShouldBe(list);
+		IsSame(list, tolist);
+	}
+
+	/// <summary>
+	///     Test_s the emit mapper_ map_ list object.
 	/// </summary>
 	/// <param name="listFrom">The list from.</param>
 	[Theory]
@@ -41,23 +105,23 @@ public class MapListObject
 		var rw1 = new ReadWriteSimple
 		{
 			Source = new MemberDescriptor(
-			typeof(FromClass).GetMember(nameof(FromClass.Inner))[0].AsEnumerable(
-			  typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[0])),
+				typeof(FromClass).GetMember(nameof(FromClass.Inner))[0].AsEnumerable(
+					typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[0])),
 			Destination = new MemberDescriptor(
-			typeof(ToClass).GetMember(nameof(ToClass.Message))[0].AsEnumerable())
+				typeof(ToClass).GetMember(nameof(ToClass.Message))[0].AsEnumerable())
 		};
 
 		var rw2 = new ReadWriteSimple
 		{
 			Source = new MemberDescriptor(
-			typeof(FromClass).GetMember(nameof(FromClass.Inner))[0].AsEnumerable(
-			  typeof(FromClass.InnerClass).GetMember(nameof(FromClass.InnerClass.GetMessage2))[0])),
+				typeof(FromClass).GetMember(nameof(FromClass.Inner))[0].AsEnumerable(
+					typeof(FromClass.InnerClass).GetMember(nameof(FromClass.InnerClass.GetMessage2))[0])),
 			Destination = new MemberDescriptor(
-			typeof(ToClass).GetMember(nameof(ToClass.Message2))[0].AsEnumerable())
+				typeof(ToClass).GetMember(nameof(ToClass.Message2))[0].AsEnumerable())
 		};
 
 		var mapper = Mapper.Default.GetMapper<List<FromClass>, List<ToClass>>(
-		  new CustomMapConfig { GetMappingOperationFunc = (from, to) => rw1.AsEnumerable(rw2) });
+			new CustomMapConfig { GetMappingOperationFunc = (from, to) => rw1.AsEnumerable(rw2) });
 
 		var tolist = mapper.Map(listFrom);
 		using var f = listFrom.GetEnumerator();
@@ -72,39 +136,15 @@ public class MapListObject
 	}
 
 	/// <summary>
-	///   Test_s the emit mapper_ map enum.
-	/// </summary>
-	[Fact]
-	public void TestEmitMapperMapEnum()
-	{
-		Fixture fixture = new();
-
-		// fixture.Customizations.Add(
-		// new RandomDoublePrecisionFloatingPointSequenceGenerator());
-		var list = fixture.CreateMany<SimpleTypesSource>(3).ToList();
-
-		// list.FirstOrDefault().N5 = 3.3232423424234M;
-		testOutputHelper.WriteLine(list.Count.ToString());
-
-		var mapper = Mapper.Default.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
-		mapper = Mapper.Default.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
-		var tolist = mapper.MapEnum(list);
-
-		// tolist.ShouldBe(list);
-		IsSame(list, tolist);
-	}
-
-	/// <summary>
-	///   Gets the member value.
+	///     Gets the member value.
 	/// </summary>
 	/// <param name="member">The member.</param>
 	/// <param name="target">The target.</param>
 	/// <exception cref="ArgumentNullException"></exception>
 	/// <exception cref="ArgumentOutOfRangeException"></exception>
 	/// <returns><![CDATA[KeyValuePair<string, object>]]></returns>
-	public static KeyValuePair<string, object> GetMemberValue(MemberInfo member, object target)
-	{
-		return member switch
+	public static KeyValuePair<string, object?> GetMemberValue(MemberInfo member, object target) =>
+		member switch
 		{
 			PropertyInfo property => KeyValuePair.Create(property.Name, property.GetValue(target)),
 			MethodInfo method => KeyValuePair.Create(method.Name, method.Invoke(target, null)),
@@ -112,7 +152,6 @@ public class MapListObject
 			null => throw new ArgumentNullException(nameof(member)),
 			_ => throw new ArgumentOutOfRangeException(nameof(member))
 		};
-	}
 
 	/// <summary>
 	/// </summary>
@@ -122,6 +161,7 @@ public class MapListObject
 	{
 		using var f = sources.GetEnumerator();
 		using var t = destinations.GetEnumerator();
+
 		while (f.MoveNext() && t.MoveNext())
 		{
 			IsSame(f.Current, t.Current);
@@ -135,103 +175,54 @@ public class MapListObject
 	private static void IsSame(SimpleTypesSource source, SimpleTypesDestination destination)
 	{
 		var fv = ReflectionHelper.GetPublicFieldsAndProperties(typeof(SimpleTypesSource))
-		  .Select(m => GetMemberValue(m, source)).Select(m => new { Name = m.Key, FValue = m.Value });
+			.Select(m => GetMemberValue(m, source)).Select(m => new { Name = m.Key, FValue = m.Value });
 
 		var tv = ReflectionHelper.GetPublicFieldsAndProperties(typeof(SimpleTypesDestination))
-		  .Select(m => GetMemberValue(m, destination)).Select(m => new { Name = m.Key, TValue = m.Value });
+			.Select(m => GetMemberValue(m, destination)).Select(m => new { Name = m.Key, TValue = m.Value });
 
 		var result = fv.Join(tv, a => a.Name, b => b.Name, (a, b) => new { a.Name, a.FValue, b.TValue });
 
 		foreach (var temp in result)
 		{
 			if (temp.Name == "N8")
+			{
 				Assert.True(
-				  Convert.ToInt32(temp.FValue) == Convert.ToInt32(temp.TValue),
-				  $"Member '{temp.Name} is not equal. Source value：{temp.FValue}, Destination:{temp.TValue}");
+					Convert.ToInt32(temp.FValue) == Convert.ToInt32(temp.TValue),
+					$"Member '{temp.Name} is not equal. Source value：{temp.FValue}, Destination:{temp.TValue}");
+			}
 			else
+			{
 				Assert.True(
-				  Convert.ToString(temp.FValue) == Convert.ToString(temp.TValue),
-				  $"Member '{temp.Name} is not equal. Source value：{temp.FValue}, Destination:{temp.TValue}");
+					Convert.ToString(temp.FValue) == Convert.ToString(temp.TValue),
+					$"Member '{temp.Name} is not equal. Source value：{temp.FValue}, Destination:{temp.TValue}");
+			}
 		}
 	}
 
 	/// <summary>
-	///   Test_s the emit mapper_ map_ array list_ nested fields.
-	/// </summary>
-	/// <param name="list">The list.</param>
-	[Theory]
-	[AutoData]
-	public void TestEmitMapperMapArrayListNestedFields(List<FromClass> list)
-	{
-		ArrayList listFrom = new(list.ToArray());
-
-		testOutputHelper.WriteLine(listFrom.Count.ToString());
-
-		var rw1 = new ReadWriteSimple
-		{
-			Source = new MemberDescriptor(
-			new[]
-			{
-		  typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
-		  typeof(FromClass.InnerClass).GetMember(nameof(FromClass.Inner.Message))[0]
-			}),
-			Destination = new MemberDescriptor(new[] { typeof(ToClass).GetMember(nameof(ToClass.Message))[0] })
-		};
-
-		var rw2 = new ReadWriteSimple
-		{
-			Source = new MemberDescriptor(
-			new[]
-			{
-		  typeof(FromClass).GetMember(nameof(FromClass.Inner))[0],
-		  typeof(FromClass.InnerClass).GetMember(nameof(FromClass.InnerClass.GetMessage2))[0]
-			}),
-			Destination = new MemberDescriptor(new[] { typeof(ToClass).GetMember(nameof(ToClass.Message2))[0] })
-		};
-
-		var mapper = Mapper.Default.GetMapper<ArrayList, ArrayList>(
-		  new CustomMapConfig { GetMappingOperationFunc = (from, to) => rw1.AsEnumerable(rw2) });
-
-		var tolist = mapper.Map(listFrom);
-		tolist.ShouldBe(listFrom);
-
-		// var f = listFrom.GetEnumerator();
-		// var t = tolist.GetEnumerator();
-		// while (f.MoveNext() && t.MoveNext())
-		// {
-		// _testOutputHelper.WriteLine((t.Current as ToClass)?.Message);
-		// Assert.Equal(((FromClass)f.Current)?.Inner.Message, (t.Current as ToClass)?.Message);
-		// Assert.Equal(((FromClass)f.Current)?.Inner.GetMessage2(), (t.Current as ToClass)?.Message2);
-		// }
-	}
-
-	/// <summary>
-	///   The from class.
+	///     The from class.
 	/// </summary>
 	public class FromClass
 	{
 		public InnerClass Inner = new();
 
 		/// <summary>
-		///   The inner class.
+		///     The inner class.
 		/// </summary>
 		public class InnerClass
 		{
 			public string Message = "hello";
 
 			/// <summary>
-			///   Gets the message2.
+			///     Gets the message2.
 			/// </summary>
 			/// <returns>A string.</returns>
-			public string GetMessage2()
-			{
-				return "medved";
-			}
+			public string GetMessage2() => "medved";
 		}
 	}
 
 	/// <summary>
-	///   The random double precision floating point sequence generator.
+	///     The random double precision floating point sequence generator.
 	/// </summary>
 	internal class RandomDoublePrecisionFloatingPointSequenceGenerator : ISpecimenBuilder
 	{
@@ -239,7 +230,7 @@ public class MapListObject
 		private readonly object syncRoot;
 
 		/// <summary>
-		///   Initializes a new instance of the <see cref="RandomDoublePrecisionFloatingPointSequenceGenerator" /> class.
+		///     Initializes a new instance of the <see cref="RandomDoublePrecisionFloatingPointSequenceGenerator" /> class.
 		/// </summary>
 		internal RandomDoublePrecisionFloatingPointSequenceGenerator()
 		{
@@ -265,7 +256,7 @@ public class MapListObject
 		}
 
 		/// <summary>
-		///   Creates the random.
+		///     Creates the random.
 		/// </summary>
 		/// <param name="request">The request.</param>
 		/// <returns>An object.</returns>
@@ -288,7 +279,7 @@ public class MapListObject
 		}
 
 		/// <summary>
-		///   Gets the next random.
+		///     Gets the next random.
 		/// </summary>
 		/// <returns>A double.</returns>
 		private double GetNextRandom()
@@ -301,11 +292,11 @@ public class MapListObject
 	}
 
 	/// <summary>
-	///   The to class.
+	///     The to class.
 	/// </summary>
 	public class ToClass
 	{
-		public string Message;
-		public string Message2;
+		public string? Message;
+		public string? Message2;
 	}
 }

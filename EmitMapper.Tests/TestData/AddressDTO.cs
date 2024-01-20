@@ -8,11 +8,11 @@ public class AddressDTO : ITestObject
 	/// <summary>
 	///   Gets or Sets the city.
 	/// </summary>
-	public string City { get; set; }
+	public string? City { get; set; }
 	/// <summary>
 	///   Gets or Sets the country.
 	/// </summary>
-	public string Country { get; set; }
+	public string? Country { get; set; }
 	/// <summary>
 	///   Gets or Sets the id.
 	/// </summary>

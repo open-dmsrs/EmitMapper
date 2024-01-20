@@ -37,17 +37,17 @@ public class DbSettings
 	/// <summary>
 	///   The first name escape symbol.
 	/// </summary>
-	public string FirstNameEscapeSymbol;
+	public string? FirstNameEscapeSymbol;
 
 	/// <summary>
 	///   The param prefix.
 	/// </summary>
-	public string ParamPrefix;
+	public string? ParamPrefix;
 
 	/// <summary>
 	///   The second name escape symbol.
 	/// </summary>
-	public string SecondNameEscapeSymbol;
+	public string? SecondNameEscapeSymbol;
 
 	/// <summary>
 	///   Initializes static members of the <see cref="DbSettings" /> class.

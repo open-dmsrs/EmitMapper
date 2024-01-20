@@ -5,7 +5,7 @@
 /// </summary>
 internal class AstConstantString : IAstRef
 {
-	public string Str;
+	public string? Str;
 
 	/// <summary>
 	///   Gets the item type.

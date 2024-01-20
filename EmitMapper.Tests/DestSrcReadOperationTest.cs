@@ -96,7 +96,7 @@ public class DestSrcReadOperationTest
 	/// </summary>
 	public class ToClass
 	{
-		public string Message;
-		public string Message2;
+		public string? Message;
+		public string? Message2;
 	}
 }

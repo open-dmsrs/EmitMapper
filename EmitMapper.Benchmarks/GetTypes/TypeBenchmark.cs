@@ -11,7 +11,7 @@ namespace EmitMapper.Benchmarks.GetTypes;
 //[MemoryDiagnoser]
 public class TypeBenchmark
 {
-	private Employee e;
+	private Employee? e;
 
 	/// <summary>
 	/// </summary>

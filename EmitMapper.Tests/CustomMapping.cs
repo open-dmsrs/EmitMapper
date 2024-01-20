@@ -106,8 +106,8 @@ public class CustomMapping
 	/// </summary>
 	public class A2
 	{
-		public string Fld1;
-		public string Fld2;
+		public string? Fld1;
+		public string? Fld2;
 	}
 
 	/// <summary>
@@ -115,9 +115,9 @@ public class CustomMapping
 	/// </summary>
 	public class A3
 	{
-		public Int Fld;
+		public Int? Fld;
 		public SInt? Fld2;
-		public string Status;
+		public string? Status;
 
 		public struct SInt
 		{
@@ -130,8 +130,8 @@ public class CustomMapping
 		/// </summary>
 		public class Int
 		{
-			public string Str1;
-			public string Str2;
+			public string? Str1;
+			public string? Str2;
 		}
 	}
 
@@ -140,8 +140,8 @@ public class CustomMapping
 	/// </summary>
 	public class Aa
 	{
-		public string Fld1;
-		public string Fld2;
+		public string? Fld1;
+		public string? Fld2;
 	}
 
 	/// <summary>

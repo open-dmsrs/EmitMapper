@@ -49,8 +49,8 @@ public class Flattering
 	/// </summary>
 	public class Destination
 	{
-		public string Message;
-		public string Message2;
+		public string? Message;
+		public string? Message2;
 	}
 
 	/// <summary>

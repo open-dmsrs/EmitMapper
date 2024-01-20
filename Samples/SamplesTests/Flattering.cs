@@ -43,7 +43,7 @@ public class Flattering
 	/// </summary>
 	public class ModelDto
 	{
-		public string TestMethod1;
+		public string? TestMethod1;
 
 		/// <summary>
 		///   Gets or Sets the base date.
@@ -53,22 +53,22 @@ public class Flattering
 		/// <summary>
 		///   Gets or Sets the sub2 proper name.
 		/// </summary>
-		public string Sub2ProperName { get; set; }
+		public string? Sub2ProperName { get; set; }
 
 		/// <summary>
 		///   Gets or Sets the sub proper name.
 		/// </summary>
-		public string SubProperName { get; set; }
+		public string? SubProperName { get; set; }
 
 		/// <summary>
 		///   Gets or Sets the sub sub sub i am a cool property.
 		/// </summary>
-		public string SubSubSubIAmACoolProperty { get; set; }
+		public string? SubSubSubIAmACoolProperty { get; set; }
 
 		/// <summary>
 		///   Gets or Sets the sub with extra name proper name.
 		/// </summary>
-		public string SubWithExtraNameProperName { get; set; }
+		public string? SubWithExtraNameProperName { get; set; }
 
 		/// <summary>
 		///   cant support this property
@@ -93,17 +93,17 @@ public class Flattering
 		/// <summary>
 		///   Gets or Sets the sub.
 		/// </summary>
-		public ModelSubObject Sub { get; set; }
+		public ModelSubObject? Sub { get; set; }
 
 		/// <summary>
 		///   Gets or Sets the sub2.
 		/// </summary>
-		public ModelSubObject Sub2 { get; set; }
+		public ModelSubObject? Sub2 { get; set; }
 
 		/// <summary>
 		///   Gets or Sets the sub with extra name.
 		/// </summary>
-		public ModelSubObject SubWithExtraName { get; set; }
+		public ModelSubObject? SubWithExtraName { get; set; }
 
 		/// <summary>
 		///   Tests the method.
@@ -130,12 +130,12 @@ public class Flattering
 		/// <summary>
 		///   Gets or Sets the proper name.
 		/// </summary>
-		public string ProperName { get; set; }
+		public string? ProperName { get; set; }
 
 		/// <summary>
 		///   Gets or Sets the sub sub.
 		/// </summary>
-		public ModelSubSubObject SubSub { get; set; }
+		public ModelSubSubObject? SubSub { get; set; }
 
 		/// <summary>
 		///   Tests the method.
@@ -162,6 +162,6 @@ public class Flattering
 		/// <summary>
 		///   Gets or Sets the i am a cool property.
 		/// </summary>
-		public string IAmACoolProperty { get; set; }
+		public string? IAmACoolProperty { get; set; }
 	}
 }

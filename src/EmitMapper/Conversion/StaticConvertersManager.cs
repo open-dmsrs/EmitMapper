@@ -9,7 +9,7 @@ public class StaticConvertersManager
 
 	private static readonly object locker = new();
 
-	private static StaticConvertersManager defaultInstance;
+	private static StaticConvertersManager? defaultInstance;
 
 	private readonly LazyConcurrentDictionary<TypesPair, MethodInfo> typesMethods = new();
 

@@ -21,21 +21,21 @@ public class SimpleTypesDestination : ITestObject
 
 	public int N8;
 
-	public string Str1;
+	public string? Str1;
 
-	public string Str2;
+	public string? Str2;
 
-	public string Str3;
+	public string? Str3;
 
-	public string Str4;
+	public string? Str4;
 
-	public string Str5;
+	public string? Str5;
 
-	public string Str6;
+	public string? Str6;
 
-	public string Str7;
+	public string? Str7;
 
-	public string Str8;
+	public string? Str8;
 
-	public string Str9;
+	public string? Str9;
 }

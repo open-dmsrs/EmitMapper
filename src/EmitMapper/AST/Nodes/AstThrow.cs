@@ -5,7 +5,7 @@
 /// </summary>
 internal class AstThrow : IAstNode
 {
-	public IAstRef Exception;
+	public IAstRef? Exception;
 
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)

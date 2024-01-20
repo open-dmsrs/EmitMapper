@@ -33,7 +33,7 @@ public class ProfileMap
 	/// <summary>
 	///   Gets the global ignores.
 	/// </summary>
-	public IReadOnlyCollection<string> GlobalIgnores { get; }
+	public IReadOnlyCollection<string>? GlobalIgnores { get; }
 
 	/// <summary>
 	///   Gets a value indicating whether method mapping enabled.
@@ -43,40 +43,40 @@ public class ProfileMap
 	/// <summary>
 	///   Gets the name.
 	/// </summary>
-	public string Name { get; }
+	public string? Name { get; }
 
 	/// <summary>
 	///   Gets the postfixes.
 	/// </summary>
-	public List<string> Postfixes { get; }
+	public List<string>? Postfixes { get; }
 
 	/// <summary>
 	///   Gets the prefixes.
 	/// </summary>
-	public List<string> Prefixes { get; }
+	public List<string>? Prefixes { get; }
 
 	/// <summary>
 	///   Gets the should map field.
 	/// </summary>
-	public Func<FieldInfo, bool> ShouldMapField { get; }
+	public Func<FieldInfo, bool>? ShouldMapField { get; }
 
 	/// <summary>
 	///   Gets the should map method.
 	/// </summary>
-	public Func<MethodInfo, bool> ShouldMapMethod { get; }
+	public Func<MethodInfo, bool>? ShouldMapMethod { get; }
 
 	/// <summary>
 	///   Gets the should map property.
 	/// </summary>
-	public Func<PropertyInfo, bool> ShouldMapProperty { get; }
+	public Func<PropertyInfo, bool>? ShouldMapProperty { get; }
 
 	/// <summary>
 	///   Gets the should use constructor.
 	/// </summary>
-	public Func<ConstructorInfo, bool> ShouldUseConstructor { get; }
+	public Func<ConstructorInfo, bool>? ShouldUseConstructor { get; }
 
 	/// <summary>
 	///   Gets the source extension methods.
 	/// </summary>
-	public IEnumerable<MethodInfo> SourceExtensionMethods { get; }
+	public IEnumerable<MethodInfo>? SourceExtensionMethods { get; }
 }

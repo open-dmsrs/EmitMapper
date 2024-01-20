@@ -8,17 +8,17 @@ public class DestSrcReadOperation : IDestReadOperation, ISrcReadOperation
 	/// <summary>
 	///   Gets or Sets the destination.
 	/// </summary>
-	public MemberDescriptor Destination { get; set; }
+	public MemberDescriptor? Destination { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the source.
 	/// </summary>
-	public MemberDescriptor Source { get; set; }
+	public MemberDescriptor? Source { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the value processor.
 	/// </summary>
-	public ValueProcessor ValueProcessor { get; set; }
+	public ValueProcessor? ValueProcessor { get; set; }
 
 	/// <summary>
 	///   Tos the string.

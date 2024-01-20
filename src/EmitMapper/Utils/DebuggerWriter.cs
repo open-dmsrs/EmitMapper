@@ -8,7 +8,7 @@ namespace EmitMapper;
 /// <seealso cref="Debugger.Log"/>
 public class DebuggerWriter : TextWriter
 {
-	private static UnicodeEncoding encoding;
+	private static UnicodeEncoding? encoding;
 
 	private bool isOpen;
 
@@ -26,7 +26,7 @@ public class DebuggerWriter : TextWriter
 	/// </summary>
 	/// <param name="level">A description of the importance of the messages.</param>
 	/// <param name="category">The category of the messages.</param>
-	public DebuggerWriter(int level, string category)
+	public DebuggerWriter(int level, string? category)
 	  : this(level, category, CultureInfo.CurrentCulture)
 	{
 	}
@@ -38,7 +38,7 @@ public class DebuggerWriter : TextWriter
 	/// <param name="level">A description of the importance of the messages.</param>
 	/// <param name="category">The category of the messages.</param>
 	/// <param name="formatProvider">An <see cref="IFormatProvider"/> object that controls formatting.</param>
-	public DebuggerWriter(int level, string category, IFormatProvider formatProvider)
+	public DebuggerWriter(int level, string? category, IFormatProvider formatProvider)
 	  : base(formatProvider)
 	{
 		Level = level;
@@ -49,7 +49,7 @@ public class DebuggerWriter : TextWriter
 	/// <summary>
 	/// Gets the category.
 	/// </summary>
-	public string Category { get; }
+	public string? Category { get; }
 
 	/// <summary>
 	/// Gets the encoding.
@@ -64,21 +64,15 @@ public class DebuggerWriter : TextWriter
 	/// <inheritdoc/>
 	public override void Write(char value)
 	{
-		if (!isOpen)
-		{
-			throw new ObjectDisposedException(null);
-		}
+		ObjectDisposedException.ThrowIf(!isOpen, Metadata<DebuggerWriter>.Type);
 
 		Debugger.Log(Level, Category, value.ToString());
 	}
 
 	/// <inheritdoc/>
-	public override void Write(string value)
+	public override void Write(string? value)
 	{
-		if (!isOpen)
-		{
-			throw new ObjectDisposedException(null);
-		}
+		ObjectDisposedException.ThrowIf(!isOpen, Metadata<DebuggerWriter>.Type);
 
 		if (value is not null)
 		{
@@ -89,10 +83,7 @@ public class DebuggerWriter : TextWriter
 	/// <inheritdoc/>
 	public override void Write(char[] buffer, int index, int count)
 	{
-		if (!isOpen)
-		{
-			throw new ObjectDisposedException(null);
-		}
+		ObjectDisposedException.ThrowIf(!isOpen, Metadata<DebuggerWriter>.Type);
 
 		if (index < 0 || count < 0 || buffer.Length - index < count)
 		{

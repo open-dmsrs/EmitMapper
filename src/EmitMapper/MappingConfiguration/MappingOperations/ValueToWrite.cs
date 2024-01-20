@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.MappingConfiguration.MappingOperations;
+namespace EmitMapper.MappingConfiguration.MappingOperations;
 
 public struct ValueToWrite<T>
 {

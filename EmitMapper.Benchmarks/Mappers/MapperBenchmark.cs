@@ -11,21 +11,21 @@ namespace EmitMapper.Benchmarks.Mappers;
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 public class MapperBenchmark
 {
-	private IMapper autoMapper;
+	private IMapper? autoMapper;
 
-	private BenchNestedSource benchSource;
+	private BenchNestedSource? benchSource;
 
-	private Mapper<BenchNestedSource, BenchNestedDestination> benchSourceEmitMapper;
+	private Mapper<BenchNestedSource, BenchNestedDestination>? benchSourceEmitMapper;
 
-	private List<BenchNestedSource> benchSources1000List;
+	private List<BenchNestedSource>? benchSources1000List;
 
-	private List<SimpleTypesSource> simple1000List;
+	private List<SimpleTypesSource>? simple1000List;
 
-	private List<SimpleTypesSource> simple100List;
+	private List<SimpleTypesSource>? simple100List;
 
-	private Mapper<SimpleTypesSource, SimpleTypesDestination> simpleEmitMapper;
+	private Mapper<SimpleTypesSource, SimpleTypesDestination>? simpleEmitMapper;
 
-	private SimpleTypesSource simpleSource;
+	private SimpleTypesSource? simpleSource;
 
 	///// <summary>
 	/////   The iteration count.

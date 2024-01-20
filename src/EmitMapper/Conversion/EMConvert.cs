@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.Conversion;
+namespace EmitMapper.Conversion;
 
 /// <summary>
 /// The e m convert.
@@ -48,7 +48,7 @@ public class EMConvert
 			}
 
 			return ChangeType(
-			  Convert.ChangeType(value, Enum.GetUnderlyingType(typeFrom)),
+			  Convert.ChangeType(value, Enum.GetUnderlyingType(typeFrom), CultureInfo.InvariantCulture),
 			  Enum.GetUnderlyingType(typeFrom),
 			  typeTo);
 		}
@@ -57,7 +57,7 @@ public class EMConvert
 		{
 			var r = new Guid(value.ToString()!);
 
-			return r == Guid.Empty ? new Guid() : r;
+			return r == Guid.Empty ? Guid.Empty : r;
 		}
 
 		var isFromNullable = ReflectionHelper.IsNullable(typeFrom);
@@ -80,7 +80,7 @@ public class EMConvert
 			return ChangeType(value, typeFrom, ut);
 		}
 
-		return Convert.ChangeType(value, typeTo);
+		return Convert.ChangeType(value, typeTo, CultureInfo.InvariantCulture);
 	}
 
 	/// <summary>
@@ -174,7 +174,7 @@ public class EMConvert
 			return (TEnum)Enum.Parse(Metadata<TEnum>.Type, str);
 		}
 
-		return (TEnum)Convert.ChangeType(obj, Metadata<TUnder>.Type);
+		return (TEnum)Convert.ChangeType(obj, Metadata<TUnder>.Type, CultureInfo.InvariantCulture);
 	}
 
 	/// <summary>
@@ -194,7 +194,7 @@ public class EMConvert
 			}
 		}
 
-		return Enum.ToObject(typeTo, Convert.ChangeType(value, Enum.GetUnderlyingType(typeTo)));
+		return Enum.ToObject(typeTo, Convert.ChangeType(value, Enum.GetUnderlyingType(typeTo), CultureInfo.InvariantCulture));
 	}
 
 	/// <summary>

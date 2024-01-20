@@ -1,4 +1,4 @@
-﻿using EmitMapper.EmitInvoker.Delegates;
+using EmitMapper.EmitInvoker.Delegates;
 
 namespace EmitMapper.Mappers;
 
@@ -7,12 +7,12 @@ namespace EmitMapper.Mappers;
 /// </summary>
 public abstract class MapperBase
 {
-	public object[] StoredObjects;
+	public object[]? StoredObjects;
 
 	/// <summary>
 	///   Mapper manager
 	/// </summary>
-	internal Mapper Mapper;
+	internal Mapper? Mapper;
 
 	/// <summary>
 	///   True, if reference properties and members of same type should
@@ -23,28 +23,28 @@ public abstract class MapperBase
 	/// <summary>
 	///   Type of source object
 	/// </summary>
-	internal Type TypeFrom;
+	internal Type? TypeFrom;
 
 	/// <summary>
 	///   Type of destination object
 	/// </summary>
-	internal Type TypeTo;
+	internal Type? TypeTo;
 
-	protected DelegateInvokerFunc2 converter;
+	protected DelegateInvokerFunc2? converter;
 
-	protected DelegateInvokerFunc2 destinationFilter;
+	protected DelegateInvokerFunc2? destinationFilter;
 
-	protected IMappingConfigurator mappingConfigurator;
+	protected IMappingConfigurator? mappingConfigurator;
 
-	protected DelegateInvokerFunc0 nullSubstitutor;
+	protected DelegateInvokerFunc0? nullSubstitutor;
 
-	protected IRootMappingOperation rootOperation;
+	protected IRootMappingOperation? rootOperation;
 
-	protected DelegateInvokerFunc2 sourceFilter;
+	protected DelegateInvokerFunc2? sourceFilter;
 
-	protected DelegateInvokerFunc0 targetConstructor;
+	protected DelegateInvokerFunc0? targetConstructor;
 
-	protected DelegateInvokerFunc2 valuesPostProcessor;
+	protected DelegateInvokerFunc2? valuesPostProcessor;
 
 	/// <summary>
 	///   Creates an instance of destination object

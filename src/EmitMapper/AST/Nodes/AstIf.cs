@@ -5,11 +5,11 @@
 /// </summary>
 internal class AstIf : IAstNode
 {
-	public IAstValue Condition;
+	public IAstValue? Condition;
 
-	public AstComplexNode FalseBranch;
+	public AstComplexNode? FalseBranch;
 
-	public AstComplexNode TrueBranch;
+	public AstComplexNode? TrueBranch;
 
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)

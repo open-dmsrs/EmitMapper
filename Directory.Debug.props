@@ -56,7 +56,7 @@
 		<Message Text="	    TargetFrameworkVersion :  $(TargetFrameworkVersion)" Importance="high" />
 	</Target>
 
-	<Target Name="MyPath" BeforeTargets="Build" Condition="true">
+	<Target Name="MyPath" BeforeTargets="Build" Condition="false">
 
 		<Message Text="       Latest LoadingOrder:  $(LoadingOrder)" Importance="high" />
 		<Message Text="              ReadmeInTree:  $(ReadmeInTree)" Importance="high" />

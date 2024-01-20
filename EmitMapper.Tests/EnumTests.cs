@@ -33,7 +33,7 @@ public class EnumTests
 	{
 		public En2 En2;
 		public decimal En4;
-		public string En5;
+		public string? En5;
 		public En1? En6;
 		public En3 En7;
 		public En3? En8;

@@ -17,7 +17,7 @@ public class TestMappingToDataRow
 		// initialization of test DTO object
 		var testDataObject = new TestDto { Field1 = "field1", Field2 = 10, Field3 = true };
 
-		// Initializing of test table. Usual this table is read from database.
+		// Initializing of test table. Usually this table is read from database.
 		using var dt = new DataTable();
 		dt.Columns.Add("field1", typeof(string));
 		dt.Columns.Add("field2", typeof(int));
@@ -25,7 +25,7 @@ public class TestMappingToDataRow
 		dt.Rows.Add();
 		var dr = dt.Rows[0];
 
-		// Mapping test object to datarow
+		// Mapping test object to data row
 		mapper.Map(testDataObject, dr);
 
 		// Check if object is correctly mapped

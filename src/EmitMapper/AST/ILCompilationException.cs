@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.AST;
+namespace EmitMapper.AST;
 
 /// <summary>
 ///   The i l compilation exception.
@@ -20,7 +20,7 @@ internal class ILCompilationException : Exception
 	/// <param name="message">The message.</param>
 	/// <param name="p">The p.</param>
 	public ILCompilationException(string message, params object[] p)
-	  : base(string.Format(message, p))
+	  : base(string.Format(CultureInfo.InvariantCulture, message, p))
 	{
 	}
 

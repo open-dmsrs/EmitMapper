@@ -327,7 +327,7 @@ public class GeneralTests
 	/// </summary>
 	public class A2
 	{
-		public string Str;
+		public string? Str;
 	}
 
 	/// <summary>
@@ -335,9 +335,9 @@ public class GeneralTests
 	/// </summary>
 	public class A3
 	{
-		public Int2 I1;
-		public Int2 I2;
-		public Int2 I3;
+		public Int2? I1;
+		public Int2? I2;
+		public Int2? I3;
 
 		/// <summary>
 		///   The int1.
@@ -345,8 +345,8 @@ public class GeneralTests
 		public class Int1
 		{
 			public int I;
-			public string Str1;
-			public string Str2;
+			public string? Str1;
+			public string? Str2;
 		}
 
 		/// <summary>
@@ -354,9 +354,9 @@ public class GeneralTests
 		/// </summary>
 		public class Int2
 		{
-			public Int1 I1;
-			public Int1 I2;
-			public Int1 I3;
+			public Int1? I1;
+			public Int1? I2;
+			public Int1? I3;
 		}
 	}
 
@@ -524,9 +524,9 @@ public class GeneralTests
 	/// </summary>
 	public class Destination
 	{
-		public string MField1;
-		public string MField2;
-		public string MField3;
+		public string? MField1;
+		public string? MField2;
+		public string? MField3;
 	}
 
 	/// <summary>
@@ -562,9 +562,9 @@ public class GeneralTests
 	/// </summary>
 	public class TreeNode
 	{
-		public string Data;
-		public TreeNode Next;
-		public TreeNode[] SubNodes;
+		public string? Data;
+		public TreeNode? Next;
+		public TreeNode[]? SubNodes;
 	}
 
 	public struct Class1

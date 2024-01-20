@@ -5,9 +5,9 @@
 /// </summary>
 internal class AstReadField : IAstStackItem
 {
-	public FieldInfo FieldInfo;
+	public FieldInfo? FieldInfo;
 
-	public IAstRefOrAddr SourceObject;
+	public IAstRefOrAddr? SourceObject;
 
 	/// <summary>
 	///   Gets the item type.

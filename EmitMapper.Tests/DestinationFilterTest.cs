@@ -104,11 +104,11 @@ public class DestinationFilterTest
 		/// <summary>
 		///   Gets or Sets the base property.
 		/// </summary>
-		public string BaseProperty { get; set; }
+		public string? BaseProperty { get; set; }
 		/// <summary>
 		///   Gets or Sets the derived property.
 		/// </summary>
-		public string DerivedProperty { get; set; }
+		public string? DerivedProperty { get; set; }
 	}
 
 	/// <summary>
@@ -128,7 +128,7 @@ public class DestinationFilterTest
 		public int I2 = -5;
 		public int I3 = 0;
 		public long L1;
-		public string Str;
+		public string? Str;
 	}
 
 	/// <summary>
@@ -161,11 +161,11 @@ public class DestinationFilterTest
 		/// <summary>
 		///   Gets or Sets the base property.
 		/// </summary>
-		public string BaseProperty { get; set; }
+		public string? BaseProperty { get; set; }
 		/// <summary>
 		///   Gets or Sets the derived property.
 		/// </summary>
-		public string DerivedProperty { get; set; }
+		public string? DerivedProperty { get; set; }
 	}
 
 	/// <summary>

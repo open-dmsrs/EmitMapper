@@ -7,7 +7,7 @@ internal class AstReadArgument : IAstStackItem
 {
 	public int ArgumentIndex;
 
-	public Type ArgumentType;
+	public Type? ArgumentType;
 
 	/// <summary>
 	///   Gets the item type.

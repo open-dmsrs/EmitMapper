@@ -47,7 +47,7 @@ internal class CompilationContext
 	/// <inheritdoc/>
 	public void Emit(OpCode opCode, int param)
 	{
-		ProcessCommand(opCode, 0, param.ToString());
+		ProcessCommand(opCode, 0, param.ToString(CultureInfo.InvariantCulture));
 		ILGenerator.Emit(opCode, param);
 	}
 
