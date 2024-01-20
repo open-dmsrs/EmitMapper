@@ -7,6 +7,7 @@ public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<Mapp
 	private readonly string mapperTypeName;
 
 	/// <summary>
+	/// Initializes a new instance of the <see cref="MapperKey"/> struct.
 	/// Initializes a new instance of the <see cref="MapperKey"/> class.
 	/// </summary>
 	/// <param name="typeFrom">The type from.</param>

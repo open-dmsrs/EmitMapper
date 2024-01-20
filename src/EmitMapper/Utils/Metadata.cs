@@ -206,7 +206,7 @@ public class Metadata<T>
 	public static readonly Type Type = typeof(T);
 
 	/// <summary>
-	/// Initializes a new instance of the <see cref="Metadata"/> class.
+	/// Initializes a new instance of the <see cref="Metadata{T}"/> class.
 	/// </summary>
 	protected Metadata()
 	{

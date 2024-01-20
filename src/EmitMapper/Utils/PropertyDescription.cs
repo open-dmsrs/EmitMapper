@@ -10,6 +10,7 @@ public readonly struct PropertyDescription : IEquatable<PropertyDescription>
 	public readonly Type Type;
 
 	/// <summary>
+	/// Initializes a new instance of the <see cref="PropertyDescription"/> struct.
 	/// Initializes a new instance of the <see cref="PropertyDescription"/> class.
 	/// </summary>
 	/// <param name="name">The name.</param>
@@ -23,6 +24,7 @@ public readonly struct PropertyDescription : IEquatable<PropertyDescription>
 	}
 
 	/// <summary>
+	/// Initializes a new instance of the <see cref="PropertyDescription"/> struct.
 	/// Initializes a new instance of the <see cref="PropertyDescription"/> class.
 	/// </summary>
 	/// <param name="property">The property.</param>

@@ -10,7 +10,7 @@ public class Mapper<TFrom, TTo>
 	private readonly MapperBase mapperImpl;
 
 	/// <summary>
-	///   Initializes a new instance of the <see cref="Mapper" /> class.
+	///   Initializes a new instance of the <see cref="Mapper{TFrom, TTo}"/> class.
 	/// </summary>
 	/// <param name="mapperImpl">The mapper impl.</param>
 	public Mapper(MapperBase mapperImpl)

@@ -18,10 +18,7 @@ public static class SwitchExpressions
 	  TSwitch matches,
 	  Func<TSwitch, TResult> valueFactory)
 	{
-		if (valueFactory is null)
-		{
-			throw new ArgumentNullException(nameof(valueFactory));
-		}
+		ArgumentNullException.ThrowIfNull(valueFactory);
 
 		return SwitchExpression<TSwitch, TResult>.CreateCase(matches, valueFactory);
 	}
@@ -36,10 +33,7 @@ public static class SwitchExpressions
 	/// <returns><![CDATA[TypeCaseSwitchExpression<TResult>]]></returns>
 	public static TypeCaseSwitchExpression<TResult> Case<TType, TResult>(Func<TType, TResult> valueFactory)
 	{
-		if (valueFactory is null)
-		{
-			throw new ArgumentNullException(nameof(valueFactory));
-		}
+		ArgumentNullException.ThrowIfNull(valueFactory);
 
 		return new TypeCaseSwitchExpression<TType, TResult>(valueFactory);
 	}
@@ -86,6 +80,7 @@ public static class SwitchExpressions
 	public struct BooleanSwitchExpression<TResult>
 	{
 		/// <summary>
+		/// Initializes a new instance of the <see cref="BooleanSwitchExpression{TResult}"/> struct.
 		///   Initializes a new instance of the <see cref="BooleanSwitchExpression&lt;TResult&gt;" /> class.
 		/// </summary>
 		/// <param name="condition">If true, condition.</param>
@@ -114,6 +109,7 @@ public static class SwitchExpressions
 		private readonly TResult value;
 
 		/// <summary>
+		/// Initializes a new instance of the <see cref="CompletedSwitchExpression{TResult}"/> struct.
 		///   Initializes a new instance of the <see cref="CompletedSwitchExpression&lt;TResult&gt;" /> class.
 		/// </summary>
 		/// <param name="value">The value.</param>
@@ -169,6 +165,7 @@ public static class SwitchExpressions
 	public readonly struct SwitchExpression<TSwitch>
 	{
 		/// <summary>
+		/// Initializes a new instance of the <see cref="SwitchExpression{TSwitch}"/> struct.
 		///   Initializes a new instance of the <see cref="SwitchExpression&lt;TSwitch&gt;" /> class.
 		/// </summary>
 		/// <param name="on">The on.</param>

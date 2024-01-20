@@ -1,13 +1,13 @@
-﻿namespace EmitMapper.Utils;
+namespace EmitMapper.Utils;
 
 public readonly struct TypeDescription : IEquatable<TypeDescription>
 {
-	public readonly PropertyDescription[] AdditionalProperties;
+	public PropertyDescription[] AdditionalProperties { get; }
 
-	public readonly Type Type;
+	public Type Type { get; }
 
 	/// <summary>
-	/// Initializes a new instance of the <see cref="TypeDescription"/> class.
+	/// Initializes a new instance of the <see cref="TypeDescription"/> struct.
 	/// </summary>
 	/// <param name="type">The type.</param>
 	public TypeDescription(Type type)
@@ -16,20 +16,18 @@ public readonly struct TypeDescription : IEquatable<TypeDescription>
 	}
 
 	/// <summary>
+	/// Initializes a new instance of the <see cref="TypeDescription"/> struct.
 	/// Initializes a new instance of the <see cref="TypeDescription"/> class.
 	/// </summary>
 	/// <param name="type">The type.</param>
 	/// <param name="additionalProperties">The additional properties.</param>
 	public TypeDescription(Type type, IEnumerable<PropertyDescription> additionalProperties)
 	{
-		Type = type ?? throw new ArgumentNullException(nameof(type));
+		this.Type = type ?? throw new ArgumentNullException(nameof(type));
 
-		if (additionalProperties is null)
-		{
-			throw new ArgumentNullException(nameof(additionalProperties));
-		}
+		ArgumentNullException.ThrowIfNull(additionalProperties);
 
-		AdditionalProperties = additionalProperties.OrderBy(p => p.Name).ToArray();
+		additionalProperties = additionalProperties.OrderBy(p => p.Name).ToArray();
 	}
 
 	public static bool operator !=(in TypeDescription left, in TypeDescription right)
@@ -57,7 +55,7 @@ public readonly struct TypeDescription : IEquatable<TypeDescription>
 	/// </summary>
 	/// <param name="other">The other.</param>
 	/// <returns>A bool.</returns>
-	public override bool Equals(object other)
+	public override bool Equals(object? other)
 	{
 		return other is TypeDescription description && Equals(description);
 	}
@@ -68,7 +66,7 @@ public readonly struct TypeDescription : IEquatable<TypeDescription>
 	/// <returns>An int.</returns>
 	public override int GetHashCode()
 	{
-		var hashCode = new HashCode();
+		var hashCode = default(HashCode);
 		hashCode.Add(Type);
 		foreach (var property in AdditionalProperties)
 		{

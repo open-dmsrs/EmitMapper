@@ -7,7 +7,7 @@
   </PropertyGroup>
   <PropertyGroup Label="Analyzers">
 	<NoWarn>NU1605;NU1504;NU5105;1701;1702;1591;8002;$(NoWarn)</NoWarn>
-	<NoWarn>SA1623;SA1028;SA1615;SA1027;SA1037;$(NoWarn)</NoWarn>
+	<NoWarn>SA1623;SA1028;SA1615;SA1027;SA1037;SA1201;$(NoWarn)</NoWarn>
 	<!--
 		SA1615 - Element return value should be documented
 		SA1629 - A section of the Xml header documentation for a C# element does not end with a period (also known as a full stop).

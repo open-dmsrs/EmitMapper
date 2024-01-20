@@ -1,4 +1,4 @@
-﻿namespace SamplesTests;
+namespace SamplesTests;
 
 /// <summary>
 ///   The test utils.

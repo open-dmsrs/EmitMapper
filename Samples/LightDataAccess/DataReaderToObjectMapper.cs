@@ -399,7 +399,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 			public int FieldNum;
 
 			/// <summary>
-			///   Initializes a new instance of the ReaderValuesExtrator`1 class.
+			/// Initializes a new instance of the <see cref="ReaderValuesExtrator{T}"/> class.
 			/// </summary>
 			/// <param name="fieldName">Name of the field.</param>
 			/// <param name="valueExtractor">The value extractor.</param>

@@ -9,6 +9,7 @@ public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<Type
 	private readonly int hash;
 
 	/// <summary>
+	/// Initializes a new instance of the <see cref="TypesPair"/> struct.
 	/// Initializes a new instance of the <see cref="TypesPair"/> class.
 	/// </summary>
 	/// <param name="typeFrom">The type from.</param>

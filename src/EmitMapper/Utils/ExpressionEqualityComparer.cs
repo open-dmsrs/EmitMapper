@@ -8,6 +8,7 @@ namespace EmitMapper.Utils;
 public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 {
 	/// <summary>
+	/// Initializes a new instance of the <see cref="ExpressionEqualityComparer"/> class.
 	///   Creates a new <see cref="ExpressionEqualityComparer" />.
 	/// </summary>
 	private ExpressionEqualityComparer()

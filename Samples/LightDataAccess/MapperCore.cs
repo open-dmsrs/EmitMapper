@@ -35,6 +35,7 @@ public class MapperCore
 	private static readonly ConcurrentBag<Tuple<Type, Type, IMappingConfigurator>> MappingConfigurations;
 
 	/// <summary>
+	/// Initializes static members of the <see cref="MapperCore"/> class.
 	///   Initializes the <see cref="MapperCore" /> class.
 	/// </summary>
 	static MapperCore()

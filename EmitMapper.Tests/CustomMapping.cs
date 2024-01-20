@@ -200,7 +200,7 @@ public class CustomMapping
 		/// <summary>
 		///   Gets or Sets the name.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 	}
 
 	/// <summary>

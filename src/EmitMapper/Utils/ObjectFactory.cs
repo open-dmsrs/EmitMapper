@@ -172,6 +172,6 @@ public static class ObjectFactory
 	/// <returns>An Expression.</returns>
 	private static Expression InvalidType(Type type, string message)
 	{
-		return Throw(Constant(new ArgumentException(message, "type")), type);
+		return Throw(Constant(new ArgumentException(message, nameof(type))), type);
 	}
 }

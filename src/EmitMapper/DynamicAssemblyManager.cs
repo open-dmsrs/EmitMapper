@@ -14,6 +14,7 @@ public class DynamicAssemblyManager
 	private static readonly ModuleBuilder ModuleBuilder;
 
 	/// <summary>
+	/// Initializes static members of the <see cref="DynamicAssemblyManager"/> class.
 	///   Initializes a new instance of the <see cref="DynamicAssemblyManager" /> class.
 	/// </summary>
 	static DynamicAssemblyManager()

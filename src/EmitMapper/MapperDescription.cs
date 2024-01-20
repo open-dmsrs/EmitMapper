@@ -1,15 +1,21 @@
-﻿namespace EmitMapper;
+namespace EmitMapper;
 
 /// <summary>
 ///   The mapper description.
 /// </summary>
 public class MapperDescription
 {
-	public int Id;
+	public int Id
+	{
+		get;
+	}
 
-	public MapperKey Key;
+	public MapperKey Key
+	{
+		get;
+	}
 
-	public MapperBase Mapper;
+	public MapperBase? Mapper;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="MapperDescription" /> class.
@@ -17,7 +23,7 @@ public class MapperDescription
 	/// <param name="mapper">The mapper.</param>
 	/// <param name="key">The key.</param>
 	/// <param name="id">The id.</param>
-	public MapperDescription(MapperBase mapper, MapperKey key, int id)
+	public MapperDescription(MapperBase? mapper, MapperKey key, int id)
 	{
 		Mapper = mapper;
 		Key = key;

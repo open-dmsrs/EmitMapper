@@ -1,4 +1,4 @@
-﻿namespace SamplesTests;
+namespace SamplesTests;
 
 /// <summary>
 ///   The test mapping to data row.
@@ -11,14 +11,14 @@ public class TestMappingToDataRow
 	[Fact]
 	public void MappingToDataRowTest()
 	{
-		// this is the mapper 
+		// this is the mapper
 		var mapper = Mapper.Default.GetMapper<TestDto, DataRow>(new Map2DataRowConfig());
 
 		// initialization of test DTO object
 		var testDataObject = new TestDto { Field1 = "field1", Field2 = 10, Field3 = true };
 
 		// Initializing of test table. Usual this table is read from database.
-		var dt = new DataTable();
+		using var dt = new DataTable();
 		dt.Columns.Add("field1", typeof(string));
 		dt.Columns.Add("field2", typeof(int));
 		dt.Columns.Add("field3", typeof(bool));
@@ -61,7 +61,7 @@ public class TestMappingToDataRow
 		}
 	}
 
-	// Using: 
+	// Using:
 
 	// Test data object
 	/// <summary>

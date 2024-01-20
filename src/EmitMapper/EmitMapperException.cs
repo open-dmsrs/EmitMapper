@@ -1,11 +1,11 @@
-﻿namespace EmitMapper;
+namespace EmitMapper;
 
 /// <summary>
 ///   The emit mapper exception.
 /// </summary>
 public class EmitMapperException : ApplicationException
 {
-	public IMappingOperation MappingOperation;
+	private IMappingOperation mappingOperation;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="EmitMapperException" /> class.
@@ -42,7 +42,7 @@ public class EmitMapperException : ApplicationException
 	public EmitMapperException(string message, Exception innerException, IMappingOperation mappingOperation)
 	  : base(BuildMessage(message, mappingOperation), innerException)
 	{
-		MappingOperation = mappingOperation;
+		this.mappingOperation = mappingOperation;
 	}
 
 	/// <summary>

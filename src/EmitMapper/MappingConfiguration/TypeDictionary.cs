@@ -172,6 +172,7 @@ internal class TypeDictionary<T>
 		public readonly T Value;
 
 		/// <summary>
+		/// Initializes a new instance of the <see cref="ListElement"/> struct.
 		/// Initializes a new instance of the <see cref="ListElement"/> class.
 		/// </summary>
 		/// <param name="types">The types.</param>

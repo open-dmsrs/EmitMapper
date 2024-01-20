@@ -102,9 +102,9 @@ public class MapperForCollection : CustomMapper
 	/// <returns>Destination object</returns>
 	public override object? MapImpl(object from, object to, object state)
 	{
-		if (to is null && TargetConstructor is not null)
+		if (to is null && targetConstructor is not null)
 		{
-			to = TargetConstructor.CallFunc();
+			to = targetConstructor.CallFunc();
 		}
 
 		if (TypeTo.IsArray)
@@ -379,7 +379,7 @@ public class MapperForCollection : CustomMapper
 			}
 			else
 			{
-				var mapper = Mapper.GetMapper(obj.GetType(), obj.GetType(), MappingConfigurator);
+				var mapper = Mapper.GetMapper(obj.GetType(), obj.GetType(), mappingConfigurator);
 				result.Add(mapper.Map(obj));
 			}
 		}
@@ -403,7 +403,7 @@ public class MapperForCollection : CustomMapper
 			return result;
 		}
 
-		var mapper = Mapper.GetMapper(from.GetType(), from.GetType(), MappingConfigurator);
+		var mapper = Mapper.GetMapper(from.GetType(), from.GetType(), mappingConfigurator);
 		result.Add(mapper.Map(from));
 
 		return result;
@@ -425,13 +425,13 @@ public class MapperForCollection : CustomMapper
 			{
 				iList.Add(null);
 			}
-			else if (RootOperation?.ShallowCopy != false)
+			else if (rootOperation?.ShallowCopy != false)
 			{
 				iList.Add(obj);
 			}
 			else
 			{
-				var mapper = Mapper.GetMapper(obj.GetType(), obj.GetType(), MappingConfigurator);
+				var mapper = Mapper.GetMapper(obj.GetType(), obj.GetType(), mappingConfigurator);
 				iList.Add(mapper.Map(obj));
 			}
 		}

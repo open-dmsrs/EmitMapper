@@ -30,21 +30,21 @@ public abstract class MapperBase
 	/// </summary>
 	internal Type TypeTo;
 
-	protected DelegateInvokerFunc2 Converter;
+	protected DelegateInvokerFunc2 converter;
 
-	protected DelegateInvokerFunc2 DestinationFilter;
+	protected DelegateInvokerFunc2 destinationFilter;
 
-	protected IMappingConfigurator MappingConfigurator;
+	protected IMappingConfigurator mappingConfigurator;
 
-	protected DelegateInvokerFunc0 NullSubstitutor;
+	protected DelegateInvokerFunc0 nullSubstitutor;
 
-	protected IRootMappingOperation RootOperation;
+	protected IRootMappingOperation rootOperation;
 
-	protected DelegateInvokerFunc2 SourceFilter;
+	protected DelegateInvokerFunc2 sourceFilter;
 
-	protected DelegateInvokerFunc0 TargetConstructor;
+	protected DelegateInvokerFunc0 targetConstructor;
 
-	protected DelegateInvokerFunc2 ValuesPostProcessor;
+	protected DelegateInvokerFunc2 valuesPostProcessor;
 
 	/// <summary>
 	///   Creates an instance of destination object
@@ -65,17 +65,17 @@ public abstract class MapperBase
 	{
 		object result;
 
-		if (SourceFilter is not null)
+		if (sourceFilter is not null)
 		{
-			if (!(bool)SourceFilter.CallFunc(from, state))
+			if (!(bool)sourceFilter.CallFunc(from, state))
 			{
 				return to;
 			}
 		}
 
-		if (DestinationFilter is not null)
+		if (destinationFilter is not null)
 		{
-			if (!(bool)DestinationFilter.CallFunc(to, state))
+			if (!(bool)destinationFilter.CallFunc(to, state))
 			{
 				return to;
 			}
@@ -83,11 +83,11 @@ public abstract class MapperBase
 
 		if (from is null)
 		{
-			result = NullSubstitutor?.CallFunc();
+			result = nullSubstitutor?.CallFunc();
 		}
-		else if (Converter is not null)
+		else if (converter is not null)
 		{
-			result = Converter.CallFunc(from, state);
+			result = converter.CallFunc(from, state);
 		}
 		else
 		{
@@ -96,9 +96,9 @@ public abstract class MapperBase
 			result = MapImpl(from, to, state);
 		}
 
-		if (ValuesPostProcessor is not null)
+		if (valuesPostProcessor is not null)
 		{
-			result = ValuesPostProcessor.CallFunc(result, state);
+			result = valuesPostProcessor.CallFunc(result, state);
 		}
 
 		return result;
@@ -145,54 +145,54 @@ public abstract class MapperBase
 		Mapper = objectMapperManager;
 		TypeFrom = typeFrom;
 		TypeTo = typeTo;
-		MappingConfigurator = mappingConfigurator;
+		this.mappingConfigurator = mappingConfigurator;
 		StoredObjects = storedObjects;
 
-		if (MappingConfigurator is not null)
+		if (this.mappingConfigurator is not null)
 		{
-			RootOperation = MappingConfigurator.GetRootMappingOperation(typeFrom, typeTo)
+			rootOperation = this.mappingConfigurator.GetRootMappingOperation(typeFrom, typeTo)
 							?? new RootMappingOperation(typeFrom, typeTo);
 
-			var constructor = RootOperation.TargetConstructor;
+			var constructor = rootOperation.TargetConstructor;
 
 			if (constructor is not null)
 			{
-				TargetConstructor = (DelegateInvokerFunc0)DelegateInvoker.GetDelegateInvoker(constructor);
+				targetConstructor = (DelegateInvokerFunc0)DelegateInvoker.GetDelegateInvoker(constructor);
 			}
 
-			var valuesPostProcessor = RootOperation.ValuesPostProcessor;
+			var valuesPostProcessor = rootOperation.ValuesPostProcessor;
 
 			if (valuesPostProcessor is not null)
 			{
-				ValuesPostProcessor = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(valuesPostProcessor);
+				this.valuesPostProcessor = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(valuesPostProcessor);
 			}
 
-			var converter = RootOperation.Converter;
+			var converter = rootOperation.Converter;
 
 			if (converter is not null)
 			{
-				Converter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(converter);
+				this.converter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(converter);
 			}
 
-			var nullSubstitutor = RootOperation.NullSubstitutor;
+			var nullSubstitutor = rootOperation.NullSubstitutor;
 
 			if (nullSubstitutor is not null)
 			{
-				NullSubstitutor = (DelegateInvokerFunc0)DelegateInvoker.GetDelegateInvoker(nullSubstitutor);
+				this.nullSubstitutor = (DelegateInvokerFunc0)DelegateInvoker.GetDelegateInvoker(nullSubstitutor);
 			}
 
-			var sourceFilter = RootOperation.SourceFilter;
+			var sourceFilter = rootOperation.SourceFilter;
 
 			if (sourceFilter is not null)
 			{
-				SourceFilter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(sourceFilter);
+				this.sourceFilter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(sourceFilter);
 			}
 
-			var destinationFilter = RootOperation.DestinationFilter;
+			var destinationFilter = rootOperation.DestinationFilter;
 
 			if (destinationFilter is not null)
 			{
-				DestinationFilter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(destinationFilter);
+				this.destinationFilter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(destinationFilter);
 			}
 		}
 	}
@@ -203,9 +203,9 @@ public abstract class MapperBase
 	/// <returns>An object.</returns>
 	protected object ConstructTarget()
 	{
-		if (TargetConstructor is not null)
+		if (targetConstructor is not null)
 		{
-			return TargetConstructor.CallFunc();
+			return targetConstructor.CallFunc();
 		}
 
 		return CreateTargetInstance();

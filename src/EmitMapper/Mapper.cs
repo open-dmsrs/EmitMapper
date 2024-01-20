@@ -1,4 +1,4 @@
-﻿namespace EmitMapper;
+namespace EmitMapper;
 
 /// <summary>
 ///   Class for maintaining and generating Mappers.
@@ -70,7 +70,7 @@ public class Mapper
 	/// <param name="to">The to.</param>
 	/// <param name="mappingConfigurator">The mapping configurator.</param>
 	/// <returns>A MapperDescription.</returns>
-	internal MapperDescription GetMapperDescription(Type from, Type to, IMappingConfigurator mappingConfigurator)
+	internal MapperDescription GetMapperDescription(Type? from, Type? to, IMappingConfigurator mappingConfigurator)
 	{
 		to ??= Metadata<object>.Type;
 		from ??= Metadata<object>.Type;

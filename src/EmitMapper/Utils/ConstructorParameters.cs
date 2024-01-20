@@ -7,6 +7,7 @@ public readonly struct ConstructorParameters
 	public readonly ParameterInfo[] Parameters;
 
 	/// <summary>
+	/// Initializes a new instance of the <see cref="ConstructorParameters"/> struct.
 	/// Initializes a new instance of the <see cref="ConstructorParameters"/> class.
 	/// </summary>
 	/// <param name="constructor">The constructor.</param>

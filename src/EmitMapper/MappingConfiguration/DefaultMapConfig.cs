@@ -16,6 +16,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	private bool shallowCopy;
 
 	/// <summary>
+	/// Initializes static members of the <see cref="DefaultMapConfig"/> class.
 	///   Initializes a new instance of the <see cref="DefaultMapConfig" /> class.
 	/// </summary>
 	static DefaultMapConfig()

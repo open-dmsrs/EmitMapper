@@ -19,10 +19,7 @@ public class VersatileLambda<T>
 	/// <param name="expression">The expression.</param>
 	public VersatileLambda(Expression<T> expression)
 	{
-		if (expression is null)
-		{
-			throw new ArgumentNullException(nameof(expression));
-		}
+		ArgumentNullException.ThrowIfNull(expression);
 
 		this.expression = expression;
 		funcLazy = new Lazy<T>(expression.Compile);
