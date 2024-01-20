@@ -37,7 +37,7 @@ public static partial class CommandBuilder
 	  this DbCommand cmd,
 	  object obj,
 	  string tableName,
-	  IEnumerable<string> idFieldNames,
+	  IEnumerable<string>? idFieldNames,
 	  IEnumerable<string> includeFields,
 	  IEnumerable<string> excludeFields,
 	  ObjectsChangeTracker changeTracker,
@@ -45,7 +45,7 @@ public static partial class CommandBuilder
 	{
 		if (idFieldNames is null)
 		{
-			idFieldNames = new string[0];
+			idFieldNames = Array.Empty<string>();
 		}
 
 		idFieldNames = idFieldNames.Select(n => n.ToUpper(System.Globalization.CultureInfo.CurrentCulture));
@@ -115,7 +115,7 @@ public static partial class CommandBuilder
 	  this DbCommand cmd,
 	  object obj,
 	  string tableName,
-	  string[] idFieldNames,
+	  string[]? idFieldNames,
 	  DbSettings dbSettings)
 	{
 		return BuildUpdateCommand(cmd, obj, tableName, idFieldNames, null, null, null, dbSettings);

@@ -505,7 +505,7 @@ public static class DbTools
 		DbConnection conn,
 		object obj,
 		string tableName,
-		string[] idFieldNames,
+		string[]? idFieldNames,
 		ObjectsChangeTracker changeTracker,
 		DbSettings dbSettings)
 	{
@@ -527,7 +527,7 @@ public static class DbTools
 		DbConnection conn,
 		object obj,
 		string tableName,
-		string[] idFieldNames,
+		string[]? idFieldNames,
 		string[] includeFields,
 		string[] excludeFields,
 		ObjectsChangeTracker changeTracker,
@@ -555,7 +555,7 @@ public static class DbTools
 		DbConnection conn,
 		object obj,
 		string tableName,
-		string[] idFieldNames,
+		string[]? idFieldNames,
 		DbSettings dbSettings)
 	{
 		return UpdateObject(conn, obj, tableName, idFieldNames, null, null, null, dbSettings);
