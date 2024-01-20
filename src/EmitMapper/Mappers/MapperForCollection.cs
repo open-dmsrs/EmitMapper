@@ -102,7 +102,7 @@ public class MapperForCollection : CustomMapper
 	/// <returns>Destination object</returns>
 	public override object? MapImpl(object from, object to, object state)
 	{
-		if (to is null && TargetConstructor != null)
+		if (to is null && TargetConstructor is not null)
 		{
 			to = TargetConstructor.CallFunc();
 		}

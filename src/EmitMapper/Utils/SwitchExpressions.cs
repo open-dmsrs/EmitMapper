@@ -63,7 +63,7 @@ public static class SwitchExpressions
 	public static DefaultThrowExpression DefaultThrow(Exception exception = null)
 	{
 		var exceptionToThrow = exception ?? new InvalidOperationException("switch expression did not match");
-		if (exceptionToThrow.StackTrace != null)
+		if (exceptionToThrow.StackTrace is not null)
 		{
 			ExceptionDispatchInfo.Capture(exceptionToThrow).Throw();
 		}
@@ -164,9 +164,7 @@ public static class SwitchExpressions
 		}
 	}
 
-	public struct DefaultThrowExpression
-	{
-	}
+	public struct DefaultThrowExpression;
 
 	public readonly struct SwitchExpression<TSwitch>
 	{

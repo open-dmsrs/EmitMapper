@@ -22,7 +22,7 @@ public static class TypeExtensions
 	{
 		var currentType = type;
 
-		while ((currentType = currentType.BaseType) != null)
+		while ((currentType = currentType.BaseType) is not null)
 		{
 			yield return currentType;
 		}
@@ -134,7 +134,7 @@ public static class TypeExtensions
 	public static FieldInfo GetInheritedField(this Type type, string name)
 	{
 		return type.GetField(name, InstanceFlags) ?? type.BaseClassesAndInterfaces()
-		  .Select(t => t.GetField(name, InstanceFlags)).FirstOrDefault(f => f != null);
+		  .Select(t => t.GetField(name, InstanceFlags)).FirstOrDefault(f => f is not null);
 	}
 
 	/// <summary>
@@ -148,7 +148,7 @@ public static class TypeExtensions
 	{
 		return type.GetMethod(name, InstanceFlags)
 			   ?? type.BaseClassesAndInterfaces().Select(t => t.GetMethod(name, InstanceFlags))
-				 .FirstOrDefault(m => m != null) ?? throw new ArgumentOutOfRangeException(
+				 .FirstOrDefault(m => m is not null) ?? throw new ArgumentOutOfRangeException(
 				 nameof(name),
 				 $"Cannot find member {name} of type {type}.");
 	}
@@ -162,7 +162,7 @@ public static class TypeExtensions
 	public static PropertyInfo GetInheritedProperty(this Type type, string name)
 	{
 		return type.GetProperty(name, InstanceFlags) ?? type.BaseClassesAndInterfaces()
-		  .Select(t => t.GetProperty(name, InstanceFlags)).FirstOrDefault(p => p != null);
+		  .Select(t => t.GetProperty(name, InstanceFlags)).FirstOrDefault(p => p is not null);
 	}
 
 	/// <summary>
@@ -183,7 +183,7 @@ public static class TypeExtensions
 	/// <returns><![CDATA[IEnumerable<Type>]]></returns>
 	public static IEnumerable<Type> GetTypeInheritance(this Type type)
 	{
-		while (type != null)
+		while (type is not null)
 		{
 			yield return type;
 

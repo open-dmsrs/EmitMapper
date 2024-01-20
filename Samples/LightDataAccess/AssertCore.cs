@@ -91,17 +91,17 @@ public static class AssertCore
 	public static void AreEqual<T>(string value1, string value2, Func<T> getException)
 	  where T : Exception
 	{
-		if (value1 is null && value2 != null)
+		if (value1 is null && value2 is not null)
 		{
 			throw getException.Invoke();
 		}
 
-		if (value1 != null && value2 is null)
+		if (value1 is not null && value2 is null)
 		{
 			throw getException.Invoke();
 		}
 
-		if (value1 != null && value2 != null && value1.Length != value2.Length)
+		if (value1 is not null && value2 is not null && value1.Length != value2.Length)
 		{
 			throw getException.Invoke();
 		}
@@ -172,7 +172,7 @@ public static class AssertCore
 		  ? "An argument condition was false."
 		  : string.Concat("An argument condition was false.", message);
 
-		if (argumentName != null)
+		if (argumentName is not null)
 		{
 			throw new ArgumentException(message, argumentName);
 		}
@@ -200,7 +200,7 @@ public static class AssertCore
 	public static void ArgumentNotNull<T>(object argument, Func<T> getException)
 	  where T : Exception
 	{
-		if (argument != null)
+		if (argument is not null)
 		{
 			return;
 		}
@@ -215,7 +215,7 @@ public static class AssertCore
 	/// <param name="getArgumentName">The delegate used to get the parameter name.</param>
 	public static void ArgumentNotNull(object argument, Func<string> getArgumentName)
 	{
-		if (argument != null)
+		if (argument is not null)
 		{
 			return;
 		}
@@ -773,7 +773,7 @@ public static class AssertCore
 		for (var i = 0; i < args.Length; i++)
 		{
 			var node = args[i] as XmlNode;
-			if (node != null)
+			if (node is not null)
 			{
 				args[i] = node.OuterXml;
 			}

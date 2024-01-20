@@ -66,7 +66,7 @@ public static class ConvertUtils
 			return null;
 		}
 
-		return str.ToUpper();
+		return str.ToUpper(System.Globalization.CultureInfo.CurrentCulture);
 	}
 
 	/// <summary>
@@ -76,7 +76,7 @@ public static class ConvertUtils
 	/// <returns>System.String.</returns>
 	public static string ToGuidStr(this Guid guid)
 	{
-		return guid.ToString().ToUpper();
+		return guid.ToString().ToUpper(System.Globalization.CultureInfo.CurrentCulture);
 	}
 
 	/// <summary>
@@ -91,7 +91,7 @@ public static class ConvertUtils
 			return null;
 		}
 
-		return guid.Value.ToString().ToUpper();
+		return guid.Value.ToString().ToUpper(System.Globalization.CultureInfo.CurrentCulture);
 	}
 
 	/// <summary>

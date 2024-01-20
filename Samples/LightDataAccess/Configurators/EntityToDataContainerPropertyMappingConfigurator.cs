@@ -29,7 +29,7 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
 		  ReflectionHelper.GetPublicFieldsAndProperties(from)
 			.Where(
 			  member => (member.MemberType == MemberTypes.Field || member.MemberType == MemberTypes.Property)
-						&& ((PropertyInfo)member).GetGetMethod() != null).Select(
+						&& ((PropertyInfo)member).GetGetMethod() is not null).Select(
 			  sourceMember => (IMappingOperation)new SrcReadOperation
 			  {
 				  Source = new MemberDescriptor(sourceMember),
@@ -85,7 +85,7 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
 
 			  var value = ReflectionHelper.ConvertValue(sourceValue, sourceType, fd.Item2);
 
-			  if (value != null)
+			  if (value is not null)
 			  {
 				  container.Fields.Add(fd.Item1, value.ToString());
 			  }

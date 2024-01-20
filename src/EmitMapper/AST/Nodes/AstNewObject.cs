@@ -77,7 +77,7 @@ internal class AstNewObject : IAstRef
 
 			var ci = ObjectType.GetConstructor(types.ToArray());
 
-			if (ci != null)
+			if (ci is not null)
 			{
 				context.EmitNewObject(ci);
 			}

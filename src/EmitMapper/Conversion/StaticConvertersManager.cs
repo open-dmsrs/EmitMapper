@@ -84,7 +84,7 @@ public class StaticConvertersManager
 		{
 			var result = func(from, to);
 
-			if (result != null)
+			if (result is not null)
 			{
 				return result;
 			}

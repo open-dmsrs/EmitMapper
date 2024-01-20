@@ -10,7 +10,8 @@ public class NullableConverter
 	/// Initializes a new instance of the <see cref="NullableConverter"/> class.
 	/// </summary>
 	protected NullableConverter()
-	{ }
+	{
+	}
 
 	/// <summary>
 	/// To boolean.

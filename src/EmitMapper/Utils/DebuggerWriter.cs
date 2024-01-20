@@ -80,7 +80,7 @@ public class DebuggerWriter : TextWriter
 			throw new ObjectDisposedException(null);
 		}
 
-		if (value != null)
+		if (value is not null)
 		{
 			Debugger.Log(Level, Category, value);
 		}

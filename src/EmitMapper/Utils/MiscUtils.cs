@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.Utils;
+namespace EmitMapper.Utils;
 
 /// <summary>
 ///   The misc utils.
@@ -10,15 +10,15 @@ internal static class MiscUtils
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	/// <param name="collection">The collection.</param>
-	/// <param name="delim">The delim.</param>
+	/// <param name="separator">The separator.</param>
 	/// <returns>A string.</returns>
-	public static string ToCsv<T>(this IEnumerable<T> collection, string delim)
+	public static string ToCsv<T>(this IEnumerable<T> collection, string separator)
 	{
 		if (collection is null)
 		{
 			return string.Empty;
 		}
 
-		return string.Join(delim, collection);
+		return string.Join(separator, collection);
 	}
 }

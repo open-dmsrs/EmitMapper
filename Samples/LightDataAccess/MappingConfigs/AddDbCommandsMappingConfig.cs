@@ -1,4 +1,4 @@
-﻿namespace LightDataAccess.MappingConfigs;
+namespace LightDataAccess.MappingConfigs;
 
 /// <summary>
 ///   The add db commands mapping config.
@@ -31,14 +31,14 @@ internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
 		this.excludeFields = excludeFields;
 		this.configName = configName;
 
-		if (this.includeFields != null)
+		if (this.includeFields is not null)
 		{
-			this.includeFields = this.includeFields.Select(f => f.ToUpper());
+			this.includeFields = this.includeFields.Select(f => f.ToUpper(System.Globalization.CultureInfo.CurrentCulture));
 		}
 
-		if (this.excludeFields != null)
+		if (this.excludeFields is not null)
 		{
-			this.excludeFields = this.excludeFields.Select(f => f.ToUpper());
+			this.excludeFields = this.excludeFields.Select(f => f.ToUpper(System.Globalization.CultureInfo.CurrentCulture));
 		}
 	}
 
@@ -61,15 +61,7 @@ internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
 	{
 		var members = ReflectionHelper.GetPublicFieldsAndProperties(from);
 
-		if (includeFields != null)
-		{
-			members = members.Where(m => includeFields.Contains(m.Name.ToUpper()));
-		}
-
-		if (excludeFields != null)
-		{
-			members = members.Where(m => !excludeFields.Contains(m.Name.ToUpper()));
-		}
+		members = members.Where(m => includeFields.Contains(m.Name.ToUpper(System.Globalization.CultureInfo.CurrentCulture)) && !excludeFields.Contains(m.Name.ToUpper(System.Globalization.CultureInfo.CurrentCulture)));
 
 		return members.Select(
 		  m => new SrcReadOperation

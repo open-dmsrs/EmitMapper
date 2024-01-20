@@ -3,6 +3,4 @@
 /// <summary>
 ///   Mapper for classes
 /// </summary>
-public abstract class MapperForClass : MapperBase
-{
-}
+public abstract class MapperForClass : MapperBase;

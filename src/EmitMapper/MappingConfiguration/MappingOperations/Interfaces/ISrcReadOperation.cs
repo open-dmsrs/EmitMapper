@@ -3,6 +3,4 @@
 /// <summary>
 ///   The src read operation interface.
 /// </summary>
-public interface ISrcReadOperation : ISrcOperation
-{
-}
+public interface ISrcReadOperation : ISrcOperation;

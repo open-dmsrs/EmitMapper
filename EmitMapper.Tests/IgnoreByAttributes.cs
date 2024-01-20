@@ -72,7 +72,5 @@ public class IgnoreByAttributes
 	///   The my ignore attribute.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
-	public class MyIgnoreAttribute : Attribute
-	{
-	}
+	public class MyIgnoreAttribute : Attribute;
 }

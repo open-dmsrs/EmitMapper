@@ -46,7 +46,7 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
 		var staticConverters = mappingConfig.GetStaticConvertersManager() ?? StaticConvertersManager.DefaultInstance;
 		var staticConverterMethod = staticConverters.GetStaticConverter(Metadata<TFrom>.Type, Metadata<TTo>.Type);
 
-		if (staticConverterMethod != default)
+		if (staticConverterMethod is not null)
 		{
 			converter = (Func<TFrom, TTo>)Delegate.CreateDelegate(
 			  Metadata<Func<TFrom, TTo>>.Type,

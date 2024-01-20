@@ -58,7 +58,7 @@ public class FilterConstraints
 	{
 		Constraints.Add(constraint);
 
-		if (@params != null)
+		if (@params is not null)
 		{
 			foreach (var p in @params)
 			{

@@ -1,4 +1,5 @@
-﻿namespace EmitMapper.Tests;
+// ReSharper disable All
+namespace EmitMapper.Tests;
 
 /// <summary>
 ///   The custom mapping.
@@ -9,7 +10,7 @@ public class CustomMapping
 	///   Test_s the custom converter.
 	/// </summary>
 	[Fact]
-	public void Test_CustomConverter()
+	public void TestCustomConverter()
 	{
 		var a = Context.ObjMan.GetMapper<B2, A2>(
 		  new DefaultMapConfig().ConvertUsing<object, string>(v => "333").ConvertUsing<object, string>(v => "hello")
@@ -26,7 +27,7 @@ public class CustomMapping
 	///   Test_s the custom converter2.
 	/// </summary>
 	[Fact]
-	public void Test_CustomConverter2()
+	public void TestCustomConverter2()
 	{
 		var a = Context.ObjMan.GetMapper<Bb, Aa>(new DefaultMapConfig().ConvertUsing<object, string>(v => "converted " + v))
 		  .Map(new Bb());
@@ -39,7 +40,7 @@ public class CustomMapping
 	///   Test_s the custom converter with interfaces.
 	/// </summary>
 	[Fact]
-	public void Test_CustomConverterWithInterfaces()
+	public void TestCustomConverterWithInterfaces()
 	{
 		var str = Context.ObjMan.GetMapper<WithName, string>(
 			new DefaultMapConfig().ConvertUsing<IWithName, string>(v => v.Name).SetConfigName("withinterfaces"))
@@ -52,7 +53,7 @@ public class CustomMapping
 	///   Test_s the post processing.
 	/// </summary>
 	[Fact]
-	public void Test_PostProcessing()
+	public void TestPostProcessing()
 	{
 		var a = Context.ObjMan.GetMapper<B3, A3>(
 		  new DefaultMapConfig().PostProcess<A3.Int>(

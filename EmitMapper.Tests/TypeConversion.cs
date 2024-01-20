@@ -37,7 +37,7 @@ public class TypeConversion
 	///   Test3_s the shallow copy.
 	/// </summary>
 	[Fact]
-	public void Test3_ShallowCopy()
+	public void Test3ShallowCopy()
 	{
 		var a = new A3();
 		var b = new B3();

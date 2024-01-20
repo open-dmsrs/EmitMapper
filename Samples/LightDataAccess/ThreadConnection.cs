@@ -63,7 +63,7 @@ public class ThreadConnection : IDisposable
 	{
 		if (entriesCount <= 1)
 		{
-			if (connection != null)
+			if (connection is not null)
 			{
 				using (connection)
 				{

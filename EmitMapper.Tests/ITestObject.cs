@@ -3,6 +3,4 @@
 /// <summary>
 ///   The test object interface.
 /// </summary>
-public interface ITestObject
-{
-}
+public interface ITestObject;

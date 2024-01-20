@@ -9,7 +9,7 @@ public class TestMappingToDataRow
 	///   Mappings the to data row_test.
 	/// </summary>
 	[Fact]
-	public void MappingToDataRow_test()
+	public void MappingToDataRowTest()
 	{
 		// this is the mapper 
 		var mapper = Mapper.Default.GetMapper<TestDto, DataRow>(new Map2DataRowConfig());

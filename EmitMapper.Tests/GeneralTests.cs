@@ -38,7 +38,7 @@ public class GeneralTests
 	///   Generals the tests_ convert using.
 	/// </summary>
 	[Fact]
-	public void GeneralTests_ConvertUsing()
+	public void GeneralTestsConvertUsing()
 	{
 		var a = Mapper.Default.GetMapper<B2, A2>(
 		  new DefaultMapConfig().ConvertUsing<string, string>(s => "converted " + s)).Map(new B2());
@@ -50,7 +50,7 @@ public class GeneralTests
 	///   Generals the tests_ example2.
 	/// </summary>
 	[Fact]
-	public void GeneralTests_Example2()
+	public void GeneralTestsExample2()
 	{
 		var mapper = Mapper.Default.GetMapper<Source, Destination>(
 		  new DefaultMapConfig().MatchMembers((m1, m2) => "M" + m1 == m2));
@@ -66,7 +66,7 @@ public class GeneralTests
 	///   Generals the tests_ exception.
 	/// </summary>
 	[Fact]
-	public void GeneralTests_Exception()
+	public void GeneralTestsException()
 	{
 		var mapper = Mapper.Default.GetMapper<B3, A3>();
 
@@ -101,7 +101,7 @@ public class GeneralTests
 	///   Generals the tests_ ignore.
 	/// </summary>
 	[Fact]
-	public void GeneralTests_Ignore()
+	public void GeneralTestsIgnore()
 	{
 		var a = Mapper.Default.GetMapper<B, A>(new DefaultMapConfig().IgnoreMembers<B, A>("Str1"))
 		  .Map(new B());
@@ -114,7 +114,7 @@ public class GeneralTests
 	///   Generals the tests_ test1.
 	/// </summary>
 	[Fact]
-	public void GeneralTests_Test1()
+	public void GeneralTestsTest1()
 	{
 		var a = new A();
 		var b = new B();
@@ -142,7 +142,7 @@ public class GeneralTests
 	///   Generals the tests_ test2.
 	/// </summary>
 	[Fact]
-	public void GeneralTests_Test2()
+	public void GeneralTestsTest2()
 	{
 		var a = new A();
 		var b = new B();
@@ -161,7 +161,7 @@ public class GeneralTests
 	///   Generals the tests_ test3.
 	/// </summary>
 	[Fact]
-	public void GeneralTests_Test3()
+	public void GeneralTestsTest3()
 	{
 		var a = new A();
 		var b = new B();

@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Assembly         : TSharp.Core
 // Author           : tangjingbo
 // Created          : 08-21-2013
@@ -48,13 +48,13 @@ public static partial class CommandBuilder
 			idFieldNames = new string[0];
 		}
 
-		idFieldNames = idFieldNames.Select(n => n.ToUpper());
+		idFieldNames = idFieldNames.Select(n => n.ToUpper(System.Globalization.CultureInfo.CurrentCulture));
 
-		if (changeTracker != null)
+		if (changeTracker is not null)
 		{
 			var changedFields = changeTracker.GetChanges(obj);
 
-			if (changedFields != null)
+			if (changedFields is not null)
 			{
 				if (includeFields is null)
 				{
@@ -67,7 +67,7 @@ public static partial class CommandBuilder
 			}
 		}
 
-		if (includeFields != null)
+		if (includeFields is not null)
 		{
 			includeFields = includeFields.Concat(idFieldNames);
 		}
@@ -90,7 +90,7 @@ public static partial class CommandBuilder
 
 		var cmdStr = "UPDATE " + tableName + " SET "
 					 + fields.Select(
-					   f => dbSettings.GetEscapedName(f.ToUpper()) + "=" + dbSettings.GetParamName(f.ToUpper())).ToCsv(",")
+					   f => dbSettings.GetEscapedName(f.ToUpper(System.Globalization.CultureInfo.CurrentCulture)) + "=" + dbSettings.GetParamName(f.ToUpper(System.Globalization.CultureInfo.CurrentCulture))).ToCsv(",")
 					 + " WHERE " + idFieldNames
 					   .Select(fn => dbSettings.GetEscapedName(fn) + "=" + dbSettings.GetParamName(fn)).ToCsv(" AND ");
 

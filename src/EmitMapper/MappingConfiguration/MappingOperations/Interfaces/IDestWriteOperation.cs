@@ -3,6 +3,4 @@
 /// <summary>
 ///   The dest write operation interface.
 /// </summary>
-public interface IDestWriteOperation : IDestOperation
-{
-}
+public interface IDestWriteOperation : IDestOperation;

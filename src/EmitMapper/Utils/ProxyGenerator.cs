@@ -235,7 +235,7 @@ public static class ProxyGenerator
 			setterIl.Emit(OpCodes.Ldarg_1);
 			setterIl.Emit(OpCodes.Stfld, fieldBuilder);
 
-			if (propertyChangedField != null)
+			if (propertyChangedField is not null)
 			{
 				setterIl.Emit(OpCodes.Ldarg_0);
 				setterIl.Emit(OpCodes.Dup);

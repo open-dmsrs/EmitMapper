@@ -1,4 +1,4 @@
-﻿using BenchmarkDotNet.Jobs;
+using BenchmarkDotNet.Jobs;
 using EmitMapper.Utils;
 
 namespace EmitMapper.Benchmarks.GetTypes;
@@ -13,16 +13,15 @@ public class TypeBenchmark
 {
 	private Employee e;
 
-
 	/// <summary>
 	/// </summary>
 	[GlobalSetup]
 	public void Setup()
 	{
 		e = new Employee();
-		Of_GetType();
-		Of_Metadata();
-		Of_typeof();
+		OfGetType();
+		OfMetadata();
+		OfTypeof();
 	}
 
 	/// <summary>
@@ -30,7 +29,7 @@ public class TypeBenchmark
 	/// </summary>
 	/// <returns>A Type.</returns>
 	[Benchmark()]
-	public Type Of_GetType()
+	public Type OfGetType()
 	{
 		return e.GetType();
 	}
@@ -40,7 +39,7 @@ public class TypeBenchmark
 	/// </summary>
 	/// <returns>A Type.</returns>
 	[Benchmark(Baseline = true)]
-	public Type Of_Metadata()
+	public Type OfMetadata()
 	{
 		return Metadata<Employee>.Type;
 	}
@@ -50,7 +49,7 @@ public class TypeBenchmark
 	/// </summary>
 	/// <returns>A Type.</returns>
 	[Benchmark()]
-	public Type Of_typeof()
+	public Type OfTypeof()
 	{
 		return typeof(Employee);
 	}

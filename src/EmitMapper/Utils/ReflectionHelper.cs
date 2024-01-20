@@ -96,7 +96,7 @@ public static class ReflectionHelper
 		{
 			var s = secondMembers.FirstOrDefault(sm => matcher(f.Name, sm.Name));
 
-			if (s != null)
+			if (s is not null)
 			{
 				result.Add(new MatchedMember(f, s));
 			}
@@ -186,7 +186,7 @@ public static class ReflectionHelper
 			var memberName = memberNames[index];
 			var property = currentType.GetInheritedProperty(memberName);
 
-			if (property != null)
+			if (property is not null)
 			{
 				previousType = property.PropertyType;
 				members[index] = property;
@@ -342,7 +342,7 @@ public static class ReflectionHelper
 	/// <returns>A bool.</returns>
 	public static bool HasDefaultConstructor(Type type)
 	{
-		return type.GetConstructor(Type.EmptyTypes) != null;
+		return type.GetConstructor(Type.EmptyTypes) is not null;
 	}
 
 	/// <summary>
@@ -364,7 +364,7 @@ public static class ReflectionHelper
 	/// <returns>A bool.</returns>
 	public static bool IsPublic(this PropertyInfo propertyInfo)
 	{
-		return (propertyInfo.GetGetMethod() ?? propertyInfo.GetSetMethod()) != null;
+		return (propertyInfo.GetGetMethod() ?? propertyInfo.GetSetMethod()) is not null;
 	}
 
 	/// <summary>

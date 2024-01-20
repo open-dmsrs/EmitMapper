@@ -307,7 +307,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 			  }
 
 			  return op;
-		  }).Where(x => x != null);
+		  }).Where(x => x is not null);
 	}
 
 	/// <summary>
@@ -371,7 +371,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 	{
 		var ignore = ignoreMembers.GetValue(new[] { from, to });
 
-		if (ignore != null && (ignore.Contains(fromDescr.MemberInfo.Name) || ignore.Contains(toDescr.MemberInfo.Name)))
+		if (ignore is not null && (ignore.Contains(fromDescr.MemberInfo.Name) || ignore.Contains(toDescr.MemberInfo.Name)))
 		{
 			return true;
 		}

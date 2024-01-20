@@ -38,7 +38,7 @@ public class MapperBenchmark
 	/// <returns>A BenchNestedDestination.</returns>
 	[BenchmarkCategory("Bench", "1")]
 	[Benchmark]
-	public BenchNestedDestination Bench_a_HardMapper()
+	public BenchNestedDestination BenchAHardMapper()
 	{
 		return HardCodeMapper.HardMap(benchSource);
 	}
@@ -49,7 +49,7 @@ public class MapperBenchmark
 	/// <returns>A BenchNestedDestination.</returns>
 	[BenchmarkCategory("Bench", "1")]
 	[Benchmark(Baseline = true)]
-	public BenchNestedDestination Bench_b_EmitMapper()
+	public BenchNestedDestination BenchBEmitMapper()
 	{
 		return benchSourceEmitMapper.Map(benchSource);
 	}
@@ -60,7 +60,7 @@ public class MapperBenchmark
 	/// <returns>A BenchNestedDestination.</returns>
 	[BenchmarkCategory("Bench", "1")]
 	[Benchmark]
-	public BenchNestedDestination Bench_c_AutoMapper()
+	public BenchNestedDestination BenchCAutoMapper()
 	{
 		return autoMapper.Map<BenchNestedSource, BenchNestedDestination>(benchSource);
 	}
@@ -71,7 +71,7 @@ public class MapperBenchmark
 	/// <returns><![CDATA[List<BenchNestedDestination>]]></returns>
 	[BenchmarkCategory("Bench", "1000")]
 	[Benchmark]
-	public List<BenchNestedDestination> BenchNested1000_a_HardMapper()
+	public List<BenchNestedDestination> BenchNested1000AHardMapper()
 	{
 		return benchSources1000List.Select(s => HardCodeMapper.HardMap(s)).ToList();
 	}
@@ -82,7 +82,7 @@ public class MapperBenchmark
 	/// <returns><![CDATA[List<BenchNestedDestination>]]></returns>
 	[BenchmarkCategory("Bench", "1000")]
 	[Benchmark(Baseline = true)]
-	public List<BenchNestedDestination> BenchNested1000_b_EmitMapper()
+	public List<BenchNestedDestination> BenchNested1000BEmitMapper()
 	{
 		return benchSourceEmitMapper.MapEnum(benchSources1000List);
 	}
@@ -93,7 +93,7 @@ public class MapperBenchmark
 	/// <returns><![CDATA[List<BenchNestedDestination>]]></returns>
 	[BenchmarkCategory("Bench", "1000")]
 	[Benchmark]
-	public List<BenchNestedDestination> BenchNested1000_c_AutoMapper()
+	public List<BenchNestedDestination> BenchNested1000CAutoMapper()
 	{
 		return autoMapper.Map<List<BenchNestedSource>, List<BenchNestedDestination>>(benchSources1000List);
 	}
@@ -126,21 +126,21 @@ public class MapperBenchmark
 		simple100List = fixture.CreateMany<SimpleTypesSource>(100).ToList();
 		simple1000List = fixture.CreateMany<SimpleTypesSource>(1000).ToList();
 		benchSources1000List = fixture.CreateMany<BenchNestedSource>(1000).ToList();
-		this.BenchNested1000_a_HardMapper();
-		this.BenchNested1000_b_EmitMapper();
-		this.BenchNested1000_c_AutoMapper();
-		this.Bench_a_HardMapper();
-		this.Bench_b_EmitMapper();
-		this.Bench_c_AutoMapper();
-		this.SimpleTypes1000_a_HardMapper();
-		this.SimpleTypes1000_b_EmitMapper();
-		this.SimpleTypes1000_c_AutoMapper();
-		this.SimpleTypes100_a_HardMapper();
-		this.SimpleTypes100_b_EmitMapper();
-		this.SimpleTypes100_c_AutoMapper();
-		this.SimpleTypes_a_HardMapper();
-		this.SimpleTypes_b_EmitMapper();
-		this.SimpleTypes_c_AutoMapper();
+		this.BenchNested1000AHardMapper();
+		this.BenchNested1000BEmitMapper();
+		this.BenchNested1000CAutoMapper();
+		this.BenchAHardMapper();
+		this.BenchBEmitMapper();
+		this.BenchCAutoMapper();
+		this.SimpleTypes1000AHardMapper();
+		this.SimpleTypes1000BEmitMapper();
+		this.SimpleTypes1000CAutoMapper();
+		this.SimpleTypes100AHardMapper();
+		this.SimpleTypes100BEmitMapper();
+		this.SimpleTypes100CAutoMapper();
+		this.SimpleTypesAHardMapper();
+		this.SimpleTypesBEmitMapper();
+		this.SimpleTypesCAutoMapper();
 	}
 
 	/// <summary>
@@ -149,7 +149,7 @@ public class MapperBenchmark
 	/// <returns>A SimpleTypesDestination.</returns>
 	[BenchmarkCategory("SimpleTypes", "1")]
 	[Benchmark]
-	public SimpleTypesDestination SimpleTypes_a_HardMapper()
+	public SimpleTypesDestination SimpleTypesAHardMapper()
 	{
 		return HardCodeMapper.HardMap(simpleSource);
 	}
@@ -160,7 +160,7 @@ public class MapperBenchmark
 	/// <returns>A SimpleTypesDestination.</returns>
 	[BenchmarkCategory("SimpleTypes", "1")]
 	[Benchmark(Baseline = true)]
-	public SimpleTypesDestination SimpleTypes_b_EmitMapper()
+	public SimpleTypesDestination SimpleTypesBEmitMapper()
 	{
 		return simpleEmitMapper.Map(simpleSource);
 	}
@@ -171,7 +171,7 @@ public class MapperBenchmark
 	/// <returns>A SimpleTypesDestination.</returns>
 	[BenchmarkCategory("SimpleTypes", "1")]
 	[Benchmark]
-	public SimpleTypesDestination SimpleTypes_c_AutoMapper()
+	public SimpleTypesDestination SimpleTypesCAutoMapper()
 	{
 		return autoMapper.Map<SimpleTypesSource, SimpleTypesDestination>(simpleSource);
 	}
@@ -182,7 +182,7 @@ public class MapperBenchmark
 	/// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
 	[BenchmarkCategory("SimpleTypes", "100")]
 	[Benchmark]
-	public List<SimpleTypesDestination> SimpleTypes100_a_HardMapper()
+	public List<SimpleTypesDestination> SimpleTypes100AHardMapper()
 	{
 		return simple100List.Select(s => HardCodeMapper.HardMap(s)).ToList();
 	}
@@ -193,7 +193,7 @@ public class MapperBenchmark
 	/// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
 	[BenchmarkCategory("SimpleTypes", "100")]
 	[Benchmark(Baseline = true)]
-	public List<SimpleTypesDestination> SimpleTypes100_b_EmitMapper()
+	public List<SimpleTypesDestination> SimpleTypes100BEmitMapper()
 	{
 		return simpleEmitMapper.MapEnum(simple100List).ToList();
 	}
@@ -204,7 +204,7 @@ public class MapperBenchmark
 	/// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
 	[BenchmarkCategory("SimpleTypes", "100")]
 	[Benchmark]
-	public List<SimpleTypesDestination> SimpleTypes100_c_AutoMapper()
+	public List<SimpleTypesDestination> SimpleTypes100CAutoMapper()
 	{
 		return autoMapper.Map<List<SimpleTypesSource>, List<SimpleTypesDestination>>(simple100List);
 	}
@@ -215,7 +215,7 @@ public class MapperBenchmark
 	/// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
 	[BenchmarkCategory("SimpleTypes", "1000")]
 	[Benchmark]
-	public List<SimpleTypesDestination> SimpleTypes1000_a_HardMapper()
+	public List<SimpleTypesDestination> SimpleTypes1000AHardMapper()
 	{
 		return simple1000List.Select(s => HardCodeMapper.HardMap(s)).ToList();
 	}
@@ -226,7 +226,7 @@ public class MapperBenchmark
 	/// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
 	[BenchmarkCategory("SimpleTypes", "1000")]
 	[Benchmark(Baseline = true)]
-	public List<SimpleTypesDestination> SimpleTypes1000_b_EmitMapper()
+	public List<SimpleTypesDestination> SimpleTypes1000BEmitMapper()
 	{
 		return simpleEmitMapper.MapEnum(simple1000List);
 	}
@@ -237,7 +237,7 @@ public class MapperBenchmark
 	/// <returns><![CDATA[List<SimpleTypesDestination>]]></returns>
 	[BenchmarkCategory("SimpleTypes", "1000")]
 	[Benchmark]
-	public List<SimpleTypesDestination> SimpleTypes1000_c_AutoMapper()
+	public List<SimpleTypesDestination> SimpleTypes1000CAutoMapper()
 	{
 		return autoMapper.Map<List<SimpleTypesSource>, List<SimpleTypesDestination>>(simple1000List);
 	}

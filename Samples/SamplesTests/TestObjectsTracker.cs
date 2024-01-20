@@ -1,4 +1,4 @@
-﻿namespace SamplesTests;
+namespace SamplesTests;
 
 /// <summary>
 ///   The test objects tracker.
@@ -9,17 +9,17 @@ public class TestObjectsTracker
 	///   Test_s the objects change tracker_ get changes_ register object.
 	/// </summary>
 	[Fact]
-	public void Test_ObjectsChangeTracker_GetChanges_RegisterObject()
+	public void TestObjectsChangeTrackerGetChangesRegisterObject()
 	{
 		var tracker = new ObjectsChangeTracker();
 		var a = new A();
 		tracker.RegisterObject(a);
 		a.F2 = 3;
 		var changes = tracker.GetChanges(a);
-		changes[0].Name.ShouldBe(nameof(A.F2));
+		changes?[0].Name.ShouldBe(nameof(A.F2));
 		tracker.RegisterObject(a);
 		changes = tracker.GetChanges(a);
-		changes.Length.ShouldBe(0);
+		changes?.Length.ShouldBe(0);
 
 		a.F1 = "new";
 		a.F2 = 13;
@@ -32,7 +32,7 @@ public class TestObjectsTracker
 
 		changes = tracker.GetChanges(a);
 
-		changes.Select(c => c.Name).ShouldBe(new[] { "F1", "F2", "F3" });
+		changes?.Select(c => c.Name).ShouldBe(new[] { "F1", "F2", "F3" });
 
 		changes = tracker.GetChanges(new A());
 		Assert.Null(changes);
@@ -42,7 +42,7 @@ public class TestObjectsTracker
 	///   Test_s the objects change tracker_ get changes_two_objects.
 	/// </summary>
 	[Fact]
-	public void Test_ObjectsChangeTracker_GetChanges_two_objects()
+	public void TestObjectsChangeTrackerGetChangesTwoObjects()
 	{
 		var tracker = new ObjectsChangeTracker();
 		var original = new A { F1 = "F1old", F2 = 2, F3 = true };

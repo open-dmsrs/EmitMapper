@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.Tests;
+namespace EmitMapper.Tests;
 /// <summary>
 /// The relative path.
 /// </summary>
@@ -14,7 +14,6 @@ public class RelativePath
 	public RelativePath(ITestOutputHelper outputHelper)
 	{
 		Console.WriteLine(outputHelper.GetType().FullName);
-
 
 		this.outputHelper = outputHelper;
 

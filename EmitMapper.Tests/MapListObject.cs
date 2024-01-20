@@ -34,7 +34,7 @@ public class MapListObject
 	/// <param name="listFrom">The list from.</param>
 	[Theory]
 	[AutoData]
-	public void Test_EmitMapper_Map_ListObject(List<FromClass> listFrom)
+	public void TestEmitMapperMapListObject(List<FromClass> listFrom)
 	{
 		testOutputHelper.WriteLine(listFrom.Count.ToString());
 
@@ -75,7 +75,7 @@ public class MapListObject
 	///   Test_s the emit mapper_ map enum.
 	/// </summary>
 	[Fact]
-	public void Test_EmitMapper_MapEnum()
+	public void TestEmitMapperMapEnum()
 	{
 		Fixture fixture = new();
 
@@ -147,11 +147,11 @@ public class MapListObject
 			if (temp.Name == "N8")
 				Assert.True(
 				  Convert.ToInt32(temp.FValue) == Convert.ToInt32(temp.TValue),
-				  $"Member '{temp.Name} is not equal. Source value£º{temp.FValue}, Destination:{temp.TValue}");
+				  $"Member '{temp.Name} is not equal. Source valueï¼š{temp.FValue}, Destination:{temp.TValue}");
 			else
 				Assert.True(
 				  Convert.ToString(temp.FValue) == Convert.ToString(temp.TValue),
-				  $"Member '{temp.Name} is not equal. Source value£º{temp.FValue}, Destination:{temp.TValue}");
+				  $"Member '{temp.Name} is not equal. Source valueï¼š{temp.FValue}, Destination:{temp.TValue}");
 		}
 	}
 
@@ -161,11 +161,9 @@ public class MapListObject
 	/// <param name="list">The list.</param>
 	[Theory]
 	[AutoData]
-	public void Test_EmitMapper_Map_ArrayList_NestedFields(List<FromClass> list)
+	public void TestEmitMapperMapArrayListNestedFields(List<FromClass> list)
 	{
 		ArrayList listFrom = new(list.ToArray());
-
-
 
 		testOutputHelper.WriteLine(listFrom.Count.ToString());
 

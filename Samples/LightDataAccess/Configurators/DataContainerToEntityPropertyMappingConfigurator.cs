@@ -21,7 +21,7 @@ public class DataContainerToEntityPropertyMappingConfigurator : DefaultMapConfig
 		  ReflectionHelper.GetPublicFieldsAndProperties(to)
 			.Where(
 			  member => (member.MemberType == MemberTypes.Field || member.MemberType == MemberTypes.Property)
-						&& ((PropertyInfo)member).GetSetMethod() != null).Select(
+						&& ((PropertyInfo)member).GetSetMethod() is not null).Select(
 			  destinationMember => (IMappingOperation)new DestWriteOperation
 			  {
 				  Destination = new MemberDescriptor(destinationMember),

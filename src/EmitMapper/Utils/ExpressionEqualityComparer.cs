@@ -72,7 +72,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 					break;
 
 				case ConstantExpression constantExpression:
-					if (constantExpression.Value != null && !(constantExpression.Value is IQueryable))
+					if (constantExpression.Value is not null && !(constantExpression.Value is IQueryable))
 					{
 						hash.Add(constantExpression.Value);
 					}
@@ -157,7 +157,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 					AddListToHash(newExpression.Arguments);
 					hash.Add(newExpression.Constructor);
 
-					if (newExpression.Members != null)
+					if (newExpression.Members is not null)
 					{
 						for (var i = 0; i < newExpression.Members.Count; i++)
 						{
@@ -196,7 +196,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 					AddExpressionToHashIfNotNull(tryExpression.Fault);
 					AddExpressionToHashIfNotNull(tryExpression.Finally);
 
-					if (tryExpression.Handlers != null)
+					if (tryExpression.Handlers is not null)
 					{
 						for (var i = 0; i < tryExpression.Handlers.Count; i++)
 						{
@@ -237,7 +237,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 
 			void AddToHashIfNotNull(object t)
 			{
-				if (t != null)
+				if (t is not null)
 				{
 					hash.Add(t);
 				}
@@ -245,7 +245,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 
 			void AddExpressionToHashIfNotNull(Expression t)
 			{
-				if (t != null)
+				if (t is not null)
 				{
 					hash.Add(t, this);
 				}
@@ -805,7 +805,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 		/// <returns>A bool.</returns>
 		private bool CompareParameter(ParameterExpression a, ParameterExpression b)
 		{
-			return parameterScope != null && parameterScope.TryGetValue(a, out var mapped)
+			return parameterScope is not null && parameterScope.TryGetValue(a, out var mapped)
 			  ? mapped.Name == b.Name
 			  : a.Name == b.Name;
 		}

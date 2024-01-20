@@ -346,7 +346,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 
 			var op = CreateMappingOperation(processedTypes, fromRoot, toRoot, memberToPath, membersFromPath, fromMi, toMi);
 
-			if (op != null)
+			if (op is not null)
 			{
 				result.Add(op);
 			}

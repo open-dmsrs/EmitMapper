@@ -5,7 +5,7 @@ namespace EmitMapper.MappingConfiguration;
 /// </summary>
 public class MemberDescriptor
 {
-	private IEnumerable<MemberInfo>? membersChain;
+	private IEnumerable<MemberInfo> membersChain;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="MemberDescriptor" /> class.

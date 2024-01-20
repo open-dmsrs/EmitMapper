@@ -9,7 +9,7 @@ public class EmitInvokerTest
 	///   Emits the invoker test_ test call1.
 	/// </summary>
 	[Fact]
-	public void EmitInvokerTest_TestCall1()
+	public void EmitInvokerTestTestCall1()
 	{
 		var i = 0;
 		var caller = (DelegateInvokerAction0)DelegateInvoker.GetDelegateInvoker((Action)(() => i++));
@@ -28,7 +28,7 @@ public class EmitInvokerTest
 	///   Emits the invoker test_ test call2.
 	/// </summary>
 	[Fact]
-	public void EmitInvokerTest_TestCall2()
+	public void EmitInvokerTestTestCall2()
 	{
 		var caller = (DelegateInvokerFunc0)DelegateInvoker.GetDelegateInvoker((Func<int>)(() => 3));
 		caller.CallFunc().ShouldBe(3);
@@ -43,7 +43,7 @@ public class EmitInvokerTest
 	///   Emits the invoker test_ test call3.
 	/// </summary>
 	[Fact]
-	public void EmitInvokerTest_TestCall3()
+	public void EmitInvokerTestTestCall3()
 	{
 		var caller = (MethodInvokerFunc0)MethodInvoker.GetMethodInvoker(this, GetType().GetMethodCache("InvokeTest1"));
 		caller.CallFunc().ShouldBe(3);

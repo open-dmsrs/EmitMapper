@@ -3,6 +3,4 @@
 /// <summary>
 ///   The src write operation interface.
 /// </summary>
-public interface ISrcWriteOperation : ISrcOperation
-{
-}
+public interface ISrcWriteOperation : ISrcOperation;

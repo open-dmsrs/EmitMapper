@@ -9,7 +9,7 @@ public class ReflectionUtilsTests
 	///   Test_s the get public fields and properties_ should include members from all interfaces.
 	/// </summary>
 	[Fact]
-	public void Test_GetPublicFieldsAndProperties_ShouldIncludeMembersFromAllInterfaces()
+	public void TestGetPublicFieldsAndPropertiesShouldIncludeMembersFromAllInterfaces()
 	{
 		var members = ReflectionHelper.GetPublicFieldsAndProperties(typeof(IDerived));
 		members.Count().ShouldBe(2);

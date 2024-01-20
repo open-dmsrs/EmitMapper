@@ -3,6 +3,4 @@
 /// <summary>
 ///   The ast value interface.
 /// </summary>
-internal interface IAstValue : IAstRefOrValue
-{
-}
+internal interface IAstValue : IAstRefOrValue;

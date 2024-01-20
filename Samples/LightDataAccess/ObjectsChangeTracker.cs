@@ -113,7 +113,7 @@ public class ObjectsChangeTracker
 	public void RegisterObject(object obj)
 	{
 		// var type = Obj.GetType();
-		if (obj != null)
+		if (obj is not null)
 		{
 			trackingObjects[obj] = GetObjectMembers(obj);
 		}

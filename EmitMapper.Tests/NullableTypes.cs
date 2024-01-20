@@ -9,7 +9,7 @@ public class NullableTypes
 	///   Nullable_to_s the value.
 	/// </summary>
 	[Fact]
-	public void Nullable_to_Value()
+	public void NullableToValue()
 	{
 		var mapper = Mapper.Default.GetMapper<B1, A1>(
 		  new DefaultMapConfig().NullSubstitution<B1.Int1, A1.Int1>(state => new A1.Int1(0))
@@ -28,7 +28,7 @@ public class NullableTypes
 	///   Nullables the struct_to_ struct.
 	/// </summary>
 	[Fact]
-	public void NullableStruct_to_Struct()
+	public void NullableStructToStruct()
 	{
 		var bint = new B3.BInt { Fld1 = "b" };
 
@@ -60,7 +60,7 @@ public class NullableTypes
 	///   Struct_to_s the nullable struct.
 	/// </summary>
 	[Fact]
-	public void Struct_to_NullableStruct()
+	public void StructToNullableStruct()
 	{
 		var bint = new B4.BInt { Fld1 = "b" };
 		var b = new B4 { Fld1 = bint };
@@ -72,7 +72,7 @@ public class NullableTypes
 	///   Test_s the nullable.
 	/// </summary>
 	[Fact]
-	public void Test_Nullable()
+	public void TestNullable()
 	{
 		var a = Context.ObjMan.GetMapper<B5, A5>().Map(new B5());
 		a.Fld1.Value.ShouldBe(10);
@@ -87,7 +87,7 @@ public class NullableTypes
 	///   Test_s the object_ nullable.
 	/// </summary>
 	[Fact]
-	public void Test_Object_Nullable()
+	public void TestObjectNullable()
 	{
 		var a = Mapper.Default
 		  .GetMapper<B6, A6>(new DefaultMapConfig().DeepMap().ConvertUsing<object, object>(v => null)).Map(new B6());
@@ -99,7 +99,7 @@ public class NullableTypes
 	///   Test_s the object_ nullable7.
 	/// </summary>
 	[Fact]
-	public void Test_Object_Nullable7()
+	public void TestObjectNullable7()
 	{
 		var a = Mapper.Default
 		  .GetMapper<B7, A7>(new DefaultMapConfig().DeepMap().ConvertUsing<object, int>(v => 100)).Map(new B7());
@@ -111,7 +111,7 @@ public class NullableTypes
 	///   Value_to_s the nullable.
 	/// </summary>
 	[Fact]
-	public void Value_to_Nullable()
+	public void ValueToNullable()
 	{
 		var a = Context.ObjMan.GetMapper<B2, A2>().Map(new B2());
 		a.Fld1.ShouldBe(10);
@@ -352,9 +352,7 @@ public class NullableTypes
 	/// <summary>
 	///   The b6.
 	/// </summary>
-	public class B6
-	{
-	}
+	public class B6;
 
 	/// <summary>
 	///   The b7.

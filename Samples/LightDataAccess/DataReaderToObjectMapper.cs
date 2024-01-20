@@ -115,7 +115,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 	{
 		IMappingConfigurator config = new DbReaderMappingConfig(skipFields, mappingKey);
 
-		if (mapperManager != null)
+		if (mapperManager is not null)
 		{
 			return mapperManager.GetMapper(typeof(IDataReader), typeof(TEntity), config);
 		}
@@ -155,7 +155,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 		/// <returns>System.String.</returns>
 		public override string GetConfigurationName()
 		{
-			if (mappingKey != null)
+			if (mappingKey is not null)
 			{
 				return "dbreader_" + mappingKey;
 			}
@@ -178,8 +178,8 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 			return ReflectionHelper.GetPublicFieldsAndProperties(to)
 			  .Where(
 				m => m.MemberType == MemberTypes.Field
-					 || m.MemberType == MemberTypes.Property && ((PropertyInfo)m).GetSetMethod() != null)
-			  .Where(m => !skipFields.Select(sf => sf.ToUpper()).Contains(m.Name.ToUpper())).Select(
+					 || m.MemberType == MemberTypes.Property && ((PropertyInfo)m).GetSetMethod() is not null)
+			  .Where(m => !skipFields.Select(sf => sf.ToUpper(System.Globalization.CultureInfo.CurrentCulture)).Contains(m.Name.ToUpper(System.Globalization.CultureInfo.CurrentCulture))).Select(
 				(m, ind) => new DestWriteOperation
 				{
 					Destination = new MemberDescriptor(new[] { m }),
@@ -218,7 +218,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 		{
 			var memberType = ReflectionHelper.GetMemberReturnType(m);
 
-			if (mappingKey != null)
+			if (mappingKey is not null)
 			{
 				if (memberType == typeof(string))
 				{
@@ -354,7 +354,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 				var reader = (IDataReader)state;
 				object? result = null;
 
-				if (mappingKey != null)
+				if (mappingKey is not null)
 				{
 					if (fieldNum == -1)
 					{

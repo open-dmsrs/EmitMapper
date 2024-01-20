@@ -3,6 +3,4 @@
 /// <summary>
 ///   The ast addr interface.
 /// </summary>
-internal interface IAstAddr : IAstRefOrAddr
-{
-}
+internal interface IAstAddr : IAstRefOrAddr;

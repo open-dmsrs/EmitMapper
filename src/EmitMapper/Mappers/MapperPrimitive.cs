@@ -29,7 +29,7 @@ internal class MapperPrimitive : CustomMapper
 		var staticConv = mappingConfigurator.GetStaticConvertersManager() ?? StaticConvertersManager.DefaultInstance;
 		var converterMethod = staticConv.GetStaticConverter(from, to);
 
-		if (converterMethod != null)
+		if (converterMethod is not null)
 		{
 			converter = (MethodInvokerFunc1)EmitInvoker.Methods.MethodInvoker.GetMethodInvoker(null, converterMethod);
 		}

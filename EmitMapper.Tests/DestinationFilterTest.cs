@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.Tests;
+namespace EmitMapper.Tests;
 
 /// <summary>
 ///   The destination filter test.
@@ -9,7 +9,7 @@ public class DestinationFilterTest
 	///   Test_s the derived.
 	/// </summary>
 	[Fact]
-	public void Test_Derived()
+	public void TestDerived()
 	{
 		var mapper = Mapper.Default.GetMapper<IDerived, Target>();
 
@@ -32,7 +32,7 @@ public class DestinationFilterTest
 			.FilterSource<object>(
 			  (value, state) => value is not long
 								&& (value is not DestinationTestFilterSrc
-									|| (value as DestinationTestFilterSrc).I1 != 666)));
+									|| ((DestinationTestFilterSrc)value).I1 != 666)));
 
 		var dest = mapper.Map(new DestinationTestFilterSrc());
 
@@ -47,7 +47,7 @@ public class DestinationFilterTest
 	}
 
 	/// <summary>
-	///   Testdestinations the filter1.
+	///   Test destinations the filter1.
 	/// </summary>
 	[Fact]
 	public void TestdestinationFilter1()
@@ -57,8 +57,8 @@ public class DestinationFilterTest
 			.FilterDestination<int>((value, state) => value >= 0).FilterSource<int>((value, state) => value >= 10)
 			.FilterSource<object>(
 			  (value, state) => value is not long
-								&& (value is not DestinationTestFilterSrc
-									|| (value as DestinationTestFilterSrc).I1 != 666)));
+								&& (value is not DestinationTestFilterSrc src
+									|| src.I1 != 666)));
 
 		var dest = mapper.Map(new DestinationTestFilterSrc());
 

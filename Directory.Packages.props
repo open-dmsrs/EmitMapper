@@ -12,7 +12,7 @@
 		SA1615 - Element return value should be documented
 		SA1629 - A section of the Xml header documentation for a C# element does not end with a period (also known as a full stop).
 		-->
-	<NoWarn>SA1600;SA1629;CS1591;SA1615;(NoWarn)</NoWarn>
+	<NoWarn>SA1600;SA1629;CS1591;SA1615;SA1402(NoWarn)</NoWarn>
 	<NoWarn>CA1822;CA1852;CA1805;$(NoWarn)</NoWarn>
 	<!--<DisablePublicApiAnalyzer>true</DisablePublicApiAnalyzer>-->
 	<AnalysisLevel>latest-recommended</AnalysisLevel>

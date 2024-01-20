@@ -9,7 +9,7 @@ public class ValueTypes
 	///   Test_s the class to struct.
 	/// </summary>
 	[Fact]
-	public void Test_ClassToStruct()
+	public void TestClassToStruct()
 	{
 		var a = new A1();
 		var b = new B1();
@@ -21,7 +21,7 @@ public class ValueTypes
 	///   Test_s the nested structs.
 	/// </summary>
 	[Fact]
-	public void Test_NestedStructs()
+	public void TestNestedStructs()
 	{
 		var mapper = Mapper.Default.GetMapper<B6From, A6To>();
 
@@ -56,7 +56,7 @@ public class ValueTypes
 	///   Test_s the struct fields.
 	/// </summary>
 	[Fact]
-	public void Test_StructFields()
+	public void TestStructFields()
 	{
 		var mapper = Mapper.Default.GetMapper<B5, A5>();
 
@@ -71,7 +71,7 @@ public class ValueTypes
 	///   Test_s the struct properties.
 	/// </summary>
 	[Fact]
-	public void Test_StructProperties()
+	public void TestStructProperties()
 	{
 		var a = new A4();
 		var b = new B4();
@@ -88,7 +88,7 @@ public class ValueTypes
 	///   Test_s the struct to class.
 	/// </summary>
 	[Fact]
-	public void Test_StructToClass()
+	public void TestStructToClass()
 	{
 		var a = new A3();
 		var b = new B3 { Fld1 = 87 };
@@ -100,7 +100,7 @@ public class ValueTypes
 	///   Test_s the struct to struct.
 	/// </summary>
 	[Fact]
-	public void Test_StructToStruct()
+	public void TestStructToStruct()
 	{
 		var a = new A2();
 		var b = new B2 { Fld1 = 99 };

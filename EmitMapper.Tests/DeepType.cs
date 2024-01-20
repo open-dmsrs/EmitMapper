@@ -26,7 +26,7 @@ public class DeepType : IDisposable
 	///   Test_s the deep type copy.
 	/// </summary>
 	[Fact]
-	public void Test_DeepTypeCopy()
+	public void TestDeepTypeCopy()
 	{
 		var customer = new Customer
 		{

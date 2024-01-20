@@ -88,7 +88,7 @@ internal class MappingOperationsProcessor
 				continue;
 			}
 
-			if (LocException != null)
+			if (LocException is not null)
 			{
 				var tryCatch = CreateExceptionHandlingBlock(operationId, completeOperation);
 				result.Nodes.Add(tryCatch);
@@ -118,7 +118,7 @@ internal class MappingOperationsProcessor
 			  BindingFlags.Instance | BindingFlags.Public)),
 		  objectIndex);
 
-		if (castType != null)
+		if (castType is not null)
 		{
 			result = new AstCastclassRef(result, castType);
 		}
@@ -181,7 +181,7 @@ internal class MappingOperationsProcessor
 	{
 		IAstRefOrValue convertedValue;
 
-		if (rwMapOp.Converter != null)
+		if (rwMapOp.Converter is not null)
 		{
 			var t = rwMapOp.Converter.GetType();
 
@@ -204,7 +204,7 @@ internal class MappingOperationsProcessor
 			{
 				var mi = StaticConvertersManager.GetStaticConverter(rwMapOp.Source.MemberType, rwMapOp.Destination.MemberType);
 
-				if (mi != null)
+				if (mi is not null)
 				{
 					convertedValue = AstBuildHelper.CallMethod(mi, null, new List<IAstStackItem> { sourceValue });
 				}
@@ -254,7 +254,7 @@ internal class MappingOperationsProcessor
 	/// <returns>An IAstRefOrValue.</returns>
 	private IAstRefOrValue GetNullValue(Delegate nullSubstitutor)
 	{
-		if (nullSubstitutor != null)
+		if (nullSubstitutor is not null)
 		{
 			var t = nullSubstitutor.GetType();
 			var substId = AddObjectToStore(nullSubstitutor);
@@ -294,16 +294,16 @@ internal class MappingOperationsProcessor
 	/// <returns>An IAstNode.</returns>
 	private IAstNode Process_ReadWriteComplex(ReadWriteComplex op, int operationId)
 	{
-		var result = op.Converter != null
+		var result = op.Converter is not null
 		  ? Process_ReadWriteComplex_ByConverter(op, operationId)
 		  : Process_ReadWriteComplex_Copying(op);
 
-		if (op.SourceFilter != null)
+		if (op.SourceFilter is not null)
 		{
 			result = Process_SourceFilter(op, operationId, result);
 		}
 
-		if (op.DestinationFilter != null)
+		if (op.DestinationFilter is not null)
 		{
 			result = Process_DestinationFilter(op, operationId, result);
 		}
@@ -375,7 +375,7 @@ internal class MappingOperationsProcessor
 		var initDest = new List<IAstNode>();
 		var custCtr = op.TargetConstructor;
 
-		if (custCtr != null)
+		if (custCtr is not null)
 		{
 			var custCtrIdx = AddObjectToStore(custCtr);
 			var t = custCtr.GetType();
@@ -462,7 +462,7 @@ internal class MappingOperationsProcessor
 			processedValue = AstBuildHelper.ReadLocalRV(origTempDst);
 		}
 
-		if (op.ValuesPostProcessor != null)
+		if (op.ValuesPostProcessor is not null)
 		{
 			var t = op.ValuesPostProcessor.GetType();
 			var postProcessorId = AddObjectToStore(op.ValuesPostProcessor);
@@ -644,7 +644,7 @@ internal class MappingOperationsProcessor
 
 		IAstRefOrValue convertedValue;
 
-		if (readWriteSimple.NullSubstitutor != null && (ReflectionHelper.IsNullable(readWriteSimple.Source.MemberType)
+		if (readWriteSimple.NullSubstitutor is not null && (ReflectionHelper.IsNullable(readWriteSimple.Source.MemberType)
 														|| !readWriteSimple.Source.MemberType.IsValueType))
 			convertedValue = new AstIfTernar(
 			  ReflectionHelper.IsNullable(readWriteSimple.Source.MemberType)
@@ -664,12 +664,12 @@ internal class MappingOperationsProcessor
 
 		var result = WriteMappingValue(readWriteSimple, operationId, convertedValue);
 
-		if (readWriteSimple.SourceFilter != null)
+		if (readWriteSimple.SourceFilter is not null)
 		{
 			result = Process_SourceFilter(readWriteSimple, operationId, result);
 		}
 
-		if (readWriteSimple.DestinationFilter != null)
+		if (readWriteSimple.DestinationFilter is not null)
 		{
 			result = Process_DestinationFilter(readWriteSimple, operationId, result);
 		}
@@ -708,7 +708,7 @@ internal class MappingOperationsProcessor
 
 		var destWriteOp = (DestWriteOperation)mapping;
 
-		if (destWriteOp.Getter != null)
+		if (destWriteOp.Getter is not null)
 		{
 			var t = destWriteOp.Getter.GetType();
 

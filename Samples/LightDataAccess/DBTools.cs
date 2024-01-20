@@ -65,7 +65,7 @@ public static class DbTools
 		result.CommandText = commandText;
 		result.CommandType = CommandType.Text;
 
-		if (cmdParams != null)
+		if (cmdParams is not null)
 		{
 			foreach (var param in cmdParams)
 			{
@@ -353,8 +353,8 @@ public static class DbTools
 
 		foreach (var value in collection)
 		{
-			result.Append(value);
-			result.Append(delim);
+			result.Append(value)
+				.Append(delim);
 		}
 
 		if (result.Length > 0)
@@ -477,8 +477,8 @@ public static class DbTools
 
 			for (var i = 0; i < reader.FieldCount; ++i)
 			{
-				mappingKeyBuilder.Append(reader.GetName(i));
-				mappingKeyBuilder.Append(' ');
+				mappingKeyBuilder.Append(reader.GetName(i))
+					.Append(' ');
 			}
 
 			readerName = mappingKeyBuilder.ToString();

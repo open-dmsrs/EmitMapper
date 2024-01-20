@@ -70,7 +70,7 @@ public static class ObjectFactory
 	{
 		var defaultCtor = type.GetConstructor(TypeExtensions.InstanceFlags, null, Type.EmptyTypes, null);
 
-		if (defaultCtor != null)
+		if (defaultCtor is not null)
 		{
 			return New(defaultCtor);
 		}

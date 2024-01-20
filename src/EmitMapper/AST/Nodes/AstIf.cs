@@ -22,7 +22,7 @@ internal class AstIf : IAstNode
 
 		TrueBranch?.Compile(context);
 
-		if (FalseBranch != null)
+		if (FalseBranch is not null)
 		{
 			context.Emit(OpCodes.Br, endIfLabel);
 		}

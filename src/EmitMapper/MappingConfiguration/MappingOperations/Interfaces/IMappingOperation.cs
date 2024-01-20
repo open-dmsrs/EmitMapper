@@ -3,6 +3,4 @@
 /// <summary>
 ///   The mapping operation interface.
 /// </summary>
-public interface IMappingOperation
-{
-}
+public interface IMappingOperation;

@@ -1,13 +1,13 @@
-﻿namespace EmitMapper.AST;
+namespace EmitMapper.AST;
 
 /// <summary>
 /// The compilation context.
 /// </summary>
 internal class CompilationContext
 {
-	public readonly ILGenerator ILGenerator;
+	public ILGenerator ILGenerator { get; }
 
-	public readonly TextWriter OutputCommands;
+	public TextWriter OutputCommands { get; }
 
 	private int stackCount;
 
@@ -177,7 +177,7 @@ internal class CompilationContext
 	/// <param name="opCode">The op code.</param>
 	/// <param name="addStack">The add stack.</param>
 	/// <param name="comment">The comment.</param>
-	private void ProcessCommand(OpCode opCode, int addStack, string comment)
+	private void ProcessCommand(OpCode opCode, int addStack, string? comment)
 	{
 		var stackChange = GetStackChange(opCode.StackBehaviourPop) + GetStackChange(opCode.StackBehaviourPush) + addStack;
 
