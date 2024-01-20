@@ -7,9 +7,9 @@
 /// <typeparam name="TTo"></typeparam>
 internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
 {
-	private Func<TFrom, TTo> _converter;
+	private Func<TFrom, TTo> converter;
 
-	private MapperDescription _subMapper;
+	private MapperDescription subMapper;
 
 	/// <summary>
 	/// Converts the an array of TTos.
@@ -29,7 +29,7 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
 
 		foreach (var f in from)
 		{
-			result[idx++] = _converter(f);
+			result[idx++] = converter(f);
 		}
 
 		return result;
@@ -48,19 +48,19 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
 
 		if (staticConverterMethod != default)
 		{
-			_converter = (Func<TFrom, TTo>)Delegate.CreateDelegate(
+			converter = (Func<TFrom, TTo>)Delegate.CreateDelegate(
 			  Metadata<Func<TFrom, TTo>>.Type,
 			  default,
 			  staticConverterMethod);
 		}
 		else
 		{
-			_subMapper = Mapper.Default.GetMapperDescription(
+			subMapper = Mapper.Default.GetMapperDescription(
 			  Metadata<TFrom>.Type,
 			  Metadata<TTo>.Type,
 			  mappingConfig);
 
-			_converter = ConverterBySubmapper;
+			converter = ConverterBySubmapper;
 		}
 	}
 
@@ -71,6 +71,6 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
 	/// <returns>A TTo.</returns>
 	private TTo ConverterBySubmapper(TFrom from)
 	{
-		return (TTo)_subMapper.Mapper.Map(from);
+		return (TTo)subMapper.Mapper.Map(from);
 	}
 }

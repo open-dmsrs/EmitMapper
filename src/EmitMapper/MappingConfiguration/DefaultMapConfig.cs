@@ -5,15 +5,15 @@
 /// </summary>
 public class DefaultMapConfig : MapConfigBaseImpl
 {
-	private readonly List<string> _deepCopyMembers = new();
+	private readonly List<string> deepCopyMembers = new();
 
-	private readonly List<string> _shallowCopyMembers = new();
+	private readonly List<string> shallowCopyMembers = new();
 
-	private string _configName;
+	private string configName;
 
-	private Func<string, string, bool> _membersMatcher;
+	private Func<string, string, bool> membersMatcher;
 
-	private bool _shallowCopy;
+	private bool shallowCopy;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="DefaultMapConfig" /> class.
@@ -28,8 +28,8 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// </summary>
 	public DefaultMapConfig()
 	{
-		_shallowCopy = true;
-		_membersMatcher = (m1, m2) => m1 == m2;
+		shallowCopy = true;
+		membersMatcher = (m1, m2) => m1 == m2;
 	}
 
 	/// <summary>
@@ -56,7 +56,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <returns></returns>
 	public DefaultMapConfig DeepMap(Type type)
 	{
-		_deepCopyMembers.Add(type.FullName);
+		deepCopyMembers.Add(type.FullName);
 
 		return this;
 	}
@@ -68,7 +68,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <returns></returns>
 	public DefaultMapConfig DeepMap()
 	{
-		_shallowCopy = false;
+		shallowCopy = false;
 
 		return this;
 	}
@@ -79,9 +79,9 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <returns>A string.</returns>
 	public override string GetConfigurationName()
 	{
-		return _configName ??= base.GetConfigurationName() + new[]
+		return configName ??= base.GetConfigurationName() + new[]
 		{
-	  _shallowCopy.ToString(), ToStr(_membersMatcher), ToStrEnum(_shallowCopyMembers), ToStrEnum(_deepCopyMembers)
+	  shallowCopy.ToString(), ToStr(membersMatcher), ToStrEnum(shallowCopyMembers), ToStrEnum(deepCopyMembers)
 	}.ToCsv(";");
 	}
 
@@ -120,7 +120,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <returns></returns>
 	public DefaultMapConfig MatchMembers(Func<string, string, bool> membersMatcher)
 	{
-		_membersMatcher = membersMatcher;
+		this.membersMatcher = membersMatcher;
 
 		return this;
 	}
@@ -144,7 +144,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <returns></returns>
 	public DefaultMapConfig ShallowMap(Type type)
 	{
-		_shallowCopyMembers.Add(type.FullName);
+		shallowCopyMembers.Add(type.FullName);
 
 		return this;
 	}
@@ -156,7 +156,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <returns></returns>
 	public DefaultMapConfig ShallowMap()
 	{
-		_shallowCopy = true;
+		shallowCopy = true;
 
 		return this;
 	}
@@ -169,7 +169,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <returns>A bool.</returns>
 	protected virtual bool MatchMembers(string m1, string m2)
 	{
-		return _membersMatcher(m1, m2);
+		return membersMatcher(m1, m2);
 	}
 
 	/// <summary>
@@ -365,17 +365,17 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <returns>A bool.</returns>
 	private bool IsShallowCopy(Type from, Type to)
 	{
-		if (TypeInList(_shallowCopyMembers, to) || TypeInList(_shallowCopyMembers, from))
+		if (TypeInList(shallowCopyMembers, to) || TypeInList(shallowCopyMembers, from))
 		{
 			return true;
 		}
 
-		if (TypeInList(_deepCopyMembers, to) || TypeInList(_deepCopyMembers, from))
+		if (TypeInList(deepCopyMembers, to) || TypeInList(deepCopyMembers, from))
 		{
 			return false;
 		}
 
-		return _shallowCopy;
+		return shallowCopy;
 	}
 
 	/// <summary>

@@ -14,7 +14,7 @@ public class FlatteringConfig : DefaultMapConfig
 	/// </summary>
 	public FlatteringConfig()
 	{
-		NestedMembersMatcher = (m1, m2) => m1.StartsWith(m2);
+		NestedMembersMatcher = (m1, m2) => m1.StartsWith(m2, StringComparison.OrdinalIgnoreCase);
 	}
 
 	/// <summary>
@@ -56,7 +56,7 @@ public class FlatteringConfig : DefaultMapConfig
 	/// </summary>
 	/// <param name="t">The t.</param>
 	/// <returns><![CDATA[IEnumerable<MemberInfo>]]></returns>
-	private static IEnumerable<MemberInfo> GetAllMembers(Type t)
+	private static MemberInfo[] GetAllMembers(Type t)
 	{
 		var bindingFlags = BindingFlags.Instance | BindingFlags.Public;
 
@@ -109,7 +109,7 @@ public class FlatteringConfig : DefaultMapConfig
 	/// <param name="sourceMembers">The source members.</param>
 	/// <exception cref="EmitMapperException"></exception>
 	/// <returns><![CDATA[IEnumerable<MemberInfo>]]></returns>
-	private IEnumerable<MemberInfo>? GetMatchedChain(string destName, IEnumerable<MemberInfo> sourceMembers)
+	private List<MemberInfo>? GetMatchedChain(string destName, IEnumerable<MemberInfo> sourceMembers)
 	{
 		var sourceMatches =
 		  sourceMembers.Where(s => MatchMembers(destName, s.Name) || NestedMembersMatcher(destName, s.Name));
@@ -139,17 +139,18 @@ public class FlatteringConfig : DefaultMapConfig
 			  destName.Substring(sourceMemberInfo.Name.Length),
 			  GetSourceSubMembers(sourceMemberInfo));
 
-			if (matchedChain?.Any() == true)
+			if (matchedChain?.Count > 0)
 			{
 				result.AddRange(matchedChain);
 			}
 			else
-
+			{
 				// todo: need to add filter logic like DefaultMapConfig
 				throw new EmitMapperException(
 				  $" The member '{destName}' of target members can not match any in source member '{sourceMemberInfo.Name}'."
 				  + $" pls ignore it or delete '{destName}' in the target object."
 				  + $" or add new member '{destName.Substring(sourceMemberInfo.Name.Length)}' in source class '{ReflectionHelper.GetMemberReturnType(sourceMemberInfo).FullName}'.");
+			}
 		}
 
 		return result;

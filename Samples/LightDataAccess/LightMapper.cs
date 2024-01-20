@@ -8,14 +8,14 @@ public static class LightMapper
 	/// <summary>
 	///   The mapper core instance.
 	/// </summary>
-	private static readonly MapperCore _MapperInstance;
+	private static readonly MapperCore MapperInstance;
 
 	/// <summary>
 	///   Initializes static members of the <see cref="LightMapper" /> class.
 	/// </summary>
 	static LightMapper()
 	{
-		_MapperInstance = new MapperCore();
+		MapperInstance = new MapperCore();
 	}
 
 	/// <summary>
@@ -24,7 +24,7 @@ public static class LightMapper
 	/// <value>
 	///   The mapper core.
 	/// </value>
-	public static MapperCore DataMapper => _MapperInstance;
+	public static MapperCore DataMapper => MapperInstance;
 
 	/// <summary>
 	///   Maps the specified from.
@@ -37,7 +37,7 @@ public static class LightMapper
 	/// </returns>
 	public static TTo Map<TFrom, TTo>(TFrom from)
 	{
-		return _MapperInstance.Map<TFrom, TTo>(from);
+		return MapperInstance.Map<TFrom, TTo>(from);
 	}
 
 	/// <summary>
@@ -52,7 +52,7 @@ public static class LightMapper
 	/// </returns>
 	public static TTo Map<TFrom, TTo>(TFrom from, TTo to)
 	{
-		return _MapperInstance.Map(from, to);
+		return MapperInstance.Map(from, to);
 	}
 
 	/// <summary>
@@ -64,6 +64,6 @@ public static class LightMapper
 	/// <returns>The output mapped collection.</returns>
 	public static IEnumerable<TTo> MapCollection<TFrom, TTo>(IEnumerable<TFrom> from)
 	{
-		return _MapperInstance.MapCollection<TFrom, TTo>(from);
+		return MapperInstance.MapCollection<TFrom, TTo>(from);
 	}
 }

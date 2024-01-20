@@ -5,7 +5,7 @@ namespace EmitMapper.Tests;
 /// </summary>
 public class MapListObject
 {
-	private readonly ITestOutputHelper _testOutputHelper;
+	private readonly ITestOutputHelper testOutputHelper;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="MapListObject" /> class.
@@ -13,7 +13,7 @@ public class MapListObject
 	/// <param name="testOutputHelper">The test output helper.</param>
 	public MapListObject(ITestOutputHelper testOutputHelper)
 	{
-		_testOutputHelper = testOutputHelper;
+		this.testOutputHelper = testOutputHelper;
 	}
 
 	/// <summary>
@@ -25,7 +25,7 @@ public class MapListObject
 		var m = 'a';
 		var n = Convert.ToInt32(m);
 
-		_testOutputHelper.WriteLine(n + string.Empty);
+		testOutputHelper.WriteLine(n + string.Empty);
 	}
 
 	/// <summary>
@@ -36,7 +36,7 @@ public class MapListObject
 	[AutoData]
 	public void Test_EmitMapper_Map_ListObject(List<FromClass> listFrom)
 	{
-		_testOutputHelper.WriteLine(listFrom.Count.ToString());
+		testOutputHelper.WriteLine(listFrom.Count.ToString());
 
 		var rw1 = new ReadWriteSimple
 		{
@@ -65,7 +65,7 @@ public class MapListObject
 
 		while (f.MoveNext() && t.MoveNext())
 		{
-			_testOutputHelper.WriteLine(t.Current.Message);
+			testOutputHelper.WriteLine(t.Current.Message);
 			f.Current.Inner.Message.ShouldBe(t.Current.Message);
 			f.Current.Inner.GetMessage2().ShouldBe(t.Current.Message2);
 		}
@@ -84,7 +84,7 @@ public class MapListObject
 		var list = fixture.CreateMany<SimpleTypesSource>(3).ToList();
 
 		// list.FirstOrDefault().N5 = 3.3232423424234M;
-		_testOutputHelper.WriteLine(list.Count.ToString());
+		testOutputHelper.WriteLine(list.Count.ToString());
 
 		var mapper = Mapper.Default.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
 		mapper = Mapper.Default.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
@@ -167,7 +167,7 @@ public class MapListObject
 
 
 
-		_testOutputHelper.WriteLine(listFrom.Count.ToString());
+		testOutputHelper.WriteLine(listFrom.Count.ToString());
 
 		var rw1 = new ReadWriteSimple
 		{

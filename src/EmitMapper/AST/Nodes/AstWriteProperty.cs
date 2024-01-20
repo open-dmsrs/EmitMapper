@@ -5,13 +5,13 @@
 /// </summary>
 internal class AstWriteProperty : IAstNode
 {
-	private readonly PropertyInfo _propertyInfo;
+	private readonly PropertyInfo propertyInfo;
 
-	private readonly MethodInfo _setMethod;
+	private readonly MethodInfo setMethod;
 
-	private readonly IAstRefOrAddr _targetObject;
+	private readonly IAstRefOrAddr targetObject;
 
-	private readonly IAstRefOrValue _value;
+	private readonly IAstRefOrValue value;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="AstWriteProperty" /> class.
@@ -21,17 +21,17 @@ internal class AstWriteProperty : IAstNode
 	/// <param name="propertyInfo">The property info.</param>
 	public AstWriteProperty(IAstRefOrAddr targetObject, IAstRefOrValue value, PropertyInfo propertyInfo)
 	{
-		_targetObject = targetObject;
-		_value = value;
-		_propertyInfo = propertyInfo;
-		_setMethod = propertyInfo.GetSetMethod();
+		this.targetObject = targetObject;
+		this.value = value;
+		this.propertyInfo = propertyInfo;
+		setMethod = propertyInfo.GetSetMethod();
 
-		if (_setMethod is null)
+		if (setMethod is null)
 		{
 			throw new Exception("Property " + propertyInfo.Name + " doesn't have set accessor");
 		}
 
-		if (_setMethod.GetParameters().Length != 1)
+		if (setMethod.GetParameters().Length != 1)
 		{
 			throw new EmitMapperException("Property " + propertyInfo.Name + " has invalid arguments");
 		}
@@ -40,6 +40,6 @@ internal class AstWriteProperty : IAstNode
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)
 	{
-		AstBuildHelper.CallMethod(_setMethod, _targetObject, new List<IAstStackItem> { _value }).Compile(context);
+		AstBuildHelper.CallMethod(setMethod, targetObject, new List<IAstStackItem> { value }).Compile(context);
 	}
 }

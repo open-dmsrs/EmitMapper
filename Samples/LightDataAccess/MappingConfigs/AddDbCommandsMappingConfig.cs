@@ -5,13 +5,13 @@
 /// </summary>
 internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
 {
-	private readonly string _configName;
+	private readonly string configName;
 
-	private readonly DbSettings _dbSettings;
+	private readonly DbSettings dbSettings;
 
-	private readonly IEnumerable<string> _excludeFields;
+	private readonly IEnumerable<string> excludeFields;
 
-	private readonly IEnumerable<string> _includeFields;
+	private readonly IEnumerable<string> includeFields;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="AddDbCommandsMappingConfig" /> class.
@@ -26,19 +26,19 @@ internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
 	  IEnumerable<string> excludeFields,
 	  string configName)
 	{
-		_dbSettings = dbSettings;
-		_includeFields = includeFields;
-		_excludeFields = excludeFields;
-		_configName = configName;
+		this.dbSettings = dbSettings;
+		this.includeFields = includeFields;
+		this.excludeFields = excludeFields;
+		this.configName = configName;
 
-		if (_includeFields != null)
+		if (this.includeFields != null)
 		{
-			_includeFields = _includeFields.Select(f => f.ToUpper());
+			this.includeFields = this.includeFields.Select(f => f.ToUpper());
 		}
 
-		if (_excludeFields != null)
+		if (this.excludeFields != null)
 		{
-			_excludeFields = _excludeFields.Select(f => f.ToUpper());
+			this.excludeFields = this.excludeFields.Select(f => f.ToUpper());
 		}
 	}
 
@@ -48,7 +48,7 @@ internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
 	/// <returns>A string.</returns>
 	public override string GetConfigurationName()
 	{
-		return _configName;
+		return configName;
 	}
 
 	/// <summary>
@@ -61,21 +61,21 @@ internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
 	{
 		var members = ReflectionHelper.GetPublicFieldsAndProperties(from);
 
-		if (_includeFields != null)
+		if (includeFields != null)
 		{
-			members = members.Where(m => _includeFields.Contains(m.Name.ToUpper()));
+			members = members.Where(m => includeFields.Contains(m.Name.ToUpper()));
 		}
 
-		if (_excludeFields != null)
+		if (excludeFields != null)
 		{
-			members = members.Where(m => !_excludeFields.Contains(m.Name.ToUpper()));
+			members = members.Where(m => !excludeFields.Contains(m.Name.ToUpper()));
 		}
 
 		return members.Select(
 		  m => new SrcReadOperation
 		  {
 			  Source = new MemberDescriptor(m.AsEnumerable()),
-			  Setter = (obj, v, s) => ((DbCommand)obj).AddParam(_dbSettings.ParamPrefix + m.Name, v)
+			  Setter = (obj, v, s) => ((DbCommand)obj).AddParam(dbSettings.ParamPrefix + m.Name, v)
 		  });
 	}
 }

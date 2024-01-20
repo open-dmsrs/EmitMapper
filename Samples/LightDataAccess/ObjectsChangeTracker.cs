@@ -24,19 +24,19 @@ public class ObjectsChangeTracker
 	/// <summary>
 	///   The _map manager.
 	/// </summary>
-	private readonly Mapper _mapManager;
+	private readonly Mapper mapManager;
 
 	/// <summary>
 	///   The _tracking objects.
 	/// </summary>
-	private readonly Dictionary<object, List<TrackingMember>> _trackingObjects = new();
+	private readonly Dictionary<object, List<TrackingMember>> trackingObjects = new();
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="ObjectsChangeTracker" /> class.
 	/// </summary>
 	public ObjectsChangeTracker()
 	{
-		_mapManager = Mapper.Default;
+		mapManager = Mapper.Default;
 	}
 
 	/// <summary>
@@ -45,7 +45,7 @@ public class ObjectsChangeTracker
 	/// <param name="mapManager">The map manager.</param>
 	public ObjectsChangeTracker(Mapper mapManager)
 	{
-		_mapManager = mapManager;
+		this.mapManager = mapManager;
 	}
 
 	/// <summary>
@@ -55,7 +55,7 @@ public class ObjectsChangeTracker
 	/// <returns>TrackingMember[][].</returns>
 	public TrackingMember[]? GetChanges(object obj)
 	{
-		if (!_trackingObjects.TryGetValue(obj, out var originalValues))
+		if (!trackingObjects.TryGetValue(obj, out var originalValues))
 		{
 			return null;
 		}
@@ -115,7 +115,7 @@ public class ObjectsChangeTracker
 		// var type = Obj.GetType();
 		if (obj != null)
 		{
-			_trackingObjects[obj] = GetObjectMembers(obj);
+			trackingObjects[obj] = GetObjectMembers(obj);
 		}
 	}
 
@@ -133,7 +133,7 @@ public class ObjectsChangeTracker
 		}
 
 		var fields = new TrackingMembersList();
-		_mapManager.GetMapper(type, null, new MappingConfiguration()).Map(obj, null, fields);
+		mapManager.GetMapper(type, null, new MappingConfiguration()).Map(obj, null, fields);
 
 		return fields.TrackingMembers;
 	}

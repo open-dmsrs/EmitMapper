@@ -5,13 +5,13 @@
 /// </summary>
 internal class AstExceptionHandlingBlock : IAstNode
 {
-	private readonly Type _exceptionType;
+	private readonly Type exceptionType;
 
-	private readonly LocalBuilder _exceptionVariable;
+	private readonly LocalBuilder exceptionVariable;
 
-	private readonly IAstNode _handlerBlock;
+	private readonly IAstNode handlerBlock;
 
-	private readonly IAstNode _protectedBlock;
+	private readonly IAstNode protectedBlock;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="AstExceptionHandlingBlock" /> class.
@@ -26,20 +26,20 @@ internal class AstExceptionHandlingBlock : IAstNode
 	  Type exceptionType,
 	  LocalBuilder exceptionVariable)
 	{
-		_protectedBlock = protectedBlock;
-		_handlerBlock = handlerBlock;
-		_exceptionType = exceptionType;
-		_exceptionVariable = exceptionVariable;
+		this.protectedBlock = protectedBlock;
+		this.handlerBlock = handlerBlock;
+		this.exceptionType = exceptionType;
+		this.exceptionVariable = exceptionVariable;
 	}
 
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)
 	{
 		context.ILGenerator.BeginExceptionBlock();
-		_protectedBlock.Compile(context);
-		context.ILGenerator.BeginCatchBlock(_exceptionType);
-		context.ILGenerator.Emit(OpCodes.Stloc, _exceptionVariable);
-		_handlerBlock.Compile(context);
+		protectedBlock.Compile(context);
+		context.ILGenerator.BeginCatchBlock(exceptionType);
+		context.ILGenerator.Emit(OpCodes.Stloc, exceptionVariable);
+		handlerBlock.Compile(context);
 		context.ILGenerator.EndExceptionBlock();
 	}
 }

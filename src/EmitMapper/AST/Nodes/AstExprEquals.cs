@@ -5,9 +5,9 @@
 /// </summary>
 internal class AstExprEquals : IAstValue
 {
-	private readonly IAstValue _leftValue;
+	private readonly IAstValue leftValue;
 
-	private readonly IAstValue _rightValue;
+	private readonly IAstValue rightValue;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="AstExprEquals" /> class.
@@ -16,8 +16,8 @@ internal class AstExprEquals : IAstValue
 	/// <param name="rightValue">The right value.</param>
 	public AstExprEquals(IAstValue leftValue, IAstValue rightValue)
 	{
-		_leftValue = leftValue;
-		_rightValue = rightValue;
+		this.leftValue = leftValue;
+		this.rightValue = rightValue;
 	}
 
 	/// <summary>
@@ -28,8 +28,8 @@ internal class AstExprEquals : IAstValue
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)
 	{
-		_leftValue.Compile(context);
-		_rightValue.Compile(context);
+		leftValue.Compile(context);
+		rightValue.Compile(context);
 		context.Emit(OpCodes.Ceq);
 	}
 }

@@ -54,9 +54,9 @@ public static class ExpressionHelper
 	/// </summary>
 	private class SwapVisitor : ExpressionVisitor
 	{
-		private readonly Expression _from;
+		private readonly Expression from;
 
-		private readonly Expression _to;
+		private readonly Expression to;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="SwapVisitor"/> class.
@@ -65,8 +65,8 @@ public static class ExpressionHelper
 		/// <param name="to">The to.</param>
 		public SwapVisitor(Expression from, Expression to)
 		{
-			_from = from;
-			_to = to;
+			this.from = from;
+			this.to = to;
 		}
 
 		/// <summary>
@@ -76,7 +76,7 @@ public static class ExpressionHelper
 		/// <returns>An Expression.</returns>
 		public override Expression Visit(Expression node)
 		{
-			return node == _from ? _to : base.Visit(node);
+			return node == from ? to : base.Visit(node);
 		}
 	}
 }

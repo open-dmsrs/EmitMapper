@@ -302,7 +302,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 
 	private struct ExpressionComparer
 	{
-		private Dictionary<ParameterExpression, ParameterExpression> _parameterScope;
+		private Dictionary<ParameterExpression, ParameterExpression> parameterScope;
 
 		/// <summary>
 		/// Compares the.
@@ -630,7 +630,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 				return false;
 			}
 
-			_parameterScope ??= new Dictionary<ParameterExpression, ParameterExpression>();
+			parameterScope ??= new Dictionary<ParameterExpression, ParameterExpression>();
 
 			for (var i = 0; i < n; i++)
 			{
@@ -638,13 +638,13 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 				{
 					for (var j = 0; j < i; j++)
 					{
-						_parameterScope.Remove(a.Parameters[j]);
+						parameterScope.Remove(a.Parameters[j]);
 					}
 
 					return false;
 				}
 
-				_parameterScope.Add(a.Parameters[i], b.Parameters[i]);
+				parameterScope.Add(a.Parameters[i], b.Parameters[i]);
 			}
 
 			try
@@ -655,7 +655,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 			{
 				for (var i = 0; i < n; i++)
 				{
-					_parameterScope.Remove(a.Parameters[i]);
+					parameterScope.Remove(a.Parameters[i]);
 				}
 			}
 		}
@@ -805,7 +805,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 		/// <returns>A bool.</returns>
 		private bool CompareParameter(ParameterExpression a, ParameterExpression b)
 		{
-			return _parameterScope != null && _parameterScope.TryGetValue(a, out var mapped)
+			return parameterScope != null && parameterScope.TryGetValue(a, out var mapped)
 			  ? mapped.Name == b.Name
 			  : a.Name == b.Name;
 		}

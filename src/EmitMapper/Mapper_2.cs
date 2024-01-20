@@ -7,7 +7,7 @@
 /// <typeparam name="TTo"></typeparam>
 public class Mapper<TFrom, TTo>
 {
-	private readonly MapperBase _mapperImpl;
+	private readonly MapperBase mapperImpl;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="Mapper" /> class.
@@ -15,7 +15,7 @@ public class Mapper<TFrom, TTo>
 	/// <param name="mapperImpl">The mapper impl.</param>
 	public Mapper(MapperBase mapperImpl)
 	{
-		_mapperImpl = mapperImpl;
+		this.mapperImpl = mapperImpl;
 	}
 
 	/// <summary>
@@ -31,7 +31,7 @@ public class Mapper<TFrom, TTo>
 	/// <returns>A TTo.</returns>
 	public TTo Map(TFrom from, TTo to, object state)
 	{
-		return (TTo)_mapperImpl.Map(from, to, state);
+		return (TTo)mapperImpl.Map(from, to, state);
 	}
 
 	/// <summary>
@@ -46,7 +46,7 @@ public class Mapper<TFrom, TTo>
 	/// <returns>A TTo.</returns>
 	public TTo Map(TFrom from, TTo to)
 	{
-		return (TTo)_mapperImpl.Map(from, to, null);
+		return (TTo)mapperImpl.Map(from, to, null);
 	}
 
 	/// <summary>
@@ -60,7 +60,7 @@ public class Mapper<TFrom, TTo>
 	/// <returns>A TTo.</returns>
 	public TTo Map(TFrom from)
 	{
-		return (TTo)_mapperImpl.Map(from);
+		return (TTo)mapperImpl.Map(from);
 	}
 
 	/// <summary>
@@ -101,6 +101,6 @@ public class Mapper<TFrom, TTo>
 	/// <returns>A TTo.</returns>
 	public TTo MapUsingState(TFrom from, object state)
 	{
-		return (TTo)_mapperImpl.Map(from, null, state);
+		return (TTo)mapperImpl.Map(from, null, state);
 	}
 }

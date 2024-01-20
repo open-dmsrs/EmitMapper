@@ -5,7 +5,7 @@
 /// </summary>
 public class DeepType : IDisposable
 {
-	private readonly ITestOutputHelper _testOutputHelper;
+	private readonly ITestOutputHelper testOutputHelper;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="DeepType" /> class.
@@ -13,7 +13,7 @@ public class DeepType : IDisposable
 	/// <param name="testOutputHelper">The test output helper.</param>
 	public DeepType(ITestOutputHelper testOutputHelper)
 	{
-		_testOutputHelper = testOutputHelper;
+		this.testOutputHelper = testOutputHelper;
 	}
 
 	/// <summary>

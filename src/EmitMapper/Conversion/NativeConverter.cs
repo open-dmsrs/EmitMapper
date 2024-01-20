@@ -5,7 +5,7 @@
 /// </summary>
 internal class NativeConverter
 {
-	private static readonly Type[] _ConvertTypes =
+	private static readonly Type[] ConvertTypes =
 	{
 	Metadata<bool>.Type, Metadata<char>.Type, Metadata<sbyte>.Type, Metadata<byte>.Type, Metadata<short>.Type,
 	Metadata<int>.Type, Metadata<long>.Type, Metadata<ushort>.Type, Metadata<uint>.Type, Metadata<ulong>.Type,
@@ -86,7 +86,7 @@ internal class NativeConverter
 				  return false;
 			  }
 
-			  if (_ConvertTypes.Contains(from) && _ConvertTypes.Contains(to))
+			  if (ConvertTypes.Contains(from) && ConvertTypes.Contains(to))
 			  {
 				  return true;
 			  }
@@ -106,12 +106,12 @@ internal class NativeConverter
 				  return true;
 			  }
 
-			  if (from.IsEnum && _ConvertTypes.Contains(to))
+			  if (from.IsEnum && ConvertTypes.Contains(to))
 			  {
 				  return true;
 			  }
 
-			  if (to.IsEnum && _ConvertTypes.Contains(from))
+			  if (to.IsEnum && ConvertTypes.Contains(from))
 			  {
 				  return true;
 			  }

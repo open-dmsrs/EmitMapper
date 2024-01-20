@@ -22,33 +22,33 @@ public class MapperCore
 	/// <summary>
 	///   The default configuration.
 	/// </summary>
-	private static readonly IMappingConfigurator _DefaultConfigurator;
+	private static readonly IMappingConfigurator DefaultConfigurator;
 
 	/// <summary>
 	///   The list of mappers.
 	/// </summary>
-	private static readonly ConcurrentBag<object> _Mappers;
+	private static readonly ConcurrentBag<object> Mappers;
 
 	/// <summary>
 	///   The list of configurations.
 	/// </summary>
-	private static readonly ConcurrentBag<Tuple<Type, Type, IMappingConfigurator>> _MappingConfigurations;
+	private static readonly ConcurrentBag<Tuple<Type, Type, IMappingConfigurator>> MappingConfigurations;
 
 	/// <summary>
 	///   Initializes the <see cref="MapperCore" /> class.
 	/// </summary>
 	static MapperCore()
 	{
-		_DefaultConfigurator = new DefaultMapConfig();
-		_Mappers = new ConcurrentBag<object>();
-		_MappingConfigurations = new ConcurrentBag<Tuple<Type, Type, IMappingConfigurator>>();
+		DefaultConfigurator = new DefaultMapConfig();
+		Mappers = new ConcurrentBag<object>();
+		MappingConfigurations = new ConcurrentBag<Tuple<Type, Type, IMappingConfigurator>>();
 	}
 
 	/// <summary>
 	///   Gets the configurators.
 	/// </summary>
 	/// <value>The configurations.</value>
-	public virtual Tuple<Type, Type, IMappingConfigurator>[] Configurations => _MappingConfigurations.ToArray();
+	public virtual Tuple<Type, Type, IMappingConfigurator>[] Configurations => MappingConfigurations.ToArray();
 
 	/// <summary>
 	///   Adds the configurator instance.
@@ -60,7 +60,7 @@ public class MapperCore
 	{
 		AssertCore.IsNotNull(configurator, "configurator");
 
-		_MappingConfigurations.Add(new Tuple<Type, Type, IMappingConfigurator>(typeof(TFrom), typeof(TTo), configurator));
+		MappingConfigurations.Add(new Tuple<Type, Type, IMappingConfigurator>(typeof(TFrom), typeof(TTo), configurator));
 	}
 
 	/// <summary>
@@ -131,18 +131,18 @@ public class MapperCore
 	/// NOTE: Resolving from IoC can be added here.
 	protected virtual Mapper<TFrom, TTo> GetMapper<TFrom, TTo>()
 	{
-		var mapper = _Mappers.FirstOrDefault(m => m is Mapper<TFrom, TTo>) as Mapper<TFrom, TTo>;
+		var mapper = Mappers.FirstOrDefault(m => m is Mapper<TFrom, TTo>) as Mapper<TFrom, TTo>;
 
 		if (mapper is null)
 		{
-			var configuration = _MappingConfigurations.FirstOrDefault(
+			var configuration = MappingConfigurations.FirstOrDefault(
 			  mp => mp.Item1.IsAssignableFrom(typeof(TFrom)) && mp.Item2.IsAssignableFrom(typeof(TTo)));
 
-			var config = configuration is null ? _DefaultConfigurator : configuration.Item3;
+			var config = configuration is null ? DefaultConfigurator : configuration.Item3;
 
 			mapper = Mapper.Default.GetMapper<TFrom, TTo>(config);
 
-			_Mappers.Add(mapper);
+			Mappers.Add(mapper);
 		}
 
 		return mapper;

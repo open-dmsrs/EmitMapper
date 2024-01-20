@@ -5,7 +5,7 @@
 /// </summary>
 internal class AstExprNot : IAstValue
 {
-	private readonly IAstRefOrValue _value;
+	private readonly IAstRefOrValue value;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="AstExprNot" /> class.
@@ -13,7 +13,7 @@ internal class AstExprNot : IAstValue
 	/// <param name="value">The value.</param>
 	public AstExprNot(IAstRefOrValue value)
 	{
-		_value = value;
+		this.value = value;
 	}
 
 	/// <summary>
@@ -25,7 +25,7 @@ internal class AstExprNot : IAstValue
 	public void Compile(CompilationContext context)
 	{
 		context.Emit(OpCodes.Ldc_I4_0);
-		_value.Compile(context);
+		value.Compile(context);
 		context.Emit(OpCodes.Ceq);
 	}
 }

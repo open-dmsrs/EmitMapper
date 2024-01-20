@@ -7,7 +7,7 @@ internal class MapperPrimitive : CustomMapper
 {
 	private static readonly LazyConcurrentDictionary<Type, bool> IsSupported = new();
 
-	private readonly MethodInvokerFunc1 _converter;
+	private readonly MethodInvokerFunc1 converter;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="MapperPrimitive" /> class.
@@ -31,7 +31,7 @@ internal class MapperPrimitive : CustomMapper
 
 		if (converterMethod != null)
 		{
-			_converter = (MethodInvokerFunc1)EmitInvoker.Methods.MethodInvoker.GetMethodInvoker(null, converterMethod);
+			converter = (MethodInvokerFunc1)EmitInvoker.Methods.MethodInvoker.GetMethodInvoker(null, converterMethod);
 		}
 	}
 
@@ -53,12 +53,12 @@ internal class MapperPrimitive : CustomMapper
 	/// <returns>Destination object</returns>
 	public override object MapImpl(object from, object to, object state)
 	{
-		if (_converter is null)
+		if (converter is null)
 		{
 			return from;
 		}
 
-		return _converter.CallFunc(from);
+		return converter.CallFunc(from);
 	}
 
 	/// <summary>

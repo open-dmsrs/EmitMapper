@@ -8,9 +8,9 @@ namespace EmitMapper;
 /// <seealso cref="Debugger.Log"/>
 public class DebuggerWriter : TextWriter
 {
-	private static UnicodeEncoding _encoding;
+	private static UnicodeEncoding encoding;
 
-	private bool _isOpen;
+	private bool isOpen;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="DebuggerWriter"/> class.
@@ -43,7 +43,7 @@ public class DebuggerWriter : TextWriter
 	{
 		Level = level;
 		Category = category;
-		_isOpen = true;
+		isOpen = true;
 	}
 
 	/// <summary>
@@ -54,7 +54,7 @@ public class DebuggerWriter : TextWriter
 	/// <summary>
 	/// Gets the encoding.
 	/// </summary>
-	public override Encoding Encoding => _encoding ??= new UnicodeEncoding(false, false);
+	public override Encoding Encoding => encoding ??= new UnicodeEncoding(false, false);
 
 	/// <summary>
 	/// Gets the level.
@@ -64,7 +64,7 @@ public class DebuggerWriter : TextWriter
 	/// <inheritdoc/>
 	public override void Write(char value)
 	{
-		if (!_isOpen)
+		if (!isOpen)
 		{
 			throw new ObjectDisposedException(null);
 		}
@@ -75,7 +75,7 @@ public class DebuggerWriter : TextWriter
 	/// <inheritdoc/>
 	public override void Write(string value)
 	{
-		if (!_isOpen)
+		if (!isOpen)
 		{
 			throw new ObjectDisposedException(null);
 		}
@@ -89,7 +89,7 @@ public class DebuggerWriter : TextWriter
 	/// <inheritdoc/>
 	public override void Write(char[] buffer, int index, int count)
 	{
-		if (!_isOpen)
+		if (!isOpen)
 		{
 			throw new ObjectDisposedException(null);
 		}
@@ -107,7 +107,7 @@ public class DebuggerWriter : TextWriter
 	/// <param name="disposing">If true, disposing.</param>
 	protected override void Dispose(bool disposing)
 	{
-		_isOpen = false;
+		isOpen = false;
 		base.Dispose(disposing);
 	}
 }

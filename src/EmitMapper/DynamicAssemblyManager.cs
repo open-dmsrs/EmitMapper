@@ -5,13 +5,13 @@
 /// </summary>
 public class DynamicAssemblyManager
 {
-	private static readonly AssemblyBuilder _AssemblyBuilder;
+	private static readonly AssemblyBuilder AssemblyBuilder;
 
-	private static readonly AssemblyName _AssemblyName;
+	private static readonly AssemblyName AssemblyName;
 
-	private static readonly object _LockObject = new();
+	private static readonly object LockObject = new();
 
-	private static readonly ModuleBuilder _ModuleBuilder;
+	private static readonly ModuleBuilder ModuleBuilder;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="DynamicAssemblyManager" /> class.
@@ -22,12 +22,12 @@ public class DynamicAssemblyManager
 		var curAssemblyName = Assembly.GetAssembly(Metadata<DynamicAssemblyManager>.Type)?.GetName();
 
 #if !SILVERLIGHT
-		_AssemblyName = new AssemblyName("EmitMapperAssembly");
-		_AssemblyName.SetPublicKey(curAssemblyName.GetPublicKey());
-		_AssemblyName.SetPublicKeyToken(curAssemblyName.GetPublicKeyToken());
-		_AssemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(_AssemblyName, AssemblyBuilderAccess.RunAndCollect);
+		AssemblyName = new AssemblyName("EmitMapperAssembly");
+		AssemblyName.SetPublicKey(curAssemblyName.GetPublicKey());
+		AssemblyName.SetPublicKeyToken(curAssemblyName.GetPublicKeyToken());
+		AssemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(AssemblyName, AssemblyBuilderAccess.RunAndCollect);
 
-		_ModuleBuilder = _AssemblyBuilder.DefineDynamicModule(_AssemblyName.Name + ".dll");
+		ModuleBuilder = AssemblyBuilder.DefineDynamicModule(AssemblyName.Name + ".dll");
 #else
 			assemblyName = new AssemblyName("EmitMapperAssembly.SL");
 			assemblyName.KeyPair = kp;
@@ -44,7 +44,7 @@ public class DynamicAssemblyManager
 	/// </summary>
 	public static void SaveAssembly()
 	{
-		lock (_LockObject)
+		lock (LockObject)
 		{
 			throw new NotSupportedException("DynamicAssemblyManager.SaveAssembly");
 
@@ -59,9 +59,9 @@ public class DynamicAssemblyManager
 	/// <returns>A TypeBuilder.</returns>
 	internal static TypeBuilder DefineMapperType(string typeName)
 	{
-		lock (_LockObject)
+		lock (LockObject)
 		{
-			return _ModuleBuilder.DefineType(
+			return ModuleBuilder.DefineType(
 			  CorrectTypeName(typeName + Guid.NewGuid().ToString().Replace("-", string.Empty)),
 			  TypeAttributes.Public,
 			  Metadata<MapperForClass>.Type,
@@ -77,9 +77,9 @@ public class DynamicAssemblyManager
 	/// <returns>A TypeBuilder.</returns>
 	internal static TypeBuilder DefineType(string typeName, Type parent)
 	{
-		lock (_LockObject)
+		lock (LockObject)
 		{
-			return _ModuleBuilder.DefineType(CorrectTypeName(typeName), TypeAttributes.Public, parent, null);
+			return ModuleBuilder.DefineType(CorrectTypeName(typeName), TypeAttributes.Public, parent, null);
 		}
 	}
 

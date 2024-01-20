@@ -5,7 +5,7 @@
 /// </summary>
 public class DefaultCustomConverterProvider : ICustomConverterProvider
 {
-	private readonly Type _converterType;
+	private readonly Type converterType;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="DefaultCustomConverterProvider" /> class.
@@ -13,7 +13,7 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
 	/// <param name="converterType">The converter type.</param>
 	public DefaultCustomConverterProvider(Type converterType)
 	{
-		_converterType = converterType;
+		this.converterType = converterType;
 	}
 
 	/// <summary>
@@ -49,7 +49,7 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
 		return new CustomConverterDescriptor
 		{
 			ConverterClassTypeArguments = GetGenericArguments(from).Concat(GetGenericArguments(to)),
-			ConverterImplementation = _converterType,
+			ConverterImplementation = converterType,
 			ConversionMethodName = "Convert"
 		};
 	}

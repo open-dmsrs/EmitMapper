@@ -6,9 +6,9 @@
 internal class ArraysConverterProvider : ICustomConverterProvider
 {
 	// optimized the performance for converting arrays value
-	private static readonly Type _converterImplementation = typeof(ArraysConverterOneTypes<>);
+	private static readonly Type converterImplementation = typeof(ArraysConverterOneTypes<>);
 
-	private static readonly Type _Implementation = typeof(ArraysConverterDifferentTypes<,>);
+	private static readonly Type Implementation = typeof(ArraysConverterDifferentTypes<,>);
 
 	/// <summary>
 	///   Gets the custom converter descr.
@@ -35,7 +35,7 @@ internal class ArraysConverterProvider : ICustomConverterProvider
 			return new CustomConverterDescriptor
 			{
 				ConversionMethodName = "Convert",
-				ConverterImplementation = _converterImplementation,
+				ConverterImplementation = converterImplementation,
 				ConverterClassTypeArguments = tFrom.AsEnumerable()
 			};
 		}
@@ -43,7 +43,7 @@ internal class ArraysConverterProvider : ICustomConverterProvider
 		return new CustomConverterDescriptor
 		{
 			ConversionMethodName = "Convert",
-			ConverterImplementation = _Implementation,
+			ConverterImplementation = Implementation,
 			ConverterClassTypeArguments = tFrom.AsEnumerable(tTo)
 		};
 	}
