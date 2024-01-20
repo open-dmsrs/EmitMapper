@@ -5,11 +5,11 @@
 /// </summary>
 internal class AstReadFieldAddr : AstReadField, IAstAddr
 {
-/// <inheritdoc />
-  public override void Compile(CompilationContext context)
-  {
-    CompilationHelper.CheckIsValue(ItemType);
-    SourceObject.Compile(context);
-    context.Emit(OpCodes.Ldflda, FieldInfo);
-  }
+	/// <inheritdoc />
+	public override void Compile(CompilationContext context)
+	{
+		CompilationHelper.CheckIsValue(ItemType);
+		SourceObject.Compile(context);
+		context.Emit(OpCodes.Ldflda, FieldInfo);
+	}
 }

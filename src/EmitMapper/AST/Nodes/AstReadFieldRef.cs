@@ -5,10 +5,10 @@
 /// </summary>
 internal class AstReadFieldRef : AstReadField, IAstRef
 {
-/// <inheritdoc />
-  public override void Compile(CompilationContext context)
-  {
-    CompilationHelper.CheckIsRef(ItemType);
-    base.Compile(context);
-  }
+	/// <inheritdoc />
+	public override void Compile(CompilationContext context)
+	{
+		CompilationHelper.CheckIsRef(ItemType);
+		base.Compile(context);
+	}
 }

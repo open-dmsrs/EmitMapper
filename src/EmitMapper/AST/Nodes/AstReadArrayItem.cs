@@ -5,20 +5,20 @@
 /// </summary>
 internal class AstReadArrayItem : IAstStackItem
 {
-  public IAstRef Array;
+	public IAstRef Array;
 
-  public int Index;
+	public int Index;
 
-  /// <summary>
-  ///   Gets the item type.
-  /// </summary>
-  public Type ItemType => Array.ItemType.GetElementType();
+	/// <summary>
+	///   Gets the item type.
+	/// </summary>
+	public Type ItemType => Array.ItemType.GetElementType();
 
-/// <inheritdoc />
-  public virtual void Compile(CompilationContext context)
-  {
-    Array.Compile(context);
-    context.Emit(OpCodes.Ldc_I4, Index);
-    context.Emit(OpCodes.Ldelem, ItemType);
-  }
+	/// <inheritdoc />
+	public virtual void Compile(CompilationContext context)
+	{
+		Array.Compile(context);
+		context.Emit(OpCodes.Ldc_I4, Index);
+		context.Emit(OpCodes.Ldelem, ItemType);
+	}
 }

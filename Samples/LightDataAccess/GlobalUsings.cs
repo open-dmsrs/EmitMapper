@@ -1,16 +1,16 @@
 global // ***********************************************************************
-// Assembly         : TSharp.Core
-// Author           : tangjingbo
-// Created          : 08-21-2013
-//
-// Last Modified By : tangjingbo
-// Last Modified On : 08-21-2013
-// ***********************************************************************
-// <copyright file="CommandBuilder.Insert.cs" company="T#">
-//     Copyright (c) T#. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
+	   // Assembly         : TSharp.Core
+	   // Author           : tangjingbo
+	   // Created          : 08-21-2013
+	   //
+	   // Last Modified By : tangjingbo
+	   // Last Modified On : 08-21-2013
+	   // ***********************************************************************
+	   // <copyright file="CommandBuilder.Insert.cs" company="T#">
+	   //     Copyright (c) T#. All rights reserved.
+	   // </copyright>
+	   // <summary></summary>
+	   // ***********************************************************************
 
 using System.Data;
 global using System.Linq;

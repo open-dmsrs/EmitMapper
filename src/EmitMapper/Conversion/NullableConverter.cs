@@ -6,4352 +6,4354 @@ namespace EmitMapper.Conversion;
 /// </summary>
 public class NullableConverter
 {
-  /// <summary>
-  /// Initializes a new instance of the <see cref="NullableConverter"/> class.
-  /// </summary>
-  protected NullableConverter()
-  { }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool? .</returns>
-  public static bool? ToBoolean(object par)
-  {
-    return par == default ? default(bool?) : Convert.ToBoolean(par);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A bool? .</returns>
-  public static bool? ToBoolean(bool par)
-  {
-    return par;
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A bool.</returns>
-  public static bool ToBoolean(bool? par)
-  {
-    return par.HasValue && par.Value;
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool? .</returns>
-  public static bool? ToBoolean(sbyte par)
-  {
-    return Convert.ToBoolean(par);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool.</returns>
-  public static bool ToBoolean(sbyte? par)
-  {
-    return par.HasValue && Convert.ToBoolean(par.Value);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool? .</returns>
-  public static bool? ToBoolean(char par)
-  {
-    return Convert.ToBoolean(par);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool.</returns>
-  public static bool ToBoolean(char? par)
-  {
-    return par.HasValue && Convert.ToBoolean(par.Value);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool? .</returns>
-  public static bool? ToBoolean(byte par)
-  {
-    return Convert.ToBoolean(par);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool.</returns>
-  public static bool ToBoolean(byte? par)
-  {
-    return par.HasValue && Convert.ToBoolean(par.Value);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool? .</returns>
-  public static bool? ToBoolean(short par)
-  {
-    return Convert.ToBoolean(par);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool.</returns>
-  public static bool ToBoolean(short? par)
-  {
-    return par.HasValue && Convert.ToBoolean(par.Value);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool? .</returns>
-  public static bool? ToBoolean(ushort par)
-  {
-    return Convert.ToBoolean(par);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool.</returns>
-  public static bool ToBoolean(ushort? par)
-  {
-    return par.HasValue && Convert.ToBoolean(par.Value);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool? .</returns>
-  public static bool? ToBoolean(int par)
-  {
-    return Convert.ToBoolean(par);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool.</returns>
-  public static bool ToBoolean(int? par)
-  {
-    return par.HasValue && Convert.ToBoolean(par.Value);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool? .</returns>
-  public static bool? ToBoolean(uint par)
-  {
-    return Convert.ToBoolean(par);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool.</returns>
-  public static bool ToBoolean(uint? par)
-  {
-    return par.HasValue && Convert.ToBoolean(par.Value);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool? .</returns>
-  public static bool? ToBoolean(long par)
-  {
-    return Convert.ToBoolean(par);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool.</returns>
-  public static bool ToBoolean(long? par)
-  {
-    return par.HasValue && Convert.ToBoolean(par.Value);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool? .</returns>
-  public static bool? ToBoolean(ulong par)
-  {
-    return Convert.ToBoolean(par);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool.</returns>
-  public static bool ToBoolean(ulong? par)
-  {
-    return par.HasValue && Convert.ToBoolean(par.Value);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool? .</returns>
-  public static bool? ToBoolean(string par)
-  {
-    return par == default ? default(bool?) : bool.Parse(par);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool? .</returns>
-  public static bool? ToBoolean(float par)
-  {
-    return Convert.ToBoolean(par);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool.</returns>
-  public static bool ToBoolean(float? par)
-  {
-    return par.HasValue && Convert.ToBoolean(par.Value);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool? .</returns>
-  public static bool? ToBoolean(double par)
-  {
-    return Convert.ToBoolean(par);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool.</returns>
-  public static bool ToBoolean(double? par)
-  {
-    return par.HasValue && Convert.ToBoolean(par.Value);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool? .</returns>
-  public static bool? ToBoolean(decimal par)
-  {
-    return par == 0;
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool.</returns>
-  public static bool ToBoolean(decimal? par)
-  {
-    return par.HasValue && Convert.ToBoolean(par.Value);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool? .</returns>
-  public static bool? ToBoolean(DateTime par)
-  {
-    return Convert.ToBoolean(par);
-  }
-
-  /// <summary>
-  /// To boolean.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A bool.</returns>
-  public static bool ToBoolean(DateTime? par)
-  {
-    return par.HasValue && Convert.ToBoolean(par.Value);
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte? .</returns>
-  public static byte? ToByte(object par)
-  {
-    return par == default ? default(byte?) : Convert.ToByte(par);
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A byte? .</returns>
-  public static byte? ToByte(bool par)
-  {
-    return Convert.ToByte(par);
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A byte.</returns>
-  public static byte ToByte(bool? par)
-  {
-    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte? .</returns>
-  public static byte? ToByte(byte par)
-  {
-    return Convert.ToByte(par);
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte.</returns>
-  public static byte ToByte(byte? par)
-  {
-    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte? .</returns>
-  public static byte? ToByte(char par)
-  {
-    return Convert.ToByte(par);
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte.</returns>
-  public static byte ToByte(char? par)
-  {
-    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte? .</returns>
-  public static byte? ToByte(sbyte par)
-  {
-    return Convert.ToByte(par);
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte.</returns>
-  public static byte ToByte(sbyte? par)
-  {
-    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte? .</returns>
-  public static byte? ToByte(short par)
-  {
-    return Convert.ToByte(par);
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte.</returns>
-  public static byte ToByte(short? par)
-  {
-    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte? .</returns>
-  public static byte? ToByte(ushort par)
-  {
-    return Convert.ToByte(par);
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte.</returns>
-  public static byte ToByte(ushort? par)
-  {
-    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte? .</returns>
-  public static byte? ToByte(int par)
-  {
-    return Convert.ToByte(par);
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte.</returns>
-  public static byte ToByte(int? par)
-  {
-    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte? .</returns>
-  public static byte? ToByte(uint par)
-  {
-    return Convert.ToByte(par);
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte.</returns>
-  public static byte ToByte(uint? par)
-  {
-    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte? .</returns>
-  public static byte? ToByte(long par)
-  {
-    return Convert.ToByte(par);
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte.</returns>
-  public static byte ToByte(long? par)
-  {
-    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte? .</returns>
-  public static byte? ToByte(ulong par)
-  {
-    return Convert.ToByte(par);
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte.</returns>
-  public static byte ToByte(ulong? par)
-  {
-    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte? .</returns>
-  public static byte? ToByte(float par)
-  {
-    return Convert.ToByte(par);
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte.</returns>
-  public static byte ToByte(float? par)
-  {
-    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte? .</returns>
-  public static byte? ToByte(double par)
-  {
-    return Convert.ToByte(par);
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte.</returns>
-  public static byte ToByte(double? par)
-  {
-    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte? .</returns>
-  public static byte? ToByte(decimal par)
-  {
-    return Convert.ToByte(par);
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte.</returns>
-  public static byte ToByte(decimal? par)
-  {
-    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte? .</returns>
-  public static byte? ToByte(string par)
-  {
-    return par == default ? default(byte?) : byte.Parse(par);
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte? .</returns>
-  public static byte? ToByte(DateTime par)
-  {
-    return Convert.ToByte(par);
-  }
-
-  /// <summary>
-  /// Tos the byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A byte.</returns>
-  public static byte ToByte(DateTime? par)
-  {
-    return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char? .</returns>
-  public static char? ToChar(object par)
-  {
-    return par == default ? default(char?) : Convert.ToChar(par);
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A char? .</returns>
-  public static char? ToChar(bool par)
-  {
-    return Convert.ToChar(par);
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A char.</returns>
-  public static char ToChar(bool? par)
-  {
-    return par.HasValue ? Convert.ToChar(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char? .</returns>
-  public static char? ToChar(char par)
-  {
-    return Convert.ToChar(par);
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char.</returns>
-  public static char ToChar(char? par)
-  {
-    return par.HasValue ? Convert.ToChar(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char? .</returns>
-  public static char? ToChar(sbyte par)
-  {
-    return Convert.ToChar(par);
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char.</returns>
-  public static char ToChar(sbyte? par)
-  {
-    if (par.HasValue)
-      return Convert.ToChar(par.Value);
-
-    return char.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char? .</returns>
-  public static char? ToChar(byte par)
-  {
-    return Convert.ToChar(par);
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char.</returns>
-  public static char ToChar(byte? par)
-  {
-    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char? .</returns>
-  public static char? ToChar(short par)
-  {
-    return Convert.ToChar(par);
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char.</returns>
-  public static char ToChar(short? par)
-  {
-    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char? .</returns>
-  public static char? ToChar(ushort par)
-  {
-    return Convert.ToChar(par);
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char.</returns>
-  public static char ToChar(ushort? par)
-  {
-    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char? .</returns>
-  public static char? ToChar(int par)
-  {
-    return Convert.ToChar(par);
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char.</returns>
-  public static char ToChar(int? par)
-  {
-    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char? .</returns>
-  public static char? ToChar(uint par)
-  {
-    return Convert.ToChar(par);
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char.</returns>
-  public static char ToChar(uint? par)
-  {
-    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char? .</returns>
-  public static char? ToChar(long par)
-  {
-    return Convert.ToChar(par);
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char.</returns>
-  public static char ToChar(long? par)
-  {
-    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char? .</returns>
-  public static char? ToChar(ulong par)
-  {
-    return Convert.ToChar(par);
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char.</returns>
-  public static char ToChar(ulong? par)
-  {
-    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char? .</returns>
-  public static char? ToChar(string par)
-  {
-    return par == default ? default(char?) : char.Parse(par);
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char? .</returns>
-  public static char? ToChar(float par)
-  {
-    return Convert.ToChar(par);
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char.</returns>
-  public static char ToChar(float? par)
-  {
-    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char? .</returns>
-  public static char? ToChar(double par)
-  {
-    return Convert.ToChar(par);
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char.</returns>
-  public static char ToChar(double? par)
-  {
-    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char? .</returns>
-  public static char? ToChar(decimal par)
-  {
-    return Convert.ToChar(par);
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char.</returns>
-  public static char ToChar(decimal? par)
-  {
-    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char? .</returns>
-  public static char? ToChar(DateTime par)
-  {
-    return Convert.ToChar(par);
-  }
-
-  /// <summary>
-  /// Tos the char.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A char.</returns>
-  public static char ToChar(DateTime? par)
-  {
-    return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime? .</returns>
-  public static DateTime? ToDateTime(DateTime par)
-  {
-    return Convert.ToDateTime(par);
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime.</returns>
-  public static DateTime ToDateTime(DateTime? par)
-  {
-    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime? .</returns>
-  public static DateTime? ToDateTime(object par)
-  {
-    return par == default ? default(DateTime?) : Convert.ToDateTime(par);
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime? .</returns>
-  public static DateTime? ToDateTime(string par)
-  {
-    return par == default ? default(DateTime?) : DateTime.Parse(par);
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime? .</returns>
-  public static DateTime? ToDateTime(sbyte par)
-  {
-    return Convert.ToDateTime(par);
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime.</returns>
-  public static DateTime ToDateTime(sbyte? par)
-  {
-    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime? .</returns>
-  public static DateTime? ToDateTime(byte par)
-  {
-    return Convert.ToDateTime(par);
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime.</returns>
-  public static DateTime ToDateTime(byte? par)
-  {
-    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime? .</returns>
-  public static DateTime? ToDateTime(short par)
-  {
-    return Convert.ToDateTime(par);
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime.</returns>
-  public static DateTime ToDateTime(short? par)
-  {
-    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime? .</returns>
-  public static DateTime? ToDateTime(ushort par)
-  {
-    return Convert.ToDateTime(par);
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime.</returns>
-  public static DateTime ToDateTime(ushort? par)
-  {
-    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime? .</returns>
-  public static DateTime? ToDateTime(int par)
-  {
-    return Convert.ToDateTime(par);
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime.</returns>
-  public static DateTime ToDateTime(int? par)
-  {
-    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime? .</returns>
-  public static DateTime? ToDateTime(uint par)
-  {
-    return Convert.ToDateTime(par);
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime.</returns>
-  public static DateTime ToDateTime(uint? par)
-  {
-    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime? .</returns>
-  public static DateTime? ToDateTime(long par)
-  {
-    return Convert.ToDateTime(par);
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime.</returns>
-  public static DateTime ToDateTime(long? par)
-  {
-    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime? .</returns>
-  public static DateTime? ToDateTime(ulong par)
-  {
-    return Convert.ToDateTime(par);
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime.</returns>
-  public static DateTime ToDateTime(ulong? par)
-  {
-    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A DateTime? .</returns>
-  public static DateTime? ToDateTime(bool par)
-  {
-    return Convert.ToDateTime(par);
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A DateTime.</returns>
-  public static DateTime ToDateTime(bool? par)
-  {
-    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime? .</returns>
-  public static DateTime? ToDateTime(char par)
-  {
-    return Convert.ToDateTime(par);
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime.</returns>
-  public static DateTime ToDateTime(char? par)
-  {
-    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime? .</returns>
-  public static DateTime? ToDateTime(float par)
-  {
-    return Convert.ToDateTime(par);
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime.</returns>
-  public static DateTime ToDateTime(float? par)
-  {
-    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime? .</returns>
-  public static DateTime? ToDateTime(double par)
-  {
-    return Convert.ToDateTime(par);
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime.</returns>
-  public static DateTime ToDateTime(double? par)
-  {
-    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime? .</returns>
-  public static DateTime? ToDateTime(decimal par)
-  {
-    return Convert.ToDateTime(par);
-  }
-
-  /// <summary>
-  /// Tos the date time.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A DateTime.</returns>
-  public static DateTime ToDateTime(decimal? par)
-  {
-    return par.HasValue ? Convert.ToDateTime(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal? .</returns>
-  public static decimal? ToDecimal(object par)
-  {
-    return par == default ? default(decimal?) : Convert.ToDecimal(par);
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal? .</returns>
-  public static decimal? ToDecimal(sbyte par)
-  {
-    return Convert.ToDecimal(par);
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal.</returns>
-  public static decimal ToDecimal(sbyte? par)
-  {
-    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal? .</returns>
-  public static decimal? ToDecimal(byte par)
-  {
-    return Convert.ToDecimal(par);
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal.</returns>
-  public static decimal ToDecimal(byte? par)
-  {
-    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal? .</returns>
-  public static decimal? ToDecimal(char par)
-  {
-    return Convert.ToDecimal(par);
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal.</returns>
-  public static decimal ToDecimal(char? par)
-  {
-    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal? .</returns>
-  public static decimal? ToDecimal(short par)
-  {
-    return Convert.ToDecimal(par);
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal.</returns>
-  public static decimal ToDecimal(short? par)
-  {
-    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal? .</returns>
-  public static decimal? ToDecimal(ushort par)
-  {
-    return Convert.ToDecimal(par);
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal.</returns>
-  public static decimal ToDecimal(ushort? par)
-  {
-    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal? .</returns>
-  public static decimal? ToDecimal(int par)
-  {
-    return Convert.ToDecimal(par);
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal.</returns>
-  public static decimal ToDecimal(int? par)
-  {
-    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal? .</returns>
-  public static decimal? ToDecimal(uint par)
-  {
-    return Convert.ToDecimal(par);
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal.</returns>
-  public static decimal ToDecimal(uint? par)
-  {
-    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal? .</returns>
-  public static decimal? ToDecimal(long par)
-  {
-    return Convert.ToDecimal(par);
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal.</returns>
-  public static decimal ToDecimal(long? par)
-  {
-    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal? .</returns>
-  public static decimal? ToDecimal(ulong par)
-  {
-    return Convert.ToDecimal(par);
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal.</returns>
-  public static decimal ToDecimal(ulong? par)
-  {
-    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal? .</returns>
-  public static decimal? ToDecimal(float par)
-  {
-    return Convert.ToDecimal(par);
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal.</returns>
-  public static decimal ToDecimal(float? par)
-  {
-    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal? .</returns>
-  public static decimal? ToDecimal(double par)
-  {
-    return Convert.ToDecimal(par);
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal.</returns>
-  public static decimal ToDecimal(double? par)
-  {
-    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal? .</returns>
-  public static decimal? ToDecimal(string par)
-  {
-    return par == default ? default(decimal?) : decimal.Parse(par);
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal? .</returns>
-  public static decimal? ToDecimal(decimal par)
-  {
-    return par;
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal.</returns>
-  public static decimal ToDecimal(decimal? par)
-  {
-    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A decimal? .</returns>
-  public static decimal? ToDecimal(bool par)
-  {
-    return Convert.ToDecimal(par);
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A decimal.</returns>
-  public static decimal ToDecimal(bool? par)
-  {
-    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal? .</returns>
-  public static decimal? ToDecimal(DateTime par)
-  {
-    return Convert.ToDecimal(par);
-  }
-
-  /// <summary>
-  /// Tos the decimal.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A decimal.</returns>
-  public static decimal ToDecimal(DateTime? par)
-  {
-    return par.HasValue ? Convert.ToDecimal(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double? .</returns>
-  public static double? ToDouble(object par)
-  {
-    return par == default ? default(double?) : Convert.ToDouble(par);
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double? .</returns>
-  public static double? ToDouble(sbyte par)
-  {
-    return Convert.ToDouble(par);
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double.</returns>
-  public static double ToDouble(sbyte? par)
-  {
-    return par.HasValue ? Convert.ToDouble(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double? .</returns>
-  public static double? ToDouble(byte par)
-  {
-    return Convert.ToDouble(par);
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double.</returns>
-  public static double ToDouble(byte? par)
-  {
-    return par.HasValue ? Convert.ToDouble(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double? .</returns>
-  public static double? ToDouble(short par)
-  {
-    return Convert.ToDouble(par);
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double.</returns>
-  public static double ToDouble(short? par)
-  {
-    return par.HasValue ? Convert.ToDouble(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double? .</returns>
-  public static double? ToDouble(char par)
-  {
-    return Convert.ToDouble(par);
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double.</returns>
-  public static double ToDouble(char? par)
-  {
-    return par.HasValue ? Convert.ToDouble(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double? .</returns>
-  public static double? ToDouble(ushort par)
-  {
-    return Convert.ToDouble(par);
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double.</returns>
-  public static double ToDouble(ushort? par)
-  {
-    return par.HasValue ? Convert.ToDouble(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double? .</returns>
-  public static double? ToDouble(int par)
-  {
-    return Convert.ToDouble(par);
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double.</returns>
-  public static double ToDouble(int? par)
-  {
-    return par.HasValue ? Convert.ToDouble(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double? .</returns>
-  public static double? ToDouble(uint par)
-  {
-    return Convert.ToDouble(par);
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double.</returns>
-  public static double ToDouble(uint? par)
-  {
-    return par.HasValue ? Convert.ToDouble(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double? .</returns>
-  public static double? ToDouble(long par)
-  {
-    return Convert.ToDouble(par);
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double.</returns>
-  public static double ToDouble(long? par)
-  {
-    return par.HasValue ? Convert.ToDouble(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double? .</returns>
-  public static double? ToDouble(ulong par)
-  {
-    return Convert.ToDouble(par);
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double.</returns>
-  public static double ToDouble(ulong? par)
-  {
-    return par.HasValue ? Convert.ToDouble(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double? .</returns>
-  public static double? ToDouble(float par)
-  {
-    return Convert.ToDouble(par);
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double.</returns>
-  public static double ToDouble(float? par)
-  {
-    return par.HasValue ? Convert.ToDouble(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double? .</returns>
-  public static double? ToDouble(double par)
-  {
-    return Convert.ToDouble(par);
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double.</returns>
-  public static double ToDouble(double? par)
-  {
-    return par.HasValue ? Convert.ToDouble(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double? .</returns>
-  public static double? ToDouble(decimal par)
-  {
-    return decimal.ToInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double.</returns>
-  public static double ToDouble(decimal? par)
-  {
-    return par.HasValue ? Convert.ToDouble(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double? .</returns>
-  public static double? ToDouble(string par)
-  {
-    return par == default ? default(double?) : double.Parse(par);
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A double? .</returns>
-  public static double? ToDouble(bool par)
-  {
-    return Convert.ToDouble(par);
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A double.</returns>
-  public static double ToDouble(bool? par)
-  {
-    return par.HasValue ? Convert.ToDouble(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double? .</returns>
-  public static double? ToDouble(DateTime par)
-  {
-    return Convert.ToDouble(par);
-  }
-
-  /// <summary>
-  /// Tos the double.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A double.</returns>
-  public static double ToDouble(DateTime? par)
-  {
-    return par.HasValue ? Convert.ToDouble(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short? .</returns>
-  public static short? ToInt16(object par)
-  {
-    return par == default ? default(short?) : Convert.ToInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A short? .</returns>
-  public static short? ToInt16(bool par)
-  {
-    return Convert.ToInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A short.</returns>
-  public static short ToInt16(bool? par)
-  {
-    return par.HasValue ? Convert.ToInt16(par.Value) : (short)0;
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short? .</returns>
-  public static short? ToInt16(char par)
-  {
-    return Convert.ToInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short.</returns>
-  public static short ToInt16(char? par)
-  {
-    return par.HasValue ? Convert.ToInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short? .</returns>
-  public static short? ToInt16(sbyte par)
-  {
-    return Convert.ToInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short.</returns>
-  public static short ToInt16(sbyte? par)
-  {
-    return par.HasValue ? Convert.ToInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short? .</returns>
-  public static short? ToInt16(byte par)
-  {
-    return Convert.ToInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short.</returns>
-  public static short ToInt16(byte? par)
-  {
-    return par.HasValue ? Convert.ToInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short? .</returns>
-  public static short? ToInt16(ushort par)
-  {
-    return Convert.ToInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short.</returns>
-  public static short ToInt16(ushort? par)
-  {
-    return par.HasValue ? Convert.ToInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short? .</returns>
-  public static short? ToInt16(int par)
-  {
-    return Convert.ToInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short.</returns>
-  public static short ToInt16(int? par)
-  {
-    return par.HasValue ? Convert.ToInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short? .</returns>
-  public static short? ToInt16(uint par)
-  {
-    return Convert.ToInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short.</returns>
-  public static short ToInt16(uint? par)
-  {
-    return par.HasValue ? Convert.ToInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short? .</returns>
-  public static short? ToInt16(short par)
-  {
-    return Convert.ToInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short.</returns>
-  public static short ToInt16(short? par)
-  {
-    return par.HasValue ? Convert.ToInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short? .</returns>
-  public static short? ToInt16(long par)
-  {
-    return Convert.ToInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short.</returns>
-  public static short ToInt16(long? par)
-  {
-    return par.HasValue ? Convert.ToInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short? .</returns>
-  public static short? ToInt16(ulong par)
-  {
-    return Convert.ToInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short.</returns>
-  public static short ToInt16(ulong? par)
-  {
-    return par.HasValue ? Convert.ToInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short? .</returns>
-  public static short? ToInt16(float par)
-  {
-    return Convert.ToInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short.</returns>
-  public static short ToInt16(float? par)
-  {
-    return par.HasValue ? Convert.ToInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short? .</returns>
-  public static short? ToInt16(double par)
-  {
-    return Convert.ToInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short.</returns>
-  public static short ToInt16(double? par)
-  {
-    return par.HasValue ? Convert.ToInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short? .</returns>
-  public static short? ToInt16(decimal par)
-  {
-    return Convert.ToInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short.</returns>
-  public static short ToInt16(decimal? par)
-  {
-    return par.HasValue ? Convert.ToInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short? .</returns>
-  public static short? ToInt16(string par)
-  {
-    return par == default ? default(short?) : short.Parse(par);
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short? .</returns>
-  public static short? ToInt16(DateTime par)
-  {
-    return Convert.ToInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A short.</returns>
-  public static short ToInt16(DateTime? par)
-  {
-    return par.HasValue ? Convert.ToInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int? .</returns>
-  public static int? ToInt32(object par)
-  {
-    return par == default ? default(int?) : Convert.ToInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>An int? .</returns>
-  public static int? ToInt32(bool par)
-  {
-    return Convert.ToInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>An int.</returns>
-  public static int ToInt32(bool? par)
-  {
-    return par.HasValue ? Convert.ToInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int? .</returns>
-  public static int? ToInt32(char par)
-  {
-    return Convert.ToInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int.</returns>
-  public static int ToInt32(char? par)
-  {
-    return par.HasValue ? Convert.ToInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int? .</returns>
-  public static int? ToInt32(sbyte par)
-  {
-    return Convert.ToInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int.</returns>
-  public static int ToInt32(sbyte? par)
-  {
-    return par.HasValue ? Convert.ToInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int? .</returns>
-  public static int? ToInt32(byte par)
-  {
-    return Convert.ToInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int.</returns>
-  public static int ToInt32(byte? par)
-  {
-    return par.HasValue ? Convert.ToInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int? .</returns>
-  public static int? ToInt32(short par)
-  {
-    return Convert.ToInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int.</returns>
-  public static int ToInt32(short? par)
-  {
-    return par.HasValue ? Convert.ToInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int? .</returns>
-  public static int? ToInt32(ushort par)
-  {
-    return Convert.ToInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int.</returns>
-  public static int ToInt32(ushort? par)
-  {
-    return par.HasValue ? Convert.ToInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int? .</returns>
-  public static int? ToInt32(uint par)
-  {
-    return Convert.ToInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int.</returns>
-  public static int ToInt32(uint? par)
-  {
-    return par.HasValue ? Convert.ToInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int? .</returns>
-  public static int? ToInt32(int par)
-  {
-    return Convert.ToInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int.</returns>
-  public static int ToInt32(int? par)
-  {
-    return par.HasValue ? Convert.ToInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int? .</returns>
-  public static int? ToInt32(long par)
-  {
-    return Convert.ToInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int.</returns>
-  public static int ToInt32(long? par)
-  {
-    return par.HasValue ? Convert.ToInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int? .</returns>
-  public static int? ToInt32(ulong par)
-  {
-    return Convert.ToInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int.</returns>
-  public static int ToInt32(ulong? par)
-  {
-    return par.HasValue ? Convert.ToInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int? .</returns>
-  public static int? ToInt32(float par)
-  {
-    return Convert.ToInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int.</returns>
-  public static int ToInt32(float? par)
-  {
-    return par.HasValue ? Convert.ToInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int? .</returns>
-  public static int? ToInt32(double par)
-  {
-    return Convert.ToInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int.</returns>
-  public static int ToInt32(double? par)
-  {
-    return par.HasValue ? Convert.ToInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int? .</returns>
-  public static int? ToInt32(decimal par)
-  {
-    return decimal.ToInt32(par);
-  }
-
-  /// <summary>
-  /// bug Fixed: decimal.ToInt32(decimal) is faster more than Convert.ToInt32(decimal)
-  /// </summary>
-  /// <param name="par"></param>
-  /// <returns></returns>
-  public static int ToInt32(decimal? par)
-  {
-    return par.HasValue ? decimal.ToInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int? .</returns>
-  public static int? ToInt32(string par)
-  {
-    return string.IsNullOrEmpty(par) ? default(int?) : int.Parse(par);
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int? .</returns>
-  public static int? ToInt32(DateTime par)
-  {
-    return Convert.ToInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An int.</returns>
-  public static int ToInt32(DateTime? par)
-  {
-    return par.HasValue ? Convert.ToInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long? .</returns>
-  public static long? ToInt64(object par)
-  {
-    return par == default ? default(long?) : Convert.ToInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A long? .</returns>
-  public static long? ToInt64(bool par)
-  {
-    return Convert.ToInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A long.</returns>
-  public static long ToInt64(bool? par)
-  {
-    return par.HasValue ? Convert.ToInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long? .</returns>
-  public static long? ToInt64(char par)
-  {
-    return Convert.ToInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long.</returns>
-  public static long ToInt64(char? par)
-  {
-    return par.HasValue ? Convert.ToInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long? .</returns>
-  public static long? ToInt64(sbyte par)
-  {
-    return Convert.ToInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long.</returns>
-  public static long ToInt64(sbyte? par)
-  {
-    return par.HasValue ? Convert.ToInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long? .</returns>
-  public static long? ToInt64(byte par)
-  {
-    return Convert.ToInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long.</returns>
-  public static long ToInt64(byte? par)
-  {
-    return par.HasValue ? Convert.ToInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long? .</returns>
-  public static long? ToInt64(short par)
-  {
-    return Convert.ToInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long.</returns>
-  public static long ToInt64(short? par)
-  {
-    return par.HasValue ? Convert.ToInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long? .</returns>
-  public static long? ToInt64(ushort par)
-  {
-    return Convert.ToInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long.</returns>
-  public static long ToInt64(ushort? par)
-  {
-    return par.HasValue ? Convert.ToInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long? .</returns>
-  public static long? ToInt64(int par)
-  {
-    return Convert.ToInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long.</returns>
-  public static long ToInt64(int? par)
-  {
-    return par.HasValue ? Convert.ToInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long? .</returns>
-  public static long? ToInt64(uint par)
-  {
-    return Convert.ToInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long.</returns>
-  public static long ToInt64(uint? par)
-  {
-    return par.HasValue ? Convert.ToInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long? .</returns>
-  public static long? ToInt64(ulong par)
-  {
-    return Convert.ToInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long.</returns>
-  public static long ToInt64(ulong? par)
-  {
-    return par.HasValue ? Convert.ToInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long? .</returns>
-  public static long? ToInt64(long par)
-  {
-    return Convert.ToInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long.</returns>
-  public static long ToInt64(long? par)
-  {
-    return par.HasValue ? Convert.ToInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long? .</returns>
-  public static long? ToInt64(float par)
-  {
-    return Convert.ToInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long.</returns>
-  public static long ToInt64(float? par)
-  {
-    return par.HasValue ? Convert.ToInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long? .</returns>
-  public static long? ToInt64(double par)
-  {
-    return Convert.ToInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long.</returns>
-  public static long ToInt64(double? par)
-  {
-    return par.HasValue ? Convert.ToInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long? .</returns>
-  public static long? ToInt64(decimal par)
-  {
-    return decimal.ToInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long.</returns>
-  public static long ToInt64(decimal? par)
-  {
-    return par.HasValue ? Convert.ToInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long? .</returns>
-  public static long? ToInt64(string par)
-  {
-    return par == default ? default(long?) : long.Parse(par);
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long? .</returns>
-  public static long? ToInt64(DateTime par)
-  {
-    return Convert.ToInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A long.</returns>
-  public static long ToInt64(DateTime? par)
-  {
-    return par.HasValue ? Convert.ToInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte? .</returns>
-  public static sbyte? ToSByte(object par)
-  {
-    return par == default ? default(sbyte?) : Convert.ToSByte(par);
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A sbyte? .</returns>
-  public static sbyte? ToSByte(bool par)
-  {
-    return Convert.ToSByte(par);
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A sbyte.</returns>
-  public static sbyte ToSByte(bool? par)
-  {
-    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte? .</returns>
-  public static sbyte? ToSByte(sbyte par)
-  {
-    return Convert.ToSByte(par);
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte.</returns>
-  public static sbyte ToSByte(sbyte? par)
-  {
-    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte? .</returns>
-  public static sbyte? ToSByte(char par)
-  {
-    return Convert.ToSByte(par);
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte.</returns>
-  public static sbyte ToSByte(char? par)
-  {
-    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte? .</returns>
-  public static sbyte? ToSByte(byte par)
-  {
-    return Convert.ToSByte(par);
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte.</returns>
-  public static sbyte ToSByte(byte? par)
-  {
-    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte? .</returns>
-  public static sbyte? ToSByte(short par)
-  {
-    return Convert.ToSByte(par);
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte.</returns>
-  public static sbyte ToSByte(short? par)
-  {
-    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte? .</returns>
-  public static sbyte? ToSByte(ushort par)
-  {
-    return Convert.ToSByte(par);
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte.</returns>
-  public static sbyte ToSByte(ushort? par)
-  {
-    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte? .</returns>
-  public static sbyte? ToSByte(int par)
-  {
-    return Convert.ToSByte(par);
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte.</returns>
-  public static sbyte ToSByte(int? par)
-  {
-    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte? .</returns>
-  public static sbyte? ToSByte(uint par)
-  {
-    return Convert.ToSByte(par);
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte.</returns>
-  public static sbyte ToSByte(uint? par)
-  {
-    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte? .</returns>
-  public static sbyte? ToSByte(long par)
-  {
-    return Convert.ToSByte(par);
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte.</returns>
-  public static sbyte ToSByte(long? par)
-  {
-    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte? .</returns>
-  public static sbyte? ToSByte(ulong par)
-  {
-    return Convert.ToSByte(par);
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte.</returns>
-  public static sbyte ToSByte(ulong? par)
-  {
-    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte? .</returns>
-  public static sbyte? ToSByte(float par)
-  {
-    return Convert.ToSByte(par);
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte.</returns>
-  public static sbyte ToSByte(float? par)
-  {
-    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte? .</returns>
-  public static sbyte? ToSByte(double par)
-  {
-    return Convert.ToSByte(par);
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte.</returns>
-  public static sbyte ToSByte(double? par)
-  {
-    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte? .</returns>
-  public static sbyte? ToSByte(decimal par)
-  {
-    return Convert.ToSByte(par);
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte.</returns>
-  public static sbyte ToSByte(decimal? par)
-  {
-    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte? .</returns>
-  public static sbyte? ToSByte(string par)
-  {
-    return par == default ? default(sbyte?) : sbyte.Parse(par);
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte? .</returns>
-  public static sbyte? ToSByte(DateTime par)
-  {
-    return Convert.ToSByte(par);
-  }
-
-  /// <summary>
-  /// Tos the s byte.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A sbyte.</returns>
-  public static sbyte ToSByte(DateTime? par)
-  {
-    return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float? .</returns>
-  public static float? ToSingle(object par)
-  {
-    return par == default ? default(float?) : Convert.ToSingle(par);
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float? .</returns>
-  public static float? ToSingle(sbyte par)
-  {
-    return Convert.ToSingle(par);
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float.</returns>
-  public static float ToSingle(sbyte? par)
-  {
-    return par.HasValue ? Convert.ToSingle(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float? .</returns>
-  public static float? ToSingle(byte par)
-  {
-    return Convert.ToSingle(par);
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float.</returns>
-  public static float ToSingle(byte? par)
-  {
-    return par.HasValue ? Convert.ToSingle(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float? .</returns>
-  public static float? ToSingle(char par)
-  {
-    return Convert.ToSingle(par);
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float.</returns>
-  public static float ToSingle(char? par)
-  {
-    return par.HasValue ? Convert.ToSingle(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float? .</returns>
-  public static float? ToSingle(short par)
-  {
-    return Convert.ToSingle(par);
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float.</returns>
-  public static float ToSingle(short? par)
-  {
-    return par.HasValue ? Convert.ToSingle(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float? .</returns>
-  public static float? ToSingle(ushort par)
-  {
-    return Convert.ToSingle(par);
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float.</returns>
-  public static float ToSingle(ushort? par)
-  {
-    return par.HasValue ? Convert.ToSingle(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float? .</returns>
-  public static float? ToSingle(int par)
-  {
-    return Convert.ToSingle(par);
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float.</returns>
-  public static float ToSingle(int? par)
-  {
-    return par.HasValue ? Convert.ToSingle(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float? .</returns>
-  public static float? ToSingle(uint par)
-  {
-    return Convert.ToSingle(par);
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float.</returns>
-  public static float ToSingle(uint? par)
-  {
-    return par.HasValue ? Convert.ToSingle(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float? .</returns>
-  public static float? ToSingle(long par)
-  {
-    return Convert.ToSingle(par);
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float.</returns>
-  public static float ToSingle(long? par)
-  {
-    return par.HasValue ? Convert.ToSingle(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float? .</returns>
-  public static float? ToSingle(ulong par)
-  {
-    return Convert.ToSingle(par);
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float.</returns>
-  public static float ToSingle(ulong? par)
-  {
-    return par.HasValue ? Convert.ToSingle(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float? .</returns>
-  public static float? ToSingle(float par)
-  {
-    return Convert.ToSingle(par);
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float.</returns>
-  public static float ToSingle(float? par)
-  {
-    return par.HasValue ? Convert.ToSingle(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float? .</returns>
-  public static float? ToSingle(double par)
-  {
-    return Convert.ToSingle(par);
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float.</returns>
-  public static float ToSingle(double? par)
-  {
-    return par.HasValue ? Convert.ToSingle(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float? .</returns>
-  public static float? ToSingle(decimal par)
-  {
-    return decimal.ToSingle(par);
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float.</returns>
-  public static float ToSingle(decimal? par)
-  {
-    return par.HasValue ? Convert.ToSingle(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float? .</returns>
-  public static float? ToSingle(string par)
-  {
-    return par == default ? default(float?) : float.Parse(par);
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A float? .</returns>
-  public static float? ToSingle(bool par)
-  {
-    return Convert.ToSingle(par);
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A float.</returns>
-  public static float ToSingle(bool? par)
-  {
-    return par.HasValue ? Convert.ToSingle(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float? .</returns>
-  public static float? ToSingle(DateTime par)
-  {
-    return Convert.ToSingle(par);
-  }
-
-  /// <summary>
-  /// Tos the single.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A float.</returns>
-  public static float ToSingle(DateTime? par)
-  {
-    return par.HasValue ? Convert.ToSingle(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the string.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>A string.</returns>
-  public static string ToString(bool? par)
-  {
-    return par?.ToString();
-  }
-
-  /// <summary>
-  /// Tos the string.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A string.</returns>
-  public static string ToString(char? par)
-  {
-    return par?.ToString();
-  }
-
-  /// <summary>
-  /// Tos the string.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A string.</returns>
-  public static string ToString(sbyte? par)
-  {
-    return par?.ToString();
-  }
-
-  /// <summary>
-  /// Tos the string.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A string.</returns>
-  public static string ToString(byte? par)
-  {
-    return par?.ToString();
-  }
-
-  /// <summary>
-  /// Tos the string.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A string.</returns>
-  public static string ToString(short? par)
-  {
-    return par?.ToString();
-  }
-
-  /// <summary>
-  /// Tos the string.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A string.</returns>
-  public static string ToString(ushort? par)
-  {
-    return par?.ToString();
-  }
-
-  /// <summary>
-  /// Tos the string.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A string.</returns>
-  public static string ToString(int? par)
-  {
-    return par?.ToString();
-  }
-
-  /// <summary>
-  /// Tos the string.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A string.</returns>
-  public static string ToString(uint? par)
-  {
-    return par?.ToString();
-  }
-
-  /// <summary>
-  /// Tos the string.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A string.</returns>
-  public static string ToString(long? par)
-  {
-    return par?.ToString();
-  }
-
-  /// <summary>
-  /// Tos the string.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A string.</returns>
-  public static string ToString(ulong? par)
-  {
-    return par?.ToString();
-  }
-
-  /// <summary>
-  /// Tos the string.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A string.</returns>
-  public static string ToString(float? par)
-  {
-    return par?.ToString();
-  }
-
-  /// <summary>
-  /// Tos the string.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A string.</returns>
-  public static string ToString(double? par)
-  {
-    return par?.ToString();
-  }
-
-  /// <summary>
-  /// Tos the string.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A string.</returns>
-  public static string ToString(decimal? par)
-  {
-    return par?.ToString();
-  }
-
-  /// <summary>
-  /// Tos the string.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>A string.</returns>
-  public static string ToString(DateTime? par)
-  {
-    return par?.ToString();
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort? .</returns>
-  public static ushort? ToUInt16(object par)
-  {
-    return par == default ? default(ushort?) : Convert.ToUInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>An ushort? .</returns>
-  public static ushort? ToUInt16(bool par)
-  {
-    return Convert.ToUInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>An ushort.</returns>
-  public static ushort ToUInt16(bool? par)
-  {
-    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort? .</returns>
-  public static ushort? ToUInt16(char par)
-  {
-    return Convert.ToUInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort.</returns>
-  public static ushort ToUInt16(char? par)
-  {
-    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort? .</returns>
-  public static ushort? ToUInt16(sbyte par)
-  {
-    return Convert.ToUInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort.</returns>
-  public static ushort ToUInt16(sbyte? par)
-  {
-    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort? .</returns>
-  public static ushort? ToUInt16(byte par)
-  {
-    return Convert.ToUInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort.</returns>
-  public static ushort ToUInt16(byte? par)
-  {
-    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort? .</returns>
-  public static ushort? ToUInt16(short par)
-  {
-    return Convert.ToUInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort.</returns>
-  public static ushort ToUInt16(short? par)
-  {
-    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort? .</returns>
-  public static ushort? ToUInt16(int par)
-  {
-    return Convert.ToUInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort.</returns>
-  public static ushort ToUInt16(int? par)
-  {
-    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort? .</returns>
-  public static ushort? ToUInt16(ushort par)
-  {
-    return Convert.ToUInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort.</returns>
-  public static ushort ToUInt16(ushort? par)
-  {
-    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort? .</returns>
-  public static ushort? ToUInt16(uint par)
-  {
-    return Convert.ToUInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort.</returns>
-  public static ushort ToUInt16(uint? par)
-  {
-    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort? .</returns>
-  public static ushort? ToUInt16(long par)
-  {
-    return Convert.ToUInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort.</returns>
-  public static ushort ToUInt16(long? par)
-  {
-    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort? .</returns>
-  public static ushort? ToUInt16(ulong par)
-  {
-    return Convert.ToUInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort.</returns>
-  public static ushort ToUInt16(ulong? par)
-  {
-    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort? .</returns>
-  public static ushort? ToUInt16(float par)
-  {
-    return Convert.ToUInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort.</returns>
-  public static ushort ToUInt16(float? par)
-  {
-    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort? .</returns>
-  public static ushort? ToUInt16(double par)
-  {
-    return Convert.ToUInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort.</returns>
-  public static ushort ToUInt16(double? par)
-  {
-    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort? .</returns>
-  public static ushort? ToUInt16(decimal par)
-  {
-    return Convert.ToUInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort.</returns>
-  public static ushort ToUInt16(decimal? par)
-  {
-    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort? .</returns>
-  public static ushort? ToUInt16(string par)
-  {
-    return par == default ? default(ushort?) : ushort.Parse(par);
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort? .</returns>
-  public static ushort? ToUInt16(DateTime par)
-  {
-    return Convert.ToUInt16(par);
-  }
-
-  /// <summary>
-  /// Tos the u int16.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ushort.</returns>
-  public static ushort ToUInt16(DateTime? par)
-  {
-    return par.HasValue ? Convert.ToUInt16(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint? .</returns>
-  public static uint? ToUInt32(object par)
-  {
-    return par == default ? default(uint?) : Convert.ToUInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>An uint? .</returns>
-  public static uint? ToUInt32(bool par)
-  {
-    return Convert.ToUInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>An uint.</returns>
-  public static uint ToUInt32(bool? par)
-  {
-    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint? .</returns>
-  public static uint? ToUInt32(char par)
-  {
-    return Convert.ToUInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint.</returns>
-  public static uint ToUInt32(char? par)
-  {
-    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint? .</returns>
-  public static uint? ToUInt32(sbyte par)
-  {
-    return Convert.ToUInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint.</returns>
-  public static uint ToUInt32(sbyte? par)
-  {
-    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint? .</returns>
-  public static uint? ToUInt32(byte par)
-  {
-    return Convert.ToUInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint.</returns>
-  public static uint ToUInt32(byte? par)
-  {
-    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint? .</returns>
-  public static uint? ToUInt32(short par)
-  {
-    return Convert.ToUInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint.</returns>
-  public static uint ToUInt32(short? par)
-  {
-    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint? .</returns>
-  public static uint? ToUInt32(ushort par)
-  {
-    return Convert.ToUInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint.</returns>
-  public static uint ToUInt32(ushort? par)
-  {
-    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint? .</returns>
-  public static uint? ToUInt32(int par)
-  {
-    return Convert.ToUInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint.</returns>
-  public static uint ToUInt32(int? par)
-  {
-    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint? .</returns>
-  public static uint? ToUInt32(uint par)
-  {
-    return Convert.ToUInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint.</returns>
-  public static uint ToUInt32(uint? par)
-  {
-    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint? .</returns>
-  public static uint? ToUInt32(long par)
-  {
-    return Convert.ToUInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint.</returns>
-  public static uint ToUInt32(long? par)
-  {
-    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint? .</returns>
-  public static uint? ToUInt32(ulong par)
-  {
-    return Convert.ToUInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint.</returns>
-  public static uint ToUInt32(ulong? par)
-  {
-    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint? .</returns>
-  public static uint? ToUInt32(float par)
-  {
-    return Convert.ToUInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint.</returns>
-  public static uint ToUInt32(float? par)
-  {
-    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint? .</returns>
-  public static uint? ToUInt32(double par)
-  {
-    return Convert.ToUInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint.</returns>
-  public static uint ToUInt32(double? par)
-  {
-    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint? .</returns>
-  public static uint? ToUInt32(decimal par)
-  {
-    return Convert.ToUInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint.</returns>
-  public static uint ToUInt32(decimal? par)
-  {
-    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint? .</returns>
-  public static uint? ToUInt32(string par)
-  {
-    return par == default ? default(uint?) : uint.Parse(par);
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint? .</returns>
-  public static uint? ToUInt32(DateTime par)
-  {
-    return Convert.ToUInt32(par);
-  }
-
-  /// <summary>
-  /// Tos the u int32.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An uint.</returns>
-  public static uint ToUInt32(DateTime? par)
-  {
-    return par.HasValue ? Convert.ToUInt32(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong? .</returns>
-  public static ulong? ToUInt64(object par)
-  {
-    return par == default ? default(ulong?) : Convert.ToUInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>An ulong? .</returns>
-  public static ulong? ToUInt64(bool par)
-  {
-    return Convert.ToUInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">If true, par.</param>
-  /// <returns>An ulong.</returns>
-  public static ulong ToUInt64(bool? par)
-  {
-    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong? .</returns>
-  public static ulong? ToUInt64(char par)
-  {
-    return Convert.ToUInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong.</returns>
-  public static ulong ToUInt64(char? par)
-  {
-    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong? .</returns>
-  public static ulong? ToUInt64(sbyte par)
-  {
-    return Convert.ToUInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong.</returns>
-  public static ulong ToUInt64(sbyte? par)
-  {
-    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong? .</returns>
-  public static ulong? ToUInt64(byte par)
-  {
-    return Convert.ToUInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong.</returns>
-  public static ulong ToUInt64(byte? par)
-  {
-    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong? .</returns>
-  public static ulong? ToUInt64(short par)
-  {
-    return Convert.ToUInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong.</returns>
-  public static ulong ToUInt64(short? par)
-  {
-    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong? .</returns>
-  public static ulong? ToUInt64(ushort par)
-  {
-    return Convert.ToUInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong.</returns>
-  public static ulong ToUInt64(ushort? par)
-  {
-    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong? .</returns>
-  public static ulong? ToUInt64(int par)
-  {
-    return Convert.ToUInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong.</returns>
-  public static ulong ToUInt64(int? par)
-  {
-    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong? .</returns>
-  public static ulong? ToUInt64(uint par)
-  {
-    return Convert.ToUInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong.</returns>
-  public static ulong ToUInt64(uint? par)
-  {
-    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong? .</returns>
-  public static ulong? ToUInt64(long par)
-  {
-    return Convert.ToUInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong.</returns>
-  public static ulong ToUInt64(long? par)
-  {
-    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong? .</returns>
-  public static ulong? ToUInt64(ulong par)
-  {
-    return Convert.ToUInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong.</returns>
-  public static ulong ToUInt64(ulong? par)
-  {
-    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong? .</returns>
-  public static ulong? ToUInt64(float par)
-  {
-    return Convert.ToUInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong.</returns>
-  public static ulong ToUInt64(float? par)
-  {
-    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong? .</returns>
-  public static ulong? ToUInt64(double par)
-  {
-    return Convert.ToUInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong.</returns>
-  public static ulong ToUInt64(double? par)
-  {
-    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong? .</returns>
-  public static ulong? ToUInt64(decimal par)
-  {
-    return Convert.ToUInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong.</returns>
-  public static ulong ToUInt64(decimal? par)
-  {
-    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong? .</returns>
-  public static ulong? ToUInt64(string par)
-  {
-    return par == default ? default(ulong?) : ulong.Parse(par);
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong? .</returns>
-  public static ulong? ToUInt64(DateTime par)
-  {
-    return Convert.ToUInt64(par);
-  }
-
-  /// <summary>
-  /// Tos the u int64.
-  /// </summary>
-  /// <param name="par">The par.</param>
-  /// <returns>An ulong.</returns>
-  public static ulong ToUInt64(DateTime? par)
-  {
-    return par.HasValue ? Convert.ToUInt64(par.Value) : default;
-  }
+	/// <summary>
+	/// Initializes a new instance of the <see cref="NullableConverter"/> class.
+	/// </summary>
+	protected NullableConverter()
+	{ }
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool? .</returns>
+	public static bool? ToBoolean(object par)
+	{
+		return par is null ? default(bool?) : Convert.ToBoolean(par);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A bool? .</returns>
+	public static bool? ToBoolean(bool par)
+	{
+		return par;
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A bool.</returns>
+	public static bool ToBoolean(bool? par)
+	{
+		return par.HasValue && par.Value;
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool? .</returns>
+	public static bool? ToBoolean(sbyte par)
+	{
+		return Convert.ToBoolean(par);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool.</returns>
+	public static bool ToBoolean(sbyte? par)
+	{
+		return par.HasValue && Convert.ToBoolean(par.Value);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool? .</returns>
+	public static bool? ToBoolean(char par)
+	{
+		return Convert.ToBoolean(par);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool.</returns>
+	public static bool ToBoolean(char? par)
+	{
+		return par.HasValue && Convert.ToBoolean(par.Value);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool? .</returns>
+	public static bool? ToBoolean(byte par)
+	{
+		return Convert.ToBoolean(par);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool.</returns>
+	public static bool ToBoolean(byte? par)
+	{
+		return par.HasValue && Convert.ToBoolean(par.Value);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool? .</returns>
+	public static bool? ToBoolean(short par)
+	{
+		return Convert.ToBoolean(par);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool.</returns>
+	public static bool ToBoolean(short? par)
+	{
+		return par.HasValue && Convert.ToBoolean(par.Value);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool? .</returns>
+	public static bool? ToBoolean(ushort par)
+	{
+		return Convert.ToBoolean(par);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool.</returns>
+	public static bool ToBoolean(ushort? par)
+	{
+		return par.HasValue && Convert.ToBoolean(par.Value);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool? .</returns>
+	public static bool? ToBoolean(int par)
+	{
+		return Convert.ToBoolean(par);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool.</returns>
+	public static bool ToBoolean(int? par)
+	{
+		return par.HasValue && Convert.ToBoolean(par.Value);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool? .</returns>
+	public static bool? ToBoolean(uint par)
+	{
+		return Convert.ToBoolean(par);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool.</returns>
+	public static bool ToBoolean(uint? par)
+	{
+		return par.HasValue && Convert.ToBoolean(par.Value);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool? .</returns>
+	public static bool? ToBoolean(long par)
+	{
+		return Convert.ToBoolean(par);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool.</returns>
+	public static bool ToBoolean(long? par)
+	{
+		return par.HasValue && Convert.ToBoolean(par.Value);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool? .</returns>
+	public static bool? ToBoolean(ulong par)
+	{
+		return Convert.ToBoolean(par);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool.</returns>
+	public static bool ToBoolean(ulong? par)
+	{
+		return par.HasValue && Convert.ToBoolean(par.Value);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool? .</returns>
+	public static bool? ToBoolean(string par)
+	{
+		return par is null ? default(bool?) : bool.Parse(par);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool? .</returns>
+	public static bool? ToBoolean(float par)
+	{
+		return Convert.ToBoolean(par);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool.</returns>
+	public static bool ToBoolean(float? par)
+	{
+		return par.HasValue && Convert.ToBoolean(par.Value);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool? .</returns>
+	public static bool? ToBoolean(double par)
+	{
+		return Convert.ToBoolean(par);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool.</returns>
+	public static bool ToBoolean(double? par)
+	{
+		return par.HasValue && Convert.ToBoolean(par.Value);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool? .</returns>
+	public static bool? ToBoolean(decimal par)
+	{
+		return par == 0;
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool.</returns>
+	public static bool ToBoolean(decimal? par)
+	{
+		return par.HasValue && Convert.ToBoolean(par.Value);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool? .</returns>
+	public static bool? ToBoolean(DateTime par)
+	{
+		return Convert.ToBoolean(par);
+	}
+
+	/// <summary>
+	/// To boolean.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A bool.</returns>
+	public static bool ToBoolean(DateTime? par)
+	{
+		return par.HasValue && Convert.ToBoolean(par.Value);
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte? .</returns>
+	public static byte? ToByte(object par)
+	{
+		return par is null ? default(byte?) : Convert.ToByte(par);
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A byte? .</returns>
+	public static byte? ToByte(bool par)
+	{
+		return Convert.ToByte(par);
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A byte.</returns>
+	public static byte ToByte(bool? par)
+	{
+		return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte? .</returns>
+	public static byte? ToByte(byte par)
+	{
+		return Convert.ToByte(par);
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte.</returns>
+	public static byte ToByte(byte? par)
+	{
+		return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte? .</returns>
+	public static byte? ToByte(char par)
+	{
+		return Convert.ToByte(par);
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte.</returns>
+	public static byte ToByte(char? par)
+	{
+		return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte? .</returns>
+	public static byte? ToByte(sbyte par)
+	{
+		return Convert.ToByte(par);
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte.</returns>
+	public static byte ToByte(sbyte? par)
+	{
+		return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte? .</returns>
+	public static byte? ToByte(short par)
+	{
+		return Convert.ToByte(par);
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte.</returns>
+	public static byte ToByte(short? par)
+	{
+		return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte? .</returns>
+	public static byte? ToByte(ushort par)
+	{
+		return Convert.ToByte(par);
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte.</returns>
+	public static byte ToByte(ushort? par)
+	{
+		return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte? .</returns>
+	public static byte? ToByte(int par)
+	{
+		return Convert.ToByte(par);
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte.</returns>
+	public static byte ToByte(int? par)
+	{
+		return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte? .</returns>
+	public static byte? ToByte(uint par)
+	{
+		return Convert.ToByte(par);
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte.</returns>
+	public static byte ToByte(uint? par)
+	{
+		return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte? .</returns>
+	public static byte? ToByte(long par)
+	{
+		return Convert.ToByte(par);
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte.</returns>
+	public static byte ToByte(long? par)
+	{
+		return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte? .</returns>
+	public static byte? ToByte(ulong par)
+	{
+		return Convert.ToByte(par);
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte.</returns>
+	public static byte ToByte(ulong? par)
+	{
+		return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte? .</returns>
+	public static byte? ToByte(float par)
+	{
+		return Convert.ToByte(par);
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte.</returns>
+	public static byte ToByte(float? par)
+	{
+		return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte? .</returns>
+	public static byte? ToByte(double par)
+	{
+		return Convert.ToByte(par);
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte.</returns>
+	public static byte ToByte(double? par)
+	{
+		return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte? .</returns>
+	public static byte? ToByte(decimal par)
+	{
+		return Convert.ToByte(par);
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte.</returns>
+	public static byte ToByte(decimal? par)
+	{
+		return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte? .</returns>
+	public static byte? ToByte(string par)
+	{
+		return par is null ? default(byte?) : byte.Parse(par);
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte? .</returns>
+	public static byte? ToByte(DateTime par)
+	{
+		return Convert.ToByte(par);
+	}
+
+	/// <summary>
+	/// Tos the byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A byte.</returns>
+	public static byte ToByte(DateTime? par)
+	{
+		return par.HasValue ? Convert.ToByte(par.Value) : byte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char? .</returns>
+	public static char? ToChar(object par)
+	{
+		return par is null ? default(char?) : Convert.ToChar(par);
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A char? .</returns>
+	public static char? ToChar(bool par)
+	{
+		return Convert.ToChar(par);
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A char.</returns>
+	public static char ToChar(bool? par)
+	{
+		return par.HasValue ? Convert.ToChar(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char? .</returns>
+	public static char? ToChar(char par)
+	{
+		return Convert.ToChar(par);
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char.</returns>
+	public static char ToChar(char? par)
+	{
+		return par.HasValue ? Convert.ToChar(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char? .</returns>
+	public static char? ToChar(sbyte par)
+	{
+		return Convert.ToChar(par);
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char.</returns>
+	public static char ToChar(sbyte? par)
+	{
+		if (par.HasValue)
+		{
+			return Convert.ToChar(par.Value);
+		}
+
+		return char.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char? .</returns>
+	public static char? ToChar(byte par)
+	{
+		return Convert.ToChar(par);
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char.</returns>
+	public static char ToChar(byte? par)
+	{
+		return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char? .</returns>
+	public static char? ToChar(short par)
+	{
+		return Convert.ToChar(par);
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char.</returns>
+	public static char ToChar(short? par)
+	{
+		return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char? .</returns>
+	public static char? ToChar(ushort par)
+	{
+		return Convert.ToChar(par);
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char.</returns>
+	public static char ToChar(ushort? par)
+	{
+		return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char? .</returns>
+	public static char? ToChar(int par)
+	{
+		return Convert.ToChar(par);
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char.</returns>
+	public static char ToChar(int? par)
+	{
+		return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char? .</returns>
+	public static char? ToChar(uint par)
+	{
+		return Convert.ToChar(par);
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char.</returns>
+	public static char ToChar(uint? par)
+	{
+		return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char? .</returns>
+	public static char? ToChar(long par)
+	{
+		return Convert.ToChar(par);
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char.</returns>
+	public static char ToChar(long? par)
+	{
+		return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char? .</returns>
+	public static char? ToChar(ulong par)
+	{
+		return Convert.ToChar(par);
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char.</returns>
+	public static char ToChar(ulong? par)
+	{
+		return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char? .</returns>
+	public static char? ToChar(string par)
+	{
+		return par is null ? default(char?) : char.Parse(par);
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char? .</returns>
+	public static char? ToChar(float par)
+	{
+		return Convert.ToChar(par);
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char.</returns>
+	public static char ToChar(float? par)
+	{
+		return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char? .</returns>
+	public static char? ToChar(double par)
+	{
+		return Convert.ToChar(par);
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char.</returns>
+	public static char ToChar(double? par)
+	{
+		return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char? .</returns>
+	public static char? ToChar(decimal par)
+	{
+		return Convert.ToChar(par);
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char.</returns>
+	public static char ToChar(decimal? par)
+	{
+		return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char? .</returns>
+	public static char? ToChar(DateTime par)
+	{
+		return Convert.ToChar(par);
+	}
+
+	/// <summary>
+	/// Tos the char.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A char.</returns>
+	public static char ToChar(DateTime? par)
+	{
+		return par.HasValue ? Convert.ToChar(par.Value) : char.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime? .</returns>
+	public static DateTime? ToDateTime(DateTime par)
+	{
+		return Convert.ToDateTime(par);
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime.</returns>
+	public static DateTime ToDateTime(DateTime? par)
+	{
+		return par.HasValue ? Convert.ToDateTime(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime? .</returns>
+	public static DateTime? ToDateTime(object par)
+	{
+		return par is null ? default(DateTime?) : Convert.ToDateTime(par);
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime? .</returns>
+	public static DateTime? ToDateTime(string par)
+	{
+		return par is null ? default(DateTime?) : DateTime.Parse(par);
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime? .</returns>
+	public static DateTime? ToDateTime(sbyte par)
+	{
+		return Convert.ToDateTime(par);
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime.</returns>
+	public static DateTime ToDateTime(sbyte? par)
+	{
+		return par.HasValue ? Convert.ToDateTime(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime? .</returns>
+	public static DateTime? ToDateTime(byte par)
+	{
+		return Convert.ToDateTime(par);
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime.</returns>
+	public static DateTime ToDateTime(byte? par)
+	{
+		return par.HasValue ? Convert.ToDateTime(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime? .</returns>
+	public static DateTime? ToDateTime(short par)
+	{
+		return Convert.ToDateTime(par);
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime.</returns>
+	public static DateTime ToDateTime(short? par)
+	{
+		return par.HasValue ? Convert.ToDateTime(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime? .</returns>
+	public static DateTime? ToDateTime(ushort par)
+	{
+		return Convert.ToDateTime(par);
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime.</returns>
+	public static DateTime ToDateTime(ushort? par)
+	{
+		return par.HasValue ? Convert.ToDateTime(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime? .</returns>
+	public static DateTime? ToDateTime(int par)
+	{
+		return Convert.ToDateTime(par);
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime.</returns>
+	public static DateTime ToDateTime(int? par)
+	{
+		return par.HasValue ? Convert.ToDateTime(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime? .</returns>
+	public static DateTime? ToDateTime(uint par)
+	{
+		return Convert.ToDateTime(par);
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime.</returns>
+	public static DateTime ToDateTime(uint? par)
+	{
+		return par.HasValue ? Convert.ToDateTime(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime? .</returns>
+	public static DateTime? ToDateTime(long par)
+	{
+		return Convert.ToDateTime(par);
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime.</returns>
+	public static DateTime ToDateTime(long? par)
+	{
+		return par.HasValue ? Convert.ToDateTime(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime? .</returns>
+	public static DateTime? ToDateTime(ulong par)
+	{
+		return Convert.ToDateTime(par);
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime.</returns>
+	public static DateTime ToDateTime(ulong? par)
+	{
+		return par.HasValue ? Convert.ToDateTime(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A DateTime? .</returns>
+	public static DateTime? ToDateTime(bool par)
+	{
+		return Convert.ToDateTime(par);
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A DateTime.</returns>
+	public static DateTime ToDateTime(bool? par)
+	{
+		return par.HasValue ? Convert.ToDateTime(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime? .</returns>
+	public static DateTime? ToDateTime(char par)
+	{
+		return Convert.ToDateTime(par);
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime.</returns>
+	public static DateTime ToDateTime(char? par)
+	{
+		return par.HasValue ? Convert.ToDateTime(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime? .</returns>
+	public static DateTime? ToDateTime(float par)
+	{
+		return Convert.ToDateTime(par);
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime.</returns>
+	public static DateTime ToDateTime(float? par)
+	{
+		return par.HasValue ? Convert.ToDateTime(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime? .</returns>
+	public static DateTime? ToDateTime(double par)
+	{
+		return Convert.ToDateTime(par);
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime.</returns>
+	public static DateTime ToDateTime(double? par)
+	{
+		return par.HasValue ? Convert.ToDateTime(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime? .</returns>
+	public static DateTime? ToDateTime(decimal par)
+	{
+		return Convert.ToDateTime(par);
+	}
+
+	/// <summary>
+	/// Tos the date time.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A DateTime.</returns>
+	public static DateTime ToDateTime(decimal? par)
+	{
+		return par.HasValue ? Convert.ToDateTime(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal? .</returns>
+	public static decimal? ToDecimal(object par)
+	{
+		return par is null ? default(decimal?) : Convert.ToDecimal(par);
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal? .</returns>
+	public static decimal? ToDecimal(sbyte par)
+	{
+		return Convert.ToDecimal(par);
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal.</returns>
+	public static decimal ToDecimal(sbyte? par)
+	{
+		return par.HasValue ? Convert.ToDecimal(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal? .</returns>
+	public static decimal? ToDecimal(byte par)
+	{
+		return Convert.ToDecimal(par);
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal.</returns>
+	public static decimal ToDecimal(byte? par)
+	{
+		return par.HasValue ? Convert.ToDecimal(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal? .</returns>
+	public static decimal? ToDecimal(char par)
+	{
+		return Convert.ToDecimal(par);
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal.</returns>
+	public static decimal ToDecimal(char? par)
+	{
+		return par.HasValue ? Convert.ToDecimal(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal? .</returns>
+	public static decimal? ToDecimal(short par)
+	{
+		return Convert.ToDecimal(par);
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal.</returns>
+	public static decimal ToDecimal(short? par)
+	{
+		return par.HasValue ? Convert.ToDecimal(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal? .</returns>
+	public static decimal? ToDecimal(ushort par)
+	{
+		return Convert.ToDecimal(par);
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal.</returns>
+	public static decimal ToDecimal(ushort? par)
+	{
+		return par.HasValue ? Convert.ToDecimal(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal? .</returns>
+	public static decimal? ToDecimal(int par)
+	{
+		return Convert.ToDecimal(par);
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal.</returns>
+	public static decimal ToDecimal(int? par)
+	{
+		return par.HasValue ? Convert.ToDecimal(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal? .</returns>
+	public static decimal? ToDecimal(uint par)
+	{
+		return Convert.ToDecimal(par);
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal.</returns>
+	public static decimal ToDecimal(uint? par)
+	{
+		return par.HasValue ? Convert.ToDecimal(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal? .</returns>
+	public static decimal? ToDecimal(long par)
+	{
+		return Convert.ToDecimal(par);
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal.</returns>
+	public static decimal ToDecimal(long? par)
+	{
+		return par.HasValue ? Convert.ToDecimal(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal? .</returns>
+	public static decimal? ToDecimal(ulong par)
+	{
+		return Convert.ToDecimal(par);
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal.</returns>
+	public static decimal ToDecimal(ulong? par)
+	{
+		return par.HasValue ? Convert.ToDecimal(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal? .</returns>
+	public static decimal? ToDecimal(float par)
+	{
+		return Convert.ToDecimal(par);
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal.</returns>
+	public static decimal ToDecimal(float? par)
+	{
+		return par.HasValue ? Convert.ToDecimal(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal? .</returns>
+	public static decimal? ToDecimal(double par)
+	{
+		return Convert.ToDecimal(par);
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal.</returns>
+	public static decimal ToDecimal(double? par)
+	{
+		return par.HasValue ? Convert.ToDecimal(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal? .</returns>
+	public static decimal? ToDecimal(string par)
+	{
+		return par is null ? default(decimal?) : decimal.Parse(par);
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal? .</returns>
+	public static decimal? ToDecimal(decimal par)
+	{
+		return par;
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal.</returns>
+	public static decimal ToDecimal(decimal? par)
+	{
+		return par.HasValue ? Convert.ToDecimal(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A decimal? .</returns>
+	public static decimal? ToDecimal(bool par)
+	{
+		return Convert.ToDecimal(par);
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A decimal.</returns>
+	public static decimal ToDecimal(bool? par)
+	{
+		return par.HasValue ? Convert.ToDecimal(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal? .</returns>
+	public static decimal? ToDecimal(DateTime par)
+	{
+		return Convert.ToDecimal(par);
+	}
+
+	/// <summary>
+	/// Tos the decimal.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A decimal.</returns>
+	public static decimal ToDecimal(DateTime? par)
+	{
+		return par.HasValue ? Convert.ToDecimal(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double? .</returns>
+	public static double? ToDouble(object par)
+	{
+		return par is null ? default(double?) : Convert.ToDouble(par);
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double? .</returns>
+	public static double? ToDouble(sbyte par)
+	{
+		return Convert.ToDouble(par);
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double.</returns>
+	public static double ToDouble(sbyte? par)
+	{
+		return par.HasValue ? Convert.ToDouble(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double? .</returns>
+	public static double? ToDouble(byte par)
+	{
+		return Convert.ToDouble(par);
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double.</returns>
+	public static double ToDouble(byte? par)
+	{
+		return par.HasValue ? Convert.ToDouble(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double? .</returns>
+	public static double? ToDouble(short par)
+	{
+		return Convert.ToDouble(par);
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double.</returns>
+	public static double ToDouble(short? par)
+	{
+		return par.HasValue ? Convert.ToDouble(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double? .</returns>
+	public static double? ToDouble(char par)
+	{
+		return Convert.ToDouble(par);
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double.</returns>
+	public static double ToDouble(char? par)
+	{
+		return par.HasValue ? Convert.ToDouble(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double? .</returns>
+	public static double? ToDouble(ushort par)
+	{
+		return Convert.ToDouble(par);
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double.</returns>
+	public static double ToDouble(ushort? par)
+	{
+		return par.HasValue ? Convert.ToDouble(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double? .</returns>
+	public static double? ToDouble(int par)
+	{
+		return Convert.ToDouble(par);
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double.</returns>
+	public static double ToDouble(int? par)
+	{
+		return par.HasValue ? Convert.ToDouble(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double? .</returns>
+	public static double? ToDouble(uint par)
+	{
+		return Convert.ToDouble(par);
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double.</returns>
+	public static double ToDouble(uint? par)
+	{
+		return par.HasValue ? Convert.ToDouble(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double? .</returns>
+	public static double? ToDouble(long par)
+	{
+		return Convert.ToDouble(par);
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double.</returns>
+	public static double ToDouble(long? par)
+	{
+		return par.HasValue ? Convert.ToDouble(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double? .</returns>
+	public static double? ToDouble(ulong par)
+	{
+		return Convert.ToDouble(par);
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double.</returns>
+	public static double ToDouble(ulong? par)
+	{
+		return par.HasValue ? Convert.ToDouble(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double? .</returns>
+	public static double? ToDouble(float par)
+	{
+		return Convert.ToDouble(par);
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double.</returns>
+	public static double ToDouble(float? par)
+	{
+		return par.HasValue ? Convert.ToDouble(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double? .</returns>
+	public static double? ToDouble(double par)
+	{
+		return Convert.ToDouble(par);
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double.</returns>
+	public static double ToDouble(double? par)
+	{
+		return par.HasValue ? Convert.ToDouble(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double? .</returns>
+	public static double? ToDouble(decimal par)
+	{
+		return decimal.ToInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double.</returns>
+	public static double ToDouble(decimal? par)
+	{
+		return par.HasValue ? Convert.ToDouble(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double? .</returns>
+	public static double? ToDouble(string par)
+	{
+		return par is null ? default(double?) : double.Parse(par);
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A double? .</returns>
+	public static double? ToDouble(bool par)
+	{
+		return Convert.ToDouble(par);
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A double.</returns>
+	public static double ToDouble(bool? par)
+	{
+		return par.HasValue ? Convert.ToDouble(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double? .</returns>
+	public static double? ToDouble(DateTime par)
+	{
+		return Convert.ToDouble(par);
+	}
+
+	/// <summary>
+	/// Tos the double.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A double.</returns>
+	public static double ToDouble(DateTime? par)
+	{
+		return par.HasValue ? Convert.ToDouble(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short? .</returns>
+	public static short? ToInt16(object par)
+	{
+		return par is null ? default(short?) : Convert.ToInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A short? .</returns>
+	public static short? ToInt16(bool par)
+	{
+		return Convert.ToInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A short.</returns>
+	public static short ToInt16(bool? par)
+	{
+		return par.HasValue ? Convert.ToInt16(par.Value) : (short)0;
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short? .</returns>
+	public static short? ToInt16(char par)
+	{
+		return Convert.ToInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short.</returns>
+	public static short ToInt16(char? par)
+	{
+		return par.HasValue ? Convert.ToInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short? .</returns>
+	public static short? ToInt16(sbyte par)
+	{
+		return Convert.ToInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short.</returns>
+	public static short ToInt16(sbyte? par)
+	{
+		return par.HasValue ? Convert.ToInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short? .</returns>
+	public static short? ToInt16(byte par)
+	{
+		return Convert.ToInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short.</returns>
+	public static short ToInt16(byte? par)
+	{
+		return par.HasValue ? Convert.ToInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short? .</returns>
+	public static short? ToInt16(ushort par)
+	{
+		return Convert.ToInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short.</returns>
+	public static short ToInt16(ushort? par)
+	{
+		return par.HasValue ? Convert.ToInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short? .</returns>
+	public static short? ToInt16(int par)
+	{
+		return Convert.ToInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short.</returns>
+	public static short ToInt16(int? par)
+	{
+		return par.HasValue ? Convert.ToInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short? .</returns>
+	public static short? ToInt16(uint par)
+	{
+		return Convert.ToInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short.</returns>
+	public static short ToInt16(uint? par)
+	{
+		return par.HasValue ? Convert.ToInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short? .</returns>
+	public static short? ToInt16(short par)
+	{
+		return Convert.ToInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short.</returns>
+	public static short ToInt16(short? par)
+	{
+		return par.HasValue ? Convert.ToInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short? .</returns>
+	public static short? ToInt16(long par)
+	{
+		return Convert.ToInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short.</returns>
+	public static short ToInt16(long? par)
+	{
+		return par.HasValue ? Convert.ToInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short? .</returns>
+	public static short? ToInt16(ulong par)
+	{
+		return Convert.ToInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short.</returns>
+	public static short ToInt16(ulong? par)
+	{
+		return par.HasValue ? Convert.ToInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short? .</returns>
+	public static short? ToInt16(float par)
+	{
+		return Convert.ToInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short.</returns>
+	public static short ToInt16(float? par)
+	{
+		return par.HasValue ? Convert.ToInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short? .</returns>
+	public static short? ToInt16(double par)
+	{
+		return Convert.ToInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short.</returns>
+	public static short ToInt16(double? par)
+	{
+		return par.HasValue ? Convert.ToInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short? .</returns>
+	public static short? ToInt16(decimal par)
+	{
+		return Convert.ToInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short.</returns>
+	public static short ToInt16(decimal? par)
+	{
+		return par.HasValue ? Convert.ToInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short? .</returns>
+	public static short? ToInt16(string par)
+	{
+		return par is null ? default(short?) : short.Parse(par);
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short? .</returns>
+	public static short? ToInt16(DateTime par)
+	{
+		return Convert.ToInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A short.</returns>
+	public static short ToInt16(DateTime? par)
+	{
+		return par.HasValue ? Convert.ToInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int? .</returns>
+	public static int? ToInt32(object par)
+	{
+		return par is null ? default(int?) : Convert.ToInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>An int? .</returns>
+	public static int? ToInt32(bool par)
+	{
+		return Convert.ToInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>An int.</returns>
+	public static int ToInt32(bool? par)
+	{
+		return par.HasValue ? Convert.ToInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int? .</returns>
+	public static int? ToInt32(char par)
+	{
+		return Convert.ToInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int.</returns>
+	public static int ToInt32(char? par)
+	{
+		return par.HasValue ? Convert.ToInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int? .</returns>
+	public static int? ToInt32(sbyte par)
+	{
+		return Convert.ToInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int.</returns>
+	public static int ToInt32(sbyte? par)
+	{
+		return par.HasValue ? Convert.ToInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int? .</returns>
+	public static int? ToInt32(byte par)
+	{
+		return Convert.ToInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int.</returns>
+	public static int ToInt32(byte? par)
+	{
+		return par.HasValue ? Convert.ToInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int? .</returns>
+	public static int? ToInt32(short par)
+	{
+		return Convert.ToInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int.</returns>
+	public static int ToInt32(short? par)
+	{
+		return par.HasValue ? Convert.ToInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int? .</returns>
+	public static int? ToInt32(ushort par)
+	{
+		return Convert.ToInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int.</returns>
+	public static int ToInt32(ushort? par)
+	{
+		return par.HasValue ? Convert.ToInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int? .</returns>
+	public static int? ToInt32(uint par)
+	{
+		return Convert.ToInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int.</returns>
+	public static int ToInt32(uint? par)
+	{
+		return par.HasValue ? Convert.ToInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int? .</returns>
+	public static int? ToInt32(int par)
+	{
+		return Convert.ToInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int.</returns>
+	public static int ToInt32(int? par)
+	{
+		return par.HasValue ? Convert.ToInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int? .</returns>
+	public static int? ToInt32(long par)
+	{
+		return Convert.ToInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int.</returns>
+	public static int ToInt32(long? par)
+	{
+		return par.HasValue ? Convert.ToInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int? .</returns>
+	public static int? ToInt32(ulong par)
+	{
+		return Convert.ToInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int.</returns>
+	public static int ToInt32(ulong? par)
+	{
+		return par.HasValue ? Convert.ToInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int? .</returns>
+	public static int? ToInt32(float par)
+	{
+		return Convert.ToInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int.</returns>
+	public static int ToInt32(float? par)
+	{
+		return par.HasValue ? Convert.ToInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int? .</returns>
+	public static int? ToInt32(double par)
+	{
+		return Convert.ToInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int.</returns>
+	public static int ToInt32(double? par)
+	{
+		return par.HasValue ? Convert.ToInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int? .</returns>
+	public static int? ToInt32(decimal par)
+	{
+		return decimal.ToInt32(par);
+	}
+
+	/// <summary>
+	/// bug Fixed: decimal.ToInt32(decimal) is faster more than Convert.ToInt32(decimal)
+	/// </summary>
+	/// <param name="par"></param>
+	/// <returns></returns>
+	public static int ToInt32(decimal? par)
+	{
+		return par.HasValue ? decimal.ToInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int? .</returns>
+	public static int? ToInt32(string par)
+	{
+		return string.IsNullOrEmpty(par) ? default(int?) : int.Parse(par);
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int? .</returns>
+	public static int? ToInt32(DateTime par)
+	{
+		return Convert.ToInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An int.</returns>
+	public static int ToInt32(DateTime? par)
+	{
+		return par.HasValue ? Convert.ToInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long? .</returns>
+	public static long? ToInt64(object par)
+	{
+		return par is null ? default(long?) : Convert.ToInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A long? .</returns>
+	public static long? ToInt64(bool par)
+	{
+		return Convert.ToInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A long.</returns>
+	public static long ToInt64(bool? par)
+	{
+		return par.HasValue ? Convert.ToInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long? .</returns>
+	public static long? ToInt64(char par)
+	{
+		return Convert.ToInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long.</returns>
+	public static long ToInt64(char? par)
+	{
+		return par.HasValue ? Convert.ToInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long? .</returns>
+	public static long? ToInt64(sbyte par)
+	{
+		return Convert.ToInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long.</returns>
+	public static long ToInt64(sbyte? par)
+	{
+		return par.HasValue ? Convert.ToInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long? .</returns>
+	public static long? ToInt64(byte par)
+	{
+		return Convert.ToInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long.</returns>
+	public static long ToInt64(byte? par)
+	{
+		return par.HasValue ? Convert.ToInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long? .</returns>
+	public static long? ToInt64(short par)
+	{
+		return Convert.ToInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long.</returns>
+	public static long ToInt64(short? par)
+	{
+		return par.HasValue ? Convert.ToInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long? .</returns>
+	public static long? ToInt64(ushort par)
+	{
+		return Convert.ToInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long.</returns>
+	public static long ToInt64(ushort? par)
+	{
+		return par.HasValue ? Convert.ToInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long? .</returns>
+	public static long? ToInt64(int par)
+	{
+		return Convert.ToInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long.</returns>
+	public static long ToInt64(int? par)
+	{
+		return par.HasValue ? Convert.ToInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long? .</returns>
+	public static long? ToInt64(uint par)
+	{
+		return Convert.ToInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long.</returns>
+	public static long ToInt64(uint? par)
+	{
+		return par.HasValue ? Convert.ToInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long? .</returns>
+	public static long? ToInt64(ulong par)
+	{
+		return Convert.ToInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long.</returns>
+	public static long ToInt64(ulong? par)
+	{
+		return par.HasValue ? Convert.ToInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long? .</returns>
+	public static long? ToInt64(long par)
+	{
+		return Convert.ToInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long.</returns>
+	public static long ToInt64(long? par)
+	{
+		return par.HasValue ? Convert.ToInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long? .</returns>
+	public static long? ToInt64(float par)
+	{
+		return Convert.ToInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long.</returns>
+	public static long ToInt64(float? par)
+	{
+		return par.HasValue ? Convert.ToInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long? .</returns>
+	public static long? ToInt64(double par)
+	{
+		return Convert.ToInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long.</returns>
+	public static long ToInt64(double? par)
+	{
+		return par.HasValue ? Convert.ToInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long? .</returns>
+	public static long? ToInt64(decimal par)
+	{
+		return decimal.ToInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long.</returns>
+	public static long ToInt64(decimal? par)
+	{
+		return par.HasValue ? Convert.ToInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long? .</returns>
+	public static long? ToInt64(string par)
+	{
+		return par is null ? default(long?) : long.Parse(par);
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long? .</returns>
+	public static long? ToInt64(DateTime par)
+	{
+		return Convert.ToInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A long.</returns>
+	public static long ToInt64(DateTime? par)
+	{
+		return par.HasValue ? Convert.ToInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte? .</returns>
+	public static sbyte? ToSByte(object par)
+	{
+		return par is null ? default(sbyte?) : Convert.ToSByte(par);
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A sbyte? .</returns>
+	public static sbyte? ToSByte(bool par)
+	{
+		return Convert.ToSByte(par);
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A sbyte.</returns>
+	public static sbyte ToSByte(bool? par)
+	{
+		return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte? .</returns>
+	public static sbyte? ToSByte(sbyte par)
+	{
+		return Convert.ToSByte(par);
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte.</returns>
+	public static sbyte ToSByte(sbyte? par)
+	{
+		return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte? .</returns>
+	public static sbyte? ToSByte(char par)
+	{
+		return Convert.ToSByte(par);
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte.</returns>
+	public static sbyte ToSByte(char? par)
+	{
+		return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte? .</returns>
+	public static sbyte? ToSByte(byte par)
+	{
+		return Convert.ToSByte(par);
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte.</returns>
+	public static sbyte ToSByte(byte? par)
+	{
+		return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte? .</returns>
+	public static sbyte? ToSByte(short par)
+	{
+		return Convert.ToSByte(par);
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte.</returns>
+	public static sbyte ToSByte(short? par)
+	{
+		return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte? .</returns>
+	public static sbyte? ToSByte(ushort par)
+	{
+		return Convert.ToSByte(par);
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte.</returns>
+	public static sbyte ToSByte(ushort? par)
+	{
+		return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte? .</returns>
+	public static sbyte? ToSByte(int par)
+	{
+		return Convert.ToSByte(par);
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte.</returns>
+	public static sbyte ToSByte(int? par)
+	{
+		return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte? .</returns>
+	public static sbyte? ToSByte(uint par)
+	{
+		return Convert.ToSByte(par);
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte.</returns>
+	public static sbyte ToSByte(uint? par)
+	{
+		return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte? .</returns>
+	public static sbyte? ToSByte(long par)
+	{
+		return Convert.ToSByte(par);
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte.</returns>
+	public static sbyte ToSByte(long? par)
+	{
+		return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte? .</returns>
+	public static sbyte? ToSByte(ulong par)
+	{
+		return Convert.ToSByte(par);
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte.</returns>
+	public static sbyte ToSByte(ulong? par)
+	{
+		return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte? .</returns>
+	public static sbyte? ToSByte(float par)
+	{
+		return Convert.ToSByte(par);
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte.</returns>
+	public static sbyte ToSByte(float? par)
+	{
+		return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte? .</returns>
+	public static sbyte? ToSByte(double par)
+	{
+		return Convert.ToSByte(par);
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte.</returns>
+	public static sbyte ToSByte(double? par)
+	{
+		return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte? .</returns>
+	public static sbyte? ToSByte(decimal par)
+	{
+		return Convert.ToSByte(par);
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte.</returns>
+	public static sbyte ToSByte(decimal? par)
+	{
+		return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte? .</returns>
+	public static sbyte? ToSByte(string par)
+	{
+		return par is null ? default(sbyte?) : sbyte.Parse(par);
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte? .</returns>
+	public static sbyte? ToSByte(DateTime par)
+	{
+		return Convert.ToSByte(par);
+	}
+
+	/// <summary>
+	/// Tos the s byte.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A sbyte.</returns>
+	public static sbyte ToSByte(DateTime? par)
+	{
+		return par.HasValue ? Convert.ToSByte(par.Value) : sbyte.MinValue;
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float? .</returns>
+	public static float? ToSingle(object par)
+	{
+		return par is null ? default(float?) : Convert.ToSingle(par);
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float? .</returns>
+	public static float? ToSingle(sbyte par)
+	{
+		return Convert.ToSingle(par);
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float.</returns>
+	public static float ToSingle(sbyte? par)
+	{
+		return par.HasValue ? Convert.ToSingle(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float? .</returns>
+	public static float? ToSingle(byte par)
+	{
+		return Convert.ToSingle(par);
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float.</returns>
+	public static float ToSingle(byte? par)
+	{
+		return par.HasValue ? Convert.ToSingle(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float? .</returns>
+	public static float? ToSingle(char par)
+	{
+		return Convert.ToSingle(par);
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float.</returns>
+	public static float ToSingle(char? par)
+	{
+		return par.HasValue ? Convert.ToSingle(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float? .</returns>
+	public static float? ToSingle(short par)
+	{
+		return Convert.ToSingle(par);
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float.</returns>
+	public static float ToSingle(short? par)
+	{
+		return par.HasValue ? Convert.ToSingle(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float? .</returns>
+	public static float? ToSingle(ushort par)
+	{
+		return Convert.ToSingle(par);
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float.</returns>
+	public static float ToSingle(ushort? par)
+	{
+		return par.HasValue ? Convert.ToSingle(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float? .</returns>
+	public static float? ToSingle(int par)
+	{
+		return Convert.ToSingle(par);
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float.</returns>
+	public static float ToSingle(int? par)
+	{
+		return par.HasValue ? Convert.ToSingle(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float? .</returns>
+	public static float? ToSingle(uint par)
+	{
+		return Convert.ToSingle(par);
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float.</returns>
+	public static float ToSingle(uint? par)
+	{
+		return par.HasValue ? Convert.ToSingle(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float? .</returns>
+	public static float? ToSingle(long par)
+	{
+		return Convert.ToSingle(par);
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float.</returns>
+	public static float ToSingle(long? par)
+	{
+		return par.HasValue ? Convert.ToSingle(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float? .</returns>
+	public static float? ToSingle(ulong par)
+	{
+		return Convert.ToSingle(par);
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float.</returns>
+	public static float ToSingle(ulong? par)
+	{
+		return par.HasValue ? Convert.ToSingle(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float? .</returns>
+	public static float? ToSingle(float par)
+	{
+		return Convert.ToSingle(par);
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float.</returns>
+	public static float ToSingle(float? par)
+	{
+		return par.HasValue ? Convert.ToSingle(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float? .</returns>
+	public static float? ToSingle(double par)
+	{
+		return Convert.ToSingle(par);
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float.</returns>
+	public static float ToSingle(double? par)
+	{
+		return par.HasValue ? Convert.ToSingle(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float? .</returns>
+	public static float? ToSingle(decimal par)
+	{
+		return decimal.ToSingle(par);
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float.</returns>
+	public static float ToSingle(decimal? par)
+	{
+		return par.HasValue ? Convert.ToSingle(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float? .</returns>
+	public static float? ToSingle(string par)
+	{
+		return par is null ? default(float?) : float.Parse(par);
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A float? .</returns>
+	public static float? ToSingle(bool par)
+	{
+		return Convert.ToSingle(par);
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A float.</returns>
+	public static float ToSingle(bool? par)
+	{
+		return par.HasValue ? Convert.ToSingle(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float? .</returns>
+	public static float? ToSingle(DateTime par)
+	{
+		return Convert.ToSingle(par);
+	}
+
+	/// <summary>
+	/// Tos the single.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A float.</returns>
+	public static float ToSingle(DateTime? par)
+	{
+		return par.HasValue ? Convert.ToSingle(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the string.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>A string.</returns>
+	public static string ToString(bool? par)
+	{
+		return par?.ToString();
+	}
+
+	/// <summary>
+	/// Tos the string.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A string.</returns>
+	public static string ToString(char? par)
+	{
+		return par?.ToString();
+	}
+
+	/// <summary>
+	/// Tos the string.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A string.</returns>
+	public static string ToString(sbyte? par)
+	{
+		return par?.ToString();
+	}
+
+	/// <summary>
+	/// Tos the string.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A string.</returns>
+	public static string ToString(byte? par)
+	{
+		return par?.ToString();
+	}
+
+	/// <summary>
+	/// Tos the string.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A string.</returns>
+	public static string ToString(short? par)
+	{
+		return par?.ToString();
+	}
+
+	/// <summary>
+	/// Tos the string.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A string.</returns>
+	public static string ToString(ushort? par)
+	{
+		return par?.ToString();
+	}
+
+	/// <summary>
+	/// Tos the string.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A string.</returns>
+	public static string ToString(int? par)
+	{
+		return par?.ToString();
+	}
+
+	/// <summary>
+	/// Tos the string.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A string.</returns>
+	public static string ToString(uint? par)
+	{
+		return par?.ToString();
+	}
+
+	/// <summary>
+	/// Tos the string.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A string.</returns>
+	public static string ToString(long? par)
+	{
+		return par?.ToString();
+	}
+
+	/// <summary>
+	/// Tos the string.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A string.</returns>
+	public static string ToString(ulong? par)
+	{
+		return par?.ToString();
+	}
+
+	/// <summary>
+	/// Tos the string.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A string.</returns>
+	public static string ToString(float? par)
+	{
+		return par?.ToString();
+	}
+
+	/// <summary>
+	/// Tos the string.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A string.</returns>
+	public static string ToString(double? par)
+	{
+		return par?.ToString();
+	}
+
+	/// <summary>
+	/// Tos the string.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A string.</returns>
+	public static string ToString(decimal? par)
+	{
+		return par?.ToString();
+	}
+
+	/// <summary>
+	/// Tos the string.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>A string.</returns>
+	public static string ToString(DateTime? par)
+	{
+		return par?.ToString();
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort? .</returns>
+	public static ushort? ToUInt16(object par)
+	{
+		return par is null ? default(ushort?) : Convert.ToUInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>An ushort? .</returns>
+	public static ushort? ToUInt16(bool par)
+	{
+		return Convert.ToUInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>An ushort.</returns>
+	public static ushort ToUInt16(bool? par)
+	{
+		return par.HasValue ? Convert.ToUInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort? .</returns>
+	public static ushort? ToUInt16(char par)
+	{
+		return Convert.ToUInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort.</returns>
+	public static ushort ToUInt16(char? par)
+	{
+		return par.HasValue ? Convert.ToUInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort? .</returns>
+	public static ushort? ToUInt16(sbyte par)
+	{
+		return Convert.ToUInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort.</returns>
+	public static ushort ToUInt16(sbyte? par)
+	{
+		return par.HasValue ? Convert.ToUInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort? .</returns>
+	public static ushort? ToUInt16(byte par)
+	{
+		return Convert.ToUInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort.</returns>
+	public static ushort ToUInt16(byte? par)
+	{
+		return par.HasValue ? Convert.ToUInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort? .</returns>
+	public static ushort? ToUInt16(short par)
+	{
+		return Convert.ToUInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort.</returns>
+	public static ushort ToUInt16(short? par)
+	{
+		return par.HasValue ? Convert.ToUInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort? .</returns>
+	public static ushort? ToUInt16(int par)
+	{
+		return Convert.ToUInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort.</returns>
+	public static ushort ToUInt16(int? par)
+	{
+		return par.HasValue ? Convert.ToUInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort? .</returns>
+	public static ushort? ToUInt16(ushort par)
+	{
+		return Convert.ToUInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort.</returns>
+	public static ushort ToUInt16(ushort? par)
+	{
+		return par.HasValue ? Convert.ToUInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort? .</returns>
+	public static ushort? ToUInt16(uint par)
+	{
+		return Convert.ToUInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort.</returns>
+	public static ushort ToUInt16(uint? par)
+	{
+		return par.HasValue ? Convert.ToUInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort? .</returns>
+	public static ushort? ToUInt16(long par)
+	{
+		return Convert.ToUInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort.</returns>
+	public static ushort ToUInt16(long? par)
+	{
+		return par.HasValue ? Convert.ToUInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort? .</returns>
+	public static ushort? ToUInt16(ulong par)
+	{
+		return Convert.ToUInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort.</returns>
+	public static ushort ToUInt16(ulong? par)
+	{
+		return par.HasValue ? Convert.ToUInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort? .</returns>
+	public static ushort? ToUInt16(float par)
+	{
+		return Convert.ToUInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort.</returns>
+	public static ushort ToUInt16(float? par)
+	{
+		return par.HasValue ? Convert.ToUInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort? .</returns>
+	public static ushort? ToUInt16(double par)
+	{
+		return Convert.ToUInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort.</returns>
+	public static ushort ToUInt16(double? par)
+	{
+		return par.HasValue ? Convert.ToUInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort? .</returns>
+	public static ushort? ToUInt16(decimal par)
+	{
+		return Convert.ToUInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort.</returns>
+	public static ushort ToUInt16(decimal? par)
+	{
+		return par.HasValue ? Convert.ToUInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort? .</returns>
+	public static ushort? ToUInt16(string par)
+	{
+		return par is null ? default(ushort?) : ushort.Parse(par);
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort? .</returns>
+	public static ushort? ToUInt16(DateTime par)
+	{
+		return Convert.ToUInt16(par);
+	}
+
+	/// <summary>
+	/// Tos the u int16.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ushort.</returns>
+	public static ushort ToUInt16(DateTime? par)
+	{
+		return par.HasValue ? Convert.ToUInt16(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint? .</returns>
+	public static uint? ToUInt32(object par)
+	{
+		return par is null ? default(uint?) : Convert.ToUInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>An uint? .</returns>
+	public static uint? ToUInt32(bool par)
+	{
+		return Convert.ToUInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>An uint.</returns>
+	public static uint ToUInt32(bool? par)
+	{
+		return par.HasValue ? Convert.ToUInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint? .</returns>
+	public static uint? ToUInt32(char par)
+	{
+		return Convert.ToUInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint.</returns>
+	public static uint ToUInt32(char? par)
+	{
+		return par.HasValue ? Convert.ToUInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint? .</returns>
+	public static uint? ToUInt32(sbyte par)
+	{
+		return Convert.ToUInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint.</returns>
+	public static uint ToUInt32(sbyte? par)
+	{
+		return par.HasValue ? Convert.ToUInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint? .</returns>
+	public static uint? ToUInt32(byte par)
+	{
+		return Convert.ToUInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint.</returns>
+	public static uint ToUInt32(byte? par)
+	{
+		return par.HasValue ? Convert.ToUInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint? .</returns>
+	public static uint? ToUInt32(short par)
+	{
+		return Convert.ToUInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint.</returns>
+	public static uint ToUInt32(short? par)
+	{
+		return par.HasValue ? Convert.ToUInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint? .</returns>
+	public static uint? ToUInt32(ushort par)
+	{
+		return Convert.ToUInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint.</returns>
+	public static uint ToUInt32(ushort? par)
+	{
+		return par.HasValue ? Convert.ToUInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint? .</returns>
+	public static uint? ToUInt32(int par)
+	{
+		return Convert.ToUInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint.</returns>
+	public static uint ToUInt32(int? par)
+	{
+		return par.HasValue ? Convert.ToUInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint? .</returns>
+	public static uint? ToUInt32(uint par)
+	{
+		return Convert.ToUInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint.</returns>
+	public static uint ToUInt32(uint? par)
+	{
+		return par.HasValue ? Convert.ToUInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint? .</returns>
+	public static uint? ToUInt32(long par)
+	{
+		return Convert.ToUInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint.</returns>
+	public static uint ToUInt32(long? par)
+	{
+		return par.HasValue ? Convert.ToUInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint? .</returns>
+	public static uint? ToUInt32(ulong par)
+	{
+		return Convert.ToUInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint.</returns>
+	public static uint ToUInt32(ulong? par)
+	{
+		return par.HasValue ? Convert.ToUInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint? .</returns>
+	public static uint? ToUInt32(float par)
+	{
+		return Convert.ToUInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint.</returns>
+	public static uint ToUInt32(float? par)
+	{
+		return par.HasValue ? Convert.ToUInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint? .</returns>
+	public static uint? ToUInt32(double par)
+	{
+		return Convert.ToUInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint.</returns>
+	public static uint ToUInt32(double? par)
+	{
+		return par.HasValue ? Convert.ToUInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint? .</returns>
+	public static uint? ToUInt32(decimal par)
+	{
+		return Convert.ToUInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint.</returns>
+	public static uint ToUInt32(decimal? par)
+	{
+		return par.HasValue ? Convert.ToUInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint? .</returns>
+	public static uint? ToUInt32(string par)
+	{
+		return par is null ? default(uint?) : uint.Parse(par);
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint? .</returns>
+	public static uint? ToUInt32(DateTime par)
+	{
+		return Convert.ToUInt32(par);
+	}
+
+	/// <summary>
+	/// Tos the u int32.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An uint.</returns>
+	public static uint ToUInt32(DateTime? par)
+	{
+		return par.HasValue ? Convert.ToUInt32(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong? .</returns>
+	public static ulong? ToUInt64(object par)
+	{
+		return par is null ? default(ulong?) : Convert.ToUInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>An ulong? .</returns>
+	public static ulong? ToUInt64(bool par)
+	{
+		return Convert.ToUInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">If true, par.</param>
+	/// <returns>An ulong.</returns>
+	public static ulong ToUInt64(bool? par)
+	{
+		return par.HasValue ? Convert.ToUInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong? .</returns>
+	public static ulong? ToUInt64(char par)
+	{
+		return Convert.ToUInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong.</returns>
+	public static ulong ToUInt64(char? par)
+	{
+		return par.HasValue ? Convert.ToUInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong? .</returns>
+	public static ulong? ToUInt64(sbyte par)
+	{
+		return Convert.ToUInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong.</returns>
+	public static ulong ToUInt64(sbyte? par)
+	{
+		return par.HasValue ? Convert.ToUInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong? .</returns>
+	public static ulong? ToUInt64(byte par)
+	{
+		return Convert.ToUInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong.</returns>
+	public static ulong ToUInt64(byte? par)
+	{
+		return par.HasValue ? Convert.ToUInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong? .</returns>
+	public static ulong? ToUInt64(short par)
+	{
+		return Convert.ToUInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong.</returns>
+	public static ulong ToUInt64(short? par)
+	{
+		return par.HasValue ? Convert.ToUInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong? .</returns>
+	public static ulong? ToUInt64(ushort par)
+	{
+		return Convert.ToUInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong.</returns>
+	public static ulong ToUInt64(ushort? par)
+	{
+		return par.HasValue ? Convert.ToUInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong? .</returns>
+	public static ulong? ToUInt64(int par)
+	{
+		return Convert.ToUInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong.</returns>
+	public static ulong ToUInt64(int? par)
+	{
+		return par.HasValue ? Convert.ToUInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong? .</returns>
+	public static ulong? ToUInt64(uint par)
+	{
+		return Convert.ToUInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong.</returns>
+	public static ulong ToUInt64(uint? par)
+	{
+		return par.HasValue ? Convert.ToUInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong? .</returns>
+	public static ulong? ToUInt64(long par)
+	{
+		return Convert.ToUInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong.</returns>
+	public static ulong ToUInt64(long? par)
+	{
+		return par.HasValue ? Convert.ToUInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong? .</returns>
+	public static ulong? ToUInt64(ulong par)
+	{
+		return Convert.ToUInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong.</returns>
+	public static ulong ToUInt64(ulong? par)
+	{
+		return par.HasValue ? Convert.ToUInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong? .</returns>
+	public static ulong? ToUInt64(float par)
+	{
+		return Convert.ToUInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong.</returns>
+	public static ulong ToUInt64(float? par)
+	{
+		return par.HasValue ? Convert.ToUInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong? .</returns>
+	public static ulong? ToUInt64(double par)
+	{
+		return Convert.ToUInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong.</returns>
+	public static ulong ToUInt64(double? par)
+	{
+		return par.HasValue ? Convert.ToUInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong? .</returns>
+	public static ulong? ToUInt64(decimal par)
+	{
+		return Convert.ToUInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong.</returns>
+	public static ulong ToUInt64(decimal? par)
+	{
+		return par.HasValue ? Convert.ToUInt64(par.Value) : default;
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong? .</returns>
+	public static ulong? ToUInt64(string par)
+	{
+		return par is null ? default(ulong?) : ulong.Parse(par);
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong? .</returns>
+	public static ulong? ToUInt64(DateTime par)
+	{
+		return Convert.ToUInt64(par);
+	}
+
+	/// <summary>
+	/// Tos the u int64.
+	/// </summary>
+	/// <param name="par">The par.</param>
+	/// <returns>An ulong.</returns>
+	public static ulong ToUInt64(DateTime? par)
+	{
+		return par.HasValue ? Convert.ToUInt64(par.Value) : default;
+	}
 }

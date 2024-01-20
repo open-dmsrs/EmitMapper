@@ -5,10 +5,10 @@
 /// </summary>
 internal class AstReadLocalValue : AstReadLocal, IAstValue
 {
-/// <inheritdoc />
-  public override void Compile(CompilationContext context)
-  {
-    CompilationHelper.CheckIsValue(ItemType);
-    base.Compile(context);
-  }
+	/// <inheritdoc />
+	public override void Compile(CompilationContext context)
+	{
+		CompilationHelper.CheckIsValue(ItemType);
+		base.Compile(context);
+	}
 }

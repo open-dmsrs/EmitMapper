@@ -5,15 +5,19 @@
 /// </summary>
 internal class AstIndirectReadValue : AstIndirectRead, IAstValue
 {
-  /// <inheritdoc/>
-  /// <exception cref="Exception"></exception>
-  public override void Compile(CompilationContext context)
-  {
-    CompilationHelper.CheckIsValue(ItemType);
+	/// <inheritdoc/>
+	/// <exception cref="Exception"></exception>
+	public override void Compile(CompilationContext context)
+	{
+		CompilationHelper.CheckIsValue(ItemType);
 
-    if (ItemType == Metadata<int>.Type)
-      context.Emit(OpCodes.Ldind_I4);
-    else
-      throw new NotSupportedException("Unsupported type");
-  }
+		if (ItemType == Metadata<int>.Type)
+		{
+			context.Emit(OpCodes.Ldind_I4);
+		}
+		else
+		{
+			throw new NotSupportedException("Unsupported type");
+		}
+	}
 }

@@ -5,20 +5,20 @@
 /// </summary>
 internal class AstReturn : IAstAddr
 {
-  public Type ReturnType;
+	public Type ReturnType;
 
-  public IAstRefOrValue ReturnValue;
+	public IAstRefOrValue ReturnValue;
 
-  /// <summary>
-  ///   Gets the item type.
-  /// </summary>
-  public Type ItemType => ReturnType;
+	/// <summary>
+	///   Gets the item type.
+	/// </summary>
+	public Type ItemType => ReturnType;
 
-/// <inheritdoc />
-  public void Compile(CompilationContext context)
-  {
-    ReturnValue.Compile(context);
-    CompilationHelper.PrepareValueOnStack(context, ReturnType, ReturnValue.ItemType);
-    context.Emit(OpCodes.Ret);
-  }
+	/// <inheritdoc />
+	public void Compile(CompilationContext context)
+	{
+		ReturnValue.Compile(context);
+		CompilationHelper.PrepareValueOnStack(context, ReturnType, ReturnValue.ItemType);
+		context.Emit(OpCodes.Ret);
+	}
 }

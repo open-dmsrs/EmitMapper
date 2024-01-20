@@ -5,9 +5,9 @@
 /// </summary>
 public abstract class DelegateInvokerAction1 : DelegateInvokerBase
 {
-  /// <summary>
-  ///   Calls the action.
-  /// </summary>
-  /// <param name="param1">The param1.</param>
-  public abstract void CallAction(object param1);
+	/// <summary>
+	///   Calls the action.
+	/// </summary>
+	/// <param name="param1">The param1.</param>
+	public abstract void CallAction(object param1);
 }

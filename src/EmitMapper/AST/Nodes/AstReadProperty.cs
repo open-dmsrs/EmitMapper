@@ -5,24 +5,26 @@
 /// </summary>
 internal class AstReadProperty : IAstRefOrValue
 {
-  public PropertyInfo PropertyInfo;
+	public PropertyInfo PropertyInfo;
 
-  public IAstRefOrAddr SourceObject;
+	public IAstRefOrAddr SourceObject;
 
-  /// <summary>
-  ///   Gets the item type.
-  /// </summary>
-  public Type ItemType => PropertyInfo.PropertyType;
+	/// <summary>
+	///   Gets the item type.
+	/// </summary>
+	public Type ItemType => PropertyInfo.PropertyType;
 
-/// <inheritdoc />
-  /// <exception cref="Exception"></exception>
-  public virtual void Compile(CompilationContext context)
-  {
-    var mi = PropertyInfo.GetGetMethod();
+	/// <inheritdoc />
+	/// <exception cref="Exception"></exception>
+	public virtual void Compile(CompilationContext context)
+	{
+		var mi = PropertyInfo.GetGetMethod();
 
-    if (mi == null)
-      throw new Exception("Property " + PropertyInfo.Name + " doesn't have get accessor");
+		if (mi is null)
+		{
+			throw new Exception("Property " + PropertyInfo.Name + " doesn't have get accessor");
+		}
 
-    AstBuildHelper.CallMethod(mi, SourceObject, null).Compile(context);
-  }
+		AstBuildHelper.CallMethod(mi, SourceObject, null).Compile(context);
+	}
 }

@@ -3,58 +3,58 @@ using EmitMapper.Utils;
 
 namespace EmitMapper.Benchmarks.GetTypes;
 
-  /// <summary>
-  ///   The type benchmark.
-  /// </summary>
-  [MediumRunJob(RuntimeMoniker.Net60)]
+/// <summary>
+///   The type benchmark.
+/// </summary>
+[MediumRunJob(RuntimeMoniker.Net60)]
 
-  //[MemoryDiagnoser]
-  public class TypeBenchmark
-  {
-    private Employee e;
+//[MemoryDiagnoser]
+public class TypeBenchmark
+{
+	private Employee e;
 
 
-    /// <summary>
-    /// </summary>
-    [GlobalSetup]
-    public void Setup()
-    {
-      e = new Employee();
-      Of_GetType();
-      Of_Metadata();
-      Of_typeof();
-    }
+	/// <summary>
+	/// </summary>
+	[GlobalSetup]
+	public void Setup()
+	{
+		e = new Employee();
+		Of_GetType();
+		Of_Metadata();
+		Of_typeof();
+	}
 
-    /// <summary>
-    ///   Of_s the get type.
-    /// </summary>
-    /// <returns>A Type.</returns>
-    [Benchmark()]
-    public Type Of_GetType()
-    {
-      return e.GetType();
-    }
+	/// <summary>
+	///   Of_s the get type.
+	/// </summary>
+	/// <returns>A Type.</returns>
+	[Benchmark()]
+	public Type Of_GetType()
+	{
+		return e.GetType();
+	}
 
-    /// <summary>
-    ///   Of_s the metadata.
-    /// </summary>
-    /// <returns>A Type.</returns>
-    [Benchmark(Baseline = true)]
-    public Type Of_Metadata()
-    {
-      return Metadata<Employee>.Type;
-    }
+	/// <summary>
+	///   Of_s the metadata.
+	/// </summary>
+	/// <returns>A Type.</returns>
+	[Benchmark(Baseline = true)]
+	public Type Of_Metadata()
+	{
+		return Metadata<Employee>.Type;
+	}
 
-    /// <summary>
-    ///   Of_typeoves the <see cref="Type" />.
-    /// </summary>
-    /// <returns>A Type.</returns>
-    [Benchmark()]
-    public Type Of_typeof()
-    {
-      return typeof(Employee);
-    }
-  }
+	/// <summary>
+	///   Of_typeoves the <see cref="Type" />.
+	/// </summary>
+	/// <returns>A Type.</returns>
+	[Benchmark()]
+	public Type Of_typeof()
+	{
+		return typeof(Employee);
+	}
+}
 
 /*/ * Summary *
 

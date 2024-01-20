@@ -5,32 +5,32 @@
 /// </summary>
 internal class AstIf : IAstNode
 {
-  public IAstValue Condition;
+	public IAstValue Condition;
 
-  public AstComplexNode FalseBranch;
+	public AstComplexNode FalseBranch;
 
-  public AstComplexNode TrueBranch;
+	public AstComplexNode TrueBranch;
 
-/// <inheritdoc />
-  public void Compile(CompilationContext context)
-  {
-    var elseLabel = context.ILGenerator.DefineLabel();
-    var endIfLabel = context.ILGenerator.DefineLabel();
+	/// <inheritdoc />
+	public void Compile(CompilationContext context)
+	{
+		var elseLabel = context.ILGenerator.DefineLabel();
+		var endIfLabel = context.ILGenerator.DefineLabel();
 
-    Condition.Compile(context);
-    context.Emit(OpCodes.Brfalse, elseLabel);
+		Condition.Compile(context);
+		context.Emit(OpCodes.Brfalse, elseLabel);
 
-    if (TrueBranch != null)
-      TrueBranch.Compile(context);
+		TrueBranch?.Compile(context);
 
-    if (FalseBranch != null)
-      context.Emit(OpCodes.Br, endIfLabel);
+		if (FalseBranch != null)
+		{
+			context.Emit(OpCodes.Br, endIfLabel);
+		}
 
-    context.ILGenerator.MarkLabel(elseLabel);
+		context.ILGenerator.MarkLabel(elseLabel);
 
-    if (FalseBranch != null)
-      FalseBranch.Compile(context);
+		FalseBranch?.Compile(context);
 
-    context.ILGenerator.MarkLabel(endIfLabel);
-  }
+		context.ILGenerator.MarkLabel(endIfLabel);
+	}
 }

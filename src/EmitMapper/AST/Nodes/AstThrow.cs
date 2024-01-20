@@ -5,12 +5,12 @@
 /// </summary>
 internal class AstThrow : IAstNode
 {
-  public IAstRef Exception;
+	public IAstRef Exception;
 
-/// <inheritdoc />
-  public void Compile(CompilationContext context)
-  {
-    Exception.Compile(context);
-    context.Emit(OpCodes.Throw);
-  }
+	/// <inheritdoc />
+	public void Compile(CompilationContext context)
+	{
+		Exception.Compile(context);
+		context.Emit(OpCodes.Throw);
+	}
 }

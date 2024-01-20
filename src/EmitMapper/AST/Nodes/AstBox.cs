@@ -5,19 +5,21 @@
 /// </summary>
 internal class AstBox : IAstRef
 {
-  public IAstRefOrValue Value;
+	public IAstRefOrValue Value;
 
-  /// <summary>
-  /// Gets the item type.
-  /// </summary>
-  public Type ItemType => Value.ItemType;
+	/// <summary>
+	/// Gets the item type.
+	/// </summary>
+	public Type ItemType => Value.ItemType;
 
-  /// <inheritdoc/>
-  public void Compile(CompilationContext context)
-  {
-    Value.Compile(context);
+	/// <inheritdoc/>
+	public void Compile(CompilationContext context)
+	{
+		Value.Compile(context);
 
-    if (Value.ItemType.IsValueType)
-      context.Emit(OpCodes.Box, ItemType);
-  }
+		if (Value.ItemType.IsValueType)
+		{
+			context.Emit(OpCodes.Box, ItemType);
+		}
+	}
 }

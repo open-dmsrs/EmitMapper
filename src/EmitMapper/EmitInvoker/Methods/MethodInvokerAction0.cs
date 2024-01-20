@@ -5,8 +5,8 @@
 /// </summary>
 public abstract class MethodInvokerAction0 : MethodInvokerBase
 {
-  /// <summary>
-  ///   Calls the action.
-  /// </summary>
-  public abstract void CallAction();
+	/// <summary>
+	///   Calls the action.
+	/// </summary>
+	public abstract void CallAction();
 }

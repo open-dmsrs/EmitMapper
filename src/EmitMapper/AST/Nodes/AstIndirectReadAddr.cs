@@ -5,9 +5,9 @@
 /// </summary>
 internal class AstIndirectReadAddr : AstIndirectRead, IAstAddr
 {
-/// <inheritdoc />
-  public override void Compile(CompilationContext context)
-  {
-    CompilationHelper.CheckIsValue(ItemType);
-  }
+	/// <inheritdoc />
+	public override void Compile(CompilationContext context)
+	{
+		CompilationHelper.CheckIsValue(ItemType);
+	}
 }

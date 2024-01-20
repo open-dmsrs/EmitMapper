@@ -5,30 +5,30 @@
 /// </summary>
 public interface IReadWriteOperation : IDestWriteOperation, ISrcReadOperation
 {
-  /// <summary>
-  ///   Gets or Sets the converter.
-  /// </summary>
-  Delegate Converter { get; set; }
+	/// <summary>
+	///   Gets or Sets the converter.
+	/// </summary>
+	Delegate Converter { get; set; }
 
-  /// <summary>
-  ///   Gets or Sets the destination filter.
-  /// </summary>
-  Delegate DestinationFilter { get; set; }
+	/// <summary>
+	///   Gets or Sets the destination filter.
+	/// </summary>
+	Delegate DestinationFilter { get; set; }
 
-  /// <summary>
-  ///   Gets or Sets the null substitutor.
-  /// </summary>
-  Delegate NullSubstitutor { get; set; } // generic type: NullSubstitutor
+	/// <summary>
+	///   Gets or Sets the null substitutor.
+	/// </summary>
+	Delegate NullSubstitutor { get; set; } // generic type: NullSubstitutor
 
-  /// <summary>
-  ///   Gets or Sets the source filter.
-  /// </summary>
-  Delegate SourceFilter { get; set; }
+	/// <summary>
+	///   Gets or Sets the source filter.
+	/// </summary>
+	Delegate SourceFilter { get; set; }
 
-  /// <summary>
-  ///   Gets or Sets the target constructor.
-  /// </summary>
-  Delegate TargetConstructor { get; set; } // generic type: TargetConstructor
+	/// <summary>
+	///   Gets or Sets the target constructor.
+	/// </summary>
+	Delegate TargetConstructor { get; set; } // generic type: TargetConstructor
 }
 //public class ReadWriteOperation : IReadWriteOperation
 //{

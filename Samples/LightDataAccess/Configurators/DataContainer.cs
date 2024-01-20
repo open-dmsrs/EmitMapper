@@ -5,8 +5,8 @@
 /// </summary>
 internal class DataContainer
 {
-  /// <summary>
-  ///   Gets the fields.
-  /// </summary>
-  public Dictionary<string, string> Fields { get; internal set; }
+	/// <summary>
+	///   Gets the fields.
+	/// </summary>
+	public Dictionary<string, string> Fields { get; internal set; }
 }

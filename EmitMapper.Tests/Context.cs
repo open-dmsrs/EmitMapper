@@ -5,5 +5,5 @@
 /// </summary>
 internal static class Context
 {
-  public static Mapper ObjMan = new();
+	public static Mapper ObjMan = new();
 }

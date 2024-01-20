@@ -5,8 +5,8 @@
 /// </summary>
 public interface ISrcOperation : IMappingOperation
 {
-  /// <summary>
-  ///   Gets or Sets the source.
-  /// </summary>
-  MemberDescriptor Source { get; set; }
+	/// <summary>
+	///   Gets or Sets the source.
+	/// </summary>
+	MemberDescriptor Source { get; set; }
 }

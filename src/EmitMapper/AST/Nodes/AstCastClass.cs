@@ -5,50 +5,50 @@
 /// </summary>
 internal class AstCastclass : IAstRefOrValue
 {
-  protected Type TargetType;
+	protected Type TargetType;
 
-  protected IAstRefOrValue Value;
+	protected IAstRefOrValue Value;
 
-  /// <summary>
-  /// Initializes a new instance of the <see cref="AstCastclass"/> class.
-  /// </summary>
-  /// <param name="value">The value.</param>
-  /// <param name="targetType">The target type.</param>
-  public AstCastclass(IAstRefOrValue value, Type targetType)
-  {
-    Value = value;
-    TargetType = targetType;
-  }
+	/// <summary>
+	/// Initializes a new instance of the <see cref="AstCastclass"/> class.
+	/// </summary>
+	/// <param name="value">The value.</param>
+	/// <param name="targetType">The target type.</param>
+	public AstCastclass(IAstRefOrValue value, Type targetType)
+	{
+		Value = value;
+		TargetType = targetType;
+	}
 
-  /// <summary>
-  /// Gets the item type.
-  /// </summary>
-  public Type ItemType => TargetType;
+	/// <summary>
+	/// Gets the item type.
+	/// </summary>
+	public Type ItemType => TargetType;
 
-  /// <inheritdoc/>
-  /// <exception cref="EmitMapperException"></exception>
-  public virtual void Compile(CompilationContext context)
-  {
-    if (Value.ItemType != TargetType)
-    {
-      if (!Value.ItemType.IsValueType && !TargetType.IsValueType)
-      {
-        Value.Compile(context);
-        context.Emit(OpCodes.Castclass, TargetType);
+	/// <inheritdoc/>
+	/// <exception cref="EmitMapperException"></exception>
+	public virtual void Compile(CompilationContext context)
+	{
+		if (Value.ItemType != TargetType)
+		{
+			if (!Value.ItemType.IsValueType && !TargetType.IsValueType)
+			{
+				Value.Compile(context);
+				context.Emit(OpCodes.Castclass, TargetType);
 
-        return;
-      }
+				return;
+			}
 
-      if (TargetType.IsValueType && !Value.ItemType.IsValueType)
-      {
-        new AstUnbox { RefObj = (IAstRef)Value, UnboxedType = TargetType }.Compile(context);
+			if (TargetType.IsValueType && !Value.ItemType.IsValueType)
+			{
+				new AstUnbox { RefObj = (IAstRef)Value, UnboxedType = TargetType }.Compile(context);
 
-        return;
-      }
+				return;
+			}
 
-      throw new EmitMapperException();
-    }
+			throw new EmitMapperException();
+		}
 
-    Value.Compile(context);
-  }
+		Value.Compile(context);
+	}
 }

@@ -5,9 +5,9 @@
 /// </summary>
 public abstract class DelegateInvokerFunc0 : DelegateInvokerBase
 {
-  /// <summary>
-  ///   Calls the func.
-  /// </summary>
-  /// <returns>An object.</returns>
-  public abstract object CallFunc();
+	/// <summary>
+	///   Calls the func.
+	/// </summary>
+	/// <returns>An object.</returns>
+	public abstract object CallFunc();
 }

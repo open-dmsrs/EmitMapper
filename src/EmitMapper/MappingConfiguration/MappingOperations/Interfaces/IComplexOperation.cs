@@ -5,8 +5,8 @@
 /// </summary>
 internal interface IComplexOperation : IMappingOperation
 {
-  /// <summary>
-  ///   Gets or Sets the operations.
-  /// </summary>
-  List<IMappingOperation> Operations { get; set; }
+	/// <summary>
+	///   Gets or Sets the operations.
+	/// </summary>
+	List<IMappingOperation> Operations { get; set; }
 }

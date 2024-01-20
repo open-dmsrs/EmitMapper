@@ -7,181 +7,207 @@ namespace EmitMapper.Mappers;
 /// </summary>
 public abstract class MapperBase
 {
-  public object[] StoredObjects;
+	public object[] StoredObjects;
 
-  /// <summary>
-  ///   Mapper manager
-  /// </summary>
-  internal Mapper Mapper;
+	/// <summary>
+	///   Mapper manager
+	/// </summary>
+	internal Mapper Mapper;
 
-  /// <summary>
-  ///   True, if reference properties and members of same type should
-  ///   be copied by reference (shallow copy, without creating new instance for destination object)
-  /// </summary>
-  internal bool ShallowCopy = true;
+	/// <summary>
+	///   True, if reference properties and members of same type should
+	///   be copied by reference (shallow copy, without creating new instance for destination object)
+	/// </summary>
+	internal bool ShallowCopy = true;
 
-  /// <summary>
-  ///   Type of source object
-  /// </summary>
-  internal Type TypeFrom;
+	/// <summary>
+	///   Type of source object
+	/// </summary>
+	internal Type TypeFrom;
 
-  /// <summary>
-  ///   Type of destination object
-  /// </summary>
-  internal Type TypeTo;
+	/// <summary>
+	///   Type of destination object
+	/// </summary>
+	internal Type TypeTo;
 
-  protected DelegateInvokerFunc2 Converter;
+	protected DelegateInvokerFunc2 Converter;
 
-  protected DelegateInvokerFunc2 DestinationFilter;
+	protected DelegateInvokerFunc2 DestinationFilter;
 
-  protected IMappingConfigurator MappingConfigurator;
+	protected IMappingConfigurator MappingConfigurator;
 
-  protected DelegateInvokerFunc0 NullSubstitutor;
+	protected DelegateInvokerFunc0 NullSubstitutor;
 
-  protected IRootMappingOperation RootOperation;
+	protected IRootMappingOperation RootOperation;
 
-  protected DelegateInvokerFunc2 SourceFilter;
+	protected DelegateInvokerFunc2 SourceFilter;
 
-  protected DelegateInvokerFunc0 TargetConstructor;
+	protected DelegateInvokerFunc0 TargetConstructor;
 
-  protected DelegateInvokerFunc2 ValuesPostProcessor;
+	protected DelegateInvokerFunc2 ValuesPostProcessor;
 
-  /// <summary>
-  ///   Creates an instance of destination object
-  /// </summary>
-  /// <returns>Destination object</returns>
-  public abstract object CreateTargetInstance();
+	/// <summary>
+	///   Creates an instance of destination object
+	/// </summary>
+	/// <returns>Destination object</returns>
+	public abstract object CreateTargetInstance();
 
-  // public IMappingConfigurator MappingConfigurator => this._mappingConfigurator;
+	// public IMappingConfigurator MappingConfigurator => this._mappingConfigurator;
 
-  /// <summary>
-  ///   Copies object properties and members of "from" to object "to"
-  /// </summary>
-  /// <param name="from">Source object</param>
-  /// <param name="to">Destination object</param>
-  /// <param name="state"></param>
-  /// <returns>Destination object</returns>
-  public virtual object Map(object from, object to, object state)
-  {
-    object result;
+	/// <summary>
+	///   Copies object properties and members of "from" to object "to"
+	/// </summary>
+	/// <param name="from">Source object</param>
+	/// <param name="to">Destination object</param>
+	/// <param name="state"></param>
+	/// <returns>Destination object</returns>
+	public virtual object Map(object from, object to, object state)
+	{
+		object result;
 
-    if (SourceFilter != null)
-      if (!(bool)SourceFilter.CallFunc(from, state))
-        return to;
+		if (SourceFilter != null)
+		{
+			if (!(bool)SourceFilter.CallFunc(from, state))
+			{
+				return to;
+			}
+		}
 
-    if (DestinationFilter != null)
-      if (!(bool)DestinationFilter.CallFunc(to, state))
-        return to;
+		if (DestinationFilter != null)
+		{
+			if (!(bool)DestinationFilter.CallFunc(to, state))
+			{
+				return to;
+			}
+		}
 
-    if (from == null)
-    {
-      result = NullSubstitutor?.CallFunc();
-    }
-    else if (Converter != null)
-    {
-      result = Converter.CallFunc(from, state);
-    }
-    else
-    {
-      to ??= ConstructTarget();
+		if (from is null)
+		{
+			result = NullSubstitutor?.CallFunc();
+		}
+		else if (Converter != null)
+		{
+			result = Converter.CallFunc(from, state);
+		}
+		else
+		{
+			to ??= ConstructTarget();
 
-      result = MapImpl(from, to, state);
-    }
+			result = MapImpl(from, to, state);
+		}
 
-    if (ValuesPostProcessor != null)
-      result = ValuesPostProcessor.CallFunc(result, state);
+		if (ValuesPostProcessor != null)
+		{
+			result = ValuesPostProcessor.CallFunc(result, state);
+		}
 
-    return result;
-  }
+		return result;
+	}
 
-  /// <summary>
-  ///   Creates new instance of destination object and initializes it by values from "from" object
-  /// </summary>
-  /// <param name="from">source object</param>
-  /// <returns></returns>
-  public virtual object Map(object from)
-  {
-    if (from == null)
-      return null;
+	/// <summary>
+	///   Creates new instance of destination object and initializes it by values from "from" object
+	/// </summary>
+	/// <param name="from">source object</param>
+	/// <returns></returns>
+	public virtual object? Map(object from)
+	{
+		if (from is null)
+		{
+			return null;
+		}
 
-    return Map(from, ConstructTarget(), null);
-  }
+		return Map(from, ConstructTarget(), null);
+	}
 
-  /// <summary>
-  ///   Copies object properties and members of "from" to object "to"
-  /// </summary>
-  /// <param name="from">Source object</param>
-  /// <param name="to">Destination object</param>
-  /// <param name="state"></param>
-  /// <returns>Destination object</returns>
-  public abstract object MapImpl(object from, object to, object state);
+	/// <summary>
+	///   Copies object properties and members of "from" to object "to"
+	/// </summary>
+	/// <param name="from">Source object</param>
+	/// <param name="to">Destination object</param>
+	/// <param name="state"></param>
+	/// <returns>Destination object</returns>
+	public abstract object MapImpl(object from, object to, object state);
 
-  /// <summary>
-  /// </summary>
-  /// <param name="objectMapperManager">The object mapper manager.</param>
-  /// <param name="typeFrom">The type from.</param>
-  /// <param name="typeTo">The type to.</param>
-  /// <param name="mappingConfigurator">The mapping configurator.</param>
-  /// <param name="storedObjects">The stored objects.</param>
-  internal void Initialize(
-    Mapper objectMapperManager,
-    Type typeFrom,
-    Type typeTo,
-    IMappingConfigurator mappingConfigurator,
-    object[] storedObjects)
-  {
-    Mapper = objectMapperManager;
-    TypeFrom = typeFrom;
-    TypeTo = typeTo;
-    MappingConfigurator = mappingConfigurator;
-    StoredObjects = storedObjects;
+	/// <summary>
+	/// </summary>
+	/// <param name="objectMapperManager">The object mapper manager.</param>
+	/// <param name="typeFrom">The type from.</param>
+	/// <param name="typeTo">The type to.</param>
+	/// <param name="mappingConfigurator">The mapping configurator.</param>
+	/// <param name="storedObjects">The stored objects.</param>
+	internal void Initialize(
+	  Mapper objectMapperManager,
+	  Type typeFrom,
+	  Type typeTo,
+	  IMappingConfigurator mappingConfigurator,
+	  object[] storedObjects)
+	{
+		Mapper = objectMapperManager;
+		TypeFrom = typeFrom;
+		TypeTo = typeTo;
+		MappingConfigurator = mappingConfigurator;
+		StoredObjects = storedObjects;
 
-    if (MappingConfigurator != null)
-    {
-      RootOperation = MappingConfigurator.GetRootMappingOperation(typeFrom, typeTo)
-                      ?? new RootMappingOperation(typeFrom, typeTo);
+		if (MappingConfigurator != null)
+		{
+			RootOperation = MappingConfigurator.GetRootMappingOperation(typeFrom, typeTo)
+							?? new RootMappingOperation(typeFrom, typeTo);
 
-      var constructor = RootOperation.TargetConstructor;
+			var constructor = RootOperation.TargetConstructor;
 
-      if (constructor != null)
-        TargetConstructor = (DelegateInvokerFunc0)DelegateInvoker.GetDelegateInvoker(constructor);
+			if (constructor != null)
+			{
+				TargetConstructor = (DelegateInvokerFunc0)DelegateInvoker.GetDelegateInvoker(constructor);
+			}
 
-      var valuesPostProcessor = RootOperation.ValuesPostProcessor;
+			var valuesPostProcessor = RootOperation.ValuesPostProcessor;
 
-      if (valuesPostProcessor != null)
-        ValuesPostProcessor = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(valuesPostProcessor);
+			if (valuesPostProcessor != null)
+			{
+				ValuesPostProcessor = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(valuesPostProcessor);
+			}
 
-      var converter = RootOperation.Converter;
+			var converter = RootOperation.Converter;
 
-      if (converter != null)
-        Converter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(converter);
+			if (converter != null)
+			{
+				Converter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(converter);
+			}
 
-      var nullSubstitutor = RootOperation.NullSubstitutor;
+			var nullSubstitutor = RootOperation.NullSubstitutor;
 
-      if (nullSubstitutor != null)
-        NullSubstitutor = (DelegateInvokerFunc0)DelegateInvoker.GetDelegateInvoker(nullSubstitutor);
+			if (nullSubstitutor != null)
+			{
+				NullSubstitutor = (DelegateInvokerFunc0)DelegateInvoker.GetDelegateInvoker(nullSubstitutor);
+			}
 
-      var sourceFilter = RootOperation.SourceFilter;
+			var sourceFilter = RootOperation.SourceFilter;
 
-      if (sourceFilter != null)
-        SourceFilter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(sourceFilter);
+			if (sourceFilter != null)
+			{
+				SourceFilter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(sourceFilter);
+			}
 
-      var destinationFilter = RootOperation.DestinationFilter;
+			var destinationFilter = RootOperation.DestinationFilter;
 
-      if (destinationFilter != null)
-        DestinationFilter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(destinationFilter);
-    }
-  }
+			if (destinationFilter != null)
+			{
+				DestinationFilter = (DelegateInvokerFunc2)DelegateInvoker.GetDelegateInvoker(destinationFilter);
+			}
+		}
+	}
 
-  /// <summary>
-  ///   Constructs the target.
-  /// </summary>
-  /// <returns>An object.</returns>
-  protected object ConstructTarget()
-  {
-    if (TargetConstructor != null)
-      return TargetConstructor.CallFunc();
+	/// <summary>
+	///   Constructs the target.
+	/// </summary>
+	/// <returns>An object.</returns>
+	protected object ConstructTarget()
+	{
+		if (TargetConstructor != null)
+		{
+			return TargetConstructor.CallFunc();
+		}
 
-    return CreateTargetInstance();
-  }
+		return CreateTargetInstance();
+	}
 }

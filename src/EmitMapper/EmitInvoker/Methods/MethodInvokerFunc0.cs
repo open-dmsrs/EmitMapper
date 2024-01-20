@@ -5,9 +5,9 @@
 /// </summary>
 public abstract class MethodInvokerFunc0 : MethodInvokerBase
 {
-  /// <summary>
-  ///   Calls the func.
-  /// </summary>
-  /// <returns>An object.</returns>
-  public abstract object CallFunc();
+	/// <summary>
+	///   Calls the func.
+	/// </summary>
+	/// <returns>An object.</returns>
+	public abstract object CallFunc();
 }

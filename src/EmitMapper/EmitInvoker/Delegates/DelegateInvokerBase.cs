@@ -5,5 +5,5 @@
 /// </summary>
 public class DelegateInvokerBase
 {
-  public Delegate Del;
+	public Delegate Del;
 }

@@ -5,8 +5,8 @@
 /// </summary>
 public interface IDestOperation : IMappingOperation
 {
-  /// <summary>
-  ///   Gets or Sets the destination.
-  /// </summary>
-  MemberDescriptor Destination { get; set; }
+	/// <summary>
+	///   Gets or Sets the destination.
+	/// </summary>
+	MemberDescriptor Destination { get; set; }
 }

@@ -5,9 +5,9 @@
 /// </summary>
 internal class AstReturnVoid : IAstNode
 {
-  /// <inheritdoc/>
-  public void Compile(CompilationContext context)
-  {
-    context.Emit(OpCodes.Ret);
-  }
+	/// <inheritdoc/>
+	public void Compile(CompilationContext context)
+	{
+		context.Emit(OpCodes.Ret);
+	}
 }

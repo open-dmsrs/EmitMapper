@@ -5,16 +5,16 @@
 /// </summary>
 internal class AstConstantString : IAstRef
 {
-  public string Str;
+	public string Str;
 
-  /// <summary>
-  ///   Gets the item type.
-  /// </summary>
-  public Type ItemType => Metadata<string>.Type;
+	/// <summary>
+	///   Gets the item type.
+	/// </summary>
+	public Type ItemType => Metadata<string>.Type;
 
-/// <inheritdoc />
-  public void Compile(CompilationContext context)
-  {
-    context.Emit(OpCodes.Ldstr, Str);
-  }
+	/// <inheritdoc />
+	public void Compile(CompilationContext context)
+	{
+		context.Emit(OpCodes.Ldstr, Str);
+	}
 }
