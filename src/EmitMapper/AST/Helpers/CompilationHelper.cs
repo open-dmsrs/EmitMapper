@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.AST.Helpers;
+namespace EmitMapper.AST.Helpers;
 
 /// <summary>
 /// The compilation helper.
@@ -9,12 +9,12 @@ internal static class CompilationHelper
 	/// Checks the is ref.
 	/// </summary>
 	/// <param name="type">The type.</param>
-	/// <exception cref="ILCompilationException"></exception>
-	public static void CheckIsRef(Type type)
+	/// <exception cref="IlCompilationException"></exception>
+	public static void CheckIsRef(Type? type)
 	{
 		if (type.IsValueType)
 		{
-			throw new ILCompilationException("A reference type was expected, but it was: " + type);
+			throw new IlCompilationException("A reference type was expected, but it was: " + type);
 		}
 	}
 
@@ -22,12 +22,12 @@ internal static class CompilationHelper
 	/// Checks the is value.
 	/// </summary>
 	/// <param name="type">The type.</param>
-	/// <exception cref="ILCompilationException"></exception>
-	public static void CheckIsValue(Type type)
+	/// <exception cref="IlCompilationException"></exception>
+	public static void CheckIsValue(Type? type)
 	{
 		if (!type.IsValueType)
 		{
-			throw new ILCompilationException("A value type was expected, but it was: " + type);
+			throw new IlCompilationException("A value type was expected, but it was: " + type);
 		}
 	}
 
@@ -41,9 +41,9 @@ internal static class CompilationHelper
 	/// <exception cref="Exception"></exception>
 	public static void EmitCall(
 	  CompilationContext context,
-	  IAstRefOrAddr invocationObject,
+	  IAstRefOrAddr? invocationObject,
 	  MethodInfo methodInfo,
-	  List<IAstStackItem> arguments)
+	  List<IAstStackItem>? arguments)
 	{
 		arguments ??= new List<IAstStackItem>();
 
@@ -71,7 +71,7 @@ internal static class CompilationHelper
 	/// <param name="context">The context.</param>
 	/// <param name="desiredType">The desired type.</param>
 	/// <param name="typeOnStack">The type on stack.</param>
-	public static void PrepareValueOnStack(CompilationContext context, Type desiredType, Type typeOnStack)
+	public static void PrepareValueOnStack(CompilationContext context, Type? desiredType, Type? typeOnStack)
 	{
 		if (typeOnStack.IsValueType && !desiredType.IsValueType)
 		{

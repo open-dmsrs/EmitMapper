@@ -21,7 +21,7 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
 	/// </summary>
 	/// <param name="type">The type.</param>
 	/// <returns>An array of Types</returns>
-	public static Type[] GetGenericArguments(Type type)
+	public static Type[] GetGenericArguments(Type? type)
 	{
 		if (type.IsArray)
 		{
@@ -44,7 +44,7 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
 	/// <param name="to">The to.</param>
 	/// <param name="mappingConfig">The mapping config.</param>
 	/// <returns>A CustomConverterDescriptor.</returns>
-	public virtual CustomConverterDescriptor GetCustomConverterDescr(Type from, Type to, MapConfigBaseImpl mappingConfig)
+	public virtual CustomConverterDescriptor GetCustomConverterDescr(Type? from, Type? to, MapConfigBaseImpl mappingConfig)
 	{
 		return new CustomConverterDescriptor
 		{

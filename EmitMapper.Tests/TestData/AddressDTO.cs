@@ -3,7 +3,7 @@
 /// <summary>
 ///   The address d t o.
 /// </summary>
-public class AddressDTO : ITestObject
+public class AddressDto : ITestObject
 {
 	/// <summary>
 	///   Gets or Sets the city.

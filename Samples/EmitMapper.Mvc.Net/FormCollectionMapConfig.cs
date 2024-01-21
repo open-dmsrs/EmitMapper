@@ -25,7 +25,7 @@ public class FormCollectionMapConfig : MapConfigBaseImpl
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns><![CDATA[IEnumerable<IMappingOperation>]]></returns>
-	public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
+	public override IEnumerable<IMappingOperation> GetMappingOperations(Type? from, Type? to)
 	{
 		var members = ReflectionHelper.GetPublicFieldsAndProperties(to);
 
@@ -56,7 +56,7 @@ public class FormCollectionMapConfig : MapConfigBaseImpl
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns>An IRootMappingOperation.</returns>
-	public override IRootMappingOperation? GetRootMappingOperation(Type from, Type to)
+	public override IRootMappingOperation? GetRootMappingOperation(Type? from, Type? to)
 	{
 		return null;
 	}
@@ -76,7 +76,7 @@ public class FormCollectionMapConfig : MapConfigBaseImpl
 	/// <param name="type">The type.</param>
 	/// <exception cref="NotImplementedException"></exception>
 	/// <returns>An object.</returns>
-	private object Convert(ValueProviderResult valueProviderResult, Type type)
+	private object Convert(ValueProviderResult valueProviderResult, Type? type)
 	{
 		throw new NotImplementedException();
 	}

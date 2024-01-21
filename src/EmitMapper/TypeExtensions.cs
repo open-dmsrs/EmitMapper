@@ -5,7 +5,7 @@ namespace EmitMapper;
 /// </summary>
 public static class TypeExtensions
 {
-	private static readonly LazyConcurrentDictionary<Type, string> cachedMethod = new(Environment.ProcessorCount, 1024);
+	private static readonly LazyConcurrentDictionary<Type, string> CachedMethod = new(Environment.ProcessorCount, 1024);
 
 	/// <summary>
 	///   As the enumerable.

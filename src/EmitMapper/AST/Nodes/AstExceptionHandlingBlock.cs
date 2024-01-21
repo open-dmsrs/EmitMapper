@@ -5,7 +5,7 @@
 /// </summary>
 internal class AstExceptionHandlingBlock : IAstNode
 {
-	private readonly Type exceptionType;
+	private readonly Type? exceptionType;
 
 	private readonly LocalBuilder exceptionVariable;
 
@@ -23,7 +23,7 @@ internal class AstExceptionHandlingBlock : IAstNode
 	public AstExceptionHandlingBlock(
 	  IAstNode protectedBlock,
 	  IAstNode handlerBlock,
-	  Type exceptionType,
+	  Type? exceptionType,
 	  LocalBuilder exceptionVariable)
 	{
 		this.protectedBlock = protectedBlock;
@@ -35,11 +35,11 @@ internal class AstExceptionHandlingBlock : IAstNode
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)
 	{
-		context.ILGenerator.BeginExceptionBlock();
+		context.IlGenerator.BeginExceptionBlock();
 		protectedBlock.Compile(context);
-		context.ILGenerator.BeginCatchBlock(exceptionType);
-		context.ILGenerator.Emit(OpCodes.Stloc, exceptionVariable);
+		context.IlGenerator.BeginCatchBlock(exceptionType);
+		context.IlGenerator.Emit(OpCodes.Stloc, exceptionVariable);
 		handlerBlock.Compile(context);
-		context.ILGenerator.EndExceptionBlock();
+		context.IlGenerator.EndExceptionBlock();
 	}
 }

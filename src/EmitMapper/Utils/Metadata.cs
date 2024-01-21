@@ -49,13 +49,13 @@ public static class Metadata
 
 	public static readonly Type IDictionary2 = typeof(IDictionary<,>);
 
-	public static readonly Type IEnumerable1 = typeof(IEnumerable<>);
+	public static readonly Type Enumerable1 = typeof(IEnumerable<>);
 
 	public static readonly Type IList1 = typeof(IList<>);
 
 	public static readonly Type IReadOnlyDictionary2 = typeof(IReadOnlyDictionary<,>);
 
-	public static readonly Type ISet1 = typeof(ISet<>);
+	public static readonly Type Set1 = typeof(ISet<>);
 
 	/// <summary>
 	/// List&lt;&gt;
@@ -78,17 +78,6 @@ public static class Metadata
 	public static Type GetCachedType<T>(this object anyone)
 	{
 		return Metadata<T>.Type;
-	}
-
-	/// <summary>
-	/// Underlines the type.
-	/// </summary>
-	/// <param name="t">The t.</param>
-	/// <returns>A Type.</returns>
-	[Obsolete]
-	public static Type? UnderlineType(Type t)
-	{
-		return null;
 	}
 }
 

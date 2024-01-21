@@ -10,7 +10,7 @@ public abstract class ProxyBase
 	/// </summary>
 	/// <param name="handler">The handler.</param>
 	/// <param name="method">The method.</param>
-	public void NotifyPropertyChanged(PropertyChangedEventHandler handler, string method)
+	public void NotifyPropertyChanged(PropertyChangedEventHandler? handler, string method)
 	{
 		handler?.Invoke(this, new PropertyChangedEventArgs(method));
 	}

@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+namespace EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
 /// <summary>
 ///   The root mapping operation interface.
@@ -8,22 +8,22 @@ public interface IRootMappingOperation : IMappingOperation
 	/// <summary>
 	///   Gets or Sets the converter.
 	/// </summary>
-	Delegate Converter { get; set; }
+	Delegate? Converter { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the destination filter.
 	/// </summary>
-	Delegate DestinationFilter { get; set; }
+	Delegate? DestinationFilter { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the from.
 	/// </summary>
-	Type From { get; set; }
+	Type? From { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the null substitutor.
 	/// </summary>
-	Delegate NullSubstitutor { get; set; }
+	Delegate? NullSubstitutor { get; set; }
 
 	/// <summary>
 	///   Gets or Sets a value indicating whether shallow copy.
@@ -33,20 +33,20 @@ public interface IRootMappingOperation : IMappingOperation
 	/// <summary>
 	///   Gets or Sets the source filter.
 	/// </summary>
-	Delegate SourceFilter { get; set; }
+	Delegate? SourceFilter { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the target constructor.
 	/// </summary>
-	Delegate TargetConstructor { get; set; }
+	Delegate? TargetConstructor { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the to.
 	/// </summary>
-	Type To { get; set; }
+	Type? To { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the values post processor.
 	/// </summary>
-	Delegate ValuesPostProcessor { get; set; }
+	Delegate? ValuesPostProcessor { get; set; }
 }

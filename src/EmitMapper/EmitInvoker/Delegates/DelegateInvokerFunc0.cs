@@ -9,5 +9,5 @@ public abstract class DelegateInvokerFunc0 : DelegateInvokerBase
 	///   Calls the func.
 	/// </summary>
 	/// <returns>An object.</returns>
-	public abstract object CallFunc();
+	public abstract object? CallFunc();
 }

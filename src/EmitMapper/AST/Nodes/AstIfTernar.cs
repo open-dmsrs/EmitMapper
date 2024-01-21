@@ -32,13 +32,13 @@ internal class AstIfTernar : IAstRefOrValue
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type ItemType => TrueBranch.ItemType;
+	public Type? ItemType => TrueBranch.ItemType;
 
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)
 	{
-		var elseLabel = context.ILGenerator.DefineLabel();
-		var endIfLabel = context.ILGenerator.DefineLabel();
+		var elseLabel = context.IlGenerator.DefineLabel();
+		var endIfLabel = context.IlGenerator.DefineLabel();
 
 		Condition.Compile(context);
 		context.Emit(OpCodes.Brfalse, elseLabel);
@@ -50,10 +50,10 @@ internal class AstIfTernar : IAstRefOrValue
 			context.Emit(OpCodes.Br, endIfLabel);
 		}
 
-		context.ILGenerator.MarkLabel(elseLabel);
+		context.IlGenerator.MarkLabel(elseLabel);
 
 		FalseBranch?.Compile(context);
 
-		context.ILGenerator.MarkLabel(endIfLabel);
+		context.IlGenerator.MarkLabel(endIfLabel);
 	}
 }

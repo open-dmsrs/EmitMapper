@@ -14,7 +14,7 @@ public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<Mapp
 	/// <param name="typeTo">The type to.</param>
 	/// <param name="config">The config.</param>
 	/// <param name="currentInstantId">The current instant id.</param>
-	public MapperKey(Type typeFrom, Type typeTo, IMappingConfigurator config, int currentInstantId)
+	public MapperKey(Type? typeFrom, Type? typeTo, IMappingConfigurator? config, int currentInstantId)
 	{
 		mapperTypeName = $"M{currentInstantId}_{typeFrom?.FullName}_{typeTo?.FullName}_{config?.GetConfigurationName()}";
 		hash = HashCode.Combine(typeFrom, typeTo, config, currentInstantId);
@@ -46,7 +46,7 @@ public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<Mapp
 	/// </summary>
 	/// <param name="obj">The obj.</param>
 	/// <returns>A bool.</returns>
-	public override bool Equals(object obj)
+	public override bool Equals(object? obj)
 	{
 		if (obj is null)
 		{

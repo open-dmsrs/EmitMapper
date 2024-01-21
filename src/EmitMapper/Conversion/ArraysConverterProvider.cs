@@ -6,7 +6,7 @@
 internal class ArraysConverterProvider : ICustomConverterProvider
 {
 	// optimized the performance for converting arrays value
-	private static readonly Type converterImplementation = typeof(ArraysConverterOneTypes<>);
+	private static readonly Type ConverterImplementation = typeof(ArraysConverterOneTypes<>);
 
 	private static readonly Type Implementation = typeof(ArraysConverterDifferentTypes<,>);
 
@@ -17,10 +17,10 @@ internal class ArraysConverterProvider : ICustomConverterProvider
 	/// <param name="to">The to.</param>
 	/// <param name="mappingConfig">The mapping config.</param>
 	/// <returns>A CustomConverterDescriptor.</returns>
-	public CustomConverterDescriptor? GetCustomConverterDescr(Type from, Type to, MapConfigBaseImpl mappingConfig)
+	public CustomConverterDescriptor? GetCustomConverterDescr(Type? from, Type? to, MapConfigBaseImpl mappingConfig)
 	{
-		var tFromTypeArgs = DefaultCustomConverterProvider.GetGenericArguments(from);
-		var tToTypeArgs = DefaultCustomConverterProvider.GetGenericArguments(to);
+		Type?[]? tFromTypeArgs = DefaultCustomConverterProvider.GetGenericArguments(from);
+		Type?[]? tToTypeArgs = DefaultCustomConverterProvider.GetGenericArguments(to);
 
 		if (tFromTypeArgs is null || tToTypeArgs is null || tFromTypeArgs.Length != 1 || tToTypeArgs.Length != 1)
 		{
@@ -35,7 +35,7 @@ internal class ArraysConverterProvider : ICustomConverterProvider
 			return new CustomConverterDescriptor
 			{
 				ConversionMethodName = "Convert",
-				ConverterImplementation = converterImplementation,
+				ConverterImplementation = ConverterImplementation,
 				ConverterClassTypeArguments = tFrom.AsEnumerable()
 			};
 		}

@@ -98,7 +98,7 @@ public static class ObjectFactory
 	/// <param name="collectionType">The collection type.</param>
 	/// <param name="genericArguments">The generic arguments.</param>
 	/// <returns>An Expression.</returns>
-	private static Expression CreateCollection(Type type, Type collectionType, Type[] genericArguments = null)
+	private static Expression CreateCollection(Type type, Type collectionType, Type[]? genericArguments = null)
 	{
 		return ToType(New(collectionType.MakeGenericType(genericArguments ?? type.GenericTypeArguments)), type);
 	}
@@ -118,7 +118,7 @@ public static class ObjectFactory
 		{
 			return CreateReadOnlyDictionary(type.GenericTypeArguments);
 		}
-		else if (type.IsGenericType(Metadata.ISet1))
+		else if (type.IsGenericType(Metadata.Set1))
 		{
 			return CreateCollection(type, Metadata.HashSet1);
 		}
@@ -159,7 +159,7 @@ public static class ObjectFactory
 	/// </summary>
 	/// <param name="type">The type.</param>
 	/// <returns>An array of Types</returns>
-	private static Type[] GetIEnumerableArguments(Type type)
+	private static Type?[] GetIEnumerableArguments(Type type)
 	{
 		return type.GetIEnumerableType()?.GenericTypeArguments ?? new[] { Metadata<object>.Type };
 	}

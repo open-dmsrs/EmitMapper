@@ -10,5 +10,5 @@ public interface ICustomConverter
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <param name="mappingConfig">The mapping config.</param>
-	void Initialize(Type from, Type to, MapConfigBaseImpl mappingConfig);
+	void Initialize(Type? from, Type? to, MapConfigBaseImpl? mappingConfig);
 }

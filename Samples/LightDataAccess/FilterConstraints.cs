@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Assembly         : TSharp.Core
 // Author           : tangjingbo
 // Created          : 08-21-2013
@@ -54,7 +54,7 @@ public class FilterConstraints
 	/// </summary>
 	/// <param name="constraint">The constraint.</param>
 	/// <param name="params">The params.</param>
-	public void Add(string constraint, CmdParams @params)
+	public void Add(string constraint, CmdParams? @params)
 	{
 		Constraints.Add(constraint);
 

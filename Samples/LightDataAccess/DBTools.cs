@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 
 namespace LightDataAccess;
 
@@ -54,7 +54,7 @@ public static class DbTools
 	/// <param name="commandText"> The command text. </param>
 	/// <param name="cmdParams">   The CMD params. </param>
 	/// <returns> DbCommand. </returns>
-	public static DbCommand CreateCommand(DbConnection conn, string commandText, CmdParams cmdParams)
+	public static DbCommand CreateCommand(DbConnection conn, string commandText, CmdParams? cmdParams)
 	{
 		if (conn.State == ConnectionState.Closed)
 		{
@@ -342,7 +342,7 @@ public static class DbTools
 	/// <param name="collection"> The collection. </param>
 	/// <param name="delim">      The delim. </param>
 	/// <returns> System.String. </returns>
-	public static string ToCsv<T>(this IEnumerable<T> collection, string delim)
+	public static string ToCsv<T>(this IEnumerable<T>? collection, string delim)
 	{
 		if (collection is null)
 		{
@@ -413,7 +413,7 @@ public static class DbTools
 		this IDataReader reader,
 		string readerName,
 		string[] excludeFields,
-		ObjectsChangeTracker changeTracker)
+		ObjectsChangeTracker? changeTracker)
 	{
 		var result = new DataReaderToObjectMapper<T>(readerName, null, excludeFields).ReadSingle(reader, changeTracker);
 		changeTracker?.RegisterObject(result);

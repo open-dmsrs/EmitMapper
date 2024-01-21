@@ -12,7 +12,7 @@ internal static class MiscUtils
 	/// <param name="collection">The collection.</param>
 	/// <param name="separator">The separator.</param>
 	/// <returns>A string.</returns>
-	public static string ToCsv<T>(this IEnumerable<T> collection, string separator)
+	public static string ToCsv<T>(this IEnumerable<T>? collection, string separator)
 	{
 		if (collection is null)
 		{

@@ -12,7 +12,7 @@ internal class AstUnbox : IAstValue
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type ItemType => UnboxedType;
+	public Type? ItemType => UnboxedType;
 
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)

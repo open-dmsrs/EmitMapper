@@ -5,7 +5,7 @@ namespace EmitMapper.AST;
 /// </summary>
 internal class CompilationContext
 {
-	public ILGenerator ILGenerator { get; }
+	public ILGenerator IlGenerator { get; }
 
 	public TextWriter OutputCommands { get; }
 
@@ -27,63 +27,63 @@ internal class CompilationContext
 	public CompilationContext(ILGenerator ilGenerator)
 	  : this()
 	{
-		ILGenerator = ilGenerator;
+		IlGenerator = ilGenerator;
 	}
 
 	/// <inheritdoc/>
 	public void Emit(OpCode opCode)
 	{
 		ProcessCommand(opCode, 0, string.Empty);
-		ILGenerator.Emit(opCode);
+		IlGenerator.Emit(opCode);
 	}
 
 	/// <inheritdoc/>
 	public void Emit(OpCode opCode, string str)
 	{
 		ProcessCommand(opCode, 0, str);
-		ILGenerator.Emit(opCode, str);
+		IlGenerator.Emit(opCode, str);
 	}
 
 	/// <inheritdoc/>
 	public void Emit(OpCode opCode, int param)
 	{
 		ProcessCommand(opCode, 0, param.ToString(CultureInfo.InvariantCulture));
-		ILGenerator.Emit(opCode, param);
+		IlGenerator.Emit(opCode, param);
 	}
 
 	/// <inheritdoc/>
 	public void Emit(OpCode opCode, FieldInfo fi)
 	{
 		ProcessCommand(opCode, 0, fi.ToString());
-		ILGenerator.Emit(opCode, fi);
+		IlGenerator.Emit(opCode, fi);
 	}
 
 	/// <inheritdoc/>
 	public void Emit(OpCode opCode, ConstructorInfo ci)
 	{
 		ProcessCommand(opCode, 0, ci.ToString());
-		ILGenerator.Emit(opCode, ci);
+		IlGenerator.Emit(opCode, ci);
 	}
 
 	/// <inheritdoc/>
 	public void Emit(OpCode opCode, LocalBuilder lb)
 	{
 		ProcessCommand(opCode, 0, lb.ToString());
-		ILGenerator.Emit(opCode, lb);
+		IlGenerator.Emit(opCode, lb);
 	}
 
 	/// <inheritdoc/>
 	public void Emit(OpCode opCode, Label lb)
 	{
 		ProcessCommand(opCode, 0, lb.ToString());
-		ILGenerator.Emit(opCode, lb);
+		IlGenerator.Emit(opCode, lb);
 	}
 
 	/// <inheritdoc/>
-	public void Emit(OpCode opCode, Type type)
+	public void Emit(OpCode opCode, Type? type)
 	{
 		ProcessCommand(opCode, 0, type.ToString());
-		ILGenerator.Emit(opCode, type);
+		IlGenerator.Emit(opCode, type);
 	}
 
 	/// <summary>
@@ -98,7 +98,7 @@ internal class CompilationContext
 		  (mi.GetParameters().Length + 1) * -1 + (mi.ReturnType == Metadata.Void ? 0 : 1),
 		  mi.ToString());
 
-		ILGenerator.EmitCall(opCode, mi, null);
+		IlGenerator.EmitCall(opCode, mi, null);
 	}
 
 	/// <summary>
@@ -109,7 +109,7 @@ internal class CompilationContext
 	{
 		ProcessCommand(OpCodes.Newobj, ci.GetParameters().Length * -1 + 1, ci.ToString());
 
-		ILGenerator.Emit(OpCodes.Newobj, ci);
+		IlGenerator.Emit(OpCodes.Newobj, ci);
 	}
 
 	/// <summary>
@@ -118,7 +118,7 @@ internal class CompilationContext
 	/// <param name="exType">The ex type.</param>
 	public void ThrowException(Type exType)
 	{
-		ILGenerator.ThrowException(exType);
+		IlGenerator.ThrowException(exType);
 	}
 
 	/// <summary>

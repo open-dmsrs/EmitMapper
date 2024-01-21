@@ -3,40 +3,40 @@ namespace EmitMapper.AST;
 /// <summary>
 ///   The i l compilation exception.
 /// </summary>
-internal class ILCompilationException : Exception
+internal class IlCompilationException : Exception
 {
 	/// <summary>
-	///   Initializes a new instance of the <see cref="ILCompilationException" /> class.
+	///   Initializes a new instance of the <see cref="IlCompilationException" /> class.
 	/// </summary>
 	/// <param name="message">The message.</param>
-	public ILCompilationException(string message)
+	public IlCompilationException(string message)
 	  : base(message)
 	{
 	}
 
 	/// <summary>
-	///   Initializes a new instance of the <see cref="ILCompilationException" /> class.
+	///   Initializes a new instance of the <see cref="IlCompilationException" /> class.
 	/// </summary>
 	/// <param name="message">The message.</param>
 	/// <param name="p">The p.</param>
-	public ILCompilationException(string message, params object[] p)
+	public IlCompilationException(string message, params object[] p)
 	  : base(string.Format(CultureInfo.InvariantCulture, message, p))
 	{
 	}
 
 	/// <summary>
-	///   Initializes a new instance of the <see cref="ILCompilationException" /> class.
+	///   Initializes a new instance of the <see cref="IlCompilationException" /> class.
 	/// </summary>
-	public ILCompilationException()
+	public IlCompilationException()
 	{
 	}
 
 	/// <summary>
-	///   Initializes a new instance of the <see cref="ILCompilationException" /> class.
+	///   Initializes a new instance of the <see cref="IlCompilationException" /> class.
 	/// </summary>
 	/// <param name="message">The message.</param>
 	/// <param name="innerException">The inner exception.</param>
-	public ILCompilationException(string message, Exception innerException)
+	public IlCompilationException(string message, Exception innerException)
 	  : base(message, innerException)
 	{
 	}

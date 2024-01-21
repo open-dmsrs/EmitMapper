@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.Mappers;
+namespace EmitMapper.Mappers;
 
 /// <summary>
 ///   Mapper for collections. It can copy Array, List&lt;&gt;, ArrayList collections.
@@ -6,15 +6,11 @@
 /// </summary>
 public class MapperForCollection : CustomMapper
 {
-	private static readonly MethodInfo CopyToListMethod = Metadata<MapperForCollection>.Type.GetMethod(
-	  nameof(CopyToList),
-	  BindingFlags.Instance | BindingFlags.NonPublic);
+	private static readonly MethodInfo? CopyToListMethod = Metadata<MapperForCollection>.Type.GetMethod(nameof(CopyToList), BindingFlags.Instance | BindingFlags.NonPublic);
 
-	private static readonly MethodInfo CopyToListScalarMethod = Metadata<MapperForCollection>.Type.GetMethod(
-	  nameof(CopyToListScalar),
-	  BindingFlags.Instance | BindingFlags.NonPublic);
+	private static readonly MethodInfo? CopyToListScalarMethod = Metadata<MapperForCollection>.Type.GetMethod(nameof(CopyToListScalar), BindingFlags.Instance | BindingFlags.NonPublic);
 
-	private static readonly LazyConcurrentDictionary<Type, bool> IsSupportedCache = new();
+	private static readonly LazyConcurrentDictionary<Type?, bool> IsSupportedCache = new();
 
 	private MapperDescription subMapper;
 
@@ -38,11 +34,11 @@ public class MapperForCollection : CustomMapper
 	/// <returns></returns>
 	public static MapperForCollection CreateInstance(
 	  string mapperName,
-	  Mapper objectMapperManager,
-	  Type typeFrom,
-	  Type typeTo,
+	  Mapper? objectMapperManager,
+	  Type? typeFrom,
+	  Type? typeTo,
 	  MapperDescription subMapper,
-	  IMappingConfigurator mappingConfigurator)
+	  IMappingConfigurator? mappingConfigurator)
 	{
 		var tb = DynamicAssemblyManager.DefineType("GenericListInv_" + mapperName, Metadata<MapperForCollection>.Type);
 
@@ -88,7 +84,7 @@ public class MapperForCollection : CustomMapper
 	/// <param name="to">Destination object</param>
 	/// <param name="state"></param>
 	/// <returns>Destination object</returns>
-	public override object Map(object from, object to, object state)
+	public override object? Map(object from, object? to, object state)
 	{
 		return base.Map(from, null, state);
 	}
@@ -100,11 +96,11 @@ public class MapperForCollection : CustomMapper
 	/// <param name="to">Destination object</param>
 	/// <param name="state"></param>
 	/// <returns>Destination object</returns>
-	public override object? MapImpl(object from, object to, object state)
+	public override object? MapCore(object from, object? to, object state)
 	{
-		if (to is null && targetConstructor is not null)
+		if (to is null && TargetConstructor is not null)
 		{
-			to = targetConstructor.CallFunc();
+			to = TargetConstructor.CallFunc();
 		}
 
 		if (TypeTo.IsArray)
@@ -150,7 +146,7 @@ public class MapperForCollection : CustomMapper
 	/// </summary>
 	/// <param name="from">The from.</param>
 	/// <returns>A Type.</returns>
-	internal static Type GetSubMapperTypeFrom(Type from)
+	internal static Type? GetSubMapperTypeFrom(Type? from)
 	{
 		var result = ExtractElementType(from);
 
@@ -167,7 +163,7 @@ public class MapperForCollection : CustomMapper
 	/// </summary>
 	/// <param name="to">The to.</param>
 	/// <returns>A Type.</returns>
-	internal static Type GetSubMapperTypeTo(Type to)
+	internal static Type GetSubMapperTypeTo(Type? to)
 	{
 		return ExtractElementType(to);
 	}
@@ -177,7 +173,7 @@ public class MapperForCollection : CustomMapper
 	/// </summary>
 	/// <param name="t"></param>
 	/// <returns></returns>
-	internal static bool IsSupportedType(Type t)
+	internal static bool IsSupportedType(Type? t)
 	{
 		return IsSupportedCache.GetOrAdd(
 		  t,
@@ -251,7 +247,7 @@ public class MapperForCollection : CustomMapper
 	/// </summary>
 	/// <param name="collection">The collection.</param>
 	/// <returns>A Type.</returns>
-	private static Type? ExtractElementType(Type collection)
+	private static Type? ExtractElementType(Type? collection)
 	{
 		if (collection.IsArray)
 		{
@@ -277,7 +273,7 @@ public class MapperForCollection : CustomMapper
 	/// <param name="copiedObjectType">The copied object type.</param>
 	/// <param name="copyMethod">The copy method.</param>
 	/// <returns>An IAstNode.</returns>
-	private static IAstNode InvokeCopyImpl(Type copiedObjectType, MethodInfo copyMethod)
+	private static IAstNode InvokeCopyImpl(Type? copiedObjectType, MethodInfo? copyMethod)
 	{
 		var mi = copyMethod?.MakeGenericMethod(ExtractElementType(copiedObjectType));
 
@@ -379,7 +375,7 @@ public class MapperForCollection : CustomMapper
 			}
 			else
 			{
-				var mapper = Mapper.GetMapper(obj.GetType(), obj.GetType(), mappingConfigurator);
+				var mapper = Mapper.GetMapper(obj.GetType(), obj.GetType(), MappingConfigurator);
 				result.Add(mapper.Map(obj));
 			}
 		}
@@ -403,7 +399,7 @@ public class MapperForCollection : CustomMapper
 			return result;
 		}
 
-		var mapper = Mapper.GetMapper(from.GetType(), from.GetType(), mappingConfigurator);
+		var mapper = Mapper.GetMapper(from.GetType(), from.GetType(), MappingConfigurator);
 		result.Add(mapper.Map(from));
 
 		return result;
@@ -415,7 +411,7 @@ public class MapperForCollection : CustomMapper
 	/// <param name="iList">The i list.</param>
 	/// <param name="from">The from.</param>
 	/// <returns>An object.</returns>
-	private object CopyToIList(IList iList, object from)
+	private object CopyToIList(IList? iList, object from)
 	{
 		iList ??= ObjectFactory.CreateInstance<IList>(TypeTo);
 
@@ -425,13 +421,13 @@ public class MapperForCollection : CustomMapper
 			{
 				iList.Add(null);
 			}
-			else if (rootOperation?.ShallowCopy != false)
+			else if (RootOperation?.ShallowCopy != false)
 			{
 				iList.Add(obj);
 			}
 			else
 			{
-				var mapper = Mapper.GetMapper(obj.GetType(), obj.GetType(), mappingConfigurator);
+				var mapper = Mapper.GetMapper(obj.GetType(), obj.GetType(), MappingConfigurator);
 				iList.Add(mapper.Map(obj));
 			}
 		}

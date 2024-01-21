@@ -29,7 +29,7 @@ public class Mapper<TFrom, TTo>
 	/// <param name="to">The to.</param>
 	/// <param name="state">The state.</param>
 	/// <returns>A TTo.</returns>
-	public TTo Map(TFrom from, TTo to, object state)
+	public TTo Map(TFrom from, TTo? to, object state)
 	{
 		return (TTo)mapperImpl.Map(from, to, state);
 	}
@@ -44,7 +44,7 @@ public class Mapper<TFrom, TTo>
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns>A TTo.</returns>
-	public TTo Map(TFrom from, TTo to)
+	public TTo Map(TFrom from, TTo? to)
 	{
 		return (TTo)mapperImpl.Map(from, to, null);
 	}

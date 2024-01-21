@@ -36,7 +36,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 	/// </summary>
 	/// <param name="obj"> The <see cref="Expression" /> obj to compute hash code for. </param>
 	/// <returns> The hash code value for <paramref name="obj" />. </returns>
-	public int GetHashCode(Expression obj)
+	public int GetHashCode(Expression? obj)
 	{
 		if (obj is null)
 		{
@@ -236,7 +236,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 
 			return hash.ToHashCode();
 
-			void AddToHashIfNotNull(object t)
+			void AddToHashIfNotNull(object? t)
 			{
 				if (t is not null)
 				{
@@ -244,7 +244,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 				}
 			}
 
-			void AddExpressionToHashIfNotNull(Expression t)
+			void AddExpressionToHashIfNotNull(Expression? t)
 			{
 				if (t is not null)
 				{
@@ -468,7 +468,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 		/// <param name="a">The a.</param>
 		/// <param name="b">The b.</param>
 		/// <returns>A bool.</returns>
-		private bool CompareCatchBlockList(IReadOnlyList<CatchBlock> a, IReadOnlyList<CatchBlock> b)
+		private bool CompareCatchBlockList(IReadOnlyList<CatchBlock>? a, IReadOnlyList<CatchBlock>? b)
 		{
 			if (ReferenceEquals(a, b))
 			{
@@ -519,7 +519,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 		/// <param name="a">The a.</param>
 		/// <param name="b">The b.</param>
 		/// <returns>A bool.</returns>
-		private bool CompareElementInitList(IReadOnlyList<ElementInit> a, IReadOnlyList<ElementInit> b)
+		private bool CompareElementInitList(IReadOnlyList<ElementInit>? a, IReadOnlyList<ElementInit>? b)
 		{
 			if (ReferenceEquals(a, b))
 			{
@@ -548,7 +548,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 		/// <param name="a">The a.</param>
 		/// <param name="b">The b.</param>
 		/// <returns>A bool.</returns>
-		private bool CompareExpressionList(IReadOnlyList<Expression> a, IReadOnlyList<Expression> b)
+		private bool CompareExpressionList(IReadOnlyList<Expression>? a, IReadOnlyList<Expression>? b)
 		{
 			if (ReferenceEquals(a, b))
 			{
@@ -700,7 +700,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 		/// <param name="a">The a.</param>
 		/// <param name="b">The b.</param>
 		/// <returns>A bool.</returns>
-		private bool CompareMemberBindingList(IReadOnlyList<MemberBinding> a, IReadOnlyList<MemberBinding> b)
+		private bool CompareMemberBindingList(IReadOnlyList<MemberBinding>? a, IReadOnlyList<MemberBinding>? b)
 		{
 			if (ReferenceEquals(a, b))
 			{
@@ -740,7 +740,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 		/// <param name="a">The a.</param>
 		/// <param name="b">The b.</param>
 		/// <returns>A bool.</returns>
-		private bool CompareMemberList(IReadOnlyList<MemberInfo> a, IReadOnlyList<MemberInfo> b)
+		private bool CompareMemberList(IReadOnlyList<MemberInfo>? a, IReadOnlyList<MemberInfo>? b)
 		{
 			if (ReferenceEquals(a, b))
 			{
@@ -852,7 +852,7 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 		/// <param name="a">The a.</param>
 		/// <param name="b">The b.</param>
 		/// <returns>A bool.</returns>
-		private bool CompareSwitchCaseList(IReadOnlyList<SwitchCase> a, IReadOnlyList<SwitchCase> b)
+		private bool CompareSwitchCaseList(IReadOnlyList<SwitchCase>? a, IReadOnlyList<SwitchCase>? b)
 		{
 			if (ReferenceEquals(a, b))
 			{

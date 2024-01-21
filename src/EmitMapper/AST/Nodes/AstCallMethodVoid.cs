@@ -5,11 +5,11 @@
 /// </summary>
 internal class AstCallMethodVoid : IAstNode
 {
-	protected List<IAstStackItem> arguments;
+	protected List<IAstStackItem> Arguments;
 
-	protected IAstRefOrAddr invocationObject;
+	protected IAstRefOrAddr InvocationObject;
 
-	protected MethodInfo methodInfo;
+	protected MethodInfo MethodInfo;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="AstCallMethodVoid"/> class.
@@ -19,17 +19,17 @@ internal class AstCallMethodVoid : IAstNode
 	/// <param name="arguments">The arguments.</param>
 	public AstCallMethodVoid(MethodInfo methodInfo, IAstRefOrAddr invocationObject, List<IAstStackItem> arguments)
 	{
-		this.methodInfo = methodInfo;
-		this.invocationObject = invocationObject;
-		this.arguments = arguments;
+		this.MethodInfo = methodInfo;
+		this.InvocationObject = invocationObject;
+		this.Arguments = arguments;
 	}
 
 	/// <inheritdoc/>
 	public void Compile(CompilationContext context)
 	{
-		new AstCallMethod(methodInfo, invocationObject, arguments).Compile(context);
+		new AstCallMethod(MethodInfo, InvocationObject, Arguments).Compile(context);
 
-		if (methodInfo.ReturnType != Metadata.Void)
+		if (MethodInfo.ReturnType != Metadata.Void)
 		{
 			context.Emit(OpCodes.Pop);
 		}

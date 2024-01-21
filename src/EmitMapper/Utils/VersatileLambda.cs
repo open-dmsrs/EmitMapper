@@ -25,12 +25,12 @@ public class VersatileLambda<T>
 		funcLazy = new Lazy<T>(expression.Compile);
 	}
 
-	public static implicit operator Expression<T>(VersatileLambda<T> lambda)
+	public static implicit operator Expression<T>(VersatileLambda<T>? lambda)
 	{
 		return lambda?.expression;
 	}
 
-	public static implicit operator T(VersatileLambda<T> lambda)
+	public static implicit operator T(VersatileLambda<T>? lambda)
 	{
 		return lambda?.funcLazy.Value;
 	}

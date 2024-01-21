@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Assembly         : TSharp.Core
 // Author           : tangjingbo
 // Created          : 08-21-2013
@@ -44,7 +44,7 @@ public static class ConvertUtils
 	/// </summary>
 	/// <param name="str">The STR.</param>
 	/// <returns>Guid.</returns>
-	public static Guid ToGuid(this string str)
+	public static Guid ToGuid(this string? str)
 	{
 		if (str is null)
 		{
@@ -59,7 +59,7 @@ public static class ConvertUtils
 	/// </summary>
 	/// <param name="str">The STR.</param>
 	/// <returns>System.String.</returns>
-	public static string? ToGuidStr(this string str)
+	public static string? ToGuidStr(this string? str)
 	{
 		if (str is null)
 		{

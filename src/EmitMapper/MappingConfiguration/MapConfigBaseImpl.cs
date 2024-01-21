@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.MappingConfiguration;
+namespace EmitMapper.MappingConfiguration;
 
 /// <summary>
 /// </summary>
@@ -48,7 +48,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 	/// <typeparam name="T">Type for which constructor is defining</typeparam>
 	/// <param name="constructor">Custom constructor</param>
 	/// <returns></returns>
-	public IMappingConfigurator ConstructBy<T>(TargetConstructor<T> constructor)
+	public IMappingConfigurator? ConstructBy<T>(TargetConstructor<T> constructor)
 	{
 		customConstructors.Add(new[] { Metadata<T>.Type }, constructor);
 
@@ -63,7 +63,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 	/// <param name="to">Type of destination. Can be also generic class or abstract array.</param>
 	/// <param name="converterProvider">Provider for getting detailed information about generic conversion</param>
 	/// <returns></returns>
-	public IMappingConfigurator ConvertGeneric(Type from, Type to, ICustomConverterProvider converterProvider)
+	public IMappingConfigurator ConvertGeneric(Type? from, Type? to, ICustomConverterProvider converterProvider)
 	{
 		customConvertersGeneric.Add(new[] { from, to }, converterProvider);
 
@@ -77,7 +77,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 	/// <typeparam name="TTo"></typeparam>
 	/// <param name="converter">Function which converts an instance of the source type to an instance of the destination type</param>
 	/// <returns></returns>
-	public IMappingConfigurator ConvertUsing<TFrom, TTo>(Func<TFrom, TTo> converter)
+	public IMappingConfigurator? ConvertUsing<TFrom, TTo>(Func<TFrom, TTo> converter)
 	{
 		customConverters.Add(
 		  new[] { Metadata<TFrom>.Type, Metadata<TTo>.Type },
@@ -105,7 +105,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 	/// <typeparam name="T"></typeparam>
 	/// <param name="valuesFilter">The values filter.</param>
 	/// <returns>An IMappingConfigurator.</returns>
-	public IMappingConfigurator FilterSource<T>(ValuesFilter<T> valuesFilter)
+	public IMappingConfigurator? FilterSource<T>(ValuesFilter<T> valuesFilter)
 	{
 		sourceFilters.Add(new[] { Metadata<T>.Type }, valuesFilter);
 
@@ -127,7 +127,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns><![CDATA[IEnumerable<IMappingOperation>]]></returns>
-	public abstract IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to);
+	public abstract IEnumerable<IMappingOperation> GetMappingOperations(Type? from, Type? to);
 
 	/// <summary>
 	///   Gets the root mapping operation.
@@ -135,7 +135,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns>An IRootMappingOperation.</returns>
-	public virtual IRootMappingOperation GetRootMappingOperation(Type from, Type to)
+	public virtual IRootMappingOperation GetRootMappingOperation(Type? from, Type? to)
 	{
 		var converter = customConverters.GetValue(new[] { from, to }) ?? GetGenericConverter(from, to);
 
@@ -166,7 +166,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 	/// <param name="typeTo">Destination type for which ignore members are defining</param>
 	/// <param name="ignoreNames">Array of member names which should be ignored</param>
 	/// <returns></returns>
-	public IMappingConfigurator IgnoreMembers(Type typeFrom, Type typeTo, string[] ignoreNames)
+	public IMappingConfigurator? IgnoreMembers(Type? typeFrom, Type? typeTo, string[] ignoreNames)
 	{
 		var ig = ignoreMembers.GetValue(new[] { typeFrom, typeTo });
 
@@ -189,7 +189,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 	/// <typeparam name="TTo">Destination type for which ignore members are defining</typeparam>
 	/// <param name="ignoreNames">Array of member names which should be ignored</param>
 	/// <returns></returns>
-	public IMappingConfigurator IgnoreMembers<TFrom, TTo>(params string[] ignoreNames)
+	public IMappingConfigurator? IgnoreMembers<TFrom, TTo>(params string[] ignoreNames)
 	{
 		return IgnoreMembers(Metadata<TFrom>.Type, Metadata<TTo>.Type, ignoreNames);
 	}
@@ -201,7 +201,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 	/// <typeparam name="TTo">Type of destination member</typeparam>
 	/// <param name="nullSubstitutor">Function which returns value for destination if appropriate source member is null</param>
 	/// <returns></returns>
-	public IMappingConfigurator NullSubstitution<TFrom, TTo>(Func<object, TTo> nullSubstitutor)
+	public IMappingConfigurator? NullSubstitution<TFrom, TTo>(Func<object, TTo> nullSubstitutor)
 	{
 		nullSubstitutors.Add(new[] { Metadata<TFrom>.Type, Metadata<TTo>.Type }, nullSubstitutor);
 
@@ -214,7 +214,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 	/// <typeparam name="T">Objects of this type and all it's descendants will be postprocessed</typeparam>
 	/// <param name="postProcessor"></param>
 	/// <returns></returns>
-	public IMappingConfigurator PostProcess<T>(ValuesPostProcessor<T> postProcessor)
+	public IMappingConfigurator? PostProcess<T>(ValuesPostProcessor<T> postProcessor)
 	{
 		postProcessors.Add(new[] { Metadata<T>.Type }, postProcessor);
 
@@ -226,7 +226,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 	/// </summary>
 	/// <param name="configurationName">Configuration name</param>
 	/// <returns></returns>
-	public IMappingConfigurator SetConfigName(string configurationName)
+	public IMappingConfigurator? SetConfigName(string configurationName)
 	{
 		this.configurationName = configurationName;
 
@@ -239,7 +239,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 	/// <typeparam name="T"></typeparam>
 	/// <param name="t">The t.</param>
 	/// <returns>A string.</returns>
-	protected static string? ToStr<T>(T t)
+	protected static string? ToStr<T>(T? t)
 	  where T : class
 	{
 		return t is null ? string.Empty : t.ToString();
@@ -251,7 +251,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 	/// <typeparam name="T"></typeparam>
 	/// <param name="t">The t.</param>
 	/// <returns>A string.</returns>
-	protected static string ToStrEnum<T>(IEnumerable<T> t)
+	protected static string ToStrEnum<T>(IEnumerable<T>? t)
 	{
 		return t is null ? string.Empty : t.ToCsv("|");
 	}
@@ -264,8 +264,8 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 	/// <param name="operations">The operations.</param>
 	/// <returns><![CDATA[IEnumerable<IMappingOperation>]]></returns>
 	protected IEnumerable<IMappingOperation> FilterOperations(
-	  Type from,
-	  Type to,
+	  Type? from,
+	  Type? to,
 	  IEnumerable<IMappingOperation> operations)
 	{
 		return operations.Select(
@@ -324,7 +324,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns>A Delegate.</returns>
-	private Delegate? GetGenericConverter(Type from, Type to)
+	private Delegate? GetGenericConverter(Type? from, Type? to)
 	{
 		var converter = customConvertersGeneric.GetValue(new[] { from, to });
 
@@ -367,7 +367,7 @@ public abstract class MapConfigBaseImpl : IMappingConfigurator
 	/// <param name="fromDescr">The from descr.</param>
 	/// <param name="toDescr">The to descr.</param>
 	/// <returns>A bool.</returns>
-	private bool TestIgnore(Type from, Type to, MemberDescriptor fromDescr, MemberDescriptor toDescr)
+	private bool TestIgnore(Type? from, Type? to, MemberDescriptor fromDescr, MemberDescriptor toDescr)
 	{
 		var ignore = ignoreMembers.GetValue(new[] { from, to });
 

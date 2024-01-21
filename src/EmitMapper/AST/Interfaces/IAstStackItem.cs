@@ -8,5 +8,5 @@ internal interface IAstStackItem : IAstNode
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	Type ItemType { get; }
+	Type? ItemType { get; }
 }

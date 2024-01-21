@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using EmitMapper.Conversion;
 
 namespace LightDataAccess;
@@ -64,7 +64,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 	/// <param name="reader">The reader.</param>
 	/// <param name="changeTracker">The change tracker.</param>
 	/// <returns>`0.</returns>
-	public TEntity ReadSingle(IDataReader reader, ObjectsChangeTracker changeTracker)
+	public TEntity ReadSingle(IDataReader reader, ObjectsChangeTracker? changeTracker)
 	{
 		var result = MapUsingState(reader, reader);
 		changeTracker?.RegisterObject(result);
@@ -110,10 +110,10 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 	/// <returns>ObjectsMapperBaseImpl.</returns>
 	private static MapperBase GetMapperImpl(
 	  string mappingKey,
-	  Mapper mapperManager,
+	  Mapper? mapperManager,
 	  IEnumerable<string> skipFields)
 	{
-		IMappingConfigurator config = new DbReaderMappingConfig(skipFields, mappingKey);
+		IMappingConfigurator? config = new DbReaderMappingConfig(skipFields, mappingKey);
 
 		if (mapperManager is not null)
 		{
@@ -143,7 +143,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 		/// </summary>
 		/// <param name="skipFields">The skip fields.</param>
 		/// <param name="mappingKey">The mapping key.</param>
-		public DbReaderMappingConfig(IEnumerable<string> skipFields, string mappingKey)
+		public DbReaderMappingConfig(IEnumerable<string>? skipFields, string mappingKey)
 		{
 			this.skipFields = skipFields ?? new List<string>();
 			this.mappingKey = mappingKey;
@@ -173,7 +173,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 		/// <param name="from">Source type.</param>
 		/// <param name="to">Destination type.</param>
 		/// <returns>IEnumerable&lt;IMappingOperation&gt;.</returns>
-		public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
+		public override IEnumerable<IMappingOperation> GetMappingOperations(Type? from, Type? to)
 		{
 			return ReflectionHelper.GetPublicFieldsAndProperties(to)
 			  .Where(
@@ -193,7 +193,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 		/// <param name="from">From.</param>
 		/// <param name="to">To.</param>
 		/// <returns>IRootMappingOperation.</returns>
-		public override IRootMappingOperation? GetRootMappingOperation(Type from, Type to)
+		public override IRootMappingOperation? GetRootMappingOperation(Type? from, Type? to)
 		{
 			return null;
 		}

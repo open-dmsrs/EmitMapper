@@ -10,7 +10,7 @@ internal class AstCastclassRef : AstCastclass, IAstRef
 	/// </summary>
 	/// <param name="value">The value.</param>
 	/// <param name="targetType">The target type.</param>
-	public AstCastclassRef(IAstRefOrValue value, Type targetType)
+	public AstCastclassRef(IAstRefOrValue value, Type? targetType)
 	  : base(value, targetType)
 	{
 	}

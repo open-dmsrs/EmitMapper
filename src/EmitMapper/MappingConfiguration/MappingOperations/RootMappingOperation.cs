@@ -10,7 +10,7 @@ public class RootMappingOperation : IRootMappingOperation
 	/// </summary>
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
-	public RootMappingOperation(Type from, Type to)
+	public RootMappingOperation(Type? from, Type? to)
 	{
 		From = from;
 		To = to;
@@ -29,7 +29,7 @@ public class RootMappingOperation : IRootMappingOperation
 	/// <summary>
 	///   Gets or Sets the from.
 	/// </summary>
-	public Type From { get; set; }
+	public Type? From { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the null substitutor.
@@ -54,7 +54,7 @@ public class RootMappingOperation : IRootMappingOperation
 	/// <summary>
 	///   Gets or Sets the to.
 	/// </summary>
-	public Type To { get; set; }
+	public Type? To { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the values post processor.

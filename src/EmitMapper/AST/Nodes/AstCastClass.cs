@@ -5,43 +5,43 @@
 /// </summary>
 internal class AstCastclass : IAstRefOrValue
 {
-	protected Type targetType;
+	protected Type? TargetType;
 
-	protected IAstRefOrValue value;
+	protected IAstRefOrValue Value;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="AstCastclass"/> class.
 	/// </summary>
 	/// <param name="value">The value.</param>
 	/// <param name="targetType">The target type.</param>
-	public AstCastclass(IAstRefOrValue value, Type targetType)
+	public AstCastclass(IAstRefOrValue value, Type? targetType)
 	{
-		this.value = value;
-		this.targetType = targetType;
+		this.Value = value;
+		this.TargetType = targetType;
 	}
 
 	/// <summary>
 	/// Gets the item type.
 	/// </summary>
-	public Type ItemType => targetType;
+	public Type? ItemType => TargetType;
 
 	/// <inheritdoc/>
 	/// <exception cref="EmitMapperException"></exception>
 	public virtual void Compile(CompilationContext context)
 	{
-		if (value.ItemType != targetType)
+		if (Value.ItemType != TargetType)
 		{
-			if (!value.ItemType.IsValueType && !targetType.IsValueType)
+			if (!Value.ItemType.IsValueType && !TargetType.IsValueType)
 			{
-				value.Compile(context);
-				context.Emit(OpCodes.Castclass, targetType);
+				Value.Compile(context);
+				context.Emit(OpCodes.Castclass, TargetType);
 
 				return;
 			}
 
-			if (targetType.IsValueType && !value.ItemType.IsValueType)
+			if (TargetType.IsValueType && !Value.ItemType.IsValueType)
 			{
-				new AstUnbox { RefObj = (IAstRef)value, UnboxedType = targetType }.Compile(context);
+				new AstUnbox { RefObj = (IAstRef)Value, UnboxedType = TargetType }.Compile(context);
 
 				return;
 			}
@@ -49,6 +49,6 @@ internal class AstCastclass : IAstRefOrValue
 			throw new EmitMapperException();
 		}
 
-		value.Compile(context);
+		Value.Compile(context);
 	}
 }

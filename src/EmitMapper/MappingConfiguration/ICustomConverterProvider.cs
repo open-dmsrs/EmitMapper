@@ -12,5 +12,5 @@ public interface ICustomConverterProvider
 	/// <param name="to">Type of destination. Can be also generic class or abstract array.</param>
 	/// <param name="mappingConfig">Current mapping configuration</param>
 	/// <returns></returns>
-	CustomConverterDescriptor GetCustomConverterDescr(Type from, Type to, MapConfigBaseImpl mappingConfig);
+	CustomConverterDescriptor GetCustomConverterDescr(Type? from, Type? to, MapConfigBaseImpl mappingConfig);
 }

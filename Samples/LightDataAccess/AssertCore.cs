@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Assembly         : TSharp.Core
 // Author           : tangjingbo
 // Created          : 05-23-2013
@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System.Globalization;
 using System.Xml;
 
 namespace LightDataAccess;
@@ -45,7 +46,7 @@ public static class AssertCore
 	/// <param name="value1">The value1.</param>
 	/// <param name="value2">The value2.</param>
 	/// <param name="getMessage">The get message.</param>
-	public static void AreEqual(int value1, int value2, Func<string> getMessage)
+	public static void AreEqual(int value1, int value2, Func<string?> getMessage)
 	{
 		AreEqual(value1, value2, () => GetInvalidOperationException(getMessage));
 	}
@@ -76,7 +77,7 @@ public static class AssertCore
 	/// <param name="value1">The value1.</param>
 	/// <param name="value2">The value2.</param>
 	/// <param name="message">The message.</param>
-	public static void AreEqual(int value1, int value2, string message)
+	public static void AreEqual(int value1, int value2, string? message)
 	{
 		AreEqual(value1, value2, () => GetInvalidOperationException(() => message));
 	}
@@ -118,7 +119,7 @@ public static class AssertCore
 	/// <param name="value1">The value1.</param>
 	/// <param name="value2">The value2.</param>
 	/// <param name="getMessage">The get message.</param>
-	public static void AreEqual(string value1, string value2, Func<string> getMessage)
+	public static void AreEqual(string value1, string value2, Func<string?> getMessage)
 	{
 		AreEqual(value1, value2, () => GetInvalidOperationException(getMessage));
 	}
@@ -129,7 +130,7 @@ public static class AssertCore
 	/// <param name="value1">The value1.</param>
 	/// <param name="value2">The value2.</param>
 	/// <param name="message">The message.</param>
-	public static void AreEqual(string value1, string value2, string message)
+	public static void AreEqual(string value1, string value2, string? message)
 	{
 		AreEqual(value1, value2, () => GetInvalidOperationException(() => message));
 	}
@@ -197,7 +198,7 @@ public static class AssertCore
 	/// <typeparam name="T">The exception type.</typeparam>
 	/// <param name="argument">The argument.</param>
 	/// <param name="getException">The get exception.</param>
-	public static void ArgumentNotNull<T>(object argument, Func<T> getException)
+	public static void ArgumentNotNull<T>(object? argument, Func<T> getException)
 	  where T : Exception
 	{
 		if (argument is not null)
@@ -213,7 +214,7 @@ public static class AssertCore
 	/// </summary>
 	/// <param name="argument">The argument.</param>
 	/// <param name="getArgumentName">The delegate used to get the parameter name.</param>
-	public static void ArgumentNotNull(object argument, Func<string> getArgumentName)
+	public static void ArgumentNotNull(object? argument, Func<string> getArgumentName)
 	{
 		if (argument is not null)
 		{
@@ -235,7 +236,7 @@ public static class AssertCore
 	/// <param name="argument">The argument.</param>
 	/// <param name="argumentName">Name of the argument.</param>
 	/// <exception cref="ArgumentNullException"><c>argumentName</c> is null.</exception>
-	public static void ArgumentNotNull(object argument, string argumentName)
+	public static void ArgumentNotNull(object? argument, string argumentName)
 	{
 		ArgumentNotNull(argument, () => argumentName);
 	}
@@ -366,7 +367,7 @@ public static class AssertCore
 	/// </summary>
 	/// <param name="condition">if set to <c>true</c> [condition].</param>
 	/// <param name="getMessage">Delegate for getting the message.</param>
-	public static void IsFalse(bool condition, Func<string> getMessage)
+	public static void IsFalse(bool condition, Func<string?> getMessage)
 	{
 		IsFalse(condition, () => GetInvalidOperationException(getMessage));
 	}
@@ -376,7 +377,7 @@ public static class AssertCore
 	/// </summary>
 	/// <param name="condition">if set to <c>true</c> [condition].</param>
 	/// <param name="message">The message.</param>
-	public static void IsFalse(bool condition, string message)
+	public static void IsFalse(bool condition, string? message)
 	{
 		IsFalse(condition, () => GetInvalidOperationException(() => message));
 	}
@@ -402,7 +403,7 @@ public static class AssertCore
 	/// <param name="value">The value.</param>
 	/// <param name="getMessage">The get message.</param>
 	/// <exception cref="InvalidOperationException"><c>InvalidOperationException</c>.</exception>
-	public static void IsNotNull(object value, Func<string> getMessage)
+	public static void IsNotNull(object value, Func<string?> getMessage)
 	{
 		IsNotNull(value, () => GetInvalidOperationException(getMessage));
 	}
@@ -413,7 +414,7 @@ public static class AssertCore
 	/// <param name="value">The value.</param>
 	/// <param name="message">The message.</param>
 	/// <exception cref="InvalidOperationException"><c>InvalidOperationException</c>.</exception>
-	public static void IsNotNull(object value, string message)
+	public static void IsNotNull(object value, string? message)
 	{
 		IsNotNull(value, () => GetInvalidOperationException(() => message));
 	}
@@ -423,7 +424,7 @@ public static class AssertCore
 	/// </summary>
 	/// <param name="value">The value.</param>
 	/// <param name="type">The type of the object.</param>
-	public static void IsNotNull(object value, Type type)
+	public static void IsNotNull(object? value, Type type)
 	{
 		if (value is null)
 		{
@@ -437,7 +438,7 @@ public static class AssertCore
 	/// <param name="value">The value.</param>
 	/// <param name="format">The format.</param>
 	/// <param name="args">The arguments.</param>
-	public static void IsNotNull(object value, string format, params object[] args)
+	public static void IsNotNull(object? value, string format, params object[] args)
 	{
 		if (value is null)
 		{
@@ -453,11 +454,11 @@ public static class AssertCore
 	/// <param name="type">The type of the object.</param>
 	/// <param name="format">The format.</param>
 	/// <param name="args">The arguments.</param>
-	public static void IsNotNull(object value, Type type, string format, params object[] args)
+	public static void IsNotNull(object? value, Type type, string format, params object[] args)
 	{
 		if (value is null)
 		{
-			var message = string.Format("An instance of {0} was null.", type);
+			var message = $"An instance of {type} was null.";
 			if (format.Length > 0)
 			{
 				message = message + " Additional information: " + Format(format, args);
@@ -488,7 +489,7 @@ public static class AssertCore
 	/// <param name="value">The value.</param>
 	/// <param name="getMessage">The get message.</param>
 	/// <exception cref="InvalidOperationException"><c>InvalidOperationException</c>.</exception>
-	public static void IsNotNullOrEmpty(string value, Func<string> getMessage)
+	public static void IsNotNullOrEmpty(string value, Func<string?> getMessage)
 	{
 		IsNotNullOrEmpty(value, () => GetInvalidOperationException(getMessage));
 	}
@@ -499,7 +500,7 @@ public static class AssertCore
 	/// <param name="value">The value.</param>
 	/// <param name="message">The message.</param>
 	/// <exception cref="InvalidOperationException"><c>InvalidOperationException</c>.</exception>
-	public static void IsNotNullOrEmpty(string value, string message)
+	public static void IsNotNullOrEmpty(string value, string? message)
 	{
 		IsNotNullOrEmpty(value, () => message);
 	}
@@ -508,11 +509,11 @@ public static class AssertCore
 	///   Determines whether [is not null or empty] [the specified value].
 	/// </summary>
 	/// <typeparam name="T">The exception type.</typeparam>
-	/// <typeparam name="Te">The type of the exception.</typeparam>
+	/// <typeparam name="TE">The type of the exception.</typeparam>
 	/// <param name="value">The value.</param>
 	/// <param name="getException">The get exception.</param>
-	public static void IsNotNullOrEmpty<T, Te>(IEnumerable<T> value, Func<Te> getException)
-	  where Te : Exception
+	public static void IsNotNullOrEmpty<T, TE>(IEnumerable<T> value, Func<TE> getException)
+	  where TE : Exception
 	{
 		if (value is null)
 		{
@@ -596,7 +597,7 @@ public static class AssertCore
 	/// <param name="condition">if set to <c>true</c> [condition].</param>
 	/// <param name="message">The message.</param>
 	/// <exception cref="InvalidOperationException"><c>InvalidOperationException</c>.</exception>
-	public static void IsTrue(bool condition, string message)
+	public static void IsTrue(bool condition, string? message)
 	{
 		IsTrue(condition, () => message);
 	}
@@ -606,7 +607,7 @@ public static class AssertCore
 	/// </summary>
 	/// <param name="condition">if set to <c>true</c> [condition].</param>
 	/// <param name="getMessage">The get message delegate.</param>
-	public static void IsTrue(bool condition, Func<string> getMessage)
+	public static void IsTrue(bool condition, Func<string?> getMessage)
 	{
 		IsTrue(condition, () => GetInvalidOperationException(getMessage));
 	}
@@ -633,7 +634,7 @@ public static class AssertCore
 	/// <param name="result">The result.</param>
 	/// <param name="getMessage">The get message.</param>
 	/// <returns>The result object.</returns>
-	public static T ResultNotNull<T>(T result, Func<string> getMessage)
+	public static T ResultNotNull<T>(T result, Func<string?> getMessage)
 	{
 		IsNotNull(result, getMessage);
 
@@ -647,7 +648,7 @@ public static class AssertCore
 	/// <param name="result">The result.</param>
 	/// <param name="message">The message.</param>
 	/// <returns>The result object.</returns>
-	public static T ResultNotNull<T>(T result, string message)
+	public static T ResultNotNull<T>(T result, string? message)
 	{
 		return ResultNotNull(result, () => message);
 	}
@@ -667,12 +668,12 @@ public static class AssertCore
 	///   Results the not null or empty.
 	/// </summary>
 	/// <typeparam name="T">The result type.</typeparam>
-	/// <typeparam name="Te">The type of the exception.</typeparam>
+	/// <typeparam name="TE">The type of the exception.</typeparam>
 	/// <param name="result">The result.</param>
 	/// <param name="getException">The get exception.</param>
 	/// <returns>The result collection.</returns>
-	public static IEnumerable<T> ResultNotNullOrEmpty<T, Te>(IEnumerable<T> result, Func<Te> getException)
-	  where Te : Exception
+	public static IEnumerable<T> ResultNotNullOrEmpty<T, TE>(IEnumerable<T> result, Func<TE> getException)
+	  where TE : Exception
 	{
 		IsNotNullOrEmpty(result, getException);
 
@@ -740,7 +741,7 @@ public static class AssertCore
 	/// </summary>
 	/// <param name="condition">The condition.</param>
 	/// <param name="getMessage">The get message.</param>
-	public static void That(Func<bool> condition, Func<string> getMessage)
+	public static void That(Func<bool> condition, Func<string?> getMessage)
 	{
 		That(condition, () => GetInvalidOperationException(getMessage));
 	}
@@ -750,7 +751,7 @@ public static class AssertCore
 	/// </summary>
 	/// <param name="condition">The condition.</param>
 	/// <param name="message">The message.</param>
-	public static void That(Func<bool> condition, string message)
+	public static void That(Func<bool> condition, string? message)
 	{
 		That(condition, () => message);
 	}
@@ -761,10 +762,9 @@ public static class AssertCore
 	/// <param name="pattern">The pattern.</param>
 	/// <param name="args">The arguments.</param>
 	/// <returns>The formated string.</returns>
-	private static string Format(string pattern, object[] args)
+	private static string? Format(string? pattern, object[]? args)
 	{
-		ArgumentNotNull(pattern, "pattern");
-
+		ArgumentNullException.ThrowIfNull(pattern, nameof(pattern));
 		if (args is null)
 		{
 			return pattern;
@@ -772,14 +772,13 @@ public static class AssertCore
 
 		for (var i = 0; i < args.Length; i++)
 		{
-			var node = args[i] as XmlNode;
-			if (node is not null)
+			if (args[i] is XmlNode node)
 			{
 				args[i] = node.OuterXml;
 			}
 		}
 
-		return string.Format(pattern, args);
+		return string.Format(CultureInfo.InvariantCulture, pattern, args);
 	}
 
 	/// <summary>
@@ -787,7 +786,7 @@ public static class AssertCore
 	/// </summary>
 	/// <param name="getMessage">The get message.</param>
 	/// <returns>The invalid operation exception.</returns>
-	private static InvalidOperationException GetInvalidOperationException(Func<string> getMessage)
+	private static InvalidOperationException GetInvalidOperationException(Func<string?> getMessage)
 	{
 		var message = getMessage.Invoke();
 

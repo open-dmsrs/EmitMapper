@@ -23,7 +23,7 @@ internal class AstExprEquals : IAstValue
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type ItemType => Metadata<int>.Type;
+	public Type? ItemType => Metadata<int>.Type;
 
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)

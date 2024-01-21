@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.Conversion;
+namespace EmitMapper.Conversion;
 
 /// <summary>
 ///   The arrays converter one types.
@@ -12,7 +12,7 @@ internal class ArraysConverterOneTypes<T>
 	/// <param name="from">The from.</param>
 	/// <param name="state">The state.</param>
 	/// <returns>An array of TS</returns>
-	public T[] Convert(ICollection<T> from, object state)
+	public T[] Convert(ICollection<T>? from, object state)
 	{
 		return from?.ToArray();
 	}

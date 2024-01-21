@@ -10,7 +10,7 @@ internal static class CreateTargetInstanceBuilder
 	/// </summary>
 	/// <param name="type">The type.</param>
 	/// <param name="typeBuilder">The type builder.</param>
-	public static void BuildCreateTargetInstanceMethod(Type type, TypeBuilder typeBuilder)
+	public static void BuildCreateTargetInstanceMethod(Type? type, TypeBuilder typeBuilder)
 	{
 		// var expr = (Expression<Func<object>>)ObjectFactory.GenerateConstructorExpression(type).ToObject();
 		if (ReflectionHelper.IsNullable(type))
@@ -33,7 +33,7 @@ internal static class CreateTargetInstanceBuilder
 			var lb = ilGen.DeclareLocal(type);
 			new AstInitializeLocalVariable(lb).Compile(context);
 
-			returnValue = new AstBox { Value = AstBuildHelper.ReadLocalRV(lb) };
+			returnValue = new AstBox { Value = AstBuildHelper.ReadLocalRv(lb) };
 		}
 		else
 		{

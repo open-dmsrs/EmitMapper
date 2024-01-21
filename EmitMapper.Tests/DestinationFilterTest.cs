@@ -26,7 +26,7 @@ public class DestinationFilterTest
 	[Fact]
 	public void TestdestinationFilter()
 	{
-		var mapper = Mapper.Default.GetMapper<DestinationTestFilterSrc, DestinationTestFilterDest>(
+		Mapper<DestinationTestFilterSrc, DestinationTestFilterDest?> mapper = Mapper.Default.GetMapper<DestinationTestFilterSrc, DestinationTestFilterDest>(
 		  new DefaultMapConfig().FilterDestination<string>((value, state) => false)
 			.FilterDestination<int>((value, state) => value >= 0).FilterSource<int>((value, state) => value >= 10)
 			.FilterSource<object>(
@@ -52,7 +52,7 @@ public class DestinationFilterTest
 	[Fact]
 	public void TestdestinationFilter1()
 	{
-		var mapper = Mapper.Default.GetMapper<DestinationTestFilterSrc, DestinationTestFilterDest>(
+		Mapper<DestinationTestFilterSrc, DestinationTestFilterDest?> mapper = Mapper.Default.GetMapper<DestinationTestFilterSrc, DestinationTestFilterDest>(
 		  new DefaultMapConfig().FilterDestination<string>((value, state) => false)
 			.FilterDestination<int>((value, state) => value >= 0).FilterSource<int>((value, state) => value >= 10)
 			.FilterSource<object>(

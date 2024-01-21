@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.Tests;
+namespace EmitMapper.Tests;
 
 /// <summary>
 ///   The test utils.
@@ -12,7 +12,7 @@ public static class TestUtils
 	/// <param name="arr1">The arr1.</param>
 	/// <param name="arr2">The arr2.</param>
 	/// <returns>A bool.</returns>
-	public static bool AreEqual<T>(IEnumerable<T> arr1, IEnumerable<T> arr2)
+	public static bool AreEqual<T>(IEnumerable<T>? arr1, IEnumerable<T>? arr2)
 	  where T : IEqualityComparer<T>
 	{
 		if (arr1 is null || arr2 is null)

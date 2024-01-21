@@ -14,8 +14,8 @@ internal class AstIf : IAstNode
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)
 	{
-		var elseLabel = context.ILGenerator.DefineLabel();
-		var endIfLabel = context.ILGenerator.DefineLabel();
+		var elseLabel = context.IlGenerator.DefineLabel();
+		var endIfLabel = context.IlGenerator.DefineLabel();
 
 		Condition.Compile(context);
 		context.Emit(OpCodes.Brfalse, elseLabel);
@@ -27,10 +27,10 @@ internal class AstIf : IAstNode
 			context.Emit(OpCodes.Br, endIfLabel);
 		}
 
-		context.ILGenerator.MarkLabel(elseLabel);
+		context.IlGenerator.MarkLabel(elseLabel);
 
 		FalseBranch?.Compile(context);
 
-		context.ILGenerator.MarkLabel(endIfLabel);
+		context.IlGenerator.MarkLabel(endIfLabel);
 	}
 }

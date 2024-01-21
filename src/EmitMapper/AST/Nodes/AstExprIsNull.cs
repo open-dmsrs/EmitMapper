@@ -19,7 +19,7 @@ internal class AstExprIsNull : IAstValue
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type ItemType => Metadata<int>.Type;
+	public Type? ItemType => Metadata<int>.Type;
 
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)
@@ -30,7 +30,7 @@ internal class AstExprIsNull : IAstValue
 		}
 		else if (ReflectionHelper.IsNullable(value.ItemType))
 		{
-			AstBuildHelper.ReadPropertyRV(new AstValueToAddr((IAstValue)value), value.ItemType.GetProperty("HasValue"))
+			AstBuildHelper.ReadPropertyRv(new AstValueToAddr((IAstValue)value), value.ItemType.GetProperty("HasValue"))
 			  .Compile(context);
 
 			context.Emit(OpCodes.Ldc_I4_0);

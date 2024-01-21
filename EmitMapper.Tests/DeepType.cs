@@ -50,7 +50,7 @@ public class DeepType : IDisposable
 	  }
 		};
 
-		var mapper = Mapper.Default.GetMapper<Customer, CustomerDTO>();
+		var mapper = Mapper.Default.GetMapper<Customer, CustomerDto>();
 
 		var result = mapper.Map(customer);
 
@@ -74,7 +74,7 @@ public class DeepType : IDisposable
 	/// </summary>
 	/// <param name="a">The a.</param>
 	/// <param name="ad">The ad.</param>
-	private static void IsSame(Address a, AddressDTO ad)
+	private static void IsSame(Address a, AddressDto ad)
 	{
 		a.Id.ShouldBe(ad.Id);
 		a.City.ShouldBe(ad.City);

@@ -39,7 +39,7 @@ public static class TypeExtensions
 	/// <param name="derivedType">The derived type.</param>
 	/// <param name="baseType">The base type.</param>
 	/// <exception cref="ArgumentOutOfRangeException"></exception>
-	public static void CheckIsDerivedFrom(this Type derivedType, Type baseType)
+	public static void CheckIsDerivedFrom(this Type? derivedType, Type? baseType)
 	{
 		if (!baseType.IsAssignableFrom(derivedType) && !derivedType.IsGenericTypeDefinition
 													&& !baseType.IsGenericTypeDefinition)
@@ -87,7 +87,7 @@ public static class TypeExtensions
 	/// <param name="type">The type.</param>
 	/// <param name="genericInterface">The generic interface.</param>
 	/// <returns>A Type.</returns>
-	public static Type? GetGenericInterface(this Type type, Type genericInterface)
+	public static Type? GetGenericInterface(this Type type, Type? genericInterface)
 	{
 		if (type.IsGenericType(genericInterface))
 		{
@@ -122,7 +122,7 @@ public static class TypeExtensions
 	/// <returns>A Type.</returns>
 	public static Type GetIEnumerableType(this Type type)
 	{
-		return type.GetGenericInterface(Metadata.IEnumerable1);
+		return type.GetGenericInterface(Metadata.Enumerable1);
 	}
 
 	/// <summary>
@@ -217,7 +217,7 @@ public static class TypeExtensions
 	/// <param name="type">The type.</param>
 	/// <param name="genericType">The generic type.</param>
 	/// <returns>A bool.</returns>
-	public static bool IsGenericType(this Type type, Type genericType)
+	public static bool IsGenericType(this Type type, Type? genericType)
 	{
 		return type.IsGenericType && type.GetGenericTypeDefinitionCache() == genericType;
 	}

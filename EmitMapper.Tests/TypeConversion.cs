@@ -12,7 +12,7 @@ public class TypeConversion
 	{
 		var a = new A1();
 		var b = new B1();
-		var mapper = Context.ObjMan.GetMapper<B1, A1>();
+		Mapper<B1, A1?> mapper = Context.ObjMan.GetMapper<B1, A1>();
 
 		// DynamicAssemblyManager.SaveAssembly();
 		mapper.Map(b, a);

@@ -10,7 +10,7 @@ internal class AstReadThis : IAstRefOrAddr
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type ItemType => ThisType;
+	public Type? ItemType => ThisType;
 
 	/// <inheritdoc />
 	public virtual void Compile(CompilationContext context)

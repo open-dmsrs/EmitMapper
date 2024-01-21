@@ -26,7 +26,7 @@ public static partial class CommandBuilder
 	/// <param name="tableName">Name of the table.</param>
 	/// <param name="dbSettings">The db settings.</param>
 	/// <returns>DbCommand.</returns>
-	public static DbCommand BuildInsertCommand(this DbCommand cmd, object obj, string tableName, DbSettings dbSettings)
+	public static DbCommand? BuildInsertCommand(this DbCommand? cmd, object obj, string tableName, DbSettings dbSettings)
 	{
 		return BuildInsertCommand(cmd, obj, tableName, dbSettings, null, null);
 	}
@@ -41,15 +41,15 @@ public static partial class CommandBuilder
 	/// <param name="includeFields">The include fields.</param>
 	/// <param name="excludeFields">The exclude fields.</param>
 	/// <returns>DbCommand.</returns>
-	public static DbCommand BuildInsertCommand(
-	  this DbCommand cmd,
+	public static DbCommand? BuildInsertCommand(
+	  this DbCommand? cmd,
 	  object obj,
 	  string tableName,
 	  DbSettings dbSettings,
 	  string[] includeFields,
 	  string[] excludeFields)
 	{
-		IMappingConfigurator config = new AddDbCommandsMappingConfig(
+		IMappingConfigurator? config = new AddDbCommandsMappingConfig(
 		  dbSettings,
 		  includeFields,
 		  excludeFields,

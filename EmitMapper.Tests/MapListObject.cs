@@ -245,9 +245,7 @@ public class MapListObject
 		/// <returns>An object.</returns>
 		public object Create(object request, ISpecimenContext context)
 		{
-			var type = request as Type;
-
-			if (type is null)
+			if (request is not Type type)
 			{
 				return new NoSpecimen();
 			}

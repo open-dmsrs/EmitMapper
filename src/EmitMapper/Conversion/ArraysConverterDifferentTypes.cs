@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.Conversion;
+namespace EmitMapper.Conversion;
 
 /// <summary>
 /// The arrays converter different types.
@@ -17,7 +17,7 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
 	/// <param name="from">The from.</param>
 	/// <param name="state">The state.</param>
 	/// <returns>An array of TTos</returns>
-	public TTo[]? Convert(ICollection<TFrom> from, object state)
+	public TTo[]? Convert(ICollection<TFrom>? from, object state)
 	{
 		if (from is null)
 		{
@@ -41,7 +41,7 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <param name="mappingConfig">The mapping config.</param>
-	public void Initialize(Type from, Type to, MapConfigBaseImpl mappingConfig)
+	public void Initialize(Type? from, Type? to, MapConfigBaseImpl? mappingConfig)
 	{
 		var staticConverters = mappingConfig.GetStaticConvertersManager() ?? StaticConvertersManager.DefaultInstance;
 		var staticConverterMethod = staticConverters.GetStaticConverter(Metadata<TFrom>.Type, Metadata<TTo>.Type);

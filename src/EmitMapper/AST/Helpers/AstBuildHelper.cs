@@ -31,7 +31,7 @@ internal static class AstBuildHelper
 	/// <param name="value">The value.</param>
 	/// <param name="targetType">The target type.</param>
 	/// <returns>An IAstRefOrValue.</returns>
-	public static IAstRefOrValue CastClass(IAstRefOrValue value, Type targetType)
+	public static IAstRefOrValue CastClass(IAstRefOrValue value, Type? targetType)
 	{
 		if (targetType.IsValueType)
 		{
@@ -47,7 +47,7 @@ internal static class AstBuildHelper
 	/// <param name="argumentIndex">The argument index.</param>
 	/// <param name="argumentType">The argument type.</param>
 	/// <returns>An IAstRefOrAddr.</returns>
-	public static IAstRefOrAddr ReadArgumentRA(int argumentIndex, Type argumentType)
+	public static IAstRefOrAddr ReadArgumentRa(int argumentIndex, Type argumentType)
 	{
 		if (argumentType.IsValueType)
 		{
@@ -63,7 +63,7 @@ internal static class AstBuildHelper
 	/// <param name="argumentIndex">The argument index.</param>
 	/// <param name="argumentType">The argument type.</param>
 	/// <returns>An IAstRefOrValue.</returns>
-	public static IAstRefOrValue ReadArgumentRV(int argumentIndex, Type argumentType)
+	public static IAstRefOrValue ReadArgumentRv(int argumentIndex, Type? argumentType)
 	{
 		if (argumentType.IsValueType)
 		{
@@ -79,7 +79,7 @@ internal static class AstBuildHelper
 	/// <param name="array">The array.</param>
 	/// <param name="index">The index.</param>
 	/// <returns>An IAstRefOrAddr.</returns>
-	public static IAstRefOrAddr ReadArrayItemRA(IAstRef array, int index)
+	public static IAstRefOrAddr ReadArrayItemRa(IAstRef array, int index)
 	{
 		if (array.ItemType.IsValueType)
 		{
@@ -95,7 +95,7 @@ internal static class AstBuildHelper
 	/// <param name="array">The array.</param>
 	/// <param name="index">The index.</param>
 	/// <returns>An IAstRefOrValue.</returns>
-	public static IAstRefOrValue ReadArrayItemRV(IAstRef array, int index)
+	public static IAstRefOrValue ReadArrayItemRv(IAstRef array, int index)
 	{
 		if (array.ItemType.IsValueType)
 		{
@@ -111,7 +111,7 @@ internal static class AstBuildHelper
 	/// <param name="sourceObject">The source object.</param>
 	/// <param name="fieldInfo">The field info.</param>
 	/// <returns>An IAstRefOrAddr.</returns>
-	public static IAstRefOrAddr ReadFieldRA(IAstRefOrAddr sourceObject, FieldInfo fieldInfo)
+	public static IAstRefOrAddr ReadFieldRa(IAstRefOrAddr sourceObject, FieldInfo fieldInfo)
 	{
 		if (fieldInfo.FieldType.IsValueType)
 		{
@@ -127,7 +127,7 @@ internal static class AstBuildHelper
 	/// <param name="sourceObject">The source object.</param>
 	/// <param name="fieldInfo">The field info.</param>
 	/// <returns>An IAstRefOrValue.</returns>
-	public static IAstRefOrValue ReadFieldRV(IAstRefOrAddr sourceObject, FieldInfo fieldInfo)
+	public static IAstRefOrValue ReadFieldRv(IAstRefOrAddr sourceObject, FieldInfo fieldInfo)
 	{
 		if (fieldInfo.FieldType.IsValueType)
 		{
@@ -142,7 +142,7 @@ internal static class AstBuildHelper
 	/// </summary>
 	/// <param name="loc">The loc.</param>
 	/// <returns>An IAstRefOrAddr.</returns>
-	public static IAstRefOrAddr ReadLocalRA(LocalBuilder loc)
+	public static IAstRefOrAddr ReadLocalRa(LocalBuilder loc)
 	{
 		if (loc.LocalType.IsValueType)
 		{
@@ -157,7 +157,7 @@ internal static class AstBuildHelper
 	/// </summary>
 	/// <param name="loc">The loc.</param>
 	/// <returns>An IAstRefOrValue.</returns>
-	public static IAstRefOrValue ReadLocalRV(LocalBuilder loc)
+	public static IAstRefOrValue ReadLocalRv(LocalBuilder loc)
 	{
 		if (loc.LocalType.IsValueType)
 		{
@@ -195,10 +195,10 @@ internal static class AstBuildHelper
 
 		if (memberInfo.MemberType == MemberTypes.Field)
 		{
-			return ReadFieldRA(sourceObject, (FieldInfo)memberInfo);
+			return ReadFieldRa(sourceObject, (FieldInfo)memberInfo);
 		}
 
-		return (IAstRef)ReadPropertyRV(sourceObject, (PropertyInfo)memberInfo);
+		return (IAstRef)ReadPropertyRv(sourceObject, (PropertyInfo)memberInfo);
 	}
 
 	/// <summary>
@@ -208,7 +208,7 @@ internal static class AstBuildHelper
 	/// <param name="memberInfo">The member info.</param>
 	/// <exception cref="EmitMapperException"></exception>
 	/// <returns>An IAstRefOrAddr.</returns>
-	public static IAstRefOrAddr ReadMemberRA(IAstRefOrAddr sourceObject, MemberInfo memberInfo)
+	public static IAstRefOrAddr ReadMemberRa(IAstRefOrAddr sourceObject, MemberInfo memberInfo)
 	{
 		if (memberInfo.MemberType == MemberTypes.Method)
 		{
@@ -234,17 +234,17 @@ internal static class AstBuildHelper
 
 		if (memberInfo.MemberType == MemberTypes.Field)
 		{
-			return ReadFieldRA(sourceObject, (FieldInfo)memberInfo);
+			return ReadFieldRa(sourceObject, (FieldInfo)memberInfo);
 		}
 
 		var pi = (PropertyInfo)memberInfo;
 
 		if (pi.PropertyType.IsValueType)
 		{
-			return ReadPropertyRA(sourceObject, (PropertyInfo)memberInfo);
+			return ReadPropertyRa(sourceObject, (PropertyInfo)memberInfo);
 		}
 
-		return (IAstRef)ReadPropertyRV(sourceObject, (PropertyInfo)memberInfo);
+		return (IAstRef)ReadPropertyRv(sourceObject, (PropertyInfo)memberInfo);
 	}
 
 	/// <summary>
@@ -254,7 +254,7 @@ internal static class AstBuildHelper
 	/// <param name="memberInfo">The member info.</param>
 	/// <exception cref="EmitMapperException"></exception>
 	/// <returns>An IAstRefOrValue.</returns>
-	public static IAstRefOrValue ReadMemberRV(IAstRefOrAddr sourceObject, MemberInfo memberInfo)
+	public static IAstRefOrValue ReadMemberRv(IAstRefOrAddr sourceObject, MemberInfo memberInfo)
 	{
 		if (memberInfo.MemberType == MemberTypes.Method)
 		{
@@ -275,10 +275,10 @@ internal static class AstBuildHelper
 
 		if (memberInfo.MemberType == MemberTypes.Field)
 		{
-			return ReadFieldRV(sourceObject, (FieldInfo)memberInfo);
+			return ReadFieldRv(sourceObject, (FieldInfo)memberInfo);
 		}
 
-		return ReadPropertyRV(sourceObject, (PropertyInfo)memberInfo);
+		return ReadPropertyRv(sourceObject, (PropertyInfo)memberInfo);
 	}
 
 	/// <summary>
@@ -300,11 +300,11 @@ internal static class AstBuildHelper
 
 		while (enumerator.MoveNext())
 		{
-			src = ReadMemberRA(src, cur);
+			src = ReadMemberRa(src, cur);
 			cur = enumerator.Current;
 		}
 
-		return ReadMemberRV(src, cur);
+		return ReadMemberRv(src, cur);
 	}
 
 	/// <summary>
@@ -315,7 +315,7 @@ internal static class AstBuildHelper
 	/// <returns>An IAstRefOrValue.</returns>
 	public static IAstRefOrValue ReadMembersChain(IAstRefOrAddr sourceObject, MemberInfo membersChainOfOne)
 	{
-		return ReadMemberRV(sourceObject, membersChainOfOne);
+		return ReadMemberRv(sourceObject, membersChainOfOne);
 	}
 
 	/// <summary>
@@ -324,7 +324,7 @@ internal static class AstBuildHelper
 	/// <param name="sourceObject">The source object.</param>
 	/// <param name="propertyInfo">The property info.</param>
 	/// <returns>An IAstRefOrAddr.</returns>
-	public static IAstRefOrAddr ReadPropertyRA(IAstRefOrAddr sourceObject, PropertyInfo propertyInfo)
+	public static IAstRefOrAddr ReadPropertyRa(IAstRefOrAddr sourceObject, PropertyInfo propertyInfo)
 	{
 		if (propertyInfo.PropertyType.IsValueType)
 		{
@@ -340,7 +340,7 @@ internal static class AstBuildHelper
 	/// <param name="sourceObject">The source object.</param>
 	/// <param name="propertyInfo">The property info.</param>
 	/// <returns>An IAstRefOrValue.</returns>
-	public static IAstRefOrValue ReadPropertyRV(IAstRefOrAddr sourceObject, PropertyInfo propertyInfo)
+	public static IAstRefOrValue ReadPropertyRv(IAstRefOrAddr sourceObject, PropertyInfo propertyInfo)
 	{
 		if (propertyInfo.PropertyType.IsValueType)
 		{
@@ -355,7 +355,7 @@ internal static class AstBuildHelper
 	/// </summary>
 	/// <param name="thisType">The this type.</param>
 	/// <returns>An IAstRefOrAddr.</returns>
-	public static IAstRefOrAddr ReadThis(Type thisType)
+	public static IAstRefOrAddr ReadThis(Type? thisType)
 	{
 		if (thisType.IsValueType)
 		{
@@ -405,7 +405,7 @@ internal static class AstBuildHelper
 
 		while (enumerator.MoveNext())
 		{
-			readTarget = ReadMemberRA(readTarget, cur);
+			readTarget = ReadMemberRa(readTarget, cur);
 			cur = enumerator.Current;
 		}
 

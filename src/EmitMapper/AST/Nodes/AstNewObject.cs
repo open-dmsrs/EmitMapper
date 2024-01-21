@@ -7,7 +7,7 @@ internal class AstNewObject : IAstRef
 {
 	public IAstStackItem[] ConstructorParams;
 
-	public Type ObjectType;
+	public Type? ObjectType;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="AstNewObject"/> class.
@@ -21,7 +21,7 @@ internal class AstNewObject : IAstRef
 	/// </summary>
 	/// <param name="objectType">The object type.</param>
 	/// <param name="constructorParams">The constructor params.</param>
-	public AstNewObject(Type objectType, IAstStackItem[] constructorParams)
+	public AstNewObject(Type? objectType, IAstStackItem[] constructorParams)
 	{
 		ObjectType = objectType;
 		ConstructorParams = constructorParams;
@@ -30,7 +30,7 @@ internal class AstNewObject : IAstRef
 	/// <summary>
 	/// Gets the item type.
 	/// </summary>
-	public Type ItemType => ObjectType;
+	public Type? ItemType => ObjectType;
 
 	/// <inheritdoc/>
 	/// <exception cref="Exception"></exception>
@@ -43,9 +43,9 @@ internal class AstNewObject : IAstRef
 
 			if (ConstructorParams is null || ConstructorParams.Length == 0)
 			{
-				var temp = context.ILGenerator.DeclareLocal(underlyingType);
+				var temp = context.IlGenerator.DeclareLocal(underlyingType);
 				new AstInitializeLocalVariable(temp).Compile(context);
-				underlyingValue = AstBuildHelper.ReadLocalRV(temp);
+				underlyingValue = AstBuildHelper.ReadLocalRv(temp);
 			}
 			else
 			{
@@ -83,9 +83,9 @@ internal class AstNewObject : IAstRef
 			}
 			else if (ObjectType.IsValueType)
 			{
-				var temp = context.ILGenerator.DeclareLocal(ObjectType);
+				var temp = context.IlGenerator.DeclareLocal(ObjectType);
 				new AstInitializeLocalVariable(temp).Compile(context);
-				AstBuildHelper.ReadLocalRV(temp).Compile(context);
+				AstBuildHelper.ReadLocalRv(temp).Compile(context);
 			}
 			else
 			{

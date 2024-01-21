@@ -74,8 +74,8 @@ public static class ProxyGenerator
 		{
 			var propertyNames = string.Join("_", typeDescription.AdditionalProperties.Select(p => p.Name));
 			var typeName = $"Proxy_{interfaceType.FullName}_{typeDescription.GetHashCode()}_{propertyNames}";
-			const int MaxTypeNameLength = 1023;
-			typeName = typeName.Substring(0, Math.Min(MaxTypeNameLength, typeName.Length));
+			const int maxTypeNameLength = 1023;
+			typeName = typeName.Substring(0, Math.Min(maxTypeNameLength, typeName.Length));
 			Debug.WriteLine(typeName, "Emitting proxy type");
 
 			return ProxyModule.DefineType(
@@ -200,7 +200,7 @@ public static class ProxyGenerator
 		/// <param name="owner">The owner.</param>
 		/// <param name="property">The property.</param>
 		/// <param name="propertyChangedField">The property changed field.</param>
-		public PropertyEmitter(TypeBuilder owner, PropertyDescription property, FieldInfo propertyChangedField)
+		public PropertyEmitter(TypeBuilder owner, PropertyDescription property, FieldInfo? propertyChangedField)
 		{
 			var name = property.Name;
 			var propertyType = property.Type;

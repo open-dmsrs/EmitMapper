@@ -21,7 +21,7 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
 	/// <param name="from">The type from.</param>
 	/// <param name="to">To type to.</param>
 	/// <returns>The mapping operations.</returns>
-	public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
+	public override IEnumerable<IMappingOperation> GetMappingOperations(Type? from, Type? to)
 	{
 		return FilterOperations(
 		  from,
@@ -52,7 +52,7 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
 				  value,
 				  sourceType,
 				  container,
-				  (List<Tuple<string, Type>>)fieldsDescription);
+				  (List<Tuple<string, Type?>>)fieldsDescription);
 				}
 			  })).ToArray();
 	}
@@ -66,9 +66,9 @@ public class EntityToDataContainerPropertyMappingConfigurator : DefaultMapConfig
 	/// <param name="fieldsDescription">The fields description.</param>
 	private static void ConvertSourcePropertyToFields(
 	  object sourceValue,
-	  Type sourceType,
-	  DataContainer container,
-	  List<Tuple<string, Type>> fieldsDescription)
+	  Type? sourceType,
+	  DataContainer? container,
+	  List<Tuple<string, Type?>> fieldsDescription)
 	{
 		if (container is null || container.Fields is null)
 		{

@@ -28,17 +28,17 @@ internal class AstIfNull : IAstRefOrValue
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type ItemType => value.ItemType;
+	public Type? ItemType => value.ItemType;
 
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)
 	{
-		var ifNotNullLabel = context.ILGenerator.DefineLabel();
+		var ifNotNullLabel = context.IlGenerator.DefineLabel();
 		value.Compile(context);
 		context.Emit(OpCodes.Dup);
 		context.Emit(OpCodes.Brtrue_S, ifNotNullLabel);
 		context.Emit(OpCodes.Pop);
 		ifNullValue.Compile(context);
-		context.ILGenerator.MarkLabel(ifNotNullLabel);
+		context.IlGenerator.MarkLabel(ifNotNullLabel);
 	}
 }

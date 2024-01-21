@@ -47,7 +47,7 @@ public class MemberDescriptor
 	/// <summary>
 	///   Gets the member type.
 	/// </summary>
-	public Type MemberType { get; private set; }
+	public Type? MemberType { get; private set; }
 
 	/// <summary>
 	///   Tos the string.

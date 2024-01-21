@@ -3,7 +3,7 @@
 /// <summary>
 ///   The customer d t o.
 /// </summary>
-public class CustomerDTO : ITestObject
+public class CustomerDto : ITestObject
 {
 	/// <summary>
 	///   Gets or Sets the address.
@@ -16,11 +16,11 @@ public class CustomerDTO : ITestObject
 	/// <summary>
 	///   Gets or Sets the addresses.
 	/// </summary>
-	public AddressDTO[]? Addresses { get; set; }
+	public AddressDto[]? Addresses { get; set; }
 	/// <summary>
 	///   Gets or Sets the home address.
 	/// </summary>
-	public AddressDTO? HomeAddress { get; set; }
+	public AddressDto? HomeAddress { get; set; }
 	/// <summary>
 	///   Gets or Sets the id.
 	/// </summary>
@@ -32,5 +32,5 @@ public class CustomerDTO : ITestObject
 	/// <summary>
 	///   Gets or Sets the work addresses.
 	/// </summary>
-	public List<AddressDTO>? WorkAddresses { get; set; }
+	public List<AddressDto>? WorkAddresses { get; set; }
 }

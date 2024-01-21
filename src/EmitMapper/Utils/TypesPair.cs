@@ -2,9 +2,9 @@
 
 public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<TypesPair>
 {
-	public readonly Type DestinationType;
+	public readonly Type? DestinationType;
 
-	public readonly Type SourceType;
+	public readonly Type? SourceType;
 
 	private readonly int hash;
 
@@ -14,7 +14,7 @@ public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<Type
 	/// </summary>
 	/// <param name="typeFrom">The type from.</param>
 	/// <param name="typeTo">The type to.</param>
-	public TypesPair(Type typeFrom, Type typeTo)
+	public TypesPair(Type? typeFrom, Type? typeTo)
 	{
 		SourceType = typeFrom;
 		DestinationType = typeTo;
@@ -142,7 +142,7 @@ public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<Type
 	/// </summary>
 	/// <param name="type">The type.</param>
 	/// <returns>A Type.</returns>
-	private static Type GetTypeDefinitionIfGeneric(Type type)
+	private static Type? GetTypeDefinitionIfGeneric(Type? type)
 	{
 		return type.IsGenericType ? type.GetGenericTypeDefinitionCache() : type;
 	}

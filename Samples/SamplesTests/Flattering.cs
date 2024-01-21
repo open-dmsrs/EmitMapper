@@ -1,4 +1,4 @@
-﻿using EMConfigurations;
+using EMConfigurations;
 
 namespace SamplesTests;
 
@@ -19,7 +19,7 @@ public class Flattering
 			Sub = new ModelSubObject
 			{
 				ProperName = "Some name",
-				SubSub = new ModelSubSubObject { IAmACoolProperty = "Cool daddy-o" }
+				SubSub = new ModelSubSubObject { AmACoolProperty = "Cool daddy-o" }
 			},
 			Sub2 = new ModelSubObject { ProperName = "Sub 2 name" },
 			SubWithExtraName = new ModelSubObject { ProperName = "Some other name" }
@@ -33,7 +33,7 @@ public class Flattering
 		b.BaseDate.ShouldBe(source.BaseDate);
 		b.TestMethod1.ShouldBe(source.TestMethod1());
 		b.SubProperName.ShouldBe(source.Sub.ProperName);
-		b.SubSubSubIAmACoolProperty.ShouldBe(source.Sub.SubSub.IAmACoolProperty);
+		b.SubSubSubAmACoolProperty.ShouldBe(source.Sub.SubSub.AmACoolProperty);
 		b.Sub2ProperName.ShouldBe(source.Sub2.ProperName);
 		b.SubWithExtraNameProperName.ShouldBe(source.SubWithExtraName.ProperName);
 	}
@@ -63,7 +63,7 @@ public class Flattering
 		/// <summary>
 		///   Gets or Sets the sub sub sub i am a cool property.
 		/// </summary>
-		public string? SubSubSubIAmACoolProperty { get; set; }
+		public string? SubSubSubAmACoolProperty { get; set; }
 
 		/// <summary>
 		///   Gets or Sets the sub with extra name proper name.
@@ -162,6 +162,6 @@ public class Flattering
 		/// <summary>
 		///   Gets or Sets the i am a cool property.
 		/// </summary>
-		public string? IAmACoolProperty { get; set; }
+		public string? AmACoolProperty { get; set; }
 	}
 }

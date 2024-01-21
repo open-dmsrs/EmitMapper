@@ -12,7 +12,7 @@ internal class AstReadField : IAstStackItem
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type ItemType => FieldInfo.FieldType;
+	public Type? ItemType => FieldInfo.FieldType;
 
 	/// <inheritdoc />
 	public virtual void Compile(CompilationContext context)

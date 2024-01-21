@@ -19,12 +19,12 @@ internal class AstValueToAddr : IAstAddr
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type ItemType => Value.ItemType;
+	public Type? ItemType => Value.ItemType;
 
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)
 	{
-		var loc = context.ILGenerator.DeclareLocal(ItemType);
+		var loc = context.IlGenerator.DeclareLocal(ItemType);
 		new AstInitializeLocalVariable(loc).Compile(context);
 		new AstWriteLocal { LocalIndex = loc.LocalIndex, LocalType = loc.LocalType, Value = Value }.Compile(context);
 		new AstReadLocalAddr(loc).Compile(context);

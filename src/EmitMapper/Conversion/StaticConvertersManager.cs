@@ -7,9 +7,9 @@ public class StaticConvertersManager
 {
 	private static readonly LazyConcurrentDictionary<MethodInfo, Func<object, object>> ConvertersFunc = new();
 
-	private static readonly object locker = new();
+	private static readonly object Locker = new();
 
-	private static StaticConvertersManager? defaultInstance;
+	private static StaticConvertersManager? _defaultInstance;
 
 	private readonly LazyConcurrentDictionary<TypesPair, MethodInfo> typesMethods = new();
 
@@ -22,22 +22,22 @@ public class StaticConvertersManager
 	{
 		get
 		{
-			if (defaultInstance is null)
+			if (_defaultInstance is null)
 			{
-				lock (locker)
+				lock (Locker)
 				{
-					if (defaultInstance is null)
+					if (_defaultInstance is null)
 					{
-						defaultInstance = new StaticConvertersManager();
-						defaultInstance.AddConverterClass(Metadata.Convert);
-						defaultInstance.AddConverterClass(Metadata<EMConvert>.Type);
-						defaultInstance.AddConverterClass(Metadata<NullableConverter>.Type);
-						defaultInstance.AddConverterFunc(EMConvert.GetConversionMethod);
+						_defaultInstance = new StaticConvertersManager();
+						_defaultInstance.AddConverterClass(Metadata.Convert);
+						_defaultInstance.AddConverterClass(Metadata<EmConvert>.Type);
+						_defaultInstance.AddConverterClass(Metadata<NullableConverter>.Type);
+						_defaultInstance.AddConverterFunc(EmConvert.GetConversionMethod);
 					}
 				}
 			}
 
-			return defaultInstance;
+			return _defaultInstance;
 		}
 	}
 
@@ -45,7 +45,7 @@ public class StaticConvertersManager
 	///   Adds the converter class.
 	/// </summary>
 	/// <param name="converterClass">The converter class.</param>
-	public void AddConverterClass(Type converterClass)
+	public void AddConverterClass(Type? converterClass)
 	{
 		foreach (var m in converterClass.GetMethods(BindingFlags.Static | BindingFlags.Public))
 		{
@@ -73,7 +73,7 @@ public class StaticConvertersManager
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns>A MethodInfo.</returns>
-	public MethodInfo? GetStaticConverter(Type from, Type to)
+	public MethodInfo? GetStaticConverter(Type? from, Type? to)
 	{
 		if (from is null || to is null)
 		{
@@ -101,7 +101,7 @@ public class StaticConvertersManager
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns><![CDATA[Func<object, object>]]></returns>
-	public Func<object, object>? GetStaticConverterFunc(Type from, Type to)
+	public Func<object, object>? GetStaticConverterFunc(Type from, Type? to)
 	{
 		var mi = GetStaticConverter(from, to);
 

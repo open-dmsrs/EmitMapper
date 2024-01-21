@@ -12,7 +12,7 @@ internal class AstReadArgument : IAstStackItem
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type ItemType => ArgumentType;
+	public Type? ItemType => ArgumentType;
 
 	/// <inheritdoc />
 	public virtual void Compile(CompilationContext context)

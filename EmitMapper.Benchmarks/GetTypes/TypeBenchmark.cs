@@ -39,7 +39,7 @@ public class TypeBenchmark
 	/// </summary>
 	/// <returns>A Type.</returns>
 	[Benchmark(Baseline = true)]
-	public Type OfMetadata()
+	public Type? OfMetadata()
 	{
 		return Metadata<Employee>.Type;
 	}

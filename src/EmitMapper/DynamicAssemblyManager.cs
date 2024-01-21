@@ -76,7 +76,7 @@ public class DynamicAssemblyManager
 	/// <param name="typeName">The type name.</param>
 	/// <param name="parent">The parent.</param>
 	/// <returns>A TypeBuilder.</returns>
-	internal static TypeBuilder DefineType(string typeName, Type parent)
+	internal static TypeBuilder DefineType(string typeName, Type? parent)
 	{
 		lock (LockObject)
 		{

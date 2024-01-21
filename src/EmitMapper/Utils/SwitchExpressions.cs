@@ -54,7 +54,7 @@ public static class SwitchExpressions
 	/// </summary>
 	/// <param name="exception">The exception.</param>
 	/// <returns>A DefaultThrowExpression.</returns>
-	public static DefaultThrowExpression DefaultThrow(Exception exception = null)
+	public static DefaultThrowExpression DefaultThrow(Exception? exception = null)
 	{
 		var exceptionToThrow = exception ?? new InvalidOperationException("switch expression did not match");
 		if (exceptionToThrow.StackTrace is not null)
@@ -72,7 +72,7 @@ public static class SwitchExpressions
 	/// <param name="on">The on.</param>
 	/// <param name="comparer">The comparer.</param>
 	/// <returns><![CDATA[SwitchExpression<TSwitch>]]></returns>
-	public static SwitchExpression<TSwitch> Switch<TSwitch>(TSwitch on, IEqualityComparer<TSwitch> comparer = null)
+	public static SwitchExpression<TSwitch> Switch<TSwitch>(TSwitch on, IEqualityComparer<TSwitch>? comparer = null)
 	{
 		return new SwitchExpression<TSwitch>(on, comparer ?? EqualityComparer<TSwitch>.Default);
 	}

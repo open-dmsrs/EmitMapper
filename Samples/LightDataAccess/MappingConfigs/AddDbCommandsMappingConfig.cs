@@ -57,7 +57,7 @@ internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns><![CDATA[IEnumerable<IMappingOperation>]]></returns>
-	public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
+	public override IEnumerable<IMappingOperation> GetMappingOperations(Type? from, Type? to)
 	{
 		var members = ReflectionHelper.GetPublicFieldsAndProperties(from);
 

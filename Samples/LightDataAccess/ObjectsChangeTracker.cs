@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Assembly         : TSharp.Core
 // Author           : tangjingbo
 // Created          : 05-23-2013
@@ -82,7 +82,7 @@ public class ObjectsChangeTracker
 	/// <param name="originalObj">The original obj.</param>
 	/// <param name="currentObj">The current obj.</param>
 	/// <returns>An array of TrackingMembers.</returns>
-	public TrackingMember[]? GetChanges(object originalObj, object currentObj)
+	public TrackingMember[]? GetChanges(object? originalObj, object? currentObj)
 	{
 		if (originalObj is null || currentObj is null || originalObj.GetType() != currentObj.GetType())
 		{
@@ -110,7 +110,7 @@ public class ObjectsChangeTracker
 	///   Registers the object.
 	/// </summary>
 	/// <param name="obj">The obj.</param>
-	public void RegisterObject(object obj)
+	public void RegisterObject(object? obj)
 	{
 		// var type = Obj.GetType();
 		if (obj is not null)
@@ -124,7 +124,7 @@ public class ObjectsChangeTracker
 	/// </summary>
 	/// <param name="obj">The obj.</param>
 	/// <returns>List{TrackingMember}.</returns>
-	private List<TrackingMember> GetObjectMembers(object obj)
+	private List<TrackingMember> GetObjectMembers(object? obj)
 	{
 		var type = obj?.GetType();
 		while (type?.Assembly.IsDynamic == true)
@@ -190,7 +190,7 @@ public class ObjectsChangeTracker
 		/// <param name="from">From.</param>
 		/// <param name="to">To.</param>
 		/// <returns>IEnumerable&lt;IMappingOperation&gt;.</returns>
-		public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
+		public override IEnumerable<IMappingOperation> GetMappingOperations(Type? from, Type? to)
 		{
 			return ReflectionHelper.GetPublicFieldsAndProperties(from).Select(
 			  m => new SrcReadOperation
@@ -208,7 +208,7 @@ public class ObjectsChangeTracker
 		/// <param name="from">From.</param>
 		/// <param name="to">To.</param>
 		/// <returns>IRootMappingOperation.</returns>
-		public override IRootMappingOperation? GetRootMappingOperation(Type from, Type to)
+		public override IRootMappingOperation? GetRootMappingOperation(Type? from, Type? to)
 		{
 			return null;
 		}

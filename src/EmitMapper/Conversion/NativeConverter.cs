@@ -1,11 +1,11 @@
-﻿namespace EmitMapper.Conversion;
+namespace EmitMapper.Conversion;
 
 /// <summary>
 ///   The native converter.
 /// </summary>
 internal class NativeConverter
 {
-	private static readonly Type[] ConvertTypes =
+	private static readonly Type?[] ConvertTypes =
 	{
 	Metadata<bool>.Type, Metadata<char>.Type, Metadata<sbyte>.Type, Metadata<byte>.Type, Metadata<short>.Type,
 	Metadata<int>.Type, Metadata<long>.Type, Metadata<ushort>.Type, Metadata<uint>.Type, Metadata<ulong>.Type,
@@ -15,8 +15,8 @@ internal class NativeConverter
 	private static readonly MethodInfo ObjectToStringMethod = Metadata<NativeConverter>.Type.GetMethod(
 	  nameof(ObjectToString),
 	  BindingFlags.NonPublic | BindingFlags.Static);
-	private static readonly MethodInfo ChangeTypeMethod = Metadata<EMConvert>.Type.GetMethod(
-	  nameof(EMConvert.ChangeType),
+	private static readonly MethodInfo ChangeTypeMethod = Metadata<EmConvert>.Type.GetMethod(
+	  nameof(EmConvert.ChangeType),
 	  new[] { Metadata<object>.Type, Metadata<Type>.Type, Metadata<Type>.Type });
 
 	private static readonly MethodInfo[] ConvertMethods =
@@ -72,7 +72,7 @@ internal class NativeConverter
 	/// <param name="f">The f.</param>
 	/// <param name="t">The t.</param>
 	/// <returns>A bool.</returns>
-	public static bool IsNativeConvertionPossible(Type f, Type t)
+	public static bool IsNativeConvertionPossible(Type? f, Type? t)
 	{
 		return IsNativeConvertionPossibleCache.GetOrAdd(
 		  new TypesPair(f, t),
@@ -135,7 +135,7 @@ internal class NativeConverter
 	/// </summary>
 	/// <param name="obj">The obj.</param>
 	/// <returns>A string.</returns>
-	internal static string? ObjectToString(object obj)
+	internal static string? ObjectToString(object? obj)
 	{
 		if (obj is null)
 		{

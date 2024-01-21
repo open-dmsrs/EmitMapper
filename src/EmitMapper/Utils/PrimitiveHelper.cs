@@ -76,7 +76,7 @@ public static class PrimitiveHelper
 	/// <typeparam name="T"></typeparam>
 	/// <param name="source">The source.</param>
 	/// <returns><![CDATA[IReadOnlyCollection<T>]]></returns>
-	public static IReadOnlyCollection<T> NullCheck<T>(this IReadOnlyCollection<T> source)
+	public static IReadOnlyCollection<T> NullCheck<T>(this IReadOnlyCollection<T>? source)
 	{
 		return source ?? Array.Empty<T>();
 	}

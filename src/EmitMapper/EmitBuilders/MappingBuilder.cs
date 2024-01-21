@@ -7,15 +7,15 @@ internal class MappingBuilder
 {
 	public readonly List<object> StoredObjects;
 
-	private readonly IMappingConfigurator mappingConfigurator;
+	private readonly IMappingConfigurator? mappingConfigurator;
 
 	private readonly Mapper objectsMapperManager;
 
 	private readonly TypeBuilder typeBuilder;
 
-	private Type from;
+	private Type? from;
 
-	private Type to;
+	private Type? to;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="MappingBuilder" /> class.
@@ -27,10 +27,10 @@ internal class MappingBuilder
 	/// <param name="mappingConfigurator">The mapping configurator.</param>
 	public MappingBuilder(
 	  Mapper objectsMapperManager,
-	  Type from,
-	  Type to,
+	  Type? from,
+	  Type? to,
 	  TypeBuilder typeBuilder,
-	  IMappingConfigurator mappingConfigurator)
+	  IMappingConfigurator? mappingConfigurator)
 	{
 		this.objectsMapperManager = objectsMapperManager;
 		this.from = from;
@@ -57,7 +57,7 @@ internal class MappingBuilder
 		}
 
 		var methodBuilder = typeBuilder.DefineMethod(
-		  nameof(MapperBase.MapImpl),
+		  nameof(MapperBase.MapCore),
 		  MethodAttributes.Public | MethodAttributes.Virtual,
 		  Metadata<object>.Type,
 		  new[] { Metadata<object>.Type, Metadata<object>.Type, Metadata<object>.Type });
@@ -77,7 +77,7 @@ internal class MappingBuilder
 		mapperAst.Nodes.Add(BuilderUtils.InitializeLocal(locState, 3));
 
 #if DEBUG
-		locException = compilationContext.ILGenerator.DeclareLocal(Metadata<Exception>.Type);
+		locException = compilationContext.IlGenerator.DeclareLocal(Metadata<Exception>.Type);
 #endif
 
 		var mappingOperations = mappingConfigurator.GetMappingOperations(from, to);
@@ -100,7 +100,7 @@ internal class MappingBuilder
 		  }.ProcessOperations());
 
 		mapperAst.Nodes.Add(
-		  new AstReturn { ReturnType = Metadata<object>.Type, ReturnValue = AstBuildHelper.ReadLocalRV(locTo) });
+		  new AstReturn { ReturnType = Metadata<object>.Type, ReturnValue = AstBuildHelper.ReadLocalRv(locTo) });
 
 		mapperAst.Compile(compilationContext);
 	}

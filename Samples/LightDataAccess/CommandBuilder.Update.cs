@@ -34,13 +34,13 @@ public static partial class CommandBuilder
 	/// <param name="dbSettings">The db settings.</param>
 	/// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
 	public static bool BuildUpdateCommand(
-	  this DbCommand cmd,
+	  this DbCommand? cmd,
 	  object obj,
 	  string tableName,
 	  IEnumerable<string>? idFieldNames,
-	  IEnumerable<string> includeFields,
+	  IEnumerable<string>? includeFields,
 	  IEnumerable<string> excludeFields,
-	  ObjectsChangeTracker changeTracker,
+	  ObjectsChangeTracker? changeTracker,
 	  DbSettings dbSettings)
 	{
 		if (idFieldNames is null)
@@ -72,7 +72,7 @@ public static partial class CommandBuilder
 			includeFields = includeFields.Concat(idFieldNames);
 		}
 
-		IMappingConfigurator config = new AddDbCommandsMappingConfig(
+		IMappingConfigurator? config = new AddDbCommandsMappingConfig(
 		  dbSettings,
 		  includeFields,
 		  excludeFields,
@@ -112,7 +112,7 @@ public static partial class CommandBuilder
 	/// <param name="dbSettings">The db settings.</param>
 	/// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
 	public static bool BuildUpdateOperator(
-	  this DbCommand cmd,
+	  this DbCommand? cmd,
 	  object obj,
 	  string tableName,
 	  string[]? idFieldNames,

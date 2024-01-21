@@ -14,11 +14,11 @@ public abstract class CustomMapper : MapperBase
 	/// <param name="mappingConfigurator">The mapping configurator.</param>
 	/// <param name="storedObjects">The stored objects.</param>
 	protected CustomMapper(
-	  Mapper objectMapperManager,
-	  Type typeFrom,
-	  Type typeTo,
-	  IMappingConfigurator mappingConfigurator,
-	  object[] storedObjects)
+	  Mapper? objectMapperManager,
+	  Type? typeFrom,
+	  Type? typeTo,
+	  IMappingConfigurator? mappingConfigurator,
+	  object[]? storedObjects)
 	{
 		Initialize(objectMapperManager, typeFrom, typeTo, mappingConfigurator, storedObjects);
 	}

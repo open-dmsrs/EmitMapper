@@ -7,7 +7,7 @@ public static class DelegateInvoker
 {
 	private static readonly LazyConcurrentDictionary<string, Type> Cache = new();
 
-	private static readonly FieldInfo delField = Metadata<DelegateInvokerBase>.Type.GetField(
+	private static readonly FieldInfo DelField = Metadata<DelegateInvokerBase>.Type.GetField(
 	  nameof(DelegateInvokerBase.Del),
 	  BindingFlags.Public | BindingFlags.Instance);
 
@@ -117,9 +117,9 @@ public static class DelegateInvoker
 		return AstBuildHelper.CallMethod(
 		  del.GetType().GetMethodCache("Invoke"),
 		  new AstCastclassRef(
-			AstBuildHelper.ReadFieldRV(new AstReadThis { ThisType = Metadata<DelegateInvokerBase>.Type }, delField),
+			AstBuildHelper.ReadFieldRv(new AstReadThis { ThisType = Metadata<DelegateInvokerBase>.Type }, DelField),
 			del.GetType()),
-		  parameters.Select((p, idx) => (IAstStackItem)AstBuildHelper.ReadArgumentRV(idx + 1, Metadata<object>.Type))
+		  parameters.Select((p, idx) => (IAstStackItem)AstBuildHelper.ReadArgumentRv(idx + 1, Metadata<object>.Type))
 			.ToList());
 	}
 }

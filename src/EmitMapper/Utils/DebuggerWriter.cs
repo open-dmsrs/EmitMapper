@@ -8,7 +8,7 @@ namespace EmitMapper;
 /// <seealso cref="Debugger.Log"/>
 public class DebuggerWriter : TextWriter
 {
-	private static UnicodeEncoding? encoding;
+	private static UnicodeEncoding? _encoding;
 
 	private bool isOpen;
 
@@ -54,7 +54,7 @@ public class DebuggerWriter : TextWriter
 	/// <summary>
 	/// Gets the encoding.
 	/// </summary>
-	public override Encoding Encoding => encoding ??= new UnicodeEncoding(false, false);
+	public override Encoding Encoding => _encoding ??= new UnicodeEncoding(false, false);
 
 	/// <summary>
 	/// Gets the level.

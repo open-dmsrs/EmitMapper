@@ -22,7 +22,7 @@ public class MapperCore
 	/// <summary>
 	///   The default configuration.
 	/// </summary>
-	private static readonly IMappingConfigurator DefaultConfigurator;
+	private static readonly IMappingConfigurator? DefaultConfigurator;
 
 	/// <summary>
 	///   The list of mappers.
@@ -97,12 +97,12 @@ public class MapperCore
 	/// <param name="from">The object from.</param>
 	/// <param name="to">The destination object.</param>
 	/// <returns>The mapped object.</returns>
-	public virtual TTo Map<TFrom, TTo>(TFrom from, TTo to)
+	public virtual TTo? Map<TFrom, TTo>(TFrom from, TTo? to)
 	{
 		AssertCore.ArgumentNotNull(from, "@from");
 		AssertCore.ArgumentNotNull(to, "@to");
 
-		var mapper = GetMapper<TFrom, TTo>();
+		Mapper<TFrom, TTo?> mapper = GetMapper<TFrom, TTo>();
 
 		return mapper.Map(from, to);
 	}
@@ -132,9 +132,7 @@ public class MapperCore
 	/// NOTE: Resolving from IoC can be added here.
 	protected virtual Mapper<TFrom, TTo> GetMapper<TFrom, TTo>()
 	{
-		var mapper = Mappers.FirstOrDefault(m => m is Mapper<TFrom, TTo>) as Mapper<TFrom, TTo>;
-
-		if (mapper is null)
+		if (Mappers.FirstOrDefault(m => m is Mapper<TFrom, TTo>) is not Mapper<TFrom, TTo> mapper)
 		{
 			var configuration = MappingConfigurations.FirstOrDefault(
 			  mp => mp.Item1.IsAssignableFrom(typeof(TFrom)) && mp.Item2.IsAssignableFrom(typeof(TTo)));
