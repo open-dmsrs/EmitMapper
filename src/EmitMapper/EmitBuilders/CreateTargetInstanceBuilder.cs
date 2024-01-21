@@ -10,7 +10,7 @@ internal static class CreateTargetInstanceBuilder
 	/// </summary>
 	/// <param name="type">The type.</param>
 	/// <param name="typeBuilder">The type builder.</param>
-	public static void BuildCreateTargetInstanceMethod(Type? type, TypeBuilder typeBuilder)
+	public static void BuildCreateTargetInstanceMethod(Type type, TypeBuilder typeBuilder)
 	{
 		// var expr = (Expression<Func<object>>)ObjectFactory.GenerateConstructorExpression(type).ToObject();
 		if (ReflectionHelper.IsNullable(type))

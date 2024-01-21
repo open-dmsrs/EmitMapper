@@ -2,9 +2,9 @@
 
 public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<MapperKey>
 {
-	private readonly int hash;
+	private readonly int _hash;
 
-	private readonly string mapperTypeName;
+	private readonly string _mapperTypeName;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="MapperKey"/> struct.
@@ -14,10 +14,10 @@ public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<Mapp
 	/// <param name="typeTo">The type to.</param>
 	/// <param name="config">The config.</param>
 	/// <param name="currentInstantId">The current instant id.</param>
-	public MapperKey(Type? typeFrom, Type? typeTo, IMappingConfigurator? config, int currentInstantId)
+	public MapperKey(Type typeFrom, Type typeTo, IMappingConfigurator? config, int currentInstantId)
 	{
-		mapperTypeName = $"M{currentInstantId}_{typeFrom?.FullName}_{typeTo?.FullName}_{config?.GetConfigurationName()}";
-		hash = HashCode.Combine(typeFrom, typeTo, config, currentInstantId);
+		_mapperTypeName = $"M{currentInstantId}_{typeFrom?.FullName}_{typeTo?.FullName}_{config?.GetConfigurationName()}";
+		_hash = HashCode.Combine(typeFrom, typeTo, config, currentInstantId);
 	}
 
 	/// <summary>
@@ -28,7 +28,7 @@ public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<Mapp
 	/// <returns>A bool.</returns>
 	public bool Equals(MapperKey x, MapperKey y)
 	{
-		return x.mapperTypeName == y.mapperTypeName;
+		return x._mapperTypeName == y._mapperTypeName;
 	}
 
 	/// <summary>
@@ -38,7 +38,7 @@ public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<Mapp
 	/// <returns>A bool.</returns>
 	public bool Equals(MapperKey rhs)
 	{
-		return mapperTypeName == rhs.mapperTypeName;
+		return _mapperTypeName == rhs._mapperTypeName;
 	}
 
 	/// <summary>
@@ -55,7 +55,7 @@ public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<Mapp
 
 		var rhs = (MapperKey)obj;
 
-		return hash == rhs.hash && mapperTypeName == rhs.mapperTypeName;
+		return _hash == rhs._hash && _mapperTypeName == rhs._mapperTypeName;
 	}
 
 	/// <summary>
@@ -65,7 +65,7 @@ public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<Mapp
 	/// <returns>An int.</returns>
 	public int GetHashCode(MapperKey obj)
 	{
-		return obj.hash;
+		return obj._hash;
 	}
 
 	/// <summary>
@@ -74,7 +74,7 @@ public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<Mapp
 	/// <returns>An int.</returns>
 	public override int GetHashCode()
 	{
-		return hash;
+		return _hash;
 	}
 
 	/// <summary>
@@ -83,7 +83,7 @@ public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<Mapp
 	/// <returns>A string.</returns>
 	public string GetMapperTypeName()
 	{
-		return mapperTypeName;
+		return _mapperTypeName;
 	}
 
 	/// <summary>
@@ -92,6 +92,6 @@ public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<Mapp
 	/// <returns>A string.</returns>
 	public override string ToString()
 	{
-		return mapperTypeName;
+		return _mapperTypeName;
 	}
 }

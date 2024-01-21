@@ -23,12 +23,12 @@ public abstract class MapperBase
 	/// <summary>
 	///   Type of source object
 	/// </summary>
-	internal Type? TypeFrom;
+	internal Type TypeFrom;
 
 	/// <summary>
 	///   Type of destination object
 	/// </summary>
-	internal Type? TypeTo;
+	internal Type TypeTo;
 
 	protected DelegateInvokerFunc2? Converter;
 
@@ -63,18 +63,16 @@ public abstract class MapperBase
 	public virtual object? Map(object? from, object? to, object? state)
 	{
 		object? result;
-
-		if (SourceFilter is not null && !(bool)SourceFilter.CallFunc(from, state))
+		var filter = SourceFilter?.CallFunc(from, state);
+		if (filter is not null && !(bool)filter)
 		{
 			return to;
 		}
 
-		if (DestinationFilter is not null)
+		filter = DestinationFilter?.CallFunc(to, state);
+		if (filter is not null && !(bool)filter)
 		{
-			if (!(bool)DestinationFilter.CallFunc(to, state))
-			{
-				return to;
-			}
+			return to;
 		}
 
 		if (from is null)
@@ -120,7 +118,7 @@ public abstract class MapperBase
 	/// <param name="from">Source object</param>
 	/// <param name="to">Destination object</param>
 	/// <param name="state">state</param>
-	public abstract object MapCore(object from, object? to, object? state);
+	public abstract object? MapCore(object? from, object? to, object? state);
 
 	/// <summary>
 	/// </summary>
@@ -131,8 +129,8 @@ public abstract class MapperBase
 	/// <param name="storedObjects">The stored objects.</param>
 	internal void Initialize(
 	  Mapper? objectMapperManager,
-	  Type? typeFrom,
-	  Type? typeTo,
+	  Type typeFrom,
+	  Type typeTo,
 	  IMappingConfigurator? mappingConfigurator,
 	  object[] storedObjects)
 	{

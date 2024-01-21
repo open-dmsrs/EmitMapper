@@ -7,7 +7,7 @@ internal class AstNewObject : IAstRef
 {
 	public IAstStackItem[] ConstructorParams;
 
-	public Type? ObjectType;
+	public Type ObjectType;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="AstNewObject"/> class.
@@ -21,7 +21,7 @@ internal class AstNewObject : IAstRef
 	/// </summary>
 	/// <param name="objectType">The object type.</param>
 	/// <param name="constructorParams">The constructor params.</param>
-	public AstNewObject(Type? objectType, IAstStackItem[] constructorParams)
+	public AstNewObject(Type objectType, IAstStackItem[] constructorParams)
 	{
 		ObjectType = objectType;
 		ConstructorParams = constructorParams;
@@ -30,7 +30,7 @@ internal class AstNewObject : IAstRef
 	/// <summary>
 	/// Gets the item type.
 	/// </summary>
-	public Type? ItemType => ObjectType;
+	public Type ItemType => ObjectType;
 
 	/// <inheritdoc/>
 	/// <exception cref="Exception"></exception>

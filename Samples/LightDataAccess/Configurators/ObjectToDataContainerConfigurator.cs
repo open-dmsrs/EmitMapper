@@ -19,7 +19,7 @@ public class ObjectToDataContainerConfigurator : MapConfigBaseImpl
 	/// <param name="from">The type from.</param>
 	/// <param name="to">To type to.</param>
 	/// <returns>The mapping operations.</returns>
-	public override IEnumerable<IMappingOperation> GetMappingOperations(Type? from, Type? to)
+	public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
 	{
 		return FilterOperations(
 		  from,

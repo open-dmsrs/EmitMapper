@@ -10,9 +10,9 @@ public class MapperForCollection : CustomMapper
 
 	private static readonly MethodInfo? CopyToListScalarMethod = Metadata<MapperForCollection>.Type.GetMethod(nameof(CopyToListScalar), BindingFlags.Instance | BindingFlags.NonPublic);
 
-	private static readonly LazyConcurrentDictionary<Type?, bool> IsSupportedCache = new();
+	private static readonly LazyConcurrentDictionary<Type, bool> IsSupportedCache = new();
 
-	private MapperDescription subMapper;
+	private MapperDescription _subMapper;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="MapperForCollection" /> class.
@@ -35,8 +35,8 @@ public class MapperForCollection : CustomMapper
 	public static MapperForCollection CreateInstance(
 	  string mapperName,
 	  Mapper? objectMapperManager,
-	  Type? typeFrom,
-	  Type? typeTo,
+	  Type typeFrom,
+	  Type typeTo,
 	  MapperDescription subMapper,
 	  IMappingConfigurator? mappingConfigurator)
 	{
@@ -63,7 +63,7 @@ public class MapperForCollection : CustomMapper
 
 		var result = ObjectFactory.CreateInstance<MapperForCollection>(tb.CreateType());
 		result.Initialize(objectMapperManager, typeFrom, typeTo, mappingConfigurator, null);
-		result.subMapper = subMapper;
+		result._subMapper = subMapper;
 
 		return result;
 	}
@@ -84,7 +84,7 @@ public class MapperForCollection : CustomMapper
 	/// <param name="to">Destination object</param>
 	/// <param name="state"></param>
 	/// <returns>Destination object</returns>
-	public override object? Map(object from, object? to, object state)
+	public override object? Map(object? from, object? to, object state)
 	{
 		return base.Map(from, null, state);
 	}
@@ -96,7 +96,7 @@ public class MapperForCollection : CustomMapper
 	/// <param name="to">Destination object</param>
 	/// <param name="state"></param>
 	/// <returns>Destination object</returns>
-	public override object? MapCore(object from, object? to, object state)
+	public override object? MapCore(object? from, object? to, object state)
 	{
 		if (to is null && TargetConstructor is not null)
 		{
@@ -146,7 +146,7 @@ public class MapperForCollection : CustomMapper
 	/// </summary>
 	/// <param name="from">The from.</param>
 	/// <returns>A Type.</returns>
-	internal static Type? GetSubMapperTypeFrom(Type? from)
+	internal static Type GetSubMapperTypeFrom(Type from)
 	{
 		var result = ExtractElementType(from);
 
@@ -163,7 +163,7 @@ public class MapperForCollection : CustomMapper
 	/// </summary>
 	/// <param name="to">The to.</param>
 	/// <returns>A Type.</returns>
-	internal static Type GetSubMapperTypeTo(Type? to)
+	internal static Type GetSubMapperTypeTo(Type to)
 	{
 		return ExtractElementType(to);
 	}
@@ -173,7 +173,7 @@ public class MapperForCollection : CustomMapper
 	/// </summary>
 	/// <param name="t"></param>
 	/// <returns></returns>
-	internal static bool IsSupportedType(Type? t)
+	internal static bool IsSupportedType(Type t)
 	{
 		return IsSupportedCache.GetOrAdd(
 		  t,
@@ -203,7 +203,7 @@ public class MapperForCollection : CustomMapper
 
 		foreach (var obj in from)
 		{
-			result.Add((T)subMapper.Mapper.Map(obj));
+			result.Add((T)_subMapper.Mapper.Map(obj));
 		}
 
 		return result;
@@ -227,7 +227,7 @@ public class MapperForCollection : CustomMapper
 	/// <returns><![CDATA[List<T>]]></returns>
 	protected List<T> CopyToListScalar<T>(object from)
 	{
-		var result = new List<T>(1) { (T)subMapper.Mapper.Map(from) };
+		var result = new List<T>(1) { (T)_subMapper.Mapper.Map(from) };
 
 		return result;
 	}
@@ -237,7 +237,7 @@ public class MapperForCollection : CustomMapper
 	/// </summary>
 	/// <param name="from">The from.</param>
 	/// <returns>An object.</returns>
-	protected virtual object? CopyToListScalarInvoke(object from)
+	protected virtual object? CopyToListScalarInvoke(object? from)
 	{
 		return null;
 	}
@@ -247,7 +247,7 @@ public class MapperForCollection : CustomMapper
 	/// </summary>
 	/// <param name="collection">The collection.</param>
 	/// <returns>A Type.</returns>
-	private static Type? ExtractElementType(Type? collection)
+	private static Type? ExtractElementType(Type collection)
 	{
 		if (collection.IsArray)
 		{
@@ -273,7 +273,7 @@ public class MapperForCollection : CustomMapper
 	/// <param name="copiedObjectType">The copied object type.</param>
 	/// <param name="copyMethod">The copy method.</param>
 	/// <returns>An IAstNode.</returns>
-	private static IAstNode InvokeCopyImpl(Type? copiedObjectType, MethodInfo? copyMethod)
+	private static IAstNode InvokeCopyImpl(Type copiedObjectType, MethodInfo? copyMethod)
 	{
 		var mi = copyMethod?.MakeGenericMethod(ExtractElementType(copiedObjectType));
 
@@ -292,10 +292,10 @@ public class MapperForCollection : CustomMapper
 	/// </summary>
 	/// <param name="scalar">The scalar.</param>
 	/// <returns>An Array.</returns>
-	private Array CopyScalarToArray(object scalar)
+	private Array? CopyScalarToArray(object? scalar)
 	{
 		var result = Array.CreateInstance(TypeTo.GetElementType(), 1);
-		result.SetValue(subMapper.Mapper.Map(scalar), 0);
+		result.SetValue(_subMapper.Mapper.Map(scalar), 0);
 
 		return result;
 	}
@@ -305,7 +305,7 @@ public class MapperForCollection : CustomMapper
 	/// </summary>
 	/// <param name="from">The from.</param>
 	/// <returns>An Array.</returns>
-	private Array CopyToArray(IEnumerable from)
+	private Array? CopyToArray(IEnumerable from)
 	{
 		if (from is ICollection collection)
 		{
@@ -314,7 +314,7 @@ public class MapperForCollection : CustomMapper
 
 			foreach (var obj in collection)
 			{
-				result.SetValue(subMapper.Mapper.Map(obj), idx++);
+				result.SetValue(_subMapper.Mapper.Map(obj), idx++);
 			}
 
 			return result;
@@ -337,7 +337,7 @@ public class MapperForCollection : CustomMapper
 	/// </summary>
 	/// <param name="from">The from.</param>
 	/// <returns>An ArrayList.</returns>
-	private ArrayList CopyToArrayList(IEnumerable from)
+	private ArrayList? CopyToArrayList(IEnumerable from)
 	{
 		if (ShallowCopy)
 		{
@@ -356,7 +356,7 @@ public class MapperForCollection : CustomMapper
 			return res;
 		}
 
-		ArrayList result;
+		ArrayList? result;
 
 		if (from is ICollection coll)
 		{
@@ -388,7 +388,7 @@ public class MapperForCollection : CustomMapper
 	/// </summary>
 	/// <param name="from">The from.</param>
 	/// <returns>An ArrayList.</returns>
-	private ArrayList CopyToArrayListScalar(object from)
+	private ArrayList? CopyToArrayListScalar(object? from)
 	{
 		var result = new ArrayList(1);
 
@@ -411,7 +411,7 @@ public class MapperForCollection : CustomMapper
 	/// <param name="iList">The i list.</param>
 	/// <param name="from">The from.</param>
 	/// <returns>An object.</returns>
-	private object CopyToIList(IList? iList, object from)
+	private object? CopyToIList(IList? iList, object? from)
 	{
 		iList ??= ObjectFactory.CreateInstance<IList>(TypeTo);
 

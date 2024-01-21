@@ -5,15 +5,15 @@ namespace EmitMapper.Conversion;
 /// </summary>
 public class StaticConvertersManager
 {
-	private static readonly LazyConcurrentDictionary<MethodInfo, Func<object, object>> ConvertersFunc = new();
+	private static readonly LazyConcurrentDictionary<MethodInfo, Func<object, object>?> ConvertersFunc = new();
 
 	private static readonly object Locker = new();
 
 	private static StaticConvertersManager? _defaultInstance;
 
-	private readonly LazyConcurrentDictionary<TypesPair, MethodInfo> typesMethods = new();
+	private readonly LazyConcurrentDictionary<TypesPair, MethodInfo> _typesMethods = new();
 
-	private readonly List<Func<Type, Type, MethodInfo>> typesMethodsFunc = new();
+	private readonly List<Func<Type, Type, MethodInfo>> _typesMethodsFunc = new();
 
 	/// <summary>
 	///   Gets the default instance.
@@ -53,7 +53,7 @@ public class StaticConvertersManager
 
 			if (parameters.Length == 1 && m.ReturnType != Metadata.Void)
 			{
-				typesMethods.TryAdd(new TypesPair(parameters[0].ParameterType, m.ReturnType), m);
+				_typesMethods.TryAdd(new TypesPair(parameters[0].ParameterType, m.ReturnType), m);
 			}
 		}
 	}
@@ -64,7 +64,7 @@ public class StaticConvertersManager
 	/// <param name="converterFunc">The converter func.</param>
 	public void AddConverterFunc(Func<Type, Type, MethodInfo> converterFunc)
 	{
-		typesMethodsFunc.Add(converterFunc);
+		_typesMethodsFunc.Add(converterFunc);
 	}
 
 	/// <summary>
@@ -73,14 +73,14 @@ public class StaticConvertersManager
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns>A MethodInfo.</returns>
-	public MethodInfo? GetStaticConverter(Type? from, Type? to)
+	public MethodInfo? GetStaticConverter(Type from, Type to)
 	{
 		if (from is null || to is null)
 		{
 			return null;
 		}
 
-		foreach (var func in ((IEnumerable<Func<Type, Type, MethodInfo>>)typesMethodsFunc).Reverse())
+		foreach (var func in ((IEnumerable<Func<Type, Type, MethodInfo>>)_typesMethodsFunc).Reverse())
 		{
 			var result = func(from, to);
 
@@ -90,7 +90,7 @@ public class StaticConvertersManager
 			}
 		}
 
-		typesMethods.TryGetValue(new TypesPair(from, to), out var res);
+		_typesMethods.TryGetValue(new TypesPair(from, to), out var res);
 
 		return res;
 	}
@@ -101,7 +101,7 @@ public class StaticConvertersManager
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns><![CDATA[Func<object, object>]]></returns>
-	public Func<object, object>? GetStaticConverterFunc(Type from, Type? to)
+	public Func<object, object>? GetStaticConverterFunc(Type from, Type to)
 	{
 		var mi = GetStaticConverter(from, to);
 

@@ -10,13 +10,13 @@ public static class ReflectionHelper
 {
 	private const BindingFlags BindingFlagsInstancePublic = BindingFlags.Instance | BindingFlags.Public;
 
-	private static readonly LazyConcurrentDictionary<Type?, ReadOnlyCollection<MemberInfo>> AllMemberInfo = new();
+	private static readonly LazyConcurrentDictionary<Type, ReadOnlyCollection<MemberInfo>> AllMemberInfo = new();
 
-	private static readonly LazyConcurrentDictionary<Type?, Type> GenericTypeDefinitionCache = new();
+	private static readonly LazyConcurrentDictionary<Type, Type> GenericTypeDefinitionCache = new();
 
-	private static readonly LazyConcurrentDictionary<Type?, Type[]> Interfaces = new();
+	private static readonly LazyConcurrentDictionary<Type, Type[]> Interfaces = new();
 
-	private static readonly LazyConcurrentDictionary<Type?, bool> IsNullableCache = new();
+	private static readonly LazyConcurrentDictionary<Type, bool> IsNullableCache = new();
 
 	private static readonly LazyConcurrentDictionary<MemberInfo, Type> MemberInfoReturnTypes = new();
 
@@ -42,7 +42,7 @@ public static class ReflectionHelper
 	/// <param name="destinationType">The destination type.</param>
 	/// <exception cref="NotImplementedException"></exception>
 	/// <returns>An object.</returns>
-	public static object ConvertValue(object value, Type? fieldType, Type? destinationType)
+	public static object ConvertValue(object value, Type fieldType, Type destinationType)
 	{
 		throw new NotImplementedException();
 	}
@@ -85,7 +85,7 @@ public static class ReflectionHelper
 	/// <param name="second">The second.</param>
 	/// <param name="matcher">The matcher.</param>
 	/// <returns>An array of MatchedMembers</returns>
-	public static MatchedMember[] GetCommonMembers(Type? first, Type? second, Func<string, string, bool>? matcher)
+	public static MatchedMember[] GetCommonMembers(Type first, Type second, Func<string, string, bool>? matcher)
 	{
 		matcher ??= (f, s) => f == s;
 		var firstMembers = GetPublicFieldsAndProperties(first);
@@ -153,7 +153,7 @@ public static class ReflectionHelper
 	/// </summary>
 	/// <param name="t">The t.</param>
 	/// <returns>A Type.</returns>
-	public static Type? GetGenericTypeDefinitionCache(this Type? t)
+	public static Type GetGenericTypeDefinitionCache(this Type t)
 	{
 		return GenericTypeDefinitionCache.GetOrAdd(t, type => type.IsGenericType ? type.GetGenericTypeDefinition() : null);
 	}
@@ -163,7 +163,7 @@ public static class ReflectionHelper
 	/// </summary>
 	/// <param name="t">The t.</param>
 	/// <returns>An array of Types</returns>
-	public static Type[] GetInterfacesCache(this Type? t)
+	public static Type[] GetInterfacesCache(this Type t)
 	{
 		return Interfaces.GetOrAdd(t, type => type.GetInterfaces());
 	}
@@ -219,7 +219,7 @@ public static class ReflectionHelper
 	/// <exception cref="ArgumentNullException"></exception>
 	/// <exception cref="ArgumentOutOfRangeException"></exception>
 	/// <returns>A Type.</returns>
-	public static Type? GetMemberReturnType(MemberInfo member)
+	public static Type GetMemberReturnType(MemberInfo member)
 	{
 		return MemberInfoReturnTypes.GetOrAdd(
 		  member,
@@ -274,7 +274,7 @@ public static class ReflectionHelper
 	/// <param name="t"></param>
 	/// <param name="name"></param>
 	/// <returns></returns>
-	public static MethodInfo GetMethodCache(this Type? t, string name)
+	public static MethodInfo GetMethodCache(this Type t, string name)
 	{
 		var k = $"{t.FullName}::{name}";
 
@@ -284,7 +284,7 @@ public static class ReflectionHelper
 	/// <summary>
 	///   Fixed: Get Full hierarchy with all parent interfaces members.
 	/// </summary>
-	public static IEnumerable<MemberInfo> GetPublicFieldsAndProperties(Type? t)
+	public static IEnumerable<MemberInfo> GetPublicFieldsAndProperties(Type t)
 	{
 		return AllMemberInfo.GetOrAdd(
 		  t,
@@ -309,7 +309,7 @@ public static class ReflectionHelper
 	/// <param name="to">The to.</param>
 	/// <exception cref="NotImplementedException"></exception>
 	/// <returns><![CDATA[IEnumerable<KeyValuePair<string, Tuple<MemberInfo, Type>>>]]></returns>
-	public static IEnumerable<KeyValuePair<string, Tuple<MemberInfo, Type?>>> GetTypeDataContainerDescription(Type? to)
+	public static IEnumerable<KeyValuePair<string, Tuple<MemberInfo, Type>>> GetTypeDataContainerDescription(Type to)
 	{
 		throw new NotImplementedException();
 	}
@@ -319,7 +319,7 @@ public static class ReflectionHelper
 	/// </summary>
 	/// <param name="t">The t.</param>
 	/// <returns>A Type.</returns>
-	public static Type? GetUnderlyingTypeCache(this Type? t)
+	public static Type GetUnderlyingTypeCache(this Type t)
 	{
 		return UnderlyingTypes.GetOrAdd(t, type => Nullable.GetUnderlyingType(type));
 	}
@@ -340,7 +340,7 @@ public static class ReflectionHelper
 	/// </summary>
 	/// <param name="type">The type.</param>
 	/// <returns>A bool.</returns>
-	public static bool HasDefaultConstructor(Type? type)
+	public static bool HasDefaultConstructor(Type type)
 	{
 		return type.GetConstructor(Type.EmptyTypes) is not null;
 	}
@@ -350,7 +350,7 @@ public static class ReflectionHelper
 	/// </summary>
 	/// <param name="t">The t.</param>
 	/// <returns>A bool.</returns>
-	public static bool IsNullable(Type? t)
+	public static bool IsNullable(Type t)
 	{
 		return IsNullableCache.GetOrAdd(
 		  t,

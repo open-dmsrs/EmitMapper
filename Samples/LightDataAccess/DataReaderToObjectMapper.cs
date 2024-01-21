@@ -53,7 +53,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 	/// </summary>
 	/// <param name="reader">The reader.</param>
 	/// <returns>`0.</returns>
-	public TEntity ReadSingle(IDataReader reader)
+	public TEntity ReadSingle(IDataReader? reader)
 	{
 		return ReadSingle(reader, null);
 	}
@@ -64,7 +64,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 	/// <param name="reader">The reader.</param>
 	/// <param name="changeTracker">The change tracker.</param>
 	/// <returns>`0.</returns>
-	public TEntity ReadSingle(IDataReader reader, ObjectsChangeTracker? changeTracker)
+	public TEntity ReadSingle(IDataReader? reader, ObjectsChangeTracker? changeTracker)
 	{
 		var result = MapUsingState(reader, reader);
 		changeTracker?.RegisterObject(result);
@@ -131,12 +131,12 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 		/// <summary>
 		///   The _mapping key.
 		/// </summary>
-		private readonly string mappingKey;
+		private readonly string _mappingKey;
 
 		/// <summary>
 		///   The _skip fields.
 		/// </summary>
-		private readonly IEnumerable<string> skipFields;
+		private readonly IEnumerable<string> _skipFields;
 
 		/// <summary>
 		///   Initializes a new instance of the <see cref="DbReaderMappingConfig" /> class.
@@ -145,8 +145,8 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 		/// <param name="mappingKey">The mapping key.</param>
 		public DbReaderMappingConfig(IEnumerable<string>? skipFields, string mappingKey)
 		{
-			this.skipFields = skipFields ?? new List<string>();
-			this.mappingKey = mappingKey;
+			this._skipFields = skipFields ?? new List<string>();
+			this._mappingKey = mappingKey;
 		}
 
 		/// <summary>
@@ -155,9 +155,9 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 		/// <returns>System.String.</returns>
 		public override string GetConfigurationName()
 		{
-			if (mappingKey is not null)
+			if (_mappingKey is not null)
 			{
-				return "dbreader_" + mappingKey;
+				return "dbreader_" + _mappingKey;
 			}
 
 			return "dbreader_";
@@ -173,13 +173,13 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 		/// <param name="from">Source type.</param>
 		/// <param name="to">Destination type.</param>
 		/// <returns>IEnumerable&lt;IMappingOperation&gt;.</returns>
-		public override IEnumerable<IMappingOperation> GetMappingOperations(Type? from, Type? to)
+		public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
 		{
 			return ReflectionHelper.GetPublicFieldsAndProperties(to)
 			  .Where(
 				m => m.MemberType == MemberTypes.Field
 					 || m.MemberType == MemberTypes.Property && ((PropertyInfo)m).GetSetMethod() is not null)
-			  .Where(m => !skipFields.Select(sf => sf.ToUpper(System.Globalization.CultureInfo.CurrentCulture)).Contains(m.Name.ToUpper(System.Globalization.CultureInfo.CurrentCulture))).Select(
+			  .Where(m => !_skipFields.Select(sf => sf.ToUpper(System.Globalization.CultureInfo.CurrentCulture)).Contains(m.Name.ToUpper(System.Globalization.CultureInfo.CurrentCulture))).Select(
 				(m, ind) => new DestWriteOperation
 				{
 					Destination = new MemberDescriptor(new[] { m }),
@@ -193,7 +193,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 		/// <param name="from">From.</param>
 		/// <param name="to">To.</param>
 		/// <returns>IRootMappingOperation.</returns>
-		public override IRootMappingOperation? GetRootMappingOperation(Type? from, Type? to)
+		public override IRootMappingOperation? GetRootMappingOperation(Type from, Type to)
 		{
 			return null;
 		}
@@ -218,7 +218,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 		{
 			var memberType = ReflectionHelper.GetMemberReturnType(m);
 
-			if (mappingKey is not null)
+			if (_mappingKey is not null)
 			{
 				if (memberType == typeof(string))
 				{
@@ -354,7 +354,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 				var reader = (IDataReader)state;
 				object? result = null;
 
-				if (mappingKey is not null)
+				if (_mappingKey is not null)
 				{
 					if (fieldNum == -1)
 					{

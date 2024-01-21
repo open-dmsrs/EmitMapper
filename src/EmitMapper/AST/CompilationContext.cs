@@ -9,7 +9,7 @@ internal class CompilationContext
 
 	public TextWriter OutputCommands { get; }
 
-	private int stackCount;
+	private int _stackCount;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CompilationContext"/> class.
@@ -80,7 +80,7 @@ internal class CompilationContext
 	}
 
 	/// <inheritdoc/>
-	public void Emit(OpCode opCode, Type? type)
+	public void Emit(OpCode opCode, Type type)
 	{
 		ProcessCommand(opCode, 0, type.ToString());
 		IlGenerator.Emit(opCode, type);
@@ -181,7 +181,7 @@ internal class CompilationContext
 	{
 		var stackChange = GetStackChange(opCode.StackBehaviourPop) + GetStackChange(opCode.StackBehaviourPush) + addStack;
 
-		stackCount += stackChange;
+		_stackCount += stackChange;
 		WriteOutputCommand(opCode + " " + comment);
 	}
 
@@ -191,6 +191,6 @@ internal class CompilationContext
 	/// <param name="command">The command.</param>
 	private void WriteOutputCommand(string command)
 	{
-		OutputCommands?.WriteLine(new string('\t', stackCount >= 0 ? stackCount : 0) + command);
+		OutputCommands?.WriteLine(new string('\t', _stackCount >= 0 ? _stackCount : 0) + command);
 	}
 }

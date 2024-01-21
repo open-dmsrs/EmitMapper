@@ -10,7 +10,7 @@ internal static class CompilationHelper
 	/// </summary>
 	/// <param name="type">The type.</param>
 	/// <exception cref="IlCompilationException"></exception>
-	public static void CheckIsRef(Type? type)
+	public static void CheckIsRef(Type type)
 	{
 		if (type.IsValueType)
 		{
@@ -23,12 +23,13 @@ internal static class CompilationHelper
 	/// </summary>
 	/// <param name="type">The type.</param>
 	/// <exception cref="IlCompilationException"></exception>
-	public static void CheckIsValue(Type? type)
+	public static void CheckIsValue(Type type)
 	{
-		if (!type.IsValueType)
+		if (type.IsValueType)
 		{
-			throw new IlCompilationException("A value type was expected, but it was: " + type);
+			return;
 		}
+		throw new IlCompilationException("A value type was expected, but it was: " + type);
 	}
 
 	/// <summary>
@@ -71,7 +72,7 @@ internal static class CompilationHelper
 	/// <param name="context">The context.</param>
 	/// <param name="desiredType">The desired type.</param>
 	/// <param name="typeOnStack">The type on stack.</param>
-	public static void PrepareValueOnStack(CompilationContext context, Type? desiredType, Type? typeOnStack)
+	public static void PrepareValueOnStack(CompilationContext context, Type desiredType, Type typeOnStack)
 	{
 		if (typeOnStack.IsValueType && !desiredType.IsValueType)
 		{

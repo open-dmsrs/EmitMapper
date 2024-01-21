@@ -7,15 +7,15 @@ internal class MappingBuilder
 {
 	public readonly List<object> StoredObjects;
 
-	private readonly IMappingConfigurator? mappingConfigurator;
+	private readonly IMappingConfigurator? _mappingConfigurator;
 
-	private readonly Mapper objectsMapperManager;
+	private readonly Mapper _objectsMapperManager;
 
-	private readonly TypeBuilder typeBuilder;
+	private readonly TypeBuilder _typeBuilder;
 
-	private Type? from;
+	private Type _from;
 
-	private Type? to;
+	private Type _to;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="MappingBuilder" /> class.
@@ -27,18 +27,18 @@ internal class MappingBuilder
 	/// <param name="mappingConfigurator">The mapping configurator.</param>
 	public MappingBuilder(
 	  Mapper objectsMapperManager,
-	  Type? from,
-	  Type? to,
+	  Type from,
+	  Type to,
 	  TypeBuilder typeBuilder,
 	  IMappingConfigurator? mappingConfigurator)
 	{
-		this.objectsMapperManager = objectsMapperManager;
-		this.from = from;
-		this.to = to;
-		this.typeBuilder = typeBuilder;
+		this._objectsMapperManager = objectsMapperManager;
+		this._from = from;
+		this._to = to;
+		this._typeBuilder = typeBuilder;
 
 		StoredObjects = new List<object>();
-		this.mappingConfigurator = mappingConfigurator;
+		this._mappingConfigurator = mappingConfigurator;
 	}
 
 	/// <summary>
@@ -46,17 +46,17 @@ internal class MappingBuilder
 	/// </summary>
 	public void BuildCopyImplMethod()
 	{
-		if (ReflectionHelper.IsNullable(from))
+		if (ReflectionHelper.IsNullable(_from))
 		{
-			from = from.GetUnderlyingTypeCache();
+			_from = _from.GetUnderlyingTypeCache();
 		}
 
-		if (ReflectionHelper.IsNullable(to))
+		if (ReflectionHelper.IsNullable(_to))
 		{
-			to = to.GetUnderlyingTypeCache();
+			_to = _to.GetUnderlyingTypeCache();
 		}
 
-		var methodBuilder = typeBuilder.DefineMethod(
+		var methodBuilder = _typeBuilder.DefineMethod(
 		  nameof(MapperBase.MapCore),
 		  MethodAttributes.Public | MethodAttributes.Virtual,
 		  Metadata<object>.Type,
@@ -67,8 +67,8 @@ internal class MappingBuilder
 
 		var mapperAst = new AstComplexNode();
 
-		var locFrom = ilGen.DeclareLocal(from);
-		var locTo = ilGen.DeclareLocal(to);
+		var locFrom = ilGen.DeclareLocal(_from);
+		var locTo = ilGen.DeclareLocal(_to);
 		var locState = ilGen.DeclareLocal(Metadata<object>.Type);
 		LocalBuilder? locException = null;
 
@@ -80,8 +80,8 @@ internal class MappingBuilder
 		locException = compilationContext.IlGenerator.DeclareLocal(Metadata<Exception>.Type);
 #endif
 
-		var mappingOperations = mappingConfigurator.GetMappingOperations(from, to);
-		var staticConverter = mappingConfigurator.GetStaticConvertersManager();
+		var mappingOperations = _mappingConfigurator.GetMappingOperations(_from, _to);
+		var staticConverter = _mappingConfigurator.GetStaticConvertersManager();
 
 		mapperAst.Nodes.Add(
 		  new MappingOperationsProcessor
@@ -90,12 +90,12 @@ internal class MappingBuilder
 			  LocFrom = locFrom,
 			  LocState = locState,
 			  LocTo = locTo,
-			  ObjectsMapperManager = objectsMapperManager,
+			  ObjectsMapperManager = _objectsMapperManager,
 			  CompilationContext = compilationContext,
 			  StoredObjects = StoredObjects,
 			  Operations = mappingOperations,
-			  MappingConfigurator = mappingConfigurator,
-			  RootOperation = mappingConfigurator.GetRootMappingOperation(from, to),
+			  MappingConfigurator = _mappingConfigurator,
+			  RootOperation = _mappingConfigurator.GetRootMappingOperation(_from, _to),
 			  StaticConvertersManager = staticConverter ?? StaticConvertersManager.DefaultInstance
 		  }.ProcessOperations());
 

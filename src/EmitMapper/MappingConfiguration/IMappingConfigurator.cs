@@ -23,7 +23,7 @@ public interface IMappingConfigurator
 	///   Provider for getting detailed information about generic conversion.
 	/// </param>
 	/// <returns></returns>
-	IMappingConfigurator ConvertGeneric(Type? from, Type? to, ICustomConverterProvider converterProvider);
+	IMappingConfigurator ConvertGeneric(Type from, Type to, ICustomConverterProvider converterProvider);
 
 	/// <summary>
 	///   Converts the using.
@@ -66,7 +66,7 @@ public interface IMappingConfigurator
 	/// <param name="from">Source type</param>
 	/// <param name="to">Destination type</param>
 	/// <returns></returns>
-	IEnumerable<IMappingOperation> GetMappingOperations(Type? from, Type? to);
+	IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to);
 
 	/// <summary>
 	///   Gets the root mapping operation.
@@ -74,7 +74,7 @@ public interface IMappingConfigurator
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns>An IRootMappingOperation.</returns>
-	IRootMappingOperation GetRootMappingOperation(Type? from, Type? to);
+	IRootMappingOperation GetRootMappingOperation(Type from, Type to);
 
 	/// <summary>
 	///   Gets the static converters manager.
@@ -89,7 +89,7 @@ public interface IMappingConfigurator
 	/// <param name="typeTo">Destination type for which ignore members are defining</param>
 	/// <param name="ignoreNames">Array of member names which should be ignored</param>
 	/// <returns></returns>
-	IMappingConfigurator? IgnoreMembers(Type? typeFrom, Type? typeTo, string[] ignoreNames);
+	IMappingConfigurator? IgnoreMembers(Type typeFrom, Type typeTo, string[] ignoreNames);
 
 	/// <summary>
 	///   Define members which should be ignored

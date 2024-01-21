@@ -5,7 +5,7 @@
 /// </summary>
 internal class AstExprIsNull : IAstValue
 {
-	private readonly IAstRefOrValue value;
+	private readonly IAstRefOrValue _value;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="AstExprIsNull" /> class.
@@ -13,24 +13,24 @@ internal class AstExprIsNull : IAstValue
 	/// <param name="value">The value.</param>
 	public AstExprIsNull(IAstRefOrValue value)
 	{
-		this.value = value;
+		this._value = value;
 	}
 
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type? ItemType => Metadata<int>.Type;
+	public Type ItemType => Metadata<int>.Type;
 
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)
 	{
-		if (!(value is IAstRef) && !ReflectionHelper.IsNullable(value.ItemType))
+		if (!(_value is IAstRef) && !ReflectionHelper.IsNullable(_value.ItemType))
 		{
 			context.Emit(OpCodes.Ldc_I4_1);
 		}
-		else if (ReflectionHelper.IsNullable(value.ItemType))
+		else if (ReflectionHelper.IsNullable(_value.ItemType))
 		{
-			AstBuildHelper.ReadPropertyRv(new AstValueToAddr((IAstValue)value), value.ItemType.GetProperty("HasValue"))
+			AstBuildHelper.ReadPropertyRv(new AstValueToAddr((IAstValue)_value), _value.ItemType.GetProperty("HasValue"))
 			  .Compile(context);
 
 			context.Emit(OpCodes.Ldc_I4_0);
@@ -38,7 +38,7 @@ internal class AstExprIsNull : IAstValue
 		}
 		else
 		{
-			value.Compile(context);
+			_value.Compile(context);
 			new AstConstantNull().Compile(context);
 			context.Emit(OpCodes.Ceq);
 		}

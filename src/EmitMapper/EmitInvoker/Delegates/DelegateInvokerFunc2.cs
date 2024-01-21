@@ -11,5 +11,5 @@ public abstract class DelegateInvokerFunc2 : DelegateInvokerBase
 	/// <param name="param1">The param1.</param>
 	/// <param name="param2">The param2.</param>
 	/// <returns>An object.</returns>
-	public abstract object CallFunc(object? param1, object? param2);
+	public abstract object? CallFunc(object? param1, object? param2);
 }

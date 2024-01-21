@@ -7,7 +7,7 @@ internal class AstInitializeLocalVariable : IAstNode
 {
 	public int LocalIndex;
 
-	public Type? LocalType;
+	public Type LocalType;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="AstInitializeLocalVariable" /> class.

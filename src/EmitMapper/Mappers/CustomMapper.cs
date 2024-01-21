@@ -15,8 +15,8 @@ public abstract class CustomMapper : MapperBase
 	/// <param name="storedObjects">The stored objects.</param>
 	protected CustomMapper(
 	  Mapper? objectMapperManager,
-	  Type? typeFrom,
-	  Type? typeTo,
+	  Type typeFrom,
+	  Type typeTo,
 	  IMappingConfigurator? mappingConfigurator,
 	  object[]? storedObjects)
 	{

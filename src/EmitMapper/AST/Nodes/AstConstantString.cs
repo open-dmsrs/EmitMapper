@@ -10,7 +10,7 @@ internal class AstConstantString : IAstRef
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type? ItemType => Metadata<string>.Type;
+	public Type ItemType => Metadata<string>.Type;
 
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)

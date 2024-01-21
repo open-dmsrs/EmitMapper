@@ -12,7 +12,7 @@ internal class AstReadArrayItem : IAstStackItem
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type? ItemType => Array.ItemType.GetElementType();
+	public Type ItemType => Array.ItemType.GetElementType();
 
 	/// <inheritdoc />
 	public virtual void Compile(CompilationContext context)

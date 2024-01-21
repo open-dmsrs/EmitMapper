@@ -12,7 +12,7 @@ public class TestMappingToDataRow
 	public void MappingToDataRowTest()
 	{
 		// this is the mapper
-		Mapper<TestDto, DataRow?> mapper = Mapper.Default.GetMapper<TestDto, DataRow>(new Map2DataRowConfig());
+		Mapper<TestDto?, DataRow?> mapper = Mapper.Default.GetMapper<TestDto, DataRow>(new Map2DataRowConfig());
 
 		// initialization of test DTO object
 		var testDataObject = new TestDto { Field1 = "field1", Field2 = 10, Field3 = true };
@@ -45,7 +45,7 @@ public class TestMappingToDataRow
 		/// <param name="from">The from.</param>
 		/// <param name="to">The to.</param>
 		/// <returns><![CDATA[IEnumerable<IMappingOperation>]]></returns>
-		public override IEnumerable<IMappingOperation> GetMappingOperations(Type? from, Type? to)
+		public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
 		{
 			var objectMembers = ReflectionHelper.GetPublicFieldsAndProperties(from);
 

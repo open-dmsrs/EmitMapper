@@ -7,22 +7,22 @@
 internal class TypeDictionary<T>
   where T : class
 {
-	private readonly List<ListElement> elements = new();
+	private readonly List<ListElement> _elements = new();
 
 	/// <summary>
 	/// </summary>
 	/// <param name="types">The types.</param>
 	/// <param name="value">The value.</param>
-	public void Add(Type?[] types, T value)
+	public void Add(Type[] types, T value)
 	{
 		var newElem = new ListElement(types, value);
 
-		if (elements.Contains(newElem))
+		if (_elements.Contains(newElem))
 		{
-			elements.Remove(newElem);
+			_elements.Remove(newElem);
 		}
 
-		elements.Add(new ListElement(types, value));
+		_elements.Add(new ListElement(types, value));
 	}
 
 	/// <summary>
@@ -30,7 +30,7 @@ internal class TypeDictionary<T>
 	/// </summary>
 	/// <param name="types">The types.</param>
 	/// <returns>A T.</returns>
-	public T GetValue(Type?[] types)
+	public T GetValue(Type[] types)
 	{
 		var elem = FindTypes(types);
 
@@ -42,7 +42,7 @@ internal class TypeDictionary<T>
 	/// </summary>
 	/// <param name="type">The type.</param>
 	/// <returns>A T.</returns>
-	public T GetValue(Type? type)
+	public T GetValue(Type type)
 	{
 		var elem = FindTypes(type);
 
@@ -54,7 +54,7 @@ internal class TypeDictionary<T>
 	/// </summary>
 	/// <param name="types">The types.</param>
 	/// <returns>A bool.</returns>
-	public bool IsTypesInList(Type?[] types)
+	public bool IsTypesInList(Type[] types)
 	{
 		return FindTypes(types).HasValue;
 	}
@@ -65,7 +65,7 @@ internal class TypeDictionary<T>
 	/// <returns>A string.</returns>
 	public override string ToString()
 	{
-		return elements.Select(e => e.Types.ToCsv("|") + (e.Value is null ? "|" : "|" + e.Value)).ToCsv("||");
+		return _elements.Select(e => e.Types.ToCsv("|") + (e.Value is null ? "|" : "|" + e.Value)).ToCsv("||");
 	}
 
 	/// <summary>
@@ -74,7 +74,7 @@ internal class TypeDictionary<T>
 	/// <param name="generalType">The general type.</param>
 	/// <param name="type">The type.</param>
 	/// <returns>A bool.</returns>
-	private static bool IsGeneralType(Type? generalType, Type? type)
+	private static bool IsGeneralType(Type generalType, Type type)
 	{
 		if (generalType == type)
 		{
@@ -101,9 +101,9 @@ internal class TypeDictionary<T>
 	/// </summary>
 	/// <param name="types">The types.</param>
 	/// <returns>A ListElement? .</returns>
-	private ListElement? FindTypes(Type?[] types)
+	private ListElement? FindTypes(Type[] types)
 	{
-		foreach (var element in elements)
+		foreach (var element in _elements)
 		{
 			var isAssignable = true;
 
@@ -138,9 +138,9 @@ internal class TypeDictionary<T>
 	/// </summary>
 	/// <param name="type">The type.</param>
 	/// <returns>A ListElement? .</returns>
-	private ListElement? FindTypes(Type? type)
+	private ListElement? FindTypes(Type type)
 	{
-		foreach (var element in elements)
+		foreach (var element in _elements)
 		{
 			var isAssignable = true;
 
@@ -167,7 +167,7 @@ internal class TypeDictionary<T>
 
 	private readonly struct ListElement : IEquatable<ListElement>
 	{
-		public readonly Type?[] Types;
+		public readonly Type[] Types;
 
 		public readonly T Value;
 
@@ -177,7 +177,7 @@ internal class TypeDictionary<T>
 		/// </summary>
 		/// <param name="types">The types.</param>
 		/// <param name="value">The value.</param>
-		public ListElement(Type?[] types, T value)
+		public ListElement(Type[] types, T value)
 		{
 			Types = types;
 			Value = value;

@@ -97,12 +97,12 @@ public class MapperCore
 	/// <param name="from">The object from.</param>
 	/// <param name="to">The destination object.</param>
 	/// <returns>The mapped object.</returns>
-	public virtual TTo? Map<TFrom, TTo>(TFrom from, TTo? to)
+	public virtual TTo? Map<TFrom, TTo>(TFrom? from, TTo? to)
 	{
 		AssertCore.ArgumentNotNull(from, "@from");
 		AssertCore.ArgumentNotNull(to, "@to");
 
-		Mapper<TFrom, TTo?> mapper = GetMapper<TFrom, TTo>();
+		Mapper<TFrom?, TTo?> mapper = GetMapper<TFrom, TTo>();
 
 		return mapper.Map(from, to);
 	}

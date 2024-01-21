@@ -5,7 +5,7 @@
 /// </summary>
 internal class AstCastclass : IAstRefOrValue
 {
-	protected Type? TargetType;
+	protected Type TargetType;
 
 	protected IAstRefOrValue Value;
 
@@ -14,7 +14,7 @@ internal class AstCastclass : IAstRefOrValue
 	/// </summary>
 	/// <param name="value">The value.</param>
 	/// <param name="targetType">The target type.</param>
-	public AstCastclass(IAstRefOrValue value, Type? targetType)
+	public AstCastclass(IAstRefOrValue value, Type targetType)
 	{
 		this.Value = value;
 		this.TargetType = targetType;
@@ -23,7 +23,7 @@ internal class AstCastclass : IAstRefOrValue
 	/// <summary>
 	/// Gets the item type.
 	/// </summary>
-	public Type? ItemType => TargetType;
+	public Type ItemType => TargetType;
 
 	/// <inheritdoc/>
 	/// <exception cref="EmitMapperException"></exception>

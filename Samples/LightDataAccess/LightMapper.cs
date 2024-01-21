@@ -50,7 +50,7 @@ public static class LightMapper
 	/// <returns>
 	///   The mapped object.
 	/// </returns>
-	public static TTo? Map<TFrom, TTo>(TFrom from, TTo? to)
+	public static TTo? Map<TFrom, TTo>(TFrom? from, TTo? to)
 	{
 		return MapperInstance.Map(from, to);
 	}

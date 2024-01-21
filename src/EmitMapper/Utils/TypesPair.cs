@@ -2,11 +2,11 @@
 
 public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<TypesPair>
 {
-	public readonly Type? DestinationType;
+	public readonly Type DestinationType;
 
-	public readonly Type? SourceType;
+	public readonly Type SourceType;
 
-	private readonly int hash;
+	private readonly int _hash;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="TypesPair"/> struct.
@@ -14,11 +14,11 @@ public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<Type
 	/// </summary>
 	/// <param name="typeFrom">The type from.</param>
 	/// <param name="typeTo">The type to.</param>
-	public TypesPair(Type? typeFrom, Type? typeTo)
+	public TypesPair(Type typeFrom, Type typeTo)
 	{
 		SourceType = typeFrom;
 		DestinationType = typeTo;
-		hash = HashCode.Combine(typeFrom, typeTo);
+		_hash = HashCode.Combine(typeFrom, typeTo);
 	}
 
 	public bool ContainsGenericParameters =>
@@ -87,7 +87,7 @@ public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<Type
 	/// <returns>A bool.</returns>
 	public bool Equals(TypesPair other)
 	{
-		return hash == other.hash && SourceType == other.SourceType && DestinationType == other.DestinationType;
+		return _hash == other._hash && SourceType == other.SourceType && DestinationType == other.DestinationType;
 	}
 
 	/// <summary>
@@ -107,7 +107,7 @@ public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<Type
 	/// <returns>An int.</returns>
 	public int GetHashCode(TypesPair obj)
 	{
-		return obj.hash;
+		return obj._hash;
 	}
 
 	/// <summary>
@@ -116,7 +116,7 @@ public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<Type
 	/// <returns>An int.</returns>
 	public override int GetHashCode()
 	{
-		return hash;
+		return _hash;
 	}
 
 	/// <summary>
@@ -142,7 +142,7 @@ public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<Type
 	/// </summary>
 	/// <param name="type">The type.</param>
 	/// <returns>A Type.</returns>
-	private static Type? GetTypeDefinitionIfGeneric(Type? type)
+	private static Type GetTypeDefinitionIfGeneric(Type type)
 	{
 		return type.IsGenericType ? type.GetGenericTypeDefinitionCache() : type;
 	}

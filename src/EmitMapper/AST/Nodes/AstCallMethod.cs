@@ -32,7 +32,7 @@ internal class AstCallMethod : IAstRefOrValue
 	/// <summary>
 	/// Gets the item type.
 	/// </summary>
-	public Type? ItemType => MethodInfo.ReturnType;
+	public Type ItemType => MethodInfo.ReturnType;
 
 	/// <inheritdoc/>
 	public virtual void Compile(CompilationContext context)

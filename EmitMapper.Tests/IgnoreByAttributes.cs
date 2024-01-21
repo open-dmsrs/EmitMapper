@@ -47,7 +47,7 @@ public class IgnoreByAttributes
 		/// <param name="from">The from.</param>
 		/// <param name="to">The to.</param>
 		/// <returns><![CDATA[IEnumerable<IMappingOperation>]]></returns>
-		public override IEnumerable<IMappingOperation> GetMappingOperations(Type? from, Type? to)
+		public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
 		{
 			IgnoreMembers<object, object>(GetIgnoreFields(from).Concat(GetIgnoreFields(to)).ToArray());
 
@@ -59,7 +59,7 @@ public class IgnoreByAttributes
 		/// </summary>
 		/// <param name="type">The type.</param>
 		/// <returns><![CDATA[IEnumerable<string>]]></returns>
-		private IEnumerable<string> GetIgnoreFields(Type? type)
+		private IEnumerable<string> GetIgnoreFields(Type type)
 		{
 			return type.GetFields().Where(f => f.GetCustomAttributes(typeof(MyIgnoreAttribute), false).Any())
 			  .Select(f => f.Name).Concat(

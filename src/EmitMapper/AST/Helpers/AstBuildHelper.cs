@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.AST.Helpers;
+namespace EmitMapper.AST.Helpers;
 
 /// <summary>
 ///   The ast build helper.
@@ -31,7 +31,7 @@ internal static class AstBuildHelper
 	/// <param name="value">The value.</param>
 	/// <param name="targetType">The target type.</param>
 	/// <returns>An IAstRefOrValue.</returns>
-	public static IAstRefOrValue CastClass(IAstRefOrValue value, Type? targetType)
+	public static IAstRefOrValue CastClass(IAstRefOrValue value, Type targetType)
 	{
 		if (targetType.IsValueType)
 		{
@@ -254,7 +254,7 @@ internal static class AstBuildHelper
 	/// <param name="memberInfo">The member info.</param>
 	/// <exception cref="EmitMapperException"></exception>
 	/// <returns>An IAstRefOrValue.</returns>
-	public static IAstRefOrValue ReadMemberRv(IAstRefOrAddr sourceObject, MemberInfo memberInfo)
+	public static IAstRefOrValue ReadMemberRv(IAstRefOrAddr sourceObject, MemberInfo? memberInfo)
 	{
 		if (memberInfo.MemberType == MemberTypes.Method)
 		{
@@ -313,7 +313,7 @@ internal static class AstBuildHelper
 	/// <param name="sourceObject">The source object.</param>
 	/// <param name="membersChainOfOne">The members chain of one.</param>
 	/// <returns>An IAstRefOrValue.</returns>
-	public static IAstRefOrValue ReadMembersChain(IAstRefOrAddr sourceObject, MemberInfo membersChainOfOne)
+	public static IAstRefOrValue ReadMembersChain(IAstRefOrAddr sourceObject, MemberInfo? membersChainOfOne)
 	{
 		return ReadMemberRv(sourceObject, membersChainOfOne);
 	}
@@ -390,20 +390,20 @@ internal static class AstBuildHelper
 	/// <param name="value">The value.</param>
 	/// <returns>An IAstNode.</returns>
 	public static IAstNode WriteMembersChain(
-	  IEnumerable<MemberInfo> membersChain,
+	  IEnumerable<MemberInfo>? membersChain,
 	  IAstRefOrAddr targetObject,
 	  IAstRefOrValue value)
 	{
 		var readTarget = targetObject;
-		var enumerator = membersChain.GetEnumerator();
+		var enumerator = membersChain?.GetEnumerator();
 		MemberInfo? cur = null;
 
-		if (enumerator.MoveNext())
+		if (enumerator is not null && enumerator.MoveNext())
 		{
 			cur = enumerator.Current;
 		}
 
-		while (enumerator.MoveNext())
+		while (enumerator is not null && enumerator.MoveNext())
 		{
 			readTarget = ReadMemberRa(readTarget, cur);
 			cur = enumerator.Current;

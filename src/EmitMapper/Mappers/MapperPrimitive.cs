@@ -5,9 +5,9 @@ namespace EmitMapper.Mappers;
 /// </summary>
 internal class MapperPrimitive : CustomMapper
 {
-	private static readonly LazyConcurrentDictionary<Type?, bool> IsSupported = new();
+	private static readonly LazyConcurrentDictionary<Type, bool> IsSupported = new();
 
-	private readonly MethodInvokerFunc1 converter;
+	private readonly MethodInvokerFunc1 _converter;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="MapperPrimitive" /> class.
@@ -18,8 +18,8 @@ internal class MapperPrimitive : CustomMapper
 	/// <param name="mappingConfigurator">The mapping configurator.</param>
 	public MapperPrimitive(
 	  Mapper? objectMapperManager,
-	  Type? typeFrom,
-	  Type? typeTo,
+	  Type typeFrom,
+	  Type typeTo,
 	  IMappingConfigurator? mappingConfigurator)
 	  : base(objectMapperManager, typeFrom, typeTo, mappingConfigurator, null)
 	{
@@ -31,7 +31,7 @@ internal class MapperPrimitive : CustomMapper
 
 		if (converterMethod is not null)
 		{
-			converter = (MethodInvokerFunc1)EmitInvoker.Methods.MethodInvoker.GetMethodInvoker(null, converterMethod);
+			_converter = (MethodInvokerFunc1)EmitInvoker.Methods.MethodInvoker.GetMethodInvoker(null, converterMethod);
 		}
 	}
 
@@ -51,14 +51,14 @@ internal class MapperPrimitive : CustomMapper
 	/// <param name="to">Destination object</param>
 	/// <param name="state"></param>
 	/// <returns>Destination object</returns>
-	public override object MapCore(object from, object to, object state)
+	public override object? MapCore(object? from, object? to, object state)
 	{
-		if (converter is null)
+		if (_converter is null)
 		{
 			return from;
 		}
 
-		return converter.CallFunc(from);
+		return _converter.CallFunc(from);
 	}
 
 	/// <summary>
@@ -66,7 +66,7 @@ internal class MapperPrimitive : CustomMapper
 	/// </summary>
 	/// <param name="t">The t.</param>
 	/// <returns>A bool.</returns>
-	internal static bool IsSupportedType(Type? t)
+	internal static bool IsSupportedType(Type t)
 	{
 		return IsSupported.GetOrAdd(
 		  t,

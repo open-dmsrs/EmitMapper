@@ -26,7 +26,7 @@ public static partial class CommandBuilder
 	/// <param name="tableName">Name of the table.</param>
 	/// <param name="dbSettings">The db settings.</param>
 	/// <returns>DbCommand.</returns>
-	public static DbCommand? BuildInsertCommand(this DbCommand? cmd, object obj, string tableName, DbSettings dbSettings)
+	public static DbCommand? BuildInsertCommand(this DbCommand? cmd, object? obj, string tableName, DbSettings dbSettings)
 	{
 		return BuildInsertCommand(cmd, obj, tableName, dbSettings, null, null);
 	}
@@ -43,7 +43,7 @@ public static partial class CommandBuilder
 	/// <returns>DbCommand.</returns>
 	public static DbCommand? BuildInsertCommand(
 	  this DbCommand? cmd,
-	  object obj,
+	  object? obj,
 	  string tableName,
 	  DbSettings dbSettings,
 	  string[] includeFields,

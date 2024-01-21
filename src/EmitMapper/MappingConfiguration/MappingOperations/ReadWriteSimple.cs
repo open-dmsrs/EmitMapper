@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.MappingConfiguration.MappingOperations;
+namespace EmitMapper.MappingConfiguration.MappingOperations;
 
 /// <summary>
 ///   The read write simple.
@@ -13,7 +13,7 @@ public class ReadWriteSimple : IReadWriteOperation
 	/// <summary>
 	///   Gets or Sets the destination.
 	/// </summary>
-	public MemberDescriptor? Destination { get; set; }
+	public required MemberDescriptor Destination { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the destination filter.
@@ -28,12 +28,12 @@ public class ReadWriteSimple : IReadWriteOperation
 	/// <summary>
 	///   Gets or Sets a value indicating whether shallow copy.
 	/// </summary>
-	public bool ShallowCopy { get; set; }
+	public bool ShallowCopy { get; init; }
 
 	/// <summary>
 	///   Gets or Sets the source.
 	/// </summary>
-	public MemberDescriptor? Source { get; set; }
+	public required MemberDescriptor Source { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the source filter.

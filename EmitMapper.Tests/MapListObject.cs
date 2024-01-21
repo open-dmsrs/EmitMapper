@@ -7,13 +7,13 @@ namespace EmitMapper.Tests;
 /// </summary>
 public class MapListObject
 {
-	private readonly ITestOutputHelper testOutputHelper;
+	private readonly ITestOutputHelper _testOutputHelper;
 
 	/// <summary>
 	///     Initializes a new instance of the <see cref="MapListObject" /> class.
 	/// </summary>
 	/// <param name="testOutputHelper">The test output helper.</param>
-	public MapListObject(ITestOutputHelper testOutputHelper) => this.testOutputHelper = testOutputHelper;
+	public MapListObject(ITestOutputHelper testOutputHelper) => this._testOutputHelper = testOutputHelper;
 
 	/// <summary>
 	///     Converts the char to int32.
@@ -24,7 +24,7 @@ public class MapListObject
 		var m = 'a';
 		var n = Convert.ToInt32(m);
 
-		testOutputHelper.WriteLine(n + string.Empty);
+		_testOutputHelper.WriteLine(n + string.Empty);
 	}
 
 	/// <summary>
@@ -37,7 +37,7 @@ public class MapListObject
 	{
 		ArrayList listFrom = new(list.ToArray());
 
-		testOutputHelper.WriteLine(listFrom.Count.ToString());
+		_testOutputHelper.WriteLine(listFrom.Count.ToString());
 
 		var rw1 = new ReadWriteSimple
 		{
@@ -82,7 +82,7 @@ public class MapListObject
 		var list = fixture.CreateMany<SimpleTypesSource>(3).ToList();
 
 		// list.FirstOrDefault().N5 = 3.3232423424234M;
-		testOutputHelper.WriteLine(list.Count.ToString(CultureInfo.InvariantCulture));
+		_testOutputHelper.WriteLine(list.Count.ToString(CultureInfo.InvariantCulture));
 
 		var mapper = Mapper.Default.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
 		mapper = Mapper.Default.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
@@ -100,7 +100,7 @@ public class MapListObject
 	[AutoData]
 	public void TestEmitMapperMapListObject(List<FromClass> listFrom)
 	{
-		testOutputHelper.WriteLine(listFrom.Count.ToString());
+		_testOutputHelper.WriteLine(listFrom.Count.ToString());
 
 		var rw1 = new ReadWriteSimple
 		{
@@ -129,7 +129,7 @@ public class MapListObject
 
 		while (f.MoveNext() && t.MoveNext())
 		{
-			testOutputHelper.WriteLine(t.Current.Message);
+			_testOutputHelper.WriteLine(t.Current.Message);
 			f.Current.Inner.Message.ShouldBe(t.Current.Message);
 			f.Current.Inner.GetMessage2().ShouldBe(t.Current.Message2);
 		}
@@ -226,16 +226,16 @@ public class MapListObject
 	/// </summary>
 	internal class RandomDoublePrecisionFloatingPointSequenceGenerator : ISpecimenBuilder
 	{
-		private readonly Random random;
-		private readonly object syncRoot;
+		private readonly Random _random;
+		private readonly object _syncRoot;
 
 		/// <summary>
 		///     Initializes a new instance of the <see cref="RandomDoublePrecisionFloatingPointSequenceGenerator" /> class.
 		/// </summary>
 		internal RandomDoublePrecisionFloatingPointSequenceGenerator()
 		{
-			syncRoot = new object();
-			random = new Random();
+			_syncRoot = new object();
+			_random = new Random();
 		}
 
 		/// <summary>
@@ -282,9 +282,9 @@ public class MapListObject
 		/// <returns>A double.</returns>
 		private double GetNextRandom()
 		{
-			lock (syncRoot)
+			lock (_syncRoot)
 			{
-				return random.NextDouble();
+				return _random.NextDouble();
 			}
 		}
 	}

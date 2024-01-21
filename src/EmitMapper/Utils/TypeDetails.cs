@@ -7,13 +7,13 @@
 [EditorBrowsable(EditorBrowsableState.Never)]
 public class TypeDetails
 {
-	private ConstructorParameters[] constructors;
+	private ConstructorParameters[] _constructors;
 
-	private Dictionary<string, MemberInfo> nameToMember;
+	private Dictionary<string, MemberInfo> _nameToMember;
 
-	private MemberInfo[] readAccessors;
+	private MemberInfo[] _readAccessors;
 
-	private MemberInfo[] writeAccessors;
+	private MemberInfo[] _writeAccessors;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="TypeDetails" /> class.
@@ -34,12 +34,12 @@ public class TypeDetails
 	/// <summary>
 	///   Gets the constructors.
 	/// </summary>
-	public ConstructorParameters[] Constructors => constructors ??= GetConstructors();
+	public ConstructorParameters[] Constructors => _constructors ??= GetConstructors();
 
 	/// <summary>
 	///   Gets the read accessors.
 	/// </summary>
-	public MemberInfo[] ReadAccessors => readAccessors ??= BuildReadAccessors();
+	public MemberInfo[] ReadAccessors => _readAccessors ??= BuildReadAccessors();
 
 	/// <summary>
 	///   Gets the type.
@@ -49,7 +49,7 @@ public class TypeDetails
 	/// <summary>
 	///   Gets the write accessors.
 	/// </summary>
-	public MemberInfo[] WriteAccessors => writeAccessors ??= BuildWriteAccessors();
+	public MemberInfo[] WriteAccessors => _writeAccessors ??= BuildWriteAccessors();
 
 	/// <summary>
 	///   Gets the constructors.
@@ -102,9 +102,9 @@ public class TypeDetails
 	/// <returns>A MemberInfo.</returns>
 	public MemberInfo GetMember(string name)
 	{
-		nameToMember ??= PossibleNames();
+		_nameToMember ??= PossibleNames();
 
-		return nameToMember.GetOrDefault(name);
+		return _nameToMember.GetOrDefault(name);
 	}
 
 	/// <summary>

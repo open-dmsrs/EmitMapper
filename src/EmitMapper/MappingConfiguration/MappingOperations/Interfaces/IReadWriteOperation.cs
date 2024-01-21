@@ -18,7 +18,7 @@ public interface IReadWriteOperation : IDestWriteOperation, ISrcReadOperation
 	/// <summary>
 	///   Gets or Sets the null substitutor.
 	/// </summary>
-	Delegate NullSubstitutor { get; set; } // generic type: NullSubstitutor
+	Delegate? NullSubstitutor { get; set; } // generic type: NullSubstitutor
 
 	/// <summary>
 	///   Gets or Sets the source filter.

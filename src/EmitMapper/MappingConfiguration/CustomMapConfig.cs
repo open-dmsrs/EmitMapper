@@ -30,7 +30,7 @@ public class CustomMapConfig : MapConfigBaseImpl
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns><![CDATA[IEnumerable<IMappingOperation>]]></returns>
-	public override IEnumerable<IMappingOperation> GetMappingOperations(Type? from, Type? to)
+	public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
 	{
 		if (GetMappingOperationFunc is null)
 		{
@@ -46,7 +46,7 @@ public class CustomMapConfig : MapConfigBaseImpl
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns>An IRootMappingOperation.</returns>
-	public override IRootMappingOperation? GetRootMappingOperation(Type? from, Type? to)
+	public override IRootMappingOperation? GetRootMappingOperation(Type from, Type to)
 	{
 		return null;
 	}

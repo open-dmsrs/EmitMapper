@@ -75,7 +75,7 @@ public class ValueTypes
 	{
 		var a = new A4();
 		var b = new B4();
-		var mapper = Context.ObjMan.GetMapper<B4, A4>();
+		Mapper<B4?, A4> mapper = Context.ObjMan.GetMapper<B4, A4>();
 
 		// DynamicAssemblyManager.SaveAssembly();
 		a = mapper.Map(b, a);

@@ -5,7 +5,7 @@
 /// </summary>
 public class DestSrcReadOperationTest
 {
-	private readonly ITestOutputHelper testOutputHelper;
+	private readonly ITestOutputHelper _testOutputHelper;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="DestSrcReadOperationTest" /> class.
@@ -13,7 +13,7 @@ public class DestSrcReadOperationTest
 	/// <param name="testOutputHelper">The test output helper.</param>
 	public DestSrcReadOperationTest(ITestOutputHelper testOutputHelper)
 	{
-		this.testOutputHelper = testOutputHelper;
+		this._testOutputHelper = testOutputHelper;
 	}
 
 	/// <summary>
@@ -38,8 +38,8 @@ public class DestSrcReadOperationTest
 		{
 			ValueProcessor = (f, t, o) =>
 			{
-				testOutputHelper.WriteLine(f?.ToString());
-				testOutputHelper.WriteLine(t?.ToString());
+				_testOutputHelper.WriteLine(f?.ToString());
+				_testOutputHelper.WriteLine(t?.ToString());
 
 				// _testOutputHelper.WriteLine(o?.ToString());
 				// var source = f as FromClass;

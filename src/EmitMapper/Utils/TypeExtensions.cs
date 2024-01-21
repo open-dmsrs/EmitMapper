@@ -39,7 +39,7 @@ public static class TypeExtensions
 	/// <param name="derivedType">The derived type.</param>
 	/// <param name="baseType">The base type.</param>
 	/// <exception cref="ArgumentOutOfRangeException"></exception>
-	public static void CheckIsDerivedFrom(this Type? derivedType, Type? baseType)
+	public static void CheckIsDerivedFrom(this Type derivedType, Type baseType)
 	{
 		if (!baseType.IsAssignableFrom(derivedType) && !derivedType.IsGenericTypeDefinition
 													&& !baseType.IsGenericTypeDefinition)
@@ -112,7 +112,7 @@ public static class TypeExtensions
 	/// <returns>A Type.</returns>
 	public static Type GetICollectionType(this Type type)
 	{
-		return type.GetGenericInterface(Metadata.ICollection1);
+		return type.GetGenericInterface(Metadata.Collection1);
 	}
 
 	/// <summary>

@@ -24,19 +24,19 @@ public class ObjectsChangeTracker
 	/// <summary>
 	///   The _map manager.
 	/// </summary>
-	private readonly Mapper mapManager;
+	private readonly Mapper _mapManager;
 
 	/// <summary>
 	///   The _tracking objects.
 	/// </summary>
-	private readonly Dictionary<object, List<TrackingMember>> trackingObjects = new();
+	private readonly Dictionary<object?, List<TrackingMember>> _trackingObjects = new();
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="ObjectsChangeTracker" /> class.
 	/// </summary>
 	public ObjectsChangeTracker()
 	{
-		mapManager = Mapper.Default;
+		_mapManager = Mapper.Default;
 	}
 
 	/// <summary>
@@ -45,7 +45,7 @@ public class ObjectsChangeTracker
 	/// <param name="mapManager">The map manager.</param>
 	public ObjectsChangeTracker(Mapper mapManager)
 	{
-		this.mapManager = mapManager;
+		this._mapManager = mapManager;
 	}
 
 	/// <summary>
@@ -53,9 +53,9 @@ public class ObjectsChangeTracker
 	/// </summary>
 	/// <param name="obj">The obj.</param>
 	/// <returns>TrackingMember[][].</returns>
-	public TrackingMember[]? GetChanges(object obj)
+	public TrackingMember[]? GetChanges(object? obj)
 	{
-		if (!trackingObjects.TryGetValue(obj, out var originalValues))
+		if (!_trackingObjects.TryGetValue(obj, out var originalValues))
 		{
 			return null;
 		}
@@ -115,7 +115,7 @@ public class ObjectsChangeTracker
 		// var type = Obj.GetType();
 		if (obj is not null)
 		{
-			trackingObjects[obj] = GetObjectMembers(obj);
+			_trackingObjects[obj] = GetObjectMembers(obj);
 		}
 	}
 
@@ -133,7 +133,7 @@ public class ObjectsChangeTracker
 		}
 
 		var fields = new TrackingMembersList();
-		mapManager.GetMapper(type, null, new MappingConfiguration()).Map(obj, null, fields);
+		_mapManager.GetMapper(type, null, new MappingConfiguration()).Map(obj, null, fields);
 
 		return fields.TrackingMembers;
 	}
@@ -190,7 +190,7 @@ public class ObjectsChangeTracker
 		/// <param name="from">From.</param>
 		/// <param name="to">To.</param>
 		/// <returns>IEnumerable&lt;IMappingOperation&gt;.</returns>
-		public override IEnumerable<IMappingOperation> GetMappingOperations(Type? from, Type? to)
+		public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
 		{
 			return ReflectionHelper.GetPublicFieldsAndProperties(from).Select(
 			  m => new SrcReadOperation
@@ -208,7 +208,7 @@ public class ObjectsChangeTracker
 		/// <param name="from">From.</param>
 		/// <param name="to">To.</param>
 		/// <returns>IRootMappingOperation.</returns>
-		public override IRootMappingOperation? GetRootMappingOperation(Type? from, Type? to)
+		public override IRootMappingOperation? GetRootMappingOperation(Type from, Type to)
 		{
 			return null;
 		}

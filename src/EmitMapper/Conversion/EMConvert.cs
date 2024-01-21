@@ -11,7 +11,7 @@ public class EmConvert
 	/// <param name="value">The value.</param>
 	/// <param name="conversionType">The conversion type.</param>
 	/// <returns>An object.</returns>
-	public static object? ChangeType(object? value, Type? conversionType)
+	public static object? ChangeType(object? value, Type conversionType)
 	{
 		if (value is null)
 		{
@@ -28,7 +28,7 @@ public class EmConvert
 	/// <param name="typeFrom">The type from.</param>
 	/// <param name="typeTo">The type to.</param>
 	/// <returns>An object.</returns>
-	public static object? ChangeType(object? value, Type? typeFrom, Type? typeTo)
+	public static object? ChangeType(object? value, Type typeFrom, Type typeTo)
 	{
 		if (value is null)
 		{
@@ -184,7 +184,7 @@ public class EmConvert
 	/// <param name="typeFrom">The type from.</param>
 	/// <param name="typeTo">The type to.</param>
 	/// <returns>An object.</returns>
-	private static object ConvertToEnum(object value, Type? typeFrom, Type? typeTo)
+	private static object ConvertToEnum(object value, Type typeFrom, Type typeTo)
 	{
 		if (!typeFrom.IsEnum)
 		{

@@ -264,7 +264,7 @@ public static class DbTools
 	/// <param name="excludeFields"> The exclude fields. </param>
 	public static Task<int> InsertObject(
 		DbConnection conn,
-		object obj,
+		object? obj,
 		string tableName,
 		DbSettings dbSettings,
 		string[] includeFields,
@@ -283,7 +283,7 @@ public static class DbTools
 	/// <param name="obj">        The obj. </param>
 	/// <param name="tableName">  Name of the table. </param>
 	/// <param name="dbSettings"> The db settings. </param>
-	public static Task<int> InsertObject(DbConnection conn, object obj, string tableName, DbSettings dbSettings)
+	public static Task<int> InsertObject(DbConnection conn, object? obj, string tableName, DbSettings dbSettings)
 	{
 		using var cmd = conn.CreateCommand();
 		cmd.BuildInsertCommand(obj, tableName, dbSettings);
@@ -410,7 +410,7 @@ public static class DbTools
 	/// <param name="changeTracker"> The change tracker. </param>
 	/// <returns> ``0. </returns>
 	public static T ToObject<T>(
-		this IDataReader reader,
+		this IDataReader? reader,
 		string readerName,
 		string[] excludeFields,
 		ObjectsChangeTracker? changeTracker)
@@ -466,7 +466,7 @@ public static class DbTools
 	/// <param name="changeTracker"> The change tracker. </param>
 	/// <returns> IEnumerable{``0}. </returns>
 	public static IEnumerable<T> ToObjects<T>(
-		this IDataReader reader,
+		this IDataReader? reader,
 		string readerName,
 		string[] excludeFields,
 		ObjectsChangeTracker changeTracker)
@@ -503,7 +503,7 @@ public static class DbTools
 	/// <param name="dbSettings">    The db settings. </param>
 	public static Task<int> UpdateObject(
 		DbConnection conn,
-		object obj,
+		object? obj,
 		string tableName,
 		string[]? idFieldNames,
 		ObjectsChangeTracker changeTracker,
@@ -525,7 +525,7 @@ public static class DbTools
 	/// <param name="dbSettings">    The db settings. </param>
 	public static Task<int> UpdateObject(
 		DbConnection conn,
-		object obj,
+		object? obj,
 		string tableName,
 		string[]? idFieldNames,
 		string[] includeFields,
@@ -553,7 +553,7 @@ public static class DbTools
 	/// <param name="dbSettings">   The db settings. </param>
 	public static Task<int> UpdateObject(
 		DbConnection conn,
-		object obj,
+		object? obj,
 		string tableName,
 		string[]? idFieldNames,
 		DbSettings dbSettings)

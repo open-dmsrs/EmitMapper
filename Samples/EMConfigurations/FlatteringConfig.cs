@@ -23,7 +23,7 @@ public class FlatteringConfig : DefaultMapConfig
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns><![CDATA[IEnumerable<IMappingOperation>]]></returns>
-	public override IEnumerable<IMappingOperation> GetMappingOperations(Type? from, Type? to)
+	public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
 	{
 		var destinationMembers = GetFieldsPropertiesMembers(to);
 		var sourceMembers = GetSourceMembers(from);
@@ -46,7 +46,7 @@ public class FlatteringConfig : DefaultMapConfig
 	/// <returns>A DefaultMapConfig.</returns>
 	public DefaultMapConfig MatchNestedMembers(Func<string, string, bool> nestedMembersMatcher)
 	{
-		NestedMembersMatcher = nestedMembersMatcher;
+		this.NestedMembersMatcher = nestedMembersMatcher;
 
 		return this;
 	}
@@ -56,7 +56,7 @@ public class FlatteringConfig : DefaultMapConfig
 	/// </summary>
 	/// <param name="t">The t.</param>
 	/// <returns><![CDATA[IEnumerable<MemberInfo>]]></returns>
-	private static MemberInfo[] GetAllMembers(Type? t)
+	private static MemberInfo[] GetAllMembers(Type t)
 	{
 		var bindingFlags = BindingFlags.Instance | BindingFlags.Public;
 
@@ -68,7 +68,7 @@ public class FlatteringConfig : DefaultMapConfig
 	/// </summary>
 	/// <param name="t">The t.</param>
 	/// <returns><![CDATA[IEnumerable<MemberInfo>]]></returns>
-	private static IEnumerable<MemberInfo> GetFieldsPropertiesMembers(Type? t)
+	private static IEnumerable<MemberInfo> GetFieldsPropertiesMembers(Type t)
 	{
 		return GetAllMembers(t).Where(m => m.MemberType == MemberTypes.Field || m.MemberType == MemberTypes.Property);
 	}
@@ -78,7 +78,7 @@ public class FlatteringConfig : DefaultMapConfig
 	/// </summary>
 	/// <param name="t">The t.</param>
 	/// <returns><![CDATA[IEnumerable<MemberInfo>]]></returns>
-	private static IEnumerable<MemberInfo> GetSourceMembers(Type? t)
+	private static IEnumerable<MemberInfo> GetSourceMembers(Type t)
 	{
 		return GetAllMembers(t).Where(
 		  m => m.MemberType == MemberTypes.Field || m.MemberType == MemberTypes.Property

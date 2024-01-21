@@ -11,14 +11,14 @@ namespace EmitMapper.Benchmarks.GetTypes;
 //[MemoryDiagnoser]
 public class TypeBenchmark
 {
-	private Employee? e;
+	private Employee? _e;
 
 	/// <summary>
 	/// </summary>
 	[GlobalSetup]
 	public void Setup()
 	{
-		e = new Employee();
+		_e = new Employee();
 		OfGetType();
 		OfMetadata();
 		OfTypeof();
@@ -31,7 +31,7 @@ public class TypeBenchmark
 	[Benchmark()]
 	public Type OfGetType()
 	{
-		return e.GetType();
+		return _e.GetType();
 	}
 
 	/// <summary>

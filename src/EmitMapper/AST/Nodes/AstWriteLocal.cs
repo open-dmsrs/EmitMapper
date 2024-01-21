@@ -7,7 +7,7 @@ internal class AstWriteLocal : IAstNode
 {
 	public int LocalIndex;
 
-	public Type? LocalType;
+	public Type LocalType;
 
 	public IAstRefOrValue Value;
 

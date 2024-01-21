@@ -5,15 +5,15 @@ namespace EmitMapper.MappingConfiguration;
 /// </summary>
 public class DefaultMapConfig : MapConfigBaseImpl
 {
-	private readonly List<string> deepCopyMembers = new();
+	private readonly List<string> _deepCopyMembers = new();
 
-	private readonly List<string> shallowCopyMembers = new();
+	private readonly List<string> _shallowCopyMembers = new();
 
-	private string configName;
+	private string _configName;
 
-	private Func<string, string, bool> membersMatcher;
+	private Func<string, string, bool> _membersMatcher;
 
-	private bool shallowCopy;
+	private bool _shallowCopy;
 
 	/// <summary>
 	/// Initializes static members of the <see cref="DefaultMapConfig"/> class.
@@ -29,8 +29,8 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// </summary>
 	public DefaultMapConfig()
 	{
-		shallowCopy = true;
-		membersMatcher = (m1, m2) => m1 == m2;
+		_shallowCopy = true;
+		_membersMatcher = (m1, m2) => m1 == m2;
 	}
 
 	/// <summary>
@@ -57,7 +57,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <returns></returns>
 	public DefaultMapConfig? DeepMap(Type? type)
 	{
-		deepCopyMembers.Add(type.FullName);
+		_deepCopyMembers.Add(type.FullName);
 
 		return this;
 	}
@@ -69,7 +69,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <returns></returns>
 	public DefaultMapConfig? DeepMap()
 	{
-		shallowCopy = false;
+		_shallowCopy = false;
 
 		return this;
 	}
@@ -80,9 +80,9 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <returns>A string.</returns>
 	public override string GetConfigurationName()
 	{
-		return configName ??= base.GetConfigurationName() + new[]
+		return _configName ??= base.GetConfigurationName() + new[]
 		{
-	  shallowCopy.ToString(), ToStr(membersMatcher), ToStrEnum(shallowCopyMembers), ToStrEnum(deepCopyMembers)
+	  _shallowCopy.ToString(), ToStr(_membersMatcher), ToStrEnum(_shallowCopyMembers), ToStrEnum(_deepCopyMembers)
 	}.ToCsv(";");
 	}
 
@@ -92,7 +92,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns><![CDATA[IEnumerable<IMappingOperation>]]></returns>
-	public override IEnumerable<IMappingOperation> GetMappingOperations(Type? from, Type? to)
+	public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
 	{
 		return FilterOperations(from, to, GetMappingItems(new HashSet<TypesPair>(), from, to, null, null));
 	}
@@ -103,7 +103,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns>An IRootMappingOperation.</returns>
-	public override IRootMappingOperation GetRootMappingOperation(Type? from, Type? to)
+	public override IRootMappingOperation GetRootMappingOperation(Type from, Type to)
 	{
 		var res = base.GetRootMappingOperation(from, to);
 		res.ShallowCopy = IsShallowCopy(from, to);
@@ -121,7 +121,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <returns></returns>
 	public DefaultMapConfig? MatchMembers(Func<string, string, bool> membersMatcher)
 	{
-		this.membersMatcher = membersMatcher;
+		this._membersMatcher = membersMatcher;
 
 		return this;
 	}
@@ -145,7 +145,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <returns></returns>
 	public DefaultMapConfig ShallowMap(Type? type)
 	{
-		shallowCopyMembers.Add(type.FullName);
+		_shallowCopyMembers.Add(type.FullName);
 
 		return this;
 	}
@@ -157,7 +157,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <returns></returns>
 	public DefaultMapConfig? ShallowMap()
 	{
-		shallowCopy = true;
+		_shallowCopy = true;
 
 		return this;
 	}
@@ -170,7 +170,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <returns>A bool.</returns>
 	protected virtual bool MatchMembers(string m1, string m2)
 	{
-		return membersMatcher(m1, m2);
+		return _membersMatcher(m1, m2);
 	}
 
 	/// <summary>
@@ -182,7 +182,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <param name="toMi">The to mi.</param>
 	/// <param name="shallowCopy">If true, shallow copy.</param>
 	/// <returns>A bool.</returns>
-	private static bool IsNativeDeepCopy(Type? typeFrom, Type? typeTo, MemberInfo fromMi, MemberInfo toMi, bool shallowCopy)
+	private static bool IsNativeDeepCopy(Type typeFrom, Type typeTo, MemberInfo fromMi, MemberInfo toMi, bool shallowCopy)
 	{
 		if (NativeConverter.IsNativeConvertionPossible(typeFrom, typeTo))
 		{
@@ -215,8 +215,8 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <returns>An IMappingOperation.</returns>
 	private IMappingOperation CreateMappingOperation(
 	  HashSet<TypesPair> processedTypes,
-	  Type? fromRoot,
-	  Type? toRoot,
+	  Type fromRoot,
+	  Type toRoot,
 	  IEnumerable<MemberInfo> toPath,
 	  IEnumerable<MemberInfo> fromPath,
 	  MemberInfo fromMi,
@@ -288,8 +288,8 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <returns><![CDATA[List<IMappingOperation>]]></returns>
 	private List<IMappingOperation> GetMappingItems(
 	  HashSet<TypesPair> processedTypes,
-	  Type? fromRoot,
-	  Type? toRoot,
+	  Type fromRoot,
+	  Type toRoot,
 	  IEnumerable<MemberInfo>? toPath,
 	  IEnumerable<MemberInfo>? fromPath)
 	{
@@ -364,19 +364,19 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns>A bool.</returns>
-	private bool IsShallowCopy(Type? from, Type? to)
+	private bool IsShallowCopy(Type from, Type to)
 	{
-		if (TypeInList(shallowCopyMembers, to) || TypeInList(shallowCopyMembers, from))
+		if (TypeInList(_shallowCopyMembers, to) || TypeInList(_shallowCopyMembers, from))
 		{
 			return true;
 		}
 
-		if (TypeInList(deepCopyMembers, to) || TypeInList(deepCopyMembers, from))
+		if (TypeInList(_deepCopyMembers, to) || TypeInList(_deepCopyMembers, from))
 		{
 			return false;
 		}
 
-		return shallowCopy;
+		return _shallowCopy;
 	}
 
 	/// <summary>
@@ -423,7 +423,7 @@ public class DefaultMapConfig : MapConfigBaseImpl
 	/// <param name="list">The list.</param>
 	/// <param name="t">The t.</param>
 	/// <returns>A bool.</returns>
-	private bool TypeInList(IEnumerable<string> list, Type? t)
+	private bool TypeInList(IEnumerable<string> list, Type t)
 	{
 		return list.Any(l => MatchMembers(l, t.FullName));
 	}

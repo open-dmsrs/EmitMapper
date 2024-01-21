@@ -5,7 +5,7 @@ namespace EmitMapper.MappingConfiguration;
 /// </summary>
 public class MemberDescriptor
 {
-	private IEnumerable<MemberInfo> membersChain;
+	private IEnumerable<MemberInfo> _membersChain;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="MemberDescriptor" /> class.
@@ -35,11 +35,11 @@ public class MemberDescriptor
 	/// </summary>
 	public IEnumerable<MemberInfo> MembersChain
 	{
-		get => membersChain;
+		get => _membersChain;
 		set
 		{
-			membersChain = value;
-			MemberInfo = membersChain.LastOrDefault();
+			_membersChain = value;
+			MemberInfo = _membersChain.LastOrDefault();
 			MemberType = ReflectionHelper.GetMemberReturnType(MemberInfo);
 		}
 	}
@@ -47,7 +47,7 @@ public class MemberDescriptor
 	/// <summary>
 	///   Gets the member type.
 	/// </summary>
-	public Type? MemberType { get; private set; }
+	public Type MemberType { get; private set; }
 
 	/// <summary>
 	///   Tos the string.
@@ -55,7 +55,6 @@ public class MemberDescriptor
 	/// <returns>A string.</returns>
 	public override string ToString()
 	{
-		return "[" + MembersChain.Select(mc => ReflectionHelper.GetMemberReturnType(mc).Name + ":" + mc.Name).ToCsv(",")
-				   + "]";
+		return "[" + MembersChain.Select(mc => ReflectionHelper.GetMemberReturnType(mc).Name + ":" + mc.Name).ToCsv(",") + "]";
 	}
 }

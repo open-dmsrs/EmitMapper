@@ -5,7 +5,7 @@
 /// </summary>
 public class DefaultCustomConverterProvider : ICustomConverterProvider
 {
-	private readonly Type converterType;
+	private readonly Type _converterType;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="DefaultCustomConverterProvider" /> class.
@@ -13,7 +13,7 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
 	/// <param name="converterType">The converter type.</param>
 	public DefaultCustomConverterProvider(Type converterType)
 	{
-		this.converterType = converterType;
+		this._converterType = converterType;
 	}
 
 	/// <summary>
@@ -21,7 +21,7 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
 	/// </summary>
 	/// <param name="type">The type.</param>
 	/// <returns>An array of Types</returns>
-	public static Type[] GetGenericArguments(Type? type)
+	public static Type[] GetGenericArguments(Type type)
 	{
 		if (type.IsArray)
 		{
@@ -44,12 +44,12 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
 	/// <param name="to">The to.</param>
 	/// <param name="mappingConfig">The mapping config.</param>
 	/// <returns>A CustomConverterDescriptor.</returns>
-	public virtual CustomConverterDescriptor GetCustomConverterDescr(Type? from, Type? to, MapConfigBaseImpl mappingConfig)
+	public virtual CustomConverterDescriptor GetCustomConverterDescr(Type from, Type to, MapConfigBaseImpl mappingConfig)
 	{
 		return new CustomConverterDescriptor
 		{
 			ConverterClassTypeArguments = GetGenericArguments(from).Concat(GetGenericArguments(to)),
-			ConverterImplementation = converterType,
+			ConverterImplementation = _converterType,
 			ConversionMethodName = "Convert"
 		};
 	}

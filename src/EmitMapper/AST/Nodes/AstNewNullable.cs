@@ -9,7 +9,7 @@ internal class AstNewNullable : IAstValue
 	///   Initializes a new instance of the <see cref="AstNewNullable" /> class.
 	/// </summary>
 	/// <param name="nullableType">The nullable type.</param>
-	public AstNewNullable(Type? nullableType)
+	public AstNewNullable(Type nullableType)
 	{
 		ItemType = nullableType;
 	}
@@ -17,7 +17,7 @@ internal class AstNewNullable : IAstValue
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type? ItemType { get; }
+	public Type ItemType { get; }
 
 	/// <inheritdoc />
 	/// <exception cref="NotImplementedException"></exception>

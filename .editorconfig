@@ -269,7 +269,7 @@ indent_style = tab
 dotnet_style_readonly_field = true:suggestion
 dotnet_diagnostic.CA1822.severity = silent
 dotnet_style_parentheses_in_other_operators = never_if_unnecessary:silent
-dotnet_style_prefer_collection_expression = true:suggestion
+dotnet_style_prefer_collection_expression = when_types_exactly_match:suggestion
 dotnet_diagnostic.RCS1037.severity = warning
 
 # IDE0060: Remove unused parameter
@@ -298,3 +298,4 @@ dotnet_diagnostic.SA1515.severity = silent
 
 # SA1516: Elements should be separated by blank line
 dotnet_diagnostic.SA1516.severity = suggestion
+dotnet_diagnostic.CA1000.severity = none

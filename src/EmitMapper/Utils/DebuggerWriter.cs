@@ -10,7 +10,7 @@ public class DebuggerWriter : TextWriter
 {
 	private static UnicodeEncoding? _encoding;
 
-	private bool isOpen;
+	private bool _isOpen;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="DebuggerWriter"/> class.
@@ -43,7 +43,7 @@ public class DebuggerWriter : TextWriter
 	{
 		Level = level;
 		Category = category;
-		isOpen = true;
+		_isOpen = true;
 	}
 
 	/// <summary>
@@ -64,7 +64,7 @@ public class DebuggerWriter : TextWriter
 	/// <inheritdoc/>
 	public override void Write(char value)
 	{
-		ObjectDisposedException.ThrowIf(!isOpen, Metadata<DebuggerWriter>.Type);
+		ObjectDisposedException.ThrowIf(!_isOpen, Metadata<DebuggerWriter>.Type);
 
 		Debugger.Log(Level, Category, value.ToString());
 	}
@@ -72,7 +72,7 @@ public class DebuggerWriter : TextWriter
 	/// <inheritdoc/>
 	public override void Write(string? value)
 	{
-		ObjectDisposedException.ThrowIf(!isOpen, Metadata<DebuggerWriter>.Type);
+		ObjectDisposedException.ThrowIf(!_isOpen, Metadata<DebuggerWriter>.Type);
 
 		if (value is not null)
 		{
@@ -83,7 +83,7 @@ public class DebuggerWriter : TextWriter
 	/// <inheritdoc/>
 	public override void Write(char[] buffer, int index, int count)
 	{
-		ObjectDisposedException.ThrowIf(!isOpen, Metadata<DebuggerWriter>.Type);
+		ObjectDisposedException.ThrowIf(!_isOpen, Metadata<DebuggerWriter>.Type);
 
 		if (index < 0 || count < 0 || buffer.Length - index < count)
 		{
@@ -98,7 +98,7 @@ public class DebuggerWriter : TextWriter
 	/// <param name="disposing">If true, disposing.</param>
 	protected override void Dispose(bool disposing)
 	{
-		isOpen = false;
+		_isOpen = false;
 		base.Dispose(disposing);
 	}
 }

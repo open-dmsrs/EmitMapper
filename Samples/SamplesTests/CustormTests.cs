@@ -10,13 +10,13 @@ public class CustormTests
 	/// </summary>
 	public CustormTests()
 	{
-		connectionConfig = ConfigurationManager.ConnectionStrings["NorthWindSqlite"];
-		factory = DbProviderFactories.GetFactory(connectionConfig.ProviderName);
+		_connectionConfig = ConfigurationManager.ConnectionStrings["NorthWindSqlite"];
+		_factory = DbProviderFactories.GetFactory(_connectionConfig.ProviderName);
 	}
 
-	private readonly ConnectionStringSettings connectionConfig;
+	private readonly ConnectionStringSettings _connectionConfig;
 
-	private readonly DbProviderFactory factory;
+	private readonly DbProviderFactory _factory;
 
 	/// <summary>
 	///   Creates the connection.
@@ -24,8 +24,8 @@ public class CustormTests
 	/// <returns>A DbConnection.</returns>
 	private DbConnection CreateConnection()
 	{
-		var result = factory.CreateConnection();
-		result.ConnectionString = connectionConfig.ConnectionString;
+		var result = _factory.CreateConnection();
+		result.ConnectionString = _connectionConfig.ConnectionString;
 		result.Open();
 
 		return result;
@@ -40,7 +40,7 @@ public class CustormTests
 		Customer[] customers;
 
 		using (var connection = CreateConnection())
-		using (var cmd = factory.CreateCommand())
+		using (var cmd = _factory.CreateCommand())
 		{
 			cmd.Connection = connection;
 			cmd.CommandType = CommandType.Text;

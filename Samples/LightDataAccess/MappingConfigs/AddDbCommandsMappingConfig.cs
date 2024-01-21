@@ -5,13 +5,13 @@ namespace LightDataAccess.MappingConfigs;
 /// </summary>
 internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
 {
-	private readonly string configName;
+	private readonly string _configName;
 
-	private readonly DbSettings dbSettings;
+	private readonly DbSettings _dbSettings;
 
-	private readonly IEnumerable<string> excludeFields;
+	private readonly IEnumerable<string> _excludeFields;
 
-	private readonly IEnumerable<string> includeFields;
+	private readonly IEnumerable<string> _includeFields;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="AddDbCommandsMappingConfig" /> class.
@@ -26,19 +26,19 @@ internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
 	  IEnumerable<string> excludeFields,
 	  string configName)
 	{
-		this.dbSettings = dbSettings;
-		this.includeFields = includeFields;
-		this.excludeFields = excludeFields;
-		this.configName = configName;
+		this._dbSettings = dbSettings;
+		this._includeFields = includeFields;
+		this._excludeFields = excludeFields;
+		this._configName = configName;
 
-		if (this.includeFields is not null)
+		if (this._includeFields is not null)
 		{
-			this.includeFields = this.includeFields.Select(f => f.ToUpper(System.Globalization.CultureInfo.CurrentCulture));
+			this._includeFields = this._includeFields.Select(f => f.ToUpper(System.Globalization.CultureInfo.CurrentCulture));
 		}
 
-		if (this.excludeFields is not null)
+		if (this._excludeFields is not null)
 		{
-			this.excludeFields = this.excludeFields.Select(f => f.ToUpper(System.Globalization.CultureInfo.CurrentCulture));
+			this._excludeFields = this._excludeFields.Select(f => f.ToUpper(System.Globalization.CultureInfo.CurrentCulture));
 		}
 	}
 
@@ -48,7 +48,7 @@ internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
 	/// <returns>A string.</returns>
 	public override string GetConfigurationName()
 	{
-		return configName;
+		return _configName;
 	}
 
 	/// <summary>
@@ -57,17 +57,17 @@ internal class AddDbCommandsMappingConfig : MapConfigBaseImpl
 	/// <param name="from">The from.</param>
 	/// <param name="to">The to.</param>
 	/// <returns><![CDATA[IEnumerable<IMappingOperation>]]></returns>
-	public override IEnumerable<IMappingOperation> GetMappingOperations(Type? from, Type? to)
+	public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
 	{
 		var members = ReflectionHelper.GetPublicFieldsAndProperties(from);
 
-		members = members.Where(m => includeFields.Contains(m.Name.ToUpper(System.Globalization.CultureInfo.CurrentCulture)) && !excludeFields.Contains(m.Name.ToUpper(System.Globalization.CultureInfo.CurrentCulture)));
+		members = members.Where(m => _includeFields.Contains(m.Name.ToUpper(System.Globalization.CultureInfo.CurrentCulture)) && !_excludeFields.Contains(m.Name.ToUpper(System.Globalization.CultureInfo.CurrentCulture)));
 
 		return members.Select(
 		  m => new SrcReadOperation
 		  {
 			  Source = new MemberDescriptor(m.AsEnumerable()),
-			  Setter = (obj, v, s) => ((DbCommand)obj).AddParam(dbSettings.ParamPrefix + m.Name, v)
+			  Setter = (obj, v, s) => ((DbCommand)obj).AddParam(_dbSettings.ParamPrefix + m.Name, v)
 		  });
 	}
 }

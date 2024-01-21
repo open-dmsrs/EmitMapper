@@ -72,7 +72,7 @@ internal class NativeConverter
 	/// <param name="f">The f.</param>
 	/// <param name="t">The t.</param>
 	/// <returns>A bool.</returns>
-	public static bool IsNativeConvertionPossible(Type? f, Type? t)
+	public static bool IsNativeConvertionPossible(Type f, Type t)
 	{
 		return IsNativeConvertionPossibleCache.GetOrAdd(
 		  new TypesPair(f, t),

@@ -17,10 +17,10 @@ internal class ArraysConverterProvider : ICustomConverterProvider
 	/// <param name="to">The to.</param>
 	/// <param name="mappingConfig">The mapping config.</param>
 	/// <returns>A CustomConverterDescriptor.</returns>
-	public CustomConverterDescriptor? GetCustomConverterDescr(Type? from, Type? to, MapConfigBaseImpl mappingConfig)
+	public CustomConverterDescriptor? GetCustomConverterDescr(Type from, Type to, MapConfigBaseImpl mappingConfig)
 	{
 		Type?[]? tFromTypeArgs = DefaultCustomConverterProvider.GetGenericArguments(from);
-		Type?[]? tToTypeArgs = DefaultCustomConverterProvider.GetGenericArguments(to);
+		Type[]? tToTypeArgs = DefaultCustomConverterProvider.GetGenericArguments(to);
 
 		if (tFromTypeArgs is null || tToTypeArgs is null || tFromTypeArgs.Length != 1 || tToTypeArgs.Length != 1)
 		{

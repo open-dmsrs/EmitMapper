@@ -35,7 +35,7 @@ public static partial class CommandBuilder
 	/// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
 	public static bool BuildUpdateCommand(
 	  this DbCommand? cmd,
-	  object obj,
+	  object? obj,
 	  string tableName,
 	  IEnumerable<string>? idFieldNames,
 	  IEnumerable<string>? includeFields,
@@ -113,7 +113,7 @@ public static partial class CommandBuilder
 	/// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
 	public static bool BuildUpdateOperator(
 	  this DbCommand? cmd,
-	  object obj,
+	  object? obj,
 	  string tableName,
 	  string[]? idFieldNames,
 	  DbSettings dbSettings)

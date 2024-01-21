@@ -12,7 +12,7 @@ internal class AstReadProperty : IAstRefOrValue
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type? ItemType => PropertyInfo.PropertyType;
+	public Type ItemType => PropertyInfo.PropertyType;
 
 	/// <inheritdoc />
 	/// <exception cref="Exception"></exception>

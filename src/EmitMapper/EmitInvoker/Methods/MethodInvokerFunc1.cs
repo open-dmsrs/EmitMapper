@@ -10,5 +10,5 @@ public abstract class MethodInvokerFunc1 : MethodInvokerBase
 	/// </summary>
 	/// <param name="param1">The param1.</param>
 	/// <returns>An object.</returns>
-	public abstract object CallFunc(object param1);
+	public abstract object? CallFunc(object? param1);
 }

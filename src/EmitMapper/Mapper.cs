@@ -12,14 +12,14 @@ public class Mapper
 
 	private static int _totalInstCount;
 
-	private readonly int currentInstanceId;
+	private readonly int _currentInstanceId;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="Mapper" /> class.
 	/// </summary>
 	public Mapper()
 	{
-		currentInstanceId = Interlocked.Increment(ref _totalInstCount);
+		_currentInstanceId = Interlocked.Increment(ref _totalInstCount);
 	}
 
 	/// <summary>
@@ -58,7 +58,7 @@ public class Mapper
 	/// <param name="to">Type of destination object</param>
 	/// <param name="mappingConfigurator">Object which configures mapping.</param>
 	/// <returns>Mapper</returns>
-	public MapperBase GetMapper(Type? from, Type? to, IMappingConfigurator? mappingConfigurator)
+	public MapperBase GetMapper(Type from, Type to, IMappingConfigurator? mappingConfigurator)
 	{
 		return GetMapperDescription(from, to, mappingConfigurator).Mapper;
 	}
@@ -70,11 +70,11 @@ public class Mapper
 	/// <param name="to">The to.</param>
 	/// <param name="mappingConfigurator">The mapping configurator.</param>
 	/// <returns>A MapperDescription.</returns>
-	internal MapperDescription GetMapperDescription(Type? from, Type? to, IMappingConfigurator? mappingConfigurator)
+	internal MapperDescription GetMapperDescription(Type from, Type to, IMappingConfigurator? mappingConfigurator)
 	{
 		to ??= Metadata<object>.Type;
 		from ??= Metadata<object>.Type;
-		var mapperTypeKey = new MapperKey(from, to, mappingConfigurator, currentInstanceId);
+		var mapperTypeKey = new MapperKey(from, to, mappingConfigurator, _currentInstanceId);
 
 		if (ObjectsMapperIds.TryGetValue(mapperTypeKey, out var result))
 		{
@@ -134,8 +134,8 @@ public class Mapper
 	/// <returns>A MapperBase.</returns>
 	private MapperBase BuildObjectsMapper(
 	  string mapperTypeName,
-	  Type? from,
-	  Type? to,
+	  Type from,
+	  Type to,
 	  IMappingConfigurator? mappingConfigurator)
 	{
 		var typeBuilder = DynamicAssemblyManager.DefineMapperType(mapperTypeName);

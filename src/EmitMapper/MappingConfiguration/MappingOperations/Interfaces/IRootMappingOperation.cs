@@ -18,7 +18,7 @@ public interface IRootMappingOperation : IMappingOperation
 	/// <summary>
 	///   Gets or Sets the from.
 	/// </summary>
-	Type? From { get; set; }
+	Type From { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the null substitutor.
@@ -43,7 +43,7 @@ public interface IRootMappingOperation : IMappingOperation
 	/// <summary>
 	///   Gets or Sets the to.
 	/// </summary>
-	Type? To { get; set; }
+	Type To { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the values post processor.

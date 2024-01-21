@@ -5,14 +5,14 @@
 /// </summary>
 internal class AstReturn : IAstAddr
 {
-	public Type? ReturnType;
+	public required Type ReturnType;
 
 	public IAstRefOrValue? ReturnValue;
 
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type? ItemType => ReturnType;
+	public Type ItemType => ReturnType;
 
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)

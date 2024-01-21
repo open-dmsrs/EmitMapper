@@ -118,7 +118,7 @@ public class GeneralTests
 	{
 		var a = new A();
 		var b = new B();
-		Mapper<B, A?> mapper = Mapper.Default.GetMapper<B, A>(new DefaultMapConfig().DeepMap());
+		Mapper<B?, A?> mapper = Mapper.Default.GetMapper<B, A>(new DefaultMapConfig().DeepMap());
 
 		// DynamicAssemblyManager.SaveAssembly();
 		mapper.Map(b, a);
@@ -150,7 +150,7 @@ public class GeneralTests
 		a.Obj = new A.AInt();
 		b.Obj = null;
 
-		Mapper<B, A?> mapper = Context.ObjMan.GetMapper<B, A>();
+		Mapper<B?, A?> mapper = Context.ObjMan.GetMapper<B, A>();
 
 		// DynamicAssemblyManager.SaveAssembly();
 		mapper.Map(b, a);
@@ -167,7 +167,7 @@ public class GeneralTests
 		var b = new B();
 		a.Obj = new A.AInt { Intern = 15 };
 
-		Mapper<B, A?> mapper = Context.ObjMan.GetMapper<B, A>();
+		Mapper<B?, A?> mapper = Context.ObjMan.GetMapper<B, A>();
 		mapper.Map(b, a);
 		a.Obj.Intern.ShouldBe(15);
 	}

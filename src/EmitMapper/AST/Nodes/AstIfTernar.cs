@@ -32,7 +32,7 @@ internal class AstIfTernar : IAstRefOrValue
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type? ItemType => TrueBranch.ItemType;
+	public Type ItemType => TrueBranch.ItemType;
 
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)

@@ -5,14 +5,14 @@
 /// </summary>
 internal class AstUnbox : IAstValue
 {
-	public IAstRef? RefObj;
+	public required IAstRef RefObj;
 
-	public Type? UnboxedType;
+	public required Type UnboxedType;
 
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type? ItemType => UnboxedType;
+	public Type ItemType => UnboxedType;
 
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)

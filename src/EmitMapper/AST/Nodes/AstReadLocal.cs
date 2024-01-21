@@ -7,7 +7,7 @@ internal class AstReadLocal : IAstStackItem
 {
 	public int LocalIndex;
 
-	public Type? LocalType;
+	public Type LocalType;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="AstReadLocal" /> class.
@@ -29,7 +29,7 @@ internal class AstReadLocal : IAstStackItem
 	/// <summary>
 	///   Gets the item type.
 	/// </summary>
-	public Type? ItemType => LocalType;
+	public Type ItemType => LocalType;
 
 	/// <inheritdoc />
 	public virtual void Compile(CompilationContext context)
