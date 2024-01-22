@@ -26,9 +26,10 @@ internal class AstWriteProperty : IAstNode
 		this.propertyInfo = propertyInfo;
 		setMethod = propertyInfo.GetSetMethod();
 
-		if (setMethod is null)
+		switch (setMethod)
 		{
-			throw new Exception("Property " + propertyInfo.Name + " doesn't have set accessor");
+			case null:
+				throw new Exception("Property " + propertyInfo.Name + " doesn't have set accessor");
 		}
 
 		if (setMethod.GetParameters().Length != 1)

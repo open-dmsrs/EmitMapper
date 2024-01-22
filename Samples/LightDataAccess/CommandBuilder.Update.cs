@@ -50,27 +50,21 @@ public static partial class CommandBuilder
 
 		idFieldNames = idFieldNames.Select(n => n.ToUpper(System.Globalization.CultureInfo.CurrentCulture));
 
-		if (changeTracker is not null)
-		{
-			var changedFields = changeTracker.GetChanges(obj);
+		var changedFields = changeTracker?.GetChanges(obj);
 
-			if (changedFields is not null)
+		if (changedFields is not null)
+		{
+			if (includeFields is null)
 			{
-				if (includeFields is null)
-				{
-					includeFields = changedFields.Select(c => c.Name);
-				}
-				else
-				{
-					includeFields = includeFields.Intersect(changedFields.Select(c => c.Name));
-				}
+				includeFields = changedFields.Select(c => c.Name);
+			}
+			else
+			{
+				includeFields = includeFields.Intersect(changedFields.Select(c => c.Name));
 			}
 		}
 
-		if (includeFields is not null)
-		{
-			includeFields = includeFields.Concat(idFieldNames);
-		}
+		includeFields = includeFields?.Concat(idFieldNames);
 
 		IMappingConfigurator? config = new AddDbCommandsMappingConfig(
 		  dbSettings,

@@ -53,12 +53,13 @@ internal class MapperPrimitive : CustomMapper
 	/// <returns>Destination object</returns>
 	public override object? MapCore(object? from, object? to, object state)
 	{
-		if (converter is null)
+		switch (converter)
 		{
-			return from;
+			case null:
+				return from;
+			default:
+				return converter.CallFunc(from);
 		}
-
-		return converter.CallFunc(from);
 	}
 
 	/// <summary>

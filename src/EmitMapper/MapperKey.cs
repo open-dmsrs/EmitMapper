@@ -51,14 +51,17 @@ public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<Mapp
 	/// <returns>A bool.</returns>
 	public override bool Equals(object? obj)
 	{
-		if (obj is null)
+		switch (obj)
 		{
-			return false;
+			case null:
+				return false;
+			default:
+			{
+				var rhs = (MapperKey)obj;
+
+				return hash == rhs.hash && mapperTypeName == rhs.mapperTypeName;
+			}
 		}
-
-		var rhs = (MapperKey)obj;
-
-		return hash == rhs.hash && mapperTypeName == rhs.mapperTypeName;
 	}
 
 	/// <summary>

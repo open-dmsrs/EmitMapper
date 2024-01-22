@@ -24,23 +24,31 @@ internal class AstExprIsNull : IAstValue
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)
 	{
-		if (!(value is IAstRef) && !ReflectionHelper.IsNullable(value.ItemType))
+		switch ((value is IAstRef))
 		{
-			context.Emit(OpCodes.Ldc_I4_1);
-		}
-		else if (ReflectionHelper.IsNullable(value.ItemType))
-		{
-			AstBuildHelper.ReadPropertyRv(new AstValueToAddr((IAstValue)value), value.ItemType.GetProperty("HasValue"))
-			  .Compile(context);
+			case false when !ReflectionHelper.IsNullable(value.ItemType):
+				context.Emit(OpCodes.Ldc_I4_1);
 
-			context.Emit(OpCodes.Ldc_I4_0);
-			context.Emit(OpCodes.Ceq);
-		}
-		else
-		{
-			value.Compile(context);
-			new AstConstantNull().Compile(context);
-			context.Emit(OpCodes.Ceq);
+				break;
+			default:
+			{
+				if (ReflectionHelper.IsNullable(value.ItemType))
+				{
+					AstBuildHelper.ReadPropertyRv(new AstValueToAddr((IAstValue)value), value.ItemType.GetProperty("HasValue"))
+						.Compile(context);
+
+					context.Emit(OpCodes.Ldc_I4_0);
+					context.Emit(OpCodes.Ceq);
+				}
+				else
+				{
+					value.Compile(context);
+					new AstConstantNull().Compile(context);
+					context.Emit(OpCodes.Ceq);
+				}
+
+				break;
+			}
 		}
 	}
 }

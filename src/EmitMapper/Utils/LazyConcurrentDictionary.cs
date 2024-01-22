@@ -113,9 +113,12 @@ public class LazyConcurrentDictionary<TKey, TValue>
 
 		var result = inner.TryGetValue(key, out var v);
 
-		if (result)
+		switch (result)
 		{
-			value = v.Value;
+			case true:
+				value = v.Value;
+
+				break;
 		}
 
 		return result;

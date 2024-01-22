@@ -71,13 +71,18 @@ internal class AstNewObject : IAstRef
 		{
 			IEnumerable<Type> types = Type.EmptyTypes;
 
-			if (ConstructorParams?.Length > 0)
+			switch (ConstructorParams?.Length)
 			{
-				types = ConstructorParams.Select(c => c.ItemType);
-
-				foreach (var p in ConstructorParams)
+				case > 0:
 				{
-					p.Compile(context);
+					types = ConstructorParams.Select(c => c.ItemType);
+
+					foreach (var p in ConstructorParams)
+					{
+						p.Compile(context);
+					}
+
+					break;
 				}
 			}
 
@@ -87,15 +92,18 @@ internal class AstNewObject : IAstRef
 			{
 				context.EmitNewObject(ci);
 			}
-			else if (ObjectType.IsValueType)
+			else switch (ObjectType.IsValueType)
 			{
-				var temp = context.IlGenerator.DeclareLocal(ObjectType);
-				new AstInitializeLocalVariable(temp).Compile(context);
-				AstBuildHelper.ReadLocalRv(temp).Compile(context);
-			}
-			else
-			{
-				throw new NotImplementedException($"Constructor for types [{types.ToCsv(",")}] not found in {ObjectType.FullName}");
+				case true:
+				{
+					var temp = context.IlGenerator.DeclareLocal(ObjectType);
+					new AstInitializeLocalVariable(temp).Compile(context);
+					AstBuildHelper.ReadLocalRv(temp).Compile(context);
+
+					break;
+				}
+				default:
+					throw new NotImplementedException($"Constructor for types [{types.ToCsv(",")}] not found in {ObjectType.FullName}");
 			}
 		}
 	}

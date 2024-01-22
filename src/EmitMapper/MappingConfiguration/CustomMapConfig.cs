@@ -32,12 +32,13 @@ public class CustomMapConfig : MapConfigBaseImpl
 	/// <returns><![CDATA[IEnumerable<IMappingOperation>]]></returns>
 	public override IEnumerable<IMappingOperation> GetMappingOperations(Type from, Type to)
 	{
-		if (GetMappingOperationFunc is null)
+		switch (GetMappingOperationFunc)
 		{
-			return Array.Empty<IMappingOperation>();
+			case null:
+				return Array.Empty<IMappingOperation>();
+			default:
+				return GetMappingOperationFunc(from, to);
 		}
-
-		return GetMappingOperationFunc(from, to);
 	}
 
 	/// <summary>

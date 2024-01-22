@@ -12,9 +12,10 @@ internal static class CompilationHelper
 	/// <exception cref="IlCompilationException"></exception>
 	public static void CheckIsRef(Type type)
 	{
-		if (type.IsValueType)
+		switch (type.IsValueType)
 		{
-			throw new IlCompilationException("A reference type was expected, but it was: " + type);
+			case true:
+				throw new IlCompilationException("A reference type was expected, but it was: " + type);
 		}
 	}
 
@@ -25,11 +26,13 @@ internal static class CompilationHelper
 	/// <exception cref="IlCompilationException"></exception>
 	public static void CheckIsValue(Type type)
 	{
-		if (type.IsValueType)
+		switch (type.IsValueType)
 		{
-			return;
+			case true:
+				return;
+			default:
+				throw new IlCompilationException("A value type was expected, but it was: " + type);
 		}
-		throw new IlCompilationException("A value type was expected, but it was: " + type);
 	}
 
 	/// <summary>
@@ -74,17 +77,25 @@ internal static class CompilationHelper
 	/// <param name="typeOnStack">The type on stack.</param>
 	public static void PrepareValueOnStack(CompilationContext context, Type desiredType, Type typeOnStack)
 	{
-		if (typeOnStack.IsValueType && !desiredType.IsValueType)
+		switch (typeOnStack.IsValueType)
 		{
-			context.Emit(OpCodes.Box, typeOnStack);
-		}
-		else if (!typeOnStack.IsValueType && desiredType.IsValueType)
-		{
-			context.Emit(OpCodes.Unbox_Any, desiredType);
-		}
-		else if (desiredType != typeOnStack)
-		{
-			context.Emit(OpCodes.Castclass, desiredType);
+			case true when !desiredType.IsValueType:
+				context.Emit(OpCodes.Box, typeOnStack);
+
+				break;
+			case false when desiredType.IsValueType:
+				context.Emit(OpCodes.Unbox_Any, desiredType);
+
+				break;
+			default:
+			{
+				if (desiredType != typeOnStack)
+				{
+					context.Emit(OpCodes.Castclass, desiredType);
+				}
+
+				break;
+			}
 		}
 	}
 }

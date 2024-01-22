@@ -26,11 +26,14 @@ internal class AstReadProperty : IAstRefOrValue
 	{
 		var mi = PropertyInfo.GetGetMethod();
 
-		if (mi is null)
+		switch (mi)
 		{
-			throw new Exception("Property " + PropertyInfo.Name + " doesn't have get accessor");
-		}
+			case null:
+				throw new Exception("Property " + PropertyInfo.Name + " doesn't have get accessor");
+			default:
+				AstBuildHelper.CallMethod(mi, SourceObject, null).Compile(context);
 
-		AstBuildHelper.CallMethod(mi, SourceObject, null).Compile(context);
+				break;
+		}
 	}
 }

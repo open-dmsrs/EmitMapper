@@ -399,21 +399,19 @@ public static class ReflectionHelper
 	/// <param name="value">The value.</param>
 	public static void SetMemberValue(this MemberInfo propertyOrField, object target, object value)
 	{
-		if (propertyOrField is PropertyInfo property)
+		switch (propertyOrField)
 		{
-			property.SetValue(target, value, null);
+			case PropertyInfo property:
+				property.SetValue(target, value, null);
 
-			return;
+				return;
+			case FieldInfo field:
+				field.SetValue(target, value);
+
+				return;
+			default:
+				throw Expected(propertyOrField);
 		}
-
-		if (propertyOrField is FieldInfo field)
-		{
-			field.SetValue(target, value);
-
-			return;
-		}
-
-		throw Expected(propertyOrField);
 	}
 
 	/// <summary>

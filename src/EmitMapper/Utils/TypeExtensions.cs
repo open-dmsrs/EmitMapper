@@ -47,10 +47,11 @@ public static class TypeExtensions
 	/// <exception cref="ArgumentOutOfRangeException"></exception>
 	public static void CheckIsDerivedFrom(this Type derivedType, Type baseType)
 	{
-		if (!baseType.IsAssignableFrom(derivedType) && !derivedType.IsGenericTypeDefinition
-													&& !baseType.IsGenericTypeDefinition)
+		switch (baseType.IsAssignableFrom(derivedType))
 		{
-			throw new ArgumentOutOfRangeException(nameof(derivedType), $"{derivedType} is not derived from {baseType}.");
+			case false when !derivedType.IsGenericTypeDefinition
+			                && !baseType.IsGenericTypeDefinition:
+				throw new ArgumentOutOfRangeException(nameof(derivedType), $"{derivedType} is not derived from {baseType}.");
 		}
 	}
 
@@ -263,9 +264,10 @@ public static class TypeExtensions
 				   MemberTypes.Method,
 				   StaticFlags & ~BindingFlags.NonPublic))
 		{
-			if (foundMethod.IsGenericMethodDefinition && foundMethod.GetParameters().Length == parametersCount)
+			switch (foundMethod.IsGenericMethodDefinition)
 			{
-				return foundMethod;
+				case true when foundMethod.GetParameters().Length == parametersCount:
+					return foundMethod;
 			}
 		}
 

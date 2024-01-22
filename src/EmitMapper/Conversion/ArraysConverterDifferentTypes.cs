@@ -19,9 +19,10 @@ internal class ArraysConverterDifferentTypes<TFrom, TTo> : ICustomConverter
 	/// <returns>An array of TTos</returns>
 	public TTo[]? Convert(ICollection<TFrom>? from, object state)
 	{
-		if (from is null)
+		switch (from)
 		{
-			return default;
+			case null:
+				return default;
 		}
 
 		var result = new TTo[from.Count];

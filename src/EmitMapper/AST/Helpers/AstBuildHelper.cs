@@ -17,12 +17,13 @@ internal static class AstBuildHelper
 	  IAstRefOrAddr invocationObject,
 	  List<IAstStackItem> arguments)
 	{
-		if (methodInfo.ReturnType.IsValueType)
+		switch (methodInfo.ReturnType.IsValueType)
 		{
-			return new AstCallMethodValue(methodInfo, invocationObject, arguments);
+			case true:
+				return new AstCallMethodValue(methodInfo, invocationObject, arguments);
+			default:
+				return new AstCallMethodRef(methodInfo, invocationObject, arguments);
 		}
-
-		return new AstCallMethodRef(methodInfo, invocationObject, arguments);
 	}
 
 	/// <summary>
@@ -33,12 +34,13 @@ internal static class AstBuildHelper
 	/// <returns>An IAstRefOrValue.</returns>
 	public static IAstRefOrValue CastClass(IAstRefOrValue value, Type targetType)
 	{
-		if (targetType.IsValueType)
+		switch (targetType.IsValueType)
 		{
-			return new AstCastclassValue(value, targetType);
+			case true:
+				return new AstCastclassValue(value, targetType);
+			default:
+				return new AstCastclassRef(value, targetType);
 		}
-
-		return new AstCastclassRef(value, targetType);
 	}
 
 	/// <summary>
@@ -49,12 +51,13 @@ internal static class AstBuildHelper
 	/// <returns>An IAstRefOrAddr.</returns>
 	public static IAstRefOrAddr ReadArgumentRa(int argumentIndex, Type argumentType)
 	{
-		if (argumentType.IsValueType)
+		switch (argumentType.IsValueType)
 		{
-			return new AstReadArgumentAddr { ArgumentIndex = argumentIndex, ArgumentType = argumentType };
+			case true:
+				return new AstReadArgumentAddr { ArgumentIndex = argumentIndex, ArgumentType = argumentType };
+			default:
+				return new AstReadArgumentRef { ArgumentIndex = argumentIndex, ArgumentType = argumentType };
 		}
-
-		return new AstReadArgumentRef { ArgumentIndex = argumentIndex, ArgumentType = argumentType };
 	}
 
 	/// <summary>
@@ -65,12 +68,13 @@ internal static class AstBuildHelper
 	/// <returns>An IAstRefOrValue.</returns>
 	public static IAstRefOrValue ReadArgumentRv(int argumentIndex, Type? argumentType)
 	{
-		if (argumentType.IsValueType)
+		switch (argumentType.IsValueType)
 		{
-			return new AstReadArgumentValue { ArgumentIndex = argumentIndex, ArgumentType = argumentType };
+			case true:
+				return new AstReadArgumentValue { ArgumentIndex = argumentIndex, ArgumentType = argumentType };
+			default:
+				return new AstReadArgumentRef { ArgumentIndex = argumentIndex, ArgumentType = argumentType };
 		}
-
-		return new AstReadArgumentRef { ArgumentIndex = argumentIndex, ArgumentType = argumentType };
 	}
 
 	/// <summary>
@@ -81,12 +85,13 @@ internal static class AstBuildHelper
 	/// <returns>An IAstRefOrAddr.</returns>
 	public static IAstRefOrAddr ReadArrayItemRa(IAstRef array, int index)
 	{
-		if (array.ItemType.IsValueType)
+		switch (array.ItemType.IsValueType)
 		{
-			return new AstReadArrayItemAddr { Array = array, Index = index };
+			case true:
+				return new AstReadArrayItemAddr { Array = array, Index = index };
+			default:
+				return new AstReadArrayItemRef { Array = array, Index = index };
 		}
-
-		return new AstReadArrayItemRef { Array = array, Index = index };
 	}
 
 	/// <summary>
@@ -97,12 +102,13 @@ internal static class AstBuildHelper
 	/// <returns>An IAstRefOrValue.</returns>
 	public static IAstRefOrValue ReadArrayItemRv(IAstRef array, int index)
 	{
-		if (array.ItemType.IsValueType)
+		switch (array.ItemType.IsValueType)
 		{
-			return new AstReadArrayItemValue { Array = array, Index = index };
+			case true:
+				return new AstReadArrayItemValue { Array = array, Index = index };
+			default:
+				return new AstReadArrayItemRef { Array = array, Index = index };
 		}
-
-		return new AstReadArrayItemRef { Array = array, Index = index };
 	}
 
 	/// <summary>
@@ -113,12 +119,13 @@ internal static class AstBuildHelper
 	/// <returns>An IAstRefOrAddr.</returns>
 	public static IAstRefOrAddr ReadFieldRa(IAstRefOrAddr sourceObject, FieldInfo fieldInfo)
 	{
-		if (fieldInfo.FieldType.IsValueType)
+		switch (fieldInfo.FieldType.IsValueType)
 		{
-			return new AstReadFieldAddr { FieldInfo = fieldInfo, SourceObject = sourceObject };
+			case true:
+				return new AstReadFieldAddr { FieldInfo = fieldInfo, SourceObject = sourceObject };
+			default:
+				return new AstReadFieldRef { FieldInfo = fieldInfo, SourceObject = sourceObject };
 		}
-
-		return new AstReadFieldRef { FieldInfo = fieldInfo, SourceObject = sourceObject };
 	}
 
 	/// <summary>
@@ -129,12 +136,13 @@ internal static class AstBuildHelper
 	/// <returns>An IAstRefOrValue.</returns>
 	public static IAstRefOrValue ReadFieldRv(IAstRefOrAddr sourceObject, FieldInfo fieldInfo)
 	{
-		if (fieldInfo.FieldType.IsValueType)
+		switch (fieldInfo.FieldType.IsValueType)
 		{
-			return new AstReadFieldValue { FieldInfo = fieldInfo, SourceObject = sourceObject };
+			case true:
+				return new AstReadFieldValue { FieldInfo = fieldInfo, SourceObject = sourceObject };
+			default:
+				return new AstReadFieldRef { FieldInfo = fieldInfo, SourceObject = sourceObject };
 		}
-
-		return new AstReadFieldRef { FieldInfo = fieldInfo, SourceObject = sourceObject };
 	}
 
 	/// <summary>
@@ -144,12 +152,13 @@ internal static class AstBuildHelper
 	/// <returns>An IAstRefOrAddr.</returns>
 	public static IAstRefOrAddr ReadLocalRa(LocalBuilder loc)
 	{
-		if (loc.LocalType.IsValueType)
+		switch (loc.LocalType.IsValueType)
 		{
-			return new AstReadLocalAddr(loc);
+			case true:
+				return new AstReadLocalAddr(loc);
+			default:
+				return new AstReadLocalRef { LocalType = loc.LocalType, LocalIndex = loc.LocalIndex };
 		}
-
-		return new AstReadLocalRef { LocalType = loc.LocalType, LocalIndex = loc.LocalIndex };
 	}
 
 	/// <summary>
@@ -159,12 +168,13 @@ internal static class AstBuildHelper
 	/// <returns>An IAstRefOrValue.</returns>
 	public static IAstRefOrValue ReadLocalRv(LocalBuilder loc)
 	{
-		if (loc.LocalType.IsValueType)
+		switch (loc.LocalType.IsValueType)
 		{
-			return new AstReadLocalValue { LocalType = loc.LocalType, LocalIndex = loc.LocalIndex };
+			case true:
+				return new AstReadLocalValue { LocalType = loc.LocalType, LocalIndex = loc.LocalIndex };
+			default:
+				return new AstReadLocalRef { LocalType = loc.LocalType, LocalIndex = loc.LocalIndex };
 		}
-
-		return new AstReadLocalRef { LocalType = loc.LocalType, LocalIndex = loc.LocalIndex };
 	}
 
 	/// <summary>
@@ -176,29 +186,31 @@ internal static class AstBuildHelper
 	/// <returns>An IAstStackItem.</returns>
 	public static IAstStackItem ReadMember(IAstRefOrAddr sourceObject, MemberInfo memberInfo)
 	{
-		if (memberInfo.MemberType == MemberTypes.Method)
+		switch (memberInfo.MemberType)
 		{
-			var methodInfo = memberInfo.DeclaringType.GetMethodCache(memberInfo.Name);
-
-			if (methodInfo.ReturnType is null)
+			case MemberTypes.Method:
 			{
-				throw new EmitMapperException("Invalid member:" + memberInfo.Name);
+				var methodInfo = memberInfo.DeclaringType.GetMethodCache(memberInfo.Name);
+
+				switch (methodInfo.ReturnType)
+				{
+					case null:
+						throw new EmitMapperException("Invalid member:" + memberInfo.Name);
+				}
+
+				switch (methodInfo.GetParameters().Length)
+				{
+					case > 0:
+						throw new EmitMapperException("Method " + memberInfo.Name + " should not have parameters");
+					default:
+						return (IAstRef)CallMethod(methodInfo, sourceObject, null);
+				}
 			}
-
-			if (methodInfo.GetParameters().Length > 0)
-			{
-				throw new EmitMapperException("Method " + memberInfo.Name + " should not have parameters");
-			}
-
-			return (IAstRef)CallMethod(methodInfo, sourceObject, null);
+			case MemberTypes.Field:
+				return ReadFieldRa(sourceObject, (FieldInfo)memberInfo);
+			default:
+				return (IAstRef)ReadPropertyRv(sourceObject, (PropertyInfo)memberInfo);
 		}
-
-		if (memberInfo.MemberType == MemberTypes.Field)
-		{
-			return ReadFieldRa(sourceObject, (FieldInfo)memberInfo);
-		}
-
-		return (IAstRef)ReadPropertyRv(sourceObject, (PropertyInfo)memberInfo);
 	}
 
 	/// <summary>
@@ -210,41 +222,44 @@ internal static class AstBuildHelper
 	/// <returns>An IAstRefOrAddr.</returns>
 	public static IAstRefOrAddr ReadMemberRa(IAstRefOrAddr sourceObject, MemberInfo memberInfo)
 	{
-		if (memberInfo.MemberType == MemberTypes.Method)
+		switch (memberInfo.MemberType)
 		{
-			var methodInfo = memberInfo.DeclaringType.GetMethodCache(memberInfo.Name);
-
-			if (methodInfo.ReturnType is null)
+			case MemberTypes.Method:
 			{
-				throw new EmitMapperException("Invalid member:" + memberInfo.Name);
+				var methodInfo = memberInfo.DeclaringType.GetMethodCache(memberInfo.Name);
+
+				switch (methodInfo.ReturnType)
+				{
+					case null:
+						throw new EmitMapperException("Invalid member:" + memberInfo.Name);
+				}
+
+				switch (methodInfo.GetParameters().Length)
+				{
+					case > 0:
+						throw new EmitMapperException("Method " + memberInfo.Name + " should not have parameters");
+				}
+
+				if (methodInfo.ReturnType?.IsValueType != false)
+				{
+					throw new EmitMapperException("Method " + memberInfo.Name + " should return a reference");
+				}
+
+				return (IAstRef)CallMethod(methodInfo, sourceObject, null);
 			}
-
-			if (methodInfo.GetParameters().Length > 0)
-			{
-				throw new EmitMapperException("Method " + memberInfo.Name + " should not have parameters");
-			}
-
-			if (methodInfo.ReturnType?.IsValueType != false)
-			{
-				throw new EmitMapperException("Method " + memberInfo.Name + " should return a reference");
-			}
-
-			return (IAstRef)CallMethod(methodInfo, sourceObject, null);
-		}
-
-		if (memberInfo.MemberType == MemberTypes.Field)
-		{
-			return ReadFieldRa(sourceObject, (FieldInfo)memberInfo);
+			case MemberTypes.Field:
+				return ReadFieldRa(sourceObject, (FieldInfo)memberInfo);
 		}
 
 		var pi = (PropertyInfo)memberInfo;
 
-		if (pi.PropertyType.IsValueType)
+		switch (pi.PropertyType.IsValueType)
 		{
-			return ReadPropertyRa(sourceObject, (PropertyInfo)memberInfo);
+			case true:
+				return ReadPropertyRa(sourceObject, (PropertyInfo)memberInfo);
+			default:
+				return (IAstRef)ReadPropertyRv(sourceObject, (PropertyInfo)memberInfo);
 		}
-
-		return (IAstRef)ReadPropertyRv(sourceObject, (PropertyInfo)memberInfo);
 	}
 
 	/// <summary>
@@ -256,29 +271,31 @@ internal static class AstBuildHelper
 	/// <returns>An IAstRefOrValue.</returns>
 	public static IAstRefOrValue ReadMemberRv(IAstRefOrAddr sourceObject, MemberInfo? memberInfo)
 	{
-		if (memberInfo.MemberType == MemberTypes.Method)
+		switch (memberInfo.MemberType)
 		{
-			var methodInfo = memberInfo.DeclaringType.GetMethodCache(memberInfo.Name);
-
-			if (methodInfo.ReturnType is null)
+			case MemberTypes.Method:
 			{
-				throw new EmitMapperException("Invalid member:" + memberInfo.Name);
+				var methodInfo = memberInfo.DeclaringType.GetMethodCache(memberInfo.Name);
+
+				switch (methodInfo.ReturnType)
+				{
+					case null:
+						throw new EmitMapperException("Invalid member:" + memberInfo.Name);
+				}
+
+				switch (methodInfo.GetParameters().Length)
+				{
+					case > 0:
+						throw new EmitMapperException("Method " + memberInfo.Name + " should not have parameters");
+					default:
+						return CallMethod(methodInfo, sourceObject, null);
+				}
 			}
-
-			if (methodInfo.GetParameters().Length > 0)
-			{
-				throw new EmitMapperException("Method " + memberInfo.Name + " should not have parameters");
-			}
-
-			return CallMethod(methodInfo, sourceObject, null);
+			case MemberTypes.Field:
+				return ReadFieldRv(sourceObject, (FieldInfo)memberInfo);
+			default:
+				return ReadPropertyRv(sourceObject, (PropertyInfo)memberInfo);
 		}
-
-		if (memberInfo.MemberType == MemberTypes.Field)
-		{
-			return ReadFieldRv(sourceObject, (FieldInfo)memberInfo);
-		}
-
-		return ReadPropertyRv(sourceObject, (PropertyInfo)memberInfo);
 	}
 
 	/// <summary>
@@ -326,12 +343,13 @@ internal static class AstBuildHelper
 	/// <returns>An IAstRefOrAddr.</returns>
 	public static IAstRefOrAddr ReadPropertyRa(IAstRefOrAddr sourceObject, PropertyInfo propertyInfo)
 	{
-		if (propertyInfo.PropertyType.IsValueType)
+		switch (propertyInfo.PropertyType.IsValueType)
 		{
-			return new AstValueToAddr(new AstReadPropertyValue { SourceObject = sourceObject, PropertyInfo = propertyInfo });
+			case true:
+				return new AstValueToAddr(new AstReadPropertyValue { SourceObject = sourceObject, PropertyInfo = propertyInfo });
+			default:
+				return new AstReadPropertyRef { SourceObject = sourceObject, PropertyInfo = propertyInfo };
 		}
-
-		return new AstReadPropertyRef { SourceObject = sourceObject, PropertyInfo = propertyInfo };
 	}
 
 	/// <summary>
@@ -342,12 +360,13 @@ internal static class AstBuildHelper
 	/// <returns>An IAstRefOrValue.</returns>
 	public static IAstRefOrValue ReadPropertyRv(IAstRefOrAddr sourceObject, PropertyInfo propertyInfo)
 	{
-		if (propertyInfo.PropertyType.IsValueType)
+		switch (propertyInfo.PropertyType.IsValueType)
 		{
-			return new AstReadPropertyValue { SourceObject = sourceObject, PropertyInfo = propertyInfo };
+			case true:
+				return new AstReadPropertyValue { SourceObject = sourceObject, PropertyInfo = propertyInfo };
+			default:
+				return new AstReadPropertyRef { SourceObject = sourceObject, PropertyInfo = propertyInfo };
 		}
-
-		return new AstReadPropertyRef { SourceObject = sourceObject, PropertyInfo = propertyInfo };
 	}
 
 	/// <summary>
@@ -357,12 +376,13 @@ internal static class AstBuildHelper
 	/// <returns>An IAstRefOrAddr.</returns>
 	public static IAstRefOrAddr ReadThis(Type? thisType)
 	{
-		if (thisType.IsValueType)
+		switch (thisType.IsValueType)
 		{
-			return new AstReadThisAddr { ThisType = thisType };
+			case true:
+				return new AstReadThisAddr { ThisType = thisType };
+			default:
+				return new AstReadThisRef { ThisType = thisType };
 		}
-
-		return new AstReadThisRef { ThisType = thisType };
 	}
 
 	/// <summary>
@@ -374,12 +394,13 @@ internal static class AstBuildHelper
 	/// <returns>An IAstNode.</returns>
 	public static IAstNode WriteMember(MemberInfo memberInfo, IAstRefOrAddr targetObject, IAstRefOrValue value)
 	{
-		if (memberInfo.MemberType == MemberTypes.Field)
+		switch (memberInfo.MemberType)
 		{
-			return new AstWriteField { FieldInfo = (FieldInfo)memberInfo, TargetObject = targetObject, Value = value };
+			case MemberTypes.Field:
+				return new AstWriteField { FieldInfo = (FieldInfo)memberInfo, TargetObject = targetObject, Value = value };
+			default:
+				return new AstWriteProperty(targetObject, value, (PropertyInfo)memberInfo);
 		}
-
-		return new AstWriteProperty(targetObject, value, (PropertyInfo)memberInfo);
 	}
 
 	/// <summary>

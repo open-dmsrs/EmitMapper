@@ -150,13 +150,16 @@ public static class ProxyGenerator
 					   .SelectMany(intf => intf.GetProperties()).Select(p => new PropertyDescription(p))
 					   .Concat(typeDescription.AdditionalProperties))
 			{
-				if (property.CanWrite)
+				switch (property.CanWrite)
 				{
-					propertiesToImplement.Insert(0, property);
-				}
-				else
-				{
-					propertiesToImplement.Add(property);
+					case true:
+						propertiesToImplement.Insert(0, property);
+
+						break;
+					default:
+						propertiesToImplement.Add(property);
+
+						break;
 				}
 			}
 
@@ -219,9 +222,10 @@ public static class ProxyGenerator
 			getterIl.Emit(OpCodes.Ret);
 			propertyBuilder.SetGetMethod(getterBuilder);
 
-			if (!property.CanWrite)
+			switch (property.CanWrite)
 			{
-				return;
+				case false:
+					return;
 			}
 
 			setterBuilder = owner.DefineMethod(

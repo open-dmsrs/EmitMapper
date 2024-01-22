@@ -19,9 +19,10 @@ internal class AstIfNull : IAstRefOrValue
 		this.value = value;
 		this.ifNullValue = ifNullValue;
 
-		if (!this.value.ItemType.IsAssignableFrom(this.ifNullValue.ItemType))
+		switch (this.value.ItemType.IsAssignableFrom(this.ifNullValue.ItemType))
 		{
-			throw new EmitMapperException("Incorrect if null expression");
+			case false:
+				throw new EmitMapperException("Incorrect if null expression");
 		}
 	}
 

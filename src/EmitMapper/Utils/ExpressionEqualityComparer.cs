@@ -38,266 +38,269 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 	/// <returns> The hash code value for <paramref name="obj" />. </returns>
 	public int GetHashCode(Expression? obj)
 	{
-		if (obj is null)
+		switch (obj)
 		{
-			return 0;
-		}
+			case null:
+				return 0;
+			default:
+				unchecked
+				{
+					var hash = new HashCode();
+					hash.Add(obj.NodeType);
+					hash.Add(obj.Type);
 
-		unchecked
-		{
-			var hash = new HashCode();
-			hash.Add(obj.NodeType);
-			hash.Add(obj.Type);
-
-			switch (obj)
-			{
-				case BinaryExpression binaryExpression:
-					hash.Add(binaryExpression.Left, this);
-					hash.Add(binaryExpression.Right, this);
-					AddExpressionToHashIfNotNull(binaryExpression.Conversion);
-					AddToHashIfNotNull(binaryExpression.Method);
-
-					break;
-
-				case BlockExpression blockExpression:
-					AddListToHash(blockExpression.Variables);
-					AddListToHash(blockExpression.Expressions);
-
-					break;
-
-				case ConditionalExpression conditionalExpression:
-					hash.Add(conditionalExpression.Test, this);
-					hash.Add(conditionalExpression.IfTrue, this);
-					hash.Add(conditionalExpression.IfFalse, this);
-
-					break;
-
-				case ConstantExpression constantExpression:
-					if (constantExpression.Value is not null && !(constantExpression.Value is IQueryable))
+					switch (obj)
 					{
-						hash.Add(constantExpression.Value);
+						case BinaryExpression binaryExpression:
+							hash.Add(binaryExpression.Left, this);
+							hash.Add(binaryExpression.Right, this);
+							AddExpressionToHashIfNotNull(binaryExpression.Conversion);
+							AddToHashIfNotNull(binaryExpression.Method);
+
+							break;
+
+						case BlockExpression blockExpression:
+							AddListToHash(blockExpression.Variables);
+							AddListToHash(blockExpression.Expressions);
+
+							break;
+
+						case ConditionalExpression conditionalExpression:
+							hash.Add(conditionalExpression.Test, this);
+							hash.Add(conditionalExpression.IfTrue, this);
+							hash.Add(conditionalExpression.IfFalse, this);
+
+							break;
+
+						case ConstantExpression constantExpression:
+							if (constantExpression.Value is not null && !(constantExpression.Value is IQueryable))
+							{
+								hash.Add(constantExpression.Value);
+							}
+
+							break;
+
+						case DefaultExpression defaultExpression:
+							// Intentionally empty. No additional members
+							break;
+
+						case GotoExpression gotoExpression:
+							hash.Add(gotoExpression.Value, this);
+							hash.Add(gotoExpression.Kind);
+							hash.Add(gotoExpression.Target);
+
+							break;
+
+						case IndexExpression indexExpression:
+							hash.Add(indexExpression.Object, this);
+							AddListToHash(indexExpression.Arguments);
+							hash.Add(indexExpression.Indexer);
+
+							break;
+
+						case InvocationExpression invocationExpression:
+							hash.Add(invocationExpression.Expression, this);
+							AddListToHash(invocationExpression.Arguments);
+
+							break;
+
+						case LabelExpression labelExpression:
+							AddExpressionToHashIfNotNull(labelExpression.DefaultValue);
+							hash.Add(labelExpression.Target);
+
+							break;
+
+						case LambdaExpression lambdaExpression:
+							hash.Add(lambdaExpression.Body, this);
+							AddListToHash(lambdaExpression.Parameters);
+							hash.Add(lambdaExpression.ReturnType);
+
+							break;
+
+						case ListInitExpression listInitExpression:
+							hash.Add(listInitExpression.NewExpression, this);
+							AddInitializersToHash(listInitExpression.Initializers);
+
+							break;
+
+						case LoopExpression loopExpression:
+							hash.Add(loopExpression.Body, this);
+							AddToHashIfNotNull(loopExpression.BreakLabel);
+							AddToHashIfNotNull(loopExpression.ContinueLabel);
+
+							break;
+
+						case MemberExpression memberExpression:
+							hash.Add(memberExpression.Expression, this);
+							hash.Add(memberExpression.Member);
+
+							break;
+
+						case MemberInitExpression memberInitExpression:
+							hash.Add(memberInitExpression.NewExpression, this);
+							AddMemberBindingsToHash(memberInitExpression.Bindings);
+
+							break;
+
+						case MethodCallExpression methodCallExpression:
+							hash.Add(methodCallExpression.Object, this);
+							AddListToHash(methodCallExpression.Arguments);
+							hash.Add(methodCallExpression.Method);
+
+							break;
+
+						case NewArrayExpression newArrayExpression:
+							AddListToHash(newArrayExpression.Expressions);
+
+							break;
+
+						case NewExpression newExpression:
+							AddListToHash(newExpression.Arguments);
+							hash.Add(newExpression.Constructor);
+
+							if (newExpression.Members is not null)
+							{
+								for (var i = 0; i < newExpression.Members.Count; i++)
+								{
+									hash.Add(newExpression.Members[i]);
+								}
+							}
+
+							break;
+
+						case ParameterExpression parameterExpression:
+							AddToHashIfNotNull(parameterExpression.Name);
+
+							break;
+
+						case RuntimeVariablesExpression runtimeVariablesExpression:
+							AddListToHash(runtimeVariablesExpression.Variables);
+
+							break;
+
+						case SwitchExpression switchExpression:
+							hash.Add(switchExpression.SwitchValue, this);
+							AddExpressionToHashIfNotNull(switchExpression.DefaultBody);
+							AddToHashIfNotNull(switchExpression.Comparison);
+
+							for (var i = 0; i < switchExpression.Cases.Count; i++)
+							{
+								var @case = switchExpression.Cases[i];
+								hash.Add(@case.Body, this);
+								AddListToHash(@case.TestValues);
+							}
+
+							break;
+
+						case TryExpression tryExpression:
+							hash.Add(tryExpression.Body, this);
+							AddExpressionToHashIfNotNull(tryExpression.Fault);
+							AddExpressionToHashIfNotNull(tryExpression.Finally);
+
+							if (tryExpression.Handlers is not null)
+							{
+								for (var i = 0; i < tryExpression.Handlers.Count; i++)
+								{
+									var handler = tryExpression.Handlers[i];
+									hash.Add(handler.Body, this);
+									AddExpressionToHashIfNotNull(handler.Variable);
+									AddExpressionToHashIfNotNull(handler.Filter);
+									hash.Add(handler.Test);
+								}
+							}
+
+							break;
+
+						case TypeBinaryExpression typeBinaryExpression:
+							hash.Add(typeBinaryExpression.Expression, this);
+							hash.Add(typeBinaryExpression.TypeOperand);
+
+							break;
+
+						case UnaryExpression unaryExpression:
+							hash.Add(unaryExpression.Operand, this);
+							AddToHashIfNotNull(unaryExpression.Method);
+
+							break;
+
+						default:
+							if (obj.NodeType == ExpressionType.Extension)
+							{
+								hash.Add(obj);
+
+								break;
+							}
+
+							throw new NotSupportedException($"The expression of type {obj.NodeType} has not supported");
 					}
 
-					break;
+					return hash.ToHashCode();
 
-				case DefaultExpression defaultExpression:
-					// Intentionally empty. No additional members
-					break;
-
-				case GotoExpression gotoExpression:
-					hash.Add(gotoExpression.Value, this);
-					hash.Add(gotoExpression.Kind);
-					hash.Add(gotoExpression.Target);
-
-					break;
-
-				case IndexExpression indexExpression:
-					hash.Add(indexExpression.Object, this);
-					AddListToHash(indexExpression.Arguments);
-					hash.Add(indexExpression.Indexer);
-
-					break;
-
-				case InvocationExpression invocationExpression:
-					hash.Add(invocationExpression.Expression, this);
-					AddListToHash(invocationExpression.Arguments);
-
-					break;
-
-				case LabelExpression labelExpression:
-					AddExpressionToHashIfNotNull(labelExpression.DefaultValue);
-					hash.Add(labelExpression.Target);
-
-					break;
-
-				case LambdaExpression lambdaExpression:
-					hash.Add(lambdaExpression.Body, this);
-					AddListToHash(lambdaExpression.Parameters);
-					hash.Add(lambdaExpression.ReturnType);
-
-					break;
-
-				case ListInitExpression listInitExpression:
-					hash.Add(listInitExpression.NewExpression, this);
-					AddInitializersToHash(listInitExpression.Initializers);
-
-					break;
-
-				case LoopExpression loopExpression:
-					hash.Add(loopExpression.Body, this);
-					AddToHashIfNotNull(loopExpression.BreakLabel);
-					AddToHashIfNotNull(loopExpression.ContinueLabel);
-
-					break;
-
-				case MemberExpression memberExpression:
-					hash.Add(memberExpression.Expression, this);
-					hash.Add(memberExpression.Member);
-
-					break;
-
-				case MemberInitExpression memberInitExpression:
-					hash.Add(memberInitExpression.NewExpression, this);
-					AddMemberBindingsToHash(memberInitExpression.Bindings);
-
-					break;
-
-				case MethodCallExpression methodCallExpression:
-					hash.Add(methodCallExpression.Object, this);
-					AddListToHash(methodCallExpression.Arguments);
-					hash.Add(methodCallExpression.Method);
-
-					break;
-
-				case NewArrayExpression newArrayExpression:
-					AddListToHash(newArrayExpression.Expressions);
-
-					break;
-
-				case NewExpression newExpression:
-					AddListToHash(newExpression.Arguments);
-					hash.Add(newExpression.Constructor);
-
-					if (newExpression.Members is not null)
+					void AddToHashIfNotNull(object? t)
 					{
-						for (var i = 0; i < newExpression.Members.Count; i++)
+						if (t is not null)
 						{
-							hash.Add(newExpression.Members[i]);
+							hash.Add(t);
 						}
 					}
 
-					break;
-
-				case ParameterExpression parameterExpression:
-					AddToHashIfNotNull(parameterExpression.Name);
-
-					break;
-
-				case RuntimeVariablesExpression runtimeVariablesExpression:
-					AddListToHash(runtimeVariablesExpression.Variables);
-
-					break;
-
-				case SwitchExpression switchExpression:
-					hash.Add(switchExpression.SwitchValue, this);
-					AddExpressionToHashIfNotNull(switchExpression.DefaultBody);
-					AddToHashIfNotNull(switchExpression.Comparison);
-
-					for (var i = 0; i < switchExpression.Cases.Count; i++)
+					void AddExpressionToHashIfNotNull(Expression? t)
 					{
-						var @case = switchExpression.Cases[i];
-						hash.Add(@case.Body, this);
-						AddListToHash(@case.TestValues);
-					}
-
-					break;
-
-				case TryExpression tryExpression:
-					hash.Add(tryExpression.Body, this);
-					AddExpressionToHashIfNotNull(tryExpression.Fault);
-					AddExpressionToHashIfNotNull(tryExpression.Finally);
-
-					if (tryExpression.Handlers is not null)
-					{
-						for (var i = 0; i < tryExpression.Handlers.Count; i++)
+						if (t is not null)
 						{
-							var handler = tryExpression.Handlers[i];
-							hash.Add(handler.Body, this);
-							AddExpressionToHashIfNotNull(handler.Variable);
-							AddExpressionToHashIfNotNull(handler.Filter);
-							hash.Add(handler.Test);
+							hash.Add(t, this);
 						}
 					}
 
-					break;
-
-				case TypeBinaryExpression typeBinaryExpression:
-					hash.Add(typeBinaryExpression.Expression, this);
-					hash.Add(typeBinaryExpression.TypeOperand);
-
-					break;
-
-				case UnaryExpression unaryExpression:
-					hash.Add(unaryExpression.Operand, this);
-					AddToHashIfNotNull(unaryExpression.Method);
-
-					break;
-
-				default:
-					if (obj.NodeType == ExpressionType.Extension)
+					void AddListToHash<T>(IReadOnlyList<T> expressions)
+						where T : Expression
 					{
-						hash.Add(obj);
-
-						break;
+						for (var i = 0; i < expressions.Count; i++)
+						{
+							hash.Add(expressions[i], this);
+						}
 					}
 
-					throw new NotSupportedException($"The expression of type {obj.NodeType} has not supported");
-			}
-
-			return hash.ToHashCode();
-
-			void AddToHashIfNotNull(object? t)
-			{
-				if (t is not null)
-				{
-					hash.Add(t);
-				}
-			}
-
-			void AddExpressionToHashIfNotNull(Expression? t)
-			{
-				if (t is not null)
-				{
-					hash.Add(t, this);
-				}
-			}
-
-			void AddListToHash<T>(IReadOnlyList<T> expressions)
-			  where T : Expression
-			{
-				for (var i = 0; i < expressions.Count; i++)
-				{
-					hash.Add(expressions[i], this);
-				}
-			}
-
-			void AddInitializersToHash(IReadOnlyList<ElementInit> initializers)
-			{
-				for (var i = 0; i < initializers.Count; i++)
-				{
-					AddListToHash(initializers[i].Arguments);
-					hash.Add(initializers[i].AddMethod);
-				}
-			}
-
-			void AddMemberBindingsToHash(IReadOnlyList<MemberBinding> memberBindings)
-			{
-				for (var i = 0; i < memberBindings.Count; i++)
-				{
-					var memberBinding = memberBindings[i];
-
-					hash.Add(memberBinding.Member);
-					hash.Add(memberBinding.BindingType);
-
-					switch (memberBinding)
+					void AddInitializersToHash(IReadOnlyList<ElementInit> initializers)
 					{
-						case MemberAssignment memberAssignment:
-							hash.Add(memberAssignment.Expression, this);
+						for (var i = 0; i < initializers.Count; i++)
+						{
+							AddListToHash(initializers[i].Arguments);
+							hash.Add(initializers[i].AddMethod);
+						}
+					}
 
-							break;
+					void AddMemberBindingsToHash(IReadOnlyList<MemberBinding> memberBindings)
+					{
+						for (var i = 0; i < memberBindings.Count; i++)
+						{
+							var memberBinding = memberBindings[i];
 
-						case MemberListBinding memberListBinding:
-							AddInitializersToHash(memberListBinding.Initializers);
+							hash.Add(memberBinding.Member);
+							hash.Add(memberBinding.BindingType);
 
-							break;
+							switch (memberBinding)
+							{
+								case MemberAssignment memberAssignment:
+									hash.Add(memberAssignment.Expression, this);
 
-						case MemberMemberBinding memberMemberBinding:
-							AddMemberBindingsToHash(memberMemberBinding.Bindings);
+									break;
 
-							break;
+								case MemberListBinding memberListBinding:
+									AddInitializersToHash(memberListBinding.Initializers);
+
+									break;
+
+								case MemberMemberBinding memberMemberBinding:
+									AddMemberBindingsToHash(memberMemberBinding.Bindings);
+
+									break;
+							}
+						}
 					}
 				}
-			}
+
+				break;
 		}
 	}
 
@@ -415,27 +418,30 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 				return false;
 			}
 
-			if (!Equals(a.Member, b.Member))
+			switch (Equals(a.Member, b.Member))
 			{
-				return false;
-			}
-
-#pragma warning disable IDE0066 // Convert switch statement to expression
-			switch (a)
-#pragma warning restore IDE0066
-			{
-				// Convert switch statement to expression
-				case MemberAssignment aMemberAssignment:
-					return Compare(aMemberAssignment.Expression, ((MemberAssignment)b).Expression);
-
-				case MemberListBinding aMemberListBinding:
-					return CompareElementInitList(aMemberListBinding.Initializers, ((MemberListBinding)b).Initializers);
-
-				case MemberMemberBinding aMemberMemberBinding:
-					return CompareMemberBindingList(aMemberMemberBinding.Bindings, ((MemberMemberBinding)b).Bindings);
-
+				case false:
+					return false;
 				default:
-					throw new InvalidOperationException("The expression has not an supported MemberBindingExpression");
+#pragma warning disable IDE0066 // Convert switch statement to expression
+					switch (a)
+#pragma warning restore IDE0066
+					{
+						// Convert switch statement to expression
+						case MemberAssignment aMemberAssignment:
+							return Compare(aMemberAssignment.Expression, ((MemberAssignment)b).Expression);
+
+						case MemberListBinding aMemberListBinding:
+							return CompareElementInitList(aMemberListBinding.Initializers, ((MemberListBinding)b).Initializers);
+
+						case MemberMemberBinding aMemberMemberBinding:
+							return CompareMemberBindingList(aMemberMemberBinding.Bindings, ((MemberMemberBinding)b).Bindings);
+
+						default:
+							throw new InvalidOperationException("The expression has not an supported MemberBindingExpression");
+					}
+
+					break;
 			}
 		}
 
@@ -754,9 +760,10 @@ public sealed class ExpressionEqualityComparer : IEqualityComparer<Expression>
 
 			for (int i = 0, n = a.Count; i < n; i++)
 			{
-				if (!Equals(a[i], b[i]))
+				switch (Equals(a[i], b[i]))
 				{
-					return false;
+					case false:
+						return false;
 				}
 			}
 

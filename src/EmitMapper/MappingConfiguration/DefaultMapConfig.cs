@@ -316,30 +316,42 @@ public class DefaultMapConfig : MapConfigBaseImpl
 
 		foreach (var toMi in toMembers)
 		{
-			if (toMi.MemberType == MemberTypes.Property)
+			switch (toMi.MemberType)
 			{
-				var setMethod = ((PropertyInfo)toMi).GetSetMethod();
-
-				if (setMethod is null || setMethod.GetParameters().Length != 1)
+				case MemberTypes.Property:
 				{
-					continue;
+					var setMethod = ((PropertyInfo)toMi).GetSetMethod();
+
+					if (setMethod is null || setMethod.GetParameters().Length != 1)
+					{
+						continue;
+					}
+
+					break;
 				}
 			}
 
 			var fromMi = fromMembers.FirstOrDefault(mi => MatchMembers(mi.Name, toMi.Name));
 
-			if (fromMi is null)
+			switch (fromMi)
 			{
-				continue;
+				case null:
+					continue;
 			}
 
-			if (fromMi.MemberType == MemberTypes.Property)
+			switch (fromMi.MemberType)
 			{
-				var getMethod = ((PropertyInfo)fromMi).GetGetMethod();
-
-				if (getMethod is null)
+				case MemberTypes.Property:
 				{
-					continue;
+					var getMethod = ((PropertyInfo)fromMi).GetGetMethod();
+
+					switch (getMethod)
+					{
+						case null:
+							continue;
+					}
+
+					break;
 				}
 			}
 

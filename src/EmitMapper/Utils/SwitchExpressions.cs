@@ -133,12 +133,13 @@ public static class SwitchExpressions
 		{
 			get
 			{
-				if (!completed)
+				switch (completed)
 				{
-					throw new InvalidOperationException("the switch has not completed");
+					case false:
+						throw new InvalidOperationException("the switch has not completed");
+					default:
+						return value;
 				}
-
-				return value;
 			}
 		}
 
@@ -146,12 +147,13 @@ public static class SwitchExpressions
 		  CompletedSwitchExpression<TResult> first,
 		  CompletedSwitchExpression<TResult> second)
 		{
-			if (first.completed)
+			switch (first.completed)
 			{
-				throw new InvalidOperationException("use ||, not | to combine switch cases");
+				case true:
+					throw new InvalidOperationException("use ||, not | to combine switch cases");
+				default:
+					return second;
 			}
-
-			return second;
 		}
 
 		public static bool operator false(CompletedSwitchExpression<TResult> @switch)
@@ -357,12 +359,13 @@ public static class SwitchExpressions
 
 		public static implicit operator SwitchExpression<TSwitch, TResult>(TypeCaseSwitchExpression<TResult> @switch)
 		{
-			if (@switch is null)
+			switch (@switch)
 			{
-				throw new InvalidOperationException(nameof(@switch));
+				case null:
+					throw new InvalidOperationException(nameof(@switch));
+				default:
+					return CreateCase(@switch);
 			}
-
-			return CreateCase(@switch);
 		}
 
 		public static implicit operator SwitchExpression<TSwitch, TResult>(DefaultThrowExpression @switch)
@@ -466,16 +469,17 @@ public static class SwitchExpressions
 		/// <returns>A bool.</returns>
 		internal override bool TryGetResult<TSwitch>(TSwitch switchValue, out TResult value)
 		{
-			if (switchValue is TType)
+			switch (switchValue)
 			{
-				value = resultFactory((TType)(object)switchValue);
+				case TType:
+					value = resultFactory((TType)(object)switchValue);
 
-				return true;
+					return true;
+				default:
+					value = default;
+
+					return false;
 			}
-
-			value = default;
-
-			return false;
 		}
 	}
 }

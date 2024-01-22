@@ -78,19 +78,27 @@ public abstract class MapperBase
 			return to;
 		}
 
-		if (from is null)
+		switch (from)
 		{
-			result = NullSubstitutor?.CallFunc();
-		}
-		else if (Converter is not null)
-		{
-			result = Converter.CallFunc(from, state);
-		}
-		else
-		{
-			to ??= ConstructTarget();
+			case null:
+				result = NullSubstitutor?.CallFunc();
 
-			result = MapCore(from, to, state);
+				break;
+			default:
+			{
+				if (Converter is not null)
+				{
+					result = Converter.CallFunc(from, state);
+				}
+				else
+				{
+					to ??= ConstructTarget();
+
+					result = MapCore(from, to, state);
+				}
+
+				break;
+			}
 		}
 
 		if (ValuesPostProcessor is not null)
@@ -107,12 +115,13 @@ public abstract class MapperBase
 	/// <param name="from">source object</param>
 	public virtual object? Map(object? from)
 	{
-		if (from is null)
+		switch (from)
 		{
-			return null;
+			case null:
+				return null;
+			default:
+				return Map(from, ConstructTarget(), null);
 		}
-
-		return Map(from, ConstructTarget(), null);
 	}
 
 	/// <summary>

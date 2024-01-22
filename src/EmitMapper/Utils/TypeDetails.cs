@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.Utils;
+namespace EmitMapper.Utils;
 
 /// <summary>
 ///   Contains cached reflection information for easy retrieval
@@ -74,9 +74,10 @@ public class TypeDetails
 	{
 		foreach (var prefix in prefixes)
 		{
-			if (!memberName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+			switch (memberName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
 			{
-				continue;
+				case false:
+					continue;
 			}
 
 			var withoutPrefix = memberName.Substring(prefix.Length);
@@ -137,12 +138,15 @@ public class TypeDetails
 	{
 		foreach (var postfix in postfixes)
 		{
-			if (!name.EndsWith(postfix, StringComparison.OrdinalIgnoreCase))
+			switch (name.EndsWith(postfix, StringComparison.OrdinalIgnoreCase))
 			{
-				continue;
-			}
+				case false:
+					continue;
+				default:
+					yield return name.Remove(name.Length - postfix.Length);
 
-			yield return name.Remove(name.Length - postfix.Length);
+					break;
+			}
 		}
 	}
 
@@ -192,9 +196,12 @@ public class TypeDetails
 		  .GroupBy(x => x.Name) // group properties of the same name together
 		  .Select(x => x.First());
 
-		if (Config.FieldMappingEnabled)
+		switch (Config.FieldMappingEnabled)
 		{
-			members = members.Concat(GetFields(FieldReadable));
+			case true:
+				members = members.Concat(GetFields(FieldReadable));
+
+				break;
 		}
 
 		return members.ToArray();
@@ -210,12 +217,15 @@ public class TypeDetails
 		IEnumerable<MemberInfo> members = GetProperties(PropertyWritable)
 		  .GroupBy(x => x.Name) // group properties of the same name together
 		  .Select(
-			x => x.FirstOrDefault(y => y.CanWrite && y.CanRead)
+			x => x.FirstOrDefault(y => y is { CanWrite: true, CanRead: true })
 				 ?? x.First()); // favor the first property that can both read & write - otherwise pick the first one
 
-		if (Config.FieldMappingEnabled)
+		switch (Config.FieldMappingEnabled)
 		{
-			members = members.Concat(GetFields(FieldWritable));
+			case true:
+				members = members.Concat(GetFields(FieldWritable));
+
+				break;
 		}
 
 		return members.ToArray();
@@ -230,9 +240,12 @@ public class TypeDetails
 	{
 		foreach (var memberName in PossibleNames(member.Name, Config.Prefixes, Config.Postfixes))
 		{
-			if (!nameToMember.ContainsKey(memberName))
+			switch (nameToMember.ContainsKey(memberName))
 			{
-				nameToMember.Add(memberName, member);
+				case false:
+					nameToMember.Add(memberName, member);
+
+					break;
 			}
 		}
 	}
@@ -282,9 +295,12 @@ public class TypeDetails
 		  sourceExtensionMethodSearch.Where(method => method.GetParameters()[0].ParameterType.IsAssignableFrom(Type));
 
 		var genericInterfaces = Type.GetInterfacesCache().Where(t => t.IsGenericType);
-		if (Type.IsInterface && Type.IsGenericType)
+		switch (Type)
 		{
-			genericInterfaces = genericInterfaces.Union(new[] { Type });
+			case { IsInterface: true, IsGenericType: true }:
+				genericInterfaces = genericInterfaces.Union(new[] { Type });
+
+				break;
 		}
 
 		return explicitExtensionMethods.Union(
@@ -334,24 +350,33 @@ public class TypeDetails
 	{
 		var nameToMember = new Dictionary<string, MemberInfo>(ReadAccessors.Length, StringComparer.OrdinalIgnoreCase);
 		IEnumerable<MemberInfo> accessors = ReadAccessors;
-		if (Config.MethodMappingEnabled)
+		switch (Config.MethodMappingEnabled)
 		{
-			accessors = AddMethods(accessors);
+			case true:
+				accessors = AddMethods(accessors);
+
+				break;
 		}
 
 		foreach (var member in accessors)
 		{
-			if (!nameToMember.ContainsKey(member.Name))
+			switch (nameToMember.ContainsKey(member.Name))
 			{
-				nameToMember.Add(member.Name, member);
+				case false:
+					nameToMember.Add(member.Name, member);
+
+					break;
 			}
 
-			if (Config.Postfixes.Count == 0 && Config.Prefixes.Count == 0)
+			switch (Config.Postfixes.Count)
 			{
-				continue;
-			}
+				case 0 when Config.Prefixes.Count == 0:
+					continue;
+				default:
+					CheckPrePostfixes(nameToMember, member);
 
-			CheckPrePostfixes(nameToMember, member);
+					break;
+			}
 		}
 
 		return nameToMember;

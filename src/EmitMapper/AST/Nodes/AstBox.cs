@@ -20,9 +20,12 @@ internal class AstBox : IAstRef
 	{
 		Value.Compile(context);
 
-		if (Value.ItemType.IsValueType)
+		switch (Value.ItemType.IsValueType)
 		{
-			context.Emit(OpCodes.Box, ItemType);
+			case true:
+				context.Emit(OpCodes.Box, ItemType);
+
+				break;
 		}
 	}
 }

@@ -22,18 +22,26 @@ public class StaticConvertersManager
 	{
 		get
 		{
-			if (defaultInstance is null)
+			switch (defaultInstance)
 			{
-				lock (Locker)
+				case null:
 				{
-					if (defaultInstance is null)
+					lock (Locker)
 					{
-						defaultInstance = new StaticConvertersManager();
-						defaultInstance.AddConverterClass(Metadata.Convert);
-						defaultInstance.AddConverterClass(Metadata<EmConvert>.Type);
-						defaultInstance.AddConverterClass(Metadata<NullableConverter>.Type);
-						defaultInstance.AddConverterFunc(EmConvert.GetConversionMethod);
+						switch (defaultInstance)
+						{
+							case null:
+								defaultInstance = new StaticConvertersManager();
+								defaultInstance.AddConverterClass(Metadata.Convert);
+								defaultInstance.AddConverterClass(Metadata<EmConvert>.Type);
+								defaultInstance.AddConverterClass(Metadata<NullableConverter>.Type);
+								defaultInstance.AddConverterFunc(EmConvert.GetConversionMethod);
+
+								break;
+						}
 					}
+
+					break;
 				}
 			}
 
@@ -51,9 +59,12 @@ public class StaticConvertersManager
 		{
 			var parameters = m.GetParameters();
 
-			if (parameters.Length == 1 && m.ReturnType != Metadata.Void)
+			switch (parameters.Length)
 			{
-				typesMethods.TryAdd(new TypesPair(parameters[0].ParameterType, m.ReturnType), m);
+				case 1 when m.ReturnType != Metadata.Void:
+					typesMethods.TryAdd(new TypesPair(parameters[0].ParameterType, m.ReturnType), m);
+
+					break;
 			}
 		}
 	}
@@ -105,11 +116,12 @@ public class StaticConvertersManager
 	{
 		var mi = GetStaticConverter(from, to);
 
-		if (mi is null)
+		switch (mi)
 		{
-			return null;
+			case null:
+				return null;
+			default:
+				return ConvertersFunc.GetOrAdd(mi, m => ((MethodInvokerFunc1)EmitInvoker.Methods.MethodInvoker.GetMethodInvoker(null, m)).CallFunc);
 		}
-
-		return ConvertersFunc.GetOrAdd(mi, m => ((MethodInvokerFunc1)EmitInvoker.Methods.MethodInvoker.GetMethodInvoker(null, m)).CallFunc);
 	}
 }

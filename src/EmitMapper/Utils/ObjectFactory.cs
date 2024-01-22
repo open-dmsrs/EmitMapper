@@ -79,16 +79,19 @@ public static class ObjectFactory
 		var ctorWithOptionalArgs =
 		  type.GetDeclaredConstructors().FirstOrDefault(c => c.GetParameters().All(p => p.IsOptional));
 
-		if (ctorWithOptionalArgs is null)
+		switch (ctorWithOptionalArgs)
 		{
-			return InvalidType(type, $"{type} needs to have a constructor with 0 args or only optional args.");
+			case null:
+				return InvalidType(type, $"{type} needs to have a constructor with 0 args or only optional args.");
+			default:
+			{
+				// get all optional default values
+				var args = ctorWithOptionalArgs.GetParameters().Select(p => ToType(p.GetDefaultValue(), p.ParameterType));
+
+				// create the ctor expression
+				return New(ctorWithOptionalArgs, args);
+			}
 		}
-
-		// get all optional default values
-		var args = ctorWithOptionalArgs.GetParameters().Select(p => ToType(p.GetDefaultValue(), p.ParameterType));
-
-		// create the ctor expression
-		return New(ctorWithOptionalArgs, args);
 	}
 
 	/// <summary>

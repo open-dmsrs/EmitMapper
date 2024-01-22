@@ -28,9 +28,10 @@ internal class AstCallMethod : IAstRefOrValue
 	/// <param name="arguments">The arguments.</param>
 	public AstCallMethod(MethodInfo methodInfo, IAstRefOrAddr invocationObject, List<IAstStackItem> arguments)
 	{
-		if (methodInfo is null)
+		switch (methodInfo)
 		{
-			throw new InvalidOperationException("methodInfo is null");
+			case null:
+				throw new InvalidOperationException("methodInfo is null");
 		}
 
 		MethodInfo = methodInfo;

@@ -35,10 +35,13 @@ internal class AstInitializeLocalVariable : IAstNode
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)
 	{
-		if (LocalType.IsValueType)
+		switch (LocalType.IsValueType)
 		{
-			context.Emit(OpCodes.Ldloca, LocalIndex);
-			context.Emit(OpCodes.Initobj, LocalType);
+			case true:
+				context.Emit(OpCodes.Ldloca, LocalIndex);
+				context.Emit(OpCodes.Initobj, LocalType);
+
+				break;
 		}
 	}
 }

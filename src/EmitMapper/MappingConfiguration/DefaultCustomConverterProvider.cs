@@ -23,18 +23,20 @@ public class DefaultCustomConverterProvider : ICustomConverterProvider
 	/// <returns>An array of Types</returns>
 	public static Type[] GetGenericArguments(Type type)
 	{
-		if (type.IsArray)
+		switch (type.IsArray)
 		{
-			return new[] { type.GetElementType() };
+			case true:
+				return new[] { type.GetElementType() };
 		}
 
-		if (type.IsGenericType)
+		switch (type.IsGenericType)
 		{
-			return type.GetGenericArguments();
+			case true:
+				return type.GetGenericArguments();
+			default:
+				return type.GetInterfacesCache().Where(i => i.IsGenericType).Select(i => i.GetGenericArguments())
+					.Where(a => a.Length == 1).Select(a => a[0]).ToArray();
 		}
-
-		return type.GetInterfacesCache().Where(i => i.IsGenericType).Select(i => i.GetGenericArguments())
-		  .Where(a => a.Length == 1).Select(a => a[0]).ToArray();
 	}
 
 	/// <summary>

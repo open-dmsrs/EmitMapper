@@ -91,9 +91,12 @@ public class DynamicAssemblyManager
 	/// <returns>A string.</returns>
 	private static string CorrectTypeName(string typeName)
 	{
-		if (typeName.Length >= 1042)
+		switch (typeName.Length)
 		{
-			typeName = "type_" + typeName.Substring(0, 900) + Guid.NewGuid().ToString().Replace("-", string.Empty);
+			case >= 1042:
+				typeName = "type_" + typeName.Substring(0, 900) + Guid.NewGuid().ToString().Replace("-", string.Empty);
+
+				break;
 		}
 
 		return typeName;

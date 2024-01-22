@@ -14,11 +14,12 @@ internal static class MiscUtils
 	/// <returns>A string.</returns>
 	public static string ToCsv<T>(this IEnumerable<T>? collection, string separator)
 	{
-		if (collection is null)
+		switch (collection)
 		{
-			return string.Empty;
+			case null:
+				return string.Empty;
+			default:
+				return string.Join(separator, collection);
 		}
-
-		return string.Join(separator, collection);
 	}
 }

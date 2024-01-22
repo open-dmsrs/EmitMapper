@@ -81,19 +81,17 @@ internal class TypeDictionary<T>
 			return true;
 		}
 
-		if (generalType.IsGenericTypeDefinition)
+		switch (generalType.IsGenericTypeDefinition)
 		{
-			if (generalType.IsInterface)
-			{
+			case true when generalType.IsInterface:
 				return type.GetInterfacesCache().Concat(type.IsInterface ? new[] { type } : Type.EmptyTypes)
-				  .Any(i => i.IsGenericType && i.GetGenericTypeDefinitionCache() == generalType);
-			}
-
-			return type.IsGenericType && (type.GetGenericTypeDefinitionCache() == generalType
-										  || type.GetGenericTypeDefinitionCache().IsSubclassOf(generalType));
+					.Any(i => i.IsGenericType && i.GetGenericTypeDefinitionCache() == generalType);
+			case true:
+				return type.IsGenericType && (type.GetGenericTypeDefinitionCache() == generalType
+				                              || type.GetGenericTypeDefinitionCache().IsSubclassOf(generalType));
+			default:
+				return generalType.IsAssignableFrom(type);
 		}
-
-		return generalType.IsAssignableFrom(type);
 	}
 
 	/// <summary>
@@ -124,9 +122,10 @@ internal class TypeDictionary<T>
 				break;
 			}
 
-			if (isAssignable)
+			switch (isAssignable)
 			{
-				return element;
+				case true:
+					return element;
 			}
 		}
 
@@ -156,9 +155,10 @@ internal class TypeDictionary<T>
 				break;
 			}
 
-			if (isAssignable)
+			switch (isAssignable)
 			{
-				return element;
+				case true:
+					return element;
 			}
 		}
 

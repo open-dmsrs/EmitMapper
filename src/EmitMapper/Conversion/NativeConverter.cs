@@ -50,9 +50,10 @@ internal class NativeConverter
 			{
 				var parameters = m.GetParameters();
 
-				if (parameters.Length == 1 && parameters[0].ParameterType == sourceType)
+				switch (parameters.Length)
 				{
-					return AstBuildHelper.CallMethod(m, null, new List<IAstStackItem> { sourceValue });
+					case 1 when parameters[0].ParameterType == sourceType:
+						return AstBuildHelper.CallMethod(m, null, new List<IAstStackItem> { sourceValue });
 				}
 			}
 		}
@@ -101,19 +102,17 @@ internal class NativeConverter
 				  return true;
 			  }
 
-			  if (from.IsEnum && to.IsEnum)
+			  switch (from.IsEnum)
 			  {
-				  return true;
+				  case true when to.IsEnum:
+				  case true when ConvertTypes.Contains(to):
+					  return true;
 			  }
 
-			  if (from.IsEnum && ConvertTypes.Contains(to))
+			  switch (to.IsEnum)
 			  {
-				  return true;
-			  }
-
-			  if (to.IsEnum && ConvertTypes.Contains(from))
-			  {
-				  return true;
+				  case true when ConvertTypes.Contains(from):
+					  return true;
 			  }
 
 			  if (ReflectionHelper.IsNullable(from))
@@ -137,11 +136,6 @@ internal class NativeConverter
 	/// <returns>A string.</returns>
 	internal static string? ObjectToString(object? obj)
 	{
-		if (obj is null)
-		{
-			return null;
-		}
-
-		return obj.ToString();
+		return obj?.ToString();
 	}
 }

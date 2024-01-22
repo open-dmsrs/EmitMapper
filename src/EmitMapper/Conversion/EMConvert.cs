@@ -1,7 +1,7 @@
 namespace EmitMapper.Conversion;
 
 /// <summary>
-/// The e m convert.
+/// The em convert.
 /// </summary>
 public class EmConvert
 {
@@ -13,12 +13,13 @@ public class EmConvert
 	/// <returns>An object.</returns>
 	public static object? ChangeType(object? value, Type conversionType)
 	{
-		if (value is null)
+		switch (value)
 		{
-			return null;
+			case null:
+				return null;
+			default:
+				return ChangeType(value, value.GetType(), conversionType);
 		}
-
-		return ChangeType(value, value.GetType(), conversionType);
 	}
 
 	/// <summary>
@@ -30,27 +31,24 @@ public class EmConvert
 	/// <returns>An object.</returns>
 	public static object? ChangeType(object? value, Type typeFrom, Type typeTo)
 	{
-		if (value is null)
+		switch (value)
 		{
-			return null;
+			case null:
+				return null;
 		}
 
-		if (typeTo.IsEnum)
+		switch (typeTo.IsEnum)
 		{
-			return ConvertToEnum(value, typeFrom, typeTo);
+			case true:
+				return ConvertToEnum(value, typeFrom, typeTo);
 		}
 
-		if (typeFrom.IsEnum)
+		switch (typeFrom.IsEnum)
 		{
-			if (typeTo == Metadata<string>.Type)
-			{
+			case true when typeTo == Metadata<string>.Type:
 				return value.ToString();
-			}
-
-			return ChangeType(
-			  Convert.ChangeType(value, Enum.GetUnderlyingType(typeFrom), CultureInfo.InvariantCulture),
-			  Enum.GetUnderlyingType(typeFrom),
-			  typeTo);
+			case true:
+				return ChangeType(Convert.ChangeType(value, Enum.GetUnderlyingType(typeFrom), CultureInfo.InvariantCulture), Enum.GetUnderlyingType(typeFrom), typeTo);
 		}
 
 		if (typeTo == Metadata<Guid>.Type)
@@ -63,24 +61,29 @@ public class EmConvert
 		var isFromNullable = ReflectionHelper.IsNullable(typeFrom);
 		var isToNullable = ReflectionHelper.IsNullable(typeTo);
 
-		if (isFromNullable && !isToNullable)
+		switch (isFromNullable)
 		{
-			return ChangeType(value, typeFrom.GetUnderlyingTypeCache(), typeTo);
+			case true when !isToNullable:
+				return ChangeType(value, typeFrom.GetUnderlyingTypeCache(), typeTo);
 		}
 
-		if (isToNullable)
+		switch (isToNullable)
 		{
-			var ut = typeTo.GetUnderlyingTypeCache();
-
-			if (ut.IsEnum)
+			case true:
 			{
-				return ConvertToEnum(value, typeFrom, ut);
+				var ut = typeTo.GetUnderlyingTypeCache();
+
+				switch (ut.IsEnum)
+				{
+					case true:
+						return ConvertToEnum(value, typeFrom, ut);
+					default:
+						return ChangeType(value, typeFrom, ut);
+				}
 			}
-
-			return ChangeType(value, typeFrom, ut);
+			default:
+				return Convert.ChangeType(value, typeTo, CultureInfo.InvariantCulture);
 		}
-
-		return Convert.ChangeType(value, typeTo, CultureInfo.InvariantCulture);
 	}
 
 	/// <summary>
@@ -113,10 +116,11 @@ public class EmConvert
 			return Metadata<EmConvert>.Type.GetMethod(nameof(ObjectToString), BindingFlags.Static | BindingFlags.Public);
 		}
 
-		if (to.IsEnum)
+		switch (to.IsEnum)
 		{
-			return Metadata<EmConvert>.Type.GetMethod(nameof(ToEnum), BindingFlags.Static | BindingFlags.Public)
-			  ?.MakeGenericMethod(to, Enum.GetUnderlyingType(to));
+			case true:
+				return Metadata<EmConvert>.Type.GetMethod(nameof(ToEnum), BindingFlags.Static | BindingFlags.Public)
+					?.MakeGenericMethod(to, Enum.GetUnderlyingType(to));
 		}
 
 		if (IsComplexConvert(from) || IsComplexConvert(to))
@@ -135,12 +139,7 @@ public class EmConvert
 	/// <returns>A string.</returns>
 	public static string? ObjectToString(object? obj)
 	{
-		if (obj is null)
-		{
-			return null;
-		}
-
-		return obj.ToString();
+		return obj?.ToString();
 	}
 
 	/// <summary>
@@ -167,14 +166,17 @@ public class EmConvert
 	/// <returns>A <typeparamref name="TEnum"></typeparamref></returns>
 	public static TEnum ToEnum<TEnum, TUnder>(object obj)
 	{
-		if (obj is string)
+		switch (obj)
 		{
-			var str = obj.ToString();
+			case string:
+			{
+				var str = obj.ToString();
 
-			return (TEnum)Enum.Parse(Metadata<TEnum>.Type, str);
+				return (TEnum)Enum.Parse(Metadata<TEnum>.Type, str ?? string.Empty);
+			}
+			default:
+				return (TEnum)Convert.ChangeType(obj, Metadata<TUnder>.Type, CultureInfo.InvariantCulture);
 		}
-
-		return (TEnum)Convert.ChangeType(obj, Metadata<TUnder>.Type, CultureInfo.InvariantCulture);
 	}
 
 	/// <summary>
@@ -186,15 +188,13 @@ public class EmConvert
 	/// <returns>An object.</returns>
 	private static object ConvertToEnum(object value, Type typeFrom, Type typeTo)
 	{
-		if (!typeFrom.IsEnum)
+		switch (typeFrom.IsEnum)
 		{
-			if (typeFrom == Metadata<string>.Type)
-			{
-				return Enum.Parse(typeTo, value.ToString());
-			}
+			case true:
+				return Enum.ToObject(typeTo, Convert.ChangeType(value, Enum.GetUnderlyingType(typeTo), CultureInfo.InvariantCulture));
+			default:
+				return typeFrom == Metadata<string>.Type ? Enum.Parse(typeTo, value.ToString() ?? string.Empty) : Enum.ToObject(typeTo, Convert.ChangeType(value, Enum.GetUnderlyingType(typeTo), CultureInfo.InvariantCulture));
 		}
-
-		return Enum.ToObject(typeTo, Convert.ChangeType(value, Enum.GetUnderlyingType(typeTo), CultureInfo.InvariantCulture));
 	}
 
 	/// <summary>
@@ -202,11 +202,12 @@ public class EmConvert
 	/// </summary>
 	/// <param name="type">The type.</param>
 	/// <returns>A bool.</returns>
-	private static bool IsComplexConvert(Type? type)
+	private static bool IsComplexConvert(Type type)
 	{
-		if (type.IsEnum)
+		switch (type)
 		{
-			return true;
+			case { IsEnum: true }:
+				return true;
 		}
 
 		if (ReflectionHelper.IsNullable(type) && type.GetUnderlyingTypeCache().IsEnum)

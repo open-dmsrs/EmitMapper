@@ -28,18 +28,23 @@ internal static class CreateTargetInstanceBuilder
 		var context = new CompilationContext(ilGen);
 		IAstRefOrValue returnValue;
 
-		if (type.IsValueType)
+		switch (type.IsValueType)
 		{
-			var lb = ilGen.DeclareLocal(type);
-			new AstInitializeLocalVariable(lb).Compile(context);
+			case true:
+			{
+				var lb = ilGen.DeclareLocal(type);
+				new AstInitializeLocalVariable(lb).Compile(context);
 
-			returnValue = new AstBox { Value = AstBuildHelper.ReadLocalRv(lb) };
-		}
-		else
-		{
-			returnValue = ReflectionHelper.HasDefaultConstructor(type)
-			  ? new AstNewObject { ObjectType = type }
-			  : new AstConstantNull();
+				returnValue = new AstBox { Value = AstBuildHelper.ReadLocalRv(lb) };
+
+				break;
+			}
+			default:
+				returnValue = ReflectionHelper.HasDefaultConstructor(type)
+					? new AstNewObject { ObjectType = type }
+					: new AstConstantNull();
+
+				break;
 		}
 
 		new AstReturn { ReturnType = type, ReturnValue = returnValue }.Compile(context);

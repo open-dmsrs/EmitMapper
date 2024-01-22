@@ -31,22 +31,24 @@ internal class AstCastclass : IAstRefOrValue
 	{
 		if (Value.ItemType != TargetType)
 		{
-			if (!Value.ItemType.IsValueType && !TargetType.IsValueType)
+			switch (Value.ItemType.IsValueType)
 			{
-				Value.Compile(context);
-				context.Emit(OpCodes.Castclass, TargetType);
+				case false when !TargetType.IsValueType:
+					Value.Compile(context);
+					context.Emit(OpCodes.Castclass, TargetType);
 
-				return;
+					return;
 			}
 
-			if (TargetType.IsValueType && !Value.ItemType.IsValueType)
+			switch (TargetType.IsValueType)
 			{
-				new AstUnbox { RefObj = (IAstRef)Value, UnboxedType = TargetType }.Compile(context);
+				case true when !Value.ItemType.IsValueType:
+					new AstUnbox { RefObj = (IAstRef)Value, UnboxedType = TargetType }.Compile(context);
 
-				return;
+					return;
+				default:
+					throw new EmitMapperException();
 			}
-
-			throw new EmitMapperException();
 		}
 
 		Value.Compile(context);
