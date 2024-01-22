@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.AST.Nodes;
+namespace EmitMapper.AST.Nodes;
 
 /// <summary>
 ///   The ast write property.
@@ -41,6 +41,6 @@ internal class AstWriteProperty : IAstNode
 	/// <inheritdoc />
 	public void Compile(CompilationContext context)
 	{
-		AstBuildHelper.CallMethod(setMethod, targetObject, new List<IAstStackItem> { value }).Compile(context);
+		AstBuildHelper.ICallMethod(setMethod, targetObject, new List<IAstStackItem> { value }).Compile(context);
 	}
 }

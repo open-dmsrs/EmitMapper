@@ -53,12 +53,12 @@ internal class NativeConverter
 				switch (parameters.Length)
 				{
 					case 1 when parameters[0].ParameterType == sourceType:
-						return AstBuildHelper.CallMethod(m, null, new List<IAstStackItem> { sourceValue });
+						return AstBuildHelper.ICallMethod(m, null, new List<IAstStackItem> { sourceValue });
 				}
 			}
 		}
 
-		return AstBuildHelper.CallMethod(
+		return AstBuildHelper.ICallMethod(
 		  ChangeTypeMethod,
 		  null,
 		  new List<IAstStackItem>

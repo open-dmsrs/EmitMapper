@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
+namespace EmitMapper.MappingConfiguration.MappingOperations.Interfaces;
 
 /// <summary>
 ///   The read write operation interface.
@@ -8,12 +8,12 @@ public interface IReadWriteOperation : IDestWriteOperation, ISrcReadOperation
 	/// <summary>
 	///   Gets or Sets the converter.
 	/// </summary>
-	Delegate Converter { get; set; }
+	Delegate? Converter { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the destination filter.
 	/// </summary>
-	Delegate DestinationFilter { get; set; }
+	Delegate? DestinationFilter { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the null substitutor.
@@ -23,12 +23,12 @@ public interface IReadWriteOperation : IDestWriteOperation, ISrcReadOperation
 	/// <summary>
 	///   Gets or Sets the source filter.
 	/// </summary>
-	Delegate SourceFilter { get; set; }
+	Delegate? SourceFilter { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the target constructor.
 	/// </summary>
-	Delegate TargetConstructor { get; set; } // generic type: TargetConstructor
+	Delegate? TargetConstructor { get; set; } // generic type: TargetConstructor
 }
 //public class ReadWriteOperation : IReadWriteOperation
 //{

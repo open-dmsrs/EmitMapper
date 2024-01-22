@@ -111,18 +111,18 @@ public static class MethodInvoker
 	/// <returns>An IAstRefOrValue.</returns>
 	private static IAstRefOrValue CreateCallMethod(MethodInfo mi, IEnumerable<ParameterInfo> parameters)
 	{
-		return AstBuildHelper.CallMethod(
+		return AstBuildHelper.ICallMethod(
 		  mi,
 		  mi.IsStatic
 			? null
 			: new AstCastclassRef(
-			  AstBuildHelper.ReadFieldRv(
+			  AstBuildHelper.IReadFieldRv(
 				new AstReadThis { ThisType = Metadata<MethodInvokerBase>.Type },
 				Metadata<MethodInvokerBase>.Type.GetField(
 				  nameof(MethodInvokerBase.TargetObject),
 				  BindingFlags.Public | BindingFlags.Instance)),
 			  mi.DeclaringType),
-		  parameters.Select((p, idx) => (IAstStackItem)AstBuildHelper.ReadArgumentRv(idx + 1, Metadata<object>.Type))
+		  parameters.Select((p, idx) => (IAstStackItem)AstBuildHelper.IReadArgumentRv(idx + 1, Metadata<object>.Type))
 			.ToList());
 	}
 }

@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.AST.Nodes;
+namespace EmitMapper.AST.Nodes;
 
 /// <summary>
 /// The ast new object.
@@ -51,7 +51,7 @@ internal class AstNewObject : IAstRef
 			{
 				var temp = context.IlGenerator.DeclareLocal(underlyingType);
 				new AstInitializeLocalVariable(temp).Compile(context);
-				underlyingValue = AstBuildHelper.ReadLocalRv(temp);
+				underlyingValue = AstBuildHelper.IReadLocalRv(temp);
 			}
 			else
 			{
@@ -98,7 +98,7 @@ internal class AstNewObject : IAstRef
 				{
 					var temp = context.IlGenerator.DeclareLocal(ObjectType);
 					new AstInitializeLocalVariable(temp).Compile(context);
-					AstBuildHelper.ReadLocalRv(temp).Compile(context);
+					AstBuildHelper.IReadLocalRv(temp).Compile(context);
 
 					break;
 				}

@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.AST.Nodes;
+namespace EmitMapper.AST.Nodes;
 
 /// <summary>
 ///   The ast read property.
@@ -31,7 +31,7 @@ internal class AstReadProperty : IAstRefOrValue
 			case null:
 				throw new Exception("Property " + PropertyInfo.Name + " doesn't have get accessor");
 			default:
-				AstBuildHelper.CallMethod(mi, SourceObject, null).Compile(context);
+				AstBuildHelper.ICallMethod(mi, SourceObject, null).Compile(context);
 
 				break;
 		}

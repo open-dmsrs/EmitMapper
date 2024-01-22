@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.EmitInvoker.Delegates;
+namespace EmitMapper.EmitInvoker.Delegates;
 
 /// <summary>
 ///   The delegate invoker.
@@ -114,12 +114,12 @@ public static class DelegateInvoker
 	/// <returns>An IAstRefOrValue.</returns>
 	private static IAstRefOrValue CreateCallDelegate(Delegate del, IEnumerable<ParameterInfo> parameters)
 	{
-		return AstBuildHelper.CallMethod(
+		return AstBuildHelper.ICallMethod(
 		  del.GetType().GetMethodCache("Invoke"),
 		  new AstCastclassRef(
-			AstBuildHelper.ReadFieldRv(new AstReadThis { ThisType = Metadata<DelegateInvokerBase>.Type }, DelField),
+			AstBuildHelper.IReadFieldRv(new AstReadThis { ThisType = Metadata<DelegateInvokerBase>.Type }, DelField),
 			del.GetType()),
-		  parameters.Select((p, idx) => (IAstStackItem)AstBuildHelper.ReadArgumentRv(idx + 1, Metadata<object>.Type))
+		  parameters.Select((p, idx) => (IAstStackItem)AstBuildHelper.IReadArgumentRv(idx + 1, Metadata<object>.Type))
 			.ToList());
 	}
 }

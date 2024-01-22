@@ -13,7 +13,7 @@ public class StaticConvertersManager
 
 	private readonly LazyConcurrentDictionary<TypesPair, MethodInfo> typesMethods = new();
 
-	private readonly List<Func<Type, Type, MethodInfo>> typesMethodsFunc = new();
+	private readonly List<Func<Type?, Type?, MethodInfo?>> typesMethodsFunc = new();
 
 	/// <summary>
 	///   Gets the default instance.
@@ -25,24 +25,24 @@ public class StaticConvertersManager
 			switch (defaultInstance)
 			{
 				case null:
-				{
-					lock (Locker)
 					{
-						switch (defaultInstance)
+						lock (Locker)
 						{
-							case null:
-								defaultInstance = new StaticConvertersManager();
-								defaultInstance.AddConverterClass(Metadata.Convert);
-								defaultInstance.AddConverterClass(Metadata<EmConvert>.Type);
-								defaultInstance.AddConverterClass(Metadata<NullableConverter>.Type);
-								defaultInstance.AddConverterFunc(EmConvert.GetConversionMethod);
+							switch (defaultInstance)
+							{
+								case null:
+									defaultInstance = new StaticConvertersManager();
+									defaultInstance.AddConverterClass(Metadata.Convert);
+									defaultInstance.AddConverterClass(Metadata<EmConvert>.Type);
+									defaultInstance.AddConverterClass(Metadata<NullableConverter>.Type);
+									defaultInstance.AddConverterFunc(EmConvert.GetConversionMethod);
 
-								break;
+									break;
+							}
 						}
-					}
 
-					break;
-				}
+						break;
+					}
 			}
 
 			return defaultInstance;
@@ -53,7 +53,7 @@ public class StaticConvertersManager
 	///   Adds the converter class.
 	/// </summary>
 	/// <param name="converterClass">The converter class.</param>
-	public void AddConverterClass(Type? converterClass)
+	public void AddConverterClass(Type converterClass)
 	{
 		foreach (var m in converterClass.GetMethods(BindingFlags.Static | BindingFlags.Public))
 		{
@@ -73,7 +73,7 @@ public class StaticConvertersManager
 	///   Adds the converter func.
 	/// </summary>
 	/// <param name="converterFunc">The converter func.</param>
-	public void AddConverterFunc(Func<Type, Type, MethodInfo> converterFunc)
+	public void AddConverterFunc(Func<Type?, Type?, MethodInfo?> converterFunc)
 	{
 		typesMethodsFunc.Add(converterFunc);
 	}

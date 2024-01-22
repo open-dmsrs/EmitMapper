@@ -1,35 +1,29 @@
-﻿namespace EmitMapper.MappingConfiguration.MappingOperations;
+namespace EmitMapper.MappingConfiguration.MappingOperations;
 
 /// <summary>
 ///   The root mapping operation.
 /// </summary>
-public class RootMappingOperation : IRootMappingOperation
+/// <remarks>
+///   Initializes a new instance of the <see cref="RootMappingOperation" /> class.
+/// </remarks>
+/// <param name="from">The from.</param>
+/// <param name="to">The to.</param>
+public class RootMappingOperation(Type from, Type to) : IRootMappingOperation
 {
-	/// <summary>
-	///   Initializes a new instance of the <see cref="RootMappingOperation" /> class.
-	/// </summary>
-	/// <param name="from">The from.</param>
-	/// <param name="to">The to.</param>
-	public RootMappingOperation(Type from, Type to)
-	{
-		From = from;
-		To = to;
-	}
-
 	/// <summary>
 	///   Gets or Sets the converter.
 	/// </summary>
-	public Delegate Converter { get; set; }
+	public Delegate? Converter { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the destination filter.
 	/// </summary>
-	public Delegate DestinationFilter { get; set; }
+	public Delegate? DestinationFilter { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the from.
 	/// </summary>
-	public Type From { get; set; }
+	public Type From { get; set; } = from;
 
 	/// <summary>
 	///   Gets or Sets the null substitutor.
@@ -44,20 +38,20 @@ public class RootMappingOperation : IRootMappingOperation
 	/// <summary>
 	///   Gets or Sets the source filter.
 	/// </summary>
-	public Delegate SourceFilter { get; set; }
+	public Delegate? SourceFilter { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the target constructor.
 	/// </summary>
-	public Delegate TargetConstructor { get; set; }
+	public Delegate? TargetConstructor { get; set; }
 
 	/// <summary>
 	///   Gets or Sets the to.
 	/// </summary>
-	public Type To { get; set; }
+	public Type To { get; set; } = to;
 
 	/// <summary>
 	///   Gets or Sets the values post processor.
 	/// </summary>
-	public Delegate ValuesPostProcessor { get; set; }
+	public Delegate? ValuesPostProcessor { get; set; }
 }

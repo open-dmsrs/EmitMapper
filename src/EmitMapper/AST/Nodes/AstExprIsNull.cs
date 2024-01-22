@@ -1,4 +1,4 @@
-﻿namespace EmitMapper.AST.Nodes;
+namespace EmitMapper.AST.Nodes;
 
 /// <summary>
 ///   The ast expr is null.
@@ -34,7 +34,7 @@ internal class AstExprIsNull : IAstValue
 			{
 				if (ReflectionHelper.IsNullable(value.ItemType))
 				{
-					AstBuildHelper.ReadPropertyRv(new AstValueToAddr((IAstValue)value), value.ItemType.GetProperty("HasValue"))
+					AstBuildHelper.IReadPropertyRv(new AstValueToAddr((IAstValue)value), value.ItemType.GetProperty("HasValue"))
 						.Compile(context);
 
 					context.Emit(OpCodes.Ldc_I4_0);

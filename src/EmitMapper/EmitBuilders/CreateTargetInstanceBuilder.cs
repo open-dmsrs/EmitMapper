@@ -35,7 +35,7 @@ internal static class CreateTargetInstanceBuilder
 				var lb = ilGen.DeclareLocal(type);
 				new AstInitializeLocalVariable(lb).Compile(context);
 
-				returnValue = new AstBox { Value = AstBuildHelper.ReadLocalRv(lb) };
+				returnValue = new AstBox { Value = AstBuildHelper.IReadLocalRv(lb) };
 
 				break;
 			}

@@ -144,8 +144,8 @@ internal class MappingOperationsProcessor
 	/// <returns>An IAstRef.</returns>
 	private static IAstRef GetStoredObject(int objectIndex, Type? castType)
 	{
-		var result = (IAstRef)AstBuildHelper.ReadArrayItemRv(
-		  (IAstRef)AstBuildHelper.ReadFieldRa(
+		var result = (IAstRef)AstBuildHelper.IReadArrayItemRv(
+		  (IAstRef)AstBuildHelper.IReadFieldRa(
 			new AstReadThis { ThisType = Metadata<MapperBase>.Type },
 			Metadata<MapperBase>.Type.GetField(
 			  nameof(MapperBase.StoredObjects),
@@ -187,7 +187,7 @@ internal class MappingOperationsProcessor
 
 		var mapperId = AddObjectToStore(mapper);
 
-		var convertedValue = AstBuildHelper.CallMethod(
+		var convertedValue = AstBuildHelper.ICallMethod(
 		  MapMethod,
 		  new AstReadFieldRef
 		  {
@@ -196,9 +196,9 @@ internal class MappingOperationsProcessor
 		  },
 		  new List<IAstStackItem>
 		  {
-		AstBuildHelper.ReadMembersChain(AstBuildHelper.ReadLocalRa(LocFrom), mapping.Source.MembersChain),
-		AstBuildHelper.ReadMembersChain(AstBuildHelper.ReadLocalRa(LocTo), mapping.Destination.MembersChain),
-		(IAstRef)AstBuildHelper.ReadLocalRa(LocState)
+		AstBuildHelper.IReadMembersChain(AstBuildHelper.IReadLocalRa(LocFrom), mapping.Source.MembersChain),
+		AstBuildHelper.IReadMembersChain(AstBuildHelper.IReadLocalRa(LocTo), mapping.Destination.MembersChain),
+		(IAstRef)AstBuildHelper.IReadLocalRa(LocState)
 		  });
 
 		return convertedValue;
@@ -219,13 +219,13 @@ internal class MappingOperationsProcessor
 		{
 			var t = rwMapOp.Converter.GetType();
 
-			convertedValue = AstBuildHelper.CallMethod(
+			convertedValue = AstBuildHelper.ICallMethod(
 			  t.GetMethodCache("Invoke"),
 			  new AstCastclassRef(
-				(IAstRef)AstBuildHelper.ReadMemberRv(
+				(IAstRef)AstBuildHelper.IReadMemberRv(
 				  GetStoredObject(operationId, Metadata<ReadWriteSimple>.Type),
 				  Metadata<ReadWriteSimple>.Type.GetProperty(nameof(ReadWriteSimple.Converter))),
-				t), [sourceValue, AstBuildHelper.ReadLocalRv(LocState)]);
+				t), [sourceValue, AstBuildHelper.IReadLocalRv(LocState)]);
 		}
 		else
 		{
@@ -241,7 +241,7 @@ internal class MappingOperationsProcessor
 
 					if (mi is not null)
 					{
-						convertedValue = AstBuildHelper.CallMethod(mi, null, [sourceValue]);
+						convertedValue = AstBuildHelper.ICallMethod(mi, null, [sourceValue]);
 					}
 					else
 					{
@@ -297,10 +297,10 @@ internal class MappingOperationsProcessor
 			var t = nullSubstitutor.GetType();
 			var substId = AddObjectToStore(nullSubstitutor);
 
-			return AstBuildHelper.CallMethod(
+			return AstBuildHelper.ICallMethod(
 			  t.GetMethodCache("Invoke"),
 			  GetStoredObject(substId, t),
-			  new List<IAstStackItem> { AstBuildHelper.ReadLocalRv(LocState) });
+			  new List<IAstStackItem> { AstBuildHelper.IReadLocalRv(LocState) });
 		}
 
 		return new AstConstantNull();
@@ -319,7 +319,7 @@ internal class MappingOperationsProcessor
 		  op,
 		  operationId,
 		  result,
-		  AstBuildHelper.ReadMembersChain(AstBuildHelper.ReadLocalRa(LocTo), op.Destination.MembersChain),
+		  AstBuildHelper.IReadMembersChain(AstBuildHelper.IReadLocalRa(LocTo), op.Destination.MembersChain),
 		  nameof(IReadWriteOperation.DestinationFilter),
 		  op.DestinationFilter);
 	}
@@ -359,18 +359,18 @@ internal class MappingOperationsProcessor
 	{
 		var t = op.Converter?.GetType();
 
-		var result = AstBuildHelper.WriteMembersChain(
+		var result = AstBuildHelper.IWriteMembersChain(
 		  op.Destination?.MembersChain,
-		  AstBuildHelper.ReadLocalRa(LocTo),
-		  AstBuildHelper.CallMethod(
+		  AstBuildHelper.IReadLocalRa(LocTo),
+		  AstBuildHelper.ICallMethod(
 			t.GetMethodCache("Invoke"),
 			new AstCastclassRef(
-			  (IAstRef)AstBuildHelper.ReadMemberRv(
+			  (IAstRef)AstBuildHelper.IReadMemberRv(
 				GetStoredObject(operationId, Metadata<ReadWriteComplex>.Type),
 				Metadata<ReadWriteComplex>.Type.GetProperty(nameof(ReadWriteComplex.Converter))),
 			  t), [
-				  AstBuildHelper.ReadMembersChain(AstBuildHelper.ReadLocalRa(LocFrom), op.Source.MembersChain),
-				  AstBuildHelper.ReadLocalRv(LocState)
+				  AstBuildHelper.IReadMembersChain(AstBuildHelper.IReadLocalRa(LocFrom), op.Source.MembersChain),
+				  AstBuildHelper.IReadLocalRv(LocState)
 				  ]));
 
 		return result;
@@ -392,18 +392,18 @@ internal class MappingOperationsProcessor
 		result.Nodes.Add(
 		  new AstWriteLocal(
 			tempSrc,
-			AstBuildHelper.ReadMembersChain(AstBuildHelper.ReadLocalRa(LocFrom), op.Source.MembersChain)));
+			AstBuildHelper.IReadMembersChain(AstBuildHelper.IReadLocalRa(LocFrom), op.Source.MembersChain)));
 
 		result.Nodes.Add(
 		  new AstWriteLocal(
 			tempDst,
-			AstBuildHelper.ReadMembersChain(AstBuildHelper.ReadLocalRa(LocTo), op.Destination.MembersChain)));
+			AstBuildHelper.IReadMembersChain(AstBuildHelper.IReadLocalRa(LocTo), op.Destination.MembersChain)));
 
 		var writeNullToDest = new List<IAstNode>
 	{
-	  AstBuildHelper.WriteMembersChain(
+	  AstBuildHelper.IWriteMembersChain(
 		op.Destination.MembersChain,
-		AstBuildHelper.ReadLocalRa(LocTo),
+		AstBuildHelper.IReadLocalRa(LocTo),
 		GetNullValue(op.NullSubstitutor))
 	};
 
@@ -419,7 +419,7 @@ internal class MappingOperationsProcessor
 			initDest.Add(
 			  new AstWriteLocal(
 				tempDst,
-				AstBuildHelper.CallMethod(t.GetMethodCache("Invoke"), GetStoredObject(custCtrIdx, t), null)));
+				AstBuildHelper.ICallMethod(t.GetMethodCache("Invoke"), GetStoredObject(custCtrIdx, t), null)));
 		}
 		else
 		{
@@ -436,8 +436,8 @@ internal class MappingOperationsProcessor
 			copying.Add(
 			  new AstWriteLocal(
 				tempSrc,
-				AstBuildHelper.ReadPropertyRv(
-				  AstBuildHelper.ReadLocalRa(origTempSrc),
+				AstBuildHelper.IReadPropertyRv(
+				  AstBuildHelper.IReadLocalRa(origTempSrc),
 				  op.Source.MemberType.GetProperty("Value"))));
 		}
 
@@ -449,10 +449,10 @@ internal class MappingOperationsProcessor
 			  {
 				  Condition = ReflectionHelper.IsNullable(op.Destination.MemberType)
 				  ? new AstExprNot(
-					(IAstValue)AstBuildHelper.ReadPropertyRv(
-					  AstBuildHelper.ReadLocalRa(origTempDst),
+					(IAstValue)AstBuildHelper.IReadPropertyRv(
+					  AstBuildHelper.IReadLocalRa(origTempDst),
 					  op.Destination.MemberType.GetProperty("HasValue")))
-				  : new AstExprIsNull(AstBuildHelper.ReadLocalRv(origTempDst)),
+				  : new AstExprIsNull(AstBuildHelper.IReadLocalRv(origTempDst)),
 				  TrueBranch = new AstComplexNode { Nodes = initDest }
 			  });
 
@@ -463,8 +463,8 @@ internal class MappingOperationsProcessor
 				copying.Add(
 				  new AstWriteLocal(
 					tempDst,
-					AstBuildHelper.ReadPropertyRv(
-					  AstBuildHelper.ReadLocalRa(origTempDst),
+					AstBuildHelper.IReadPropertyRv(
+					  AstBuildHelper.IReadLocalRa(origTempDst),
 					  op.Destination.MemberType.GetProperty("Value"))));
 			}
 		}
@@ -492,10 +492,10 @@ internal class MappingOperationsProcessor
 		if (ReflectionHelper.IsNullable(op.Destination.MemberType))
 			processedValue = new AstNewObject(
 			  op.Destination.MemberType,
-			  new IAstStackItem[] { AstBuildHelper.ReadLocalRv(tempDst) });
+			  new IAstStackItem[] { AstBuildHelper.IReadLocalRv(tempDst) });
 		else
 		{
-			processedValue = AstBuildHelper.ReadLocalRv(origTempDst);
+			processedValue = AstBuildHelper.IReadLocalRv(origTempDst);
 		}
 
 		if (op.ValuesPostProcessor is not null)
@@ -503,14 +503,14 @@ internal class MappingOperationsProcessor
 			var t = op.ValuesPostProcessor.GetType();
 			var postProcessorId = AddObjectToStore(op.ValuesPostProcessor);
 
-			processedValue = AstBuildHelper.CallMethod(
+			processedValue = AstBuildHelper.ICallMethod(
 			  t.GetMethodCache("Invoke"),
 			  GetStoredObject(postProcessorId, t),
-			  new List<IAstStackItem> { processedValue, AstBuildHelper.ReadLocalRv(LocState) });
+			  new List<IAstStackItem> { processedValue, AstBuildHelper.IReadLocalRv(LocState) });
 		}
 
 		copying.Add(
-		  AstBuildHelper.WriteMembersChain(op.Destination.MembersChain, AstBuildHelper.ReadLocalRa(LocTo), processedValue));
+		  AstBuildHelper.IWriteMembersChain(op.Destination.MembersChain, AstBuildHelper.IReadLocalRa(LocTo), processedValue));
 
 		if (ReflectionHelper.IsNullable(op.Source.MemberType) || !op.Source.MemberType.IsValueType)
 			result.Nodes.Add(
@@ -518,10 +518,10 @@ internal class MappingOperationsProcessor
 			  {
 				  Condition = ReflectionHelper.IsNullable(op.Source.MemberType)
 				  ? new AstExprNot(
-					(IAstValue)AstBuildHelper.ReadPropertyRv(
-					  AstBuildHelper.ReadLocalRa(origTempSrc),
+					(IAstValue)AstBuildHelper.IReadPropertyRv(
+					  AstBuildHelper.IReadLocalRa(origTempSrc),
 					  op.Source.MemberType.GetProperty("HasValue")))
-				  : new AstExprIsNull(AstBuildHelper.ReadLocalRv(origTempSrc)),
+				  : new AstExprIsNull(AstBuildHelper.IReadLocalRv(origTempSrc)),
 				  TrueBranch = new AstComplexNode { Nodes = writeNullToDest },
 				  FalseBranch = new AstComplexNode { Nodes = copying }
 			  });
@@ -546,7 +546,7 @@ internal class MappingOperationsProcessor
 		  op,
 		  operationId,
 		  result,
-		  AstBuildHelper.ReadMembersChain(AstBuildHelper.ReadLocalRa(LocFrom), op.Source.MembersChain),
+		  AstBuildHelper.IReadMembersChain(AstBuildHelper.IReadLocalRa(LocFrom), op.Source.MembersChain),
 		  nameof(IReadWriteOperation.SourceFilter),
 		  op.SourceFilter);
 	}
@@ -577,14 +577,14 @@ internal class MappingOperationsProcessor
 	  {
 		new AstIf
 		{
-		  Condition = (IAstValue)AstBuildHelper.CallMethod(
+		  Condition = (IAstValue)AstBuildHelper.ICallMethod(
 			delegateType.GetMethodCache("Invoke"),
 			new AstCastclassRef(
-			  (IAstRef)AstBuildHelper.ReadMemberRv(
+			  (IAstRef)AstBuildHelper.IReadMemberRv(
 				GetStoredObject(operationId, Metadata<IReadWriteOperation>.Type),
 				Metadata<IReadWriteOperation>.Type.GetProperty(fieldName)),
 			  delegateType),
-			new List<IAstStackItem> { value, AstBuildHelper.ReadLocalRv(LocState) }),
+			new List<IAstStackItem> { value, AstBuildHelper.IReadLocalRv(LocState) }),
 		  TrueBranch = new AstComplexNode { Nodes = new List<IAstNode> { result } }
 		}
 	  }
@@ -601,18 +601,18 @@ internal class MappingOperationsProcessor
 	/// <returns>An IAstNode.</returns>
 	private IAstNode ProcessDestSrcReadOperation(DestSrcReadOperation operation, int operationId)
 	{
-		var src = AstBuildHelper.ReadMembersChain(AstBuildHelper.ReadLocalRa(LocFrom), operation.Source.MembersChain);
+		var src = AstBuildHelper.IReadMembersChain(AstBuildHelper.IReadLocalRa(LocFrom), operation.Source.MembersChain);
 
-		var dst = AstBuildHelper.ReadMembersChain(AstBuildHelper.ReadLocalRa(LocFrom), operation.Destination.MembersChain);
+		var dst = AstBuildHelper.IReadMembersChain(AstBuildHelper.IReadLocalRa(LocFrom), operation.Destination.MembersChain);
 
-		return AstBuildHelper.CallMethod(
+		return AstBuildHelper.ICallMethod(
 		  Metadata<ValueProcessor>.Type.GetMethodCache(nameof(ValueProcessor.Invoke)),
 		  new AstCastclassRef(
-			(IAstRef)AstBuildHelper.ReadMemberRv(
+			(IAstRef)AstBuildHelper.IReadMemberRv(
 			  GetStoredObject(operationId, Metadata<DestSrcReadOperation>.Type),
 			  Metadata<DestSrcReadOperation>.Type.GetProperty(nameof(DestSrcReadOperation.ValueProcessor))),
 			operation.ValueProcessor.GetType()),
-		  new List<IAstStackItem> { src, dst, AstBuildHelper.ReadLocalRv(LocState) });
+		  new List<IAstStackItem> { src, dst, AstBuildHelper.IReadLocalRv(LocState) });
 	}
 
 	/// <summary>
@@ -628,14 +628,14 @@ internal class MappingOperationsProcessor
 
 		var cmdValue = new AstWriteLocal(
 		  locValueToWrite,
-		  AstBuildHelper.CallMethod(
+		  AstBuildHelper.ICallMethod(
 			t.GetMethodCache("Invoke"),
 			new AstCastclassRef(
-			  (IAstRef)AstBuildHelper.ReadMemberRv(
+			  (IAstRef)AstBuildHelper.IReadMemberRv(
 				GetStoredObject(operationId, Metadata<DestWriteOperation>.Type),
 				Metadata<DestWriteOperation>.Type.GetProperty(nameof(DestWriteOperation.Getter))),
 			  t),
-			new List<IAstStackItem> { AstBuildHelper.ReadLocalRv(LocFrom), AstBuildHelper.ReadLocalRv(LocState) }));
+			new List<IAstStackItem> { AstBuildHelper.IReadLocalRv(LocFrom), AstBuildHelper.IReadLocalRv(LocState) }));
 
 		// todo: need to add unit test for this method
 		return new AstComplexNode
@@ -646,19 +646,19 @@ internal class MappingOperationsProcessor
 		new AstIf
 		{
 		  Condition = new AstExprEquals(
-			(IAstValue)AstBuildHelper.ReadMembersChain(
-			  AstBuildHelper.ReadLocalRa(locValueToWrite),
+			(IAstValue)AstBuildHelper.IReadMembersChain(
+			  AstBuildHelper.IReadLocalRa(locValueToWrite),
 			  locValueToWrite.LocalType.GetField(nameof(ValueToWrite<object>.Action))),
 			new AstConstantInt32 { Value = 0 }),
 		  TrueBranch = new AstComplexNode
 		  {
 			Nodes = new List<IAstNode>
 			{
-			  AstBuildHelper.WriteMembersChain(
+			  AstBuildHelper.IWriteMembersChain(
 				destWriteOperation.Destination.MembersChain,
-				AstBuildHelper.ReadLocalRa(LocTo),
-				AstBuildHelper.ReadMembersChain(
-				  AstBuildHelper.ReadLocalRa(locValueToWrite),
+				AstBuildHelper.IReadLocalRa(LocTo),
+				AstBuildHelper.IReadMembersChain(
+				  AstBuildHelper.IReadLocalRa(locValueToWrite),
 				  locValueToWrite.LocalType.GetField(
 					nameof(ValueToWrite<object>.Value))))
 			}
@@ -685,12 +685,12 @@ internal class MappingOperationsProcessor
 			convertedValue = new AstIfTernar(
 			  ReflectionHelper.IsNullable(readWriteSimple.Source.MemberType)
 				? new AstExprNot(
-				  AstBuildHelper.ReadPropertyRv(
+				  AstBuildHelper.IReadPropertyRv(
 					new AstValueToAddr((IAstValue)sourceValue),
 					readWriteSimple.Source.MemberType.GetProperty("HasValue")))
 				: new AstExprIsNull(sourceValue),
 			  GetNullValue(readWriteSimple.NullSubstitutor), // source is null
-			  AstBuildHelper.CastClass(
+			  AstBuildHelper.ICastClass(
 				ConvertMappingValue(readWriteSimple, operationId, sourceValue),
 				readWriteSimple.Destination.MemberType));
 		else
@@ -721,8 +721,8 @@ internal class MappingOperationsProcessor
 	/// <returns>An IAstNode.</returns>
 	private IAstNode ProcessSrcReadOperation(SrcReadOperation srcReadOperation, int operationId)
 	{
-		var value = AstBuildHelper.ReadMembersChain(
-		  AstBuildHelper.ReadLocalRa(LocFrom),
+		var value = AstBuildHelper.IReadMembersChain(
+		  AstBuildHelper.IReadLocalRa(LocFrom),
 		  srcReadOperation.Source.MembersChain);
 
 		return WriteMappingValue(srcReadOperation, operationId, value);
@@ -740,7 +740,7 @@ internal class MappingOperationsProcessor
 		switch (mapping)
 		{
 			case ISrcReadOperation readOp:
-				return AstBuildHelper.ReadMembersChain(AstBuildHelper.ReadLocalRa(LocFrom), readOp.Source.MembersChain);
+				return AstBuildHelper.IReadMembersChain(AstBuildHelper.IReadLocalRa(LocFrom), readOp.Source.MembersChain);
 		}
 
 		var destWriteOp = (DestWriteOperation)mapping;
@@ -749,14 +749,14 @@ internal class MappingOperationsProcessor
 		{
 			var t = destWriteOp.Getter.GetType();
 
-			return AstBuildHelper.CallMethod(
+			return AstBuildHelper.ICallMethod(
 			  t.GetMethodCache("Invoke"),
 			  new AstCastclassRef(
-				(IAstRef)AstBuildHelper.ReadMemberRv(
+				(IAstRef)AstBuildHelper.IReadMemberRv(
 				  GetStoredObject(operationId, Metadata<DestWriteOperation>.Type),
 				  Metadata<DestWriteOperation>.Type.GetProperty(nameof(DestWriteOperation.Getter))),
 				t),
-			  new List<IAstStackItem> { AstBuildHelper.ReadLocalRv(LocState) });
+			  new List<IAstStackItem> { AstBuildHelper.IReadLocalRv(LocState) });
 		}
 
 		throw new EmitMapperException("Invalid mapping operations");
@@ -776,20 +776,20 @@ internal class MappingOperationsProcessor
 		switch (mappingOperation)
 		{
 			case SrcReadOperation srcReadOperation:
-				writeValue = AstBuildHelper.CallMethod(
+				writeValue = AstBuildHelper.ICallMethod(
 					Metadata<ValueSetter>.Type.GetMethodCache(nameof(ValueSetter.Invoke)),
 					new AstCastclassRef(
-						(IAstRef)AstBuildHelper.ReadMemberRv(
+						(IAstRef)AstBuildHelper.IReadMemberRv(
 							GetStoredObject(mappingItemId, Metadata<SrcReadOperation>.Type),
 							Metadata<SrcReadOperation>.Type.GetProperty(nameof(SrcReadOperation.Setter))),
 						srcReadOperation.Setter.GetType()),
-					new List<IAstStackItem> { AstBuildHelper.ReadLocalRv(LocTo), value, AstBuildHelper.ReadLocalRv(LocState) });
+					new List<IAstStackItem> { AstBuildHelper.IReadLocalRv(LocTo), value, AstBuildHelper.IReadLocalRv(LocState) });
 
 				break;
 			default:
-				writeValue = AstBuildHelper.WriteMembersChain(
+				writeValue = AstBuildHelper.IWriteMembersChain(
 					(mappingOperation as IDestOperation)?.Destination.MembersChain,
-					AstBuildHelper.ReadLocalRa(LocTo),
+					AstBuildHelper.IReadLocalRa(LocTo),
 					value);
 
 				break;

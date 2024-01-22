@@ -103,7 +103,7 @@ internal class MappingBuilder
 		  }.ProcessOperations());
 
 		mapperAst.Nodes.Add(
-		  new AstReturn { ReturnType = Metadata<object>.Type, ReturnValue = AstBuildHelper.ReadLocalRv(locTo) });
+		  new AstReturn { ReturnType = Metadata<object>.Type, ReturnValue = AstBuildHelper.IReadLocalRv(locTo) });
 
 		mapperAst.Compile(compilationContext);
 	}

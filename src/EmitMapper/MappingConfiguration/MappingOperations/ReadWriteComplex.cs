@@ -46,7 +46,7 @@ public class ReadWriteComplex : IComplexOperation, IReadWriteOperation
 	/// <summary>
 	///   Gets or Sets the operations.
 	/// </summary>
-	public List<IMappingOperation>? Operations { get; set; }
+	public List<IMappingOperation> Operations { get; set; }
 
 	/// <summary>
 	///   Gets or Sets a value indicating whether shallow copy.

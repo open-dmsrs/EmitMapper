@@ -297,9 +297,9 @@ public class MapperForCollection : CustomMapper
 		return new AstReturn
 		{
 			ReturnType = Metadata<object>.Type,
-			ReturnValue = AstBuildHelper.CallMethod(
+			ReturnValue = AstBuildHelper.ICallMethod(
 			mi,
-			AstBuildHelper.ReadThis(Metadata<MapperForCollection>.Type),
+			AstBuildHelper.IReadThis(Metadata<MapperForCollection>.Type),
 			new List<IAstStackItem> { new AstReadArgumentRef { ArgumentIndex = 1, ArgumentType = Metadata<object>.Type } })
 		};
 	}
