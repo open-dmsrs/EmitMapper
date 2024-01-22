@@ -32,6 +32,7 @@ public class CustormTests
 	}
 
 	// [Fact]
+
 	/// <summary>
 	///   Gets the customers.
 	/// </summary>
@@ -53,6 +54,7 @@ public class CustormTests
 	}
 
 	// [Fact]
+
 	/// <summary>
 	///   Inserts the test.
 	/// </summary>
@@ -80,6 +82,7 @@ public class CustormTests
 	}
 
 	// [Fact]
+
 	/// <summary>
 	///   Updates the customer.
 	/// </summary>

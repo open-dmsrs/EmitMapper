@@ -5,10 +5,19 @@
 /// </summary>
 internal class AstIf : IAstNode
 {
+	/// <summary>
+	/// Condition
+	/// </summary>
 	public IAstValue? Condition;
 
+	/// <summary>
+	/// False branch
+	/// </summary>
 	public AstComplexNode? FalseBranch;
 
+	/// <summary>
+	/// True branch
+	/// </summary>
 	public AstComplexNode? TrueBranch;
 
 	/// <inheritdoc />

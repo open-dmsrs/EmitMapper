@@ -5,5 +5,8 @@ namespace EmitMapper.EmitInvoker.Methods;
 /// </summary>
 public class MethodInvokerBase
 {
+	/// <summary>
+	/// Target object
+	/// </summary>
 	public object? TargetObject;
 }

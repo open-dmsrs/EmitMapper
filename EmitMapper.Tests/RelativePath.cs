@@ -1,8 +1,8 @@
 namespace EmitMapper.Tests;
+
 /// <summary>
 /// The relative path.
 /// </summary>
-
 public class RelativePath
 {
 	private readonly ITestOutputHelper _outputHelper;
@@ -16,7 +16,6 @@ public class RelativePath
 		Console.WriteLine(outputHelper.GetType().FullName);
 
 		this._outputHelper = outputHelper;
-
 	}
 
 	/// <summary>
@@ -25,7 +24,6 @@ public class RelativePath
 	[Fact]
 	public void GetRelativePath()
 	{
-
 		var parent = Directory.GetCurrentDirectory();
 		var sub = Path.Combine(parent, @"Users/Default");
 
@@ -36,6 +34,4 @@ public class RelativePath
 		result = Path.GetRelativePath(sub, parent);
 		result.ShouldBe(@".." + Path.DirectorySeparatorChar + "..");
 	}
-
 }
-

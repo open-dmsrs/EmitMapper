@@ -5,10 +5,19 @@
 /// </summary>
 internal class AstWriteLocal : IAstNode
 {
+	/// <summary>
+	/// Local index
+	/// </summary>
 	public int LocalIndex;
 
+	/// <summary>
+	/// Local type
+	/// </summary>
 	public Type LocalType;
 
+	/// <summary>
+	/// Value
+	/// </summary>
 	public IAstRefOrValue Value;
 
 	/// <summary>

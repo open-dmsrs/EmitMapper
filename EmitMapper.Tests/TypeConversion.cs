@@ -76,7 +76,14 @@ public class TypeConversion
 	/// </summary>
 	public class A1
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public int Fld1;
+
+		/// <summary>
+		/// Fld2
+		/// </summary>
 		public string? Fld2;
 	}
 
@@ -85,6 +92,9 @@ public class TypeConversion
 	/// </summary>
 	public class A2
 	{
+		/// <summary>
+		/// Fld3
+		/// </summary>
 		public string[]? Fld3;
 	}
 
@@ -93,7 +103,14 @@ public class TypeConversion
 	/// </summary>
 	public class A3
 	{
+		/// <summary>
+		/// A1
+		/// </summary>
 		public A1 A1 = new();
+
+		/// <summary>
+		/// A2
+		/// </summary>
 		public A2 A2 = new();
 	}
 
@@ -113,6 +130,9 @@ public class TypeConversion
 	/// </summary>
 	public class A5
 	{
+		/// <summary>
+		/// Fld2
+		/// </summary>
 		public string? Fld2;
 	}
 
@@ -121,7 +141,14 @@ public class TypeConversion
 	/// </summary>
 	public class B1
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public decimal Fld1 = 15;
+
+		/// <summary>
+		/// Fld2
+		/// </summary>
 		public decimal Fld2 = 11;
 	}
 
@@ -130,6 +157,9 @@ public class TypeConversion
 	/// </summary>
 	public class B2
 	{
+		/// <summary>
+		/// Fld3
+		/// </summary>
 		public int Fld3 = 99;
 	}
 
@@ -138,7 +168,14 @@ public class TypeConversion
 	/// </summary>
 	public class B3
 	{
+		/// <summary>
+		/// A1
+		/// </summary>
 		public A1 A1 = new();
+
+		/// <summary>
+		/// A2
+		/// </summary>
 		public A2 A2 = new();
 	}
 
@@ -173,6 +210,9 @@ public class TypeConversion
 	/// </summary>
 	public class B5
 	{
+		/// <summary>
+		/// Fld2
+		/// </summary>
 		public decimal Fld2 = 11;
 	}
 }

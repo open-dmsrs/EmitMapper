@@ -31,17 +31,46 @@ public class EnumTests
 	/// </summary>
 	public class A
 	{
+		/// <summary>
+		/// En2
+		/// </summary>
 		public En2 En2;
+
+		/// <summary>
+		/// En4
+		/// </summary>
 		public decimal En4;
+
+		/// <summary>
+		/// En5
+		/// </summary>
 		public string? En5;
+
+		/// <summary>
+		/// En6
+		/// </summary>
 		public En1? En6;
+
+		/// <summary>
+		/// En7
+		/// </summary>
 		public En3 En7;
+
+		/// <summary>
+		/// En8
+		/// </summary>
 		public En3? En8;
+
+		/// <summary>
+		/// En9
+		/// </summary>
 		public En3? En9 = En3.C;
+
 		/// <summary>
 		///   Gets or Sets the en1.
 		/// </summary>
 		public En1 En1 { get; set; }
+
 		/// <summary>
 		///   Gets or Sets the en3.
 		/// </summary>
@@ -53,13 +82,44 @@ public class EnumTests
 	/// </summary>
 	public class B
 	{
+		/// <summary>
+		/// En1
+		/// </summary>
 		public decimal En1 = 3;
+
+		/// <summary>
+		/// En3
+		/// </summary>
 		public string En3 = "C";
+
+		/// <summary>
+		/// En4
+		/// </summary>
 		public En2 En4 = EnumTests.En2.B;
+
+		/// <summary>
+		/// En5
+		/// </summary>
 		public En3 En5 = EnumTests.En3.A;
+
+		/// <summary>
+		/// En6
+		/// </summary>
 		public En2 En6 = EnumTests.En2.C;
+
+		/// <summary>
+		/// En7
+		/// </summary>
 		public En1? En7 = EnumTests.En1.C;
+
+		/// <summary>
+		/// En8
+		/// </summary>
 		public En1? En8 = EnumTests.En1.C;
+
+		/// <summary>
+		/// En9
+		/// </summary>
 		public En2? En9 = null;
 
 		/// <summary>
@@ -81,8 +141,19 @@ public class EnumTests
 	/// </summary>
 	public enum En1 : byte
 	{
+		/// <summary>
+		/// A
+		/// </summary>
 		A = 1,
+
+		/// <summary>
+		/// B
+		/// </summary>
 		B = 2,
+
+		/// <summary>
+		/// C
+		/// </summary>
 		C = 3
 	}
 
@@ -91,8 +162,19 @@ public class EnumTests
 	/// </summary>
 	public enum En2 : long
 	{
+		/// <summary>
+		/// A
+		/// </summary>
 		A = 1,
+
+		/// <summary>
+		/// B
+		/// </summary>
 		B = 2,
+
+		/// <summary>
+		/// C
+		/// </summary>
 		C = 3
 	}
 
@@ -101,8 +183,19 @@ public class EnumTests
 	/// </summary>
 	public enum En3
 	{
+		/// <summary>
+		/// B
+		/// </summary>
 		B = 2,
+
+		/// <summary>
+		/// C
+		/// </summary>
 		C = 3,
+
+		/// <summary>
+		/// A
+		/// </summary>
 		A = 1
 	}
 }

@@ -1,9 +1,18 @@
 ﻿namespace EmitMapper.Utils;
 
+/// <summary>
+/// Types pair
+/// </summary>
 public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<TypesPair>
 {
+	/// <summary>
+	/// Destination type
+	/// </summary>
 	public readonly Type DestinationType;
 
+	/// <summary>
+	/// Source type
+	/// </summary>
 	public readonly Type SourceType;
 
 	private readonly int _hash;
@@ -21,12 +30,24 @@ public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<Type
 		_hash = HashCode.Combine(typeFrom, typeTo);
 	}
 
+	/// <summary>
+	/// Contains generic parameters
+	/// </summary>
+	/// <value cref="bool">bool</value>
 	public bool ContainsGenericParameters =>
 	  SourceType.ContainsGenericParameters || DestinationType.ContainsGenericParameters;
 
+	/// <summary>
+	/// Is constructed generic type
+	/// </summary>
+	/// <value cref="bool">bool</value>
 	public bool IsConstructedGenericType =>
 	  SourceType.IsConstructedGenericType || DestinationType.IsConstructedGenericType;
 
+	/// <summary>
+	/// Is generic type definition
+	/// </summary>
+	/// <value cref="bool">bool</value>
 	public bool IsGenericTypeDefinition => SourceType.IsGenericTypeDefinition || DestinationType.IsGenericTypeDefinition;
 
 	public static bool operator ==(in TypesPair left, in TypesPair right)

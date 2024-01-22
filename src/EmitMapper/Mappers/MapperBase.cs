@@ -7,6 +7,9 @@ namespace EmitMapper.Mappers;
 /// </summary>
 public abstract class MapperBase
 {
+	/// <summary>
+	/// Stored objects
+	/// </summary>
 	public object[]? StoredObjects;
 
 	/// <summary>

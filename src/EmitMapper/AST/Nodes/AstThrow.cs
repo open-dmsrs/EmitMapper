@@ -5,6 +5,9 @@
 /// </summary>
 internal class AstThrow : IAstNode
 {
+	/// <summary>
+	/// Exception
+	/// </summary>
 	public IAstRef? Exception;
 
 	/// <inheritdoc />

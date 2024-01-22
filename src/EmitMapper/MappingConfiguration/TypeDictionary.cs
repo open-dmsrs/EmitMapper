@@ -167,8 +167,14 @@ internal class TypeDictionary<T>
 
 	private readonly struct ListElement : IEquatable<ListElement>
 	{
+		/// <summary>
+		/// Types
+		/// </summary>
 		public readonly Type[] Types;
 
+		/// <summary>
+		/// Value
+		/// </summary>
 		public readonly T Value;
 
 		/// <summary>

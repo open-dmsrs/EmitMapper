@@ -5,6 +5,9 @@
 /// </summary>
 internal class AstConstantString : IAstRef
 {
+	/// <summary>
+	/// Str
+	/// </summary>
 	public string? Str;
 
 	/// <summary>

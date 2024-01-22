@@ -71,6 +71,9 @@ public class DestSrcReadOperationTest
 	/// </summary>
 	public class FromClass
 	{
+		/// <summary>
+		/// Inner
+		/// </summary>
 		public InnerClass Inner = new();
 
 		/// <summary>
@@ -78,6 +81,9 @@ public class DestSrcReadOperationTest
 		/// </summary>
 		public class InnerClass
 		{
+			/// <summary>
+			/// Message
+			/// </summary>
 			public string Message = "hello";
 
 			/// <summary>
@@ -96,7 +102,14 @@ public class DestSrcReadOperationTest
 	/// </summary>
 	public class ToClass
 	{
+		/// <summary>
+		/// Message
+		/// </summary>
 		public string? Message;
+
+		/// <summary>
+		/// Message2
+		/// </summary>
 		public string? Message2;
 	}
 }

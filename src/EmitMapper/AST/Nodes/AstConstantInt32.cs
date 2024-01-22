@@ -5,6 +5,9 @@
 /// </summary>
 internal class AstConstantInt32 : IAstValue
 {
+	/// <summary>
+	/// Value
+	/// </summary>
 	public int Value;
 
 	/// <summary>

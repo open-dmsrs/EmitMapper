@@ -64,6 +64,10 @@ csharp_style_expression_bodied_indexers = true:silent
 csharp_style_expression_bodied_accessors = true:silent
 csharp_style_expression_bodied_lambdas = true:silent
 csharp_style_expression_bodied_local_functions = when_on_single_line:silent
+dotnet_diagnostic.SA1618.severity = suggestion
+dotnet_diagnostic.SA1601.severity = warning
+dotnet_diagnostic.SA1606.severity = suggestion
+dotnet_diagnostic.CA1309.severity = warning
 
 
 [*.{appxmanifest,axml,build,config,csproj,dbml,discomap,dtd,jsproj,lsproj,njsproj,nuspec,proj,props,proto,resw,resx,StyleCop,targets,tasks,vbproj,xml,xsd}]
@@ -212,7 +216,7 @@ dotnet_naming_rule.types_should_be_pascal_case.style = pascal_case
 
 dotnet_naming_rule.non_field_members_should_be_pascal_case.severity = suggestion
 dotnet_naming_rule.non_field_members_should_be_pascal_case.symbols = non_field_members
-dotnet_naming_rule.non_field_members_should_be_pascal_case.style = pascal_case
+dotnet_naming_rule.non_field_members_should_be_pascal_case.style = begins_with_i
 
 # Symbol specifications
 
@@ -299,3 +303,6 @@ dotnet_diagnostic.SA1515.severity = silent
 # SA1516: Elements should be separated by blank line
 dotnet_diagnostic.SA1516.severity = suggestion
 dotnet_diagnostic.CA1000.severity = none
+
+# SA1622: Generic type parameter documentation should have text
+dotnet_diagnostic.SA1622.severity = warning

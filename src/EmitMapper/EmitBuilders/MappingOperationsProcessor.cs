@@ -11,26 +11,59 @@ internal class MappingOperationsProcessor
 
 	private static PropertyInfo _hasValue = Metadata.Nullable1.GetProperty("HasValue");
 
+	/// <summary>
+	/// Compilation context
+	/// </summary>
 	public CompilationContext CompilationContext;
 
+	/// <summary>
+	/// Loc exception
+	/// </summary>
 	public LocalBuilder LocException;
 
+	/// <summary>
+	/// Loc from
+	/// </summary>
 	public LocalBuilder LocFrom;
 
+	/// <summary>
+	/// Loc state
+	/// </summary>
 	public LocalBuilder LocState;
 
+	/// <summary>
+	/// Loc to
+	/// </summary>
 	public LocalBuilder LocTo;
 
+	/// <summary>
+	/// Mapping configurator
+	/// </summary>
 	public IMappingConfigurator? MappingConfigurator;
 
+	/// <summary>
+	/// Objects mapper manager
+	/// </summary>
 	public Mapper ObjectsMapperManager;
 
+	/// <summary>
+	/// Operations
+	/// </summary>
 	public IEnumerable<IMappingOperation> Operations = new List<IMappingOperation>();
 
+	/// <summary>
+	/// Root operation
+	/// </summary>
 	public IRootMappingOperation RootOperation;
 
+	/// <summary>
+	/// Static converters manager
+	/// </summary>
 	public StaticConvertersManager StaticConvertersManager;
 
+	/// <summary>
+	/// Stored objects
+	/// </summary>
 	public List<object> StoredObjects = new();
 
 	/// <summary>

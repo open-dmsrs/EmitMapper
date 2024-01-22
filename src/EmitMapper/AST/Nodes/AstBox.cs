@@ -5,6 +5,9 @@
 /// </summary>
 internal class AstBox : IAstRef
 {
+	/// <summary>
+	/// Value
+	/// </summary>
 	public IAstRefOrValue? Value;
 
 	/// <summary>

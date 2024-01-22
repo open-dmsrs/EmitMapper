@@ -5,8 +5,14 @@
 /// </summary>
 internal class AstUnbox : IAstValue
 {
+	/// <summary>
+	/// Ref obj
+	/// </summary>
 	public required IAstRef RefObj;
 
+	/// <summary>
+	/// Unboxed type
+	/// </summary>
 	public required Type UnboxedType;
 
 	/// <summary>

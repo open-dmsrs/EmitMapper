@@ -5,8 +5,14 @@
 /// </summary>
 internal class AstNewObject : IAstRef
 {
+	/// <summary>
+	/// Constructor params
+	/// </summary>
 	public IAstStackItem[] ConstructorParams;
 
+	/// <summary>
+	/// Object type
+	/// </summary>
 	public Type ObjectType;
 
 	/// <summary>

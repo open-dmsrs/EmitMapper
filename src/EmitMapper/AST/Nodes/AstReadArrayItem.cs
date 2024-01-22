@@ -5,8 +5,14 @@
 /// </summary>
 internal class AstReadArrayItem : IAstStackItem
 {
+	/// <summary>
+	/// Array
+	/// </summary>
 	public IAstRef? Array;
 
+	/// <summary>
+	/// Index
+	/// </summary>
 	public int Index;
 
 	/// <summary>

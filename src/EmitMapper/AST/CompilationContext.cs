@@ -5,8 +5,16 @@ namespace EmitMapper.AST;
 /// </summary>
 internal class CompilationContext
 {
+	/// <summary>
+	/// Il generator
+	/// </summary>
+	/// <value cref="ILGenerator">ILGenerator</value>
 	public ILGenerator IlGenerator { get; }
 
+	/// <summary>
+	/// Output commands
+	/// </summary>
+	/// <value cref="TextWriter">TextWriter</value>
 	public TextWriter OutputCommands { get; }
 
 	private int _stackCount;

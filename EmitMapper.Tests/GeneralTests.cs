@@ -262,10 +262,29 @@ public class GeneralTests
 	/// </summary>
 	public class A
 	{
+		/// <summary>
+		/// En
+		/// </summary>
 		public EnType En = EnType.En3;
+
+		/// <summary>
+		/// Obj
+		/// </summary>
 		public AInt Obj;
+
+		/// <summary>
+		/// Obj arr
+		/// </summary>
 		public AInt[] ObjArr;
+
+		/// <summary>
+		/// Str2
+		/// </summary>
 		public string Str2 = "Destination::str2";
+
+		/// <summary>
+		/// Str3
+		/// </summary>
 		public string Str3 = "Destination::str3";
 
 		/// <summary>
@@ -281,8 +300,19 @@ public class GeneralTests
 		/// </summary>
 		public enum EnType
 		{
+			/// <summary>
+			/// En1
+			/// </summary>
 			En1,
+
+			/// <summary>
+			/// En2
+			/// </summary>
 			En2,
+
+			/// <summary>
+			/// En3
+			/// </summary>
 			En3
 		}
 
@@ -290,6 +320,7 @@ public class GeneralTests
 		///   Gets or Sets the arr.
 		/// </summary>
 		public int[] Arr { get; set; }
+
 		/// <summary>
 		///   Gets or Sets the str1.
 		/// </summary>
@@ -300,7 +331,14 @@ public class GeneralTests
 		/// </summary>
 		public class AInt
 		{
+			/// <summary>
+			/// Str
+			/// </summary>
 			public string Str = "AInt";
+
+			/// <summary>
+			/// Intern
+			/// </summary>
 			internal int Intern = 13;
 
 			/// <summary>
@@ -318,7 +356,14 @@ public class GeneralTests
 	/// </summary>
 	internal class A1
 	{
+		/// <summary>
+		/// F1
+		/// </summary>
 		public string F1 = "A1::f1";
+
+		/// <summary>
+		/// F2
+		/// </summary>
 		public string F2 = "A1::f2";
 	}
 
@@ -327,6 +372,9 @@ public class GeneralTests
 	/// </summary>
 	public class A2
 	{
+		/// <summary>
+		/// Str
+		/// </summary>
 		public string? Str;
 	}
 
@@ -335,8 +383,19 @@ public class GeneralTests
 	/// </summary>
 	public class A3
 	{
+		/// <summary>
+		/// I1
+		/// </summary>
 		public Int2? I1;
+
+		/// <summary>
+		/// I2
+		/// </summary>
 		public Int2? I2;
+
+		/// <summary>
+		/// I3
+		/// </summary>
 		public Int2? I3;
 
 		/// <summary>
@@ -344,8 +403,19 @@ public class GeneralTests
 		/// </summary>
 		public class Int1
 		{
+			/// <summary>
+			/// I
+			/// </summary>
 			public int I;
+
+			/// <summary>
+			/// Str1
+			/// </summary>
 			public string? Str1;
+
+			/// <summary>
+			/// Str2
+			/// </summary>
 			public string? Str2;
 		}
 
@@ -354,8 +424,19 @@ public class GeneralTests
 		/// </summary>
 		public class Int2
 		{
+			/// <summary>
+			/// I1
+			/// </summary>
 			public Int1? I1;
+
+			/// <summary>
+			/// I2
+			/// </summary>
 			public Int1? I2;
+
+			/// <summary>
+			/// I3
+			/// </summary>
 			public Int1? I3;
 		}
 	}
@@ -365,10 +446,29 @@ public class GeneralTests
 	/// </summary>
 	public class B
 	{
+		/// <summary>
+		/// En
+		/// </summary>
 		public EnType En = EnType.En2;
+
+		/// <summary>
+		/// Obj
+		/// </summary>
 		public BInt Obj = new();
+
+		/// <summary>
+		/// Obj arr
+		/// </summary>
 		public BInt[] ObjArr;
+
+		/// <summary>
+		/// Str1
+		/// </summary>
 		public string Str1 = "Source::str1";
+
+		/// <summary>
+		/// Str3
+		/// </summary>
 		public object Str3 = null;
 
 		/// <summary>
@@ -388,8 +488,19 @@ public class GeneralTests
 		/// </summary>
 		public enum EnType
 		{
+			/// <summary>
+			/// En1
+			/// </summary>
 			En1,
+
+			/// <summary>
+			/// En2
+			/// </summary>
 			En2,
+
+			/// <summary>
+			/// En3
+			/// </summary>
 			En3
 		}
 
@@ -397,6 +508,7 @@ public class GeneralTests
 		///   Gets the arr.
 		/// </summary>
 		public int[] Arr => new[] { 1, 5, 9 };
+
 		/// <summary>
 		///   Gets the str2.
 		/// </summary>
@@ -407,6 +519,9 @@ public class GeneralTests
 		/// </summary>
 		public class BInt
 		{
+			/// <summary>
+			/// Str
+			/// </summary>
 			public string Str = "BInt";
 			/*
 				  public string str
@@ -426,7 +541,14 @@ public class GeneralTests
 	/// </summary>
 	internal class B1
 	{
+		/// <summary>
+		/// F1
+		/// </summary>
 		public string F1 = "B1::f1";
+
+		/// <summary>
+		/// F2
+		/// </summary>
 		public string F2 = "B1::f2";
 	}
 
@@ -435,6 +557,9 @@ public class GeneralTests
 	/// </summary>
 	public class B2
 	{
+		/// <summary>
+		/// Str
+		/// </summary>
 		public string Str = "str";
 	}
 
@@ -443,8 +568,19 @@ public class GeneralTests
 	/// </summary>
 	public class B3
 	{
+		/// <summary>
+		/// I1
+		/// </summary>
 		public Int2 I1 = null;
+
+		/// <summary>
+		/// I2
+		/// </summary>
 		public Int2 I2 = new();
+
+		/// <summary>
+		/// I3
+		/// </summary>
 		public Int2 I3 = new();
 
 		/// <summary>
@@ -452,8 +588,19 @@ public class GeneralTests
 		/// </summary>
 		public class Int1
 		{
+			/// <summary>
+			/// I
+			/// </summary>
 			public long I = 10;
+
+			/// <summary>
+			/// Str1
+			/// </summary>
 			public string Str1 = "1";
+
+			/// <summary>
+			/// Str2
+			/// </summary>
 			public string Str2 = null;
 		}
 
@@ -462,8 +609,19 @@ public class GeneralTests
 		/// </summary>
 		public class Int2
 		{
+			/// <summary>
+			/// I1
+			/// </summary>
 			public Int1 I1 = new();
+
+			/// <summary>
+			/// I2
+			/// </summary>
 			public Int1 I2 = new();
+
+			/// <summary>
+			/// I3
+			/// </summary>
 			public Int1 I3 = null;
 		}
 	}
@@ -473,6 +631,9 @@ public class GeneralTests
 	/// </summary>
 	public class ConstructByDestination
 	{
+		/// <summary>
+		/// Field
+		/// </summary>
 		public NestedClass Field;
 
 		/// <summary>
@@ -488,7 +649,14 @@ public class GeneralTests
 		/// </summary>
 		public class NestedClass
 		{
+			/// <summary>
+			/// I
+			/// </summary>
 			public int I;
+
+			/// <summary>
+			/// Str
+			/// </summary>
 			public string Str;
 
 			/// <summary>
@@ -508,6 +676,9 @@ public class GeneralTests
 	/// </summary>
 	public class ConstructBySource
 	{
+		/// <summary>
+		/// Field
+		/// </summary>
 		public NestedClass Field = new();
 
 		/// <summary>
@@ -515,6 +686,9 @@ public class GeneralTests
 		/// </summary>
 		public class NestedClass
 		{
+			/// <summary>
+			/// Str
+			/// </summary>
 			public string Str = "ConstructBy_Source::str";
 		}
 	}
@@ -524,8 +698,19 @@ public class GeneralTests
 	/// </summary>
 	public class Destination
 	{
+		/// <summary>
+		/// M field1
+		/// </summary>
 		public string? MField1;
+
+		/// <summary>
+		/// M field2
+		/// </summary>
 		public string? MField2;
+
+		/// <summary>
+		/// M field3
+		/// </summary>
 		public string? MField3;
 	}
 
@@ -534,7 +719,14 @@ public class GeneralTests
 	/// </summary>
 	public class Simple1
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public A.EnType Fld1 = A.EnType.En1;
+
+		/// <summary>
+		/// I
+		/// </summary>
 		public int I = 10;
 	}
 
@@ -543,7 +735,14 @@ public class GeneralTests
 	/// </summary>
 	public class Simple2
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public B.EnType Fld1 = B.EnType.En2;
+
+		/// <summary>
+		/// I
+		/// </summary>
 		public int I = 20;
 	}
 
@@ -552,8 +751,19 @@ public class GeneralTests
 	/// </summary>
 	public class Source
 	{
+		/// <summary>
+		/// Field1
+		/// </summary>
 		public string Field1 = "Source::field1";
+
+		/// <summary>
+		/// Field2
+		/// </summary>
 		public string Field2 = "Source::field2";
+
+		/// <summary>
+		/// Field3
+		/// </summary>
 		public string Field3 = "Source::field3";
 	}
 
@@ -562,28 +772,63 @@ public class GeneralTests
 	/// </summary>
 	public class TreeNode
 	{
+		/// <summary>
+		/// Data
+		/// </summary>
 		public string? Data;
+
+		/// <summary>
+		/// Next
+		/// </summary>
 		public TreeNode? Next;
+
+		/// <summary>
+		/// Sub nodes
+		/// </summary>
 		public TreeNode[]? SubNodes;
 	}
 
+	/// <summary>
+	/// Class1
+	/// </summary>
 	public struct Class1
 	{
+		/// <summary>
+		/// Fld
+		/// </summary>
 		public int Fld;
 	}
 
+	/// <summary>
+	/// Class2
+	/// </summary>
 	public struct Class2
 	{
+		/// <summary>
+		/// Fld
+		/// </summary>
 		public int Fld;
 	}
 
+	/// <summary>
+	/// Struct1
+	/// </summary>
 	public struct Struct1
 	{
+		/// <summary>
+		/// Fld
+		/// </summary>
 		public int Fld;
 	}
 
+	/// <summary>
+	/// Struct2
+	/// </summary>
 	public struct Struct2
 	{
+		/// <summary>
+		/// Fld
+		/// </summary>
 		public int Fld;
 	}
 }

@@ -43,6 +43,9 @@ public class Flattering
 	/// </summary>
 	public class ModelDto
 	{
+		/// <summary>
+		/// Test method1
+		/// </summary>
 		public string? TestMethod1;
 
 		/// <summary>
@@ -73,7 +76,6 @@ public class Flattering
 		/// <summary>
 		///   cant support this property
 		/// </summary>
-
 		// public string SubSubSubNoExistInSourceProperty { get; set; }
 		public void T()
 		{

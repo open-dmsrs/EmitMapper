@@ -5,8 +5,14 @@
 /// </summary>
 internal class AstReturn : IAstAddr
 {
+	/// <summary>
+	/// Return type
+	/// </summary>
 	public required Type ReturnType;
 
+	/// <summary>
+	/// Return value
+	/// </summary>
 	public IAstRefOrValue? ReturnValue;
 
 	/// <summary>

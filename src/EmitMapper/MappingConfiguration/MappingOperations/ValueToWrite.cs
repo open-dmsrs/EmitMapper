@@ -1,9 +1,18 @@
 namespace EmitMapper.MappingConfiguration.MappingOperations;
 
+/// <summary>
+/// Value to write
+/// </summary>
 public struct ValueToWrite<T>
 {
+	/// <summary>
+	/// Action
+	/// </summary>
 	public Actions Action;
 
+	/// <summary>
+	/// Value
+	/// </summary>
 	public T Value;
 
 	/// <summary>
@@ -11,8 +20,14 @@ public struct ValueToWrite<T>
 	/// </summary>
 	public enum Actions
 	{
+		/// <summary>
+		/// Write
+		/// </summary>
 		Write = 0,
 
+		/// <summary>
+		/// Skip
+		/// </summary>
 		Skip = 1
 	}
 

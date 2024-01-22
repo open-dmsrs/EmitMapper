@@ -5,10 +5,19 @@
 /// </summary>
 internal class AstIfTernar : IAstRefOrValue
 {
+	/// <summary>
+	/// Condition
+	/// </summary>
 	public IAstRefOrValue Condition;
 
+	/// <summary>
+	/// False branch
+	/// </summary>
 	public IAstRefOrValue FalseBranch;
 
+	/// <summary>
+	/// True branch
+	/// </summary>
 	public IAstRefOrValue TrueBranch;
 
 	/// <summary>

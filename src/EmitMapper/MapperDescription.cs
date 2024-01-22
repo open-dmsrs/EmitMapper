@@ -5,16 +5,27 @@ namespace EmitMapper;
 /// </summary>
 public class MapperDescription
 {
+	/// <summary>
+	/// Id
+	/// </summary>
+	/// <value cref="int">int</value>
 	public int Id
 	{
 		get;
 	}
 
+	/// <summary>
+	/// Key
+	/// </summary>
+	/// <value cref="MapperKey">MapperKey</value>
 	public MapperKey Key
 	{
 		get;
 	}
 
+	/// <summary>
+	/// Mapper
+	/// </summary>
 	public MapperBase? Mapper;
 
 	/// <summary>

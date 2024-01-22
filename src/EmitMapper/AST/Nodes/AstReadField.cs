@@ -5,8 +5,14 @@
 /// </summary>
 internal class AstReadField : IAstStackItem
 {
+	/// <summary>
+	/// Field info
+	/// </summary>
 	public FieldInfo? FieldInfo;
 
+	/// <summary>
+	/// Source object
+	/// </summary>
 	public IAstRefOrAddr? SourceObject;
 
 	/// <summary>

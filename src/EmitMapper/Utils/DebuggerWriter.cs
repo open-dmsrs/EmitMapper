@@ -5,7 +5,6 @@ namespace EmitMapper;
 /// <summary>
 /// Implements a <see cref="TextWriter"/> for writing information to the debugger log.
 /// </summary>
-/// <seealso cref="Debugger.Log"/>
 public class DebuggerWriter : TextWriter
 {
 	private static UnicodeEncoding? _encoding;

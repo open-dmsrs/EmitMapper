@@ -23,7 +23,14 @@ public class IgnoreByAttributes
 	/// </summary>
 	public class IgnoreByAttributesDst
 	{
+		/// <summary>
+		/// Str1
+		/// </summary>
 		public string Str1 = "IgnoreByAttributesDst::str1";
+
+		/// <summary>
+		/// Str2
+		/// </summary>
 		public string Str2 = "IgnoreByAttributesDst::str2";
 	}
 
@@ -32,7 +39,14 @@ public class IgnoreByAttributes
 	/// </summary>
 	public class IgnoreByAttributesSrc
 	{
+		/// <summary>
+		/// Str1
+		/// </summary>
 		[MyIgnore] public string Str1 = "IgnoreByAttributesSrc::str1";
+
+		/// <summary>
+		/// Str2
+		/// </summary>
 		public string Str2 = "IgnoreByAttributesSrc::str2";
 	}
 

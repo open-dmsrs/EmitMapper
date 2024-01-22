@@ -5,6 +5,9 @@
 /// </summary>
 internal class AstValueToAddr : IAstAddr
 {
+	/// <summary>
+	/// Value
+	/// </summary>
 	public IAstValue Value;
 
 	/// <summary>

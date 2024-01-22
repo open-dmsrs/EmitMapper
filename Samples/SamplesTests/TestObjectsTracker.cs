@@ -67,10 +67,19 @@ public class TestObjectsTracker
 	/// </summary>
 	public class A
 	{
+		/// <summary>
+		/// F1
+		/// </summary>
 		public string F1 = "F1";
 
+		/// <summary>
+		/// F2
+		/// </summary>
 		public int F2 = 2;
 
+		/// <summary>
+		/// F3
+		/// </summary>
 		public bool F3 = true;
 	}
 }

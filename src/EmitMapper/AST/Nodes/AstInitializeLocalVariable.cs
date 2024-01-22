@@ -5,8 +5,14 @@
 /// </summary>
 internal class AstInitializeLocalVariable : IAstNode
 {
+	/// <summary>
+	/// Local index
+	/// </summary>
 	public int LocalIndex;
 
+	/// <summary>
+	/// Local type
+	/// </summary>
 	public Type LocalType;
 
 	/// <summary>

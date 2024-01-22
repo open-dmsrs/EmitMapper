@@ -1,9 +1,18 @@
 ﻿namespace EmitMapper.Utils;
 
+/// <summary>
+/// Constructor parameters
+/// </summary>
 public readonly struct ConstructorParameters
 {
+	/// <summary>
+	/// Constructor
+	/// </summary>
 	public readonly ConstructorInfo Constructor;
 
+	/// <summary>
+	/// Parameters
+	/// </summary>
 	public readonly ParameterInfo[] Parameters;
 
 	/// <summary>

@@ -49,6 +49,7 @@ public static class ExpressionHelper
 	}
 
 	// this method thanks to Marc Gravell
+
 	/// <summary>
 	/// The swap visitor.
 	/// </summary>

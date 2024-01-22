@@ -122,9 +122,24 @@ public class NullableTypes
 	/// </summary>
 	public class A1
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public int Fld1;
+
+		/// <summary>
+		/// Fld2
+		/// </summary>
 		public int Fld2;
+
+		/// <summary>
+		/// Fld3
+		/// </summary>
 		public int? Fld3;
+
+		/// <summary>
+		/// I
+		/// </summary>
 		public Int1? I;
 
 		/// <summary>
@@ -132,6 +147,9 @@ public class NullableTypes
 		/// </summary>
 		public class Int1
 		{
+			/// <summary>
+			/// S
+			/// </summary>
 			public string S;
 
 			/// <summary>
@@ -157,6 +175,9 @@ public class NullableTypes
 	/// </summary>
 	public class A2
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public int? Fld1;
 	}
 
@@ -165,10 +186,29 @@ public class NullableTypes
 	/// </summary>
 	public class A3
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public AInt? Fld1;
+
+		/// <summary>
+		/// Fld4
+		/// </summary>
 		public AInt? Fld4;
+
+		/// <summary>
+		/// Fld5
+		/// </summary>
 		public AInt? Fld5;
+
+		/// <summary>
+		/// Fld6
+		/// </summary>
 		public AInt? Fld6;
+
+		/// <summary>
+		/// Fld7
+		/// </summary>
 		public AInt Fld7;
 
 		/// <summary>
@@ -185,15 +225,30 @@ public class NullableTypes
 		///   Gets or Sets the fld2.
 		/// </summary>
 		public AInt? Fld2 { get; set; }
+
 		/// <summary>
 		///   Gets or Sets the fld3.
 		/// </summary>
 		public AInt? Fld3 { get; set; }
 
+		/// <summary>
+		/// A int
+		/// </summary>
 		public struct AInt
 		{
+			/// <summary>
+			/// Fld1
+			/// </summary>
 			public string Fld1;
+
+			/// <summary>
+			/// Fld2
+			/// </summary>
 			public string Fld2;
+
+			/// <summary>
+			/// Fld3
+			/// </summary>
 			public string Fld3;
 		}
 	}
@@ -203,10 +258,19 @@ public class NullableTypes
 	/// </summary>
 	public class A4
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public AInt Fld1;
 
+		/// <summary>
+		/// A int
+		/// </summary>
 		public struct AInt
 		{
+			/// <summary>
+			/// Fld1
+			/// </summary>
 			public string Fld1;
 		}
 	}
@@ -216,11 +280,34 @@ public class NullableTypes
 	/// </summary>
 	public class A5
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public int? Fld1 = 0;
+
+		/// <summary>
+		/// Fld2
+		/// </summary>
 		public int? Fld2 = 10;
+
+		/// <summary>
+		/// Fld3
+		/// </summary>
 		public En? Fld3 = En.Value1;
+
+		/// <summary>
+		/// Fld4
+		/// </summary>
 		public En Fld4 = En.Value1;
+
+		/// <summary>
+		/// Fld5
+		/// </summary>
 		public int? Fld5 = 0;
+
+		/// <summary>
+		/// Fld6
+		/// </summary>
 		public int? Fld6 = null;
 
 		/// <summary>
@@ -228,8 +315,19 @@ public class NullableTypes
 		/// </summary>
 		public enum En
 		{
+			/// <summary>
+			/// Value1
+			/// </summary>
 			Value1,
+
+			/// <summary>
+			/// Value2
+			/// </summary>
 			Value2,
+
+			/// <summary>
+			/// Value3
+			/// </summary>
 			Value3
 		}
 	}
@@ -243,6 +341,7 @@ public class NullableTypes
 		///   Gets or Sets the dt.
 		/// </summary>
 		public DateTime? Dt { get; set; }
+
 		/// <summary>
 		///   Gets or Sets the i.
 		/// </summary>
@@ -265,9 +364,24 @@ public class NullableTypes
 	/// </summary>
 	public class B1
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public int? Fld1 = 10;
+
+		/// <summary>
+		/// Fld2
+		/// </summary>
 		public int? Fld2;
+
+		/// <summary>
+		/// Fld3
+		/// </summary>
 		public int? Fld3;
+
+		/// <summary>
+		/// I
+		/// </summary>
 		public Int1? I;
 
 		/// <summary>
@@ -275,6 +389,9 @@ public class NullableTypes
 		/// </summary>
 		public class Int1
 		{
+			/// <summary>
+			/// S
+			/// </summary>
 			public string S = "B1::Int1::s";
 		}
 	}
@@ -284,6 +401,9 @@ public class NullableTypes
 	/// </summary>
 	public class B2
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public int Fld1 = 10;
 	}
 
@@ -292,23 +412,54 @@ public class NullableTypes
 	/// </summary>
 	public class B3
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public BInt? Fld1;
+
+		/// <summary>
+		/// Fld3
+		/// </summary>
 		public BInt? Fld3;
+
+		/// <summary>
+		/// Fld5
+		/// </summary>
 		public BInt? Fld5;
+
+		/// <summary>
+		/// Fld6
+		/// </summary>
 		public BInt Fld6;
+
+		/// <summary>
+		/// Fld7
+		/// </summary>
 		public BInt? Fld7;
+
 		/// <summary>
 		///   Gets or Sets the fld2.
 		/// </summary>
 		public BInt? Fld2 { get; set; }
+
 		/// <summary>
 		///   Gets or Sets the fld4.
 		/// </summary>
 		public BInt? Fld4 { get; set; }
 
+		/// <summary>
+		/// B int
+		/// </summary>
 		public struct BInt
 		{
+			/// <summary>
+			/// Fld1
+			/// </summary>
 			public string Fld1;
+
+			/// <summary>
+			/// Fld2
+			/// </summary>
 			public string Fld2;
 		}
 	}
@@ -318,10 +469,19 @@ public class NullableTypes
 	/// </summary>
 	public class B4
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public BInt? Fld1 = new BInt();
 
+		/// <summary>
+		/// B int
+		/// </summary>
 		public struct BInt
 		{
+			/// <summary>
+			/// Fld1
+			/// </summary>
 			public string Fld1;
 		}
 	}
@@ -331,11 +491,34 @@ public class NullableTypes
 	/// </summary>
 	public class B5
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public int Fld1 = 10;
+
+		/// <summary>
+		/// Fld2
+		/// </summary>
 		public string Fld2 = null;
+
+		/// <summary>
+		/// Fld3
+		/// </summary>
 		public En Fld3 = En.Value2;
+
+		/// <summary>
+		/// Fld4
+		/// </summary>
 		public En? Fld4 = En.Value3;
+
+		/// <summary>
+		/// Fld5
+		/// </summary>
 		public int? Fld5 = 13;
+
+		/// <summary>
+		/// Fld6
+		/// </summary>
 		public string Fld6 = "11";
 
 		/// <summary>
@@ -343,8 +526,19 @@ public class NullableTypes
 		/// </summary>
 		public enum En
 		{
+			/// <summary>
+			/// Value1
+			/// </summary>
 			Value1,
+
+			/// <summary>
+			/// Value2
+			/// </summary>
 			Value2,
+
+			/// <summary>
+			/// Value3
+			/// </summary>
 			Value3
 		}
 	}
@@ -359,6 +553,9 @@ public class NullableTypes
 	/// </summary>
 	public class B7
 	{
+		/// <summary>
+		/// I
+		/// </summary>
 		public decimal I = 100;
 	}
 }

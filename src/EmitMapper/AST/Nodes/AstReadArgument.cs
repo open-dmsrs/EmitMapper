@@ -5,8 +5,14 @@
 /// </summary>
 internal class AstReadArgument : IAstStackItem
 {
+	/// <summary>
+	/// Argument index
+	/// </summary>
 	public int ArgumentIndex;
 
+	/// <summary>
+	/// Argument type
+	/// </summary>
 	public required Type ArgumentType;
 
 	/// <summary>

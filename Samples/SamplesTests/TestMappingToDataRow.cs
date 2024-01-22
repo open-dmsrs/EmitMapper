@@ -64,15 +64,25 @@ public class TestMappingToDataRow
 	// Using:
 
 	// Test data object
+
 	/// <summary>
 	///   The test dto.
 	/// </summary>
 	public class TestDto
 	{
+		/// <summary>
+		/// Field1
+		/// </summary>
 		public string Field1 = "field1";
 
+		/// <summary>
+		/// Field2
+		/// </summary>
 		public int Field2 = 10;
 
+		/// <summary>
+		/// Field3
+		/// </summary>
 		public bool Field3 = true;
 	}
 }

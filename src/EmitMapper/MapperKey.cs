@@ -1,5 +1,8 @@
 ﻿namespace EmitMapper;
 
+/// <summary>
+/// Mapper key
+/// </summary>
 public readonly struct MapperKey : IEqualityComparer<MapperKey>, IEquatable<MapperKey>
 {
 	private readonly int _hash;

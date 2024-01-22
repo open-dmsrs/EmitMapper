@@ -77,6 +77,9 @@ public static class SwitchExpressions
 		return new SwitchExpression<TSwitch>(on, comparer ?? EqualityComparer<TSwitch>.Default);
 	}
 
+	/// <summary>
+	/// Boolean switch expression
+	/// </summary>
 	public struct BooleanSwitchExpression<TResult>
 	{
 		/// <summary>
@@ -102,6 +105,9 @@ public static class SwitchExpressions
 		internal Func<TResult> ValueFactory { get; }
 	}
 
+	/// <summary>
+	/// Completed switch expression
+	/// </summary>
 	public readonly struct CompletedSwitchExpression<TResult>
 	{
 		private readonly bool _completed;
@@ -119,6 +125,10 @@ public static class SwitchExpressions
 			_completed = true;
 		}
 
+		/// <summary>
+		/// Value
+		/// </summary>
+		/// <value cref="TResult">TResult</value>
 		public TResult Value
 		{
 			get
@@ -160,8 +170,14 @@ public static class SwitchExpressions
 		}
 	}
 
+	/// <summary>
+	/// Default throw expression
+	/// </summary>
 	public struct DefaultThrowExpression;
 
+	/// <summary>
+	/// Switch expression
+	/// </summary>
 	public readonly struct SwitchExpression<TSwitch>
 	{
 		/// <summary>
@@ -208,6 +224,9 @@ public static class SwitchExpressions
 		}
 	}
 
+	/// <summary>
+	/// Switch expression
+	/// </summary>
 	public struct SwitchExpression<TSwitch, TResult>
 	{
 		private object _objectState;
@@ -223,21 +242,46 @@ public static class SwitchExpressions
 		/// </summary>
 		private enum State : byte
 		{
+			/// <summary>
+			/// None
+			/// </summary>
 			None,
 
+			/// <summary>
+			/// Case with value factory
+			/// </summary>
 			CaseWithValueFactory,
 
+			/// <summary>
+			/// True boolean case
+			/// </summary>
 			TrueBooleanCase,
 
+			/// <summary>
+			/// False boolean case
+			/// </summary>
 			FalseBooleanCase,
 
+			/// <summary>
+			/// Type case
+			/// </summary>
 			TypeCase,
 
+			/// <summary>
+			/// Awaiting match
+			/// </summary>
 			AwaitingMatch,
 
+			/// <summary>
+			/// Completed
+			/// </summary>
 			Completed
 		}
 
+		/// <summary>
+		/// Value
+		/// </summary>
+		/// <value cref="TResult">TResult</value>
 		public TResult Value
 		{
 			get

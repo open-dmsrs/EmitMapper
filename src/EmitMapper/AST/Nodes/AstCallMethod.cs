@@ -5,10 +5,19 @@
 /// </summary>
 internal class AstCallMethod : IAstRefOrValue
 {
+	/// <summary>
+	/// Arguments
+	/// </summary>
 	public List<IAstStackItem> Arguments;
 
+	/// <summary>
+	/// Invocation object
+	/// </summary>
 	public IAstRefOrAddr InvocationObject;
 
+	/// <summary>
+	/// Method info
+	/// </summary>
 	public MethodInfo MethodInfo;
 
 	/// <summary>

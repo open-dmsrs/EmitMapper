@@ -1,6 +1,8 @@
 ﻿namespace EmitMapper.EmitInvoker.Delegates;
 
-/// <inheritdoc />
+/// <summary>
+/// The delegate invoker action0.
+/// </summary>
 public abstract class DelegateInvokerAction0 : DelegateInvokerBase
 {
 	/// <summary>

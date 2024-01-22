@@ -5,6 +5,9 @@
 /// </summary>
 internal class AstReadThis : IAstRefOrAddr
 {
+	/// <summary>
+	/// This type
+	/// </summary>
 	public required Type ThisType;
 
 	/// <summary>

@@ -59,14 +59,14 @@ public class MapListObject
 		var tolist = mapper.Map(listFrom);
 		tolist.ShouldBe(listFrom);
 
-// var f = listFrom.GetEnumerator();
-// var t = tolist.GetEnumerator();
-// while (f.MoveNext() && t.MoveNext())
-// {
-// _testOutputHelper.WriteLine((t.Current as ToClass)?.Message);
-// Assert.Equal(((FromClass)f.Current)?.Inner.Message, (t.Current as ToClass)?.Message);
-// Assert.Equal(((FromClass)f.Current)?.Inner.GetMessage2(), (t.Current as ToClass)?.Message2);
-// }
+		// var f = listFrom.GetEnumerator();
+		// var t = tolist.GetEnumerator();
+		// while (f.MoveNext() && t.MoveNext())
+		// {
+		// _testOutputHelper.WriteLine((t.Current as ToClass)?.Message);
+		// Assert.Equal(((FromClass)f.Current)?.Inner.Message, (t.Current as ToClass)?.Message);
+		// Assert.Equal(((FromClass)f.Current)?.Inner.GetMessage2(), (t.Current as ToClass)?.Message2);
+		// }
 	}
 
 	/// <summary>
@@ -77,15 +77,13 @@ public class MapListObject
 	{
 		Fixture fixture = new();
 
-		// fixture.Customizations.Add(
-		// new RandomDoublePrecisionFloatingPointSequenceGenerator());
+		fixture.Customizations.Add(new RandomDoublePrecisionFloatingPointSequenceGenerator());
 		var list = fixture.CreateMany<SimpleTypesSource>(3).ToList();
 
 		// list.FirstOrDefault().N5 = 3.3232423424234M;
 		_testOutputHelper.WriteLine(list.Count.ToString(CultureInfo.InvariantCulture));
-
+		_ = Mapper.Default.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
 		var mapper = Mapper.Default.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
-		mapper = Mapper.Default.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
 		var tolist = mapper.MapEnum(list);
 
 		// tolist.ShouldBe(list);
@@ -204,6 +202,9 @@ public class MapListObject
 	/// </summary>
 	public class FromClass
 	{
+		/// <summary>
+		/// Inner
+		/// </summary>
 		public InnerClass Inner = new();
 
 		/// <summary>
@@ -211,6 +212,9 @@ public class MapListObject
 		/// </summary>
 		public class InnerClass
 		{
+			/// <summary>
+			/// Message
+			/// </summary>
 			public string Message = "hello";
 
 			/// <summary>
@@ -227,14 +231,14 @@ public class MapListObject
 	internal class RandomDoublePrecisionFloatingPointSequenceGenerator : ISpecimenBuilder
 	{
 		private readonly Random _random;
-		private readonly object _syncRoot;
+		private readonly object syncRoot;
 
 		/// <summary>
 		///     Initializes a new instance of the <see cref="RandomDoublePrecisionFloatingPointSequenceGenerator" /> class.
 		/// </summary>
 		internal RandomDoublePrecisionFloatingPointSequenceGenerator()
 		{
-			_syncRoot = new object();
+			syncRoot = new object();
 			_random = new Random();
 		}
 
@@ -282,7 +286,7 @@ public class MapListObject
 		/// <returns>A double.</returns>
 		private double GetNextRandom()
 		{
-			lock (_syncRoot)
+			lock (syncRoot)
 			{
 				return _random.NextDouble();
 			}
@@ -294,7 +298,14 @@ public class MapListObject
 	/// </summary>
 	public class ToClass
 	{
+		/// <summary>
+		/// Message
+		/// </summary>
 		public string? Message;
+
+		/// <summary>
+		/// Message2
+		/// </summary>
 		public string? Message2;
 	}
 }

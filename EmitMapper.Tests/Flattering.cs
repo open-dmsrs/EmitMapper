@@ -49,7 +49,14 @@ public class Flattering
 	/// </summary>
 	public class Destination
 	{
+		/// <summary>
+		/// Message
+		/// </summary>
 		public string? Message;
+
+		/// <summary>
+		/// Message2
+		/// </summary>
 		public string? Message2;
 	}
 
@@ -58,6 +65,9 @@ public class Flattering
 	/// </summary>
 	public class Source
 	{
+		/// <summary>
+		/// Inner source
+		/// </summary>
 		public InnerSourceClass InnerSource = new();
 
 		/// <summary>
@@ -65,6 +75,9 @@ public class Flattering
 		/// </summary>
 		public class InnerSourceClass
 		{
+			/// <summary>
+			/// Message
+			/// </summary>
 			public string Message = "message's value";
 
 			/// <summary>

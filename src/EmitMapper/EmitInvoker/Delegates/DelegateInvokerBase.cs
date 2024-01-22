@@ -5,5 +5,8 @@ namespace EmitMapper.EmitInvoker.Delegates;
 /// </summary>
 public class DelegateInvokerBase
 {
+	/// <summary>
+	/// Del
+	/// </summary>
 	public Delegate? Del;
 }

@@ -5,8 +5,14 @@
 /// </summary>
 internal class AstReadLocal : IAstStackItem
 {
+	/// <summary>
+	/// Local index
+	/// </summary>
 	public int LocalIndex;
 
+	/// <summary>
+	/// Local type
+	/// </summary>
 	public Type LocalType;
 
 	/// <summary>

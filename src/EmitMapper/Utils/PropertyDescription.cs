@@ -1,12 +1,24 @@
 ﻿namespace EmitMapper.Utils;
 
+/// <summary>
+/// Property description
+/// </summary>
 [DebuggerDisplay("{Name}-{Type.Name}")]
 public readonly struct PropertyDescription : IEquatable<PropertyDescription>
 {
+	/// <summary>
+	/// Can write
+	/// </summary>
 	public readonly bool CanWrite;
 
+	/// <summary>
+	/// Name
+	/// </summary>
 	public readonly string Name;
 
+	/// <summary>
+	/// Type
+	/// </summary>
 	public readonly Type Type;
 
 	/// <summary>

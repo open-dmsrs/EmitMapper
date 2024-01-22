@@ -113,6 +113,9 @@ public class ValueTypes
 	/// </summary>
 	public class A3
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public int Fld1;
 	}
 
@@ -121,6 +124,9 @@ public class ValueTypes
 	/// </summary>
 	public class A5
 	{
+		/// <summary>
+		/// A
+		/// </summary>
 		public A1 A;
 	}
 
@@ -129,25 +135,52 @@ public class ValueTypes
 	/// </summary>
 	public class A6To
 	{
+		/// <summary>
+		/// S2
+		/// </summary>
 		public S2Struct S2;
+
+		/// <summary>
+		/// S4
+		/// </summary>
 		public C2? S4;
+
+		/// <summary>
+		/// S5
+		/// </summary>
 		public C3Class? S5;
+
 		/// <summary>
 		///   Gets or Sets the s.
 		/// </summary>
 		public S2Struct S { get; set; }
+
 		/// <summary>
 		///   Gets or Sets the s3.
 		/// </summary>
 		public C1? S3 { get; set; }
 
+		/// <summary>
+		/// S1
+		/// </summary>
 		public struct S1
 		{
+			/// <summary>
+			/// I
+			/// </summary>
+			/// <value cref="int">int</value>
 			public int I { get; set; }
 		}
 
+		/// <summary>
+		/// S2 struct
+		/// </summary>
 		public struct S2Struct
 		{
+			/// <summary>
+			/// S
+			/// </summary>
+			/// <value cref="S1">S1</value>
 			public S1 S { get; set; }
 		}
 
@@ -167,6 +200,9 @@ public class ValueTypes
 		/// </summary>
 		public class C2
 		{
+			/// <summary>
+			/// S
+			/// </summary>
 			public S1 S;
 		}
 
@@ -175,8 +211,19 @@ public class ValueTypes
 		/// </summary>
 		public class C3Class
 		{
+			/// <summary>
+			/// C1
+			/// </summary>
 			public C2? C1;
+
+			/// <summary>
+			/// C2
+			/// </summary>
 			public C2? C2;
+
+			/// <summary>
+			/// C3
+			/// </summary>
 			public C2? C3;
 		}
 	}
@@ -186,6 +233,9 @@ public class ValueTypes
 	/// </summary>
 	public class B1
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public int Fld1 = 10;
 	}
 
@@ -194,6 +244,9 @@ public class ValueTypes
 	/// </summary>
 	public class B2
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public int Fld1;
 	}
 
@@ -202,6 +255,9 @@ public class ValueTypes
 	/// </summary>
 	public class B4
 	{
+		/// <summary>
+		/// Fld3
+		/// </summary>
 		public Int Fld3;
 
 		/// <summary>
@@ -218,13 +274,20 @@ public class ValueTypes
 		///   Gets or Sets the fld1.
 		/// </summary>
 		public Int Fld1 { get; set; }
+
 		/// <summary>
 		///   Gets or Sets the fld2.
 		/// </summary>
 		public Int Fld2 { get; set; }
 
+		/// <summary>
+		/// Int
+		/// </summary>
 		public struct Int
 		{
+			/// <summary>
+			/// Fld1
+			/// </summary>
 			public decimal Fld1;
 		}
 	}
@@ -234,6 +297,9 @@ public class ValueTypes
 	/// </summary>
 	public class B5
 	{
+		/// <summary>
+		/// A
+		/// </summary>
 		public A1 A;
 	}
 
@@ -242,25 +308,51 @@ public class ValueTypes
 	/// </summary>
 	public class B6From
 	{
+		/// <summary>
+		/// S
+		/// </summary>
 		public S2Struct S = new();
+
+		/// <summary>
+		/// S3
+		/// </summary>
 		public S2Struct S3;
+
+		/// <summary>
+		/// S5
+		/// </summary>
 		public C3Class? S5;
+
 		/// <summary>
 		///   Gets or Sets the s2.
 		/// </summary>
 		public S2Struct S2 { get; set; }
+
 		/// <summary>
 		///   Gets or Sets the s4.
 		/// </summary>
 		public C1? S4 { get; set; }
 
+		/// <summary>
+		/// S1
+		/// </summary>
 		public struct S1
 		{
+			/// <summary>
+			/// I
+			/// </summary>
+			/// <value cref="int">int</value>
 			public int I { get; set; }
 		}
 
+		/// <summary>
+		/// S2 struct
+		/// </summary>
 		public struct S2Struct
 		{
+			/// <summary>
+			/// S
+			/// </summary>
 			public S1 S;
 		}
 
@@ -269,6 +361,9 @@ public class ValueTypes
 		/// </summary>
 		public class C1
 		{
+			/// <summary>
+			/// S
+			/// </summary>
 			public S1 S;
 		}
 
@@ -277,36 +372,87 @@ public class ValueTypes
 		/// </summary>
 		public class C3Class
 		{
+			/// <summary>
+			/// C1
+			/// </summary>
 			public C1? C1;
+
+			/// <summary>
+			/// C2
+			/// </summary>
 			public C1? C2;
+
+			/// <summary>
+			/// C3
+			/// </summary>
 			public C1? C3;
 		}
 	}
 
+	/// <summary>
+	/// A1
+	/// </summary>
 	public struct A1
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public int Fld1;
 	}
 
+	/// <summary>
+	/// A2
+	/// </summary>
 	public struct A2
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public int Fld1;
 	}
 
+	/// <summary>
+	/// A4
+	/// </summary>
 	public struct A4
 	{
+		/// <summary>
+		/// Fld2
+		/// </summary>
 		public Int Fld2;
+
+		/// <summary>
+		/// Fld1
+		/// </summary>
+		/// <value cref="Int">Int</value>
 		public Int Fld1 { get; set; }
+
+		/// <summary>
+		/// Fld3
+		/// </summary>
+		/// <value cref="Int">Int</value>
 		public Int Fld3 { get; set; }
 
+		/// <summary>
+		/// Int
+		/// </summary>
 		public struct Int
 		{
+			/// <summary>
+			/// Fld1
+			/// </summary>
 			public string Fld1;
 		}
 	}
 
+	/// <summary>
+	/// B3
+	/// </summary>
 	public struct B3
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public int Fld1;
 	}
 }

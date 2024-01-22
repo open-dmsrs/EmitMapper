@@ -5,6 +5,9 @@
 /// </summary>
 internal class MappingBuilder
 {
+	/// <summary>
+	/// Stored objects
+	/// </summary>
 	public readonly List<object> StoredObjects;
 
 	private readonly IMappingConfigurator? _mappingConfigurator;

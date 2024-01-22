@@ -229,14 +229,12 @@ public class DefaultMapConfig : MapConfigBaseImpl
 
 		if (ReflectionHelper.IsNullable(ReflectionHelper.GetMemberReturnType(fromMi)))
 		{
-
 			// fromPath = enumerable.Concat(new[] { fromMi });//never use
 			fromMi = ReflectionHelper.GetMemberReturnType(fromMi).GetProperty("Value");
 		}
 
 		if (ReflectionHelper.IsNullable(ReflectionHelper.GetMemberReturnType(toMi)))
 		{
-
 			// toPath = enumerable.Concat(new[] { toMi });//never use
 			toMi = ReflectionHelper.GetMemberReturnType(toMi).GetProperty("Value");
 		}

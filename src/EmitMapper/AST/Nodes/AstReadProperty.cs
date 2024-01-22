@@ -5,8 +5,14 @@
 /// </summary>
 internal class AstReadProperty : IAstRefOrValue
 {
+	/// <summary>
+	/// Property info
+	/// </summary>
 	public PropertyInfo? PropertyInfo;
 
+	/// <summary>
+	/// Source object
+	/// </summary>
 	public IAstRefOrAddr? SourceObject;
 
 	/// <summary>

@@ -5,6 +5,9 @@
 /// </summary>
 internal class AstComplexNode : IAstNode
 {
+	/// <summary>
+	/// Nodes
+	/// </summary>
 	public List<IAstNode> Nodes = new();
 
 	/// <inheritdoc />

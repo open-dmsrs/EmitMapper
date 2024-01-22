@@ -91,8 +91,19 @@ public class DestinationFilterTest
 	/// </summary>
 	public class BaseSource
 	{
+		/// <summary>
+		/// I1
+		/// </summary>
 		public int I1;
+
+		/// <summary>
+		/// I2
+		/// </summary>
 		public int I2;
+
+		/// <summary>
+		/// I3
+		/// </summary>
 		public int I3;
 	}
 
@@ -105,6 +116,7 @@ public class DestinationFilterTest
 		///   Gets or Sets the base property.
 		/// </summary>
 		public string? BaseProperty { get; set; }
+
 		/// <summary>
 		///   Gets or Sets the derived property.
 		/// </summary>
@@ -116,6 +128,9 @@ public class DestinationFilterTest
 	/// </summary>
 	public class DerivedSource : BaseSource
 	{
+		/// <summary>
+		/// I4
+		/// </summary>
 		public int I4;
 	}
 
@@ -124,10 +139,29 @@ public class DestinationFilterTest
 	/// </summary>
 	public class DestinationTestFilterDest
 	{
+		/// <summary>
+		/// I1
+		/// </summary>
 		public int I1;
+
+		/// <summary>
+		/// I2
+		/// </summary>
 		public int I2 = -5;
+
+		/// <summary>
+		/// I3
+		/// </summary>
 		public int I3 = 0;
+
+		/// <summary>
+		/// L1
+		/// </summary>
 		public long L1;
+
+		/// <summary>
+		/// Str
+		/// </summary>
 		public string? Str;
 	}
 
@@ -136,10 +170,29 @@ public class DestinationFilterTest
 	/// </summary>
 	public class DestinationTestFilterSrc
 	{
+		/// <summary>
+		/// I1
+		/// </summary>
 		public int I1 = 13;
+
+		/// <summary>
+		/// I2
+		/// </summary>
 		public int I2 = 14;
+
+		/// <summary>
+		/// I3
+		/// </summary>
 		public int I3 = 5;
+
+		/// <summary>
+		/// L1
+		/// </summary>
 		public long L1 = 5;
+
+		/// <summary>
+		/// Str
+		/// </summary>
 		public string Str = "hello";
 	}
 
@@ -148,8 +201,19 @@ public class DestinationFilterTest
 	/// </summary>
 	public class InherDestination
 	{
+		/// <summary>
+		/// I1
+		/// </summary>
 		public int I1;
+
+		/// <summary>
+		/// I2
+		/// </summary>
 		public int I2;
+
+		/// <summary>
+		/// I3
+		/// </summary>
 		public int I3;
 	}
 
@@ -162,6 +226,7 @@ public class DestinationFilterTest
 		///   Gets or Sets the base property.
 		/// </summary>
 		public string? BaseProperty { get; set; }
+
 		/// <summary>
 		///   Gets or Sets the derived property.
 		/// </summary>

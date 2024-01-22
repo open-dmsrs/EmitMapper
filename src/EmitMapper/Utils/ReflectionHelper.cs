@@ -8,20 +8,44 @@ namespace EmitMapper.Utils;
 /// </summary>
 public static class ReflectionHelper
 {
+	/// <summary>
+	/// The binding flags instance public.
+	/// </summary>
 	private const BindingFlags BindingFlagsInstancePublic = BindingFlags.Instance | BindingFlags.Public;
 
+	/// <summary>
+	/// The all member info.
+	/// </summary>
 	private static readonly LazyConcurrentDictionary<Type, ReadOnlyCollection<MemberInfo>> AllMemberInfo = new();
 
+	/// <summary>
+	/// The generic type definition cache.
+	/// </summary>
 	private static readonly LazyConcurrentDictionary<Type, Type> GenericTypeDefinitionCache = new();
 
+	/// <summary>
+	/// The interfaces.
+	/// </summary>
 	private static readonly LazyConcurrentDictionary<Type, Type[]> Interfaces = new();
 
+	/// <summary>
+	/// Is nullable cache.
+	/// </summary>
 	private static readonly LazyConcurrentDictionary<Type, bool> IsNullableCache = new();
 
+	/// <summary>
+	/// The member info return types.
+	/// </summary>
 	private static readonly LazyConcurrentDictionary<MemberInfo, Type> MemberInfoReturnTypes = new();
 
+	/// <summary>
+	/// The methods cahce.
+	/// </summary>
 	private static readonly LazyConcurrentDictionary<string, MethodInfo> MethodsCahce = new();
 
+	/// <summary>
+	/// The underlying types.
+	/// </summary>
 	private static readonly LazyConcurrentDictionary<Type, Type?> UnderlyingTypes = new();
 
 	/// <summary>

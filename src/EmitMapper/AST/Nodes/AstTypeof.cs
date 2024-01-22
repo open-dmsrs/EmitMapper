@@ -5,6 +5,9 @@
 /// </summary>
 internal class AstTypeof : IAstRef
 {
+	/// <summary>
+	/// Type
+	/// </summary>
 	public required Type Type;
 
 	/// <summary>

@@ -85,7 +85,11 @@ public class CustomMapping
 	/// </summary>
 	public class A1
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public string Fld1 = string.Empty;
+
 		/// <summary>
 		///   Gets the fld2.
 		/// </summary>
@@ -106,7 +110,14 @@ public class CustomMapping
 	/// </summary>
 	public class A2
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public string? Fld1;
+
+		/// <summary>
+		/// Fld2
+		/// </summary>
 		public string? Fld2;
 	}
 
@@ -115,13 +126,34 @@ public class CustomMapping
 	/// </summary>
 	public class A3
 	{
+		/// <summary>
+		/// Fld
+		/// </summary>
 		public Int? Fld;
+
+		/// <summary>
+		/// Fld2
+		/// </summary>
 		public SInt? Fld2;
+
+		/// <summary>
+		/// Status
+		/// </summary>
 		public string? Status;
 
+		/// <summary>
+		/// S int
+		/// </summary>
 		public struct SInt
 		{
+			/// <summary>
+			/// Str1
+			/// </summary>
 			public string Str1;
+
+			/// <summary>
+			/// Str2
+			/// </summary>
 			public string Str2;
 		}
 
@@ -130,7 +162,14 @@ public class CustomMapping
 		/// </summary>
 		public class Int
 		{
+			/// <summary>
+			/// Str1
+			/// </summary>
 			public string? Str1;
+
+			/// <summary>
+			/// Str2
+			/// </summary>
 			public string? Str2;
 		}
 	}
@@ -140,7 +179,14 @@ public class CustomMapping
 	/// </summary>
 	public class Aa
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public string? Fld1;
+
+		/// <summary>
+		/// Fld2
+		/// </summary>
 		public string? Fld2;
 	}
 
@@ -149,7 +195,14 @@ public class CustomMapping
 	/// </summary>
 	public class B2
 	{
+		/// <summary>
+		/// Fld2
+		/// </summary>
 		public string Fld2 = "B2::fld2";
+
+		/// <summary>
+		/// Fld3
+		/// </summary>
 		public string Fld3 = "B2::fld3";
 	}
 
@@ -158,7 +211,14 @@ public class CustomMapping
 	/// </summary>
 	public class B3
 	{
+		/// <summary>
+		/// Fld
+		/// </summary>
 		public Int Fld = new();
+
+		/// <summary>
+		/// Fld2
+		/// </summary>
 		public SInt Fld2;
 
 		/// <summary>
@@ -169,8 +229,14 @@ public class CustomMapping
 			Fld2.Str1 = "B3::SInt::str1";
 		}
 
+		/// <summary>
+		/// S int
+		/// </summary>
 		public struct SInt
 		{
+			/// <summary>
+			/// Str1
+			/// </summary>
 			public string Str1;
 		}
 
@@ -179,6 +245,9 @@ public class CustomMapping
 		/// </summary>
 		public class Int
 		{
+			/// <summary>
+			/// Str1
+			/// </summary>
 			public string Str1 = "B3::Int::str1";
 		}
 	}
@@ -188,7 +257,14 @@ public class CustomMapping
 	/// </summary>
 	public class Bb
 	{
+		/// <summary>
+		/// Fld1
+		/// </summary>
 		public string Fld1 = "B2::fld1";
+
+		/// <summary>
+		/// Fld2
+		/// </summary>
 		public string Fld2 = "B2::fld2";
 	}
 

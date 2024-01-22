@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 
 namespace EmitMapper.Utils;
 
@@ -8,6 +8,7 @@ namespace EmitMapper.Utils;
 /// <typeparam name="TKey"></typeparam>
 /// <typeparam name="TValue"></typeparam>
 public class LazyConcurrentDictionary<TKey, TValue>
+	where TKey : notnull
 {
 	private readonly ConcurrentDictionary<TKey, Lazy<TValue>> _inner;
 
@@ -44,7 +45,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
 	/// <param name="concurrencyLevel">The concurrency level.</param>
 	/// <param name="capacity">The capacity.</param>
 	/// <param name="equatable">The equatable.</param>
-	public LazyConcurrentDictionary(int concurrencyLevel, int capacity, IEqualityComparer<TKey> equatable)
+	public LazyConcurrentDictionary(int concurrencyLevel, int capacity, IEqualityComparer<TKey>? equatable)
 	{
 		_inner = new ConcurrentDictionary<TKey, Lazy<TValue>>(concurrencyLevel, capacity, equatable);
 	}
@@ -77,6 +78,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
 
 	// overload may not make sense to use when you want to avoid
 	// the construction of the value when it isn't needed
+
 	/// <summary>
 	///   Try add.
 	/// </summary>

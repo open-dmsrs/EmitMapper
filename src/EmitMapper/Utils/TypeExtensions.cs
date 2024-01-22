@@ -7,9 +7,15 @@ namespace EmitMapper.Utils;
 /// </summary>
 public static class TypeExtensions
 {
+	/// <summary>
+	/// The instance flags.
+	/// </summary>
 	public const BindingFlags InstanceFlags =
 	  BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
 
+	/// <summary>
+	/// The static flags.
+	/// </summary>
 	public const BindingFlags StaticFlags =
 	  BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
 

@@ -1,9 +1,20 @@
 namespace EmitMapper.Utils;
 
+/// <summary>
+/// Type description
+/// </summary>
 public readonly struct TypeDescription : IEquatable<TypeDescription>
 {
+	/// <summary>
+	/// Additional properties
+	/// </summary>
+	/// <value cref="PropertyDescription[]">PropertyDescription[]</value>
 	public PropertyDescription[] AdditionalProperties { get; }
 
+	/// <summary>
+	/// Type
+	/// </summary>
+	/// <value cref="Type">Type</value>
 	public Type Type { get; }
 
 	/// <summary>
