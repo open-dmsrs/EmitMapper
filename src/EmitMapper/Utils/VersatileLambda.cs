@@ -9,9 +9,9 @@ namespace EmitMapper.Utils;
 public class VersatileLambda<T>
   where T : class
 {
-	private readonly Expression<T> _expression;
+	private readonly Expression<T> expression;
 
-	private readonly Lazy<T> _funcLazy;
+	private readonly Lazy<T> funcLazy;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="VersatileLambda&lt;T&gt;" /> class.
@@ -21,18 +21,18 @@ public class VersatileLambda<T>
 	{
 		ArgumentNullException.ThrowIfNull(expression);
 
-		this._expression = expression;
-		_funcLazy = new Lazy<T>(expression.Compile);
+		this.expression = expression;
+		funcLazy = new Lazy<T>(expression.Compile);
 	}
 
 	public static implicit operator Expression<T>(VersatileLambda<T>? lambda)
 	{
-		return lambda?._expression;
+		return lambda?.expression;
 	}
 
 	public static implicit operator T(VersatileLambda<T>? lambda)
 	{
-		return lambda?._funcLazy.Value;
+		return lambda?.funcLazy.Value;
 	}
 
 	/// <summary>

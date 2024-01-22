@@ -7,7 +7,7 @@
 internal class TypeDictionary<T>
   where T : class
 {
-	private readonly List<ListElement> _elements = new();
+	private readonly List<ListElement> elements = new();
 
 	/// <summary>
 	/// </summary>
@@ -17,12 +17,12 @@ internal class TypeDictionary<T>
 	{
 		var newElem = new ListElement(types, value);
 
-		if (_elements.Contains(newElem))
+		if (elements.Contains(newElem))
 		{
-			_elements.Remove(newElem);
+			elements.Remove(newElem);
 		}
 
-		_elements.Add(new ListElement(types, value));
+		elements.Add(new ListElement(types, value));
 	}
 
 	/// <summary>
@@ -65,7 +65,7 @@ internal class TypeDictionary<T>
 	/// <returns>A string.</returns>
 	public override string ToString()
 	{
-		return _elements.Select(e => e.Types.ToCsv("|") + (e.Value is null ? "|" : "|" + e.Value)).ToCsv("||");
+		return elements.Select(e => e.Types.ToCsv("|") + (e.Value is null ? "|" : "|" + e.Value)).ToCsv("||");
 	}
 
 	/// <summary>
@@ -103,7 +103,7 @@ internal class TypeDictionary<T>
 	/// <returns>A ListElement? .</returns>
 	private ListElement? FindTypes(Type[] types)
 	{
-		foreach (var element in _elements)
+		foreach (var element in elements)
 		{
 			var isAssignable = true;
 
@@ -140,7 +140,7 @@ internal class TypeDictionary<T>
 	/// <returns>A ListElement? .</returns>
 	private ListElement? FindTypes(Type type)
 	{
-		foreach (var element in _elements)
+		foreach (var element in elements)
 		{
 			var isAssignable = true;
 

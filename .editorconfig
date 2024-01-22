@@ -68,6 +68,7 @@ dotnet_diagnostic.SA1618.severity = suggestion
 dotnet_diagnostic.SA1601.severity = warning
 dotnet_diagnostic.SA1606.severity = suggestion
 dotnet_diagnostic.CA1309.severity = warning
+dotnet_diagnostic.SA1622.severity = suggestion
 
 
 [*.{appxmanifest,axml,build,config,csproj,dbml,discomap,dtd,jsproj,lsproj,njsproj,nuspec,proj,props,proto,resw,resx,StyleCop,targets,tasks,vbproj,xml,xsd}]

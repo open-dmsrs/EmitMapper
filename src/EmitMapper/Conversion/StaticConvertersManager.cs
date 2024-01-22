@@ -9,11 +9,11 @@ public class StaticConvertersManager
 
 	private static readonly object Locker = new();
 
-	private static StaticConvertersManager? _defaultInstance;
+	private static StaticConvertersManager? defaultInstance;
 
-	private readonly LazyConcurrentDictionary<TypesPair, MethodInfo> _typesMethods = new();
+	private readonly LazyConcurrentDictionary<TypesPair, MethodInfo> typesMethods = new();
 
-	private readonly List<Func<Type, Type, MethodInfo>> _typesMethodsFunc = new();
+	private readonly List<Func<Type, Type, MethodInfo>> typesMethodsFunc = new();
 
 	/// <summary>
 	///   Gets the default instance.
@@ -22,22 +22,22 @@ public class StaticConvertersManager
 	{
 		get
 		{
-			if (_defaultInstance is null)
+			if (defaultInstance is null)
 			{
 				lock (Locker)
 				{
-					if (_defaultInstance is null)
+					if (defaultInstance is null)
 					{
-						_defaultInstance = new StaticConvertersManager();
-						_defaultInstance.AddConverterClass(Metadata.Convert);
-						_defaultInstance.AddConverterClass(Metadata<EmConvert>.Type);
-						_defaultInstance.AddConverterClass(Metadata<NullableConverter>.Type);
-						_defaultInstance.AddConverterFunc(EmConvert.GetConversionMethod);
+						defaultInstance = new StaticConvertersManager();
+						defaultInstance.AddConverterClass(Metadata.Convert);
+						defaultInstance.AddConverterClass(Metadata<EmConvert>.Type);
+						defaultInstance.AddConverterClass(Metadata<NullableConverter>.Type);
+						defaultInstance.AddConverterFunc(EmConvert.GetConversionMethod);
 					}
 				}
 			}
 
-			return _defaultInstance;
+			return defaultInstance;
 		}
 	}
 
@@ -53,7 +53,7 @@ public class StaticConvertersManager
 
 			if (parameters.Length == 1 && m.ReturnType != Metadata.Void)
 			{
-				_typesMethods.TryAdd(new TypesPair(parameters[0].ParameterType, m.ReturnType), m);
+				typesMethods.TryAdd(new TypesPair(parameters[0].ParameterType, m.ReturnType), m);
 			}
 		}
 	}
@@ -64,7 +64,7 @@ public class StaticConvertersManager
 	/// <param name="converterFunc">The converter func.</param>
 	public void AddConverterFunc(Func<Type, Type, MethodInfo> converterFunc)
 	{
-		_typesMethodsFunc.Add(converterFunc);
+		typesMethodsFunc.Add(converterFunc);
 	}
 
 	/// <summary>
@@ -80,7 +80,7 @@ public class StaticConvertersManager
 			return null;
 		}
 
-		foreach (var func in ((IEnumerable<Func<Type, Type, MethodInfo>>)_typesMethodsFunc).Reverse())
+		foreach (var func in ((IEnumerable<Func<Type, Type, MethodInfo>>)typesMethodsFunc).Reverse())
 		{
 			var result = func(from, to);
 
@@ -90,7 +90,7 @@ public class StaticConvertersManager
 			}
 		}
 
-		_typesMethods.TryGetValue(new TypesPair(from, to), out var res);
+		typesMethods.TryGetValue(new TypesPair(from, to), out var res);
 
 		return res;
 	}

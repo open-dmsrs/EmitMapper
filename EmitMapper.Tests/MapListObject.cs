@@ -7,13 +7,13 @@ namespace EmitMapper.Tests;
 /// </summary>
 public class MapListObject
 {
-	private readonly ITestOutputHelper _testOutputHelper;
+	private readonly ITestOutputHelper testOutputHelper;
 
 	/// <summary>
 	///     Initializes a new instance of the <see cref="MapListObject" /> class.
 	/// </summary>
 	/// <param name="testOutputHelper">The test output helper.</param>
-	public MapListObject(ITestOutputHelper testOutputHelper) => this._testOutputHelper = testOutputHelper;
+	public MapListObject(ITestOutputHelper testOutputHelper) => this.testOutputHelper = testOutputHelper;
 
 	/// <summary>
 	///     Converts the char to int32.
@@ -24,7 +24,7 @@ public class MapListObject
 		var m = 'a';
 		var n = Convert.ToInt32(m);
 
-		_testOutputHelper.WriteLine(n + string.Empty);
+		testOutputHelper.WriteLine(n + string.Empty);
 	}
 
 	/// <summary>
@@ -37,7 +37,7 @@ public class MapListObject
 	{
 		ArrayList listFrom = new(list.ToArray());
 
-		_testOutputHelper.WriteLine(listFrom.Count.ToString());
+		testOutputHelper.WriteLine(listFrom.Count.ToString());
 
 		var rw1 = new ReadWriteSimple
 		{
@@ -98,7 +98,7 @@ public class MapListObject
 	[AutoData]
 	public void TestEmitMapperMapListObject(List<FromClass> listFrom)
 	{
-		_testOutputHelper.WriteLine(listFrom.Count.ToString());
+		testOutputHelper.WriteLine(listFrom.Count.ToString());
 
 		var rw1 = new ReadWriteSimple
 		{
@@ -127,7 +127,7 @@ public class MapListObject
 
 		while (f.MoveNext() && t.MoveNext())
 		{
-			_testOutputHelper.WriteLine(t.Current.Message);
+			testOutputHelper.WriteLine(t.Current.Message);
 			f.Current.Inner.Message.ShouldBe(t.Current.Message);
 			f.Current.Inner.GetMessage2().ShouldBe(t.Current.Message2);
 		}
@@ -288,7 +288,7 @@ public class MapListObject
 		{
 			lock (syncRoot)
 			{
-				return _random.NextDouble();
+				return random.NextDouble();
 			}
 		}
 	}

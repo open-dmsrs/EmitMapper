@@ -15,7 +15,7 @@ public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<Type
 	/// </summary>
 	public readonly Type SourceType;
 
-	private readonly int _hash;
+	private readonly int hash;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="TypesPair"/> struct.
@@ -27,7 +27,7 @@ public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<Type
 	{
 		SourceType = typeFrom;
 		DestinationType = typeTo;
-		_hash = HashCode.Combine(typeFrom, typeTo);
+		hash = HashCode.Combine(typeFrom, typeTo);
 	}
 
 	/// <summary>
@@ -108,7 +108,7 @@ public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<Type
 	/// <returns>A bool.</returns>
 	public bool Equals(TypesPair other)
 	{
-		return _hash == other._hash && SourceType == other.SourceType && DestinationType == other.DestinationType;
+		return hash == other.hash && SourceType == other.SourceType && DestinationType == other.DestinationType;
 	}
 
 	/// <summary>
@@ -128,7 +128,7 @@ public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<Type
 	/// <returns>An int.</returns>
 	public int GetHashCode(TypesPair obj)
 	{
-		return obj._hash;
+		return obj.hash;
 	}
 
 	/// <summary>
@@ -137,7 +137,7 @@ public readonly struct TypesPair : IEqualityComparer<TypesPair>, IEquatable<Type
 	/// <returns>An int.</returns>
 	public override int GetHashCode()
 	{
-		return _hash;
+		return hash;
 	}
 
 	/// <summary>

@@ -12,7 +12,7 @@ public class MapperForCollection : CustomMapper
 
 	private static readonly LazyConcurrentDictionary<Type, bool> IsSupportedCache = new();
 
-	private MapperDescription _subMapper;
+	private MapperDescription subMapper;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="MapperForCollection" /> class.
@@ -63,7 +63,7 @@ public class MapperForCollection : CustomMapper
 
 		var result = ObjectFactory.CreateInstance<MapperForCollection>(tb.CreateType());
 		result.Initialize(objectMapperManager, typeFrom, typeTo, mappingConfigurator, null);
-		result._subMapper = subMapper;
+		result.subMapper = subMapper;
 
 		return result;
 	}
@@ -203,7 +203,7 @@ public class MapperForCollection : CustomMapper
 
 		foreach (var obj in from)
 		{
-			result.Add((T)_subMapper.Mapper.Map(obj));
+			result.Add((T)subMapper.Mapper.Map(obj));
 		}
 
 		return result;
@@ -227,7 +227,7 @@ public class MapperForCollection : CustomMapper
 	/// <returns><![CDATA[List<T>]]></returns>
 	protected List<T> CopyToListScalar<T>(object from)
 	{
-		var result = new List<T>(1) { (T)_subMapper.Mapper.Map(from) };
+		var result = new List<T>(1) { (T)subMapper.Mapper.Map(from) };
 
 		return result;
 	}
@@ -295,7 +295,7 @@ public class MapperForCollection : CustomMapper
 	private Array? CopyScalarToArray(object? scalar)
 	{
 		var result = Array.CreateInstance(TypeTo.GetElementType(), 1);
-		result.SetValue(_subMapper.Mapper.Map(scalar), 0);
+		result.SetValue(subMapper.Mapper.Map(scalar), 0);
 
 		return result;
 	}
@@ -314,7 +314,7 @@ public class MapperForCollection : CustomMapper
 
 			foreach (var obj in collection)
 			{
-				result.SetValue(_subMapper.Mapper.Map(obj), idx++);
+				result.SetValue(subMapper.Mapper.Map(obj), idx++);
 			}
 
 			return result;

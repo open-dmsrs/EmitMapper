@@ -5,7 +5,7 @@ namespace EmitMapper.Tests;
 /// </summary>
 public class RelativePath
 {
-	private readonly ITestOutputHelper _outputHelper;
+	private readonly ITestOutputHelper outputHelper;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="RelativePath"/> class.
@@ -27,8 +27,8 @@ public class RelativePath
 		var parent = Directory.GetCurrentDirectory();
 		var sub = Path.Combine(parent, @"Users/Default");
 
-		_outputHelper.WriteLine(sub);
-		_outputHelper.WriteLine(parent);
+		outputHelper.WriteLine(sub);
+		outputHelper.WriteLine(parent);
 		var result = Path.GetRelativePath(parent, sub);
 		result.ShouldBe(Path.Combine("Users", "Default"));
 		result = Path.GetRelativePath(sub, parent);

@@ -110,9 +110,9 @@ public static class SwitchExpressions
 	/// </summary>
 	public readonly struct CompletedSwitchExpression<TResult>
 	{
-		private readonly bool _completed;
+		private readonly bool completed;
 
-		private readonly TResult _value;
+		private readonly TResult value;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CompletedSwitchExpression{TResult}"/> struct.
@@ -121,8 +121,8 @@ public static class SwitchExpressions
 		/// <param name="value">The value.</param>
 		internal CompletedSwitchExpression(TResult value)
 		{
-			this._value = value;
-			_completed = true;
+			this.value = value;
+			completed = true;
 		}
 
 		/// <summary>
@@ -133,12 +133,12 @@ public static class SwitchExpressions
 		{
 			get
 			{
-				if (!_completed)
+				if (!completed)
 				{
 					throw new InvalidOperationException("the switch has not completed");
 				}
 
-				return _value;
+				return value;
 			}
 		}
 
@@ -146,7 +146,7 @@ public static class SwitchExpressions
 		  CompletedSwitchExpression<TResult> first,
 		  CompletedSwitchExpression<TResult> second)
 		{
-			if (first._completed)
+			if (first.completed)
 			{
 				throw new InvalidOperationException("use ||, not | to combine switch cases");
 			}
@@ -156,7 +156,7 @@ public static class SwitchExpressions
 
 		public static bool operator false(CompletedSwitchExpression<TResult> @switch)
 		{
-			return !@switch._completed;
+			return !@switch.completed;
 		}
 
 		public static implicit operator TResult(CompletedSwitchExpression<TResult> @switch)
@@ -166,7 +166,7 @@ public static class SwitchExpressions
 
 		public static bool operator true(CompletedSwitchExpression<TResult> @switch)
 		{
-			return @switch._completed;
+			return @switch.completed;
 		}
 	}
 
@@ -229,13 +229,13 @@ public static class SwitchExpressions
 	/// </summary>
 	public struct SwitchExpression<TSwitch, TResult>
 	{
-		private object _objectState;
+		private object objectState;
 
-		private State _state;
+		private State state;
 
-		private TSwitch _switchValue;
+		private TSwitch switchValue;
 
-		private TResult _value;
+		private TResult value;
 
 		/// <summary>
 		///   The state.
@@ -286,10 +286,10 @@ public static class SwitchExpressions
 		{
 			get
 			{
-				switch (_state)
+				switch (state)
 				{
 					case State.Completed:
-						return _value;
+						return value;
 					case State.AwaitingMatch:
 						throw new InvalidOperationException("the switch has not yet matched");
 					default:
@@ -303,21 +303,21 @@ public static class SwitchExpressions
 		  SwitchExpression<TSwitch, TResult> first,
 		  SwitchExpression<TSwitch, TResult> second)
 		{
-			if (first._state != State.AwaitingMatch)
+			if (first.state != State.AwaitingMatch)
 			{
 				throw new InvalidOperationException("use ||, not | to combine switch cases");
 			}
 
-			switch (second._state)
+			switch (second.state)
 			{
 				case State.Completed:
 					return second;
 				case State.CaseWithValueFactory:
-					return ((IEqualityComparer<TSwitch>)first._objectState).Equals(first._switchValue, second._switchValue)
+					return ((IEqualityComparer<TSwitch>)first.objectState).Equals(first.switchValue, second.switchValue)
 					  ? new SwitchExpression<TSwitch, TResult>
 					  {
-						  _value = ((Func<TSwitch, TResult>)second._objectState)(first._switchValue),
-						  _state = State.Completed
+						  value = ((Func<TSwitch, TResult>)second.objectState)(first.switchValue),
+						  state = State.Completed
 					  }
 					  : first; // still not matched
 				case State.FalseBooleanCase:
@@ -325,16 +325,16 @@ public static class SwitchExpressions
 				case State.TrueBooleanCase:
 					return new SwitchExpression<TSwitch, TResult>
 					{
-						_value = ((Func<TSwitch, TResult>)second._objectState)(first._switchValue),
-						_state = State.Completed
+						value = ((Func<TSwitch, TResult>)second.objectState)(first.switchValue),
+						state = State.Completed
 					};
 				case State.TypeCase:
 					TResult typeCaseResult;
 
-					return ((TypeCaseSwitchExpression<TResult>)second._objectState).TryGetResult(
-					  first._switchValue,
+					return ((TypeCaseSwitchExpression<TResult>)second.objectState).TryGetResult(
+					  first.switchValue,
 					  out typeCaseResult)
-					  ? new SwitchExpression<TSwitch, TResult> { _value = typeCaseResult, _state = State.Completed }
+					  ? new SwitchExpression<TSwitch, TResult> { value = typeCaseResult, state = State.Completed }
 					  : first; // still not matched
 				default:
 					throw new InvalidOperationException("right-hand side of || is not a valid case");
@@ -343,15 +343,15 @@ public static class SwitchExpressions
 
 		public static bool operator false(SwitchExpression<TSwitch, TResult> switchState)
 		{
-			return switchState._state != State.Completed;
+			return switchState.state != State.Completed;
 		}
 
 		public static implicit operator SwitchExpression<TSwitch, TResult>(BooleanSwitchExpression<TResult> @switch)
 		{
 			return new SwitchExpression<TSwitch, TResult>
 			{
-				_objectState = @switch.ValueFactory,
-				_state = @switch.Condition ? State.TrueBooleanCase : State.FalseBooleanCase
+				objectState = @switch.ValueFactory,
+				state = @switch.Condition ? State.TrueBooleanCase : State.FalseBooleanCase
 			};
 		}
 
@@ -373,12 +373,12 @@ public static class SwitchExpressions
 
 		public static implicit operator CompletedSwitchExpression<TResult>(SwitchExpression<TSwitch, TResult> @switch)
 		{
-			return @switch._state == State.Completed ? new CompletedSwitchExpression<TResult>(@switch._value) : default;
+			return @switch.state == State.Completed ? new CompletedSwitchExpression<TResult>(@switch.value) : default;
 		}
 
 		public static bool operator true(SwitchExpression<TSwitch, TResult> switchState)
 		{
-			return switchState._state == State.Completed;
+			return switchState.state == State.Completed;
 		}
 
 		/// <summary>
@@ -391,9 +391,9 @@ public static class SwitchExpressions
 		{
 			return new SwitchExpression<TSwitch, TResult>
 			{
-				_switchValue = matches,
-				_objectState = valueFactory,
-				_state = State.CaseWithValueFactory
+				switchValue = matches,
+				objectState = valueFactory,
+				state = State.CaseWithValueFactory
 			};
 		}
 
@@ -404,7 +404,7 @@ public static class SwitchExpressions
 		/// <returns><![CDATA[SwitchExpression<TSwitch, TResult>]]></returns>
 		internal static SwitchExpression<TSwitch, TResult> CreateCase(TypeCaseSwitchExpression<TResult> @switch)
 		{
-			return new SwitchExpression<TSwitch, TResult> { _objectState = @switch, _state = State.TypeCase };
+			return new SwitchExpression<TSwitch, TResult> { objectState = @switch, state = State.TypeCase };
 		}
 
 		/// <summary>
@@ -416,9 +416,9 @@ public static class SwitchExpressions
 		{
 			return new SwitchExpression<TSwitch, TResult>
 			{
-				_switchValue = @switch.On,
-				_objectState = @switch.Comparer,
-				_state = State.AwaitingMatch
+				switchValue = @switch.On,
+				objectState = @switch.Comparer,
+				state = State.AwaitingMatch
 			};
 		}
 	}
@@ -446,7 +446,7 @@ public static class SwitchExpressions
 	/// <typeparam name="TResult"></typeparam>
 	private sealed class TypeCaseSwitchExpression<TType, TResult> : TypeCaseSwitchExpression<TResult>
 	{
-		private readonly Func<TType, TResult> _resultFactory;
+		private readonly Func<TType, TResult> resultFactory;
 
 		/// <summary>
 		///   Initializes a new instance of the <see cref="TypeCaseSwitchExpression&lt;TType, TResult&gt;" /> class.
@@ -454,7 +454,7 @@ public static class SwitchExpressions
 		/// <param name="resultFactory">The result factory.</param>
 		public TypeCaseSwitchExpression(Func<TType, TResult> resultFactory)
 		{
-			this._resultFactory = resultFactory;
+			this.resultFactory = resultFactory;
 		}
 
 		/// <summary>
@@ -468,7 +468,7 @@ public static class SwitchExpressions
 		{
 			if (switchValue is TType)
 			{
-				value = _resultFactory((TType)(object)switchValue);
+				value = resultFactory((TType)(object)switchValue);
 
 				return true;
 			}

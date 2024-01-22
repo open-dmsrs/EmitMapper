@@ -186,13 +186,13 @@ public static class ProxyGenerator
 		  nameof(ProxyBase.NotifyPropertyChanged),
 		  TypeExtensions.InstanceFlags);
 
-		private readonly FieldBuilder _fieldBuilder;
+		private readonly FieldBuilder fieldBuilder;
 
-		private readonly MethodBuilder _getterBuilder;
+		private readonly MethodBuilder getterBuilder;
 
-		private readonly PropertyBuilder _propertyBuilder;
+		private readonly PropertyBuilder propertyBuilder;
 
-		private readonly MethodBuilder _setterBuilder;
+		private readonly MethodBuilder setterBuilder;
 
 		/// <summary>
 		///   Initializes a new instance of the <see cref="PropertyEmitter" /> class.
@@ -204,36 +204,36 @@ public static class ProxyGenerator
 		{
 			var name = property.Name;
 			var propertyType = property.Type;
-			_fieldBuilder = owner.DefineField($"<{name}>", propertyType, FieldAttributes.Private);
-			_propertyBuilder = owner.DefineProperty(name, PropertyAttributes.None, propertyType, null);
+			fieldBuilder = owner.DefineField($"<{name}>", propertyType, FieldAttributes.Private);
+			propertyBuilder = owner.DefineProperty(name, PropertyAttributes.None, propertyType, null);
 
-			_getterBuilder = owner.DefineMethod(
+			getterBuilder = owner.DefineMethod(
 			  $"get_{name}",
 			  MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig | MethodAttributes.SpecialName,
 			  propertyType,
 			  Type.EmptyTypes);
 
-			var getterIl = _getterBuilder.GetILGenerator();
+			var getterIl = getterBuilder.GetILGenerator();
 			getterIl.Emit(OpCodes.Ldarg_0);
-			getterIl.Emit(OpCodes.Ldfld, _fieldBuilder);
+			getterIl.Emit(OpCodes.Ldfld, fieldBuilder);
 			getterIl.Emit(OpCodes.Ret);
-			_propertyBuilder.SetGetMethod(_getterBuilder);
+			propertyBuilder.SetGetMethod(getterBuilder);
 
 			if (!property.CanWrite)
 			{
 				return;
 			}
 
-			_setterBuilder = owner.DefineMethod(
+			setterBuilder = owner.DefineMethod(
 			  $"set_{name}",
 			  MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig | MethodAttributes.SpecialName,
 			  Metadata.Void,
 			  new[] { propertyType });
 
-			var setterIl = _setterBuilder.GetILGenerator();
+			var setterIl = setterBuilder.GetILGenerator();
 			setterIl.Emit(OpCodes.Ldarg_0);
 			setterIl.Emit(OpCodes.Ldarg_1);
-			setterIl.Emit(OpCodes.Stfld, _fieldBuilder);
+			setterIl.Emit(OpCodes.Stfld, fieldBuilder);
 
 			if (propertyChangedField is not null)
 			{
@@ -245,12 +245,12 @@ public static class ProxyGenerator
 			}
 
 			setterIl.Emit(OpCodes.Ret);
-			_propertyBuilder.SetSetMethod(_setterBuilder);
+			propertyBuilder.SetSetMethod(setterBuilder);
 		}
 
 		/// <summary>
 		///   Gets the property type.
 		/// </summary>
-		public Type PropertyType => _propertyBuilder.PropertyType;
+		public Type PropertyType => propertyBuilder.PropertyType;
 	}
 }

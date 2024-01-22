@@ -5,7 +5,7 @@ namespace EmitMapper.MappingConfiguration;
 /// </summary>
 public class MemberDescriptor
 {
-	private IEnumerable<MemberInfo> _membersChain;
+	private IEnumerable<MemberInfo> membersChain;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="MemberDescriptor" /> class.
@@ -35,11 +35,11 @@ public class MemberDescriptor
 	/// </summary>
 	public IEnumerable<MemberInfo> MembersChain
 	{
-		get => _membersChain;
+		get => membersChain;
 		set
 		{
-			_membersChain = value;
-			MemberInfo = _membersChain.LastOrDefault();
+			membersChain = value;
+			MemberInfo = membersChain.LastOrDefault();
 			MemberType = ReflectionHelper.GetMemberReturnType(MemberInfo);
 		}
 	}

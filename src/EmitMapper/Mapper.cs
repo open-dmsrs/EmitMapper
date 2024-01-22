@@ -10,16 +10,16 @@ public class Mapper
 	private static readonly Dictionary<MapperKey, MapperDescription> ObjectsMapperIds =
 	  new(new MapperKey(null, null, null, 0));
 
-	private static int _totalInstCount;
+	private static int totalInstCount;
 
-	private readonly int _currentInstanceId;
+	private readonly int currentInstanceId;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="Mapper" /> class.
 	/// </summary>
 	public Mapper()
 	{
-		_currentInstanceId = Interlocked.Increment(ref _totalInstCount);
+		currentInstanceId = Interlocked.Increment(ref totalInstCount);
 	}
 
 	/// <summary>
@@ -74,7 +74,7 @@ public class Mapper
 	{
 		to ??= Metadata<object>.Type;
 		from ??= Metadata<object>.Type;
-		var mapperTypeKey = new MapperKey(from, to, mappingConfigurator, _currentInstanceId);
+		var mapperTypeKey = new MapperKey(from, to, mappingConfigurator, currentInstanceId);
 
 		if (ObjectsMapperIds.TryGetValue(mapperTypeKey, out var result))
 		{

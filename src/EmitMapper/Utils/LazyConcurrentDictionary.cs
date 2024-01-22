@@ -10,7 +10,7 @@ namespace EmitMapper.Utils;
 public class LazyConcurrentDictionary<TKey, TValue>
 	where TKey : notnull
 {
-	private readonly ConcurrentDictionary<TKey, Lazy<TValue>> _inner;
+	private readonly ConcurrentDictionary<TKey, Lazy<TValue>> inner;
 
 	/// <summary>
 	///   Initializes a new instance of the <see cref="LazyConcurrentDictionary&lt;TKey, TValue&gt;" /> class.
@@ -47,7 +47,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
 	/// <param name="equatable">The equatable.</param>
 	public LazyConcurrentDictionary(int concurrencyLevel, int capacity, IEqualityComparer<TKey>? equatable)
 	{
-		_inner = new ConcurrentDictionary<TKey, Lazy<TValue>>(concurrencyLevel, capacity, equatable);
+		inner = new ConcurrentDictionary<TKey, Lazy<TValue>>(concurrencyLevel, capacity, equatable);
 	}
 
 	/// <summary>
@@ -59,7 +59,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
 	/// <returns>A TValue.</returns>
 	public TValue AddOrUpdate(TKey key, Func<TKey, TValue> addValueFactory, Func<TKey, TValue, TValue> updateValueFactory)
 	{
-		return _inner.AddOrUpdate(
+		return inner.AddOrUpdate(
 		  key,
 		  k => new Lazy<TValue>(() => addValueFactory(k)),
 		  (k, currentValue) => new Lazy<TValue>(() => updateValueFactory(k, currentValue.Value))).Value;
@@ -73,7 +73,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
 	/// <returns>A TValue.</returns>
 	public TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)
 	{
-		return _inner.GetOrAdd(key, k => new Lazy<TValue>(() => valueFactory(k))).Value;
+		return inner.GetOrAdd(key, k => new Lazy<TValue>(() => valueFactory(k))).Value;
 	}
 
 	// overload may not make sense to use when you want to avoid
@@ -87,7 +87,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
 	/// <returns>A bool.</returns>
 	public bool TryAdd(TKey key, TValue value)
 	{
-		return _inner.TryAdd(key, new Lazy<TValue>(() => value));
+		return inner.TryAdd(key, new Lazy<TValue>(() => value));
 	}
 
 	/// <summary>
@@ -98,7 +98,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
 	/// <returns>A bool.</returns>
 	public bool TryAdd(TKey key, Func<TKey, TValue> valueFactory)
 	{
-		return _inner.TryAdd(key, new Lazy<TValue>(() => valueFactory(key)));
+		return inner.TryAdd(key, new Lazy<TValue>(() => valueFactory(key)));
 	}
 
 	/// <summary>
@@ -111,7 +111,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
 	{
 		value = default;
 
-		var result = _inner.TryGetValue(key, out var v);
+		var result = inner.TryGetValue(key, out var v);
 
 		if (result)
 		{
@@ -131,7 +131,7 @@ public class LazyConcurrentDictionary<TKey, TValue>
 	{
 		value = default;
 
-		if (_inner.TryRemove(key, out var v))
+		if (inner.TryRemove(key, out var v))
 		{
 			value = v.Value;
 
@@ -149,11 +149,11 @@ public class LazyConcurrentDictionary<TKey, TValue>
 	/// <returns>A bool.</returns>
 	public bool TryUpdate(TKey key, Func<TKey, TValue, TValue> updateValueFactory)
 	{
-		if (!_inner.TryGetValue(key, out var existingValue))
+		if (!inner.TryGetValue(key, out var existingValue))
 		{
 			return false;
 		}
 
-		return _inner.TryUpdate(key, new Lazy<TValue>(() => updateValueFactory(key, existingValue.Value)), existingValue);
+		return inner.TryUpdate(key, new Lazy<TValue>(() => updateValueFactory(key, existingValue.Value)), existingValue);
 	}
 }
