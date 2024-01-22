@@ -15,7 +15,7 @@ public class RelativePath
 	{
 		Console.WriteLine(outputHelper.GetType().FullName);
 
-		this._outputHelper = outputHelper;
+		this.outputHelper = outputHelper;
 	}
 
 	/// <summary>

@@ -77,11 +77,11 @@ public class MapListObject
 	{
 		Fixture fixture = new();
 
-		fixture.Customizations.Add(new RandomDoublePrecisionFloatingPointSequenceGenerator());
+		//fixture.Customizations.Add(new RandomDoublePrecisionFloatingPointSequenceGenerator());
 		var list = fixture.CreateMany<SimpleTypesSource>(3).ToList();
 
 		// list.FirstOrDefault().N5 = 3.3232423424234M;
-		_testOutputHelper.WriteLine(list.Count.ToString(CultureInfo.InvariantCulture));
+		testOutputHelper.WriteLine(list.Count.ToString(CultureInfo.InvariantCulture));
 		_ = Mapper.Default.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
 		var mapper = Mapper.Default.GetMapper<SimpleTypesSource, SimpleTypesDestination>();
 		var tolist = mapper.MapEnum(list);
@@ -288,7 +288,7 @@ public class MapListObject
 		{
 			lock (syncRoot)
 			{
-				return random.NextDouble();
+				return _random.NextDouble();
 			}
 		}
 	}
