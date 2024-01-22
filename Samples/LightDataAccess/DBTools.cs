@@ -14,7 +14,7 @@ public static class DbTools
 	/// <param name="paramName">  Name of the param. </param>
 	/// <param name="paramValue"> The param value. </param>
 	/// <returns> DbCommand. </returns>
-	public static DbCommand AddParam(this DbCommand cmd, string paramName, object paramValue)
+	public static DbCommand AddParam(this DbCommand cmd, string? paramName, object? paramValue)
 	{
 		if (paramValue is Guid guid)
 		{
@@ -54,7 +54,7 @@ public static class DbTools
 	/// <param name="commandText"> The command text. </param>
 	/// <param name="cmdParams">   The CMD params. </param>
 	/// <returns> DbCommand. </returns>
-	public static DbCommand CreateCommand(DbConnection conn, string commandText, CmdParams? cmdParams)
+	public static DbCommand CreateCommand(DbConnection conn, string? commandText, CmdParams? cmdParams)
 	{
 		if (conn.State == ConnectionState.Closed)
 		{
@@ -89,7 +89,7 @@ public static class DbTools
 	/// <param name="conn">   The conn. </param>
 	/// <param name="spName"> Name of the sp. </param>
 	/// <returns> DbCommand. </returns>
-	public static DbCommand CreateStoredProcedureCommand(DbConnection conn, string spName)
+	public static DbCommand CreateStoredProcedureCommand(DbConnection conn, string? spName)
 	{
 		if (conn.State == ConnectionState.Closed)
 		{
@@ -110,7 +110,7 @@ public static class DbTools
 	/// <param name="commandText"> The command text. </param>
 	/// <param name="cmdParams">   The CMD params. </param>
 	/// <returns> System.Int32. </returns>
-	public static int ExecuteNonQuery(DbConnection conn, string commandText, CmdParams cmdParams)
+	public static int ExecuteNonQuery(DbConnection conn, string commandText, CmdParams? cmdParams)
 	{
 		using var cmd = CreateCommand(conn, commandText, cmdParams);
 
@@ -124,7 +124,7 @@ public static class DbTools
 	/// <param name="commandText"> The command text. </param>
 	/// <param name="cmdParams">   The CMD params. </param>
 	/// <returns> IDataReader. </returns>
-	public static IDataReader ExecuteReader(DbConnection conn, string commandText, CmdParams cmdParams)
+	public static IDataReader ExecuteReader(DbConnection conn, string commandText, CmdParams? cmdParams)
 	{
 		using var cmd = CreateCommand(conn, commandText, cmdParams);
 
@@ -143,7 +143,7 @@ public static class DbTools
 	public static T? ExecuteReader<T>(
 		DbConnection conn,
 		string commandText,
-		CmdParams cmdParams,
+		CmdParams? cmdParams,
 		Func<IDataReader, T> func)
 		where T : class
 	{
@@ -170,7 +170,7 @@ public static class DbTools
 	public static IEnumerable<T> ExecuteReaderEnum<T>(
 		DbConnection conn,
 		string commandText,
-		CmdParams cmdParams,
+		CmdParams? cmdParams,
 		Func<IDataReader, T> func)
 	{
 		using var cmd = CreateCommand(conn, commandText, cmdParams);
@@ -194,7 +194,7 @@ public static class DbTools
 	public static T ExecuteReaderStruct<T>(
 		DbConnection conn,
 		string commandText,
-		CmdParams cmdParams,
+		CmdParams? cmdParams,
 		Func<IDataReader, T> func)
 		where T : struct
 	{
@@ -216,7 +216,7 @@ public static class DbTools
 	/// <param name="commandText"> The command text. </param>
 	/// <param name="cmdParams">   The CMD params. </param>
 	/// <returns> System.Object. </returns>
-	public static object ExecuteScalar(DbConnection conn, string commandText, CmdParams cmdParams)
+	public static object ExecuteScalar(DbConnection conn, string commandText, CmdParams? cmdParams)
 	{
 		using var cmd = CreateCommand(conn, commandText, cmdParams);
 
@@ -322,9 +322,9 @@ public static class DbTools
 	public static IEnumerable<T> ReadCollection<T>(
 		DbConnection conn,
 		string commandText,
-		CmdParams cmdParams,
+		CmdParams? cmdParams,
 		string[] excludeFields,
-		ObjectsChangeTracker changeTracker)
+		ObjectsChangeTracker? changeTracker)
 	{
 		using var cmd = CreateCommand(conn, commandText, cmdParams);
 		using var reader = cmd.ExecuteReader();
@@ -411,7 +411,7 @@ public static class DbTools
 	/// <returns> ``0. </returns>
 	public static T ToObject<T>(
 		this IDataReader? reader,
-		string readerName,
+		string? readerName,
 		string[] excludeFields,
 		ObjectsChangeTracker? changeTracker)
 	{
@@ -439,7 +439,7 @@ public static class DbTools
 	/// <param name="reader">     The reader. </param>
 	/// <param name="readerName"> Name of the reader. </param>
 	/// <returns> IEnumerable{``0}. </returns>
-	public static IEnumerable<T> ToObjects<T>(this IDataReader reader, string readerName)
+	public static IEnumerable<T> ToObjects<T>(this IDataReader reader, string? readerName)
 	{
 		return reader.ToObjects<T>(readerName, null, null);
 	}
@@ -451,7 +451,7 @@ public static class DbTools
 	/// <param name="reader">        The reader. </param>
 	/// <param name="excludeFields"> The exclude fields. </param>
 	/// <returns> IEnumerable{``0}. </returns>
-	public static IEnumerable<T> ToObjects<T>(this IDataReader reader, string[] excludeFields)
+	public static IEnumerable<T> ToObjects<T>(this IDataReader reader, string[]? excludeFields)
 	{
 		return reader.ToObjects<T>(null, excludeFields, null);
 	}
@@ -467,9 +467,9 @@ public static class DbTools
 	/// <returns> IEnumerable{``0}. </returns>
 	public static IEnumerable<T> ToObjects<T>(
 		this IDataReader? reader,
-		string readerName,
-		string[] excludeFields,
-		ObjectsChangeTracker changeTracker)
+		string? readerName,
+		string[]? excludeFields,
+		ObjectsChangeTracker? changeTracker)
 	{
 		if (string.IsNullOrEmpty(readerName))
 		{
@@ -528,9 +528,9 @@ public static class DbTools
 		object? obj,
 		string tableName,
 		string[]? idFieldNames,
-		string[] includeFields,
+		string[]? includeFields,
 		string[] excludeFields,
-		ObjectsChangeTracker changeTracker,
+		ObjectsChangeTracker? changeTracker,
 		DbSettings dbSettings)
 	{
 		using var cmd = conn.CreateCommand();

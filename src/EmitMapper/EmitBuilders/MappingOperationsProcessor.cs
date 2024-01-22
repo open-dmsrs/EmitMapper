@@ -9,7 +9,7 @@ internal class MappingOperationsProcessor
 	  nameof(MapperBase.Map),
 	  new[] { Metadata<object>.Type, Metadata<object>.Type, Metadata<object>.Type });
 
-	private static PropertyInfo _hasValue = Metadata.Nullable1.GetProperty("HasValue");
+	private static PropertyInfo hasValue = Metadata.Nullable1.GetProperty("HasValue");
 
 	public CompilationContext CompilationContext;
 

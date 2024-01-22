@@ -17,7 +17,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 	/// <param name="mappingKey">The mapping key.</param>
 	/// <param name="mapperManager">The mapper manager.</param>
 	/// <param name="skipFields">The skip fields.</param>
-	public DataReaderToObjectMapper(string mappingKey, Mapper mapperManager, IEnumerable<string> skipFields)
+	public DataReaderToObjectMapper(string mappingKey, Mapper? mapperManager, IEnumerable<string> skipFields)
 	  : base(GetMapperImpl(mappingKey, mapperManager, skipFields))
 	{
 	}
@@ -26,7 +26,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 	///   Initializes a new instance of the <see cref="DataReaderToObjectMapper{TEntity}" /> class.
 	/// </summary>
 	/// <param name="mapperManager">The mapper manager.</param>
-	public DataReaderToObjectMapper(Mapper mapperManager)
+	public DataReaderToObjectMapper(Mapper? mapperManager)
 	  : this(null, mapperManager, null)
 	{
 	}
@@ -111,7 +111,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 	private static MapperBase GetMapperImpl(
 	  string mappingKey,
 	  Mapper? mapperManager,
-	  IEnumerable<string> skipFields)
+	  IEnumerable<string>? skipFields)
 	{
 		IMappingConfigurator? config = new DbReaderMappingConfig(skipFields, mappingKey);
 
@@ -131,12 +131,12 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 		/// <summary>
 		///   The _mapping key.
 		/// </summary>
-		private readonly string _mappingKey;
+		private readonly string mappingKey;
 
 		/// <summary>
 		///   The _skip fields.
 		/// </summary>
-		private readonly IEnumerable<string> _skipFields;
+		private readonly IEnumerable<string> skipFields;
 
 		/// <summary>
 		///   Initializes a new instance of the <see cref="DbReaderMappingConfig" /> class.
@@ -145,8 +145,8 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 		/// <param name="mappingKey">The mapping key.</param>
 		public DbReaderMappingConfig(IEnumerable<string>? skipFields, string mappingKey)
 		{
-			this._skipFields = skipFields ?? new List<string>();
-			this._mappingKey = mappingKey;
+			this.skipFields = skipFields ?? new List<string>();
+			this.mappingKey = mappingKey;
 		}
 
 		/// <summary>
@@ -155,9 +155,9 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 		/// <returns>System.String.</returns>
 		public override string GetConfigurationName()
 		{
-			if (_mappingKey is not null)
+			if (mappingKey is not null)
 			{
-				return "dbreader_" + _mappingKey;
+				return "dbreader_" + mappingKey;
 			}
 
 			return "dbreader_";
@@ -178,8 +178,8 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 			return ReflectionHelper.GetPublicFieldsAndProperties(to)
 			  .Where(
 				m => m.MemberType == MemberTypes.Field
-					 || m.MemberType == MemberTypes.Property && ((PropertyInfo)m).GetSetMethod() is not null)
-			  .Where(m => !_skipFields.Select(sf => sf.ToUpper(System.Globalization.CultureInfo.CurrentCulture)).Contains(m.Name.ToUpper(System.Globalization.CultureInfo.CurrentCulture))).Select(
+					 || (m.MemberType == MemberTypes.Property && ((PropertyInfo)m).GetSetMethod() is not null))
+			  .Where(m => !skipFields.Select(sf => sf.ToUpper(System.Globalization.CultureInfo.CurrentCulture)).Contains(m.Name.ToUpper(System.Globalization.CultureInfo.CurrentCulture))).Select(
 				(m, ind) => new DestWriteOperation
 				{
 					Destination = new MemberDescriptor(new[] { m }),
@@ -218,13 +218,11 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 		{
 			var memberType = ReflectionHelper.GetMemberReturnType(m);
 
-			if (_mappingKey is not null)
+			if (mappingKey is not null)
 			{
 				if (memberType == typeof(string))
 				{
-					return new ReaderValuesExtrator<string>(
-					  m.Name,
-					  (idx, reader) => reader.IsDBNull(idx) ? null : reader.GetString(idx)).ExtrationDelegate;
+					return new ReaderValuesExtrator<string>(m.Name, (idx, reader) => reader.IsDBNull(idx) ? null : reader.GetString(idx)).ExtrationDelegate;
 				}
 
 				if (memberType == typeof(bool))
@@ -354,7 +352,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 				var reader = (IDataReader)state;
 				object? result = null;
 
-				if (_mappingKey is not null)
+				if (mappingKey is not null)
 				{
 					if (fieldNum == -1)
 					{
@@ -391,7 +389,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 			/// <summary>
 			///   The value extractor.
 			/// </summary>
-			public readonly Func<int, IDataReader, T> ValueExtractor;
+			public readonly Func<int, IDataReader, T?> ValueExtractor;
 
 			/// <summary>
 			///   The field num.
@@ -403,7 +401,7 @@ public class DataReaderToObjectMapper<TEntity> : Mapper<IDataReader, TEntity>
 			/// </summary>
 			/// <param name="fieldName">Name of the field.</param>
 			/// <param name="valueExtractor">The value extractor.</param>
-			public ReaderValuesExtrator(string fieldName, Func<int, IDataReader, T> valueExtractor)
+			public ReaderValuesExtrator(string fieldName, Func<int, IDataReader, T?> valueExtractor)
 			{
 				FieldNum = -1;
 				FieldName = fieldName;

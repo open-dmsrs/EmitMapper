@@ -2,12 +2,18 @@ namespace EmitMapper.MappingConfiguration.MappingOperations;
 
 public struct ValueToWrite<T>
 {
+	/// <summary>
+	/// The action.
+	/// </summary>
 	public Actions Action;
 
-	public T Value;
+	/// <summary>
+	/// The value.
+	/// </summary>
+	public T? Value;
 
 	/// <summary>
-	///   The actions.
+	/// The actions.
 	/// </summary>
 	public enum Actions
 	{
@@ -21,7 +27,7 @@ public struct ValueToWrite<T>
 	/// </summary>
 	/// <param name="value">The value.</param>
 	/// <returns>A ValueToWrite.</returns>
-	public static ValueToWrite<T> ReturnValue(T value)
+	public static ValueToWrite<T> ReturnValue(T? value)
 	{
 		return new ValueToWrite<T> { Action = Actions.Write, Value = value };
 	}

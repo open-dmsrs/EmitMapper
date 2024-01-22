@@ -9,7 +9,7 @@ internal class CompilationContext
 
 	public TextWriter OutputCommands { get; }
 
-	private int _stackCount;
+	private int stackCount;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="CompilationContext"/> class.
@@ -181,7 +181,7 @@ internal class CompilationContext
 	{
 		var stackChange = GetStackChange(opCode.StackBehaviourPop) + GetStackChange(opCode.StackBehaviourPush) + addStack;
 
-		_stackCount += stackChange;
+		stackCount += stackChange;
 		WriteOutputCommand(opCode + " " + comment);
 	}
 
@@ -191,6 +191,6 @@ internal class CompilationContext
 	/// <param name="command">The command.</param>
 	private void WriteOutputCommand(string command)
 	{
-		OutputCommands?.WriteLine(new string('\t', _stackCount >= 0 ? _stackCount : 0) + command);
+		OutputCommands?.WriteLine(new string('\t', stackCount >= 0 ? stackCount : 0) + command);
 	}
 }

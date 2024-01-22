@@ -18,12 +18,12 @@ public class ThreadConnection : IDisposable
 	/// <summary>
 	/// The connection.
 	/// </summary>
-	[ThreadStatic] private static DbConnection? _connection;
+	[ThreadStatic] private static DbConnection? connection;
 
 	/// <summary>
 	/// The entries count.
 	/// </summary>
-	[ThreadStatic] private static int _entriesCount;
+	[ThreadStatic] private static int entriesCount;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="ThreadConnection"/> class.
@@ -31,12 +31,12 @@ public class ThreadConnection : IDisposable
 	/// <param name="connectionCreator"> The connection creator. </param>
 	public ThreadConnection(Func<DbConnection> connectionCreator)
 	{
-		if (_connection is null || _connection.State == ConnectionState.Broken)
+		if (connection is null || connection.State == ConnectionState.Broken)
 		{
-			_connection = connectionCreator();
+			connection = connectionCreator();
 		}
 
-		_entriesCount++;
+		entriesCount++;
 	}
 
 	/// <summary>
@@ -47,12 +47,12 @@ public class ThreadConnection : IDisposable
 	{
 		get
 		{
-			if (_connection.State == ConnectionState.Closed)
+			if (connection.State == ConnectionState.Closed)
 			{
-				_connection.Open();
+				connection.Open();
 			}
 
-			return _connection;
+			return connection;
 		}
 	}
 
@@ -61,21 +61,21 @@ public class ThreadConnection : IDisposable
 	/// </summary>
 	public void Dispose()
 	{
-		if (_entriesCount <= 1)
+		if (entriesCount <= 1)
 		{
-			if (_connection is not null)
+			if (connection is not null)
 			{
-				using (_connection)
+				using (connection)
 				{
 				}
 			}
 
-			_connection = null;
-			_entriesCount = 0;
+			connection = null;
+			entriesCount = 0;
 		}
 		else
 		{
-			_entriesCount--;
+			entriesCount--;
 		}
 	}
 }
