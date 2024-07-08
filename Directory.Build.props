@@ -95,7 +95,7 @@
 		<PackageReference Include="CSharpIsNullAnalyzer" Version="0.1.495" />
 		<PackageReference Include="DotNetAnalyzers.DocumentationAnalyzers" Version="1.0.0-beta.59" />
 		<PackageReference Include="Nullable" Version="1.3.1" />
-		<PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.507" />
+		<PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.556" />
 	</ItemGroup>
 	<Target Name="PrepareReleaseNotes" BeforeTargets="GenerateNuspec" DependsOnTargets="GetBuildVersion">
 		<PropertyGroup>
